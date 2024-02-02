@@ -18,7 +18,7 @@
 		</div>
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -29,7 +29,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -40,7 +40,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -51,7 +51,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -62,7 +62,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -73,7 +73,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -84,7 +84,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -95,7 +95,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -106,7 +106,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->
@@ -117,7 +117,7 @@
 <!-- 	  </div> -->
 <!-- 	  <div class="col"> -->
 <!-- 	    <div class="card h-100"> -->
-<!-- 	      <img src="resources/img/따봉도치.jpg" class="card-img-top" alt="..."> -->
+<!-- 	      <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."> -->
 <!-- 	      <div class="card-body"> -->
 <!-- 		      <span class="state1">나눔</span> -->
 <!-- 		      <span class="state2">판매중</span><br> -->

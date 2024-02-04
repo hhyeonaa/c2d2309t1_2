@@ -87,7 +87,9 @@ p {
 	min-width: 115px;
 }
 
-
+.active {
+    font-weight: bold;
+}
 
 
 

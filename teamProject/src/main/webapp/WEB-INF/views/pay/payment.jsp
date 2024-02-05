@@ -261,7 +261,7 @@ svg:not(:root) {
 </style>
 
 </head>
-<jsp:include page="template/header.jsp"/>
+<jsp:include page="../template/header.jsp"/>
 <div style="display: flex; justify-content: center; align-items: center;">
     <form>
         <div class="row g-4 mt-12" style="display: flex; flex-wrap: wrap;" id="main">
@@ -394,5 +394,5 @@ svg:not(:root) {
         </div>
     </form>
 </div>
-<jsp:include page="template/Footer.jsp"/>
+<jsp:include page="../template/Footer.jsp"/>
 </html>

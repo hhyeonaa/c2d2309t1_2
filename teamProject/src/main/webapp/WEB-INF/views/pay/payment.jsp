@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+.gNplro {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px;
+    gap: 40px;
+}
+
+
 h2 {text-align: center;}
 
 .hnnRxs {
@@ -258,12 +266,113 @@ svg:not(:root) {
     font-size: 20px;
     line-height: 350%;
 }
+
+/* 결제금액 css */
+.Qqlie {
+    padding: 0px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.icVCJU {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 140%;
+}
+
+.iwgmOh {
+    padding: 30px 20px;
+    border: 1px solid rgb(229, 229, 229);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.hKJwfL, .hKJwfL > div, .hKJwfL > div > div {
+    display: flex;
+}
+.hKJwfL {
+    flex-direction: column;
+}
+
+.iwgmOh > div:first-child {
+    margin-top: 0px !important;
+}
+
+.epdsLL {
+    line-height: 1;
+    font-weight: normal;
+/*     margin-top: 20px !important; */
+}
+
+.kxBvfn {
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.iwgmOh > div > div:nth-child(1) {
+    color: rgb(127, 127, 127);
+}
+.kxBvfn > div:first-child {
+    margin-right: 0.5rem;
+/*     color: rgb(114, 112, 127); */
+}
+.IRKRA {
+    font-size: 1rem;
+    white-space: nowrap;
+}
+.jRdbRj {
+    position: relative;
+/*     display: flex; */
+    -webkit-box-align: center;
+    align-items: center;
+/*     font-size: 0.875rem; */
+}
+.iwgmOh > div > div:nth-child(2) {
+    color: rgb(25, 25, 25);
+}
+.iwgmOh > div div + div {
+    margin-top: 0px !important;
+}
+
+.NBdoU {
+    line-height: 1;
+    font-weight: normal;
+    margin-top: 18px !important;
+}
+
+.kxBvfn {
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.kzWuNm {
+    font-size: 1rem;
+    color: rgb(25, 25, 25);
+}
+.IRKRA span {
+    font-weight: 700;
+}
+
+.UYDMx {
+    line-height: 1;
+    font-weight: normal;
+    margin-top: 16px !important;
+}
+.eqhFxu {
+    font-size: 1rem;
+    white-space: nowrap;
+}
+.gzaALl {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(25, 25, 25);
+}
 </style>
 
 </head>
 <jsp:include page="../template/header.jsp"/>
 <div style="display: flex; justify-content: center; align-items: center;">
     <form>
+    <section class="DefaultPayment__Section-sc-64075s-3 gNplro">
         <div class="row g-4 mt-12" style="display: flex; flex-wrap: wrap;" id="main">
         <h1 style="text-align: center;">결제하기</h1>
         <hr>
@@ -273,7 +382,7 @@ svg:not(:root) {
 					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill" style="max-width: 100%; max-height: 100%;">
                 </div>
                 <div class="productPost" style="flex: 9; border:  none; height: 100%; margin-left: 20px;">
-                    <h4>주문상품 정보</h4>
+                    <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
 					<span class="productPostTitle">따봉도치 팜ㅍㅍㅍ</span><br>
 					<span class="productPrice">100,000원</span>
                 </div>
@@ -291,7 +400,7 @@ svg:not(:root) {
 <!--             <div class="Delivery address" style="border: 1px solid black; width: 100%; height: 500px;"> -->
             <div class="Delivery address" style="border: none; width: 100%; height: 350px; margin-top: 1px;">
 				<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY DeliveryPanel__DefaultPanel-sc-10nnk4w-1 kowRcQ">            
-	            	<h4 class="mt-2">배송 정보</h4>
+	            	<h4 class="sc-gFqAkR icVCJU">배송지</h4>
 <!-- 	            	<div class="DeliveryInfo" style="border:1px outset gray;"> -->
 	            	<div class="DeliveryInfo" style="border: none;">
             			<div class="DeliberyPanel hnnRxs">
@@ -329,15 +438,16 @@ svg:not(:root) {
 						<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
 							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" style="height: 70px !important;"></textarea>
 						</div>
-						<hr>
+<!-- 						<hr> -->
 					</div>		
 	            </div>
 			</div>
+			<hr>
 <!--             <div class="Payment method and total amount" style="border: 1px solid black; width: 100%; height: 500px;"> -->
-            <div class="Payment method and total amount" style="border: none; width: 100%; height: 200px; margin-top: 50px;">
+            <div class="Payment method and total amount" style="border: none; width: 100%; height: 200px; margin-top: 20px;">
             	<div class="PaymentMethodPanel__PaymentMethod-sc-egufas-0 hglvUW">
             		<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PaymentMethodPanel__SDefaultPanel-sc-egufas-9 cnEgsB"> 
-            			<h4>결제수단</h4>
+            			<h4 class="sc-gFqAkR icVCJU">결제수단</h4>
             		</div>
             		<div>
 						<article class="NormalPayment__PaymentMethods-sc-ymu84t-0 jFQssb">
@@ -385,13 +495,70 @@ svg:not(:root) {
 							</div>
 						</article>
 					</div>
+					<hr>
             	</div>
             </div>
-            <div class="Consent and Payment" style="border: 1px solid black; width: 100%; height: 500px; margin-top: 50px;">
             
+            <div class="Consent and Payment" style="border: 1px solid black; width: 100%; height: 500px; margin-top: 100px;">
+            	<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PricingTablePanel__DefaultPanel-sc-1e9itak-7 Qqlie">
+            		<h4 class="sc-gFqAkR icVCJU">결제금액</h4>
+            		<div>
+            			<div class="Table-sc-178gola-2 PricingTablePanel__Table-sc-1e9itak-4 hKJwfL iwgmOh">
+            			
+								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+									상품금액
+									</div>
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+										<strong style="font-weight: 700;">135,000원</strong>
+									</div>
+								</div>
+								
+								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn NBdoU">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+										배송비
+									</div>
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+										<span class="PricingTablePanel__Fee-sc-1e9itak-3 kzWuNm">
+											+3,000원
+										</span>
+									</div>
+								</div>
+
+								<div class="Table__Row-sc-178gola-1 FeeRows__Row-sc-zf2uot-4 kxBvfn UYDMx">
+									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu">
+										안전결제 수수료
+									</div>
+									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu direction-column">
+										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl" style="margin-top: 2px;">
+										&nbsp;+4,830원
+										</span>
+									</div>
+								</div>
+								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">총
+										결제금액
+									</div>
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+										142,830원
+									</div>
+								</div>
+
+
+
+
+
+
+							</div>	            			
+            			</div>
+            		</div>
+            	</div>
+            	
+            	
             </div>
   		   
         </div>
+    </section>    
     </form>
 </div>
 <jsp:include page="../template/Footer.jsp"/>

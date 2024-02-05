@@ -38,6 +38,12 @@ public class BoardController {
 		return "board/writeBoard";
 	}// writeBoard()
 	
+	@GetMapping("/boardDetail")
+	public String boardDetail() {
+		System.out.println("BoardController boardDetail()");
+		return "board/boardDetail";
+	}// boardDetail()
+	
 	
 	
 }// 클래스 끝

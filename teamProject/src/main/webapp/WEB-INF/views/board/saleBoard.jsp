@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.card img {
+    cursor: pointer;
+}
+</style>
 </head>
 <jsp:include page="../template/header.jsp"/>
 	
@@ -17,7 +22,7 @@
         <!-- 각 카드를 이 위치에 반복 배치 -->
         <div class="col">
             <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+                <a href="${pageContext.request.contextPath}/board/boardDetail"><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."></a>
                 <div class="card-body">
                     <span class="state1">판매</span>
                     <span class="state2">판매중</span><br>

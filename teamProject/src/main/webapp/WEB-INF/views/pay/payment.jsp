@@ -270,7 +270,7 @@ svg:not(:root) {
             <div class="productInfo" style="border: none; width: 100%; height: 100px; display: flex; flex-wrap: wrap;  ">
 <!--                 <div class="productImg" style="flex: 1; border:  1px solid black; height: 100%; display: flex; justify-content: center; align-items: center;"> -->
                 <div class="productImg" style="flex: 1; border: none; height: 100%; display: flex; justify-content: center; align-items: center;">
-					<img src="resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill" style="max-width: 100%; max-height: 100%;">
+					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill" style="max-width: 100%; max-height: 100%;">
                 </div>
                 <div class="productPost" style="flex: 9; border:  none; height: 100%; margin-left: 20px;">
                     <h4>주문상품 정보</h4>

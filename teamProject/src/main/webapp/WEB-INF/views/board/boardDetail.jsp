@@ -13,7 +13,8 @@
 <div style="display: flex; justify-content: center; align-items: center;">
 
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div style="border: 1px solid black; width: 100%; height: 1000px;">
+		<div class="d-flex" style="border: 1px solid black; width: 100%; height: 1000px;">
+			<div style="width: 40%;">
 		 	 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 			  <div class="carousel-indicators">
 			    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -39,7 +40,9 @@
 			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Next</span>
 			  </button>
+			 </div>
 			</div>
+		 	<div class="border" style="width: 60%; height: 40%;">dd</div>
 		</div>
 
 	</div>

@@ -171,7 +171,7 @@ a {
 			<button type="button" class="btn btn-light">Light</button>
 			<button type="button" class="btn btn-dark">Dark</button>
 		</div>
-		<div>
+		<div style="display: flex; justify-content: center;">
 		    <ul class="pagination mb-sm-0 justify-content-center">
 		        <li class="page-item disabled">
 		            <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>

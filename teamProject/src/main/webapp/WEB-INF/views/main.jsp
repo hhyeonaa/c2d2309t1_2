@@ -89,8 +89,8 @@ a {
 </style>
 </head>
 <body>
-<%@ include file="store_sidebar_open.jsp"%> 
-<%@ include file="store_sidevar_close.jsp"%> 
+<jsp:include page="template/store_sidebar_open.jsp"/>
+<jsp:include page="template/store_sidevar_close.jsp"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
 
@@ -171,7 +171,7 @@ a {
 			<button type="button" class="btn btn-light">Light</button>
 			<button type="button" class="btn btn-dark">Dark</button>
 		</div>
-		<div>
+		<div style="display: flex; justify-content: center;">
 		    <ul class="pagination mb-sm-0 justify-content-center">
 		        <li class="page-item disabled">
 		            <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>

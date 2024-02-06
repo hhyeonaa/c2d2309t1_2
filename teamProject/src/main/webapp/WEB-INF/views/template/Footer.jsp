@@ -5,13 +5,13 @@
 <div class="sidebar222 text-center fw-bold  d-flex  flex-column">
   	<div class="border border-dark-subtle  mb-2 p-1">
   		<div >찜한상품</div>
-  		<div ><a class="text-danger"><img src="resources/img/heart.png"> 123</a></div>
+  		<div ><a class="text-danger"><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 123</a></div>
   	</div>
   	
   	<div class="border border-dark-subtle mb-2 p-1">
   		<div>최근본상품</div>
   		<div class="text-danger mb-3" style="width:38px; border-bottom: 2px dotted rgb(136, 136, 136); margin: 0 auto;">1</div>
-  		<div><img src="resources/img/noImage.png"></div>
+  		<div><img src="${pageContext.request.contextPath}/resources/img/common/noImage.png"></div>
   		<div style="color: rgb(204, 204, 204);">최근본 상품이<br>없습니다.</div>
   	</div>
   	
@@ -20,7 +20,7 @@
   	</div>
   	
   	<div  class="mt-auto" style="margin-bottom: 100px;">
-  		<img src="resources/img/chat.png" style="width:100px; height:100px;">
+  		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;">
   	</div>
 </div>
 </div>

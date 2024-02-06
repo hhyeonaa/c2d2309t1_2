@@ -167,6 +167,10 @@ img {
     padding-left: 3px;
 }
 
+h4 {
+	font-family: sans-serif !important;
+}
+
 /* 회원가입 모달 CSS */
 .modal {
   display: none;

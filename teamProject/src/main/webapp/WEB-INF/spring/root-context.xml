@@ -11,8 +11,8 @@
 		 => springProject -> pom.xml에 추가  -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/jspdb?serverTimezone=Asia/Seoul"></property>
-		<property name="username" value="root"></property>
+		<property name="url" value="jdbc:mysql://itwillbs.com:3306/c2d2309t1_2?allowMultiQueries=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul"></property>
+		<property name="username" value="c2d2309t1"></property>
 		<property name="password" value="1234"></property>
 	</bean>	
 	

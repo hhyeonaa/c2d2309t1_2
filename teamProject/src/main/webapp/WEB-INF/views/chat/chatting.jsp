@@ -51,7 +51,7 @@
 
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-				data-bs-target="#exampleModal">모달</button>
+				data-bs-target="#exampleModal">채팅하기</button>
 
 			<!-- ChattingModal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1"

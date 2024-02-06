@@ -59,7 +59,7 @@
 
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-				data-bs-target="#exampleModal">모달</button>
+				data-bs-target="#exampleModal">채팅하기</button>
 
 			<!-- ChattingRoomModal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -159,6 +159,50 @@
 									width="25" height="25" />
 							</button>
 						</div>
+						<button type="button" class="btn btn-primary"
+							data-bs-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+			
+			<!-- ReportModal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div
+					class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+					<div class="modal-content" style="height: 500px;">
+						<div class="modal-header">
+							<h2>신고하기</h2>
+							<div>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<div id="container">
+								<aside>
+									<header>
+										<input type="checkbox" class="btn-check"
+											id="btn-check-outlined" autocomplete="off"> <label
+											class="btn btn-outline-primary" for="btn-check-outlined">
+											욕설</label><br>									
+										<input type="checkbox" class="btn-check"
+											id="btn-check-outlined" autocomplete="off"> <label
+											class="btn btn-outline-primary" for="btn-check-outlined">
+											도배</label><br>									
+										<input type="checkbox" class="btn-check"
+											id="btn-check-outlined" autocomplete="off"> <label
+											class="btn btn-outline-primary" for="btn-check-outlined">
+											도난물품</label><br>									
+										<input type="checkbox" class="btn-check"
+											id="btn-check-outlined" autocomplete="off"> <label
+											class="btn btn-outline-primary" for="btn-check-outlined">
+											기타</label><br>									
+									</header>
+								</aside>
+							</div>
+						</div>
+
 						<button type="button" class="btn btn-primary"
 							data-bs-dismiss="modal">닫기</button>
 					</div>

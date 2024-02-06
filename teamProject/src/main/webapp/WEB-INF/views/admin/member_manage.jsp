@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>통계</title>
+<title>회원 관리</title>
 </head>
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>

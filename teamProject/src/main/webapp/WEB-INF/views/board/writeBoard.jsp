@@ -44,7 +44,7 @@
 			<div class="container">
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-center mt-4">
-   			      <select id="boardSelect">
+   			      <select id="boardSelect" name="boardSelect" style="width: 100px;">
 			      	<option id="sale" value="sale" selected>판매</option>
 			      	<option id="buy" value="buy">구매</option>
 			      	<option id="divide" value="divide">나눔</option>
@@ -269,32 +269,32 @@
 				<div class="col-12 d-flex justify-content-center">
 				<div class="mb-3">
 					<label for="itemDetail" class="form-label">상세 설명</label>
-					<textarea class="form-control" id="itemDetail" rows="5" cols="100" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
+					<textarea class="form-control" id="itemDetail" rows="5" cols="200" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
 서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요."></textarea>
 				</div>
 				<span>0/2000</span>
 				</div>
 			</div>
 			<hr>
-			<div class="row">
-				<div class="row">
-				    <div>
-						<div class="input-group" style="width: 90%;" >
-						    <span class="input-group-text" id="basic-addon1">태그</span>
-						    <input type="text" class="form-control" placeholder="태그 입력" aria-label="InputTag" aria-describedby="basic-addon1">
-						</div>
-			    	</div>
-		    	</div>
-		    	<div class="row">
-					<div class="mt-3">
-						<div><span>태그는 띄어쓰기로 구분되며 최대 9자까지 입력할 수 있어요.</span></div>
-						<div><span>내 상품을 다양한 태그로 표현해 보세요.</span></div>
-						<div><span>사람들이 내 상품을 더 잘 찾을 수 있어요.</span></div>
-						<div><span>상품과 관련 없는 태그를 입력할 경우, 판매에 제재를 받을 수 있어요.</span></div>
-					</div>
-		    	</div>
-		  	</div>
-		  	<hr>
+<!-- 			<div class="row"> -->
+<!-- 				<div class="row"> -->
+<!-- 				    <div> -->
+<!-- 						<div class="input-group" style="width: 90%;" > -->
+<!-- 						    <span class="input-group-text" id="basic-addon1">태그</span> -->
+<!-- 						    <input type="text" class="form-control" placeholder="태그 입력" aria-label="InputTag" aria-describedby="basic-addon1"> -->
+<!-- 						</div> -->
+<!-- 			    	</div> -->
+<!-- 		    	</div> -->
+<!-- 		    	<div class="row"> -->
+<!-- 					<div class="mt-3"> -->
+<!-- 						<div><span>태그는 띄어쓰기로 구분되며 최대 9자까지 입력할 수 있어요.</span></div> -->
+<!-- 						<div><span>내 상품을 다양한 태그로 표현해 보세요.</span></div> -->
+<!-- 						<div><span>사람들이 내 상품을 더 잘 찾을 수 있어요.</span></div> -->
+<!-- 						<div><span>상품과 관련 없는 태그를 입력할 경우, 판매에 제재를 받을 수 있어요.</span></div> -->
+<!-- 					</div> -->
+<!-- 		    	</div> -->
+<!-- 		  	</div> -->
+<!-- 		  	<hr> -->
 			<div class="row">
 			    <div>
 					<div class="input-group" style="width: 90%;" >
@@ -330,9 +330,12 @@ OO페이 배지로 더 많은 관심을 받을 수 있어요.
 		</div> <!-- border안  -->
 	</div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script>
 $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	var sel_files = []; // 선택된 파일들을 저장할 배열입니다.
+	$("#boardSelect").select2(); 
 	
 	// 이미지 미리보기를 생성하고 화면에 표시하는 함수입니다.
 	function displayImagePreview(file) {

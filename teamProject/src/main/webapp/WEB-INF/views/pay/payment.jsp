@@ -191,7 +191,7 @@ svg:not(:root) {
     box-sizing: border-box;
     outline: 0px;
     border-radius: 6px;
-    background: rgb(250, 250, 250);
+    background: #dee2e6;
     font-size: 1rem;
     resize: none;
 }
@@ -463,10 +463,10 @@ svg:not(:root) {
             				<section class="DeliveryCard fEYMnp">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">홍길동</p>
-            						<!--저장된 배송정보 없을 시 등록노출  -->
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1">등록</span>
-            						<!--저장된 배송정보 있을 때 변경노출  -->
-<!--             						<span class="DeliveryCard_ChangeAddress">변경</span> -->
+            						<!--저장된 배송정보 없을 시 배송지 등록노출  -->
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1">배송지 등록</span>
+            						<!--저장된 배송정보 있을 때 배송지 변경노출  -->
+									<!-- <span class="DeliveryCard_ChangeAddress">변경</span> -->
             					</div>
             					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
             						(47246) 부산광역시 부산진구 부전동 동천로 109 삼한골든게이트 7층
@@ -477,7 +477,6 @@ svg:not(:root) {
             				</section>
             			</div>
             			<div class="Delivery Request mt-3">
-            			
             			<select class="form-select form-select-lg mb-3" aria-label="Large select example">
 							<option value="0" selected>배송시 요청사항을 선택해 주세요.</option>
 							<option value="1">직접 수령하겠습니다.</option>
@@ -487,31 +486,19 @@ svg:not(:root) {
 							<option value="5">부재 시 택배함에 넣어주세요.</option>
 							<option value="6">직접 입력</option>
 						</select>
-<!--             				<div value="직접입력" class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs"> -->
-<!--             					<input readonly="" placeholder="배송 요청사항 (선택)" class="DeliveryPanel__Input-sc-10nnk4w-2 fZgYbu" value="직접입력"> -->
-<!-- 								<aside> -->
-<!-- 									<button type="button"> -->
-<!-- 										<svg width="30" height="20" xmlns="http://www.w3.org/2000/svg" -->
-<!-- 											fill="#cccccc" viewBox="0 0 20 20"> -->
-<!-- 											<path d="M.59 5.087a.999.999 0 011.074.166L10 12.663l8.336-7.41a1 1 0 111.328 1.494l-9 8a.999.999 0 01-1.328 0l-9-8a.999.999 0 01.254-1.66z" -->
-<!-- 												 fill="#cccccc" fill-rule="evenodd"> -->
-<!-- 											</path> -->
-<!-- 										</svg> -->
-<!-- 									</button> -->
-<!-- 								</aside> -->
-<!-- 							</div> -->
             			</div>
 						<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
-							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" style="height: 70px !important;"></textarea>
+							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
+							class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" style="height: 125px !important; font-size: 20px;"></textarea>
 						</div>
-<!-- 						<hr> -->
 					</div>		
 	            </div>
 			</div>
-			<hr>
+<!-- 			<hr> -->
 <!--             <div class="Payment method and total amount" style="border: 1px solid black; width: 100%; height: 500px;"> -->
             <div class="Payment method and total amount" style="border: none; width: 100%; height: 200px; margin-top: 20px;">
             	<div class="PaymentMethodPanel__PaymentMethod-sc-egufas-0 hglvUW">
+            		<hr>
             		<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PaymentMethodPanel__SDefaultPanel-sc-egufas-9 cnEgsB"> 
             			<h4 class="sc-gFqAkR icVCJU">결제수단</h4>
             		</div>
@@ -520,7 +507,9 @@ svg:not(:root) {
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 kvEuJF">
+<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 kvEuJF"> //클릭시 class kvEuJF -->
+<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK"> //미 클릭시 cGqPmK-->
+										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>

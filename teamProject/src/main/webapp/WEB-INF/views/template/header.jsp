@@ -79,7 +79,7 @@
 					<img src="resources/img/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
 				</button>
 				  <ul class="dropdown-menu">
-				    <li><a class="dropdown-item" href="#">프로필</a></li>
+				    <li><a class="dropdown-item" href="mypage">프로필</a></li>
 				    <li><a class="dropdown-item" href="#">거래내역</a></li>
 				    <li><a class="dropdown-item" href="#">글목록</a></li>
 				    <li><hr class="dropdown-divider"></li>

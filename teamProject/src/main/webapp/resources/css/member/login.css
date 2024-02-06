@@ -202,8 +202,28 @@ img {
   cursor: pointer;
 }
 
+.closeId, .closePw,
+.closeIdResult, .closePwResult {
+  color: #aaa;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .close:hover,
 .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.closeId:hover,
+.closeId:focus,
+.closePw:hover,
+.closePw:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -285,6 +305,8 @@ input[type="submit"]:hover {
   background-color: #ff3c36;
 }
 
+
+
 .button-group {
     display: flex;
     justify-content: center;
@@ -302,6 +324,25 @@ input[type="submit"]:hover {
 
 #cancelButton {
   background-color: #95a5a6;
+}
+
+.test1 .test2 {
+	background-color: gray !important;
+}
+
+.test1:hover,
+.test2:hover {
+	background-color: #666666 !important;
+}
+
+.test1, .test2 {
+  background-color: gray !important;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 #signupModal {

@@ -51,17 +51,17 @@
 				</div>
 				<div class="button-login-box">
 					<button type="button" class="btn btn-primary btn-xs" id="signupButton"
-						style="width: 100%" onclick="loc'">이메일로 가입하기</button>  <!-- 회원가입 페이지 이동 -->
+						style="width: 100%">이메일로 가입하기</button>  <!-- 회원가입 페이지 이동 -->
 				</div>
-				<!-- 카카오버튼 --> 
+				<!-- 카카오버튼 --> 	
 				<a id="kakao-login-btn" href="javascript:loginWithKakao()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
 						<img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/><span id="span">Kakao로 시작하기</span></a>
 				<!-- 네이버 버튼 -->
 				<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-success rounded-3">
 						<img src="../resources/img/member/naver.png" id="image" width="24" height="24"/><span id="span">Naver로 시작하기</span></a>
 						<ion-icon name="lock-closed-outline"></ion-icon>
-				<a class="icon-link icon-link-hover mt-2" href="owner_login.ow">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
-				<a class="icon-link icon-link-hover mt-2" href="owner_login.ow">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
+				<a class="icon-link icon-link-hover mt-2" href="javascript:findId();" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
+				<a class="icon-link icon-link-hover mt-2" href="javascript:findPw();" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
 				
 			</div>
 			</form>
@@ -70,11 +70,12 @@
 	</div>
 	<!-- 	<button id="signupButton">회원가입</button> -->
 	
+	<!-- 회원가입 모달 -->
 	<div id="signupModal" class="modal">
 	  <div class="modal-content" style="width: 30%;">
 	    <div class="center-align">		
 		  <span class="close">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고">
+		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
 		</div>
 	    <h4>회원가입</h4>
 	    <!-- 이하 생략 -->
@@ -90,21 +91,19 @@
 	      </div>
 	      <div class="form-group">
 			<label for="confirmPassword">비밀번호 확인</label>
-			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력해주세요" required>
+			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력해주세요." required>
 	      </div>
 	      <div class="form-group">
 	        <label for="email">이메일</label>
 	        <input type="email" id="email" name="email" placeholder="[선택] 이메일주소 (비밀번호 찾기 등 본인 확인용)">
 	      </div>
-	      <div class="row" style="width: 515px;">
-	      <div class="form-group col-md-6">
+	      <div class="form-group" style="width: 47%; float: left; box-sizing: border-box;">
 	        <label for="username">이름</label>
 	        <input type="text" id="username" name="username" placeholder="이름을 입력해 주세요." required>
 	      </div>
-	      <div class="form-group col-md-6">
+	      <div class="form-group" style="width: 47%; float: right; box-sizing: border-box;">
 	        <label for="nickname">닉네임</label>
 	        <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력해 주세요." required>
-      	  </div>
       	  </div>
 	      <div class="form-group">
 	        <label for="birth">생년월일</label>
@@ -143,6 +142,142 @@
 	    </form>
 	  </div>
 	</div>
+	
+	<!-- 아이디 찾기 모달 -->
+	<div id="idModal" class="modal" style="padding-top: 5%;">
+	  <div class="modal-content" style="width: 25%;">
+	    <div class="center-align">		
+		  <span class="closeId">&times;</span>
+		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		</div>
+		<br>
+	    <h4>아이디 찾기</h4>
+	    <!-- 이하 생략 -->
+		<br>
+	    <form>
+	      <div class="form-group">
+	        <label for="username">이름</label>
+	        <input type="text" id="username" name="username" placeholder="이름을 입력해 주세요." required>
+	      </div>
+	      <div class="form-group">
+	        <label for="birth">생년월일</label>
+	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>
+	      </div>
+	      <div class="form-group">
+	        <label for="email">이메일</label>
+	        <input type="email" id="email" name="email" placeholder="이메일 주소를 입력해 주세요." required>
+	      </div>
+	      <div class="button-group">
+	        <input type="button" value="인증번호 받기" style="width: 100%;" class="test1" id="idNumber">
+	      </div>
+			<hr>
+		  <div class="form-group">
+	        <label for="certify" style="width: 100%;">인증번호</label>
+	        <input type="text" id="certify" name="certify" required>
+	      </div>
+	      <div class="button-group">
+	        <input type="button" value="다음" style="width: 100%;" class="test1" id="idNext">
+	      </div>
+	    </form>
+	  </div>
+	</div>
+	
+	<!-- 아이디 찾기 결과 모달 -->
+	<div id="IdResultModal" class="modal" style="padding-top: 15%;">
+	  <div class="modal-content" style="width: 25%;">
+	    <div class="center-align">		
+		  <span class="closeIdResult">&times;</span>
+		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		</div>
+		<br>
+	    <h4>아이디 찾기 결과</h4>
+	    <!-- 이하 생략 -->
+		<hr>
+	    <form>
+		  <h6>OOO님의 아이디는 <b>[owner1004]</b> 입니다.</h6>
+		<hr>
+	    </form>
+	  </div>
+	</div>
+	
+	<!-- 비밀번호 찾기 모달 -->
+	<div id="pwModal" class="modal" style="padding-top: 5%;">
+	  <div class="modal-content" style="width: 25%;">
+	    <div class="center-align">		
+		  <span class="closePw">&times;</span>
+		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		</div>
+		<br>
+	    <h4>비밀번호 찾기</h4>
+	    <!-- 이하 생략 -->
+		<br>
+	    <form>
+	      <div class="form-group">
+	        <label for="id">아이디</label>
+	        <input type="text" id="id" name="id" placeholder="아이디를 입력해 주세요." required>
+	      </div>
+	      <div class="form-group">
+	        <label for="username">이름</label>
+	        <input type="text" id="username" name="username" placeholder="이름을 입력해 주세요." required>
+	      </div>
+	      <div class="form-group">
+	        <label for="birth">생년월일</label>
+	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>
+	      </div>
+	      <div class="form-group">
+	        <label for="email">이메일</label>
+	        <input type="email" id="email" name="email" placeholder="이메일 주소를 입력해 주세요." required>
+	      </div>
+	      <div class="button-group">
+	        <input type="button" value="인증번호 받기" style="width: 100%;" class="test2" id="pwNumber">
+	      </div>
+			<hr>
+		  <div class="form-group">
+	        <label for="certify" style="width: 100%;">인증번호</label>
+	        <input type="text" id="certify" name="certify" required>
+	      </div>
+	      <div class="button-group">
+	        <input type="button" value="다음" style="width: 100%;" class="test2" id="pwNext">
+	      </div>
+	    </form>
+	  </div>
+	</div>
+	
+	<!-- 비밀번호 찾기 결과 모달 -->
+	<div id="pwResultModal" class="modal" style="padding-top: 10%;">
+	  <div class="modal-content" style="width: 25%;">
+	    <div class="center-align">		
+		  <span class="closePwResult">&times;</span>
+		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		</div>
+	    <h4>새 비밀번호 설정</h4>
+	    <!-- 이하 생략 -->
+	    <form>
+		  <div class="modal-body" id="auth-modal-body">
+			<h6>인증이 정상적으로 완료되었습니다. <br> 새롭게 변경할 비밀번호를 입력해주세요.</h6>&nbsp;
+			<hr>
+		    <div class="form-outline mb-4">
+				<div style="text-align: left;"><label>새 비밀번호</label></div>
+		    	<input type="password" name="OWN_PW" id="pw" onchange="check_pw()"
+		  		       class="form-control" placeholder="(영문/숫자/특수 포함 8자리 이상)">
+	        </div>
+			<div class="form-outline mb-4">
+			    <div style="text-align: left;"><label>새 비밀번호 확인</label> </div>
+			    <input type="password" name="OWN_PWCHECK" id="pw2" onchange="check_pw()"
+			    	   class="form-control" placeholder="비밀번호를 다시 입력해주세요.">&nbsp;
+			    <span id="check"></span>
+			</div>
+			
+			<div class="button-group">
+	        <input type="button" value="변경" style="width: 100%;" class="test1" id="idNumber">
+	      </div>
+		</div>
+		<hr>
+	    </form>
+	  </div>
+	</div>
+	
+	
 	<!-- Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -153,60 +288,7 @@
 
 
 </body>
-<script>
 
-// 이메일로 가입하기 버튼 클릭 시 모달 열기
-document.getElementById("signupButton").addEventListener("click", function() {
-  document.getElementById("signupModal").style.display = "block";
-});
-
-// x버튼 클릭 시 모달 종료
-$('.close').on('click', function(){
-	signupModal.style.display = "none";	
-});
-
-</script>
-<script>
-// 주소찾기 버튼 클릭 시 이벤트 처리
-document.getElementById('search-address').addEventListener('click', function() {
-  // 다음 우편번호 서비스 실행
-  daum.postcode.load(function() {
-    new daum.Postcode({
-      oncomplete: function(data) {
-        // 주소 정보를 가져와서 처리하는 로직 작성
-        document.getElementById('address').value = data.address;
-      }
-    }).open();
-  });
-});
-</script>
-
-<script>
-
-// 이메일로 가입하기 버튼 클릭 시 모달 열기
-document.getElementById("signupButton").addEventListener("click", function() {
-  document.getElementById("signupModal").style.display = "block";
-});
-
-// x버튼 클릭 시 모달 종료
-$('.close').on('click', function(){
-	signupModal.style.display = "none";	
-});
-
-</script>
-<script>
-// 주소찾기 버튼 클릭 시 이벤트 처리
-document.getElementById('search-address').addEventListener('click', function() {
-  // 다음 우편번호 서비스 실행
-  daum.postcode.load(function() {
-    new daum.Postcode({
-      oncomplete: function(data) {
-        // 주소 정보를 가져와서 처리하는 로직 작성
-        document.getElementById('address').value = data.address;
-      }
-    }).open();
-  });
-});
-</script>
+<script src="${pageContext.request.contextPath}/resources/js/member/login.js"></script>
 <%-- <jsp:include page="../template/Footer.jsp"/> --%>
 </html>

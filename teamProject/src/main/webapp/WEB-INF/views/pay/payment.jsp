@@ -349,7 +349,7 @@ svg:not(:root) {
     color: rgb(25, 25, 25);
 }
 .IRKRA span {
-    font-weight: 700;
+/*     font-weight: 700; */
 }
 
 .UYDMx {
@@ -366,14 +366,66 @@ svg:not(:root) {
     font-weight: 500;
     color: rgb(25, 25, 25);
 }
+
+.iwgmOh > div:nth-last-child(1) {
+    padding-top: 20px;
+    border-top: 1px solid rgb(242, 242, 242);
+}
+
+.epdsLL {
+    line-height: 1;
+    font-weight: normal;
+    margin-top: 20px !important;
+}
+
+.iwgmOh > div:nth-last-child(2) > div {
+/*     font-weight: bold; */
+}
+.iwgmOh > div > div:nth-child(1) {
+    color: rgb(127, 127, 127);
+}
+.kxBvfn > div:first-child {
+     margin-right: 0.5rem; 
+/*     color: rgb(114, 112, 127); */
+}
+.iwgmOh > div:nth-last-child(1) > div:nth-child(1) {
+    font-size: 25px;
+    color: rgb(216, 12, 24);
+}
+.iwgmOh > div:nth-last-child(1) > div {
+     font-weight: bold; 
+}
+.iwgmOh > div div + div {
+    margin-top: 0px !important;
+}
+.kKRlXK {
+    border: none;
+    overflow: visible;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    padding: 15.5px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    color: rgb(255, 255, 255);
+    background: rgb(216, 12, 24);
+}
 </style>
 
 </head>
 <jsp:include page="../template/header.jsp"/>
+<body class="d-flex flex-column min-vh-100">
 <div style="display: flex; justify-content: center; align-items: center;">
-    <form>
-    <section class="DefaultPayment__Section-sc-64075s-3 gNplro">
-        <div class="row g-4 mt-12" style="display: flex; flex-wrap: wrap;" id="main">
+<!--???  -->
+<form>
+
+<!--??  -->
+	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
+		<div style="border: 1px solid black; width: 100%; height: auto;">
+				
+    <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0">
         <h1 style="text-align: center;">결제하기</h1>
         <hr>
             <div class="productInfo" style="border: none; width: 100%; height: 100px; display: flex; flex-wrap: wrap;  ">
@@ -388,15 +440,19 @@ svg:not(:root) {
                 </div>
             </div>
             <hr style="margin-bottom: 1px;">
-			<div class="form-check" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-			    <label class="form-check-label" for="radio1" style="font-size: 20px;">택배거래</label>
+			<div class="d-flex">
+				<div class="form-check flex-fill" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
+				    <label class="form-check-label" for="radio1" style="font-size: 20px;">택배거래</label>
+				</div>
+				<div class="form-check flex-fill" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
+				    <label class="form-check-label" for="radio2" style="font-size: 20px;">직거래</label>
+				</div>
 			</div>
-			<div class="form-check" style="flex: 1; display: flex; justify-content: center; align-items: center;">
-			    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-			    <label class="form-check-label" for="radio2" style="font-size: 20px;">직거래</label>
-			</div>
+	</section>		
             <hr>
+    <section class="DefaultPayment__Section-sc-64075s-3 gNplro">        
 <!--             <div class="Delivery address" style="border: 1px solid black; width: 100%; height: 500px;"> -->
             <div class="Delivery address" style="border: none; width: 100%; height: 350px; margin-top: 1px;">
 				<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY DeliveryPanel__DefaultPanel-sc-10nnk4w-1 kowRcQ">            
@@ -498,8 +554,9 @@ svg:not(:root) {
 					<hr>
             	</div>
             </div>
-            
-            <div class="Consent and Payment" style="border: 1px solid black; width: 100%; height: 500px; margin-top: 100px;">
+         
+        
+            <div class="Consent and Payment" style="border: none; width: 100%; height: 500px; margin-top: 100px;">
             	<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PricingTablePanel__DefaultPanel-sc-1e9itak-7 Qqlie">
             		<h4 class="sc-gFqAkR icVCJU">결제금액</h4>
             		<div>
@@ -510,7 +567,7 @@ svg:not(:root) {
 									상품금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
-										<strong style="font-weight: 700;">135,000원</strong>
+										135,000원
 									</div>
 								</div>
 								
@@ -536,30 +593,31 @@ svg:not(:root) {
 									</div>
 								</div>
 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL">
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">총
-										결제금액
-									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+									총 결제금액
+									</div>
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" style="font-size: 25px;">
 										142,830원
 									</div>
 								</div>
-
-
-
-
-
-
 							</div>	            			
             			</div>
             		</div>
-            	</div>
-            	
-            	
-            </div>
-  		   
-        </div>
+					<section class="DefaultPayment__Section-sc-64075s-3 eCEzHK">
+						<button class="sc-gEvEer kKRlXK bun-ui-button DefaultPayment__SubmitButton-sc-64075s-2 uviPA" 
+							type="submit" color="primary">결제하기
+						</button>
+					</section>
+			</div>
     </section>    
+            </div>
+        </div>
     </form>
+    
+		</div>
+	</div>
 </div>
+</body>
+
 <jsp:include page="../template/Footer.jsp"/>
 </html>

@@ -14,6 +14,16 @@ public class MemberController {
 		return "member/login";
 	}// login()
 //	-----------------------------------------------------------------------------
-
+	@GetMapping("/mypage")
+	public String mypage() {
+		System.out.println("MemberController mypage()");
+		return "member/mypage";
+	}// mypage()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/memberEdit")
+	public String memberEdit() {
+		System.out.println("MemberController memberEdit()");
+		return "member/memberEdit";
+	}// memberEdit()
 //	-----------------------------------------------------------------------------
 }// MemberController 클래스

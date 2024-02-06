@@ -32,7 +32,6 @@
 
 function paging(pgEvent, pageSize, oneOrZero){
 
-	debugger;
 	var totalCount = $(pgEvent).length + oneOrZero;
 	if(totalCount === 0){
 		totalCount++;

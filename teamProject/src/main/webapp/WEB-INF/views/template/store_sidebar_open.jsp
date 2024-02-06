@@ -10,9 +10,9 @@
     <!-- CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     
-    <script src="resources/js/common/jquery-3.6.0.js"></script>
-    <script src="resources/js/common/jquery.twbsPagination.min.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="resources/css/common/variable.css" />
+    <script src="${pageContext.request.contextPath}/resources/js/common/jquery-3.6.0.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/common/jquery.twbsPagination.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/variable.css" />
     <title>SideBar sub menus</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -195,13 +195,13 @@ ul{
 		                        <span class="nav_name">운영 관리</span>
 		                    </a>       
                     	</li>
-						<li><a class="nav__link" href="#" style="width: 130px;">
+						<li><a class="nav__link" href="#" style="width: 155px;">
 			            	<small>● 회원 관리</small></a>
 			            </li>
-			            <li><a class="nav__link" href="#" style="width: 130px;">
+			            <li><a class="nav__link" href="#" style="width: 155px;">
 			            	<small>● 통계</small></a>
 			            </li>
-			            <li><a class="nav__link mb-5" href="#" style="width: 130px;">
+			            <li><a class="nav__link mb-5" href="#" style="width: 155px;">
 			            	<small>● 게시판 글 관리</small></a>
 			            </li>
 					</ul>                
@@ -215,16 +215,16 @@ ul{
 		                        <span class="nav_name">사이트 관리</span>
 		                    </a>       
                     	</li>
-	                    <li><a class="nav__link" href="#" style="width: 130px;">
+	                    <li><a class="nav__link" href="${pageContext.request.contextPath}/admin/manager" style="width: 155px;">
 	                    	<small>● 권한 관리</small></a>
 	                    </li>
-	                    <li class=""><a class="nav__link" href="#" style="width: 130px;">
+	                    <li class=""><a class="nav__link" href="${pageContext.request.contextPath}/admin/board" style="width: 155px;">
 	                    	<small>● 게시판 관리</small></a>
 	                    </li>
-	                    <li class=""><a class="nav__link" href="#" style="width: 130px;">
+	                    <li class=""><a class="nav__link" href="${pageContext.request.contextPath}/admin/header_menu" style="width: 155px;">
 	                    	<small>● 메뉴 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link mb-5" href="#" style="width: 130px;">
+	                    <li><a class="nav__link mb-5" href="${pageContext.request.contextPath}/admin/category" style="width: 155px;">
 	                    	<small>● 카테고리 목록 관리</small></a>
 	                    </li>
                     </ul>
@@ -237,31 +237,31 @@ ul{
 		                        <span class="nav_name">시스템 관리</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="#" style="width: 130px;">
+	                    <li><a class="nav__link" id="message_manage" href="${pageContext.request.contextPath}/admin/message_manage" style="width: 155px;">
 	                    	<small>● 메세지 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link" href="#" style="width: 130px;">
+	                    <li><a class="nav__link" id="category_manage" href="${pageContext.request.contextPath}/admin/category_manage" style="width: 155px;">
 	                    	<small>● 카테고리 항목 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link" href="#" style="width: 130px;">
+	                    <li><a class="nav__link" id="trade_manage" href="${pageContext.request.contextPath}/admin/trade_manage" style="width: 155px;">
 	                    	<small>● 거래상태 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link" href="#" style="width: 130px;">
+	                    <li><a class="nav__link" id="declare_manage" href="${pageContext.request.contextPath}/admin/declare_manage" style="width: 155px;">
 	                    	<small>● 신고 항목 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link mb-5" href="#" style="width: 130px;">
+	                    <li><a class="nav__link mb-5" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;">
 	                    	<small>● 검색 가격 관리</small></a>
 	                    </li>
                     </ul>
 				</div>
                 <ul>
-<!--                    	<li> -->
-<!-- 		                <a href="#;" class="nav__link"> -->
-<!-- 		                    <ion-icon name="person-outline"></ion-icon> -->
-<!-- 		                    <span class="nav_name">계정관리</span> -->
-<!-- 		                </a> -->
-<!--                 	</li> -->
-                    <li class="mt-2"><a class="nav__link" href="#" style="width: 130px;">
+                   	<li>
+		                <a href="#;" class="nav__link">
+		                    <ion-icon name="person-outline"></ion-icon>
+		                    <span class="nav_name">계정</span>
+		                </a>
+                	</li>
+                    <li class="mt-2"><a class="nav__link" href="#" style="width: 155px;">
                     	<small>● 로그아웃</small></a>
                     </li>
             	</ul>

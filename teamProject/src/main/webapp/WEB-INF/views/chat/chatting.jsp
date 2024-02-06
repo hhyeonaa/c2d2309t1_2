@@ -24,6 +24,28 @@
 #my-input {
 	visibility: hidden;
 }
+
+.pl{
+    width: 200px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.pl:focus{
+    border: 1px solid #9B51E0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: 3px solid #F8E4FF;
+    border-radius: 10px;
+}
+
 </style>
 
 
@@ -40,11 +62,12 @@
 						<div class="modal-header">
 							<img src="https://source.unsplash.com/random/?car" alt="random"
 								width="100" height="100">
-								제품이름 : 123<br> 제품가격 : 123 <select>
-								<option>판매중</option>
+								제품이름 : 123<br> 제품가격 : 123 
+							<select name="likeLanguage" id="" class="pl">
+					            <option>판매중</option>
 								<option>예약중</option>
 								<option>거래완료</option>
-							</select>
+					        </select>
 							<div>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>

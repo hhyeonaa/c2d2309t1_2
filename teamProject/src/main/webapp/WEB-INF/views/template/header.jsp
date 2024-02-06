@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,22 +35,27 @@
 <div class="wrapper222">
 <div class="main222">
 <header class="fixed-top navbar navbar-expand-lg" style="justify-content: center;">
+<c:set var="currentUri" value="${pageContext.request.requestURI}" />
+<c:set var="uriParts" value="${fn:split(currentUri, '/')}" />
+<c:set var="fileNameWithExtension" value="${uriParts[fn:length(uriParts) - 1]}" />
+<c:set var="fileName" value="${fn:replace(fileNameWithExtension, '.jsp', '')}" />
+
 		<div class="row">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
 					<a class="navbar-brand" href="#" style="font-size: 30px;"><b>꿀당근장터</b></a>
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="menu">
-					 		<a class="nav-link" href="board/saleBoard">판매</a>
+					 		<a class="nav-link ${fileName == 'saleBoard' ? 'active' : ''}" href="${pageContext.request.contextPath}/board/saleBoard">판매</a>
 						</li>
 						<li class="menu">
-							<a class="nav-link" href="#">구매</a>
+							<a class="nav-link ${fileName == 'buyBoard' ? 'active' : ''}" href="${pageContext.request.contextPath}/board/buyBoard">구매</a>
 						</li>
 						<li class="menu">
-							<a class="nav-link" href="#">나눔</a>
+							<a class="nav-link ${fileName == 'divideBoard' ? 'active' : ''}" href="${pageContext.request.contextPath}/board/divideBoard">나눔</a>
 						</li>
 						<li class="menu">
-							<a class="nav-link" href="#">경매</a>
+							<a class="nav-link ${fileName == 'auctionBoard' ? 'active' : ''}" href="${pageContext.request.contextPath}/board/auctionBoard">경매</a>
 						</li>
 					</ul>
 					<form class="d-flex">
@@ -72,7 +79,7 @@
 				</div>
 				<div class="writeBtnBox" style="width: 100px; display:flex; justify-content: center;">
 					<span class="material-symbols-outlined addIcon">add_circle</span>
-					<a class="nav-link writeBtn" href="#">상품 등록</a>
+					<a class="nav-link writeBtn" href="${pageContext.request.contextPath}/board/writeBoard">상품 등록</a>
 				</div>
 				<div class="btn-group">
 			  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">

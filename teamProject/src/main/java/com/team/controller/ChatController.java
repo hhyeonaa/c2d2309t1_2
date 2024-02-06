@@ -12,12 +12,12 @@ public class ChatController {
 	public String chatting() {
 		System.out.println("ChatController chatting()");
 		return "/chat/chatting";
-	}// saleBoard()
+	}// chatting()
 	
 	@GetMapping("/chattingRoom")
 	public String chattingRoom() {
 		System.out.println("ChatController chattingRoom()");
 		return "/chat/chattingRoom";
-	}// saleBoard()
+	}// chattingRoom()
 	
 }// 클래스 끝

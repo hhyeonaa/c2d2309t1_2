@@ -6,86 +6,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <title>사이트관리-게시판관리</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
-<script src="${pageContext.request.contextPath}/resources/js/common/jquery-3.6.0.js"></script>
-<style>
-body {
-	padding: 100px 0 0 240px !important;
-}
-.project-list-table {
-    border-collapse: separate;
-    border-spacing: 0 12px;
-}
-#insertForm {
-    text-decoration: underline;
-    color: gray;
-}
-.form-select {
-	width: 50% !important;
-	float: none !important;
-	text-align: center;
-}
-
-.form-check .form-check-input {
-    float: none !important;
-}
-
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	padding-top: 100px;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgb(0,0,0);
-	background-color: rgba(0,0,0,0.4);
-}
-
-/* 관리자추가 모달 */
-#modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 10px 20px 30px 20px;
-	border: 1px solid #888;
-	width: 20%;
-	position: fixed;
-    top: 30%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-#modal-body {
-	padding: 20px 10px 20px 0px;
-}
-
-#modal-footer {
-	padding-top: 20px;
-	align-content: right;
-}
-
-#close {
-	color: salmon;
-  	float: right;
-  	font-size: 50px;
-  	font-weight: bold;
-  	border-color: #ffffff;
-  	background-color: #ffffff;
-  	border-style: none;
-}
-
-#close:hover,
-#close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/admin/board.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
@@ -105,7 +29,7 @@ body {
                                 <th scope="col">게시판명</th>
                                 <th scope="col">게시판 유형</th>
                                 <th scope="col">글쓰기 입력폼</th>
-                                <th scope="col">숨김 여부</th>
+                                <th scope="col">표시 상태</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -197,8 +121,8 @@ body {
     </div>
     
     
-    	<!-- 게시판 입력폼 모달창 -->
-	<div id="addModal" class="modal">
+    <!-- 게시판 입력폼 모달창 -->
+	<div id="inputModal" class="modal">
 	  <div class="modal-content mt-5" id="modal-content">
 	     <div class="modal-header" id="modal-header">
 		     <h3 class="modal-title" id="modal-title"><b>판매게시판 입력폼</b></h3>
@@ -206,52 +130,140 @@ body {
 		     	&times;</button>
 	     </div>
 	     <div class="modal-body" id="modal-body">
-		    <div class="headerEdit mb-4">
-		   		<div>
-				    <a data-mdb-toggle="pill" href="#" role="tab" aria-controls="register" aria-selected="true"
-				       class="btn" id="btnAdd"><i class="bx bx-plus me-1"></i>입력폼 추가</a>
-				</div>
-				<table class="table align-middle text-center mb-4">
-					<thead class="tableHr">
+		    <div class="boardEdit">
+				<table class="table text-center mb-4">
+					<thead class="tableHr align-middle ">
 						<tr>
 							<th scope="col" >라벨명</th>
-<!-- 							<th scope="col">타입</th> -->
-<!-- 							<th scope="col">항목</th> -->
+							<th scope="col">타입</th>
 							<th scope="col">순서</th>
 							<th scope="col">숨김 여부</th>
 						</tr>
 					</thead>
-					<tbody class="tableHr">
+					<tbody class="tableHr" id="tbody">
 						<tr>
-							<td>판매</td>
+							<td align="center">
+								<div class="form-outline">
+								  	<input type="text" name="" class="form-control" value="글제목"/>
+								</div>
+							</td>
+							<td align="center">
+                               	<select class="form-select">
+									<option disabled>타입 선택</option>
+									<option value="1" selected><ion-icon name="remove-outline"></ion-icon>단답형</option>
+									<option value="2"><ion-icon name="reader-outline"></ion-icon>장문형</option>
+									<option value="3"><ion-icon name="radio-button-on-outline"></ion-icon>단일선택</option>
+									<option value="4"><ion-icon name="checkbox-outline"></ion-icon>체크박스</option>
+									<option value="5"><ion-icon name="caret-down-outline"></ion-icon>목록 선택형</option>
+									<option value="6"><ion-icon name="download-outline"></ion-icon>파일 첨부형</option>
+									<option value="7"><ion-icon name="calendar-number-outline"></ion-icon>날짜/시간</option>
+								</select>
+							</td>
 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
 							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
 						</tr>
 						<tr>
-							<td>구매</td>
+							<td>
+								<div class="form-outline">
+								  	<input type="text" name="" class="form-control" value="작성일"/>
+								  	<input type="date" name="" class="form-control" value=""/>
+								</div>
+							</td>
+					        <td align="center">
+                               	<select class="form-select">
+									<option disabled>타입 선택</option>
+									<option value="1" >단답형</option>
+									<option value="2">장문형</option>
+									<option value="3">단일선택</option>
+									<option value="4">체크박스</option>
+									<option value="5">목록 선택형</option>
+									<option value="6">파일 첨부형</option>
+									<option value="7" selected>날짜/시간</option>
+								</select>
+							</td>
 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
 							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
 						</tr>
 						<tr>
-							<td>나눔</td>
+							<td>
+								<div class="form-outline align-top text-start">
+								  	<input type="text" name="" class="form-control" value="상품명"/>
+								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="식품"/>
+								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="의류"/>
+								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="전자제품"/>
+								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="잡화"/>
+								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="기타"/>
+								  	<a class="m-3" href="#"> 옵션 추가</a>
+								</div>
+							</td>
+							<td align="center">
+                               	<select class="form-select">
+									<option  disabled>타입 선택</option>
+									<option value="1">단답형</option>
+									<option value="2">장문형</option>
+									<option value="3">단일선택</option>
+									<option value="4">체크박스</option>
+									<option value="5" selected>목록 선택형</option>
+									<option value="6">파일 첨부형</option>
+									<option value="7">날짜/시간</option>
+								</select>
+							</td>
 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
 							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
 						</tr>
 						<tr>
-							<td>경매</td>
+							<td>
+								<div class="form-outline">
+								  	<input type="text" name="" class="form-control" value="이미지 등록"/>
+								</div>
+							</td>
+							<td align="center">
+                               	<select class="form-select">
+									<option  disabled>타입 선택</option>
+									<option value="1">단답형</option>
+									<option value="2">장문형</option>
+									<option value="3">단일선택</option>
+									<option value="4">체크박스</option>
+									<option value="5">목록 선택형</option>
+									<option value="6" selected>파일 첨부형</option>
+									<option value="7">날짜/시간</option>
+								</select>
+							</td>
+							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
+							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
+						</tr>
+						<tr>
+							<td>
+								<div class="form-outline">
+								  	<input type="text" name="" class="form-control" value="상세내용"/>
+								</div>
+							</td>
+							<td align="center">
+                               	<select class="form-select">
+									<option  disabled>타입 선택</option>
+									<option value="1">단답형</option>
+									<option value="2" selected>장문형</option>
+									<option value="3">단일선택</option>
+									<option value="4">체크박스</option>
+									<option value="5">목록 선택형</option>
+									<option value="6">파일 첨부형</option>
+									<option value="7">날짜/시간</option>
+								</select>
+							</td>
 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
 							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
 						</tr>
 					</tbody>
 				</table>
-				<div align="center">
-
+				<div class="mt-4" align="center">
+					<button id="btn"><h1><ion-icon name="add-circle-outline" aria-hidden = "false" style = "color: gray;"></ion-icon></h1></button>
 			    </div>
 		    </div>		
 	     </div>
+	     
 	     <div class="modal-footer" id="modal-footer">
-	     					<button type="button" class="btn btn-light">저장</button>
-					<button type="button" class="btn btn-dark">취소</button>
+    		<button type="button" class="btn btn-light">저장</button>
+			<button type="button" class="btn btn-dark">취소</button>
 	     </div>
 	  </div>
 	</div>
@@ -262,51 +274,17 @@ body {
 			<button type="button" class="btn btn-light">저장</button>
 			<button type="button" class="btn btn-dark">취소</button>
 		</div>
-		<div>
-		    <ul class="pagination mb-sm-0 justify-content-center">
-		        <li class="page-item disabled">
-		            <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-		        </li>
-		        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-		        <li class="page-item"><a href="#" class="page-link">2</a></li>
-		        <li class="page-item"><a href="#" class="page-link">3</a></li>
-		        <li class="page-item"><a href="#" class="page-link">4</a></li>
-		        <li class="page-item"><a href="#" class="page-link">5</a></li>
-		        <li class="page-item">
-		            <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-		        </li>
-		    </ul>
-		</div>
+		<div class="demo">
+		    <nav class="pagination-outer"  aria-label="Page navigation">
+		        <ul class="pagination" id="pagination"></ul>
+		    </nav>
+		</div> 
     </div>
 </div>
 
-<script type="text/javascript">
-$(function(){
-	var modal = document.getElementById("addModal");
-	var btn = document.getElementById("insertForm");
-	var span = document.getElementsByClassName("close")[0];
-	var cancelBtn = document.getElementById("cancelBtn");
-	
-	$('#insertForm').on('click', function(){
-		modal.style.display = "block";	
-	})
-	
-	$('#close').on('click', function(){
-		modal.style.display = "none";
-	})
-	
-	$('#cancelBtn').on('click', function(){
-		modal.style.display = "none";
-	})
-	
-	$('#deleteBtn').on('click', function(){
-	})
-	
-});
-</script>
 
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
 </body>
+<script src="${pageContext.request.contextPath}/resources/js/admin/board.js"></script>
 </html>

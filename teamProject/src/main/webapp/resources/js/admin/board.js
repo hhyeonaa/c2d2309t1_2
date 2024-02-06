@@ -3,12 +3,12 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 
 $(function(){
-	var modal = document.getElementById("addModal");
-	var btn = document.getElementById("btnAdd");
+	var modal = document.getElementById("inputModal");
+	var btn = document.getElementById("insertForm");
 	var span = document.getElementsByClassName("close")[0];
 	var cancelBtn = document.getElementById("cancelBtn");
 	
-	$('#btnAdd').on('click', function(){
+	$('#insertForm').on('click', function(){
 		modal.style.display = "block";	
 	})
 	
@@ -25,9 +25,7 @@ $(function(){
 	
 });
 
-
 $(() => {
-	debugger;
 	paging("#tbody tr", 5, 0);
 
 })

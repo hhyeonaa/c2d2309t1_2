@@ -6,12 +6,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <title>사이트관리-매니저관리</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
-<link href="${pageContext.request.contextPath}/resources/css/site_manage/manager.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/common/jquery-3.6.0.js"></script>
+<link href="${pageContext.request.contextPath}/resources/css/admin/manager.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
@@ -64,7 +62,7 @@
                                 <th scope="col">번호</th>
                                 <th scope="col">ID</th>
                                 <th scope="col">이름</th>
-                                <th scope="col">활동 여부</th>
+                                <th scope="col">활성 상태</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
@@ -126,9 +124,6 @@
 		</div> 
     </div>
 </div>
-<script src="${pageContext.request.contextPath}/resources/js/site_manage/manager.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
+<script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>
 </html>

@@ -53,17 +53,18 @@
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 				data-bs-target="#exampleModal">모달</button>
 
-			<!-- Modal -->
+			<!-- ChattingModal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div
 					class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-					<div class="modal-content">
+					<div class="modal-content" style="height: 800px;">
 						<div class="modal-header">
 							<img src="https://source.unsplash.com/random/?car" alt="random"
 								width="100" height="100">
-								제품이름 : 123<br> 제품가격 : 123 
-							<select name="likeLanguage" id="" class="pl">
+								상품이름 : 123 <hr> 상품가격 : 123 
+							<button class="btn btn-primary" data-bs-target="name" data-bs-toggle="modal">신고하기</button>
+							<select name="likeLanguage" class="pl">
 					            <option>판매중</option>
 								<option>예약중</option>
 								<option>거래완료</option>
@@ -78,18 +79,6 @@
 								<aside>
 									<header style="justify-content: flex-end;">
 										<p id="word"></p>
-										제품이름 : 123<br>제품이름 : 123<br>제품이름 : 123<br>제품이름
-										: 123<br> 제품이름 : 123<br>제품이름 : 123<br>제품이름 :
-										123<br>제품이름 : 123<br> 제품이름 : 123<br>제품이름 : 123<br>제품이름
-										: 123<br>제품이름 : 123<br> 제품이름 : 123<br>제품이름 :
-										123<br>제품이름 : 123<br>제품이름 : 123<br> 제품이름 : 123<br>제품이름
-										: 123<br>제품이름 : 123<br>제품이름 : 123<br> 제품이름 :
-										123<br>제품이름 : 123<br>제품이름 : 123<br>제품이름 : 123<br>
-										제품이름 : 123<br>제품이름 : 123<br>제품이름 : 123<br>제품이름
-										: 123<br> 제품이름 : 123<br>제품이름 : 123<br>제품이름 :
-										123<br>제품이름 : 123<br> 제품이름 : 123<br>제품이름 : 123<br>제품이름
-										: 123<br>제품이름 : 123<br> 제품이름 : 123<br>제품이름 :
-										123<br>제품이름 : 123<br>제품이름 : 123<br>
 									</header>
 								</aside>
 							</div>

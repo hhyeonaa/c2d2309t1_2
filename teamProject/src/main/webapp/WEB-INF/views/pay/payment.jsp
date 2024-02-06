@@ -440,7 +440,7 @@ svg:not(:root) {
                 </div>
             </div>
             <hr style="margin-bottom: 1px;">
-			<div class="d-flex">
+			<div class="d-flex" style="margin-top: 15px;">
 				<div class="form-check flex-fill" style="flex: 1; display: flex; justify-content: center; align-items: center;">
 				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
 				    <label class="form-check-label" for="radio1" style="font-size: 20px;">택배거래</label>
@@ -477,19 +477,26 @@ svg:not(:root) {
             				</section>
             			</div>
             			<div class="Delivery Request mt-3">
-            				<div value="직접입력" class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs">
-            					<input readonly="" placeholder="배송 요청사항 (선택)" class="DeliveryPanel__Input-sc-10nnk4w-2 fZgYbu" value="직접입력">
-								<aside>
-									<button type="button">
-										<svg width="30" height="20" xmlns="http://www.w3.org/2000/svg"
-											fill="#cccccc" viewBox="0 0 20 20">
-											<path d="M.59 5.087a.999.999 0 011.074.166L10 12.663l8.336-7.41a1 1 0 111.328 1.494l-9 8a.999.999 0 01-1.328 0l-9-8a.999.999 0 01.254-1.66z"
-												 fill="#cccccc" fill-rule="evenodd">
-											</path>
-										</svg>
-									</button>
-								</aside>
-							</div>
+            			
+            			<select class="form-select form-select-lg mb-3" aria-label="Large select example">
+						  <option selected>Open this select menu</option>
+						  <option value="1">One</option>
+						  <option value="2">Two</option>
+						  <option value="3">Three</option>
+						</select>
+<!--             				<div value="직접입력" class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs"> -->
+<!--             					<input readonly="" placeholder="배송 요청사항 (선택)" class="DeliveryPanel__Input-sc-10nnk4w-2 fZgYbu" value="직접입력"> -->
+<!-- 								<aside> -->
+<!-- 									<button type="button"> -->
+<!-- 										<svg width="30" height="20" xmlns="http://www.w3.org/2000/svg" -->
+<!-- 											fill="#cccccc" viewBox="0 0 20 20"> -->
+<!-- 											<path d="M.59 5.087a.999.999 0 011.074.166L10 12.663l8.336-7.41a1 1 0 111.328 1.494l-9 8a.999.999 0 01-1.328 0l-9-8a.999.999 0 01.254-1.66z" -->
+<!-- 												 fill="#cccccc" fill-rule="evenodd"> -->
+<!-- 											</path> -->
+<!-- 										</svg> -->
+<!-- 									</button> -->
+<!-- 								</aside> -->
+<!-- 							</div> -->
             			</div>
 						<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
 							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" style="height: 70px !important;"></textarea>
@@ -615,9 +622,17 @@ svg:not(:root) {
     </form>
     
 		</div>
-	</div>
-</div>
+<!-- 	</div> -->
+<!-- </div> -->
 </body>
+<script>
+// 스크립트 시작
+$(()=>{
+	
+	
+	
+})
 
+</script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

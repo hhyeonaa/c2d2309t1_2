@@ -29,8 +29,10 @@
  * 
  */
 
+
 function paging(pgEvent, pageSize, oneOrZero){
 
+	debugger;
 	var totalCount = $(pgEvent).length + oneOrZero;
 	if(totalCount === 0){
 		totalCount++;
@@ -45,7 +47,7 @@ function paging(pgEvent, pageSize, oneOrZero){
 		_totalPages++;
 	}
 	
-	$('#pagination').twbsPagination('destroy');
+	// $('#pagination').twbsPagination('destroy');
 	
     window.pagObj = $('#pagination').twbsPagination({
     	totalPages: _totalPages,

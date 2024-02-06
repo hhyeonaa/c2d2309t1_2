@@ -10,9 +10,9 @@
     <!-- CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     
-    <script src="resources/js/common/jquery-3.6.0.js"></script>
-    <script src="resources/js/common/jquery.twbsPagination.min.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="resources/css/common/variable.css" />
+    <script src="${pageContext.request.contextPath}/resources/js/common/jquery-3.6.0.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/common/jquery.twbsPagination.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/variable.css" />
     <title>SideBar sub menus</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

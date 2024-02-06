@@ -479,10 +479,13 @@ svg:not(:root) {
             			<div class="Delivery Request mt-3">
             			
             			<select class="form-select form-select-lg mb-3" aria-label="Large select example">
-						  <option selected>Open this select menu</option>
-						  <option value="1">One</option>
-						  <option value="2">Two</option>
-						  <option value="3">Three</option>
+							<option value="0" selected>배송시 요청사항을 선택해 주세요.</option>
+							<option value="1">직접 수령하겠습니다.</option>
+							<option value="2">배송 전 연락바랍니다.</option>
+							<option value="3">부재 시 경비실에 맡겨주세요.</option>
+							<option value="4">부재 시 문 앞에 놓아주세요.</option>
+							<option value="5">부재 시 택배함에 넣어주세요.</option>
+							<option value="6">직접 입력</option>
 						</select>
 <!--             				<div value="직접입력" class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs"> -->
 <!--             					<input readonly="" placeholder="배송 요청사항 (선택)" class="DeliveryPanel__Input-sc-10nnk4w-2 fZgYbu" value="직접입력"> -->

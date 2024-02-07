@@ -14,10 +14,4 @@ public class ChatController {
 		return "/chat/chatting";
 	}// chatting()
 	
-	@GetMapping("/chattingRoom")
-	public String chattingRoom() {
-		System.out.println("ChatController chattingRoom()");
-		return "/chat/chattingRoom";
-	}// chattingRoom()
-	
 }// 클래스 끝

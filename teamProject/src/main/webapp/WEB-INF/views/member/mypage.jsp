@@ -31,7 +31,7 @@
                             <button type="button">프로필 수정하기</button>
                             <br>
                             <div class="chart">
-						      <div class="bar" style="width: 40%;"></div>
+						      <div class="bar" style="width: 40%;">40˚</div>
 						    </div>
                         </section>
                         

@@ -412,6 +412,183 @@ svg:not(:root) {
     color: rgb(255, 255, 255);
     background: rgb(216, 12, 24);
 }
+
+/*배송모달창 css */
+.box__address-add {
+    padding: 20px 16px;
+    margin: 0;
+    background: #f5f5f5;
+}
+.button__address-add {
+    height: 50px;
+    border: 1px solid #bdbdbd;
+}
+.section__order-info {
+    max-width: 100%;
+    margin: 0 auto;
+    padding-bottom: 80px;
+    padding-top: 0px;
+}
+.page__pcver.service__mypage .mypage__wrap.mypage__address-list {
+    background: #f5f5f5;
+}
+.modal-dialog-scrollable .modal-body {
+    overflow-y: auto;
+    padding: 0px;
+}
+.box__address-add .button__address-add {
+    display: block;
+    width: 100%;
+/*     height: 48px; */
+    background: #fff;
+    font-size: 16px;
+    font-weight: normal;
+/*     border-top: 1px solid #e0e0e0; */
+/*     border-bottom: 1px solid #e0e0e0; */
+}
+.page__pcver .box__adress-list .list__delivery-address {
+    padding: 0 16px;
+    background-color: #f5f5f5;
+}
+.box__adress-list .list__delivery-address {
+    background: #fff;
+}
+.page__pcver .box__adress-list .list__delivery-address > .list-item {
+    background-color: #fff;
+    border: solid 1px #e0e0e0;
+    min-height: auto;
+}
+.box__adress-list .list__delivery-address > .list-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100px; /* sssssssssssssss */
+/*     border-bottom: 1px solid #e0e0e0; */
+}
+.page__pcver .box__adress-list .list__delivery-address .list-item .box__delivery-address {
+    padding: 16px;
+}
+.box__adress-list .list__delivery-address .list-item .box__delivery-address {
+    position: relative;
+    display: block;
+    width: 100%;
+    top: 0;
+    left: 0;
+/*     padding: 20px 20px 24px; */
+    box-sizing: border-box;
+}
+.button__delivery-choice {
+    top: 16px;
+    width: 45px;
+    height: 32px;
+    right: 16px;
+    font-size: 12px;
+    border-radius: 0;
+    border: 1px solid #999;
+    color: #000;
+    line-height: 12px;
+}
+.box__delivery-option {
+    right: 16px;
+    bottom: 17px;
+}
+.box__delivery-option {
+    position: absolute;
+    right: 20px;
+    bottom: 24px;
+    z-index: 1;
+    text-align: right;
+    font-size: 0;
+}
+.button__delivery-change {
+    color: #aaa;
+    letter-spacing: 0;
+}
+.button__delivery.button__delivery-change {
+    margin-right: 6px ;
+}
+.button__delivery {
+    display: inline-block;
+/*     color: #aeaeb2; */
+    font-size: 14px;
+    line-height: 18px;
+/*     letter-spacing: -0.4px; */
+}
+.button__delivery.button__delivery-delete {
+    position: relative;
+    margin-left: 6px;
+}
+button{
+cursor:pointer;
+}
+.for-a11y {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.box__adress-list .list__delivery-address .list-item .box__delivery-address .delivery-address__address {
+    max-width: 360px;
+    margin-top: 16px;
+}
+.box__adress-list .list__delivery-address .list-item .box__delivery-address .delivery-address__address .text {
+    font-size: 14px;
+    line-height: 20px;
+    color: #222;
+    letter-spacing: 0;
+}
+.box__adress-list .list__delivery-address .list-item .box__delivery-address .delivery-address__address .text {
+    display: block;
+/*     font-size: 15px; */
+/*     line-height: 20px; */
+/*     color: #1d1d1e; */
+/*     letter-spacing: -0.4px; */
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+.box__adress-list .list__delivery-address .list-item .box__delivery-address .delivery-address__addressee {
+    margin-top: 4px;
+}
+
+.box__adress-list .list__delivery-address .list-item .box__delivery-address .delivery-address__addressee {
+/*     margin-top: 6px; */
+    padding-right: 70px;
+/*     font-size: 0; */
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.box__adress-list .list__delivery-address > .list-item {
+    background-color: #fff;
+    border: solid 1px #e0e0e0;
+    min-height: auto;
+}
+ul {
+    display: block;
+/*     list-style-type: disc; */
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    
+}
+.box__adress-list .list__delivery-address .list-item .button__delivery-choice {
+    position: absolute;
+/*     top: 16px; */
+/*     right: 16px; */
+/*     display: block; */
+/*     width: 46px; */
+/*     height: 32px; */
+/*     font-size: 14px; */
+/*     color: #2c2c2c; */
+/*     border: 1px solid #bdbdbd; */
+/*     border-radius: 2px; */
+}
 </style>
 
 </head>
@@ -464,7 +641,7 @@ svg:not(:root) {
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">홍길동</p>
             						<!--저장된 배송정보 없을 시 배송지 등록노출  -->
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1">배송지 등록</span>
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 수정</span>
             						<!--저장된 배송정보 있을 때 배송지 변경노출  -->
 									<!-- <span class="DeliveryCard_ChangeAddress">변경</span> -->
             					</div>
@@ -616,6 +793,124 @@ svg:not(:root) {
 		</div>
 <!-- 	</div> -->
 <!-- </div> -->
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" style="--bs-modal-width: 600px !important;"
+				data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-scrollable">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 정보</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <form>
+	      	<div class="modal-body">
+	      		
+				<div id="container">
+					<div id="content" class="mypage__wrap mypage__address-list">
+						<div id="content" class="userDeliveryList">
+							<section class="section__order-info">
+								<div class="box__address-add" style="width: 100% !important;">
+									<button type="button" class="button__address-add">
+										<span class="text sprite__mypage--before">새 배송지 추가</span>
+									</button>
+								</div>
+								<div class="box__adress-list ms-4 me-4" style="height: 100% !important;">
+								<h4 class="for-a11y">배송지 목록</h4>
+									<ul id="divAddressBookListAsync" class="list__delivery-address" style="padding-left: 0 !important;">
+										<li class="list-item mb-4">
+											<div class="box__delivery-address" style="">
+												<button type="button" class="button__delivery-choice" aria-describedby="sp_ad_full_514574687">
+													선택
+												</button>
+												<div class="box__delivery-option">
+													<button type="button"
+														class="button__delivery button__delivery-change"
+														aria-describedby="sp_ad_full_514574687">수정
+													</button>
+													<button type="button"
+														class="button__delivery button__delivery-delete"
+														aria-haspopup="dialog"
+														aria-controls="box__layer-delete-address"
+														aria-describedby="sp_ad_full_514574687">삭제
+													</button>
+												</div>
+												<div class="delivery-address__title home">
+													<span class="for-a11y">배송지명</span>
+													<span class="sprite__mypage--before text">기본 배송지</span>
+												</div>
+												<div class="delivery-address__address">
+													<span class="for-a11y">주소</span><span class="text"
+														id="sp_ad_full_514574687">경상남도 양산시 양주로 114
+														(현대아파트) 111-1601</span>
+												</div>
+												<div class="delivery-address__addressee">
+													<div class="delivery-address__name">
+														<span class="for-a11y">수령인</span>
+														<span class="text text__name">정기원</span>
+														<span class="text text__tel">010-2574-7288</span>
+													</div>
+												</div>
+											</div>
+										</li>
+										
+										<li class="list-item">
+											<div class="box__delivery-address" style="">
+												<button type="button" class="button__delivery-choice" aria-describedby="sp_ad_full_514574687">
+													선택
+												</button>
+												<div class="box__delivery-option">
+													<button type="button"
+														class="button__delivery button__delivery-change"
+														aria-describedby="sp_ad_full_514574687">수정
+													</button>
+													<button type="button"
+														class="button__delivery button__delivery-delete"
+														aria-haspopup="dialog"
+														aria-controls="box__layer-delete-address"
+														aria-describedby="sp_ad_full_514574687">삭제
+													</button>
+												</div>
+												<div class="delivery-address__title home">
+													<span class="for-a11y">배송지명</span>
+													<span class="sprite__mypage--before text">기본 배송지</span>
+												</div>
+												<div class="delivery-address__address">
+													<span class="for-a11y">주소</span><span class="text"
+														id="sp_ad_full_514574687">경상남도 양산시 양주로 114
+														(현대아파트) 111-1601</span>
+												</div>
+												<div class="delivery-address__addressee">
+													<div class="delivery-address__name">
+														<span class="for-a11y">수령인</span>
+														<span class="text text__name">정기원</span>
+														<span class="text text__tel">010-2574-7288</span>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</section>
+						</div>
+					</div>	
+				</div>
+				
+			</div>
+<!-- 	      	<div class="modal-footer"> -->
+<!-- 	        	<button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
+<!-- 	        	<button type="submit" class="btn btn-primary" >저장하기</button> -->
+<!-- 	      	</div> -->
+
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+
+
+
+
+
 </body>
 <script>
 // 스크립트 시작

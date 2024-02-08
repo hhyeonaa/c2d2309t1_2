@@ -335,7 +335,7 @@
 				
 
 	 
-	      	<div class="modal-footer">
+	      	<div id="addaddressbtn" class="modal-footer">
 	        	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 	        	<button type="submit" class="btn btn-primary" >저장</button>
 	      	</div>

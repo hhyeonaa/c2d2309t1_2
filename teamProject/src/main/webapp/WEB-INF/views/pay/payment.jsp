@@ -5,414 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.gNplro {
-    display: flex;
-    flex-direction: column;
-    padding: 0px 20px;
-    gap: 40px;
-}
+<link href="${pageContext.request.contextPath}/resources/css/pay/payment.css" rel="stylesheet">
 
-
-h2 {text-align: center;}
-
-.hnnRxs {
-    position: relative;
-}
-
-.fEYMnp {
-    position: relative;
-    padding: 20px;
-    border: 1px solid rgb(229, 229, 229);
-    border-radius: 6px;
-}
-
-.hVnXEo {
-    display: flex;
-}
-
-.jnXOPH {
-    color: rgb(25, 25, 25);
-}
-
-.kGbUWb {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 145%;
-}
-p {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
-.gibuM {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    margin-left: auto;
-    color: rgb(76, 76, 76);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    cursor: pointer;
-}
-.gAweBe1 {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 120%;
-}
-.hVvWHg {
-    color: rgb(76, 76, 76);
-}
-.hiEUHX {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 150%;
-}
-.hzdZRi {
-    color: rgb(76, 76, 76);
-}
-
-.kowRcQ {
-    padding: 0px;
-    font-size: 21px;
-    font-weight: bold;
-}
-.evSWSY {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-.kowRcQ > div div + div {
-    margin-top: 10px;
-}
-
-.hnnRxs {
-    position: relative;
-}
-
-.fZgYbu {
-    width: 100%;
-    height: 70px;
-    border: 1px solid rgb(229, 229, 229);
-    border-radius: 6px;
-    font-size: 1rem;
-    padding: 0px 20px;
-}
-
-input, textarea {
-/*     border: none; */
-    outline: none;
-    appearance: none;
-}
-.hnnRxs aside {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-.hnnRxs aside button {
-    font-size: 14px;
-    font-weight: bold;
-    color: rgb(0, 165, 135);
-    text-decoration: underline;
-}
-button {
-    padding: 0px;
-    border: none;
-    background: none;
-}
-button {
-    appearance: auto;
-    font-style: ;
-    font-variant-ligatures: ;
-    font-variant-caps: ;
-    font-variant-numeric: ;
-    font-variant-east-asian: ;
-    font-variant-alternates: ;
-    font-variant-position: ;
-/*     font-weight: ; */
-    font-stretch: ;
-/*     font-size: ; */
-/*     font-family: ; */
-    font-optical-sizing: ;
-    font-kerning: ;
-    font-feature-settings: ;
-    font-variation-settings: ;
-    text-rendering: auto;
-/*     color: buttontext; */
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    align-items: flex-start;
-    cursor: default;
-/*     box-sizing: border-box; */
-/*     background-color: buttonface; */
-    margin: 0em;
-    padding-block: 1px;
-    padding-inline: 6px;
-/*     border-width: 2px; */
-/*     border-style: outset; */
-/*     border-color: buttonborder; */
-/*     border-image: initial; */
-}
-.hnnRxs aside svg {
-    transform: translate(3px, -4px);
-}
-svg[Attributes Style] {
-    width: 30;
-    height: 20;
-    fill: rgb(204, 204, 204);
-}
-svg:not(:root) {
-    overflow-clip-margin: content-box;
-    overflow: hidden;
-}
-.hnnRxs aside button {
-    font-size: 14px;
-    font-weight: bold;
-    color: rgb(0, 165, 135);
-    text-decoration: underline;
-}
-.kowRcQ > div div + div {
-    margin-top: 10px;
-}
-.dRGkpJ {
-    display: block;
-    width: 100%;
-    padding: 1rem 20px;
-    border: none;
-    box-sizing: border-box;
-    outline: 0px;
-    border-radius: 6px;
-    background: rgb(250, 250, 250);
-    font-size: 1rem;
-    resize: none;
-}
-/*결제수단 css  */
-.cEbALs {
-    position: relative;
-    padding-top: 20px;
-}
-.cnEgsB {
-/*     padding: 0px; */
-    font-size: 21px;
-    font-weight: bold;
-}
-.exSHIf .NormalPayment__PaymentMethods-sc-ymu84t-0 {
-    margin-top: 6px;
-}
-.iKNlZe {
-    display: flex;
-    flex-direction: column;
-/*     align-content: space-between; */
-    margin: -4px;
-}
-.cnEgsB {
-/*     padding: 0px; */
-    font-size: 21px;
-    font-weight: bold;
-}
-.wwNXT {
-    display: flex;
-    flex-direction: row;
-}
-.bwWbat {
-    width: calc(33.3333%);
-}
-
-.bwWbat :hover{
-	cursor: pointer;
-}
-/* .kvEuJF :hover { */
-/*     cursor: pointer; */
-/* } */
-/* .cGqPmK :hover{ */
-/* 	cursor: pointer; */
-/* } */
-.kvEuJF {
-    position: relative;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-/*     margin: 4px; */
-    margin: 15px;
-    height: 70px;
-    background: rgb(255, 255, 255);
-    border-radius: 6px;
-    border: 1px solid rgb(25, 25, 25);
-}
-
-.cGqPmK {
-    position: relative;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-/*     margin: 4px; */
-    margin: 15px;
-    height: 70px;
-    background: rgb(255, 255, 255);
-    border: 1.6px solid rgb(229, 229, 229);
-    border-radius: 6px;
-}
-.gAweBe {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 350%;
-}
-
-/* 결제금액 css */
-.Qqlie {
-    padding: 0px;
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.icVCJU {
-    font-weight: 700;
-    font-size: 25px;
-    line-height: 140%;
-}
-
-.iwgmOh {
-    padding: 30px 20px;
-    border: 1px solid rgb(229, 229, 229);
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.hKJwfL, .hKJwfL > div, .hKJwfL > div > div {
-    display: flex;
-}
-.hKJwfL {
-    flex-direction: column;
-}
-
-.iwgmOh > div:first-child {
-    margin-top: 0px !important;
-}
-
-.epdsLL {
-    line-height: 1;
-    font-weight: normal;
-/*     margin-top: 20px !important; */
-}
-
-.kxBvfn {
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-}
-.iwgmOh > div > div:nth-child(1) {
-    color: rgb(127, 127, 127);
-}
-.kxBvfn > div:first-child {
-    margin-right: 0.5rem;
-/*     color: rgb(114, 112, 127); */
-}
-.IRKRA {
-    font-size: 1rem;
-    white-space: nowrap;
-}
-.jRdbRj {
-    position: relative;
-/*     display: flex; */
-    -webkit-box-align: center;
-    align-items: center;
-/*     font-size: 0.875rem; */
-}
-.iwgmOh > div > div:nth-child(2) {
-    color: rgb(25, 25, 25);
-}
-.iwgmOh > div div + div {
-    margin-top: 0px !important;
-}
-
-.NBdoU {
-    line-height: 1;
-    font-weight: normal;
-    margin-top: 18px !important;
-}
-
-.kxBvfn {
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-}
-
-.kzWuNm {
-    font-size: 1rem;
-    color: rgb(25, 25, 25);
-}
-.IRKRA span {
-/*     font-weight: 700; */
-}
-
-.UYDMx {
-    line-height: 1;
-    font-weight: normal;
-    margin-top: 16px !important;
-}
-.eqhFxu {
-    font-size: 1rem;
-    white-space: nowrap;
-}
-.gzaALl {
-    font-size: 1rem;
-    font-weight: 500;
-    color: rgb(25, 25, 25);
-}
-
-.iwgmOh > div:nth-last-child(1) {
-    padding-top: 20px;
-    border-top: 1px solid rgb(242, 242, 242);
-}
-
-.epdsLL {
-    line-height: 1;
-    font-weight: normal;
-    margin-top: 20px !important;
-}
-
-.iwgmOh > div:nth-last-child(2) > div {
-/*     font-weight: bold; */
-}
-.iwgmOh > div > div:nth-child(1) {
-    color: rgb(127, 127, 127);
-}
-.kxBvfn > div:first-child {
-     margin-right: 0.5rem; 
-/*     color: rgb(114, 112, 127); */
-}
-.iwgmOh > div:nth-last-child(1) > div:nth-child(1) {
-    font-size: 25px;
-    color: rgb(216, 12, 24);
-}
-.iwgmOh > div:nth-last-child(1) > div {
-     font-weight: bold; 
-}
-.iwgmOh > div div + div {
-    margin-top: 0px !important;
-}
-.kKRlXK {
-    border: none;
-    overflow: visible;
-    cursor: pointer;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    width: 100%;
-    padding: 15.5px 20px;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 120%;
-    color: rgb(255, 255, 255);
-    background: rgb(216, 12, 24);
-}
-</style>
 
 </head>
 <jsp:include page="../template/header.jsp"/>
@@ -426,47 +20,47 @@ svg:not(:root) {
 		<div style="border: 1px solid black; width: 100%; height: auto;">
 				
     <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0">
-        <h1 style="text-align: center;">결제하기</h1>
+        <h1 class="sech1">결제하기</h1>
         <hr>
-            <div class="productInfo" style="border: none; width: 100%; height: 100px; display: flex; flex-wrap: wrap;  ">
+            <div class="productInfo">
 <!--                 <div class="productImg" style="flex: 1; border:  1px solid black; height: 100%; display: flex; justify-content: center; align-items: center;"> -->
-                <div class="productImg" style="flex: 1; border: none; height: 100%; display: flex; justify-content: center; align-items: center;">
-					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill" style="max-width: 100%; max-height: 100%;">
+                <div class="productImg">
+					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill">
                 </div>
-                <div class="productPost" style="flex: 9; border:  none; height: 100%; margin-left: 20px;">
+                <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
 					<span class="productPostTitle">따봉도치 팜ㅍㅍㅍ</span><br>
 					<span class="productPrice">100,000원</span>
                 </div>
             </div>
-            <hr style="margin-bottom: 1px;">
-			<div class="d-flex" style="margin-top: 15px;">
-				<div class="form-check flex-fill" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <hr class="sechr">
+			<div class="d-flex Selecttransaction">
+				<div class="form-check flex-fill">
 				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-				    <label class="form-check-label" for="radio1" style="font-size: 20px;">택배거래</label>
+				    <label class="form-check-label" for="radio1">택배거래</label>
 				</div>
-				<div class="form-check flex-fill" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+				<div class="form-check flex-fill">
 				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-				    <label class="form-check-label" for="radio2" style="font-size: 20px;">직거래</label>
+				    <label class="form-check-label" for="radio2">직거래</label>
 				</div>
 			</div>
 	</section>		
             <hr>
     <section class="DefaultPayment__Section-sc-64075s-3 gNplro">        
 <!--             <div class="Delivery address" style="border: 1px solid black; width: 100%; height: 500px;"> -->
-            <div class="Delivery address" style="border: none; width: 100%; height: 350px; margin-top: 1px;">
+            <div class="Deliveryaddress">
 				<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY DeliveryPanel__DefaultPanel-sc-10nnk4w-1 kowRcQ">            
 	            	<h4 class="sc-gFqAkR icVCJU">배송지</h4>
 <!-- 	            	<div class="DeliveryInfo" style="border:1px outset gray;"> -->
-	            	<div class="DeliveryInfo" style="border: none;">
+	            	<div class="DeliveryInfo">
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">홍길동</p>
-            						<!--저장된 배송정보 없을 시 등록노출  -->
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1">등록</span>
-            						<!--저장된 배송정보 있을 때 변경노출  -->
-<!--             						<span class="DeliveryCard_ChangeAddress">변경</span> -->
+            						<!--저장된 배송정보 없을 시 배송지 등록노출  -->
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 수정</span>
+            						<!--저장된 배송정보 있을 때 배송지 변경노출  -->
+									<!-- <span class="DeliveryCard_ChangeAddress">변경</span> -->
             					</div>
             					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
             						(47246) 부산광역시 부산진구 부전동 동천로 109 삼한골든게이트 7층
@@ -477,38 +71,28 @@ svg:not(:root) {
             				</section>
             			</div>
             			<div class="Delivery Request mt-3">
-            			
             			<select class="form-select form-select-lg mb-3" aria-label="Large select example">
-						  <option selected>Open this select menu</option>
-						  <option value="1">One</option>
-						  <option value="2">Two</option>
-						  <option value="3">Three</option>
+							<option value="0" selected>배송시 요청사항을 선택해 주세요.</option>
+							<option value="1">직접 수령하겠습니다.</option>
+							<option value="2">배송 전 연락바랍니다.</option>
+							<option value="3">부재 시 경비실에 맡겨주세요.</option>
+							<option value="4">부재 시 문 앞에 놓아주세요.</option>
+							<option value="5">부재 시 택배함에 넣어주세요.</option>
+							<option value="6">직접 입력</option>
 						</select>
-<!--             				<div value="직접입력" class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs"> -->
-<!--             					<input readonly="" placeholder="배송 요청사항 (선택)" class="DeliveryPanel__Input-sc-10nnk4w-2 fZgYbu" value="직접입력"> -->
-<!-- 								<aside> -->
-<!-- 									<button type="button"> -->
-<!-- 										<svg width="30" height="20" xmlns="http://www.w3.org/2000/svg" -->
-<!-- 											fill="#cccccc" viewBox="0 0 20 20"> -->
-<!-- 											<path d="M.59 5.087a.999.999 0 011.074.166L10 12.663l8.336-7.41a1 1 0 111.328 1.494l-9 8a.999.999 0 01-1.328 0l-9-8a.999.999 0 01.254-1.66z" -->
-<!-- 												 fill="#cccccc" fill-rule="evenodd"> -->
-<!-- 											</path> -->
-<!-- 										</svg> -->
-<!-- 									</button> -->
-<!-- 								</aside> -->
-<!-- 							</div> -->
             			</div>
 						<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
-							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" style="height: 70px !important;"></textarea>
+							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
+							class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ"></textarea>
 						</div>
-<!-- 						<hr> -->
 					</div>		
 	            </div>
 			</div>
-			<hr>
+<!-- 			<hr> -->
 <!--             <div class="Payment method and total amount" style="border: 1px solid black; width: 100%; height: 500px;"> -->
-            <div class="Payment method and total amount" style="border: none; width: 100%; height: 200px; margin-top: 20px;">
+            <div class="Payment method and total amount">
             	<div class="PaymentMethodPanel__PaymentMethod-sc-egufas-0 hglvUW">
+            		<hr>
             		<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PaymentMethodPanel__SDefaultPanel-sc-egufas-9 cnEgsB"> 
             			<h4 class="sc-gFqAkR icVCJU">결제수단</h4>
             		</div>
@@ -517,7 +101,9 @@ svg:not(:root) {
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 kvEuJF">
+<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 kvEuJF"> //클릭시 class kvEuJF -->
+<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK"> //미 클릭시 cGqPmK-->
+										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>
@@ -563,7 +149,7 @@ svg:not(:root) {
             </div>
          
         
-            <div class="Consent and Payment" style="border: none; width: 100%; height: 500px; margin-top: 100px;">
+            <div class="Consent and Payment">
             	<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PricingTablePanel__DefaultPanel-sc-1e9itak-7 Qqlie">
             		<h4 class="sc-gFqAkR icVCJU">결제금액</h4>
             		<div>
@@ -594,7 +180,7 @@ svg:not(:root) {
 										안전결제 수수료
 									</div>
 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu direction-column">
-										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl" style="margin-top: 2px;">
+										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl">
 										&nbsp;+4,830원
 										</span>
 									</div>
@@ -603,7 +189,7 @@ svg:not(:root) {
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									총 결제금액
 									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" style="font-size: 25px;">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
 										142,830원
 									</div>
 								</div>
@@ -620,10 +206,149 @@ svg:not(:root) {
             </div>
         </div>
     </form>
-    
-		</div>
+</div>
 <!-- 	</div> -->
 <!-- </div> -->
+
+	<!-- Modal 배송지 목록 모달창-->
+	<div class="modal fade" id="staticBackdrop"
+				data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-scrollable">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 정보</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <form>
+	      	<div class="modal-body">
+				<div id="container">
+					<div id="content" class="mypage__wrap mypage__address-list">
+						<div id="content" class="userDeliveryList">
+							<section class="section__order-info">
+								<div class="box__address-add">
+									<button type="button" class="button__address-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+										<span class="text sprite__mypage--before">새 배송지 추가</span>
+									</button>
+								</div>
+								<div class="addressList">
+									<ul id="divAddress" class="deliveryaddress">
+										<li class="addressInfo mb-4">
+											<div class="boxdeliveryaddress">
+												<div class="boxdeliveryaddressTitle">
+													<span>배송지이름(XXX)</span>
+													<button type="button" class="button__delivery-choice">선택</button>
+												</div>
+												<div class="useraddressinfo">
+													<div id="useraddressinfo">
+														<div class="boxdeliveryaddressContent">
+															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
+														</div>
+														<div class="boxdeliveryaddressName">
+															<span>홍길동</span>
+															<span>010-2222-2222</span>
+														</div>
+													</div>
+													<div class="deliverybtn">
+														<button>수정</button>
+														<button>삭제</button>
+													</div>	
+												</div>
+											</div>
+										</li>
+										<li class="addressInfo mb-4">
+											<div class="boxdeliveryaddress">
+												<div class="boxdeliveryaddressTitle">
+													<span>배송지이름(XXX)</span>
+													<button type="button" class="button__delivery-choice">선택</button>
+												</div>
+												<div class="useraddressinfo">
+													<div id="useraddressinfo">
+														<div class="boxdeliveryaddressContent">
+															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
+														</div>
+														<div class="boxdeliveryaddressName">
+															<span>홍길동</span>
+															<span>010-2222-2222</span>
+														</div>
+													</div>
+													<div class="deliverybtn">
+														<button>수정</button>
+														<button>삭제</button>
+													</div>	
+												</div>
+											</div>
+										</li>										
+										<li class="addressInfo mb-4">
+											<div class="boxdeliveryaddress">
+												<div class="boxdeliveryaddressTitle">
+													<span>배송지이름(XXX)</span>
+													<button type="button" class="button__delivery-choice">선택</button>
+												</div>
+												<div class="useraddressinfo">
+													<div id="useraddressinfo">
+														<div class="boxdeliveryaddressContent">
+															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
+														</div>
+														<div class="boxdeliveryaddressName">
+															<span>홍길동</span>
+															<span>010-2222-2222</span>
+														</div>
+													</div>
+													<div class="deliverybtn">
+														<button>수정</button>
+														<button>삭제</button>
+													</div>	
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</section>
+						</div>
+					</div>	
+				</div>
+			</div>
+<!--  	      	<div class="modal-footer">  -->
+<!--  	        	<button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>  -->
+<!--  	        	<button type="submit" class="btn btn-primary" >저장하기</button> -->
+<!--  	      	</div>  -->
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+
+	<!-- Modal 배송지 입력 및 수정 모달창-->
+	<div class="modal fade" id="staticBackdrop1"
+		data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      <!-- 수정 버튼시 title 배송지 수정 -->
+	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 추가</h1>
+<!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <form>
+	      	<div class="modal-body">
+				<div id="container">
+				
+
+	 		
+	      		</div>
+	 		</div>
+		  	<div id="addaddressbtn" class="modal-footer">
+		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		    	<button type="submit" class="btn btn-primary" >저장</button>
+		  	</div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+
+
+
 </body>
 <script>
 // 스크립트 시작

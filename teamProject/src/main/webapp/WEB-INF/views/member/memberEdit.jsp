@@ -17,9 +17,9 @@
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
 			<!--  -->
-        	<div class="container rounded-5 shadow" style="height: 850px; width: 700px; padding: 0, 20%, 0, 20%;">
+        	<div class="container rounded-5 shadow" style="height: 870px; width: 700px; padding: 0, 20%, 0, 20%;">
+                <form action="memberEditPro" method="post">
                 <section class="css-1dk9sr2" style="height: 100%;">
-                    
                     <div class="css-312egs">
                         <section class="css-2fvz7x">
                         <h4 style="padding-bottom: 6%; font-family: sans-serif;">프로필 수정</h4>       
@@ -33,7 +33,8 @@
 							<i class="fa fa-plus"></i>사진 변경</button>
 							</div>
 						</div>
-                        <div class="container">
+						</section>
+                        <div class="container" style="padding-top: 3%;">
                             <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>닉네임</b></label>
                					<input type="text" name="nick_ed" class="form-control" placeholder="닉네임을 입력해주세요" value="${customerInfo.CUS_NAME}"></div>
                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="pw_ed"><b>비밀번호</b></label>
@@ -42,7 +43,7 @@
                					<input type="text" name="phone_ed" class="form-control" placeholder="(하이픈(-) 제외 입력)" value="${customerInfo.CUS_NAME}"></div>
                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed"><b>이메일</b></label>
                					<input type="text" name="email_ed" class="form-control" placeholder="이메일을 입력해 주세요" value="${customerInfo.CUS_NAME}"></div>
-               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="address_ed">주소</label>
+               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px; padding-bottom: 3%;"><label for="address_ed">주소</label>
 								<div class="input-group">
 									<input type="text" id="address_ed" name="address_ed" class="form-control" placeholder="주소를 입력해주세요" required>
 									<button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
@@ -51,10 +52,16 @@
 									<input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
 								</div>
 			  				</div>
+			  				
                			</div>
-                            
+                           
                     </div>
+                    <div class="container" style="padding-left: 6%; padding-right: 6%;">
+                    <button type="submit" id="updateBtn" style="font-family: sans-serif;">수정하기</button> 
+                    </div>
+                    
                 </section>
+                </form>
 			<!--  -->
 		</div>
 		</div>

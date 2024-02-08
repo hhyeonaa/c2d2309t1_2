@@ -29,9 +29,13 @@
                                 <span>레몬나르고빚갚으리오</span>
                             </div>
                             <button type="button" onclick="location.href='memberEdit'">프로필 수정하기</button>
-                            <br>
-                            <div class="chart">
-						      <div class="bar" style="width: 40%;">40˚</div>
+                            <br><span>평점지수</span>
+                            <div class="chart" style="width: 250px;">
+                            
+	                            <div class="outer_div">
+	                            	<div class="my_gradient_4" style="width: 60%;"><p style="font-size: 10px; text-align: right; padding-right: 5%;">40</p></div>
+	                            </div>
+<!-- 						      <div class="bar" style="width: 40%;">40˚</div> -->
 						    </div>
                         </section>
                         

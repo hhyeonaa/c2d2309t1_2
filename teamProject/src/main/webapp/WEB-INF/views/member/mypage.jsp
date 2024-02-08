@@ -17,7 +17,7 @@
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
 			<!--  -->
-        	<div class="container" style="border: 1px solid black; height: 600px; width: 700px; padding: 0, 20%, 0, 20%;">
+        	<div class="container rounded-5 shadow" style="height: 600px; width: 700px; padding: 0, 20%, 0, 20%;">
                 <section class="css-1dk9sr2">
                     
                     <div class="css-312egs">
@@ -28,7 +28,7 @@
                             <div>
                                 <span>레몬나르고빚갚으리오</span>
                             </div>
-                            <button type="button">프로필 수정하기</button>
+                            <button type="button" onclick="location.href='memberEdit'">프로필 수정하기</button>
                             <br>
                             <div class="chart">
 						      <div class="bar" style="width: 40%;">40˚</div>

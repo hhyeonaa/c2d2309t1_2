@@ -94,6 +94,10 @@
 			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력해주세요." required>
 	      </div>
 	      <div class="form-group">
+	        <label for="phone">전화번호</label>
+	        <input type="text" id="phone" name="phone" placeholder="(하이픈(-) 제외 입력)">
+	      </div>
+	      <div class="form-group">
 	        <label for="email">이메일</label>
 	        <input type="email" id="email" name="email" placeholder="[선택] 이메일주소 (비밀번호 찾기 등 본인 확인용)">
 	      </div>
@@ -108,10 +112,6 @@
 	      <div class="form-group">
 	        <label for="birth">생년월일</label>
 	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>
-	      </div>
-	      <div class="form-group">
-	        <label for="nickname">닉네임</label>
-	        <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력해 주세요." required>
 	      </div>
 	      <div class="form-group">
 			  <label for="gender">성별</label>

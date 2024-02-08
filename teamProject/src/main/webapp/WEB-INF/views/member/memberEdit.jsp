@@ -4,51 +4,79 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/resources/css/member/memberEdit.css" rel="stylesheet">
-<title>Insert title here</title>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
-<body>
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
-        </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                    <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+<jsp:include page="../template/header.jsp"/>
+	
+<body class="d-flex flex-column min-vh-100">
+
+<div style="display: flex; justify-content: center; align-items: center;">
+
+	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
+		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
+			<!--  -->
+        	<div class="container rounded-5 shadow" style="height: 850px; width: 700px; padding: 0, 20%, 0, 20%;">
+                <section class="css-1dk9sr2" style="height: 100%;">
+                    
+                    <div class="css-312egs">
+                        <section class="css-2fvz7x">
+                        <h4 style="padding-bottom: 6%; font-family: sans-serif;">프로필 수정</h4>       
+                        <div>
+                        	<!-- 기본사진(프로필 삭제)버튼 -->
+                        	<div style="padding-left: 80%;" class="close">&times;</div>
+                            <div>
+                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/lemon.jpg"/>
+                            <br>
+                       		<button type="button" id="inputBtn" class="btn btn-outline-dark border px-3 p-1 add-experience shadow" style="font-size: 12px;" onclick="editImage()">
+							<i class="fa fa-plus"></i>사진 변경</button>
+							</div>
+						</div>
+                        <div class="container">
+                            <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>닉네임</b></label>
+               					<input type="text" name="nick_ed" class="form-control" placeholder="닉네임을 입력해주세요" value="${customerInfo.CUS_NAME}"></div>
+               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="pw_ed"><b>비밀번호</b></label>
+               					<input type="text" name="pw_ed" class="form-control" placeholder="(영문/숫자/특수 포함 8자 이상)" value="${customerInfo.CUS_NAME}"></div>
+               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="phone_ed"><b>전화번호</b></label>
+               					<input type="text" name="phone_ed" class="form-control" placeholder="(하이픈(-) 제외 입력)" value="${customerInfo.CUS_NAME}"></div>
+               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed"><b>이메일</b></label>
+               					<input type="text" name="email_ed" class="form-control" placeholder="이메일을 입력해 주세요" value="${customerInfo.CUS_NAME}"></div>
+               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="address_ed">주소</label>
+								<div class="input-group">
+									<input type="text" id="address_ed" name="address_ed" class="form-control" placeholder="주소를 입력해주세요" required>
+									<button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
+								</div>
+								<div class="input-group">
+									<input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
+								</div>
+			  				</div>
+               			</div>
+                            
+                    </div>
+                </section>
+			<!--  -->
+		</div>
+		</div>
+	</div>
 </div>
 </body>
+
+<script>
+//-----------------다음 주소찾기 API------------------
+//주소찾기 버튼 클릭 시 이벤트 처리
+document.getElementById('search-address').addEventListener('click', function() {
+// 다음 우편번호 서비스 실행
+daum.postcode.load(function() {
+ new daum.Postcode({
+   oncomplete: function(data) {
+     // 주소 정보를 가져와서 처리하는 로직 작성
+     document.getElementById('address').value = data.address;
+   }
+ }).open();
+});
+});
+</script>
+
+<jsp:include page="../template/Footer.jsp"/>
 </html>

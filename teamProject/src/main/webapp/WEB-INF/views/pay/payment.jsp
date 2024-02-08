@@ -221,7 +221,6 @@
 	      </div>
 	      <form>
 	      	<div class="modal-body">
-	      		
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__address-list">
 						<div id="content" class="userDeliveryList">
@@ -309,11 +308,10 @@
 					</div>	
 				</div>
 			</div>
-<!-- 	      	<div class="modal-footer"> -->
-<!-- 	        	<button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
-<!-- 	        	<button type="submit" class="btn btn-primary" >저장하기</button> -->
-<!-- 	      	</div> -->
-
+<!--  	      	<div class="modal-footer">  -->
+<!--  	        	<button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>  -->
+<!--  	        	<button type="submit" class="btn btn-primary" >저장하기</button> -->
+<!--  	      	</div>  -->
 	      </form>
 	    </div>
 	  </div>
@@ -332,14 +330,17 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <form>
+	      	<div class="modal-body">
+				<div id="container">
 				
 
-	 
-	      	<div id="addaddressbtn" class="modal-footer">
-	        	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-	        	<button type="submit" class="btn btn-primary" >저장</button>
-	      	</div>
-
+	 		
+	      		</div>
+	 		</div>
+		  	<div id="addaddressbtn" class="modal-footer">
+		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		    	<button type="submit" class="btn btn-primary" >저장</button>
+		  	</div>
 	      </form>
 	    </div>
 	  </div>

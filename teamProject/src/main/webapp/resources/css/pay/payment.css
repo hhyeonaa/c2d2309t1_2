@@ -1,4 +1,136 @@
 @charset "UTF-8";
+
+.productInfo{
+	border: none; 
+	width: 100%; 
+	height: 100px; 
+	display: flex; 
+	flex-wrap: wrap;
+}
+.productImg{
+	flex: 1;
+	border: none; 
+	height: 100%; 
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+}
+
+.productImg img {
+	max-width: 100%; 
+	max-height: 100%;
+}
+
+.productPost{
+	flex: 9; 
+	border:  none; 
+	height: 100%; 
+	margin-left: 20px;
+}
+
+.sech1{
+	text-align: center;
+}
+
+.sechr{
+	margin-bottom: 1px;
+}
+
+.Selecttransaction{
+	margin-top: 15px;
+}
+
+.form-check{
+	flex: 1 !important; 
+	display: flex !important; 
+	justify-content: center; 
+	align-items: center;
+}
+.form-check-label{
+	font-size: 20px;
+}
+.Deliveryaddress{
+	border: none; 
+	width: 100%; 
+	height: 350px; 
+	margin-top: 1px;
+}
+.DeliveryInfo{
+	border: none;
+}
+.DeliveryPanel__ShippingRequest-sc-10nnk4w-4{
+	height: 125px !important; 
+	font-size: 20px !important;
+}
+.Payment{
+	border: none; 
+	width: 100%; 
+	height: 200px; 
+	margin-top: 20px;
+}
+.Consent{
+	border: none; 
+	width: 100%; 
+	height: 500px; 
+	margin-top: 100px;	
+}
+.FeeRows__Fee-sc-zf2uot-2{
+	margin-top: 2px !important;
+}
+#totalprice{
+	font-size: 25px;	
+}
+#staticBackdrop{
+	--bs-modal-width: 600px !important;	
+}
+#staticBackdrop1{
+	--bs-modal-width: 600px !important;	
+}
+.box__address-add{
+	width: 100% !important;
+}
+.addressList{
+	width:100%;
+}
+#divAddress{
+	padding-left:0; 	
+}
+.addressInfo{
+	border: 1px solid #e0e0e0;
+}
+.boxdeliveryaddress{
+	padding: 15px;
+}
+.boxdeliveryaddressTitle{
+	margin-bottom: 20px; 
+	font-size: 25px; 
+	font-weight: bold; 
+	display: flex; 
+	justify-content: space-between;
+}
+.useraddressinfo{
+	display: flex;
+	flex-direction: row;
+}
+#useraddressinfo{
+	width: 84% !important;
+}
+.boxdeliveryaddressContent{
+	margin-bottom: 5px; 
+	font-size: 15px;
+}
+.boxdeliveryaddressName{
+	font-size: 15px;
+}
+.deliverybtn{
+	display: flex;
+	flex-direction: row;
+}
+.deliverybtn button{
+	display: inline-flex;
+	align-items: flex-end;	
+}
+/* /////////////////////////////////////// */
 .gNplro {
     display: flex;
     flex-direction: column;

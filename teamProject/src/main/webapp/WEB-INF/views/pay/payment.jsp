@@ -20,39 +20,39 @@
 		<div style="border: 1px solid black; width: 100%; height: auto;">
 				
     <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0">
-        <h1 style="text-align: center;">결제하기</h1>
+        <h1 class="sech1">결제하기</h1>
         <hr>
-            <div class="productInfo" style="border: none; width: 100%; height: 100px; display: flex; flex-wrap: wrap;  ">
+            <div class="productInfo">
 <!--                 <div class="productImg" style="flex: 1; border:  1px solid black; height: 100%; display: flex; justify-content: center; align-items: center;"> -->
-                <div class="productImg" style="flex: 1; border: none; height: 100%; display: flex; justify-content: center; align-items: center;">
-					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill" style="max-width: 100%; max-height: 100%;">
+                <div class="productImg">
+					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill">
                 </div>
-                <div class="productPost" style="flex: 9; border:  none; height: 100%; margin-left: 20px;">
+                <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
 					<span class="productPostTitle">따봉도치 팜ㅍㅍㅍ</span><br>
 					<span class="productPrice">100,000원</span>
                 </div>
             </div>
-            <hr style="margin-bottom: 1px;">
-			<div class="d-flex" style="margin-top: 15px;">
-				<div class="form-check flex-fill" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+            <hr class="sechr">
+			<div class="d-flex Selecttransaction">
+				<div class="form-check flex-fill">
 				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-				    <label class="form-check-label" for="radio1" style="font-size: 20px;">택배거래</label>
+				    <label class="form-check-label" for="radio1">택배거래</label>
 				</div>
-				<div class="form-check flex-fill" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+				<div class="form-check flex-fill">
 				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-				    <label class="form-check-label" for="radio2" style="font-size: 20px;">직거래</label>
+				    <label class="form-check-label" for="radio2">직거래</label>
 				</div>
 			</div>
 	</section>		
             <hr>
     <section class="DefaultPayment__Section-sc-64075s-3 gNplro">        
 <!--             <div class="Delivery address" style="border: 1px solid black; width: 100%; height: 500px;"> -->
-            <div class="Delivery address" style="border: none; width: 100%; height: 350px; margin-top: 1px;">
+            <div class="Deliveryaddress">
 				<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY DeliveryPanel__DefaultPanel-sc-10nnk4w-1 kowRcQ">            
 	            	<h4 class="sc-gFqAkR icVCJU">배송지</h4>
 <!-- 	            	<div class="DeliveryInfo" style="border:1px outset gray;"> -->
-	            	<div class="DeliveryInfo" style="border: none;">
+	            	<div class="DeliveryInfo">
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
@@ -83,14 +83,14 @@
             			</div>
 						<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
 							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
-							class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" style="height: 125px !important; font-size: 20px;"></textarea>
+							class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ"></textarea>
 						</div>
 					</div>		
 	            </div>
 			</div>
 <!-- 			<hr> -->
 <!--             <div class="Payment method and total amount" style="border: 1px solid black; width: 100%; height: 500px;"> -->
-            <div class="Payment method and total amount" style="border: none; width: 100%; height: 200px; margin-top: 20px;">
+            <div class="Payment method and total amount">
             	<div class="PaymentMethodPanel__PaymentMethod-sc-egufas-0 hglvUW">
             		<hr>
             		<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PaymentMethodPanel__SDefaultPanel-sc-egufas-9 cnEgsB"> 
@@ -149,7 +149,7 @@
             </div>
          
         
-            <div class="Consent and Payment" style="border: none; width: 100%; height: 500px; margin-top: 100px;">
+            <div class="Consent and Payment">
             	<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PricingTablePanel__DefaultPanel-sc-1e9itak-7 Qqlie">
             		<h4 class="sc-gFqAkR icVCJU">결제금액</h4>
             		<div>
@@ -180,7 +180,7 @@
 										안전결제 수수료
 									</div>
 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu direction-column">
-										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl" style="margin-top: 2px;">
+										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl">
 										&nbsp;+4,830원
 										</span>
 									</div>
@@ -189,7 +189,7 @@
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									총 결제금액
 									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" style="font-size: 25px;">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
 										142,830원
 									</div>
 								</div>
@@ -211,7 +211,7 @@
 <!-- </div> -->
 
 	<!-- Modal 배송지 목록 모달창-->
-	<div class="modal fade" id="staticBackdrop" style="--bs-modal-width: 600px !important;"
+	<div class="modal fade" id="staticBackdrop"
 				data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-scrollable">
 	    <div class="modal-content">
@@ -226,78 +226,78 @@
 					<div id="content" class="mypage__wrap mypage__address-list">
 						<div id="content" class="userDeliveryList">
 							<section class="section__order-info">
-								<div class="box__address-add" style="width: 100% !important;">
+								<div class="box__address-add">
 									<button type="button" class="button__address-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
 										<span class="text sprite__mypage--before">새 배송지 추가</span>
 									</button>
 								</div>
-								<div class="addressList" style="width:100%;">
-									<ul id="divAddress" class="deliveryaddress" style="padding-left:0; ">
-										<li class="addressInfo mb-4" style="border: 1px solid #e0e0e0;">
-											<div class="boxdeliveryaddress" style="padding: 15px;">
-												<div class="boxdeliveryaddressTitle" style="margin-bottom: 20px; font-size: 25px; font-weight: bold; display: flex; justify-content: space-between;">
+								<div class="addressList">
+									<ul id="divAddress" class="deliveryaddress">
+										<li class="addressInfo mb-4">
+											<div class="boxdeliveryaddress">
+												<div class="boxdeliveryaddressTitle">
 													<span>배송지이름(XXX)</span>
 													<button type="button" class="button__delivery-choice">선택</button>
 												</div>
-												<div style="display: flex;flex-direction: row;">
-													<div style="width: 84%;">
-														<div class="boxdeliveryaddressContent" style="margin-bottom: 5px; font-size: 15px;">
+												<div class="useraddressinfo">
+													<div id="useraddressinfo">
+														<div class="boxdeliveryaddressContent">
 															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
 														</div>
-														<div class="boxdeliveryaddressName" style="font-size: 15px;">
+														<div class="boxdeliveryaddressName">
 															<span>홍길동</span>
 															<span>010-2222-2222</span>
 														</div>
 													</div>
-													<div style="display: flex;flex-direction: row;">
-														<button style="display: inline-flex;align-items: flex-end;">수정</button>
-														<button style="display: inline-flex;align-items: flex-end;">삭제</button>
+													<div class="deliverybtn">
+														<button>수정</button>
+														<button>삭제</button>
 													</div>	
 												</div>
 											</div>
 										</li>
-										<li class="addressInfo mb-4" style="border: 1px solid #e0e0e0;">
-											<div class="boxdeliveryaddress" style="padding: 15px;">
-												<div class="boxdeliveryaddressTitle" style="margin-bottom: 20px; font-size: 25px; font-weight: bold; display: flex; justify-content: space-between;">
+										<li class="addressInfo mb-4">
+											<div class="boxdeliveryaddress">
+												<div class="boxdeliveryaddressTitle">
 													<span>배송지이름(XXX)</span>
 													<button type="button" class="button__delivery-choice">선택</button>
 												</div>
-												<div style="display: flex;flex-direction: row;">
-													<div style="width: 84%;">
-														<div class="boxdeliveryaddressContent" style="margin-bottom: 5px; font-size: 15px;">
+												<div class="useraddressinfo">
+													<div id="useraddressinfo">
+														<div class="boxdeliveryaddressContent">
 															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
 														</div>
-														<div class="boxdeliveryaddressName" style="font-size: 15px;">
+														<div class="boxdeliveryaddressName">
 															<span>홍길동</span>
 															<span>010-2222-2222</span>
 														</div>
 													</div>
-													<div style="display: flex;flex-direction: row;">
-														<button style="display: inline-flex;align-items: flex-end;">수정</button>
-														<button style="display: inline-flex;align-items: flex-end;">삭제</button>
+													<div class="deliverybtn">
+														<button>수정</button>
+														<button>삭제</button>
 													</div>	
 												</div>
 											</div>
-										</li>
-										<li class="addressInfo mb-4" style="border: 1px solid #e0e0e0;">
-											<div class="boxdeliveryaddress" style="padding: 15px;">
-												<div class="boxdeliveryaddressTitle" style="margin-bottom: 20px; font-size: 25px; font-weight: bold; display: flex; justify-content: space-between;">
+										</li>										
+										<li class="addressInfo mb-4">
+											<div class="boxdeliveryaddress">
+												<div class="boxdeliveryaddressTitle">
 													<span>배송지이름(XXX)</span>
 													<button type="button" class="button__delivery-choice">선택</button>
 												</div>
-												<div style="display: flex;flex-direction: row;">
-													<div style="width: 84%;">
-														<div class="boxdeliveryaddressContent" style="margin-bottom: 5px; font-size: 15px;">
+												<div class="useraddressinfo">
+													<div id="useraddressinfo">
+														<div class="boxdeliveryaddressContent">
 															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
 														</div>
-														<div class="boxdeliveryaddressName" style="font-size: 15px;">
+														<div class="boxdeliveryaddressName">
 															<span>홍길동</span>
 															<span>010-2222-2222</span>
 														</div>
 													</div>
-													<div style="display: flex;flex-direction: row;">
-														<button style="display: inline-flex;align-items: flex-end;">수정</button>
-														<button style="display: inline-flex;align-items: flex-end;">삭제</button>
+													<div class="deliverybtn">
+														<button>수정</button>
+														<button>삭제</button>
 													</div>	
 												</div>
 											</div>
@@ -321,7 +321,7 @@
 	<!-- Modal -->
 
 	<!-- Modal 배송지 입력 및 수정 모달창-->
-	<div class="modal fade" id="staticBackdrop1" style="--bs-modal-width: 600px !important;"
+	<div class="modal fade" id="staticBackdrop1"
 		data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">

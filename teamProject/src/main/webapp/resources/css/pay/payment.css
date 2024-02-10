@@ -139,6 +139,147 @@
 #addaddressbtn button{
 	width: -webkit-fill-available;
 }
+
+
+/* 새 배송지 추가 모달 css */
+.new-address {
+/*     display: flex; */
+    align-items: center;
+    height: 60px; /* 높이를 두 배로 설정합니다. */
+    margin-bottom: 5px; /* 필요에 따라 조절하세요. */
+}
+.box__label {
+/*     flex: 1; */
+    width: 66px;
+}
+
+.box__input {
+/*     flex: 2; */
+	padding-left: 66px;
+    margin-left: 30px; /* Add spacing between label and input if needed */
+}
+
+.input_txt {
+    width: 100%;
+}
+
+.new-address__title {
+    /* 이 클래스에 추가적인 스타일이 필요하다면 여기에 추가하세요. */
+}
+
+
+
+/* .page__pcver .mypage__new-address .new-address { */
+/*     position: relative; */
+/*     margin-top: 14px; */
+/*     overflow: hidden; */
+/* } */
+/* .mypage__new-address .new-address { */
+/* /*     display: -webkit-box; */ */
+/*     display: flex; */
+/*     -webkit-box-pack: justify; */
+/*     justify-content: flex-start; */
+/* /*     margin-top: 12px; */ */
+/*     align-items: center; */
+/* } */
+/* /* .page__pcver .mypage__new-address .new-address .box__label { */ */
+/* /*     position: absolute; */ */
+/* /*     left: 0; */ */
+/* /*     top: 0; */ */
+/* /*     bottom: 0; */ */
+/* /*     vertical-align: middle; */ */
+/* /*     width: 66px; */ */
+/* /* } */ */
+/* #box__label{ */
+/* 	position: absolute; */
+/*     left: 0; */
+/*     top: 0; */
+/*     bottom: 0; */
+/*     vertical-align: middle; */
+/*     width: 66px; */
+/* } */
+
+/* .page__pcver .mypage__new-address .new-address .box__label .text__label { */
+/*     color: #000; */
+/*     line-height: 46px; */
+/* } */
+/* .mypage__new-address .new-address .box__label .text__label { */
+/*     position: relative; */
+/*     font-size: 20px; */
+/* /*     line-height: 40px; */ */
+/* /*     color: #222; */ */
+/* } */
+/* .page__pcver .mypage__new-address .new-address .box__input { */
+/*     padding-left: 66px; */
+/*     width: 100%; */
+/*     box-sizing: border-box; */
+/* } */
+/* .mypage__new-address .new-address .box__input { */
+/*     position: relative; */
+/* /*     flex: 1; */ */
+/* } */
+/* .page__pcver .mypage__new-address .new-address .box__input .input_txt { */
+/*     height: 46px; */
+/*     border: 1px solid #e0e0e0; */
+/* } */
+/* .mypage__new-address .new-address .box__input .input_txt { */
+/*     width: 100%; */
+/* /*     border: 1px solid #e5e9ee; */ */
+/*     padding: 0 10px; */
+/*     font-size: 16px; */
+/* /*     height: 42px; */ */
+/*     line-height: 40px; */
+/*     caret-color: #007aff; */
+/* } */
+/* #address-title{ */
+/* 	border-radius: 0; */
+/* } */
+/* #staticBackdropLabel{ */
+/* 	font-size: 2.25rem!important; */
+/* } */
+/* .page__pcver .mypage__new-address .new-address__detail .box__input { */
+/*     margin-left: 66px; */
+/* } */
+/* .mypage__new-address .new-address__detail .box__input { */
+/*     position: relative; */
+/*     margin: 12px 0 0 74px; */
+/* } */
+/* .page__pcver .mypage__new-address .new-address__detail .box__input .input_txt { */
+/*     height: 46px; */
+/*     border: 1px solid #e0e0e0; */
+/* } */
+/* .mypage__new-address .new-address__detail .box__input .input_txt { */
+/*     width: 100%; */
+/* /*     height: 42px; */ */
+/*     border: 1px solid #e5e9ee; */
+/*     padding: 0 10px; */
+/*     font-size: 16px; */
+/*     line-height: 40px; */
+/* } */
+/* .address-container { */
+/*     display: flex; */
+/*     flex-direction: column; */
+/* } */
+
+/* .new-address { */
+/*     display: flex; */
+/*     align-items: center; */
+/*     margin-bottom: 10px; Just for spacing */
+/* } */
+
+/* .box__label { */
+/*     flex: 1; */
+/* } */
+
+/* .box__input { */
+/*     flex: 5; */
+/* /*     margin-left: 10px; Just for spacing */ */
+/* } */
+
+/* .box__input input { */
+/*     width: 100%; */
+/* } */
+
 /* /////////////////////////////////////// */
 .gNplro {
     display: flex;

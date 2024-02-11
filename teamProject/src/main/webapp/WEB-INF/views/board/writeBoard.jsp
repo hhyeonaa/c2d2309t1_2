@@ -25,7 +25,7 @@
 
 #input-file-button{
   padding: 10px 25px;
-  background-color:rgb(245, 126, 0);
+  background-color: white;
   border-radius: 4px;
   color: white;
   cursor: pointer;
@@ -43,27 +43,39 @@
 		<div style="width: 100%;">
 			<div class="container">
 			  <div class="row">
-			    <div class="col-12 d-flex justify-content-center mt-4">
-   			      <select id="boardSelect">
+			    <div class="col-12 d-flex justify-content-between mt-4">
+   			      <select id="boardSelect" name="boardSelect" style="width: 100px;">
 			      	<option id="sale" value="sale" selected>판매</option>
 			      	<option id="buy" value="buy">구매</option>
 			      	<option id="divide" value="divide">나눔</option>
 			      	<option id="auction" value="auction">경매</option>
 			      </select>
 			      <h2>상품 등록</h2>
+			      <select id="selectPreBoard">
+			      	<option value="" selected>임시저장글</option>
+			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
+			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
+			      	<option>[판매] 이거 팜팜팜 24.02.08</option>
+			      	<option>[판매] 이거 팜팜팜 24.02.08</option>
+			      	<option>[나눔] 이거 눔눔눔 24.02.08</option>
+			      	<option>[나눔] 이거 눔눔눔 24.02.08</option>
+			      	<option>[경매] 이거 경경경 24.02.08</option>
+			      	<option>[경매] 이거 경경경 24.02.08</option>
+			      </select>
 			    </div>
 			  </div>
 			  <hr>
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-center">
 			      <!-- input 요소는 숨겨져 있으므로, label 요소를 중앙 정렬합니다. -->
-			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button">상품 이미지 등록</label>
+			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button"><img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png"></label>
 			      <input type='file' id='btnAtt' multiple style="display: none;"/>
+			      <button id="resetImg"><i class="bi bi-trash"></i></button>
 			    </div>
 			  </div>
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-center">
-			      <div id='att_zone' class="mt-3" data-placeholder="파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 8장까지 하나당 5mb까지"></div>
+			      <div id='att_zone' class="mt-3" data-placeholder="파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지"></div>
 			    </div>
 			  </div>
 			  <div class="row">
@@ -269,32 +281,32 @@
 				<div class="col-12 d-flex justify-content-center">
 				<div class="mb-3">
 					<label for="itemDetail" class="form-label">상세 설명</label>
-					<textarea class="form-control" id="itemDetail" rows="5" cols="100" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
+					<textarea class="form-control" id="itemDetail" rows="5" cols="200" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
 서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요."></textarea>
 				</div>
 				<span>0/2000</span>
 				</div>
 			</div>
 			<hr>
-			<div class="row">
-				<div class="row">
-				    <div>
-						<div class="input-group" style="width: 90%;" >
-						    <span class="input-group-text" id="basic-addon1">태그</span>
-						    <input type="text" class="form-control" placeholder="태그 입력" aria-label="InputTag" aria-describedby="basic-addon1">
-						</div>
-			    	</div>
-		    	</div>
-		    	<div class="row">
-					<div class="mt-3">
-						<div><span>태그는 띄어쓰기로 구분되며 최대 9자까지 입력할 수 있어요.</span></div>
-						<div><span>내 상품을 다양한 태그로 표현해 보세요.</span></div>
-						<div><span>사람들이 내 상품을 더 잘 찾을 수 있어요.</span></div>
-						<div><span>상품과 관련 없는 태그를 입력할 경우, 판매에 제재를 받을 수 있어요.</span></div>
-					</div>
-		    	</div>
-		  	</div>
-		  	<hr>
+<!-- 			<div class="row"> -->
+<!-- 				<div class="row"> -->
+<!-- 				    <div> -->
+<!-- 						<div class="input-group" style="width: 90%;" > -->
+<!-- 						    <span class="input-group-text" id="basic-addon1">태그</span> -->
+<!-- 						    <input type="text" class="form-control" placeholder="태그 입력" aria-label="InputTag" aria-describedby="basic-addon1"> -->
+<!-- 						</div> -->
+<!-- 			    	</div> -->
+<!-- 		    	</div> -->
+<!-- 		    	<div class="row"> -->
+<!-- 					<div class="mt-3"> -->
+<!-- 						<div><span>태그는 띄어쓰기로 구분되며 최대 9자까지 입력할 수 있어요.</span></div> -->
+<!-- 						<div><span>내 상품을 다양한 태그로 표현해 보세요.</span></div> -->
+<!-- 						<div><span>사람들이 내 상품을 더 잘 찾을 수 있어요.</span></div> -->
+<!-- 						<div><span>상품과 관련 없는 태그를 입력할 경우, 판매에 제재를 받을 수 있어요.</span></div> -->
+<!-- 					</div> -->
+<!-- 		    	</div> -->
+<!-- 		  	</div> -->
+<!-- 		  	<hr> -->
 			<div class="row">
 			    <div>
 					<div class="input-group" style="width: 90%;" >
@@ -330,18 +342,39 @@ OO페이 배지로 더 많은 관심을 받을 수 있어요.
 		</div> <!-- border안  -->
 	</div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script>
+var customSelect2 = function(tag){
+	tag.select2({
+  		"language": {
+    		"noResults": function (params) {
+      			return "<b style='color:rgb(220, 20, 60, 0.5);'>찾을 수 없어요 :(</b>";
+    		}
+  		},
+  		escapeMarkup: function (markup) {
+        	return markup;
+    	}
+	});
+}
+var sel_files = []; // 선택된 파일들을 저장할 배열입니다. 전역변수 선언(배열 확인을 위해)
+var checkFileList = [,,,,,,];
 $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
-	var sel_files = []; // 선택된 파일들을 저장할 배열입니다.
+// 	var sel_files = []; // 선택된 파일들을 저장할 배열입니다.
+	customSelect2($("#boardSelect"));
+	customSelect2($("#selectPreBoard"));
 	
+// 	$("#boardSelect").select2();
+// 	$("#selectPreBoard").select2();
 	// 이미지 미리보기를 생성하고 화면에 표시하는 함수입니다.
-	function displayImagePreview(file) {
+	function displayImagePreview(file, fileName) {
 		var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체를 생성합니다.
 		reader.onload = function(e) { // 파일 읽기가 완료되면 실행할 콜백 함수입니다.
 		  var img = $('<img/>', { // 이미지 태그를 생성하고 속성을 설정합니다.
 			'src': e.target.result, // FileReader가 읽은 파일의 결과(데이터 URL)를 이미지의 src 속성으로 설정합니다.
 			'style': 'width:100%;height:100%;' // 이미지 스타일을 설정합니다.
 		  });
+		
 		  var div = $('<div/>', { // 이미지를 담을 div 태그를 생성하고 속성을 설정합니다.
 			'style': 'display:inline-block;position:relative;width:150px;height:120px;margin:5px;border:1px solid #00f;' // div 스타일을 설정합니다.
 		  }).append(img); // 생성된 이미지 태그를 div에 추가합니다.
@@ -350,15 +383,37 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    'type': 'button', // input 태그의 타입을 'button'으로 설정합니다.
 		    'value': 'x', // 버튼에 표시될 텍스트를 'x'로 설정합니다.
 		    'style': 'width:30px;height:30px;position:absolute;font-size:24px;right:0px;bottom:90px;background-color:rgba(255,255,255,0.1);color:#f00;font:icon;' // 버튼 스타일을 설정합니다.
-		  }).click(function() { // 버튼 클릭 이벤트 핸들러를 설정합니다.
+		  }).click(function() { // 버튼 클릭 이벤트 핸들러를 설정합니다.  
+			  
 		    $(this).parent().remove(); // 버튼이 속한 부모 div를 DOM에서 제거합니다.
-		    sel_files = sel_files.filter(function(f) { // 선택된 파일 목록에서 현재 파일을 제거합니다.
-		      return f.name !== file.name;
-		    });
+		    
+		    $('#att_zone').find($("input[type=hidden]")).remove();
+		    for(var i = 0; i < checkFileList.length; i++){
+		    	if(checkFileList[i] === undefined || checkFileList[i].length === 0) continue;
+		    	for(var j = 0; j < checkFileList[i].length; j++){
+		    		if(checkFileList[i][j].name === fileName){
+		    			checkFileList[i].splice(j,1);
+		    		}
+		    	}
+		    }
+// 		    sel_files.splice(sel_files.indexof(fileName),1);
+// 		    for(var i = 0; i < checkFileList.length; i++){
+// 		    	if((checkFileList[i])[0].lastModified === sel_files.lastModified){
+// 		    		checkFileList[i] = sel_files;
+// 		    	}
+// 		    }
+		    
+// 		    sel_files = sel_files.filter(function() { // 선택된 파일 목록에서 현재 파일을 제거합니다.
+// 		    	this;
+// 		    	debugger;
+// 		      return f.name !== file.name;
+// 		    });
+		    $("#btnAtt").val("");// 임시추가?
 		  });
 		
 		  div.append(btn); // 생성된 버튼을 div에 추가합니다.
 		  $('#att_zone').append(div); // 완성된 div를 페이지의 'att_zone'에 추가합니다.
+		  $('#att_zone').append('<input type="hidden" value="' + fileName + '"/>');
 		};
 		reader.readAsDataURL(file); // FileReader 객체를 사용해 파일을 데이터 URL로 읽습니다.
 	}// displayImagePreview()함수 끝
@@ -372,9 +427,20 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 	}// filterNonImageFiles() 함수 끝
 	
-	// 이미지 파일 개수를 체크하고, 6개를 초과할 경우 경고합니다.
+	// 이미지 파일 개수를 체크하고, 6개를 초과할 경우 경고합니다.(총6개?)
 	function checkFileLimit(filesToAdd) {
-		var totalFiles = sel_files.length + filesToAdd.length; // 기존 파일과 추가될 파일의 총 개수
+		//----임시 추가 시작----
+		var resultList = []; // 결과를 저장할 배열입니다.
+		for (i = 0; i < checkFileList.length; i++) {
+		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
+		        for (j = 0; j < checkFileList[i].length; j++) {
+		        	resultList.push(checkFileList[i][j]); // 'result' 배열에 요소를 추가합니다.
+		        }
+		    }
+		}
+		//----임시 추가 끝----
+// 		var totalFiles = sel_files.length + filesToAdd.length; // 기존 파일과 추가될 파일의 총 개수
+		var totalFiles = resultList.length + filesToAdd.length;
 		if (totalFiles > 6) {
 		  alert("최대 6개의 이미지만 업로드할 수 있습니다.");
 		  return false; // 파일 추가 작업 중단
@@ -392,20 +458,69 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		return true; // 파일 추가 작업 계속
 	}// checkFileSize() 함수 끝
 	
+	// 이미지 이름 중복 체크
+//  	function checkDuplicateName(fileName){
+// 		debugger;
+// 		for (i = 0; i < checkFileList.length; i++) {
+// 		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
+// 		        for (j = 0; j < checkFileList[i].length; j++) {
+// 		        	if(checkFileList[i][j].name === fileName){
+// 		        		//alert("중복된 파일 이름 입니다.");
+// 		        		return true;
+// 		        	}
+// 		        }
+// 		    }
+// 		}		
+// 	} 
+ 	function checkDuplicateName(fileName) {
+ 	    const isDuplicate = checkFileList.some(fileGroup => {
+ 	    	debugger;
+ 	        return fileGroup && fileGroup.some(file => file.name === fileName);
+ 	    });
+
+ 	    if (isDuplicate) {
+ 	        return true;
+ 	    }
+ 	    return false;
+ 	}
+
+	
 	$(document).on('change', '#btnAtt', function(e) { // 파일 입력 필드에 변화가 있을 때 실행될 이벤트 핸들러를 설정합니다.
 		var files = e.target.files; // 사용자가 선택한 파일들을 가져옵니다.
 		var imageFiles  = filterNonImageFiles(files);
-	   
+		// 총 파일 개수를 체크해야겠지?  
 		// 파일 개수 체크
-	    if (!checkFileLimit(imageFiles)) return; // 6개를 초과하면 추가 작업 중단
-	    
+		if (!checkFileLimit(imageFiles)) return; // 6개를 초과하면 추가 작업 중단
+		   
 		console.log("선택된 파일들:");
+		sel_files = []; // 이전에 선택된 파일들을 리셋합니다.
+		
 		$.each(imageFiles , function(i, file) { // 선택된 각 파일에 대해 반복합니다.
 			if (!checkFileSize(file)) return; // 5MB를 초과하면 추가 작업 중단
 			console.log(file.name + " (" + file.type + ", " + file.size + " bytes)");
+			//----- 임시 파일 이름 체크 -----
+// 			for (i = 0; i < checkFileList.length; i++) {
+// 			    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
+// 			        for (j = 0; j < checkFileList[i].length; j++) {
+// 			        	if(checkFileList[i][j].name === file.name){
+// 			        		return;
+// 			        	}
+// 			        }
+// 			    }
+// 			}
+			if(checkDuplicateName(file.name)) return;
+			//----- 임시 파일 이름 체크 끝-----
 			sel_files.push(file); // 현재 파일을 선택된 파일 목록에 추가합니다.
-			displayImagePreview(file); // 현재 파일에 대한 이미지 미리보기를 생성합니다.
+			displayImagePreview(file, file.name); // 현재 파일에 대한 이미지 미리보기를 생성합니다.
 		});
+		//임시 실험 시작
+		for(i = 0; i < checkFileList.length; i++){
+			if(checkFileList[i] === undefined || checkFileList[i].length === 0){
+				checkFileList[i] = sel_files; 
+				break;	
+			}
+		}
+		//임시 실험 끝
 	});
 	
 	$('#att_zone').on('dragenter dragover', function(e) { // 'att_zone'에 파일이 드래그될 때 실행될 이벤트 핸들러를 설정합니다.
@@ -421,26 +536,56 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    if (!checkFileLimit(imageFiles)) return; // 6개를 초과하면 추가 작업 중단
 	    
 		console.log("드롭된 파일들:");
+
+		sel_files = []; // 이전에 선택된 파일들을 리셋합니다.
 		$('#btnAtt').prop('files', files); // 파일 입력 필드의 파일 목록을 드롭된 파일들로 설정합니다.
 		$.each(imageFiles , function(i, file) { // 드롭된 각 파일에 대해 반복합니다.
 			if (!checkFileSize(file)) return; // 5MB를 초과하면 추가 작업 중단
 			console.log(file.name + " (" + file.type + ", " + file.size + " bytes)");
+			//----- 임시 파일 이름 체크 -----
+			if(checkDuplicateName(file.name)) return;
+			//----- 임시 파일 이름 체크 끝-----
 			sel_files.push(file); // 드롭된 파일을 선택된 파일 목록에 추가
-			displayImagePreview(file); // 드롭된 파일에 대한 이미지 미리보기를 생성합니다.
+			displayImagePreview(file, file.name); // 드롭된 파일에 대한 이미지 미리보기를 생성합니다.
 		});
+		//임시 실험 시작
+		for(i = 0; i < checkFileList.length; i++){
+			debugger;
+			if(checkFileList[i] === undefined || checkFileList[i].length === 0){
+				checkFileList[i] = sel_files; 
+				break;	
+			}
+		}
+		//임시 실험 끝
 	});
+	// 이중포문 달려서 배열 속의 배열의 파일들을 다시 배열에 담는다(임시) 시작
+// 	var resultList = []; // 결과를 저장할 배열입니다.
+// 	for (i = 0; i < checkFileList.length; i++) {
+// 	    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
+// 	        for (j = 0; j < checkFileList[i].length; j++) {
+// 	        	resultList.push(checkFileList[i][j]); // 'result' 배열에 요소를 추가합니다.
+// 	        }
+// 	    }
+// 	}                           
+	// 이중포문 달려서 배열 속의 배열의 파일들을 다시 배열에 담는다(임시) 끝
 	
+	// 임시 이미지 리셋 버튼
+// 	$('#resetImg').on('click', function(){
+// 		sel_files = [];
+// 		checkFileList = [];
+// 		$('#att_zone').find($("div")).remove();
+// 		$('#att_zone').find($("input[type=hidden]")).remove();
+// 	})
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기
-	$('#submitBtn').on('click', function(e) {
+	$('#submitBtn').on('click', function(e) { 
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지합니다.
-		
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		
 		// `sel_files` 배열에 남아 있는 파일들만 FormData 객체에 추가합니다.
 		$.each(sel_files, function(i, file) {
 			formData.append('files[]', file); // 'files[]'는 서버에서 파일 배열을 받을 때 사용할 이름입니다.
 		});
-		
+// 		formData.append("id", $("input[name=id]").val());
 		// Ajax를 사용하여 formData를 서버에 제출합니다.
 		$.ajax({
 			url: 'your-server-endpoint', // 서버 엔드포인트 URL

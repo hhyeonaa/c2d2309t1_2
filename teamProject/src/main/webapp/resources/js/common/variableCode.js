@@ -4,8 +4,8 @@
 
 /**
  * 적용시킬 js 파일 상단에 아래 js 복붙 해주면됨
- * document.write('<script type="text/javascript"' + 
-			    	'src="/' + window.location.pathname.split("/")[1] + '/Store/resources/js/pageNationCode.js">' +
+ *  document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/variableCode.js">' +
 			   '</script>');
  */
 
@@ -29,6 +29,7 @@
  * 
  */
 
+
 function paging(pgEvent, pageSize, oneOrZero){
 
 	var totalCount = $(pgEvent).length + oneOrZero;
@@ -45,7 +46,7 @@ function paging(pgEvent, pageSize, oneOrZero){
 		_totalPages++;
 	}
 	
-	$('#pagination').twbsPagination('destroy');
+	// $('#pagination').twbsPagination('destroy');
 	
     window.pagObj = $('#pagination').twbsPagination({
     	totalPages: _totalPages,

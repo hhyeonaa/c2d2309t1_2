@@ -334,29 +334,29 @@
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
-							<div class="new-address new-address__title">
+							<div class="new-address new-address__title" id="newaddress">
 								<div class="box__label">
 									<label for="address-title" class="text__label">배송지명</label>
 								</div>
-								<div class="box__input box__text-area" style="display: block; ">
+								<div class="box__input box__text-area" style="display: block;  width: 400px;">
 									<input class="input_txt" id="address-title" maxlength="10" value="">
 								</div>
 							</div>
 							
-							<div class="box__form-control new-address new-address__name">
+							<div class="box__form-control new-address new-address__name" id="newaddress">
 								<div class="box__label">
 									<label for="address-name" class="text__label">받는 분</label>
 								</div>
-								<div class="box__input box__text-area" style="display: block; ">
+								<div class="box__input box__text-area" style="display: block; width: 400px;">
 									<input class="input_txt" id="address-name" maxlength="10" placeholder="수령인 이름을 입력해주세요">
 								</div>
 							</div>
 							
-							<div class="box__form-control new-address new-address__tel">
+							<div class="box__form-control new-address new-address__tel" id="newaddress">
 								<div class="box__label">
 									<label for="address-tel" class="text__label">연락처</label>
 								</div>
-								<div class="box__input box__text-area" style="display: block; ">
+								<div class="box__input box__text-area" style="display: block;  width: 400px;">
 									<input class="input_txt" id="address-tel" maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
 								</div>
 							</div>
@@ -371,7 +371,7 @@
 									<button type="button" class="button__address-search">주소찾기</button>
 							</div>
 
-								<div class="box__form-control new-address__detail">
+								<div class="box__form-control new-address__detail" id="newaddress">
 									<div class="box__input">
 										<input type="text" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="">
 									</div>

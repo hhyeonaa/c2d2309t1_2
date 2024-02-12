@@ -22,7 +22,7 @@
                 <section class="css-1dk9sr2" style="height: 100%;">
                     <div class="css-312egs">
                         <section class="css-2fvz7x">
-                        <h4 style="padding-bottom: 6%; font-family: sans-serif;">프로필 수정</h4>       
+                        <h4 style="padding-bottom: 6%; font-family: sans-serif;">프로필 수정</h4>
                         <div>
                         	<!-- 기본사진(프로필 삭제)버튼 -->
                         	<div style="padding-left: 80%;" class="close">&times;</div>

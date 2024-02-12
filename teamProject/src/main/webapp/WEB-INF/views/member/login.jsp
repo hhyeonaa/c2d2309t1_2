@@ -35,7 +35,7 @@
 		<div id="loginBox">
 		<form action="loginPro.cu" method="post" id="form">
 			<!-- 로그인 페이지 타이틀 -->
-			<div id="loginBoxTitle">꿀중고장터</div>
+			<div id="loginBoxTitle"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></div>
 			<!-- 아이디, 비번, 버튼 박스 -->
 			<div id="inputBox" style="height: 200px;">
 				<div class="input-form-box">
@@ -75,7 +75,7 @@
 	  <div class="modal-content" style="width: 30%;">
 	    <div class="center-align">		
 		  <span class="close">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
 	    <h4>회원가입</h4>
 	    <!-- 이하 생략 -->
@@ -148,9 +148,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closeId">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
+		  <hr>
 		</div>
-		<br>
 	    <h4>아이디 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>
@@ -187,9 +187,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closeIdResult">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
-		<br>
+		<hr>
 	    <h4>아이디 찾기 결과</h4>
 	    <!-- 이하 생략 -->
 		<hr>
@@ -205,9 +205,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closePw">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
-		<br>
+		<hr>
 	    <h4>비밀번호 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>
@@ -248,8 +248,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closePwResult">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
+		<hr>
 	    <h4>새 비밀번호 설정</h4>
 	    <!-- 이하 생략 -->
 	    <form>

@@ -17,7 +17,7 @@
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
 			<!--  -->
-        	<div class="container rounded-5 shadow" style="height: 600px; width: 700px; padding: 0, 20%, 0, 20%;">
+        	<div class="container rounded-5 shadow" style="height: 650px; width: 700px; padding: 0, 20%, 0, 20%;">
                 <section class="css-1dk9sr2">
                     
                     <div class="css-312egs">
@@ -29,17 +29,17 @@
                                 <span>레몬나르고빚갚으리오</span>
                             </div>
                             <button type="button" onclick="location.href='memberEdit'">프로필 수정하기</button>
-                            <br><span>평점지수</span>
+                            <br><span>내 평점온도</span>
                             <div class="chart" style="width: 250px;">
                             
 	                            <div class="outer_div">
-	                            	<div class="my_gradient_4" style="width: 60%;"><p style="font-size: 10px; text-align: right; padding-right: 5%;">40</p></div>
+	                            	<div class="my_gradient_4" style="width: 60%;"><p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div>
 	                            </div>
 <!-- 						      <div class="bar" style="width: 40%;">40˚</div> -->
 						    </div>
                         </section>
                         
-                        <a target="_blank" rel="noopener noreferrer" class="css-vqah3m" href="https://ggulmojoonggo.notion.site/bb80c14ab0ac4d6299f8096e27bee1af?pvs=4">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
                             <span>거래 내역 보기</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
@@ -53,7 +53,7 @@
                             </svg>
                         </a>
                         
-                        <a target="_blank" rel="noopener noreferrer" class="css-vqah3m" href="https://ggulmojoonggo.notion.site/bb80c14ab0ac4d6299f8096e27bee1af?pvs=4">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='likeList'">
                             <span>찜 목록 보기</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
@@ -68,7 +68,7 @@
                         </a>
                         <hr style="border-color: white;">
                         
-                        <a target="_blank" rel="noopener noreferrer" class="css-vqah3m" href="https://ggulmojoonggo.notion.site/bb80c14ab0ac4d6299f8096e27bee1af?pvs=4">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='withdrawal'">
                             <span>계정삭제</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">

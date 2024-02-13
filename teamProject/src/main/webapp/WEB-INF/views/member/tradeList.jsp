@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<jsp:include page="template/header.jsp"/>
+<jsp:include page="../template/header.jsp"/>
 	
 <body class="d-flex flex-column min-vh-100">
 
@@ -130,5 +130,5 @@
 </div>
 </body>
 
-<jsp:include page="template/Footer.jsp"/>
+<jsp:include page="../template/Footer.jsp"/>
 </html>

@@ -26,4 +26,16 @@ public class MemberController {
 		return "member/memberEdit";
 	}// memberEdit()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/tradeList")
+	public String tradeList() {
+		System.out.println("MemberController tradeList()");
+		return "member/tradeList";
+	}// tradeList()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/likeList")
+	public String likeList() {
+		System.out.println("MemberController likeList()");
+		return "member/likeList";
+	}// likeList()
+//	-----------------------------------------------------------------------------
 }// MemberController 클래스

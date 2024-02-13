@@ -29,7 +29,7 @@
                             <div>
                             <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/lemon.jpg"/>
                             <br>
-                       		<button type="button" id="inputBtn" class="btn btn-outline-dark border px-3 p-1 add-experience shadow" style="font-size: 12px;" onclick="editImage()">
+                       		<button type="button" id="inputBtn" class="btn btn-outline-secondary border px-3 p-1 add-experience shadow" style="font-size: 12px;" onclick="editImage()">
 							<i class="fa fa-plus"></i>사진 변경</button>
 							</div>
 						</div>

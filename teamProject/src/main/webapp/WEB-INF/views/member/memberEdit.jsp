@@ -5,17 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>다모임 | 프로필수정</title>
 <link href="${pageContext.request.contextPath}/resources/css/member/memberEdit.css" rel="stylesheet">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <jsp:include page="../template/header.jsp"/>
 	
 <body class="d-flex flex-column min-vh-100">
-
-<div style="display: flex; justify-content: center; align-items: center;">
+<form action="cus_editPro.cu" method="post" name="cus_edit" enctype="multipart/form-data">
+ <div style="display: flex; justify-content: center; align-items: center;">
 
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
+		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; align-items: center;">
 			<!--  -->
         	<div class="container rounded-5 shadow" style="height: 870px; width: 700px; padding: 0, 20%, 0, 20%;">
                 <form action="memberEditPro" method="post">
@@ -67,6 +68,7 @@
 		</div>
 	</div>
 </div>
+</form>
 </body>
 
 <script>

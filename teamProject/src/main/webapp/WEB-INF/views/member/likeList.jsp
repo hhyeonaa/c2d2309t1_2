@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>다모임 | 찜목록</title>
+<title>다모임 | 찜한상품</title>
 <link href="${pageContext.request.contextPath}/resources/css/member/list.css" rel="stylesheet">
 </head>
 <jsp:include page="../template/header.jsp"/>

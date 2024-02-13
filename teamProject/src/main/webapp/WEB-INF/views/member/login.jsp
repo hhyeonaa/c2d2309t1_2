@@ -12,7 +12,7 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<title>000 | 로그인</title>
+<title>다모임 | 로그인</title>
 <link href="${pageContext.request.contextPath}/resources/css/member/login.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- Bootstrap CSS -->
@@ -124,17 +124,16 @@
 			    </select>
 			  </div>
 			</div>
-		  
-			<div class="form-group">
-			  <label for="address">주소</label>
-			  <div class="input-group">
-				  <input type="text" id="address" name="address" class="form-control" placeholder="주소를 입력해주세요" required>
-				  <button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
-			  </div>
-			  <div class="input-group">
-			  	<input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
-			  </div>
-			</div>
+		 <div class="form-group">
+		   <label for="address">주소</label>
+		   <div class="input-group">
+			   <input type="text" id="address" name="address" class="form-control" placeholder="주소를 입력해주세요" required>
+			   <button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
+		   </div>
+		    <div class="input-group">
+		  	 <input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
+		   </div>
+		 </div>
 			<hr>
 	      <div class="button-group">
 	        <input type="submit" value="회원가입">

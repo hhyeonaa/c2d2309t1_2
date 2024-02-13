@@ -39,4 +39,10 @@ public class MemberController {
 		return "member/likeList";
 	}// likeList()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/salesList")
+	public String salesList() {
+		System.out.println("MemberController salesList()");
+		return "member/salesList";
+	}// salesList()
+//	-----------------------------------------------------------------------------
 }// MemberController 클래스

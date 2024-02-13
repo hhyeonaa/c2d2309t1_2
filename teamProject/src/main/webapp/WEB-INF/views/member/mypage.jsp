@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>꿀중고장터 | 마이페이지</title>
+<title>다모임 | 마이페이지</title>
 <link href="${pageContext.request.contextPath}/resources/css/member/mypage.css" rel="stylesheet">
 </head>
 <jsp:include page="../template/header.jsp"/>
@@ -39,8 +39,22 @@
 						    </div>
                         </section>
                         
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='salesList'">
+                            <span>내 상품 관리</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#ic_arrow_mini_svg__a)">
+                                    <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="ic_arrow_mini_svg__a">
+                                        <path fill="#fff" transform="translate(6.667 4.167)" d="M0 0h6.617v11.492H0z"></path>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </a>
+                        
                         <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
-                            <span>거래 내역 보기</span>
+                            <span>거래 내역</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -54,7 +68,7 @@
                         </a>
                         
                         <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='likeList'">
-                            <span>찜 목록 보기</span>
+                            <span>찜한 상품</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>

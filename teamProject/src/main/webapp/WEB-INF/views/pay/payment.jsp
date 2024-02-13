@@ -59,6 +59,7 @@
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">홍길동</p>
             						<!--저장된 배송정보 없을 시 배송지 등록노출  -->
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 수정</span>
+<!--             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 등록</span> -->
             						<!--저장된 배송정보 있을 때 배송지 변경노출  -->
 									<!-- <span class="DeliveryCard_ChangeAddress">변경</span> -->
             					</div>
@@ -96,26 +97,26 @@
             		<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PaymentMethodPanel__SDefaultPanel-sc-egufas-9 cnEgsB"> 
             			<h4 class="sc-gFqAkR icVCJU">결제수단</h4>
             		</div>
-            		<div>
+            		<div id="paymentmehod">
 						<article class="NormalPayment__PaymentMethods-sc-ymu84t-0 jFQssb">
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 kvEuJF"> //클릭시 class kvEuJF -->
-<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK"> //미 클릭시 cGqPmK-->
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+<!-- 										<div class="PaymentGridMethod check"> //클릭시 class check -->
+<!-- 										<div class="PaymentGridMethod nonCheck"> //미 클릭시 nonCheck-->
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">카카오페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
 										</div>
@@ -123,19 +124,19 @@
 								</div>
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">휴대폰결제</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">삼성페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">애플페이</span>
 										</div>
@@ -197,7 +198,7 @@
             			</div>
             		</div>
 					<section class="DefaultPayment__Section-sc-64075s-3 eCEzHK">
-						<button class="sc-gEvEer kKRlXK bun-ui-button DefaultPayment__SubmitButton-sc-64075s-2 uviPA" 
+						<button class="sc-gEvEer kKRlXK bun-ui-button DefaultPayment__SubmitButton-sc-64075s-2 uviPA" id="paymentBtn"
 							type="submit" color="primary">결제하기
 						</button>
 					</section>
@@ -332,9 +333,61 @@
 	      <form>
 	      	<div class="modal-body">
 				<div id="container">
-				
+					<div id="content" class="mypage__wrap mypage__new-address">
+						<section class="section__order-info">
+							<div class="new-address new-address__title" id="newaddress">
+								<div class="box__label">
+									<label for="address-title" class="text__label">배송지명</label>
+								</div>
+								<div class="box__input box__text-area" style="display: block;  width: 470px;">
+									<input class="input_txt" id="address-title" maxlength="10" value="">
+								</div>
+							</div>
+							
+							<div class="box__form-control new-address new-address__name" id="newaddress">
+								<div class="box__label">
+									<label for="address-name" class="text__label">받는 분</label>
+								</div>
+								<div class="box__input box__text-area" style="display: block; width: 470px;">
+									<input class="input_txt" id="address-name" maxlength="10" placeholder="수령인 이름을 입력해주세요">
+								</div>
+							</div>
+							
+							<div class="box__form-control new-address new-address__tel" id="newaddress">
+								<div class="box__label">
+									<label for="address-tel" class="text__label">연락처</label>
+								</div>
+								<div class="box__input box__text-area" style="display: block;  width: 470px;">
+									<input class="input_txt" id="address-tel" maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
+								</div>
+							</div>
 
-	 		
+							<div class="box__form-control new-address new-address__destination">
+								<div class="box__label">
+									<label for="address-destination" class="sprite__mypage--after text__label text__label-check">주소</label>
+								</div>
+								<div class="box__input" id="box-zipcode" style="width: 390px;">
+									<input type="text" id="address-zipcode" class="input_txt" title="우편번호" readonly="" name="ZipCode">
+								</div>
+									<button type="button" class="button__address-search">주소찾기</button>
+							</div>
+
+								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
+									<div></div>
+									<div class="box__input" style="margin-bottom: 20px; width: 470px;">
+										<input type="text" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="">
+									</div>
+								</div>
+								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
+									<div></div>
+									<div class="box__input box__text-area" style="display: block; width: 470px;">
+										<input class="input_txt" id="address-detail" maxlength="50" value="" >
+									</div>
+								
+								</div>
+									
+						</section>
+					</div>
 	      		</div>
 	 		</div>
 		  	<div id="addaddressbtn" class="modal-footer">
@@ -350,14 +403,6 @@
 
 
 </body>
-<script>
-// 스크립트 시작
-$(()=>{
-	
-	
-	
-})
-
-</script>
+<script src="${pageContext.request.contextPath}/resources/js/pay/payment.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

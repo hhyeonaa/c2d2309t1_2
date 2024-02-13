@@ -143,10 +143,11 @@
 
 /* 새 배송지 추가 모달 css */
 .new-address {
-/*     display: flex; */
+    display: flex;
+    height: 60px;
+    margin-bottom: 5px;
     align-items: center;
-    height: 60px; /* 높이를 두 배로 설정합니다. */
-    margin-bottom: 5px; /* 필요에 따라 조절하세요. */
+    justify-content: space-between;
 }
 .box__label {
 /*     flex: 1; */

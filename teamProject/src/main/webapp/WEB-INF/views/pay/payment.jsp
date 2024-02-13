@@ -13,7 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
 <div style="display: flex; justify-content: center; align-items: center;">
 <!--???  -->
-<form>
+<form onsubmit="return checkSubmit()" action="paymentPro" id="">
 
 <!--??  -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
@@ -59,6 +59,7 @@
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">홍길동</p>
             						<!--저장된 배송정보 없을 시 배송지 등록노출  -->
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 수정</span>
+<!--             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 등록</span> -->
             						<!--저장된 배송정보 있을 때 배송지 변경노출  -->
 									<!-- <span class="DeliveryCard_ChangeAddress">변경</span> -->
             					</div>
@@ -96,7 +97,7 @@
             		<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PaymentMethodPanel__SDefaultPanel-sc-egufas-9 cnEgsB"> 
             			<h4 class="sc-gFqAkR icVCJU">결제수단</h4>
             		</div>
-            		<div>
+            		<div id="paymentmehod">
 						<article class="NormalPayment__PaymentMethods-sc-ymu84t-0 jFQssb">
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
@@ -332,9 +333,61 @@
 	      <form>
 	      	<div class="modal-body">
 				<div id="container">
-				
+					<div id="content" class="mypage__wrap mypage__new-address">
+						<section class="section__order-info">
+							<div class="new-address new-address__title" id="newaddress">
+								<div class="box__label">
+									<label for="address-title" class="text__label">배송지명</label>
+								</div>
+								<div class="box__input box__text-area" style="display: block;  width: 470px;">
+									<input class="input_txt" id="address-title" maxlength="10" value="">
+								</div>
+							</div>
+							
+							<div class="box__form-control new-address new-address__name" id="newaddress">
+								<div class="box__label">
+									<label for="address-name" class="text__label">받는 분</label>
+								</div>
+								<div class="box__input box__text-area" style="display: block; width: 470px;">
+									<input class="input_txt" id="address-name" maxlength="10" placeholder="수령인 이름을 입력해주세요">
+								</div>
+							</div>
+							
+							<div class="box__form-control new-address new-address__tel" id="newaddress">
+								<div class="box__label">
+									<label for="address-tel" class="text__label">연락처</label>
+								</div>
+								<div class="box__input box__text-area" style="display: block;  width: 470px;">
+									<input class="input_txt" id="address-tel" maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
+								</div>
+							</div>
 
-	 		
+							<div class="box__form-control new-address new-address__destination">
+								<div class="box__label">
+									<label for="address-destination" class="sprite__mypage--after text__label text__label-check">주소</label>
+								</div>
+								<div class="box__input" id="box-zipcode" style="width: 390px;">
+									<input type="text" id="address-zipcode" class="input_txt" title="우편번호" readonly="" name="ZipCode">
+								</div>
+									<button type="button" class="button__address-search">주소찾기</button>
+							</div>
+
+								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
+									<div></div>
+									<div class="box__input" style="margin-bottom: 20px; width: 470px;">
+										<input type="text" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="">
+									</div>
+								</div>
+								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
+									<div></div>
+									<div class="box__input box__text-area" style="display: block; width: 470px;">
+										<input class="input_txt" id="address-detail" maxlength="50" value="" >
+									</div>
+								
+								</div>
+									
+						</section>
+					</div>
 	      		</div>
 	 		</div>
 		  	<div id="addaddressbtn" class="modal-footer">
@@ -353,11 +406,39 @@
 <script>
 // 스크립트 시작
 $(()=>{
+// 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
+// 	var radio = $("input[name='optradio']:checked").val();
+	$("input[name='optradio']").change(function () {
+		if($("input[name='optradio']:checked").val() == 'option2'){
+			$('.Deliveryaddress').hide();
+			return;
+		}
+		$('.Deliveryaddress').show();
+	})
 	
-	
-	
-})
+// 결제수단 클릭 이벤트
+// addClass, removeClass
+// kvEuJF, cGqPmKf
+	$('.PaymentGrid__Card-sc-96u70s-3').on('click', function () {
+// 	debugger;
+	var payMethod = $('.cGqPmK') // .length(총 결제수단 6개) , 결제수단 미 선택 시 false(결제버튼 클릭)
+// 	debugger;
+	$(this).removeClass('cGqPmK');
+// 	debugger;
+	$(this).addClass('kvEuJF');
+	if(payMethod == 5){
+// 		debugger;
+		alert('결제수단을 선택해주세요')
+		return false;
+	}
 
+
+	})
+})
+//유효성 체크 후 submit
+function checkSubmit() {
+	
+}
 </script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

@@ -13,7 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
 <div style="display: flex; justify-content: center; align-items: center;">
 <!--???  -->
-<form>
+<form onsubmit="return checkSubmit()" action="paymentPro" id="">
 
 <!--??  -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
@@ -59,6 +59,7 @@
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">홍길동</p>
             						<!--저장된 배송정보 없을 시 배송지 등록노출  -->
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 수정</span>
+<!--             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 등록</span> -->
             						<!--저장된 배송정보 있을 때 배송지 변경노출  -->
 									<!-- <span class="DeliveryCard_ChangeAddress">변경</span> -->
             					</div>
@@ -96,7 +97,7 @@
             		<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY PaymentMethodPanel__SDefaultPanel-sc-egufas-9 cnEgsB"> 
             			<h4 class="sc-gFqAkR icVCJU">결제수단</h4>
             		</div>
-            		<div>
+            		<div id="paymentmehod">
 						<article class="NormalPayment__PaymentMethods-sc-ymu84t-0 jFQssb">
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
@@ -407,18 +408,37 @@
 $(()=>{
 // 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
 // 	var radio = $("input[name='optradio']:checked").val();
-	debugger;
 	$("input[name='optradio']").change(function () {
-		debugger;
 		if($("input[name='optradio']:checked").val() == 'option2'){
-			debugger;
 			$('.Deliveryaddress').hide();
 			return;
 		}
 		$('.Deliveryaddress').show();
 	})
-})
+	
+// 결제수단 클릭 이벤트
+// addClass, removeClass
+// kvEuJF, cGqPmKf
+	$('.PaymentGrid__Card-sc-96u70s-3').on('click', function () {
+// 	debugger;
+	var payMethod = $('.cGqPmK') // .length(총 결제수단 6개) , 결제수단 미 선택 시 false(결제버튼 클릭)
+// 	debugger;
+	$(this).removeClass('cGqPmK');
+// 	debugger;
+	$(this).addClass('kvEuJF');
+	if(payMethod == 5){
+// 		debugger;
+		alert('결제수단을 선택해주세요')
+		return false;
+	}
 
+
+	})
+})
+//유효성 체크 후 submit
+function checkSubmit() {
+	
+}
 </script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

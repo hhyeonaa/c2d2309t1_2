@@ -66,7 +66,7 @@
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div
 					class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-					<div class="modal-content data-bs-target="chatRoom" style="height: 800px;">
+					<div class="modal-content data-bs-target="chatRoom" style="height: 650px;">
 						<div class="modal-header">
 							<h2>대화목록</h2>
 							<div>
@@ -116,7 +116,7 @@
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div
 					class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-					<div class="modal-content" style="height: 800px;">
+					<div class="modal-content" style="height: 650px;">
 						<div class="modal-header">
 							<img src="https://source.unsplash.com/random/?car" alt="random"
 								width="100" height="100">
@@ -180,7 +180,7 @@
 							<div id="container">
 								<aside>
 									<header>
-										<p>
+										<p class="fs-5">
 									     <label> <input type="radio" name="rd01" checked>욕설 및 도배 </label> <br>
 									     <label> <input type="radio" name="rd01">도배 </label> <br>
 									     <label> <input type="radio" name="rd01">도난물품 </label> <br>
@@ -192,9 +192,9 @@
 								</aside>
 								<div id="etc_view" style="display:none;">
 											 
-									<input type="text" id="cs_channel_etc_view" name="cs_channel" class="form-control" 
-									style="width:765px; height: 100px;" placeholder="신고할 내용을 입력해주세요." />
-								 
+								  <textarea class="form-control" placeholder="신고할 내용을 입력해주세요." id="floatingTextarea"
+								  style="width:765px; height: 100px;"></textarea>
+								  
 								</div>
 							</div>
 						</div>

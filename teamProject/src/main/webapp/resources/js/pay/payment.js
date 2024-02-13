@@ -1,6 +1,6 @@
 //결제하기 버튼관련
 function checkSubmit(payMethod) {
-	//결제수단 미 선택시
+	//결제수단 미 선택시 (nonCheck가 6개)
 	if(payMethod.length == 6){
 		alert('결제수단을 선택해주세요')
 		return false;

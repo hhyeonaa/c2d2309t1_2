@@ -58,6 +58,19 @@ public class AdminController {
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */
+	@GetMapping("/chart")
+	public String chart() {
+		return "admin/chart";
+	}
 	
+	@GetMapping("/member_manage")
+	public String member_manage() {
+		return "admin/member_manage";
+	}
+	
+	@GetMapping("/board_content")
+	public String board_content() {
+		return "admin/board_content";
+	}
 	/* 성엽 작업공간 */	
 }

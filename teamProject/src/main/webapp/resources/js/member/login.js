@@ -12,6 +12,9 @@ $('.close').on('click', function(){
 
 // -----------------다음 주소찾기 API------------------
 // 주소찾기 버튼 클릭 시 이벤트 처리
+$('#search-address').on('click', function() {
+	
+});
 document.getElementById('search-address').addEventListener('click', function() {
   // 다음 우편번호 서비스 실행
   daum.postcode.load(function() {

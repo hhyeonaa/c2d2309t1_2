@@ -110,10 +110,10 @@ td{
 		 	<hr>
 		 		<table class="table"><!--  table-borderless -->
 		 			<tr>
-			 			<td><img src="/myapp/resources/img/common/heart.png"> 3</td>
+			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
 			 			<td><i class="bi bi-eye"></i> 112</td>
 			 			<td><i class="bi bi-calendar3"></i>2024/02/06 13:21:33</td>
-			 			<td><img src="/myapp/resources/img/board/report.png">신고하기</td>
+			 			<td><img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</td>
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
@@ -175,6 +175,9 @@ td{
 		 				<td colspan="3">카테고리: <a href="#">자켓/점퍼</a></td>
 		 			</tr>
 		 		</table>
+		 		<div class="d-grid gap-2">
+				  <button class="btn btn-secondary" type="button">글 수정</button>
+				</div>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
 		 		<table class="table" style="text-align: center;">

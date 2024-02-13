@@ -90,10 +90,10 @@
 				</button>
 				  <ul class="dropdown-menu">
 				    <li><a class="dropdown-item" href="mypage">프로필</a></li>
-				    <li><a class="dropdown-item" href="#">거래내역</a></li>
-				    <li><a class="dropdown-item" href="#">글목록</a></li>
+				    <li><a class="dropdown-item" href="tradeList">거래내역</a></li>
+				    <li><a class="dropdown-item" href="likeList">찜목록</a></li>
 				    <li><hr class="dropdown-divider"></li>
-				    <li><a class="dropdown-item" href="#">로그아웃</a></li>
+				    <li><a class="dropdown-item" href="logout">로그아웃</a></li>
 				  </ul>
 				</div>
 			</nav>

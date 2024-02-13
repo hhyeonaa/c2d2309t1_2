@@ -44,15 +44,15 @@
                					<input type="text" name="phone_ed" class="form-control" placeholder="(하이픈(-) 제외 입력)" value="${customerInfo.CUS_NAME}"></div>
                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed"><b>이메일</b></label>
                					<input type="text" name="email_ed" class="form-control" placeholder="이메일을 입력해 주세요" value="${customerInfo.CUS_NAME}"></div>
-               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px; padding-bottom: 3%;"><label for="address_ed">주소</label>
-								<div class="input-group">
-									<input type="text" id="address_ed" name="address_ed" class="form-control" placeholder="주소를 입력해주세요" required>
-									<button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
-								</div>
-								<div class="input-group">
-									<input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
-								</div>
-			  				</div>
+<!--                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px; padding-bottom: 3%;"><label for="address_ed">주소</label> -->
+<!-- 								<div class="input-group"> -->
+<!-- 									<input type="text" id="address_ed" name="address_ed" class="form-control" placeholder="주소를 입력해주세요" required> -->
+<!-- 									<button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button> -->
+<!-- 								</div> -->
+<!-- 								<div class="input-group"> -->
+<!-- 									<input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요"> -->
+<!-- 								</div> -->
+<!-- 			  				</div> -->
 			  				
                			</div>
                            
@@ -72,19 +72,19 @@
 </body>
 
 <script>
-//-----------------다음 주소찾기 API------------------
-//주소찾기 버튼 클릭 시 이벤트 처리
-document.getElementById('search-address').addEventListener('click', function() {
-// 다음 우편번호 서비스 실행
-daum.postcode.load(function() {
- new daum.Postcode({
-   oncomplete: function(data) {
-     // 주소 정보를 가져와서 처리하는 로직 작성
-     document.getElementById('address').value = data.address;
-   }
- }).open();
-});
-});
+// //-----------------다음 주소찾기 API------------------
+// //주소찾기 버튼 클릭 시 이벤트 처리
+// document.getElementById('search-address').addEventListener('click', function() {
+// // 다음 우편번호 서비스 실행
+// daum.postcode.load(function() {
+//  new daum.Postcode({
+//    oncomplete: function(data) {
+//      // 주소 정보를 가져와서 처리하는 로직 작성
+//      document.getElementById('address').value = data.address;
+//    }
+//  }).open();
+// });
+// });
 </script>
 
 <jsp:include page="../template/Footer.jsp"/>

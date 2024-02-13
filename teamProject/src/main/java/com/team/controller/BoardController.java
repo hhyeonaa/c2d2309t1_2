@@ -44,6 +44,18 @@ public class BoardController {
 		return "board/boardDetail";
 	}// boardDetail()
 	
+	@GetMapping("/divideDetail")
+	public String divideDetail() {
+		System.out.println("BoardController divideDetail()");
+		return "board/divideDetail";
+	}// divideDetail()
+	
+	@GetMapping("/auctionDetail")
+	public String auctionDetail() {
+		System.out.println("BoardController auctionDetail()");
+		return "board/auctionDetail";
+	}// auctionDetail()
+	
 	
 	
 }// 클래스 끝

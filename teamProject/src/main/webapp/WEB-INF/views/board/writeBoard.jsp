@@ -587,7 +587,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 // 		formData.append("id", $("input[name=id]").val());
 		// Ajax를 사용하여 formData를 서버에 제출합니다.
-		$.ajax({
+/* 		$.ajax({
 			url: 'your-server-endpoint', // 서버 엔드포인트 URL
 			type: 'POST',
 			data: formData,
@@ -601,6 +601,19 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 			  // 파일 업로드 실패 시 처리
 			  console.log('Upload error:', textStatus, errorThrown);
 			}
+		}); */
+		$.ajax({
+			url: 'your-server-endpoint', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: formData,
+			processData: false, // jQuery가 데이터를 처리하지 않도록 설정
+			contentType: false // jQuery가 contentType을 설정하지 않도록 설정
+		}).done(function(response) {
+			// 파일 업로드 성공 시 처리
+			console.log('Upload success:', response);
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			// 파일 업로드 실패 시 처리
+			console.log('Upload error:', textStatus, errorThrown);
 		});
 	});
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기 끝

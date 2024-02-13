@@ -509,13 +509,13 @@ svg:not(:root) {
 .bwWbat :hover{
 	cursor: pointer;
 }
-/* .kvEuJF :hover { */
+/* .check :hover { */
 /*     cursor: pointer; */
 /* } */
-/* .cGqPmK :hover{ */
+/* .nonCheck :hover{ */
 /* 	cursor: pointer; */
 /* } */
-.kvEuJF {
+.check {
     position: relative;
     display: flex;
     -webkit-box-pack: center;
@@ -528,7 +528,7 @@ svg:not(:root) {
     border: 1px solid rgb(25, 25, 25);
 }
 
-.cGqPmK {
+.nonCheck {
     position: relative;
     display: flex;
     -webkit-box-pack: center;

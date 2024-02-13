@@ -13,7 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
 <div style="display: flex; justify-content: center; align-items: center;">
 <!--???  -->
-<form onsubmit="return checkSubmit()" action="paymentPro" id="">
+<form>
 
 <!--??  -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
@@ -102,21 +102,21 @@
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 kvEuJF"> //클릭시 class kvEuJF -->
-<!-- 										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK"> //미 클릭시 cGqPmK-->
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+<!-- 										<div class="PaymentGridMethod check"> //클릭시 class check -->
+<!-- 										<div class="PaymentGridMethod nonCheck"> //미 클릭시 nonCheck-->
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">카카오페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
 										</div>
@@ -124,19 +124,19 @@
 								</div>
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">휴대폰결제</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">삼성페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGrid__Card-sc-96u70s-3 cGqPmK">
+										<div class="PaymentGridMethod nonCheck">
 											<span
 												class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">애플페이</span>
 										</div>
@@ -198,7 +198,7 @@
             			</div>
             		</div>
 					<section class="DefaultPayment__Section-sc-64075s-3 eCEzHK">
-						<button class="sc-gEvEer kKRlXK bun-ui-button DefaultPayment__SubmitButton-sc-64075s-2 uviPA" 
+						<button class="sc-gEvEer kKRlXK bun-ui-button DefaultPayment__SubmitButton-sc-64075s-2 uviPA" id="paymentBtn"
 							type="submit" color="primary">결제하기
 						</button>
 					</section>

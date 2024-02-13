@@ -119,6 +119,8 @@
     border-radius: 8px;
 }
 
+.my_gradient_4 {    background-image: linear-gradient(to left, #f17575, #f8f8ba, #C0F5FB, #b8ceef);    height: 20px;}
+
 .css-pq603g {
     width: 140px;
     height: 140px;

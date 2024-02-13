@@ -32,4 +32,9 @@ public class HomeController {
 		return "main";
 	}
 	
+	@RequestMapping(value = "/dontOpen", method = RequestMethod.GET)
+	public String dontOpen() {
+		return "dontOpen";
+	}
+	
 }

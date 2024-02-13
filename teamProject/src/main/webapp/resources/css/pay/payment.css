@@ -501,6 +501,7 @@ svg:not(:root) {
 .wwNXT {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .bwWbat {
     width: calc(33.3333%);

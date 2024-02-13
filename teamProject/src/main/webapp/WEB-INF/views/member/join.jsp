@@ -39,6 +39,10 @@
 			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력해주세요" required>
 	      </div>
 	      <div class="form-group">
+	        <label for="phone">전화번호</label>
+	        <input type="textg" id="phone" name="phone" placeholder="(하이픈(-) 제외 입력)">
+	      </div>
+	      <div class="form-group">
 	        <label for="email">이메일</label>
 	        <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요">
 	      </div>

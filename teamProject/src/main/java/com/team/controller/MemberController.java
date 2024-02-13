@@ -2,6 +2,7 @@ package com.team.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -14,6 +15,34 @@ public class MemberController {
 		return "member/login";
 	}// login()
 //	-----------------------------------------------------------------------------
-
+	@GetMapping("/mypage")
+	public String mypage() {
+		System.out.println("MemberController mypage()");
+		return "member/mypage";
+	}// mypage()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/memberEdit")
+	public String memberEdit() {
+		System.out.println("MemberController memberEdit()");
+		return "member/memberEdit";
+	}// memberEdit()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/tradeList")
+	public String tradeList() {
+		System.out.println("MemberController tradeList()");
+		return "member/tradeList";
+	}// tradeList()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/likeList")
+	public String likeList() {
+		System.out.println("MemberController likeList()");
+		return "member/likeList";
+	}// likeList()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/salesList")
+	public String salesList() {
+		System.out.println("MemberController salesList()");
+		return "member/salesList";
+	}// salesList()
 //	-----------------------------------------------------------------------------
 }// MemberController 클래스

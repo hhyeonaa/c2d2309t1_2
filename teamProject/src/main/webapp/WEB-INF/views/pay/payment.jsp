@@ -405,9 +405,18 @@
 <script>
 // 스크립트 시작
 $(()=>{
-	
-	
-	
+// 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
+// 	var radio = $("input[name='optradio']:checked").val();
+	debugger;
+	$("input[name='optradio']").change(function () {
+		debugger;
+		if($("input[name='optradio']:checked").val() == 'option2'){
+			debugger;
+			$('.Deliveryaddress').hide();
+			return;
+		}
+		$('.Deliveryaddress').show();
+	})
 })
 
 </script>

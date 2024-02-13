@@ -7,8 +7,8 @@
 .sidebar222 {
 	
   width: 90;
-/*   height: 100vh; // experiment with this value, try changing to 110vh */
-  height: 35vh; // experiment with this value, try changing to 110vh
+  height: 100vh; // experiment with this value, try changing to 110vh
+/*   height: 35vh; // experiment with this value, try changing to 110vh */
   min-height: 200px;
 /*  overflow: auto;*/
   position: -webkit-sticky;

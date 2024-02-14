@@ -1,5 +1,9 @@
 package com.team.controller;
 
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/member/*")
-public class MemberController {
+public class MemberController{
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
 	public String login() {
@@ -45,4 +49,10 @@ public class MemberController {
 		return "member/salesList";
 	}// salesList()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		System.out.println("MemberController logout()");
+		session.invalidate();
+		return "/home";
+	}// logout()
 }// MemberController 클래스

@@ -12,20 +12,20 @@ $('.close').on('click', function(){
 
 // -----------------다음 주소찾기 API------------------
 // 주소찾기 버튼 클릭 시 이벤트 처리
-$('#search-address').on('click', function() {
-	
-});
-document.getElementById('search-address').addEventListener('click', function() {
-  // 다음 우편번호 서비스 실행
-  daum.postcode.load(function() {
-    new daum.Postcode({
-      oncomplete: function(data) {
-        // 주소 정보를 가져와서 처리하는 로직 작성
-        document.getElementById('address').value = data.address;
-      }
-    }).open();
-  });
-});
+//$('#search-address').on('click', function() {
+//	
+//});
+//document.getElementById('search-address').addEventListener('click', function() {
+//  // 다음 우편번호 서비스 실행
+//  daum.postcode.load(function() {
+//    new daum.Postcode({
+//      oncomplete: function(data) {
+//        // 주소 정보를 가져와서 처리하는 로직 작성
+//        document.getElementById('address').value = data.address;
+//      }
+//    }).open();
+//  });
+//});
 
 
 // -----------------아이디 찾기------------------
@@ -36,6 +36,7 @@ function findId(){
 
 // x버튼 클릭 시 모달 종료
 $('.closeId').on('click', function closeId(){
+	debugger;
 	idModal.style.display = "none";	
 });
 
@@ -43,6 +44,7 @@ $('.closeId').on('click', function closeId(){
 // -----------------아이디 찾기 결과------------------
 // 다음 버튼 클릭 시 모달 열기
 document.getElementById("idNext").addEventListener("click", function() {
+	debugger;
   idModal.style.display = "none";
   document.getElementById("IdResultModal").style.display = "block";
 });

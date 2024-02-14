@@ -361,7 +361,7 @@
 								<div class="box__input" id="box-zipcode" style="width: 390px;">
 									<input type="text" id="address-zipcode" class="input_txt" title="우편번호" readonly="" name="ZipCode">
 								</div>
-									<button type="button" class="button__address-search">주소찾기</button>
+									<button type="button" class="button__address-search" id="address_find">주소찾기</button>
 							</div>
 
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -396,5 +396,6 @@
 
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/pay/payment.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

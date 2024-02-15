@@ -84,7 +84,7 @@ var payMethod = $('.check').find('span').text();
 	
 // 결제하기 버튼 클릭 이벤트(결제수단 관련)
 	$("#paymentBtn").on('click',function(){
-		// 결제수단 체크 확인하기
+		// 결제수단 체크 유무 확인하기
 		checkSubmit(payCheck);
 		// 체크된 결제수단 
 	})

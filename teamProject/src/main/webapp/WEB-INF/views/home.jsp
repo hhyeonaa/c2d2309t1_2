@@ -24,7 +24,7 @@
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
 						<div class="col" id="product">
-						  <div class="card h-100">
+						  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail'">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>

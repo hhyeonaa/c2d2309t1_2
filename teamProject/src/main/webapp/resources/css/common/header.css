@@ -98,6 +98,7 @@ p {
 
 .card {
 	width: 250px;
+	cursor: pointer;
 }
 
 .card img {

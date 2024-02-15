@@ -12,7 +12,7 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<title>000 | 로그인</title>
+<title>다모임 | 로그인</title>
 <link href="${pageContext.request.contextPath}/resources/css/member/login.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- Bootstrap CSS -->
@@ -35,7 +35,7 @@
 		<div id="loginBox">
 		<form action="loginPro.cu" method="post" id="form">
 			<!-- 로그인 페이지 타이틀 -->
-			<div id="loginBoxTitle">꿀중고장터</div>
+			<div id="loginBoxTitle"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></div>
 			<!-- 아이디, 비번, 버튼 박스 -->
 			<div id="inputBox" style="height: 200px;">
 				<div class="input-form-box">
@@ -75,7 +75,7 @@
 	  <div class="modal-content" style="width: 30%;">
 	    <div class="center-align">		
 		  <span class="close">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
 	    <h4>회원가입</h4>
 	    <!-- 이하 생략 -->
@@ -94,6 +94,10 @@
 			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력해주세요." required>
 	      </div>
 	      <div class="form-group">
+	        <label for="phone">전화번호</label>
+	        <input type="text" id="phone" name="phone" placeholder="(하이픈(-) 제외 입력)">
+	      </div>
+	      <div class="form-group">
 	        <label for="email">이메일</label>
 	        <input type="email" id="email" name="email" placeholder="[선택] 이메일주소 (비밀번호 찾기 등 본인 확인용)">
 	      </div>
@@ -110,10 +114,6 @@
 	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>
 	      </div>
 	      <div class="form-group">
-	        <label for="nickname">닉네임</label>
-	        <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력해 주세요." required>
-	      </div>
-	      <div class="form-group">
 			  <label for="gender">성별</label>
 			  <div class="input-group">
 			    <select id="gender" name="gender" class="form-control" required>
@@ -124,17 +124,16 @@
 			    </select>
 			  </div>
 			</div>
-		  
-			<div class="form-group">
-			  <label for="address">주소</label>
-			  <div class="input-group">
-				  <input type="text" id="address" name="address" class="form-control" placeholder="주소를 입력해주세요" required>
-				  <button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
-			  </div>
-			  <div class="input-group">
-			  	<input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
-			  </div>
-			</div>
+		 <div class="form-group">
+		   <label for="address">주소</label>
+		   <div class="input-group">
+			   <input type="text" id="address" name="address" class="form-control" placeholder="주소를 입력해주세요" required>
+			   <button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
+		   </div>
+		    <div class="input-group">
+		  	 <input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
+		   </div>
+		 </div>
 			<hr>
 	      <div class="button-group">
 	        <input type="submit" value="회원가입">
@@ -148,9 +147,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closeId">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
+		  <hr>
 		</div>
-		<br>
 	    <h4>아이디 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>
@@ -187,9 +186,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closeIdResult">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
-		<br>
+		<hr>
 	    <h4>아이디 찾기 결과</h4>
 	    <!-- 이하 생략 -->
 		<hr>
@@ -205,9 +204,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closePw">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
-		<br>
+		<hr>
 	    <h4>비밀번호 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>
@@ -248,8 +247,9 @@
 	  <div class="modal-content" style="width: 25%;">
 	    <div class="center-align">		
 		  <span class="closePwResult">&times;</span>
-		  <img src="../resources/img/member/logo.ico" alt="로고" style="width: 80px; height: 80px;">
+		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
+		<hr>
 	    <h4>새 비밀번호 설정</h4>
 	    <!-- 이하 생략 -->
 	    <form>

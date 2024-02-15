@@ -89,6 +89,5 @@ var payMethod = $('.check').find('span').text();
 		// 체크된 결제수단 
 	})
 
-	
 })
 

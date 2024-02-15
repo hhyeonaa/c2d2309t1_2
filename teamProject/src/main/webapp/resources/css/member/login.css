@@ -74,7 +74,7 @@ header {
 }
 
 body {
-	padding-top: 15%;
+	padding-top: 11%;
 }
 
 .row {
@@ -165,6 +165,10 @@ img {
 	font-size: 10pt;
     padding-right: 3px;
     padding-left: 3px;
+}
+
+h4 {
+	font-family: sans-serif !important;
 }
 
 /* 회원가입 모달 CSS */

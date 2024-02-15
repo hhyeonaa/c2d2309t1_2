@@ -19,7 +19,7 @@
 			<article>
 				<div class="css-f96hxp">
 					<h3>판매중</h3>
-					<button aria-label="전체 판매 매물 보기 버턴">더보기</button>
+					<button aria-label="전체 판매 매물 보기 버턴" onclick="location.href ='${pageContext.request.contextPath}/board/saleBoard'">더보기</button>
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
@@ -121,7 +121,7 @@
 			<article>
 				<div class="css-f96hxp">
 					<h3>나눔중</h3>
-					<button aria-label="전체 판매 매물 보기 버턴">더보기</button>
+					<button aria-label="전체 나눔 매물 보기 버턴" onclick="location.href ='${pageContext.request.contextPath}/board/divideBoard'">더보기</button>
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
@@ -223,7 +223,7 @@
 			<article>
 				<div class="css-f96hxp">
 					<h3>구매중</h3>
-					<button aria-label="전체 판매 매물 보기 버턴">더보기</button>
+					<button aria-label="전체 구매 매물 보기 버턴" onclick="location.href ='${pageContext.request.contextPath}/board/buyBoard'">더보기</button>
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
@@ -325,7 +325,7 @@
 			<article>
 				<div class="css-f96hxp">
 					<h3>경매중</h3>
-					<button aria-label="전체 판매 매물 보기 버턴">더보기</button>
+					<button aria-label="전체 경매 매물 보기 버턴" onclick="location.href ='${pageContext.request.contextPath}/board/auction'">더보기</button>
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">

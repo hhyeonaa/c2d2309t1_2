@@ -1,7 +1,7 @@
 //결제하기 버튼관련
-function checkSubmit(payMethod) {
+function checkSubmit(payCheck) {
 	//결제수단 미 선택시 (nonCheck가 6개)
-	if(payMethod.length == 6){
+	if(payCheck.length == 6){
 		alert('결제수단을 선택해주세요')
 		return false;
 	}
@@ -9,7 +9,9 @@ function checkSubmit(payMethod) {
 
 // 스크립트 시작
 $(()=>{
-var payMethod = $('.nonCheck')
+var payCheck = $('.nonCheck')
+// 결제할(선택한) 페이값
+var payMethod = $('.check').find('span').text();
 	
 	
 	
@@ -82,7 +84,9 @@ var payMethod = $('.nonCheck')
 	
 // 결제하기 버튼 클릭 이벤트(결제수단 관련)
 	$("#paymentBtn").on('click',function(){
-		checkSubmit(payMethod);
+		// 결제수단 체크 확인하기
+		checkSubmit(payCheck);
+		// 체크된 결제수단 
 	})
 
 	

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/resources/css/pay/completepay.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/pay/payment_success.css" rel="stylesheet">
+
 
 </head>
 <jsp:include page="../template/header.jsp"/>
@@ -39,32 +39,39 @@
 							<h1 class="completepaytitle">결제 완료</h1>
 							<div class="textBox_box">
 								<p class="textStyle1">결제 상품 정보</p>
-								<p style="margin: 5px">고객님의 예약이 확정되었어요.</p>
-								<p style="margin: 0">아래의 예약 정보를 확인해 주세요.</p>
+<!-- 								<p style="margin: 5px">고객님의 예약이 확정되었어요.</p> -->
+<!-- 								<p style="margin: 0">아래의 예약 정보를 확인해 주세요.</p> -->
+							</div>
+							<div class="productImg">
+								<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지">
 							</div>
 						</div>
 						
 						<div class="infoBox">
 							<div class="infoBoxStyle1">
-								<span class="infoTit">예약 번호</span>
-								<span class="infocnt">${resInfo.MERCHANT_UID}</span>
+								<span class="infoTit">상품 제목</span>
+								<span class="infocnt">따봉도치 ㅍㅍㅍㅍㅍ</span>
 							</div>
 							<div class="infoBoxStyle1">
-								<span class="infoTit">예약 날짜</span>
-								<span class="infocnt">${resInfo.RES_DATE}</span>
+								<span class="infoTit">결제 번호</span>
+								<span class="infocnt">XXXXXXXXX</span>
 							</div>
 							<div class="infoBoxStyle1">
-								<span class="infoTit">예약 내용</span>
-								<span class="infocnt">${resInfo.STORE_NAME} (${resInfo.SEAT_NAME})</span>
+								<span class="infoTit">결제 날짜</span>
+								<span class="infocnt">2024.02.15</span>
+							</div>
+							<div class="infoBoxStyle1">
+								<span class="infoTit">결제 내용</span>
+								<span class="infocnt">택배거래 ???페이</span>
 							</div>
 							<div class="infoBoxStyle1">
 								<span class="infoTit">결제 금액</span>
-								<span class="infocnt">${resInfo.PAID_AMOUNT} 원</span>
+								<span class="infocnt">100,000 원</span>
 							</div>
 						</div>
 						
 						<div class="btnBox">
-							<button class="btn goMypage" onclick="location.href ='mypage.cu'">예약 확인</button>
+							<button class="btn goMypage" onclick="location.href ='mypage.cu'">결제 확인</button>
 							<button class="btn goMain" style="margin-left: 20px;" onclick="location.href ='main.ma'">메인 페이지로</button>
 						</div>
 					</div>

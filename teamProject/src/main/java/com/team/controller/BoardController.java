@@ -65,12 +65,14 @@ public class BoardController {
     	System.out.println("BoardController writeBoardPro()");
     	String contextPath = request.getContextPath();
     	String uploadPath = contextPath + "/resources/img/board";
+    	System.out.println("uploadPath: "+uploadPath);
         if (files.size() > 0 && !files.get(0).isEmpty()) { // 파일이 존재하는지 체크
             StringBuilder message = new StringBuilder();
             for (MultipartFile file : files) {
                 try {
                     // 파일 저장 로직
                     String saveName = file.getOriginalFilename();
+                    System.out.println("saveName: "+saveName);
                     File saveFile = new File(uploadPath, saveName);
                     file.transferTo(saveFile);
 

@@ -1,17 +1,46 @@
 package com.team.controller;
 
+
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.team.service.AdminService;
 
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
 	
+	@Inject
+	private AdminService adminService;
+	
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
-	public String manager() {
+	public String manager(Model model) {
+		List<Map<String, String>> mapList = adminService.getAdminList();
+		model.addAttribute("mapList", mapList);
 		return "admin/manager";
+	}
+	
+	@PostMapping("/insertPro")
+	public String managerPro(@RequestParam Map<String, String> map) {
+		boolean check = adminService.idCheck(map);
+		if(check) {
+		} else {
+			adminService.adminInsert(map);
+		}
+
+		return "redirect:/admin/manager";
 	}
 	
 	@GetMapping("/board")
@@ -21,13 +50,15 @@ public class AdminController {
 	
 	@GetMapping("/header_menu")
 	public String header_menu() {
-		return "admin/header_menu";
+		return "admin/header_menu";  
 	}
 	
 	@GetMapping("/category")
 	public String category() {
 		return "admin/category";
 	}
+	
+	
 	/* 현아 작업공간 */
 	
 	/* 무창 작업공간 */
@@ -73,4 +104,7 @@ public class AdminController {
 		return "admin/board_content";
 	}
 	/* 성엽 작업공간 */	
+
+
+
 }

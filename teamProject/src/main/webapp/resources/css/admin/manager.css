@@ -7,6 +7,13 @@ body {
     border-spacing: 0 12px;
 }
 
+#deleteBtn {
+	background-color: white;
+	border: none;
+	font-size: 25px;
+	color: gray;
+}
+
 #btnAdd{
 	background-color: salmon;
 	color: white;

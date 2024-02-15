@@ -39,7 +39,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 
-	<form action="/myapp/board/writeBoardPro" method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/board/writeBoardPro" method="post" enctype="multipart/form-data">
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="width: 100%;">
 			<div class="container">

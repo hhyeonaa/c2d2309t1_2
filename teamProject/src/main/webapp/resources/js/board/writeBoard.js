@@ -236,12 +236,57 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기
 	$('#submitBtn').on('click', function(e) { 
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지합니다.
+		var contextPath = getContextPath();
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
+		var resultList = []; // 결과를 저장할 배열입니다.
+//		formData.append('proName',$('#proName').val());
+//		formData.append('proTc',$('#proTc').val());
+//		formData.append('category1',$('#category1').val());
+//		formData.append('category2',$('#category2').val());
+//		formData.append('category3',$('#category3').val());
+//		formData.append('itemStatus',$('input[name="itemStatus"]:checked').val());
+//		formData.append('proContent',$('#proContent').val());
+		// 텍스트 데이터를 JSON 객체로 준비
+		var textData = {
+		    proName: $('#proName').val(),
+		    proTc: $('#proTc').val(),
+		    category1: $('#category1').val(),
+		    category2: $('#category2').val(),
+		    category3: $('#category3').val(),
+		    itemStatus: $('input[name="itemStatus"]:checked').val(),
+		    proContent: $('#proContent').val()
+		};
+		
+		// JSON 객체를 문자열로 변환하여 formData에 추가
+		formData.append('textData', JSON.stringify(textData));
+		
+		/*파일담기*/
+		for (i = 0; i < checkFileList.length; i++) {
+		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
+		        for (j = 0; j < checkFileList[i].length; j++) {
+		        	resultList.push(checkFileList[i][j]); // 'result' 배열에 요소를 추가합니다.
+		        }
+		    }
+		}
+		// 파일 리스트 추가
+		for (var i = 0; i < resultList.length; i++) {
+			// 각 파일을 'imgs'라는 이름으로 개별적으로 추가합니다.
+			// 서버 측에서는 'imgs'라는 이름으로 파일 리스트를 받을 수 있습니다.
+			formData.append('imgs', resultList[i]);
+		}
+		
+		for (let key of formData.keys()) {
+			console.log(key);
+		}
+		debugger;
+		for (let value of formData.values()) {
+			console.log(value);
+		}
 		
 		// `sel_files` 배열에 남아 있는 파일들만 FormData 객체에 추가합니다.
-		$.each(sel_files, function(i, file) {
-			formData.append('files[]', file); // 'files[]'는 서버에서 파일 배열을 받을 때 사용할 이름입니다.
-		});
+//		$.each(sel_files, function(i, file) {
+//			formData.append('files[]', file); // 'files[]'는 서버에서 파일 배열을 받을 때 사용할 이름입니다.
+//		});
 // 		formData.append("id", $("input[name=id]").val());
 		// Ajax를 사용하여 formData를 서버에 제출합니다.
 /* 		$.ajax({
@@ -260,7 +305,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 			}
 		}); */
 		$.ajax({
-			url: 'your-server-endpoint', // 서버 엔드포인트 URL
+			url: contextPath+'/board/writeBoardPro', // 서버 엔드포인트 URL
 			type: 'POST',
 			data: formData,
 			processData: false, // jQuery가 데이터를 처리하지 않도록 설정
@@ -324,3 +369,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 });//document ready 끝
 
+function getContextPath() {
+	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+	return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+};

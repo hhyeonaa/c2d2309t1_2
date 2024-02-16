@@ -1,6 +1,8 @@
 package com.team.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.team.service.BoardService;
 
 @Controller
@@ -60,6 +65,61 @@ public class BoardController {
 		return "board/writeBoard";
 	}// writeBoard()
 	
+	@PostMapping("/writeBoardPro")
+	public ResponseEntity<?> writeBoardPro(
+	        @RequestParam Map<String, String> textData,
+	        @RequestParam("imgs") List<MultipartFile> imgs) throws IOException {
+
+	    // Gson 인스턴스 생성
+//	    Gson gson = new Gson();
+
+	    // textData를 Map으로 변환
+//	    Type type = new TypeToken<Map<String, Object>>() {}.getType();
+//	    Map<String, Object> textDataMap = gson.fromJson(textData, type);
+
+	    // 텍스트 데이터 처리
+	    System.out.println("Received text data: " + textData);
+
+	    // 파일 데이터 처리
+	    for (MultipartFile img : imgs) {
+	        System.out.println("Received file: " + img.getOriginalFilename() + " with size: " + img.getSize());
+	        // 파일 처리 로직 (예: 저장, 검증 등)
+	    }
+
+	    return ResponseEntity.ok("Data and files received successfully");
+	}
+	
+//	@PostMapping("/writeBoardPro")
+//	public String writeBoardPro(
+//			@RequestParam("proName") String proName,
+//			@RequestParam("proTc") String proTc,
+//			@RequestParam("category1") String category1,
+//			@RequestParam("category2") String category2,
+//			@RequestParam("category3") String category3,
+//			@RequestParam("itemStatus") String itemStatus,
+//			@RequestParam("proContent") String proContent,
+//			@RequestParam("imgs") List<MultipartFile> imgs) {
+//	
+//		System.out.println("BoardController writeBoardPro()");
+//		// 텍스트 데이터 출력
+//		System.out.println("Product Name: " + proName);
+//		System.out.println("Product TC: " + proTc);
+//		System.out.println("Category1: " + category1);
+//		System.out.println("Category2: " + category2);
+//		System.out.println("Category3: " + category3);
+//		System.out.println("Item Status: " + itemStatus);
+//		System.out.println("Product Content: " + proContent);
+//		
+//		// 파일 데이터 출력
+//		System.out.println("Received " + imgs.size() + " images.");
+//		for (MultipartFile img : imgs) {
+//		    System.out.println("Image Name: " + img.getOriginalFilename());
+//		    System.out.println("Image Size: " + img.getSize());
+//		    // 파일 처리 로직 (예: 저장, 검증 등)
+//		}
+//	
+//	    return "board/saleBoard";
+//	}
 //    @PostMapping("/writeBoardPro")
 //    public String writeBoardPro(@RequestParam("btnAtt") List<MultipartFile> files, Model model, HttpServletRequest request) {
 //    	System.out.println("BoardController writeBoardPro()");

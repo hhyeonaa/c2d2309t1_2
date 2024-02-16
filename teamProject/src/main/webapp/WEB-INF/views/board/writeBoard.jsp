@@ -351,7 +351,7 @@ OO페이 배지로 더 많은 관심을 받을 수 있어요.
 			<div class="row p-3" style="position: sticky; bottom: 0; z-index: 99999; background-color: black;">
 			    <div class="d-flex justify-content-evenly">
 					<button class="btn btn-light" id="tempSave">임시저장</button>
-					<button class="btn btn-warning" type="submit">등록하기</button>
+					<button class="btn btn-warning" id="submitBtn">등록하기</button>
 		    	</div>
 		  	</div>
 						

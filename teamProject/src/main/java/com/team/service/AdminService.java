@@ -26,4 +26,8 @@ public class AdminService {
 	public boolean idCheck(Map<String, String> map) {
 		return adminDAO.idCheck(map);
 	}
+
+	public void adminDelete(String AD_NO) {
+		adminDAO.adminDelete(AD_NO);
+	}
 }

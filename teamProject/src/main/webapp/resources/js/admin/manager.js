@@ -39,10 +39,14 @@ $(function(){
 	    if(result){
 			$.ajax({
 				type: "post"
-				, url: "deleteAdmin"
-				, data: {AD_ID: $("#AD_ID").val(),
-						 AD_PW: $("#AD_PW").val() }
-	        });
+				, url: "deletePro"
+				, data: {AD_NO: $("#AD_NO").val() }
+	        })
+	        .done(function(done){
+				debugger;
+				alert($("#AD_ID").val() + "가 삭제되었습니다.");
+				location.reload();
+			});
         } else {
 	       		alert("삭제가 취소되었습니다.");
 	       		modal.style.display = "none";
@@ -101,9 +105,9 @@ $(function(){
 		$.ajax({
 			type: "post"
 			, url: "insertPro"
-			, data: {AD_ID: $("#AD_ID").val(),
-					 AD_PW: $("#AD_PW").val(),
-					 AD_NAME: $("#AD_NAME").val()	}
+			, data: {AD_ID: $('#AD_ID').val(),
+					 AD_PW: $('#AD_PW').val(),
+					 AD_NAME: $('#AD_NAME').val()	}
 		})
 		.done(function(data) {
 			alert("새로운 관리자 계정이 생성되었습니다.");

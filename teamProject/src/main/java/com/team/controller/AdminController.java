@@ -33,14 +33,17 @@ public class AdminController {
 	}
 	
 	@PostMapping("/insertPro")
-	public String managerPro(@RequestParam Map<String, String> map) {
+	public void managerPro(@RequestParam Map<String, String> map) {
 		boolean check = adminService.idCheck(map);
 		if(check) {
 		} else {
 			adminService.adminInsert(map);
 		}
-
-		return "redirect:/admin/manager";
+	}
+	
+	@PostMapping("/deletePro")
+	public void deletePro(@RequestParam String AD_NO) {
+		adminService.adminDelete(AD_NO);
 	}
 	
 	@GetMapping("/board")

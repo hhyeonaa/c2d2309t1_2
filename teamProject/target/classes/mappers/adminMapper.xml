@@ -29,10 +29,16 @@
 		from ADMIN
 	</select>
 	
-		<select id="idCheck" resultType="map">
+	<select id="idCheck" resultType="map">
 		select
 			AD_ID 
 		from ADMIN
 		where AD_ID = #{AD_ID}
 	</select>
+	
+	<delete id="adminDelete">
+		delete from ADMIN
+		where AD_NO = #{AD_NO}
+	</delete>
+	
 </mapper>

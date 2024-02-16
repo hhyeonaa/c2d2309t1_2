@@ -27,4 +27,8 @@ public class AdminDAO {
 	public boolean idCheck(Map<String, String> map) {
 		return (boolean)sqlSession.selectOne(namesqace + "idCheck");
 	}
+
+	public void adminDelete(String AD_NO) {
+		sqlSession.delete(namesqace + "adminDelete", AD_NO);
+	}
 }

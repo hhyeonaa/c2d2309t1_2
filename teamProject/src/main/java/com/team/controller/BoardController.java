@@ -60,32 +60,34 @@ public class BoardController {
 		return "board/writeBoard";
 	}// writeBoard()
 	
-    @PostMapping("/writeBoardPro")
-    public String writeBoardPro(@RequestParam("btnAtt") List<MultipartFile> files, Model model, HttpServletRequest request) {
-    	System.out.println("BoardController writeBoardPro()");
-    	String contextPath = request.getContextPath();
-    	String uploadPath = contextPath + "/resources/img/board";
-        if (files.size() > 0 && !files.get(0).isEmpty()) { // 파일이 존재하는지 체크
-            StringBuilder message = new StringBuilder();
-            for (MultipartFile file : files) {
-                try {
-                    // 파일 저장 로직
-                    String saveName = file.getOriginalFilename();
-                    File saveFile = new File(uploadPath, saveName);
-                    file.transferTo(saveFile);
-
-                    message.append("File uploaded successfully: ").append(saveName).append("<br>");
-                } catch (Exception e) {
-                    message.append("File upload failed: ").append(file.getOriginalFilename()).append("<br>");
-                }
-            }
-            model.addAttribute("message", message.toString());
-        } else {
-            model.addAttribute("message", "No files to upload!");
-        }
-
-        return "board/saleBoard"; // 업로드 결과를 보여줄 뷰의 이름
-    }
+//    @PostMapping("/writeBoardPro")
+//    public String writeBoardPro(@RequestParam("btnAtt") List<MultipartFile> files, Model model, HttpServletRequest request) {
+//    	System.out.println("BoardController writeBoardPro()");
+//    	String contextPath = request.getContextPath();
+//    	String uploadPath = contextPath + "/resources/img/board";
+//    	System.out.println("uploadPath: "+uploadPath);
+//        if (files.size() > 0 && !files.get(0).isEmpty()) { // 파일이 존재하는지 체크
+//            StringBuilder message = new StringBuilder();
+//            for (MultipartFile file : files) {
+//                try {
+//                    // 파일 저장 로직
+//                    String saveName = file.getOriginalFilename();
+//                    System.out.println("saveName: "+saveName);
+//                    File saveFile = new File(uploadPath, saveName);
+//                    file.transferTo(saveFile);
+//
+//                    message.append("File uploaded successfully: ").append(saveName).append("<br>");
+//                } catch (Exception e) {
+//                    message.append("File upload failed: ").append(file.getOriginalFilename()).append("<br>");
+//                }
+//            }
+//            model.addAttribute("message", message.toString());
+//        } else {
+//            model.addAttribute("message", "No files to upload!");
+//        }
+//
+//        return "board/saleBoard"; // 업로드 결과를 보여줄 뷰의 이름
+//    }
 	
 	
 	@GetMapping("/boardDetail")

@@ -370,3 +370,8 @@ input[type="submit"]:hover {
   align-items: center;
   justify-content: center;
 }
+
+#adminLogin:hover {
+	color: red;
+}
+}

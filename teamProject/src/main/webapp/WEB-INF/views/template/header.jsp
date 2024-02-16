@@ -46,7 +46,7 @@
 		<div class="row">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
-					<a class="navbar-brand" href="#" style="font-size: 30px;"><b>꿀당근장터</b></a>
+					<a class="navbar-brand" href="${pageContext.request.contextPath}" style="font-size: 30px;"><b>꿀당근장터</b></a>
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="menu">
 					 		<a class="nav-link ${fileName == 'saleBoard' ? 'active' : ''}" href="${pageContext.request.contextPath}/board/saleBoard">판매</a>
@@ -105,7 +105,7 @@
 						<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
 					</button>
 					  <ul class="dropdown-menu">
-					    <li><a class="dropdown-item" href="login">로그인</a></li>
+					    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">로그인</a></li>
 					  </ul>
 					</div>
 				</c:if>

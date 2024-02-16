@@ -59,9 +59,11 @@
 				<!-- 네이버 버튼 -->
 				<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-success rounded-3">
 						<img src="../resources/img/member/naver.png" id="image" width="24" height="24"/><span id="span">Naver로 시작하기</span></a>
-						<ion-icon name="lock-closed-outline"></ion-icon>
-				<a class="icon-link icon-link-hover mt-2" href="javascript:findId();" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
-				<a class="icon-link icon-link-hover mt-2" href="javascript:findPw();" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
+				<ion-icon name="lock-closed-outline"></ion-icon>
+				<a class="icon-link icon-link-hover mt-2" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
+				<a class="icon-link icon-link-hover mt-2" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
+				<hr>
+				<div style="text-align: right; padding-bottom: 3%;"><a href="#" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div>
 				
 			</div>
 			</form>
@@ -80,27 +82,27 @@
 	    <h4>회원가입</h4>
 	    <!-- 이하 생략 -->
 		<br>
-	    <form>
+	    <form action="">
 	      <div class="form-group">
 	        <label for="id">아이디</label>
 	        <input type="text" id="id" name="id" placeholder="아이디를 입력해 주세요." required>
 	      </div>
 	      <div class="form-group">
 	        <label for="password">비밀번호</label>
-			<input type="password" id="password" name="password" placeholder="(영문/숫자/특수 포함 8자리 이상)" required>
+			<input type="password" id="pw" name="pw" placeholder="(영문/숫자/특수 포함 8자리 이상)" required>
 	      </div>
 	      <div class="form-group">
 			<label for="confirmPassword">비밀번호 확인</label>
-			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력해주세요." required>
+			<input type="password" id="confirmPw" name="confirmPw" placeholder="비밀번호를 다시 입력해주세요." required>
 	      </div>
 	      <div class="form-group">
 			  <label for="gender">성별</label>
 			  <div class="input-group">
 			    <select id="gender" name="gender" class="form-control" required>
 			      <option value="" selected disabled style="font-size: 14px;">성별 선택</option>
-			      <option value="male">남성</option>
-			      <option value="female">여성</option>
-			      <option value="other">기타</option>
+			      <option value="M">남성</option>
+			      <option value="F">여성</option>
+			      <option value="O">기타</option>
 			    </select>
 			  </div>
 			</div>
@@ -136,7 +138,7 @@
 <!-- 		 </div> -->
 			<hr>
 	      <div class="button-group">
-	        <input type="submit" value="회원가입">
+	        <input id="insertBtn" type="submit" value="회원가입">
 	      </div>
 	    </form>
 	  </div>

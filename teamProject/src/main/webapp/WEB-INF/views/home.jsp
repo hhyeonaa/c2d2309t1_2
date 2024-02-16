@@ -13,7 +13,6 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-
 	
 	
 		<div style="border: 1px solid black; width: 100%; height: 100%;">
@@ -28,7 +27,7 @@
 						  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail'">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -39,7 +38,7 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -50,7 +49,7 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -61,7 +60,7 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -72,7 +71,7 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -83,7 +82,7 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -94,7 +93,7 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -105,7 +104,7 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
+						     <span class="state1">판매</span>
 						     <span class="state2">판매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
@@ -131,7 +130,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -142,7 +141,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -153,7 +152,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -164,7 +163,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -175,7 +174,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -186,7 +185,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -197,7 +196,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -208,7 +207,7 @@
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state3">나눔중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -232,8 +231,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -243,8 +242,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -254,8 +253,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -265,8 +264,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -276,8 +275,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -287,8 +286,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -298,8 +297,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -309,8 +308,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">구매</span>
+						     <span class="state4">구매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -334,8 +333,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -345,8 +344,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -356,8 +355,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -367,8 +366,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -378,8 +377,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -389,8 +388,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -400,8 +399,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>
@@ -411,8 +410,8 @@
 						  <div class="card h-100">
 						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state2">판매중</span><br>
+						     <span class="state1">경매</span>
+						     <span class="state5">경매중</span><br>
 						     <p>제목명</p>
 						  <h5><b>10,000원</b></h5>
 						    </div>

@@ -102,8 +102,6 @@
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-<!-- 										<div class="PaymentGridMethod check"> //클릭시 class check -->
-<!-- 										<div class="PaymentGridMethod nonCheck"> //미 클릭시 nonCheck-->
 										<div class="PaymentGridMethod toss nonCheck">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>
@@ -117,12 +115,12 @@
 										<div class="PaymentGridMethod naver nonCheck">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
 										</div>
-									</div>
+									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
 										<div class="PaymentGridMethod phonepay nonCheck">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">휴대폰결제</span>
 										</div>
-									</div>
+									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
 										<div class="PaymentGridMethod samsung nonCheck">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">삼성페이</span>
@@ -132,7 +130,7 @@
 										<div class="PaymentGridMethod apple nonCheck">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">애플페이</span>
 										</div>
-									</div>
+									</div>										
 								</div>
 							</div>
 						</article>

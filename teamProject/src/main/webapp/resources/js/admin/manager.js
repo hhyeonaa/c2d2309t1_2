@@ -80,6 +80,7 @@ $(function(){
 	});	
 	
 	
+	
 	// 생성버튼 이벤트 
 	$('#insertBtn').on('click', function() {
 		if($('#AD_ID').val() == ""){

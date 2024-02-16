@@ -128,3 +128,27 @@ p {
     padding-right: 3px;
     padding-left: 3px;
 }
+.state3 {
+	background-color:#FAED7D;
+	size: 8px;
+	border-radius: 10%;
+	font-size: 10pt;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+.state4 {
+	background-color:#B2CCFF;
+	size: 8px;
+	border-radius: 10%;
+	font-size: 10pt;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+.state5 {
+	background-color:#FFB2D9;
+	size: 8px;
+	border-radius: 10%;
+	font-size: 10pt;
+    padding-right: 3px;
+    padding-left: 3px;
+}

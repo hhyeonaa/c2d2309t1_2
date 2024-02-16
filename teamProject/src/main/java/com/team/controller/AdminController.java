@@ -1,8 +1,12 @@
 package com.team.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.team.util.AlertMessage;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -32,7 +36,12 @@ public class AdminController {
 	
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
-	public String message_manage() {
+	public String message_manage(HttpServletResponse response) {
+		AlertMessage message = new AlertMessage();
+//		message.onlyAlert(response, "안녕");
+//		message.historyBackAlert(response, "안녕히사시부리");
+//		message.moveThePageAlert(response, "오하이요", "admin/category_manage");
+		
 		return "admin/message_manage";
 	}
 	

@@ -1,16 +1,21 @@
 package com.team.controller;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.team.util.AlertMessage;
+import com.team.service.TeamService;
+import com.team.util.EnumCodeType;
 
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
+	
+	@Inject
+	private TeamService service;
 	
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
@@ -37,10 +42,16 @@ public class AdminController {
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
 	public String message_manage(HttpServletResponse response) {
-		AlertMessage message = new AlertMessage();
-//		message.onlyAlert(response, "안녕");
-//		message.historyBackAlert(response, "안녕히사시부리");
-//		message.moveThePageAlert(response, "오하이요", "admin/category_manage");
+//		code.onlyAlert(response, "안녕");
+//		code.historyBackAlert(response, "안녕히사시부리");
+//		code.moveThePageAlert(response, "오하이요", "category_manage");
+//		code.confirm(response, "야임마", "category_manage", true);
+		
+		
+//		com.team.util에 message 항목들 보여주는 함수 
+//		본인이 메시지문구 함수 사용전에 showMessage()함수 결과 보고 정해주세요
+		
+		service.showMessage(EnumCodeType.메세지);	 
 		
 		return "admin/message_manage";
 	}

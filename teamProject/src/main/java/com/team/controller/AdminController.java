@@ -1,17 +1,54 @@
 package com.team.controller;
 
+
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.team.service.AdminService;
+
+import com.team.service.TeamService;
+import com.team.util.EnumCodeType;
 
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
 	
+	@Inject
+	private TeamService service;
+	@Inject
+	private AdminService adminService;
+	
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
-	public String manager() {
+	public String manager(Model model) {
+		List<Map<String, String>> mapList = adminService.getAdminList();
+		model.addAttribute("mapList", mapList);
 		return "admin/manager";
+	}
+	
+	@PostMapping("/insertPro")
+	public void managerPro(@RequestParam Map<String, String> map) {
+		boolean check = adminService.idCheck(map);
+		if(check) {
+		} else {
+			adminService.adminInsert(map);
+		}
+	}
+	
+	@PostMapping("/deletePro")
+	public void deletePro(@RequestParam String AD_NO) {
+		adminService.adminDelete(AD_NO);
 	}
 	
 	@GetMapping("/board")
@@ -21,18 +58,31 @@ public class AdminController {
 	
 	@GetMapping("/header_menu")
 	public String header_menu() {
-		return "admin/header_menu";
+		return "admin/header_menu";  
 	}
 	
 	@GetMapping("/category")
 	public String category() {
 		return "admin/category";
 	}
+	
+	
 	/* 현아 작업공간 */
 	
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
-	public String message_manage() {
+	public String message_manage(HttpServletResponse response) {
+//		code.onlyAlert(response, "안녕");
+//		code.historyBackAlert(response, "안녕히사시부리");
+//		code.moveThePageAlert(response, "오하이요", "category_manage");
+//		code.confirm(response, "야임마", "category_manage", true);
+		
+		
+//		com.team.util에 message 항목들 보여주는 함수 
+//		본인이 메시지문구 함수 사용전에 showMessage()함수 결과 보고 정해주세요
+		
+		service.showMessage(EnumCodeType.메세지);	 
+		
 		return "admin/message_manage";
 	}
 	
@@ -73,4 +123,7 @@ public class AdminController {
 		return "admin/board_content";
 	}
 	/* 성엽 작업공간 */	
+
+
+
 }

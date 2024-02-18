@@ -351,6 +351,7 @@ input[type="submit"]:hover {
 
 #signupModal {
   text-align: center;
+  padding-top: 2%;
 }
 
 #signupModal img {
@@ -368,4 +369,9 @@ input[type="submit"]:hover {
   display: none;
   align-items: center;
   justify-content: center;
+}
+
+#adminLogin:hover {
+	color: red;
+}
 }

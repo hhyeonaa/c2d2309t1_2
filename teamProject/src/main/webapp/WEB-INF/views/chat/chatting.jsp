@@ -117,7 +117,7 @@
 				<div
 					class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 					<div class="modal-content" style="height: 650px;">
-						<div class="modal-header">
+						<div class="modal-header" style="background-color: #9bbbd4">
 							<img src="https://source.unsplash.com/random/?car" alt="random"
 								width="100" height="100">
 								상품이름 : {123} <hr> 상품가격 : {123} 
@@ -132,7 +132,7 @@
 									aria-label="Close"></button>
 							</div>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body" style="background-color: #9bbbd4">
 							<div id="container">
 								<aside>
 									<header style="justify-content: flex-end;">

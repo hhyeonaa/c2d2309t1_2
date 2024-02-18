@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html style="margin-top: 100px;">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>게시판 글 관리</title>
@@ -11,8 +11,9 @@
 	
 	<div class="container">
     <div class="row align-items-center">
-        <div><h4 class="card-title mb-5"><b>게시판 목록</b></h4></div>
+        <div><h4 class="card-title mb-5"  style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
     </div>
+	
 	
 	<div class="row">
         <div class="col-lg-12">

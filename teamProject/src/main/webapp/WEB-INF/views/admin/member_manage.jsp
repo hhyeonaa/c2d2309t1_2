@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html style="margin-top: 100px;">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
@@ -11,7 +11,7 @@
 	
 	<div class="container">
     <div class="row align-items-center">
-        <div><h4 class="card-title mb-5"><b>게시판 목록</b></h4></div>
+        <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
     </div>
 	
 	
@@ -24,6 +24,7 @@
                             <tr>
                                 <th scope="col">닉네임</th>
                                 <th scope="col">가입일</th>
+                                <th scope="col">정지일</th>
                                 <th scope="col">탈퇴</th>
                             </tr>
                         </thead>
@@ -31,6 +32,7 @@
                             <tr>
                                 <td>닉네임</td>
                                 <td>가입일</td>
+                                <td>정지일</td>
                                 <th scope="row">
                                 	<div>
 										<button class="btn btn-dark">탈퇴</button>
@@ -40,6 +42,7 @@
                             <tr>
                                 <td>닉네임</td>
                                 <td>가입일</td>
+                                <td>정지일</td>
                                 <th scope="row">
                                 	<div>
 										<button class="btn btn-dark">탈퇴</button>
@@ -49,6 +52,7 @@
                             <tr>
                                 <td>닉네임</td>
                                 <td>가입일</td>
+                                <td>정지일</td>
                                 <th scope="row">
                             	    <div>
 										<button class="btn btn-dark">탈퇴</button>

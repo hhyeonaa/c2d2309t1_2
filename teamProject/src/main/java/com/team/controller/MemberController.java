@@ -1,19 +1,47 @@
 package com.team.controller;
 
+
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.team.service.MemberService;
 
 @Controller
 @RequestMapping("/member/*")
-public class MemberController {
+public class MemberController{
+	@Inject
+	private MemberService memberService;
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
 	public String login() {
 		System.out.println("MemberController login()");
 		return "member/login";
 	}// login()
+//	-----------------------------------------------------------------------------	
+	@PostMapping("/loginPro")
+	public String loginPro(@RequestParam Map<String, String> map) {
+		System.out.println("MemberController loginPro()");
+		memberService.userCheck(map);
+		
+		return "member/loginPro";
+	}// loginPro()
+//	-----------------------------------------------------------------------------	
+	@PostMapping("/insertPro")
+	public void insertPro(@RequestParam Map<String, String> map) {
+		System.out.println("MemberController insertPro()");
+		System.out.println(map.toString());
+		memberService.insertMemeber(map);
+		
+	}//insertPro()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/mypage")
 	public String mypage() {
@@ -45,4 +73,10 @@ public class MemberController {
 		return "member/salesList";
 	}// salesList()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		System.out.println("MemberController logout()");
+		session.invalidate();
+		return "/home";
+	}// logout()
 }// MemberController 클래스

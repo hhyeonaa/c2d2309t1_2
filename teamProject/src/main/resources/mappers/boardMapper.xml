@@ -8,4 +8,11 @@
 		  FROM PRODUCT
 		 WHERE PRO_WR = #{proWr}
 	</select>
+	<insert id="insertBoard" parameterType="map" statementType="CALLABLE">
+		{CALL procInsertBoard(
+	       <foreach item="item" index="key" collection="paramMap" separator=",">
+	          #{item}
+	      	</foreach>
+		)}
+	</insert>
 </mapper>

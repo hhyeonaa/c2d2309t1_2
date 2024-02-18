@@ -249,6 +249,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		// 텍스트 데이터를 JSON 객체로 준비
 		var textData = {
 		    proName: $('#proName').val(),
+		    proPrice: $('#proPrice').val(),
 		    proTc: $('#proTc').val(),
 		    category1: $('#category1').val(),
 		    category2: $('#category2').val(),

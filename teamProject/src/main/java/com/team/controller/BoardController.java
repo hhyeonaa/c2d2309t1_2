@@ -2,14 +2,18 @@ package com.team.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.System.Logger;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +31,8 @@ import com.team.service.BoardService;
 @RequestMapping("/board/*")
 public class BoardController {
 	
+	
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(BoardController.class);
 	@Inject
 	BoardService boardService;
 	
@@ -68,7 +74,8 @@ public class BoardController {
 	@PostMapping("/writeBoardPro")
 	public ResponseEntity<?> writeBoardPro(
 	        @RequestParam Map<String, String> textData,
-	        @RequestParam("imgs") List<MultipartFile> imgs) throws IOException {
+	        @RequestParam("imgs") List<MultipartFile> imgs,
+	        HttpServletRequest request) throws IOException {
 
 	    // Gson 인스턴스 생성
 //	    Gson gson = new Gson();
@@ -79,12 +86,44 @@ public class BoardController {
 
 	    // 텍스트 데이터 처리
 	    System.out.println("Received text data: " + textData);
-
 	    // 파일 데이터 처리
-	    for (MultipartFile img : imgs) {
-	        System.out.println("Received file: " + img.getOriginalFilename() + " with size: " + img.getSize());
-	        // 파일 처리 로직 (예: 저장, 검증 등)
+//	    String rootPath = System.getProperty("user.dir"); // 동적으로 루트 디렉토리 경로를 얻음
+//	    String fixedPath = "src/main/webapp/resources/img/uploads"; // 고정된 하위 경로
+//	    String fullPath = rootPath + File.separator + fixedPath; // 최종 경로 결합
+//	    ServletContext context = request.getSession().getServletContext();
+//	    String realPath = context.getRealPath("/resources/img/uploads");
+//	    logger.info("realPath: "+ realPath);
+//	    logger.info("fullPath: "+ fullPath);
+//	    for (MultipartFile img : imgs) {
+//	        String fileName = img.getOriginalFilename(); // 원본 파일 이름
+//	        File destFile = new File(fullPath + File.separator + fileName);
+//	        img.transferTo(destFile); // 파일 저장
+//	    }
+	    // 저장할 디렉토리 설정
+	    String uploadDir = System.getProperty("user.home") + "/upload";
+	    logger.info("uploadDir: "+ uploadDir);
+
+//	    // 파일 데이터 처리
+//	    for (MultipartFile img : imgs) {
+//	        System.out.println("Received file: " + img.getOriginalFilename() + " with size: " + img.getSize());
+//	        // 파일 처리 로직 (예: 저장, 검증 등)
+//	    }
+	    // 디렉토리 생성
+	    File directory = new File(uploadDir);
+	    if (!directory.exists()) {
+	        directory.mkdirs();
 	    }
+	    
+	    // 파일 데이터 처리 및 저장
+	    List<String> imageFilenames = new ArrayList<>();
+	    for (MultipartFile img : imgs) {
+	        String fileName = img.getOriginalFilename(); // 원본 파일 이름 가져오기
+	        imageFilenames.add(fileName);
+	        File destFile = new File(uploadDir + File.separator + fileName);
+	        img.transferTo(destFile); // 파일 저장
+	        System.out.println("Saved file: " + fileName + " to " + uploadDir);
+	    }
+	    boardService.insertBoard(textData, imageFilenames);
 
 	    return ResponseEntity.ok("Data and files received successfully");
 	}

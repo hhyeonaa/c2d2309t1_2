@@ -30,19 +30,19 @@
 <body class="text-center">
 
 	<!--  html 전체 영역을 지정하는 container -->
-	<div id="container">
+	<div id="container" class="container rounded-5 shadow" style="width: 400px; height: 500px;">
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
 		<form action="loginPro" method="post" id="form">
 			<!-- 로그인 페이지 타이틀 -->
 			<div id="loginBoxTitle"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></div>
 			<!-- 아이디, 비번, 버튼 박스 -->
-			<div id="inputBox" style="height: 200px;">
+			<div id="inputBox" style="height: 330px;">
 				<div class="input-form-box">
-					<input type="text" placeholder="아이디" name="uid" class="form-control">
+					<input type="text" placeholder="아이디" name="MEM_ID" class="form-control">
 				</div>
 				<div class="input-form-box">
-					<input type="password" placeholder="비밀번호" name="upw"
+					<input type="password" placeholder="비밀번호" name="MEM_PW"
 						class="form-control">
 				</div>
 				<div class="button-login-box">
@@ -124,7 +124,7 @@
 	      </div>
 	      <div class="form-group">
 	        <label for="email">이메일</label>
-	        <input type="email" id="email" name="email" placeholder="[선택] 이메일주소 (비밀번호 찾기 등 본인 확인용)">
+	        <input type="email" id="email" name="email" placeholder="이메일 주소 (비밀번호 찾기 등 본인 확인용)">
 	      </div>
 <!-- 		 <div class="form-group"> -->
 <!-- 		   <label for="address">주소</label> -->
@@ -138,7 +138,7 @@
 <!-- 		 </div> -->
 			<hr>
 	      <div class="button-group">
-	        <input id="insertBtn" type="submit" value="회원가입">
+	        <input id="insertBtn" type="button" value="회원가입">
 	      </div>
 	    </form>
 	  </div>

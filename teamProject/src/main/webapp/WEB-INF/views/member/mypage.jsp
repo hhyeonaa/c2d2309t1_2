@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>	
 <head>
@@ -39,7 +40,7 @@
 						    </div>
                         </section>
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='salesList'">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='myList'">
                             <span>내 상품 관리</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
@@ -67,7 +68,7 @@
                             </svg>
                         </a>
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='salesList'">
                             <span>판매 내역</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">

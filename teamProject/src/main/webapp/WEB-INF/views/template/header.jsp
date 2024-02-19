@@ -85,21 +85,21 @@
 					<a class="nav-link writeBtn" href="${pageContext.request.contextPath}/board/writeBoard">상품 등록</a>
 				</div>
 				
-				<c:if test="${!empty sessionScope.MEM_NO}">
+				<c:if test="${!empty sessionScope.MEM_ID}">
 					<div class="btn-group">
 				  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
 						<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
 					</button>
 					  <ul class="dropdown-menu">
-					    <li><a class="dropdown-item" href="mypage">프로필</a></li>
-					    <li><a class="dropdown-item" href="tradeList">거래내역</a></li>
-					    <li><a class="dropdown-item" href="likeList">찜목록</a></li>
+					    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/mypage">프로필</a></li>
+					    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/likeList">찜목록</a></li>
+					    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/myList">내 상품 관리</a></li>
 					    <li><hr class="dropdown-divider"></li>
-					    <li><a class="dropdown-item" href="logout">로그아웃</a></li>
+					    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
 					  </ul>
 					</div>
 				</c:if>
-				<c:if test="${empty sessionScope.MEM_NO}">
+				<c:if test="${empty sessionScope.MEM_ID}">
 					<div class="btn-group">
 				  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
 						<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">

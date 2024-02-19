@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.team.mappers.member">
+<mapper namespace="com.team.mappers.memberMapper">
 	<insert id="insertmember">
 		insert into MEMBER
 				( MEM_NO
@@ -27,10 +27,31 @@
 				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s') ) 
 	</insert>
 	
-	<select id="adminLogin" resultType="boolean">
-		select AD_ID
-			 , AD_PW
+	<select id="login" resultType="map">
+		select MEM_ID, MEM_PW
+		from MEMBER
+		where MEM_ID = #{MEM_ID} 
+		and MEM_PW = #{MEM_PW}
+	</select>	
+	
+	<select id="adminLogin" resultType="map">
+		select AD_ID, AD_PW
 		from ADMIN
-		where AD_ID = #{AD_ID}
-	</select>
+		where AD_ID = #{AD_ID} 
+		and AD_PW = #{AD_PW}
+	</select>	
+	
+	<select id="mypage" parameterType="map" resultType="map">
+		select M.MEM_NO
+			 , M.MEM_IMAGE
+			 , M.MEM_EMAIL
+			 , M.MEM_NICK
+			 , S.SCO_SCORE
+		from MEMBER M
+		left outer join SCORE S
+		on M.MEM_NO = S.MEM_NO
+		where 1 = 1
+		and M.MEM_NO = #{MEM_NO}
+	</select>	
+	
 </mapper>

@@ -26,26 +26,16 @@ $(function(){
 					 ,MEM_TEL: $('#phone').val()
 					 ,MEM_EMAIL: $('#email').val() }
 		})
-		.done(function(data){
-			alert('회원가입이 완료되었습니다.');
-			signupModal.style.display = "none";	
-		})
+		 
+		alert("회원가입 되었습니다.");
+		signupModal.style.display = "none";
+		location.replace('login');
 	})
 	
 	// x버튼 클릭 시 모달 종료
 	$('.close').on('click', function(){
 		signupModal.style.display = "none";	
 	});
-	
-	// ------------------관리자 로그인------------------
-	$('#adminLoginBtn').on('click', function(){
-		$.ajax({
-			type: "post"
-		  ,	url: "adminLoginPro"
-		  , data: {AD_ID: $('#AD_ID'),
-		  		   AD_PW: $('#AD_PW') }
-		})
-	})
 	
 	// -----------------아이디 찾기------------------
 	// 아이디 찾기 버튼 클릭 시 모달 열기

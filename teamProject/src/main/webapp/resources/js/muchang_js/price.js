@@ -10,5 +10,6 @@
  	
  	targetColor($("#price_manage"));
  	paging("#tbody tr", 5, 0);	
- 
+	 
  })
+ 

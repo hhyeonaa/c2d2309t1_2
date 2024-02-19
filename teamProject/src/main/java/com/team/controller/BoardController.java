@@ -26,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.team.service.BoardService;
+import com.team.service.TeamService;
+import com.team.util.EnumCodeType;
 
 @Controller
 @RequestMapping("/board/*")
@@ -35,6 +37,8 @@ public class BoardController {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(BoardController.class);
 	@Inject
 	BoardService boardService;
+	@Inject
+	private TeamService teamService;
 	
 	@GetMapping("/saleBoard")
 	public String saleBoard() {

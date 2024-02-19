@@ -26,4 +26,11 @@
 				,#{MEM_EMAIL}
 				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s') ) 
 	</insert>
+	
+	<select id="adminLogin" resultType="boolean">
+		select AD_ID
+			 , AD_PW
+		from ADMIN
+		where AD_ID = #{AD_ID}
+	</select>
 </mapper>

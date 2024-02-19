@@ -17,7 +17,7 @@
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
 			<!--  -->
-        	<div class="container rounded-5 shadow" style="height: 650px; width: 700px; padding: 0, 20%, 0, 20%;">
+        	<div class="container rounded-5 shadow" style="height: 700px; width: 700px; padding: 0, 20%, 0, 20%;">
                 <section class="css-1dk9sr2">
                     
                     <div class="css-312egs">
@@ -53,8 +53,22 @@
                             </svg>
                         </a>
                         
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='buyList'">
+                            <span>구매 내역</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#ic_arrow_mini_svg__a)">
+                                    <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="ic_arrow_mini_svg__a">
+                                        <path fill="#fff" transform="translate(6.667 4.167)" d="M0 0h6.617v11.492H0z"></path>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </a>
+                        
                         <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
-                            <span>거래 내역</span>
+                            <span>판매 내역</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>

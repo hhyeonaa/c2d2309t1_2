@@ -61,7 +61,7 @@
         <div class="col-lg-12">
             <div class="">
                 <div class="table-responsive">
-                    <table class="table project-list-table table-nowrap align-middle table-borderless text-center">
+                    <table id="adminList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
                         <thead>
                             <tr>
                                 <th scope="col">번호</th>
@@ -74,9 +74,9 @@
                         <tbody id="tbody">
                         	<c:forEach var="admin" items="${mapList}">
 	                            <tr>
-	                            	<th>${admin.AD_NO }</th>
-	                                <td>${admin.AD_ID }</td>
-	                                <td>${admin.AD_NAME }</td>
+	                            	<th id="no">${admin.AD_NO }</th>
+	                                <td id="id">${admin.AD_ID }</td>
+	                                <td id="name">${admin.AD_NAME }</td>
 	                                <td scope="row">
 		                                <div class="form-check form-switch justify-content-center">
 			                                <c:if test="${admin.AD_ACTIVE eq '1'}">
@@ -88,7 +88,8 @@
 		                                </div>
 	                                </td>
                             	    <td scope="row">
-										<button id="deleteBtn"><ion-icon name="remove-circle-outline"></ion-icon></button>
+										<button id="deleteBtn" onclick="getId()">
+											<ion-icon name="remove-circle-outline"></ion-icon></button>
 	                                </td>
 	                            </tr>
                             </c:forEach>

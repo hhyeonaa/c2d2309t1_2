@@ -43,6 +43,7 @@ public class AdminController {
 	
 	@PostMapping("/deletePro")
 	public void deletePro(@RequestParam String AD_NO) {
+		System.out.println("AD_NO : " + AD_NO);
 		adminService.adminDelete(AD_NO);
 	}
 	

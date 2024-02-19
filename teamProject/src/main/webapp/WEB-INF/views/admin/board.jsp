@@ -15,6 +15,66 @@
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container">
+    <div class="row align-items-center mb-4">
+        <div><h4 class="card-title"><b>적용 미리 보기</b></h4></div>
+    </div>
+    <div class="preview mb-5">
+		<div class="row align-middle">
+			<nav class="navbar navbar-expand-lg navbar-light p-3">
+				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
+					<a class="navbar-brand" href="#" style="font-size: 30px;"><b>꿀당근장터</b></a>
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="menu">
+					 		<a class="nav-link" href="board/saleBoard">판매</a>
+						</li>
+						<li class="menu">
+							<a class="nav-link" href="#">구매</a>
+						</li>
+						<li class="menu">
+							<a class="nav-link" href="#">나눔</a>
+						</li>
+						<li class="menu">
+							<a class="nav-link" href="#">경매</a>
+						</li>
+					</ul>
+					<form class="d-flex">
+						<div class="input-group" style="flex-wrap: nowrap;">
+					      <select class="form-select" aria-label="boardSelect">
+					          <option value="판매" selected>판매</option>
+					          <option value="구매">구매</option>
+					          <option value="나눔">나눔</option>
+					          <option value="경매">경매</option>
+				        	</select>
+					      <input
+					        class="form-control me-2"
+					        type="search"
+					        placeholder="찾고 싶은 물품을 검색해 보세요."
+					        aria-label="Search"
+					        id="search"
+					    />
+					    <button class="btn" type="submit" id="searchButton"><ion-icon name="search-outline"></ion-icon></button>
+					    </div>
+					</form>
+				</div>
+				<div class="writeBtnBox" style="width: 100px; display:flex; justify-content: center;">
+					<span class="material-symbols-outlined addIcon">add_circle</span>
+					<a class="nav-link writeBtn" href="#">상품 등록</a>
+				</div>
+				<div class="btn-group">
+			  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
+					<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
+				</button>
+				  <ul class="dropdown-menu">
+				    <li><a class="dropdown-item" href="#">프로필</a></li>
+				    <li><a class="dropdown-item" href="#">거래내역</a></li>
+				    <li><a class="dropdown-item" href="#">글목록</a></li>
+				    <li><hr class="dropdown-divider"></li>
+				    <li><a class="dropdown-item" href="#">로그아웃</a></li>
+				  </ul>
+				</div>
+			</nav>
+		</div>
+    </div>
     <div class="row align-items-center">
         <div><h4 class="card-title mb-5"><b>게시판 목록</b></h4></div>
     </div>
@@ -29,6 +89,7 @@
                                 <th scope="col">게시판명</th>
                                 <th scope="col">게시판 유형</th>
                                 <th scope="col">글쓰기 입력폼</th>
+                                <th scope="col">순서</th>
                                 <th scope="col">표시 상태</th>
                             </tr>
                         </thead>
@@ -47,6 +108,7 @@
 									</div>
 								</td>
                                 <td><a href="#" id="insertForm">설정하기</a></td>
+                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
                                 <th scope="row">
                                 	<div class="form-check form-switch justify-content-center">
 										<input class="form-check-input" type="checkbox" id="active">
@@ -67,6 +129,7 @@
 									</div>
 								</td>
                                 <td><a href="#" id="insertForm">설정하기</a></td>
+                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
                                 <th scope="row">
                                 	<div class="form-check form-switch justify-content-center">
 										<input class="form-check-input" type="checkbox" id="active">
@@ -87,6 +150,7 @@
 									</div>
 								</td>
                                 <td><a href="#" id="insertForm">설정하기</a></td>
+                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
                                 <th scope="row">
                             	    <div class="form-check form-switch justify-content-center">
 										<input class="form-check-input" type="checkbox" id="active">
@@ -107,6 +171,7 @@
 									</div>
 								</td>
                                 <td><a href="#" id="insertForm">설정하기</a></td>
+                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
                                 <th scope="row">
                                 	<div class="form-check form-switch justify-content-center">
 										<input class="form-check-input" type="checkbox" id="active">

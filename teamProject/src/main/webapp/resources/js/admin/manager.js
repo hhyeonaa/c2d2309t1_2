@@ -6,6 +6,17 @@ $(() => {
 	paging("#tbody tr", 5, 0);
 });
 
+	// 리스트 버튼 선택 코드
+	function getId(){
+	    let adminList = document.getElementById('adminList');
+		for (let i = 1; i < adminList.rows.length; i++) {
+		   adminList.rows[i].cells[4].onclick = function () {
+		      let AD_NO= adminList.rows[i].cells[0].innerText;
+		      alert(AD_NO+"을 선택하셨습니다.");
+		   }
+		}
+	}
+
 $(function(){
 	// 활성 상태 관련
 //	$.ajax({
@@ -32,26 +43,33 @@ $(function(){
 					 AD_ACTIVE: $("#AD_ACTIVE").val() }
 		});
 	});
+
+
+
+
+
+
+
 	
 	// 삭제 버튼
-	$('#deleteBtn').on('click', function(){
-		var result = confirm('정말로 삭제하시겠습니까?');
-	    if(result){
-			$.ajax({
-				type: "post"
-				, url: "deletePro"
-				, data: {AD_NO: $("#AD_NO").val() }
-	        })
-	        .done(function(done){
-				debugger;
-				alert($("#AD_ID").val() + "가 삭제되었습니다.");
-				location.reload();
-			});
-        } else {
-	       		alert("삭제가 취소되었습니다.");
-	       		modal.style.display = "none";
-	   	}
-	});
+//	$('#deleteBtn').on('click', function(){
+//		var result = confirm('정말로 삭제하시겠습니까?');
+//	    if(result){
+//			$.ajax({
+//				type: "post"
+//				, url: "deletePro"
+//				, data: {AD_NO: $("#AD_NO").val() }
+//	        })
+//	        .done(function(done){
+//				debugger;
+//				alert($("#AD_ID").val() + "가 삭제되었습니다.");
+//				location.reload();
+//			});
+//        } else {
+//	       		alert("삭제가 취소되었습니다.");
+//	       		modal.style.display = "none";
+//	   	}
+//	});
 	
 		
 	// 모달창 관련	

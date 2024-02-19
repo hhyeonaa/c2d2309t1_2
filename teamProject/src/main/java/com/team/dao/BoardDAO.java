@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.google.gson.Gson;
+
 
 
 @Repository
@@ -25,7 +27,7 @@ public class BoardDAO {
 		return sqlSession.selectOne(NAMESPACE + ".select", map);
 	} // 테스트용 select()
 
-	public void insertBoard(Map<String, String> textData, List<String> imageFilenames) {
+	public void insertBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
 		System.out.println("BoardDAO insertBoard()");
 	    // 이미지 파일 이름을 textData Map에 추가
 	    for (int i = 0; i < imageFilenames.size(); i++) {
@@ -34,11 +36,13 @@ public class BoardDAO {
 	        String value = imageFilenames.get(i);
 
 	        // 생성된 키와 이미지 파일 이름을 textData Map에 추가
-	        textData.put(key, value);
+	        parsedMap.put(key, value);
 	    }
-	    logger.info("map: " + textData);
-	    logger.info("textData: " + textData.get("textData"));
-		//sqlSession.insert(NAMESPACE+".insertBoard", textData);
+	    parsedMap.put("proNo","PR2"); // 임시 추가
+	    logger.info("map: " + parsedMap);
+	    String jsonParams = new Gson().toJson(parsedMap);
+	    logger.info("jsonParams: " + jsonParams);
+		sqlSession.insert(NAMESPACE+".insertBoard", jsonParams);
 	}// insertBoard()
 
 }// BoardDAO 끝

@@ -20,9 +20,9 @@ public class BoardService {
 		return boardDAO.select(map);
 	}// test select()
 
-	public void insertBoard(Map<String, String> textData, List<String> imageFilenames) {
+	public void insertBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
 		System.out.println("BoardService insertBoard()");
-		boardDAO.insertBoard(textData,imageFilenames);
+		boardDAO.insertBoard(parsedMap,imageFilenames);
 		
 	}// insertBoard()
 

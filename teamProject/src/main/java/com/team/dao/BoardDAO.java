@@ -38,11 +38,11 @@ public class BoardDAO {
 	        // 생성된 키와 이미지 파일 이름을 textData Map에 추가
 	        parsedMap.put(key, value);
 	    }
-	    parsedMap.put("proNo","PR2"); // 임시 추가
+	    parsedMap.put("proHits","0"); // 임시 추가
 	    logger.info("map: " + parsedMap);
 	    String jsonParams = new Gson().toJson(parsedMap);
 	    logger.info("jsonParams: " + jsonParams);
-		sqlSession.insert(NAMESPACE+".insertBoard", jsonParams);
+		//sqlSession.insert(NAMESPACE+".insertBoard", jsonParams);
 	}// insertBoard()
 
 }// BoardDAO 끝

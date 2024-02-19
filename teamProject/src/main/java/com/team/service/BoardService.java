@@ -22,6 +22,10 @@ public class BoardService {
 
 	public void insertBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
 		System.out.println("BoardService insertBoard()");
+		// 리스트의 크기가 6보다 작은 동안 'empty'를 추가
+        while (imageFilenames.size() < 6) {
+            imageFilenames.add("empty");
+        }
 		boardDAO.insertBoard(parsedMap,imageFilenames);
 		
 	}// insertBoard()

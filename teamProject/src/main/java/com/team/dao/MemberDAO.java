@@ -18,4 +18,7 @@ public class MemberDAO {
 		sqlSession.insert(namespace + "insertmember", map);
 	}// insertMember()
 //	-----------------------------------------------------------------------------	
+	public boolean adminLogin(Map<String, String> map) {
+		return sqlSession.selectOne(namespace + "adminLogin", map);
+	}// adminLogin()
 }// MemberDAO 클래스

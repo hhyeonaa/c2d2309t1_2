@@ -1,7 +1,6 @@
 package com.team.controller;
 
 
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +24,7 @@ import com.team.util.EnumCodeType;
 public class AdminController {
 	
 	@Inject
-	private TeamService service;
+	private TeamService teamService;
 	@Inject
 	private AdminService adminService;
 	
@@ -74,15 +73,20 @@ public class AdminController {
 	public String message_manage(HttpServletResponse response) {
 //		code.onlyAlert(response, "안녕");
 //		code.historyBackAlert(response, "안녕히사시부리");
-//		code.moveThePageAlert(response, "오하이요", "category_manage");
+//		Object[] arr = {"가나다"};
+//		service.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "category_manage");
 //		code.confirm(response, "야임마", "category_manage", true);
-		
 		
 //		com.team.util에 message 항목들 보여주는 함수 
 //		본인이 메시지문구 함수 사용전에 showMessage()함수 결과 보고 정해주세요
 		
-		service.showMessage(EnumCodeType.메세지);	 
+		teamService.showCodeList(EnumCodeType.메세지);	
+//		teamService.showCodeList(EnumCodeType.배송안내문구);
 		
+		Object[] arr = {"안녕"};
+		
+//		teamService.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "member/login");
+		teamService.confirm(response, EnumCodeType.메세지.type + 1, arr, "member/login", false);
 		return "admin/message_manage";
 	}
 	

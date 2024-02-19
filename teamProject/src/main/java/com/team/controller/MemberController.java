@@ -12,14 +12,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.team.util.EnumCodeType;
 import com.team.service.MemberService;
+import com.team.service.TeamService;
 
 @Controller
 @RequestMapping("/member/*")
 public class MemberController{
 	@Inject
 	private MemberService memberService;
+	@Inject
+	private TeamService teamService;
+	
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
 	public String login() {

@@ -249,12 +249,14 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		// 텍스트 데이터를 JSON 객체로 준비
 		var textData = {
 		    proName: $('#proName').val(),
+		    proWr: $('#proWr').val(),
 		    proPrice: $('#proPrice').val(),
 		    proTc: $('#proTc').val(),
-		    category1: $('#category1').val(),
+		    proTsc: $('#proTc').val() + '중',
+		    proCate: $('#category1').val(),
 		    category2: $('#category2').val(),
 		    category3: $('#category3').val(),
-		    itemStatus: $('input[name="itemStatus"]:checked').val(),
+		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val()
 		};
 		

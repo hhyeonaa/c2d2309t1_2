@@ -30,7 +30,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		  var img = $('<img/>', { // 이미지 태그를 생성하고 속성을 설정합니다.
 			'src': e.target.result, // FileReader가 읽은 파일의 결과(데이터 URL)를 이미지의 src 속성으로 설정합니다.
 			'style': 'width:100%;height:100%;' // 이미지 스타일을 설정합니다.
-		  });
+		  }); 
 		
 		  var div = $('<div/>', { // 이미지를 담을 div 태그를 생성하고 속성을 설정합니다.
 			'style': 'display:inline-block;position:relative;width:150px;height:120px;margin:5px;border:1px solid #00f;' // div 스타일을 설정합니다.
@@ -249,6 +249,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		// 텍스트 데이터를 JSON 객체로 준비
 		var textData = {
 		    proName: $('#proName').val(),
+		    proPrice: $('#proPrice').val(),
 		    proTc: $('#proTc').val(),
 		    category1: $('#category1').val(),
 		    category2: $('#category2').val(),

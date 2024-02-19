@@ -8,4 +8,9 @@
 		  FROM PRODUCT
 		 WHERE PRO_WR = #{proWr}
 	</select>
+	<insert id="insertBoard" parameterType="String" statementType="CALLABLE">
+		{CALL PROC_INSERT_BOARD(
+	        #{jsonParams, jdbcType=VARCHAR}
+		)}
+	</insert>
 </mapper>

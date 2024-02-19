@@ -5,8 +5,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-
-import com.team.dao.AdminDAO;
 import com.team.dao.MemberDAO;
 
 @Service
@@ -19,8 +17,7 @@ public class MemberService {
 		memberDAO.insertMember(map);
 	}// insertMemeber()
 //	-----------------------------------------------------------------------------	
-	public void userCheck(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		
-	}
+	public boolean adminLogin(Map<String, String> map) {
+		return memberDAO.adminLogin(map);
+	}// adminLogin()
 }// MemberService 클래스

@@ -1,5 +1,6 @@
 package com.team.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,5 +19,11 @@ public class BoardService {
 		System.out.println("BoardService select()");
 		return boardDAO.select(map);
 	}// test select()
+
+	public void insertBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardService insertBoard()");
+		boardDAO.insertBoard(parsedMap,imageFilenames);
+		
+	}// insertBoard()
 
 }// BoardService 끝

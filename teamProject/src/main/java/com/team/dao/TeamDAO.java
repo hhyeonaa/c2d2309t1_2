@@ -16,8 +16,10 @@ public class TeamDAO {
 	private static final String namespace = "com.team.mappers.teamMapper.";	
 	
 	public List<Map<String, String>> selectCodeList(String codeType) {
-		System.out.println("여기좀 와바바");
-		System.out.println("DAO 왔다");
 		return sqlSession.selectList(namespace + "selectCodeList", codeType);
+	}
+	
+	public String selectCode(Map<String, String> code) {
+		return sqlSession.selectOne(namespace + "selectCode", code);
 	}
 }

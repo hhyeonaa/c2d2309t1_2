@@ -222,7 +222,7 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">가격</span>
-						    <input type="text" class="form-control" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
+						    <input type="text" id="proPrice" class="form-control" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
 						</div>
 			    	</div>
 		    	</div>

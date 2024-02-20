@@ -37,6 +37,16 @@ $(function(){
 		signupModal.style.display = "none";	
 	});
 	
+	// ------------------관리자 로그인------------------
+	$('#adminLoginBtn').on('click', function(){
+		$.ajax({
+			type: "post"
+		  ,	url: "adminLoginPro"
+		  , data: {AD_ID: $('#AD_ID'),
+		  		   AD_PW: $('#AD_PW') }
+		})
+	})
+	
 	// -----------------아이디 찾기------------------
 	// 아이디 찾기 버튼 클릭 시 모달 열기
 	$('#find_id').on('click', function(){

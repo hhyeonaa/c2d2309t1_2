@@ -33,7 +33,7 @@
 	<div id="container">
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
-		<form action="loginPro.cu" method="post" id="form">
+		<form action="loginPro" method="post" id="form">
 			<!-- 로그인 페이지 타이틀 -->
 			<div id="loginBoxTitle"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></div>
 			<!-- 아이디, 비번, 버튼 박스 -->
@@ -63,7 +63,7 @@
 				<a class="icon-link icon-link-hover mt-2" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
 				<a class="icon-link icon-link-hover mt-2" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
 				<hr>
-				<div style="text-align: right; padding-bottom: 3%;"><a href="#" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div>
+				<div style="text-align: right; padding-bottom: 3%;"><a href="adminLogin" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div>
 				
 			</div>
 			</form>

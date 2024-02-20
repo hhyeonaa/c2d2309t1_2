@@ -55,6 +55,7 @@
 	  </div>
 	</div>
     
+    <form action="">
     <div class="row">
         <div class="col-lg-12">
             <div class="">
@@ -108,6 +109,7 @@
 		    </nav>
 		</div> 
     </div>
+    </form>
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>

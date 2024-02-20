@@ -14,6 +14,7 @@
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
+<form action="">
 <div class="container">
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>적용 미리 보기</b></h4></div>
@@ -82,7 +83,7 @@
         <div class="col-lg-12">
             <div class="">
                 <div class="table-responsive">
-                    <table class="table project-list-table table-nowrap align-middle table-borderless text-center">
+                    <table id="boardList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
                         <thead>
                             <tr>
                                 <th scope="col">번호</th>
@@ -96,7 +97,7 @@
                         <tbody>
                             <tr>
                             	<th>1</th>
-                                <td>판매게시판</td>
+                                <td>판매</td>
                                 <td>
                                 	<div align="center">
 	                                	<select class="form-select">
@@ -117,7 +118,7 @@
                             </tr>
                             <tr>
                                 <th>2</th>
-                                <td>구매게시판</td>
+                                <td>구매</td>
                                 <td>
                                 	<div align="center">
 	                                	<select class="form-select">
@@ -138,7 +139,7 @@
                             </tr>
                             <tr>
                           		<th>3</th>
-                                <td>나눔게시판</td>
+                                <td>나눔</td>
                                 <td>
                                 	<div align="center">
 	                                	<select class="form-select">
@@ -159,7 +160,7 @@
                             </tr>
                             <tr>
                             	<th>4</th>
-                            	<td>경매게시판</td>
+                            	<td>경매</td>
                                 <td>
                                 	<div align="center">
 	                                	<select class="form-select">
@@ -327,8 +328,8 @@
 	     </div>
 	     
 	     <div class="modal-footer" id="modal-footer">
+   			<button type="button" class="btn btn-dark" id="cancelBtn">취소</button>
     		<button type="button" class="btn btn-light">저장</button>
-			<button type="button" class="btn btn-dark">취소</button>
 	     </div>
 	  </div>
 	</div>
@@ -336,8 +337,8 @@
     
     <div class="row g-0 pb-4">
     	<div class="mb-4" align="right">
-			<button type="button" class="btn btn-light">저장</button>
-			<button type="button" class="btn btn-dark">취소</button>
+			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
+			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
 		<div class="demo">
 		    <nav class="pagination-outer"  aria-label="Page navigation">
@@ -346,7 +347,7 @@
 		</div> 
     </div>
 </div>
-
+</form>
 
 
 

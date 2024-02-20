@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.AdminService;
 
@@ -33,18 +34,25 @@ public class AdminController {
 	}
 	
 	@PostMapping("/insertPro")
-	public void managerPro(@RequestParam Map<String, String> map) {
+	public String insertPro(@RequestParam Map<String, String> map) {
 		boolean check = adminService.idCheck(map);
 		if(check) {
+			return null;
 		} else {
 			adminService.adminInsert(map);
+			return "redirect:/admin/manager";
 		}
 	}
 	
 	@PostMapping("/deletePro")
-	public void deletePro(@RequestParam String AD_NO) {
-		System.out.println("AD_NO : " + AD_NO);
+	public String deletePro(@RequestParam String AD_NO) {
 		adminService.adminDelete(AD_NO);
+		return "1";
+	}
+	
+	@PostMapping("/updatePro")
+	public void updatePro(@RequestParam Map<String, String> map) {
+		adminService.adminUpdate(map);
 	}
 	
 	@GetMapping("/board")

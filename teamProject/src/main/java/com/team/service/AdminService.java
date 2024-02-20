@@ -30,4 +30,8 @@ public class AdminService {
 	public void adminDelete(String AD_NO) {
 		adminDAO.adminDelete(AD_NO);
 	}
+
+	public void adminUpdate(Map<String, String> map) {
+		adminDAO.adminUpdate(map);
+	}
 }

@@ -15,7 +15,7 @@
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
-<div class="container">
+<div class="container" id="updateDiv">
     <div class="row align-items-center">
         <div><h4 class="card-title"><b>관리자 목록</b></h4></div>
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
@@ -25,7 +25,6 @@
 			</div>
         </div>
     </div>
-    
     
 	<!-- 관리자추가 모달창 -->
 	<div id="addModal" class="modal">
@@ -56,7 +55,6 @@
 	  </div>
 	</div>
     
-    <form action="">
     <div class="row">
         <div class="col-lg-12">
             <div class="">
@@ -102,7 +100,7 @@
     <div class="row g-0 pb-4">
     	<div class="mb-4" align="right">
 			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
-			<button type="submit" class="btn btn-outline-danger" id="saveBtn">저장</button>
+			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
 		<div class="demo">
 		    <nav class="pagination-outer"  aria-label="Page navigation">
@@ -110,7 +108,6 @@
 		    </nav>
 		</div> 
     </div>
-    </form>
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>

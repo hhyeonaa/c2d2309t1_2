@@ -75,8 +75,8 @@
 			</nav>
 		</div>
     </div>
-    <div class="row align-items-center">
-        <div><h4 class="card-title mb-5"><b>게시판 목록</b></h4></div>
+    <div class="row align-items-center mb-4">
+        <div><h4 class="card-title"><b>게시판 목록</b></h4></div>
     </div>
     <div class="row">
         <div class="col-lg-12">

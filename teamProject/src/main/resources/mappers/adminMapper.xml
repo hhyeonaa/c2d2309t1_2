@@ -22,14 +22,14 @@
 	
 	<select id="getAdminList" resultType="map">
 		select
-			AD_NO
+			replace(AD_NO, "AD", "") "AD_NO"
 			, AD_ID 
 			, AD_NAME
 			, AD_ACTIVE
 		from ADMIN
 	</select>
 	
-	<select id="idCheck" resultType="map">
+	<select id="idCheck" resultType="String">
 		select
 			AD_ID 
 		from ADMIN
@@ -40,5 +40,11 @@
 		delete from ADMIN
 		where AD_NO = #{AD_NO}
 	</delete>
+	
+	<update id="adminUpdate">
+		update ADMIN
+		set AD_ACTIVE = #{AD_ACTIVE}
+		where AD_NO = #{AD_NO}
+	</update>
 	
 </mapper>

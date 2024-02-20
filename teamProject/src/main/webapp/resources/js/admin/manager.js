@@ -6,91 +6,59 @@ $(() => {
 	paging("#tbody tr", 5, 0);
 });
 
-	// 리스트 버튼 선택 코드
-	function getId(){
-	    let adminList = document.getElementById('adminList');
-		for (let i = 1; i < adminList.rows.length; i++) {
-		   adminList.rows[i].cells[4].onclick = function () {
-		      let AD_NO= adminList.rows[i].cells[0].innerText;
-		      alert(AD_NO+"을 선택하셨습니다.");
-		   }
+
+// 삭제 버튼
+function getId(){
+	let adminList = document.getElementById('adminList');
+	for (let i = 1; i < adminList.rows.length; i++) {
+		adminList.rows[i].cells[4].onclick = function () {
+			let AD_NO= "AD" + adminList.rows[i].cells[0].innerText;
+			var result = confirm(AD_NO + '을 정말로 삭제하시겠습니까?');
+			if(result){
+				$.ajax({
+					type: "post"
+					, url: "deletePro"
+					, data: {AD_NO: AD_NO }
+				})
+				alert(AD_NO + '가 삭제되었습니다.');
+				location.reload();
+			} else {
+				alert('삭제가 취소되었습니다.');
+			}
 		}
 	}
+}
+
 
 $(function(){
-	// 활성 상태 관련
-//	$.ajax({
-//		type: "get"
-//		, url: "insertPro"
-//		, data: {AD_ID: $("#AD_ID").val(),
-//				 AD_PW: $("#AD_PW").val(),
-//				 AD_NAME: $("#AD_NAME").val()	}
-//		, success: function(data) {
-// 			alert("새로운 관리자 계정이 생성되었습니다.");
-// 			location.replace('manager');
-// 		}
-// 		, error : function(){
-// 			alert("입력 정보를 다시 확인해 주십시오.");
-//        }
-//	});
-	
 	// 저장 버튼
 	$('#saveBtn').on('click', function(){
-		$.ajax({
-			type: "post"
-			, url: "updateAdmin"
-			, data: {AD_ID: $("#AD_ID").val(),
-					 AD_ACTIVE: $("#AD_ACTIVE").val() }
-		});
+		let adminList = document.getElementById('adminList');
+		for (let i = 1; i < adminList.rows.length; i++) {
+			$.ajax({
+				type: "post"
+				, url: "updatePro"
+				, data: {AD_NO: "AD" + adminList.rows[i].cells[0].innerText,
+						 AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
+			});
+		}
+		location.reload();
 	});
-
-
-
-
-
-
-
-	
-	// 삭제 버튼
-//	$('#deleteBtn').on('click', function(){
-//		var result = confirm('정말로 삭제하시겠습니까?');
-//	    if(result){
-//			$.ajax({
-//				type: "post"
-//				, url: "deletePro"
-//				, data: {AD_NO: $("#AD_NO").val() }
-//	        })
-//	        .done(function(done){
-//				debugger;
-//				alert($("#AD_ID").val() + "가 삭제되었습니다.");
-//				location.reload();
-//			});
-//        } else {
-//	       		alert("삭제가 취소되었습니다.");
-//	       		modal.style.display = "none";
-//	   	}
-//	});
 	
 		
 	// 모달창 관련	
-	var modal = document.getElementById("addModal");
-	var btn = document.getElementById("btnAdd");
-	var span = document.getElementsByClassName("close")[0];
-	var cancelBtn = document.getElementById("cancelBtn");
+	var modal = $('#addModal');
 	
 	$('#btnAdd').on('click', function(){
-		modal.style.display = "block";	
+		modal.css('display', 'block');
 	});
 	
 	$('#close').on('click', function(){
-		modal.style.display = "none";
+		modal.css('display', 'none');
 	});
 	
 	$('#cancelBtn').on('click', function(){
-		modal.style.display = "none";
-	});
-	
-	$('#deleteBtn').on('click', function(){
+		modal.css('display', 'none');
 	});
 	
 	
@@ -100,7 +68,6 @@ $(function(){
             $('#insertBtn').click();
         }
 	});	
-	
 	
 	
 	// 생성버튼 이벤트 
@@ -125,14 +92,16 @@ $(function(){
 			, url: "insertPro"
 			, data: {AD_ID: $('#AD_ID').val(),
 					 AD_PW: $('#AD_PW').val(),
-					 AD_NAME: $('#AD_NAME').val()	}
+					 AD_NAME: $('#AD_NAME').val() }
 		})
 		.done(function(data) {
-			alert("새로운 관리자 계정이 생성되었습니다.");
-			location.replace('manager');
+			alert('새로운 관리자 계정이 생성되었습니다.');
+			modal.css('display', 'none');
+			location.reload();
 		 })
 		.fail(function() {
-			alert("입력 정보를 다시 확인해 주십시오.");});
+			alert('입력 정보를 다시 확인해 주십시오.');
+		});
 	});
 	
 });

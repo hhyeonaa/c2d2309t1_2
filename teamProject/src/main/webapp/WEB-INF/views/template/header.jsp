@@ -46,7 +46,7 @@
 		<div class="row">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
-					<a class="navbar-brand" href="${pageContext.request.contextPath}" style="font-size: 30px;"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 125px; height: 55px;"></a>
+					<a class="navbar-brand" href="${pageContext.request.contextPath}" style="font-size: 30px;"><img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 125px; height: 55px;"></a>
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
 						<li class="menu">
 					 		<a class="nav-link ${fileName == 'saleBoard' ? 'active' : ''}" href="${pageContext.request.contextPath}/board/saleBoard">판매</a>

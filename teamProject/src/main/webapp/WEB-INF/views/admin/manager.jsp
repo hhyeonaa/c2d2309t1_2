@@ -73,9 +73,9 @@
                         <tbody id="tbody">
                         	<c:forEach var="admin" items="${mapList}">
 	                            <tr>
-	                            	<th id="no">${admin.AD_NO }</th>
-	                                <td id="id">${admin.AD_ID }</td>
-	                                <td id="name">${admin.AD_NAME }</td>
+	                            	<th>${admin.AD_NO }</th>
+	                                <td>${admin.AD_ID }</td>
+	                                <td>${admin.AD_NAME }</td>
 	                                <td scope="row">
 		                                <div class="form-check form-switch justify-content-center">
 			                                <c:if test="${admin.AD_ACTIVE eq '1'}">

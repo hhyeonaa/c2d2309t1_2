@@ -95,6 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
+<%--                         <c:forEach var="board" items="${mapList}"> --%>
                             <tr>
                             	<th>1</th>
                                 <td>판매</td>
@@ -179,6 +180,7 @@
 									</div>
                                 </th>
                             </tr>
+<%--                         </c:forEach> --%>
                         </tbody>
                     </table>
                 </div>

@@ -9,8 +9,10 @@ $(function(){
 		for (let i = 1; i < boardList.rows.length; i++) {
 			$.ajax({
 				type: "post"
-				, url: "updatePro"
-				, data: {}
+				, url: "updateBoard"
+				, data: {CO_TYPE: MM,
+						 CO_NO: boardList.rows[i].cells[0].innerText,
+						 HIDE: boardList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0}
 			});
 		}
 		location.reload();

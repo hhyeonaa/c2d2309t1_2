@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -45,7 +46,7 @@ public class BoardController {
 		System.out.println("BoardController saleBoard()");
 		/*테스트용 select start*/
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("proWr", "하정우");
+		map.put("proNo", "PR4");
 		System.out.println(boardService.select(map));
 		/*테스트용 select end*/
 		return "board/saleBoard";
@@ -143,8 +144,17 @@ public class BoardController {
 //	        System.out.println("Saved file: " + fileName + " to " + uploadDir);
 //	    }
 	    List<String> imageFilenames = new ArrayList<>();
+//	    for (MultipartFile img : imgs) {
+//	        String fileName = img.getOriginalFilename(); // 원본 파일 이름 가져오기
+//	        imageFilenames.add(fileName);
+//	        File destFile = new File(realPath + File.separator + fileName);
+//	        img.transferTo(destFile); // 파일 저장
+//	        System.out.println("Saved file: " + fileName + " to " + realPath);
+//	    }
 	    for (MultipartFile img : imgs) {
-	        String fileName = img.getOriginalFilename(); // 원본 파일 이름 가져오기
+	        String originalFileName = img.getOriginalFilename();
+	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
 	        imageFilenames.add(fileName);
 	        File destFile = new File(realPath + File.separator + fileName);
 	        img.transferTo(destFile); // 파일 저장
@@ -214,7 +224,27 @@ public class BoardController {
 //
 //        return "board/saleBoard"; // 업로드 결과를 보여줄 뷰의 이름
 //    }
-	
+	@PostMapping("/insertPreBoard")
+	public ResponseEntity<?> insertPreBoard(@RequestParam Map<String, String> textData){
+		System.out.println("BoardController insertPreBoard()");
+		// 텍스트 데이터 처리
+	    logger.info("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+        logger.info(textDataJson);
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+
+        // 파싱된 Map의 내용 출력
+        logger.info("parsedMap: " + parsedMap);
+        boardService.insertPreBoard(parsedMap);
+        
+		return ResponseEntity.ok("Data received successfully");
+	}// insertPreBoard()
 	
 	@GetMapping("/boardDetail")
 	public String boardDetail() {

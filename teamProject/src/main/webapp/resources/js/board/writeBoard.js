@@ -257,7 +257,11 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    category2: $('#category2').val(),
 		    category3: $('#category3').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
-		    proContent: $('#proContent').val()
+		    proContent: $('#proContent').val(),
+		    /* 경매일 때 추가로 들어가는 부분 */
+		    aucSp: $('#aucSp').val(),
+		    aucInp: $('#aucInp').val(),
+		    aucBp: $('#aucBp').val()
 		};
 		
 		// JSON 객체를 문자열로 변환하여 formData에 추가
@@ -323,50 +327,68 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	});
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기 끝
 	//테스트용 버튼 누르면 페이지 정보들 확인하기
-	$('#tempSave').on('click',function(){
-		var proName = $('#proName').val(); //상품명
-		var proTc = $('#proTc').val(); //판매,구매,나눔,경매
-		var category1 = $('#category1').val(); //대분류
-		var category2 = $('#category2').val(); //중분류
-		var category3 = $('#category3').val(); //소분류
-		var itemStatus = $('input[name="itemStatus"]:checked').val(); //상품상태
-		var proContent = $('#proContent').val(); //상품상세설명
-		var resultList = []; // 결과를 저장할 배열입니다.
-		debugger;
-		for (i = 0; i < checkFileList.length; i++) {
-		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
-		        for (j = 0; j < checkFileList[i].length; j++) {
-		        	resultList.push(checkFileList[i][j]); // 'result' 배열에 요소를 추가합니다.
-		        }
-		    }
-		}
-		var str = '';
-		for(i = 0; i < resultList.length; i++){
-			str += ('/' + resultList[i].name);
-		}
-		console.log(str);
+	$('#tempSave').on('click',function(e){
+		e.preventDefault(); // 폼의 기본 제출 동작을 방지
+		var contextPath = getContextPath();
+		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
+		var textData = {
+		    preName: $('#proName').val(),
+		    preMemid: $('#proWr').val(),
+		    prePrice: $('#proPrice').val(),
+		    preTc: $('#proTc').val(),
+		    //proTsc: $('#proTc').val() + '중',
+		    preCate: $('#category1').val(),
+		    //category2: $('#category2').val(),
+		    //category3: $('#category3').val(),
+		    //proStatus: $('input[name="itemStatus"]:checked').val(),
+		    preContent: $('#proContent').val()
+		};
+		// JSON 객체를 문자열로 변환하여 formData에 추가
+		formData.append('textData', JSON.stringify(textData));
 		
-		alert('proName: ' + proName + ' proTc: ' + proTc + ' category1: ' + category1 + ' category2: ' + category2 + ' category3: ' + category3 +
-			' itmeStatus: ' + itemStatus + ' proContent: ' + proContent
-		);
+		$.ajax({
+			url: contextPath+'/board/insertPreBoard', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: formData,
+			processData: false, // jQuery가 데이터를 처리하지 않도록 설정
+			contentType: false // jQuery가 contentType을 설정하지 않도록 설정
+		}).done(function(response) {
+			// 파일 업로드 성공 시 처리
+			console.log('Upload success:', response);
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			// 파일 업로드 실패 시 처리
+			console.log('Upload error:', textStatus, errorThrown);
+		});
 	});
 	
 	//셀렉트 박스 변경 시 화면 살짝 변경
-	$('#boardSelect').on('change',function(){
+//	$('#proTc').on('change',function(){
+//		$('#noDivide').show();
+//		if($(this).val() == '경매'){
+//			$('#auctionOnly').show();
+//			$('#saleBuy').hide();
+//			$('#divideOnly').hide();
+//		} else if($(this).val() == '판매' || $(this).val() == '구매') {
+//			$('#saleBuy').show();
+//			$('#auctionOnly').hide();
+//			$('#divideOnly').hide();
+//		} else if($(this).val() == '나눔'){
+//			$('#divideOnly').show();
+//			$('#auctionOnly').hide();
+//			$('#saleBuy').hide();
+//			$('#noDivide').hide();
+//		} 
+//	});
+	$('#proTc').on('change',function(){
 		$('#noDivide').show();
-		if($(this).val() == 'auction'){
+		if($(this).val() == '경매'){
 			$('#auctionOnly').show();
 			$('#saleBuy').hide();
 			$('#divideOnly').hide();
-		} else if($(this).val() == 'sale' || $(this).val() == 'buy') {
+		} else if($(this).val() == '판매' || $(this).val() == '구매' || $(this).val() == '나눔') {
 			$('#saleBuy').show();
 			$('#auctionOnly').hide();
 			$('#divideOnly').hide();
-		} else if($(this).val() == 'divide'){
-			$('#divideOnly').show();
-			$('#auctionOnly').hide();
-			$('#saleBuy').hide();
-			$('#noDivide').hide();
 		} 
 	});
 	

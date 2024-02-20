@@ -32,7 +32,7 @@ public class BoardDAO {
 	    // 이미지 파일 이름을 textData Map에 추가
 	    for (int i = 0; i < imageFilenames.size(); i++) {
 	        // 각 이미지 파일 이름에 대해 고유한 키 생성
-	        String key = "imageFilename" + i;
+	        String key = "imageFilename" + (i + 1);
 	        String value = imageFilenames.get(i);
 
 	        // 생성된 키와 이미지 파일 이름을 textData Map에 추가
@@ -44,5 +44,10 @@ public class BoardDAO {
 	    logger.info("jsonParams: " + jsonParams);
 		sqlSession.insert(NAMESPACE+".insertBoard", jsonParams);
 	}// insertBoard()
+
+	public void insertPreBoard(Map<String, String> parsedMap) {
+		System.out.println("BoardDAO insertPreBoard()");
+		sqlSession.insert(NAMESPACE + ".insertPreBoard",parsedMap);
+	}// insertPreBoard()
 
 }// BoardDAO 끝

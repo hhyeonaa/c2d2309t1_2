@@ -30,4 +30,9 @@ public class BoardService {
 		
 	}// insertBoard()
 
+	public void insertPreBoard(Map<String, String> parsedMap) {
+		System.out.println("BoardService insertPreBoard()");
+		boardDAO.insertPreBoard(parsedMap);
+	}// insertPreBoard()
+
 }// BoardService 끝

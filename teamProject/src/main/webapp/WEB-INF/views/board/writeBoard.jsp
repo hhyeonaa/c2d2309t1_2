@@ -51,7 +51,8 @@
 			      	<option id="divide" value="나눔">나눔</option>
 			      	<option id="auction" value="경매">경매</option>
 			      </select>
-			      <input type="hidden" id="proWr" name="proWr" value="하정우">
+<!-- 			      <input type="hidden" id="proWr" name="proWr" value="하정우"> -->
+			      <input type="hidden" id="proWr" name="proWr" value="jaewon">
 			      <h2>상품 등록</h2>
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>
@@ -236,7 +237,7 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">시작가</span>
-						    <input type="text" class="form-control" placeholder="가격 입력" aria-label="startCost" aria-describedby="basic-addon1">
+						    <input type="text" class="form-control" id="aucSp" placeholder="가격 입력" aria-label="startCost" aria-describedby="basic-addon1">
 						</div>
 			    	</div>
 		    	</div>
@@ -244,7 +245,7 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">즉시구매가</span>
-						    <input type="text" class="form-control" placeholder="가격 입력" aria-label="directCost" aria-describedby="basic-addon1">
+						    <input type="text" class="form-control" id="aucInp" placeholder="가격 입력" aria-label="directCost" aria-describedby="basic-addon1">
 						</div>
 			    	</div>
 		    	</div>
@@ -252,7 +253,7 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">최소 입찰가</span>
-						    <input type="text" class="form-control" placeholder="가격 입력" aria-label="minCost" aria-describedby="basic-addon1">
+						    <input type="text" class="form-control" id="aucBp" placeholder="가격 입력" aria-label="minCost" aria-describedby="basic-addon1">
 						</div>
 			    	</div>
 		    	</div>
@@ -295,7 +296,8 @@
 				<div class="mb-3">
 					<label for="proContent" class="form-label">상세 설명</label>
 					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
-서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요."></textarea>
+서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요.
+나눔일 경우 나눔 조건도 꼭 입력해주세요."></textarea>
 				</div>
 				<span>0/2000</span>
 				</div>

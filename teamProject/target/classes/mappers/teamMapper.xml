@@ -7,13 +7,7 @@
 	<select id="selectCodeList" parameterType="map" resultType="map">
 		
 		select CO_TYPE, CO_NO, CODE
-		  from 
-		<if test="MESSAGE == tableName" >
-			MESSAGE
-		</if>
-		<if test="CODE == tableName" >
-			CODE
-		</if>
+		  from ${tableName}
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
 		   and HIDE = '0'	     
@@ -21,13 +15,7 @@
 	
 	<select id="selectCode" parameterType="map" resultType="String">
 		select CODE
-		  from 
-		<if test="MESSAGE == tableName" >
-			MESSAGE
-		</if>
-		<if test="CODE == tableName" >
-			CODE
-		</if>  
+		  from ${tableName}			
 		 where 1 = 1
 		   and CO_NO = #{CO_NO}
 		   and CO_TYPE = #{CO_TYPE}

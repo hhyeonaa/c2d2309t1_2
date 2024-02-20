@@ -15,7 +15,7 @@
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
-<div class="container">
+<div class="container" id="updateDiv">
     <div class="row align-items-center">
         <div><h4 class="card-title"><b>관리자 목록</b></h4></div>
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
@@ -25,7 +25,6 @@
 			</div>
         </div>
     </div>
-    
     
 	<!-- 관리자추가 모달창 -->
 	<div id="addModal" class="modal">
@@ -61,7 +60,7 @@
         <div class="col-lg-12">
             <div class="">
                 <div class="table-responsive">
-                    <table class="table project-list-table table-nowrap align-middle table-borderless text-center">
+                    <table id="adminList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
                         <thead>
                             <tr>
                                 <th scope="col">번호</th>
@@ -74,9 +73,9 @@
                         <tbody id="tbody">
                         	<c:forEach var="admin" items="${mapList}">
 	                            <tr>
-	                            	<th>${admin.AD_NO }</th>
-	                                <td>${admin.AD_ID }</td>
-	                                <td>${admin.AD_NAME }</td>
+	                            	<th id="no">${admin.AD_NO }</th>
+	                                <td id="id">${admin.AD_ID }</td>
+	                                <td id="name">${admin.AD_NAME }</td>
 	                                <td scope="row">
 		                                <div class="form-check form-switch justify-content-center">
 			                                <c:if test="${admin.AD_ACTIVE eq '1'}">
@@ -88,7 +87,8 @@
 		                                </div>
 	                                </td>
                             	    <td scope="row">
-										<button id="deleteBtn"><ion-icon name="remove-circle-outline"></ion-icon></button>
+										<button id="deleteBtn" onclick="getId()">
+											<ion-icon name="remove-circle-outline"></ion-icon></button>
 	                                </td>
 	                            </tr>
                             </c:forEach>
@@ -101,7 +101,7 @@
     <div class="row g-0 pb-4">
     	<div class="mb-4" align="right">
 			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
-			<button type="submit" class="btn btn-outline-danger" id="saveBtn">저장</button>
+			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
 		<div class="demo">
 		    <nav class="pagination-outer"  aria-label="Page navigation">

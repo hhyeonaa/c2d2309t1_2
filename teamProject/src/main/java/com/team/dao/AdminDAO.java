@@ -26,7 +26,11 @@ public class AdminDAO {
 	}
 
 	public boolean idCheck(Map<String, String> map) {
-		return (boolean)sqlSession.selectOne(namesqace + "idCheck");
+		String result = sqlSession.selectOne(namesqace + "idCheck", map);
+		if(result == null) {
+			return false;
+		}
+		return true;
 	}
 
 	public void adminDelete(String AD_NO) {
@@ -51,4 +55,8 @@ public class AdminDAO {
 //	----- 성엽 끝 -----	
 	
 	
+
+	public void adminUpdate(Map<String, String> map) {
+		sqlSession.update(namesqace + "adminUpdate", map);
+	}
 }

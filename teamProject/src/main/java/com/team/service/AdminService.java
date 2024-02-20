@@ -51,4 +51,8 @@ public class AdminService {
 	
 //	----- 성엽 끝 -----
 	
+
+	public void adminUpdate(Map<String, String> map) {
+		adminDAO.adminUpdate(map);
+	}
 }

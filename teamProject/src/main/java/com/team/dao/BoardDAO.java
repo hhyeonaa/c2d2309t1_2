@@ -42,7 +42,7 @@ public class BoardDAO {
 	    logger.info("map: " + parsedMap);
 	    String jsonParams = new Gson().toJson(parsedMap);
 	    logger.info("jsonParams: " + jsonParams);
-		//sqlSession.insert(NAMESPACE+".insertBoard", jsonParams);
+		sqlSession.insert(NAMESPACE+".insertBoard", jsonParams);
 	}// insertBoard()
 
 }// BoardDAO 끝

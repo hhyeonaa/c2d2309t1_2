@@ -86,7 +86,7 @@ var naverLogin = new naver.LoginWithNaverId({
 	, callbackUrl: "http://localhost:8080/myapp/member/login"
 	, isPopup: false
 	, callbackHandle: true
-});	
+});
 naverLogin.init();
 
 window.addEventListener('load', function () {

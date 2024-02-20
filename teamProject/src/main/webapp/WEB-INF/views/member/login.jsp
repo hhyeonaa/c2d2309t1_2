@@ -79,7 +79,7 @@
 		  <span class="close">&times;</span>
 		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
-	    <h4>회원가입</h4>
+	    <h4>회원가입</h4> 
 	    <!-- 이하 생략 -->
 		<br>
 	    <form action="">

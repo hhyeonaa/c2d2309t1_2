@@ -10,75 +10,36 @@ function loginWithKakao() {
     });
 }
 	
-    function kakaoLogin() {
-        Kakao.Auth.login({
-            success: function (res) {
-                Kakao.API.request({
-                    url: '/v2/user/me',
-                    success: function (res) {
-//                         alert(JSON.stringify(response))
-                        console.log(res)
-//                        var kakaoid = response.id;
-						var kakaoId = res.id;
-						var kakaoGender = (res.kakao_account.gender == "male") ?  "M" : "F";
-						var kakaoName = res.kakao_account.name;
-                        var kakaoNick = res.kakao_account.profile.nickname;
-                        var kakaoBirth = res.kakao_account.birthyear + res.kakao_account.birthday;
-                        var kakaoTel = res.kakao_account.phone_number.replace("+82 ", "0").replaceAll("-","").trim();
-                        var kakaoEmail = res.kakao_account.email;
-//                         var address = resonse.kakao_account.shipping_address;
-						$("#id").val(kakaoId)
-						$("#gender").val(kakaoGender)
-						$("#username").val(kakaoName)
-						$("#nickname").val(kakaoNick)
-						$("#birth").val(kakaoBirth)
-						$("#phone").val(kakaoTel)
-						$("#email").val(kakaoEmail)
-						
-                        $.ajax({
-                        	type : "post",
-                        	data : {
-	                 			  MEM_ID: kakaoId
-					          	, MEM_GENDER: kakaoGender
-					          	, MEM_NAME: kakaoName
-					          	, MEM_NICK: kakaoNick
-					          	, MEM_BIRTH: kakaoBirth
-					          	, MEM_TEL: kakaoTel
-					          	, MEM_EMAIL: kakaoEmail
-	                			},
-                        	url : "insertPro",
-                        	dataType : "text",
-                        	success:function(data){
-								debugger;
-								console.log(data)
-								if(data){
-	                         		window.location = "mypage";		
-	                         		//session??
-								}
-								debugger
-								$("#signupModal").modal("show");
-                        	},
-                        	error:function(){
-                        		
-                        	}
-                        });//ajax
-                    },
-                    fail: function (error) {
-                        alert(JSON.stringify(error))
-                    },
-                })
-            },
-            fail: function (error) {
-                alert(JSON.stringify(error))
-            },
-        })
-    }
-    
-    function kakaoLogout() {
-		Kakao.Auth.logout(function(response) {
-			alert(response + 'logout');
+function getInfo() {
+Kakao.API.request({
+    url: '/v2/user/me', 
+    success: function (res) {
+		console.log(res)
+         $.ajax({
+	         type : "POST"
+	         , url : "loginPro"
+	         , data : {
+				  MEM_ID: res.id
+	          	, MEM_GENDER: (res.kakao_account.gender == "male") ?  "M" : "F"
+	          	, MEM_NAME: res.kakao_account.name
+	          	, MEM_NICK: res.kakao_account.profile.nickname
+	          	, MEM_BIRTH: res.kakao_account.birthyear + res.kakao_account.birthday
+	          	, MEM_TEL: res.kakao_account.phone_number.replace("+82 ", "0").replaceAll("-","").trim()
+	          	, MEM_EMAIL: res.kakao_account.email
+	          	
+	         }
+         })
+         .done(
+			function(data){
+				Kakao.Auth.logout();
+				location.href="mypage";					
 		}); 
     }
+    , fail: function (error) {
+        alert('카카오 로그인에 실패했습니다.' + JSON.stringify(error));
+    }
+});
+}
 
 $(function(){
 	var signModal = document.getElementById("signupModal");

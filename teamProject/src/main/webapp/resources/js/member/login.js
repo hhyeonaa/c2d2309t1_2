@@ -91,7 +91,6 @@ naverLogin.init();
 
 window.addEventListener('load', function () {
 	naverLogin.getLoginStatus(function (status) {
-		debugger
 		console.log(status)
 		if (status) {
 			$.ajax({
@@ -99,7 +98,7 @@ window.addEventListener('load', function () {
 			   , datatype : "json"
 			   , data: {
 				   	 MEM_ID : naverLogin.user.id
-				   , MEM_GENDER: (naverLogin.user.gender == "male") ?  "M" : "F"
+				   , MEM_GENDER: naverLogin.user.gender
 				   , MEM_NAME :naverLogin.user.name
 				   , MEM_NICK :naverLogin.user.nickname
 				   , MEM_BIRTH: naverLogin.user.birthyear + naverLogin.user.birthday.replace("-", "")

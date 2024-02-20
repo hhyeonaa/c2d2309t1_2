@@ -9,9 +9,10 @@ function checkSubmit(payCheck) {
 
 // 스크립트 시작
 $(()=>{
+// 결제할(선택된) 페이 css변경(4)
 var payCheck = $('.nonCheck')
-// 결제할(선택한) 페이값
-var payMethod = $('.check').find('span').text();
+// 결제할(선택된) 페이(4)
+var payMethod = $('.check').find('span').text().trim();
 	
 	
 	
@@ -24,19 +25,8 @@ var payMethod = $('.check').find('span').text();
 		}
 		$('.Deliveryaddress').show();
 	})
-	
-// 2. 결제수단 클릭 이벤트
-// check(결제수단 클릭), nonCheck(결제수단 미클릭) class
-    $('.PaymentGridMethod').on('click', function () {
-        // 클릭된 요소에 'check' 클래스를 추가하고 'nonCheck' 클래스 제거
-        $(this).addClass('check').removeClass('nonCheck');
-        
-        // 클릭된 요소의 부모 요소에서 다른 요소를 찾아서 'check' 클래스를 제거하고 'nonCheck' 클래스를 추가합니다.
-        $(this).parent().siblings().find('.PaymentGridMethod').addClass('nonCheck').removeClass('check');
-    });
-	
-
-// 3. 배송지 등록 주소 api(배송지 등로 모달)
+		
+// 2. 배송지 등록 주소 api(배송지 등로 모달)
 	$("#address_find").on('click', function() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
@@ -82,7 +72,17 @@ var payMethod = $('.check').find('span').text();
 	    }).open();
 	});
 	
-// 결제하기 버튼 클릭 이벤트(결제수단 관련)
+// 3. 결제수단 클릭 이벤트(css)
+// check(결제수단 클릭), nonCheck(결제수단 미클릭) class
+    $('.PaymentGridMethod').on('click', function () {
+        // 클릭된 요소에 'check' 클래스를 추가하고 'nonCheck' 클래스 제거
+        $(this).addClass('check').removeClass('nonCheck');
+        
+        // 클릭된 요소의 부모 요소에서 다른 요소를 찾아서 'check' 클래스를 제거하고 'nonCheck' 클래스를 추가합니다.
+        $(this).parent().siblings().find('.PaymentGridMethod').addClass('nonCheck').removeClass('check');
+    });
+    
+// 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
 		// 결제수단 체크 유무 확인하기
 		checkSubmit(payCheck);

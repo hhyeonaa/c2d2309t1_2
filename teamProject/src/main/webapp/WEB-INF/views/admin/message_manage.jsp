@@ -20,7 +20,7 @@
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 		<main style="background: #f0f0f3; padding: 200px;">
-			<h4 class="mb-5"><b>메세지 문구 관리</b></h4>
+			<h4 class="mb-5"><b>메세지 문구 관리 (코드타입 : AM)</b></h4>
 			<div>
 				<table class="table table-hover table align-middle table table-sm mt-5">
 					<thead>
@@ -42,7 +42,7 @@
 					</thead>
 					<tbody id="tbody">
 						<tr>
-							<th scope="row" class="text-center"><input type="checkbox" style="width: 25px; height: 25px;"></td>
+							<th scope="row" class="text-center"><input type="checkbox" style="width: 25px; height: 25px;"></th>
 							<td class="text-center">AM01</td>
 							<td class="text-center">{0}이(가) 성공하였습니다.</td>
 							<td class="text-center" style="width: 75px;"><span style="font-size: 33px; color: green; border: 1px solid green;" class="save material-symbols-outlined">done</span></td>

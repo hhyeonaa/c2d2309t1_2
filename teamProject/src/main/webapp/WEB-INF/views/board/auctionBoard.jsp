@@ -211,7 +211,7 @@
 			  <span style="font-size: 12px;"><img src="https://pics.auction.co.kr/listing/used/2014/txt2_watch.gif" style="height: 13px;width: 13px;padding-bottom: 3px;">2/3 10:00</span><br>
 		     </div>
 		   </div>
-		 </div>
+		 </div> 
         <!-- 여기까지 반복 -->                             
 		  
 <!-- 		</div> -->

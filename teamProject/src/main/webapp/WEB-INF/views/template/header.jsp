@@ -46,7 +46,7 @@
 		<div class="row">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
-					<a class="navbar-brand" href="#" style="font-size: 30px;"><b>꿀당근장터</b></a>
+					<a class="navbar-brand" href="${pageContext.request.contextPath}" style="font-size: 30px;"><b>꿀당근장터</b></a>
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="menu">
 					 		<a class="nav-link ${fileName == 'saleBoard' ? 'active' : ''}" href="${pageContext.request.contextPath}/board/saleBoard">판매</a>
@@ -84,18 +84,32 @@
 					<span class="material-symbols-outlined addIcon">add_circle</span>
 					<a class="nav-link writeBtn" href="${pageContext.request.contextPath}/board/writeBoard">상품 등록</a>
 				</div>
-				<div class="btn-group">
-			  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
-					<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
-				</button>
-				  <ul class="dropdown-menu">
-				    <li><a class="dropdown-item" href="mypage">프로필</a></li>
-				    <li><a class="dropdown-item" href="tradeList">거래내역</a></li>
-				    <li><a class="dropdown-item" href="likeList">찜목록</a></li>
-				    <li><hr class="dropdown-divider"></li>
-				    <li><a class="dropdown-item" href="logout">로그아웃</a></li>
-				  </ul>
-				</div>
+				
+				<c:if test="${!empty sessionScope.MEM_NO}">
+					<div class="btn-group">
+				  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
+						<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
+					</button>
+					  <ul class="dropdown-menu">
+					    <li><a class="dropdown-item" href="mypage">프로필</a></li>
+					    <li><a class="dropdown-item" href="tradeList">거래내역</a></li>
+					    <li><a class="dropdown-item" href="likeList">찜목록</a></li>
+					    <li><hr class="dropdown-divider"></li>
+					    <li><a class="dropdown-item" href="logout">로그아웃</a></li>
+					  </ul>
+					</div>
+				</c:if>
+				<c:if test="${empty sessionScope.MEM_NO}">
+					<div class="btn-group">
+				  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
+						<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
+					</button>
+					  <ul class="dropdown-menu">
+					    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+					  </ul>
+					</div>
+				</c:if>
+				
 			</nav>
 		</div>
 </header>

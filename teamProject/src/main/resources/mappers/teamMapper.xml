@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mappers.teamMapper">
+
+	<select id="selectCodeList" resultType="map">
+		select CO_TYPE, CO_NO, CODE
+		  from CODE
+		 where 1 = 1  
+		   and CO_TYPE = #{codeType}
+		   and HIDE = '0'	     
+	</select>
+	
+	<select id="selectCode" resultType="String">
+		select CODE
+		  from CODE
+		 where 1 = 1
+		   and CO_NO = #{CO_NO}
+		   and CO_TYPE = #{CO_TYPE}
+		   and HIDE = '0'
+	</select>
+
+</mapper>

@@ -221,9 +221,6 @@ ul{
 	                    <li class=""><a class="nav__link" href="${pageContext.request.contextPath}/admin/board" style="width: 155px;">
 	                    	<small>● 게시판 관리</small></a>
 	                    </li>
-	                    <li class=""><a class="nav__link" href="${pageContext.request.contextPath}/admin/header_menu" style="width: 155px;">
-	                    	<small>● 메뉴 관리</small></a>
-	                    </li>
 	                    <li><a class="nav__link mb-5" href="${pageContext.request.contextPath}/admin/category" style="width: 155px;">
 	                    	<small>● 카테고리 목록 관리</small></a>
 	                    </li>

@@ -25,11 +25,11 @@ public class MemberController{
 	
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/insertPro")
-	public String insertPro(@RequestParam Map<String, String> map) {
+	public String insertPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController insertPro()");
 		System.out.println(map.toString());
 		memberService.insertMemeber(map);
-		
+		session.setAttribute("MEM_ID", map.get("MEM_ID"));
 		return "redirect:/member/login";
 	}//insertPro()
 //	-----------------------------------------------------------------------------	

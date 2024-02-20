@@ -54,7 +54,7 @@
 						style="width: 100%">이메일로 가입하기</button>  <!-- 회원가입 페이지 이동 -->
 				</div>
 				<!-- 카카오버튼 --> 	
-				<a id="kakao-login-btn" href="javascript:kakaoLogin()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
+				<a id="kakao-login-btn" href="javascript:loginWithKakao()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
 						<img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/><span id="span">Kakao로 시작하기</span></a>
 				<!-- 네이버 버튼 -->
 				<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-success rounded-3">
@@ -283,8 +283,6 @@
  	    integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8" 
  	    crossorigin="anonymous"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<!-- 네이버 -->
-<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
 	<!-- Bootstrap Bundle with Popper -->
 	<script

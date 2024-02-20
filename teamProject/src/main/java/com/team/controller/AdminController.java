@@ -1,10 +1,12 @@
 package com.team.controller;
 
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,7 @@ public class AdminController {
 	private TeamService teamService;
 	@Inject
 	private AdminService adminService;
+	
 	
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
@@ -70,7 +73,7 @@ public class AdminController {
 	
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
-	public String message_manage(HttpServletResponse response) {
+	public String message_manage(HttpServletResponse response, HttpServletRequest request) {
 //		code.onlyAlert(response, "안녕");
 //		code.historyBackAlert(response, "안녕히사시부리");
 //		Object[] arr = {"가나다"};
@@ -80,19 +83,35 @@ public class AdminController {
 //		com.team.util에 message 항목들 보여주는 함수 
 //		본인이 메시지문구 함수 사용전에 showMessage()함수 결과 보고 정해주세요
 		
-		teamService.showCodeList(EnumCodeType.메세지);	
+//		teamService.showCodeList(EnumCodeType.메세지);	
 //		teamService.showCodeList(EnumCodeType.배송안내문구);
 		
+		teamService.showCodeList(EnumCodeType.메세지);
+		
+//		System.out.println(EnumCodeType.메세지.getList());
+		
 		Object[] arr = {"안녕"};
+//		teamService.onlyAlert(response, EnumCodeType.메세지.type , arr);
 		
 //		teamService.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "member/login");
-		teamService.confirm(response, EnumCodeType.메세지.type + 1, arr, "member/login", false);
+		teamService.confirm(response, EnumCodeType.메세지.getType() + 1, arr, "category_pro", false);
 		return "admin/message_manage";
 	}
 	
 	@GetMapping("/category_manage")
-	public String category_manage() {
+	public String category_manage(HttpServletRequest request) {
+		System.out.println(new File(".").getAbsoluteFile());
+		
 		return "admin/category_manage";
+	}
+	
+	@GetMapping("/category_pro")
+	public void category_pro(HttpServletResponse response) {
+		teamService.showCodeList(EnumCodeType.메세지);
+		
+		Object[] arr = {"잘가요"};
+		
+		teamService.moveThePageAlert(response, EnumCodeType.메세지.getType() + 1, arr, "member/login");
 	}
 	
 	@GetMapping("/trade_manage")

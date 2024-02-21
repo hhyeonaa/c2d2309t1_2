@@ -17,7 +17,6 @@ public class MemberDAO {
 	public void insertMember(Map<String, String> map) {
 		System.out.println("MemberDAO insertmember()");
 		sqlSession.insert(namespace + "insertmember", map);
-		System.out.println(sqlSession.insert(namespace + "insertmember", map));
 	}// insertMember()
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> adminLogin(Map<String, String> map) {

@@ -29,9 +29,10 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "login", map);
 	}// login()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> mypage(Map<String, String> map) {
+	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberDAO mypage()");
-		return sqlSession.selectOne(namespace + "mypage", map);
+		System.out.println("" + sqlSession.selectOne(namespace + "mypage", MEM_ID));
+		return sqlSession.selectOne(namespace + "mypage", MEM_ID);
 	}// mypage()
 //	-----------------------------------------------------------------------------	
 }// MemberDAO 클래스

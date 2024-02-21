@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>	
 <head>
@@ -25,10 +26,29 @@
                         
                         <section class="css-2fvz7x">
                             <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/lemon.jpg"/>
-                            <span><b>ljw9863@naver.com</b></span>
-                            <div>
-                                <span>레몬나르고빚갚으리오</span>
-                            </div>
+                            
+                            <c:if test="${profile.MEM_PW == null}">
+                            	<c:if test="${fn:length(profile.MEM_ID) gt '13'} ">
+		                            <span><b><img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
+		                            <div>
+		                                <span>${profile.MEM_NICK} | ${profile.MEM_PW }</span>
+		                            </div>
+		                        </c:if>
+	                            <c:if test="${fn:length(profile.MEM_ID) != '10'} ">
+	                            	<span><b><img src="../resources/img/member/naver.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
+		                            <div>
+		                                <span>${profile.MEM_NICK} | ${profile.MEM_PW }</span>
+		                            </div>
+	                            </c:if>
+                            </c:if>
+                            
+                            <c:if test="${profile.MEM_PW != null}">
+	                            <span><b>(일반)${profile.MEM_EMAIL} ${profile.MEM_ID }</b></span>
+	                            <div>
+	                                <span>${profile.MEM_NICK} | ${profile.MEM_PW } | ${fn:length(profile.MEM_PW)}</span>
+	                            </div>
+                            </c:if>
+                            
                             <button type="button" onclick="location.href='memberEdit'">프로필 수정하기</button>
                             <br><span>내 평점온도</span>
                             <div class="chart" style="width: 250px;">

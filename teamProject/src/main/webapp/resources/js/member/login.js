@@ -16,9 +16,9 @@ function loginWithKakao() {
                 Kakao.API.request({
                     url: '/v2/user/me',
                     success: function (res) {
-//                         alert(JSON.stringify(response))
-                        console.log(res)
-//                        var kakaoid = response.id;
+						
+						debugger;
+						
 						var kakaoId = res.id;
 						var kakaoGender = (res.kakao_account.gender == "male") ?  "M" : "F";
 						var kakaoName = res.kakao_account.name;
@@ -26,7 +26,7 @@ function loginWithKakao() {
                         var kakaoBirth = res.kakao_account.birthyear + res.kakao_account.birthday;
                         var kakaoTel = res.kakao_account.phone_number.replace("+82 ", "0").replaceAll("-","").trim();
                         var kakaoEmail = res.kakao_account.email;
-//                         var address = resonse.kakao_account.shipping_address;
+                        
 						$("#id").val(kakaoId)
 						$("#gender").val(kakaoGender)
 						$("#username").val(kakaoName)
@@ -49,13 +49,10 @@ function loginWithKakao() {
                         	url : "insertPro",
                         	dataType : "text",
                         	success:function(data){
-								debugger;
 								console.log(data)
 								if(data){
 	                         		window.location = "../";		
-	                         		//session??
 								}
-								debugger
 								$("#signupModal").modal("show");
                         	},
                         	error:function(){
@@ -92,6 +89,7 @@ naverLogin.init();
 window.addEventListener('load', function () {
 	naverLogin.getLoginStatus(function (status) {
 		console.log(status)
+		
 		if (status) {
 			$.ajax({
 				 type : "POST"

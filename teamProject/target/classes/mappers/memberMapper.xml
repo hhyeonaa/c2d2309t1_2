@@ -28,10 +28,16 @@
 	</insert>
 	
 	<select id="login" resultType="map">
-		select MEM_ID, MEM_PW
+		select MEM_ID, MEM_PW, MEM_NICK
 		from MEMBERS
 		where MEM_ID = #{MEM_ID} 
 		and MEM_PW = #{MEM_PW}
+	</select>
+	
+	<select id="idCheck" resultType="map">
+		select MEM_ID
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}	
 	</select>	
 	
 	<select id="adminLogin" resultType="map">
@@ -43,6 +49,8 @@
 	
 	<select id="mypage" parameterType="map" resultType="map">
 		select M.MEM_NO
+			 , M.MEM_ID
+			 , M.MEM_PW
 			 , M.MEM_IMAGE
 			 , M.MEM_EMAIL
 			 , M.MEM_NICK
@@ -51,7 +59,7 @@
 		left outer join SCORE S
 		on M.MEM_NO = S.MEM_NO
 		where 1 = 1
-		and M.MEM_NO = #{MEM_NO}
+		and M.MEM_ID = #{MEM_ID}
 	</select>	
 	
 </mapper>

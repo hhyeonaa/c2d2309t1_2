@@ -28,8 +28,8 @@ public class MemberService {
 		return memberDAO.login(map); 
 	}// login()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> mypage(Map<String, String> map) {
+	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");
-		return memberDAO.mypage(map); 
+		return memberDAO.mypage(MEM_ID); 
 	}// mypage()
 }// MemberService 클래스

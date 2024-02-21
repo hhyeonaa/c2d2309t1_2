@@ -2,6 +2,16 @@
 body {
 	padding: 100px 0 0 240px !important;
 }
+
+/* 적용 미리 보기 */
+.preview {
+    border: 1px solid;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 5% 0 5%;
+}
+
+
 .project-list-table {
     border-collapse: separate;
     border-spacing: 0 12px;

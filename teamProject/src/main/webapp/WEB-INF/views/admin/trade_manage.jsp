@@ -17,7 +17,7 @@
     }
 </style>
 </head>
-<body>
+<body> 
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 		<main style="background: #f0f0f3; padding: 200px;">
 			<h4 class="mb-5"><b>메세지 문구 관리</b></h4>

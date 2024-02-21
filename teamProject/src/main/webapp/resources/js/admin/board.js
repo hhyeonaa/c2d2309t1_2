@@ -3,25 +3,35 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 
 $(function(){
-	var modal = document.getElementById("inputModal");
-	var btn = document.getElementById("insertForm");
-	var span = document.getElementsByClassName("close")[0];
-	var cancelBtn = document.getElementById("cancelBtn");
+	// 저장 버튼
+	$('#saveBtn').on('click', function(){
+		let boardList = document.getElementById('boardList');
+		for (let i = 1; i < boardList.rows.length; i++) {
+			$.ajax({
+				type: "post"
+				, url: "updatePro"
+				, data: {}
+			});
+		}
+		location.reload();
+	});
+	
+
+	// 모달창	
+	var modal = $('#inputModal');
 	
 	$('#insertForm').on('click', function(){
-		modal.style.display = "block";	
+		modal.css('display', 'block');
 	})
 	
 	$('#close').on('click', function(){
-		modal.style.display = "none";
+		modal.css('display', 'none');
 	})
 	
 	$('#cancelBtn').on('click', function(){
-		modal.style.display = "none";
+		modal.css('display', 'none');
 	})
 	
-	$('#deleteBtn').on('click', function(){
-	})
 	
 });
 

@@ -6,6 +6,18 @@ function checkSubmit(payCheck) {
 		return false;
 	}
 }
+// 토스결제 api
+function TossPayment(){
+	IMP.request_pay({
+		pg: "tosspay.{tosstest}",
+	})
+}
+// 카카오페이 api
+function KakaoPayment(){
+	IMP.request_pay({
+		pg: "kakaopay.{TC0ONETIME}",
+	})
+}
 
 // 스크립트 시작
 $(()=>{
@@ -13,7 +25,7 @@ $(()=>{
 var payCheck = $('.nonCheck')
 // 결제할(선택된) 페이(4)
 var payMethod = $('.check').find('span').text().trim();
-	
+//var payMethod1 = $('.check').attr('value');	
 	
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
@@ -87,6 +99,41 @@ var payMethod = $('.check').find('span').text().trim();
 		// 결제수단 체크 유무 확인하기
 		checkSubmit(payCheck);
 		// 체크된 결제수단 
+		var IMP = window.IMP;
+        IMP.init("imp34662564"); //가맹점 식별코드
+        
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+       	switch(payMethod){
+			case '토스페이':
+			TossPayment();
+			break;
+			
+			case '카카오페이':
+			KakaoPayment();
+			break;
+			
+			default:
+			alert('결제 수단을 선택해주세요');
+			break;	
+		}
+        
+//        function requestPay() {
+//			IMP.request_pay({
+//				pg: payMethod1.{????},
+//				pay_method: "card",
+//				merchant_uid: "makeMerchantUid", //상점 고유주문번호
+//				buyer_email: "결제자이메일",
+//  			buyer_name: "결제자이름",	
+//  			buyer_tel: "결제자연락처",
+//				amount: 100, //가격
+//			});
+//		}//requestPay()
 	})
 
 })

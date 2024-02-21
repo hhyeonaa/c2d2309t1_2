@@ -130,10 +130,10 @@ var payMethod = $('.check').find('span').text().trim();
 				pg: pgId,
 				// pay_method: "card",
 				merchant_uid: "makeMerchantUid", //상점 고유주문번호
-				buyer_email: "결제자이메일",
-  			buyer_name: "결제자이름",	
-  			buyer_tel: "결제자연락처",
 				amount: 100, //가격
+				buyer_email: "결제자이메일",
+  				buyer_name: "결제자이름",	
+  				buyer_tel: "결제자연락처",
 			});
 		}//requestPay()
 	})

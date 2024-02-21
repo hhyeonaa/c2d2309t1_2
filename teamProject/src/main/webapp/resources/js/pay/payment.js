@@ -7,17 +7,17 @@ function checkSubmit(payCheck) {
 	}
 }
 // 토스결제 api
-function TossPayment(){
-	IMP.request_pay({
-		pg: "tosspay.{tosstest}",
-	})
-}
+//function TossPayment(){
+//	IMP.request_pay({
+//		pg: "tosspay.{tosstest}",
+//	})
+//}
 // 카카오페이 api
-function KakaoPayment(){
-	IMP.request_pay({
-		pg: "kakaopay.{TC0ONETIME}",
-	})
-}
+//function KakaoPayment(){
+//	IMP.request_pay({
+//		pg: "kakaopay.{TC0ONETIME}",
+//	})
+//}
 
 // 스크립트 시작
 $(()=>{
@@ -108,14 +108,16 @@ var payMethod = $('.check').find('span').text().trim();
         var seconds = today.getSeconds();  // 초
         var milliseconds = today.getMilliseconds();
         var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-        
+        var pgId="";
        	switch(payMethod){
 			case '토스페이':
 			TossPayment();
+			pgId = "tosspay.{tosstest}";
 			break;
 			
 			case '카카오페이':
 			KakaoPayment();
+			pgId = "kakaopay.{TC0ONETIME}";
 			break;
 			
 			default:
@@ -123,17 +125,17 @@ var payMethod = $('.check').find('span').text().trim();
 			break;	
 		}
         
-//        function requestPay() {
-//			IMP.request_pay({
-//				pg: payMethod1.{????},
-//				pay_method: "card",
-//				merchant_uid: "makeMerchantUid", //상점 고유주문번호
-//				buyer_email: "결제자이메일",
-//  			buyer_name: "결제자이름",	
-//  			buyer_tel: "결제자연락처",
-//				amount: 100, //가격
-//			});
-//		}//requestPay()
+        function requestPay() {
+			IMP.request_pay({
+				pg: pgId,
+				// pay_method: "card",
+				merchant_uid: "makeMerchantUid", //상점 고유주문번호
+				buyer_email: "결제자이메일",
+  			buyer_name: "결제자이름",	
+  			buyer_tel: "결제자연락처",
+				amount: 100, //가격
+			});
+		}//requestPay()
 	})
 
 })

@@ -35,4 +35,14 @@ public class BoardService {
 		boardDAO.insertPreBoard(parsedMap);
 	}// insertPreBoard()
 
+	public void insertPreAuction(Map<String, String> parsedMap) {
+		System.out.println("BoardService insertPreAuction()");
+		boardDAO.insertPreAuction(parsedMap);
+	}// insertPreAuction()
+
+	public List<Map<String, String>> selectSaleBoard() {
+		System.out.println("BoardService selectSaleBoard()");
+		return boardDAO.selectSaleBoard();
+	}// selectSaleBoard()
+
 }// BoardService 끝

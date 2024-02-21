@@ -42,13 +42,16 @@ public class BoardController {
 	private TeamService teamService;
 	
 	@GetMapping("/saleBoard")
-	public String saleBoard() {
+	public String saleBoard(Model model) {
 		System.out.println("BoardController saleBoard()");
 		/*테스트용 select start*/
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("proNo", "PR4");
-		System.out.println(boardService.select(map));
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("proNo", "PR4");
+//		System.out.println(boardService.select(map));
 		/*테스트용 select end*/
+		List<Map<String,String>> resultList = boardService.selectSaleBoard();
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/saleBoard";
 	}// saleBoard()
 	
@@ -245,6 +248,27 @@ public class BoardController {
         
 		return ResponseEntity.ok("Data received successfully");
 	}// insertPreBoard()
+	@PostMapping("/insertPreAuction")
+	public ResponseEntity<?> insertPreAuction(@RequestParam Map<String, String> textData){
+		System.out.println("BoardController insertPreAuction()");
+		// 텍스트 데이터 처리
+	    logger.info("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+        logger.info(textDataJson);
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+
+        // 파싱된 Map의 내용 출력
+        logger.info("parsedMap: " + parsedMap);
+        boardService.insertPreAuction(parsedMap);
+        
+		return ResponseEntity.ok("Data received successfully");
+	}// insertPreAuction()	
 	
 	@GetMapping("/boardDetail")
 	public String boardDetail() {

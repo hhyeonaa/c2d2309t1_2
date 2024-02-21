@@ -50,4 +50,14 @@ public class BoardDAO {
 		sqlSession.insert(NAMESPACE + ".insertPreBoard",parsedMap);
 	}// insertPreBoard()
 
+	public void insertPreAuction(Map<String, String> parsedMap) {
+		System.out.println("BoardDAO insertPreAuction()");
+		sqlSession.insert(NAMESPACE + ".insertPreAuction",parsedMap);
+	}// insertPreAuction()
+
+	public List<Map<String, String>> selectSaleBoard() {
+		System.out.println("BoardDAO selectSaleBoard()");
+		return sqlSession.selectList(NAMESPACE + ".selectSaleBoard");
+	}// selectSaleBoard()
+
 }// BoardDAO 끝

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,9 +31,9 @@
             	<option>3</option>
             </select>
             <select>
-            	<option>1</option>
-            	<option>2</option>
-            	<option>3</option>
+				<c:forEach var="map" items="${resultList}">
+					<option>${map['PRO_WR']}</option>
+				</c:forEach>
             </select>
         </div>
         <!-- 각 카드를 이 위치에 반복 배치 -->
@@ -47,117 +48,21 @@
                 </div>
             </div>
         </div>
+
         <!-- 여기까지 반복 -->
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 -->    
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 -->                             
-		  
-<!-- 		</div> -->
+		<c:forEach var="map" items="${resultList}">
+	        <div class="col">
+	            <div class="card h-100">
+	                <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
+	                <div class="card-body">
+	                    <span class="state1">${map['PRO_TC']}</span>
+	                    <span class="state2">${map['PRO_TSC']}</span><br>
+	                    <p>${map['PRO_NAME']}</p>
+	                    <h5><b>${map['PRO_PRICE']}</b></h5>
+	                </div>
+	            </div>
+	        </div>
+		</c:forEach>
 
 	</div>
 </div>

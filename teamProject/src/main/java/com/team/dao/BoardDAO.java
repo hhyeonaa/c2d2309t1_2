@@ -65,4 +65,9 @@ public class BoardDAO {
 		return sqlSession.selectOne(NAMESPACE + ".selectBoardDetail",map);
 	}// selectBoardDetail()
 
+	public void upHits(Map<String, String> map) {
+		System.out.println("BoardDAO upHits()");
+		sqlSession.update(NAMESPACE + ".upHits", map);
+	}// upHits()
+
 }// BoardDAO 끝

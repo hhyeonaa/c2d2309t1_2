@@ -50,4 +50,9 @@ public class BoardService {
 		return boardDAO.selectBoardDetail(map);
 	}// selectBoardDetail();
 
+	public void upHits(Map<String, String> map) {
+		System.out.println("BoardService upHits()");
+		boardDAO.upHits(map);
+	}// upHits()
+
 }// BoardService 끝

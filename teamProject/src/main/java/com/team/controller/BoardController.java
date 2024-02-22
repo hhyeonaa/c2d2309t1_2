@@ -281,6 +281,7 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+resultMap);
 		model.addAttribute("resultMap",resultMap);

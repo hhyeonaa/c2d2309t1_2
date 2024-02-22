@@ -113,7 +113,8 @@ a {
     grid-template-columns: max-content max-content;
     align-items: center;
     column-gap: .75rem;
-    color: #888784;
+    color: black;
+    font-weight:bold;
     border-radius: .5rem;
     margin-bottom: 1rem;
     transition: .3s;

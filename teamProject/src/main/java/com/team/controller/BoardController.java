@@ -15,6 +15,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -271,8 +272,18 @@ public class BoardController {
 	}// insertPreAuction()	
 	
 	@GetMapping("/boardDetail")
-	public String boardDetail() {
+	public String boardDetail(HttpServletRequest request,Model model) {
 		System.out.println("BoardController boardDetail()");
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		logger.info("proWr: "+proWr);
+		logger.info("proDate: "+proDate);
+		Map<String, String> map = new HashMap<>();
+		map.put("proWr", proWr);
+		map.put("proDate", proDate);
+		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		System.out.println("resultMap: "+resultMap);
+		model.addAttribute("resultMap",resultMap);
 		return "board/boardDetail";
 	}// boardDetail()
 	

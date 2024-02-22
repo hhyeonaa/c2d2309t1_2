@@ -45,4 +45,9 @@ public class BoardService {
 		return boardDAO.selectSaleBoard();
 	}// selectSaleBoard()
 
+	public Map<String, String> selectBoardDetail(Map<String, String> map) {
+		System.out.println("BoardService selectBoardDetail()");
+		return boardDAO.selectBoardDetail(map);
+	}// selectBoardDetail();
+
 }// BoardService 끝

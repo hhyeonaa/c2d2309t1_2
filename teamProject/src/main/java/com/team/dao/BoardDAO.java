@@ -60,4 +60,9 @@ public class BoardDAO {
 		return sqlSession.selectList(NAMESPACE + ".selectSaleBoard");
 	}// selectSaleBoard()
 
+	public Map<String, String> selectBoardDetail(Map<String, String> map) {
+		System.out.println("BoardDAO selectBoardDetail()");
+		return sqlSession.selectOne(NAMESPACE + ".selectBoardDetail",map);
+	}// selectBoardDetail()
+
 }// BoardDAO 끝

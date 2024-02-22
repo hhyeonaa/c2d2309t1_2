@@ -53,8 +53,10 @@
 			 , M.MEM_PW
 			 , M.MEM_IMAGE
 			 , M.MEM_EMAIL
+			 , M.MEM_NAME
 			 , M.MEM_NICK
 			 , M.MEM_TEL
+			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
 			 , S.SCO_SCORE
 		from MEMBERS M
 		left outer join SCORE S

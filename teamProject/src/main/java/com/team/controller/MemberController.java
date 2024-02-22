@@ -75,28 +75,7 @@ public class MemberController{
 		memberService.socialLogin(map);
 			
 		return "redirect:../";
-		
-		
-//		if(sPath.equals("/loginPro.cu")) {
-//			boolean result = false;
-//			Map<String, String> searchId = customerService.searchId(req);
-//			
-//			if(searchId == null || searchId.isEmpty()) {
-//				System.out.println("첫 회원가입 고객");
-//				result = customerService.insertCustomer(req);
-//				searchId = customerService.searchId(req);
-//			} else {
-//				System.out.println("이미 가입한 고객");
-//				result = true;
-//			}
-//			if(result) {
-//				session.setAttribute("CUS_NO", searchId.get("CUS_NO"));
-//				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
-//				session.setAttribute("people", "2");
-//				res.sendRedirect("main.ma");
-//			}
-//		}
-	}// adminLoginPro() 
+	}// socialLoginPro() 
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>신고 항목 관리</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <style>
     .insert:hover {
     	background-color: rgb(42, 188, 180, 0.2);

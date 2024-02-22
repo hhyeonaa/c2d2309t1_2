@@ -28,6 +28,11 @@ public class MemberService {
 		return memberDAO.login(map); 
 	}// login()
 //	-----------------------------------------------------------------------------	
+	public Map<String, String> socialLogin(Map<String, String> map) {
+		System.out.println("MemberService socialLogin()");
+		return memberDAO.socialLogin(map); 
+	}// socialLogin()
+//	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");
 		return memberDAO.mypage(MEM_ID); 

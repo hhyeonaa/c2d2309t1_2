@@ -25,27 +25,31 @@
                     <div class="css-312egs">
                         
                         <section class="css-2fvz7x">
-                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/lemon.jpg"/>
+                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/profile.png"/>
                             
                             <c:if test="${profile.MEM_PW == null}">
-                            	<c:if test="${fn:length(profile.MEM_ID) gt '13'} ">
-		                            <span><b><img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
-		                            <div>
-		                                <span>${profile.MEM_NICK} | ${profile.MEM_PW }</span>
-		                            </div>
-		                        </c:if>
-	                            <c:if test="${fn:length(profile.MEM_ID) != '10'} ">
-	                            	<span><b><img src="../resources/img/member/naver.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
-		                            <div>
-		                                <span>${profile.MEM_NICK} | ${profile.MEM_PW }</span>
-		                            </div>
-	                            </c:if>
+                            	<c:choose>
+                            		<c:when test="${fn:length(profile.MEM_ID) lt '12'}">
+	                            		<span><b><img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
+			                            <div>
+			                                <span>${profile.MEM_NICK}</span>
+			                            </div>
+                            		</c:when>
+                            		 <c:otherwise>
+                            		 	<span><b><img src="../resources/img/member/naver.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
+			                            <div>
+			                                <span>${profile.MEM_NICK}</span>
+			                            </div>
+                            		 </c:otherwise>
+                            	</c:choose>
+		                            
+	                            	
                             </c:if>
                             
                             <c:if test="${profile.MEM_PW != null}">
-	                            <span><b>(일반)${profile.MEM_EMAIL} ${profile.MEM_ID }</b></span>
+	                            <span><b><ion-icon name="person-outline"></ion-icon> ${profile.MEM_EMAIL}</b></span>
 	                            <div>
-	                                <span>${profile.MEM_NICK} | ${profile.MEM_PW } | ${fn:length(profile.MEM_PW)}</span>
+	                                <span>${profile.MEM_NICK}</span>
 	                            </div>
                             </c:if>
                             
@@ -54,7 +58,7 @@
                             <div class="chart" style="width: 250px;">
                             
 	                            <div class="outer_div">
-	                            	<div class="my_gradient_4" style="width: 60%;"><p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div>
+	                            	<div class="my_gradient_4" style="width: 60%"><p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div>
 	                            </div>
 <!-- 						      <div class="bar" style="width: 40%;">40˚</div> -->
 						    </div>
@@ -130,7 +134,6 @@
                                 </defs>
                             </svg>
                         </a>
-                        <div class="css-oyp86"></div>
                     </div>
                 </section>
 			<!--  -->

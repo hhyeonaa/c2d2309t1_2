@@ -34,7 +34,7 @@
 		and MEM_PW = #{MEM_PW}
 	</select>
 	
-	<select id="idCheck" resultType="map">
+	<select id="socialLogin" resultType="map">
 		select MEM_ID
 		from MEMBERS
 		where MEM_ID = #{MEM_ID}	
@@ -54,12 +54,22 @@
 			 , M.MEM_IMAGE
 			 , M.MEM_EMAIL
 			 , M.MEM_NICK
+			 , M.MEM_TEL
 			 , S.SCO_SCORE
 		from MEMBERS M
 		left outer join SCORE S
 		on M.MEM_NO = S.MEM_NO
 		where 1 = 1
 		and M.MEM_ID = #{MEM_ID}
-	</select>	
+	</select>
+	
+	<update id="memberEdit">
+		update MEMBERS
+		set MEM_NICK = #{MEM_NICK},
+			MEM_PW = #{MEM_PW}
+			MEM_TEL = #{MEM_TEL}
+			MEM_EMAIL = #{MEM_EMAIL}
+		where 
+	</update>
 	
 </mapper>

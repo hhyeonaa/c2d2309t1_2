@@ -33,10 +33,12 @@ public class MemberController{
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpSession session) {
+		
 		System.out.println("MemberController insertPro()");
 		System.out.println(map.toString());
 		memberService.insertMemeber(map);
 		session.setAttribute("MEM_ID", map.get("MEM_ID"));
+		System.out.println("map : " + map.get("MEM_ID"));
 		return "redirect:/member/login";
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
@@ -50,6 +52,18 @@ public class MemberController{
 	public String loginPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController loginPro()");
 		Map<String, String> check = memberService.login(map);
+		System.out.println("check : " + check);
+		if(check != null) {
+			session.setAttribute("MEM_ID", map.get("MEM_ID"));
+			return "redirect:../";
+		}
+		return "member/msg";
+	}// adminLoginPro() 
+//	-----------------------------------------------------------------------------	
+	@PostMapping("/socialLoginPro")
+	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController socialLoginPro()");
+		Map<String, String> check = memberService.socialLogin(map);
 		System.out.println("check : " + check);
 		if(check != null) {
 			session.setAttribute("MEM_ID", map.get("MEM_ID"));
@@ -96,8 +110,11 @@ public class MemberController{
 	}// mypage()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/memberEdit")
-	public String memberEdit() {
+	public String memberEdit(Model model, HttpSession session) {
 		System.out.println("MemberController memberEdit()");
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		Map<String, String> profile = memberService.mypage(MEM_ID);
+		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
 //	-----------------------------------------------------------------------------

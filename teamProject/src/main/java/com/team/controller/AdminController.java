@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import com.team.service.AdminService;
 
 import com.team.service.TeamService;
 import com.team.util.EnumCodeType;
+import com.team.util.ToastUI;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -35,10 +37,17 @@ public class AdminController {
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
 	public String manager(Model model) {
-		List<Map<String, String>> mapList = adminService.getAdminList();
-		model.addAttribute("mapList", mapList);
+		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
+ 	@GetMapping("/managerList")
+ 	@ResponseBody
+ 	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> mapList = adminService.getAdminList();
+ 		System.out.println(mapList);
+ 		return ToastUI.resourceData(req, mapList);
+ 	}
+	
 	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {

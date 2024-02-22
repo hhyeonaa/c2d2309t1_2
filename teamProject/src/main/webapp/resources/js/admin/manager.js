@@ -9,6 +9,16 @@ $(() => {
 
 
 $(function(){
+	
+	var columns = [
+		{name:"AD_NO", 	 header:"번호"}, 
+		{name:"AD_ID", 	 header:"ID"},
+		{name:"AD_NAME", 	 header:"이름"},
+		{name:"AD_ACTIVE",	 header:"활성 상태"},
+		{name:"CI_OC",		 header:"삭제"}
+	]
+	grid("managerList", 3, columns);
+	
 	let adminList = document.getElementById('adminList');
 	
 	// 삭제 버튼
@@ -29,7 +39,6 @@ $(function(){
 			alert('삭제가 취소되었습니다.');
 		}
 	});
-
 
 	// 저장 버튼
 	$(document).on("click", "#saveBtn", function () {

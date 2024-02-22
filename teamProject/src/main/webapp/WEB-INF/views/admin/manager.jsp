@@ -54,9 +54,9 @@
 	     </div>
 	  </div>
 	</div>
-    
-    <form action="" id="testDiv">
-    <div class="row"  id="adminDiv">
+    	
+    <form action="">
+    <div class="row">
         <div class="col-lg-12">
             <div class="">
                 <div class="table-responsive">
@@ -110,6 +110,8 @@
 		</div> 
     </div>
     </form>
+    
+    <div id="grid"></div>
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>

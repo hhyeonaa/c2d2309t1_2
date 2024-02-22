@@ -32,6 +32,7 @@ public class MemberService {
 		System.out.println("MemberService socialLogin()");
 		return memberDAO.socialLogin(map); 
 	}// socialLogin()
+	
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");

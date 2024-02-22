@@ -33,12 +33,13 @@ public class MemberController{
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpSession session) {
-		
 		System.out.println("MemberController insertPro()");
-		System.out.println(map.toString());
-		memberService.insertMemeber(map);
-		session.setAttribute("MEM_ID", map.get("MEM_ID"));
-		System.out.println("map : " + map.get("MEM_ID"));
+		Map<String, String> searchId = memberService.login(map);
+		if(searchId == null || searchId.isEmpty()) {
+			System.out.println("첫 회원가입 고객");
+			memberService.insertMemeber(map);
+		}
+		System.out.println("기존 고객");
 		return "redirect:/member/login";
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
@@ -63,13 +64,38 @@ public class MemberController{
 	@PostMapping("/socialLoginPro")
 	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController socialLoginPro()");
-		Map<String, String> check = memberService.socialLogin(map);
-		System.out.println("check : " + check);
-		if(check != null) {
-			session.setAttribute("MEM_ID", map.get("MEM_ID"));
-			return "redirect:../";
-		}
-		return "member/msg";
+		Map<String, String> searchId = memberService.socialLogin(map);
+		
+		if(searchId == null || searchId.isEmpty()) {
+			System.out.println("첫 회원가입 고객");
+			memberService.insertMemeber(map);
+		} 
+		System.out.println("이미 가입한 고객");
+		session.setAttribute("MEM_ID", map.get("MEM_ID"));
+		memberService.socialLogin(map);
+			
+		return "redirect:../";
+		
+		
+//		if(sPath.equals("/loginPro.cu")) {
+//			boolean result = false;
+//			Map<String, String> searchId = customerService.searchId(req);
+//			
+//			if(searchId == null || searchId.isEmpty()) {
+//				System.out.println("첫 회원가입 고객");
+//				result = customerService.insertCustomer(req);
+//				searchId = customerService.searchId(req);
+//			} else {
+//				System.out.println("이미 가입한 고객");
+//				result = true;
+//			}
+//			if(result) {
+//				session.setAttribute("CUS_NO", searchId.get("CUS_NO"));
+//				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+//				session.setAttribute("people", "2");
+//				res.sendRedirect("main.ma");
+//			}
+//		}
 	}// adminLoginPro() 
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/logout")

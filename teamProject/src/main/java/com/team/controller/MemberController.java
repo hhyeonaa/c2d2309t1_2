@@ -1,6 +1,7 @@
 package com.team.controller;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -8,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.team.util.EnumCodeType;
 import com.team.service.MemberService;
 import com.team.service.TeamService;
 
@@ -23,14 +24,22 @@ public class MemberController{
 	private MemberService memberService;
 	@Inject
 	private TeamService teamService;
-	
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/join")
+	public String join() {
+		System.out.println("MemberController join()");
+		return "member/join";
+	}// join()
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/insertPro")
-	public void insertPro(@RequestParam Map<String, String> map) {
+	public String insertPro(@RequestParam Map<String, String> map, HttpSession session) {
+		
 		System.out.println("MemberController insertPro()");
 		System.out.println(map.toString());
 		memberService.insertMemeber(map);
-		
+		session.setAttribute("MEM_ID", map.get("MEM_ID"));
+		System.out.println("map : " + map.get("MEM_ID"));
+		return "redirect:/member/login";
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
@@ -39,40 +48,81 @@ public class MemberController{
 		return "member/login";
 	}// login()
 //	-----------------------------------------------------------------------------	
-	@PostMapping("/adminLoginPro")
-	public void loginPro(@RequestParam Map<String, String> map) {
-		System.out.println("MemberController adminLoginPro()");
-		boolean check = memberService.adminLogin(map);
-		
-		if(check) {
-		} else {
-			memberService.adminLogin(map);
+	@PostMapping("/loginPro")
+	public String loginPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController loginPro()");
+		Map<String, String> check = memberService.login(map);
+		System.out.println("check : " + check);
+		if(check != null) {
+			session.setAttribute("MEM_ID", map.get("MEM_ID"));
+			return "redirect:../";
 		}
-	}// adminLoginPro()
+		return "member/msg";
+	}// adminLoginPro() 
+//	-----------------------------------------------------------------------------	
+	@PostMapping("/socialLoginPro")
+	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController socialLoginPro()");
+		Map<String, String> check = memberService.socialLogin(map);
+		System.out.println("check : " + check);
+		if(check != null) {
+			session.setAttribute("MEM_ID", map.get("MEM_ID"));
+			return "redirect:../";
+		}
+		return "member/msg";
+	}// adminLoginPro() 
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		System.out.println("MemberController logout()");
+		session.invalidate();
+		return "redirect:../";
+	}//logout()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/adminLogin")
 	public String adminLogin() {
 		System.out.println("MemberController adminLogin()");
 		return "member/adminLogin";
 	}// adminLogin()
+//	-----------------------------------------------------------------------------	
+	@PostMapping("/adminLoginPro")
+	public String adminLoginPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController adminLoginPro()");
+		Map<String, String> check = memberService.adminLogin(map);
+		System.out.println(check);
+		if(check != null) {
+			session.setAttribute("AD_ID", map);
+			return "redirect:/admin/manager";
+		}
+		return "member/msg";
+		
+	}// adminLoginPro() 
 //	-----------------------------------------------------------------------------
 	@GetMapping("/mypage")
-	public String mypage() {
+	public String mypage(Model model, HttpSession session) {
 		System.out.println("MemberController mypage()");
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		System.out.println("@@@@@@" + MEM_ID.toString());
+		Map<String, String> profile = memberService.mypage(MEM_ID);
+		model.addAttribute("profile", profile);
+		System.out.println("profile : " + profile);
 		return "member/mypage";
 	}// mypage()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/memberEdit")
-	public String memberEdit() {
+	public String memberEdit(Model model, HttpSession session) {
 		System.out.println("MemberController memberEdit()");
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		Map<String, String> profile = memberService.mypage(MEM_ID);
+		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
 //	-----------------------------------------------------------------------------
-	@GetMapping("/tradeList")
-	public String tradeList() {
+	@GetMapping("/myList")
+	public String myList() {
 		System.out.println("MemberController tradeList()");
-		return "member/tradeList";
-	}// tradeList()
+		return "member/myList";
+	}// myList()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/likeList")
 	public String likeList() {
@@ -92,10 +142,5 @@ public class MemberController{
 		return "member/buyList";
 	}// buyList()
 //	-----------------------------------------------------------------------------
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		System.out.println("MemberController logout()");
-		session.invalidate();
-		return "/home";
-	}// logout()
+
 }// MemberController 클래스

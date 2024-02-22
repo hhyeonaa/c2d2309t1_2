@@ -14,10 +14,27 @@ public class MemberService {
 	private MemberDAO memberDAO;
 //	-----------------------------------------------------------------------------	
 	public void insertMemeber(Map<String, String> map) {
+		System.out.println("MemberService insertMemeber()");
 		memberDAO.insertMember(map);
 	}// insertMemeber()
 //	-----------------------------------------------------------------------------	
-	public boolean adminLogin(Map<String, String> map) {
-		return memberDAO.adminLogin(map);
+	public Map<String, String> adminLogin(Map<String, String> map) {
+		System.out.println("MemberService adminLogin()");
+		return memberDAO.adminLogin(map); 
 	}// adminLogin()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> login(Map<String, String> map) {
+		System.out.println("MemberService login()");
+		return memberDAO.login(map); 
+	}// login()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> socialLogin(Map<String, String> map) {
+		System.out.println("MemberService socialLogin()");
+		return memberDAO.socialLogin(map); 
+	}// socialLogin()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> mypage(String MEM_ID) {
+		System.out.println("MemberService mypage()");
+		return memberDAO.mypage(MEM_ID); 
+	}// mypage()
 }// MemberService 클래스

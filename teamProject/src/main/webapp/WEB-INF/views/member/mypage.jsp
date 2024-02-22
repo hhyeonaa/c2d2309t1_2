@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>	
 <head>
@@ -23,23 +25,46 @@
                     <div class="css-312egs">
                         
                         <section class="css-2fvz7x">
-                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/lemon.jpg"/>
-                            <span><b>ljw9863@naver.com</b></span>
-                            <div>
-                                <span>레몬나르고빚갚으리오</span>
-                            </div>
+                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/profile.png"/>
+                            
+                            <c:if test="${profile.MEM_PW == null}">
+                            	<c:choose>
+                            		<c:when test="${fn:length(profile.MEM_ID) lt '12'}">
+	                            		<span><b><img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
+			                            <div>
+			                                <span>${profile.MEM_NICK}</span>
+			                            </div>
+                            		</c:when>
+                            		 <c:otherwise>
+                            		 	<span><b><img src="../resources/img/member/naver.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
+			                            <div>
+			                                <span>${profile.MEM_NICK}</span>
+			                            </div>
+                            		 </c:otherwise>
+                            	</c:choose>
+		                            
+	                            	
+                            </c:if>
+                            
+                            <c:if test="${profile.MEM_PW != null}">
+	                            <span><b><ion-icon name="person-outline"></ion-icon> ${profile.MEM_EMAIL}</b></span>
+	                            <div>
+	                                <span>${profile.MEM_NICK}</span>
+	                            </div>
+                            </c:if>
+                            
                             <button type="button" onclick="location.href='memberEdit'">프로필 수정하기</button>
                             <br><span>내 평점온도</span>
                             <div class="chart" style="width: 250px;">
                             
 	                            <div class="outer_div">
-	                            	<div class="my_gradient_4" style="width: 60%;"><p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div>
+	                            	<div class="my_gradient_4" style="width: 60%"><p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div>
 	                            </div>
 <!-- 						      <div class="bar" style="width: 40%;">40˚</div> -->
 						    </div>
                         </section>
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='salesList'">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='myList'">
                             <span>내 상품 관리</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
@@ -67,7 +92,7 @@
                             </svg>
                         </a>
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='salesList'">
                             <span>판매 내역</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
@@ -109,7 +134,6 @@
                                 </defs>
                             </svg>
                         </a>
-                        <div class="css-oyp86"></div>
                     </div>
                 </section>
 			<!--  -->

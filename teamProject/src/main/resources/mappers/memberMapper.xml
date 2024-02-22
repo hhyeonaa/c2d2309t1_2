@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.team.mappers.member">
+<mapper namespace="com.team.mappers.memberMapper">
 	<insert id="insertmember">
-		insert into MEMBER
+		insert into MEMBERS
 				( MEM_NO
 				, MEM_ID
 				, MEM_PW
@@ -15,7 +15,7 @@
 				, MEM_TEL
 				, MEM_EMAIL
 				, MEM_DATE )
-		values ( concat("ME", IFNULL((select MAX(cast(replace(MEM_NO, "ME", "") AS unsigned))+1 FROM MEMBER A), 1))
+		values ( concat("ME", IFNULL((select MAX(cast(replace(MEM_NO, "ME", "") AS unsigned))+1 FROM MEMBERS A), 1))
 				,#{MEM_ID}
 				,#{MEM_PW}
 				,#{MEM_GENDER}
@@ -27,10 +27,49 @@
 				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s') ) 
 	</insert>
 	
-	<select id="adminLogin" resultType="boolean">
-		select AD_ID
-			 , AD_PW
-		from ADMIN
-		where AD_ID = #{AD_ID}
+	<select id="login" resultType="map">
+		select MEM_ID, MEM_PW, MEM_NICK
+		from MEMBERS
+		where MEM_ID = #{MEM_ID} 
+		and MEM_PW = #{MEM_PW}
 	</select>
+	
+	<select id="socialLogin" resultType="map">
+		select MEM_ID
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}	
+	</select>	
+	
+	<select id="adminLogin" resultType="map">
+		select AD_ID, AD_PW
+		from ADMIN
+		where AD_ID = #{AD_ID} 
+		and AD_PW = #{AD_PW}
+	</select>	
+	
+	<select id="mypage" parameterType="map" resultType="map">
+		select M.MEM_NO
+			 , M.MEM_ID
+			 , M.MEM_PW
+			 , M.MEM_IMAGE
+			 , M.MEM_EMAIL
+			 , M.MEM_NICK
+			 , M.MEM_TEL
+			 , S.SCO_SCORE
+		from MEMBERS M
+		left outer join SCORE S
+		on M.MEM_NO = S.MEM_NO
+		where 1 = 1
+		and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<update id="memberEdit">
+		update MEMBERS
+		set MEM_NICK = #{MEM_NICK},
+			MEM_PW = #{MEM_PW}
+			MEM_TEL = #{MEM_TEL}
+			MEM_EMAIL = #{MEM_EMAIL}
+		where 
+	</update>
+	
 </mapper>

@@ -18,6 +18,10 @@ html, body {
 	height: 100%;
 }
 
+.center-align {
+	padding-top: 4%;
+}
+
 #loginBox {
 	width: 300px;
 	text-align: center;
@@ -73,9 +77,6 @@ header {
 
 }
 
-body {
-	padding-top: 11%;
-}
 
 .row {
 	width: 1080px;

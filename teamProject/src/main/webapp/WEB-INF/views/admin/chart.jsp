@@ -71,8 +71,7 @@
 	
 	<div style="display: flex; justify-content: center; align-items: center;">
 
-	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div style="border: 1px solid black; width: 1200px; height: 650px;">
+		<div style="border: 1px solid black; width: 1200px; height: 649px;">
 			
 			<div class="main">
 			  <input type="radio" id="tab-1" name="show" checked/>

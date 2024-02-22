@@ -7,33 +7,32 @@ $(() => {
 });
 
 
-// 삭제 버튼
-function getId(){
-	let adminList = document.getElementById('adminList');
-	for (let i = 1; i < adminList.rows.length; i++) {
-		adminList.rows[i].cells[4].onclick = function () {
-			let AD_NO= "AD" + adminList.rows[i].cells[0].innerText;
-			var result = confirm(AD_NO + '을 정말로 삭제하시겠습니까?');
-			if(result){
-				$.ajax({
-					type: "post"
-					, url: "deletePro"
-					, data: {AD_NO: AD_NO }
-				})
-				alert(AD_NO + '가 삭제되었습니다.');
-				location.reload();
-			} else {
-				alert('삭제가 취소되었습니다.');
-			}
-		}
-	}
-}
-
 
 $(function(){
+	let adminList = document.getElementById('adminList');
+	
+	// 삭제 버튼
+	$(document).on("click", "#deleteBtn", function () {
+		var rowIndex = $(this).closest('tr').index();
+		let AD_NO= "AD" + adminList.rows[rowIndex+1].cells[0].innerText;
+		var result = confirm(AD_NO + '을 정말로 삭제하시겠습니까?');
+		if(result){
+			$.ajax({
+				type: "post"
+				, url: "deletePro"
+				, data: {AD_NO: AD_NO }
+			})
+			alert(AD_NO + '가 삭제되었습니다.');
+			$('#adminDiv').load(location.href+' #adminDiv');
+//			location.reload();
+		} else {
+			alert('삭제가 취소되었습니다.');
+		}
+	});
+
+
 	// 저장 버튼
-	$('#saveBtn').on('click', function(){
-		let adminList = document.getElementById('adminList');
+	$(document).on("click", "#saveBtn", function () {
 		for (let i = 1; i < adminList.rows.length; i++) {
 			$.ajax({
 				type: "post"
@@ -42,7 +41,8 @@ $(function(){
 						 AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
 			});
 		}
-		location.reload();
+		$('#adminDiv').load(location.href+' #adminDiv');
+//		location.reload();
 	});
 	
 		
@@ -53,15 +53,11 @@ $(function(){
 		modal.css('display', 'block');
 	});
 	
-	$('#close').on('click', function(){
+	$('#close, #cancelBtn').on('click', function(){
 		modal.css('display', 'none');
 	});
 	
-	$('#cancelBtn').on('click', function(){
-		modal.css('display', 'none');
-	});
-	
-	
+
 	// 엔터키 & 버튼 연결	
 	$('#AD_ID, #AD_PW, #AD_NAME').on('keydown', function(key){
         if (key.keyCode == 13) {
@@ -71,7 +67,7 @@ $(function(){
 	
 	
 	// 생성버튼 이벤트 
-	$('#insertBtn').on('click', function() {
+	$(document).on("click", "#insertBtn", function () {
 		if($('#AD_ID').val() == ""){
 			alert("아이디를 입력하세요.");
 			$('#AD_ID').focus();
@@ -97,7 +93,9 @@ $(function(){
 		.done(function(data) {
 			alert('새로운 관리자 계정이 생성되었습니다.');
 			modal.css('display', 'none');
-			location.reload();
+			$('#adminDiv').load(location.href+' #adminDiv');
+//			$('#testDiv').load(location.href+' #testDiv');
+//			location.reload();
 		 })
 		.fail(function() {
 			alert('입력 정보를 다시 확인해 주십시오.');

@@ -15,7 +15,7 @@
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
-<div class="container" id="updateDiv">
+<div class="container">
     <div class="row align-items-center">
         <div><h4 class="card-title"><b>관리자 목록</b></h4></div>
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
@@ -50,13 +50,13 @@
 	     </div>
 	     <div class="modal-footer" id="modal-footer">
 	       <button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
-    	   <button type="submit" id="insertBtn" class="btn btn-outline-danger">생성</button>
+    	   <button type="button" id="insertBtn" class="btn btn-outline-danger">생성</button>
 	     </div>
 	  </div>
 	</div>
     
-    <form action="">
-    <div class="row">
+    <form action="" id="testDiv">
+    <div class="row"  id="adminDiv">
         <div class="col-lg-12">
             <div class="">
                 <div class="table-responsive">
@@ -73,9 +73,9 @@
                         <tbody id="tbody">
                         	<c:forEach var="admin" items="${mapList}">
 	                            <tr>
-	                            	<th id="no">${admin.AD_NO }</th>
-	                                <td id="id">${admin.AD_ID }</td>
-	                                <td id="name">${admin.AD_NAME }</td>
+	                            	<th>${admin.AD_NO }</th>
+	                                <td>${admin.AD_ID }</td>
+	                                <td>${admin.AD_NAME }</td>
 	                                <td scope="row">
 		                                <div class="form-check form-switch justify-content-center">
 			                                <c:if test="${admin.AD_ACTIVE eq '1'}">
@@ -87,7 +87,7 @@
 		                                </div>
 	                                </td>
                             	    <td scope="row">
-										<button id="deleteBtn" onclick="getId()">
+										<button type="button" id="deleteBtn">
 											<ion-icon name="remove-circle-outline"></ion-icon></button>
 	                                </td>
 	                            </tr>

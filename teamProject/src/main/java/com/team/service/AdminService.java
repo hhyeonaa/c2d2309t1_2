@@ -33,6 +33,36 @@ public class AdminService {
 		adminDAO.adminDelete(AD_NO);
 	}
 	
+	public void adminUpdate(Map<String, String> map) {
+		adminDAO.adminUpdate(map);
+	}
+
+	public List<Map<String, String>> getBoardList() {
+		return adminDAO.getBoardList();
+	}
+
+	public void boardHide(Map<String, String> map) {
+		adminDAO.boardHide(map);
+	}
+
+	public void changeSeq(Map<String, String> map) {
+		adminDAO.changeSeq(map);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	----- 현아 끝 -----
 	
 	
@@ -52,7 +82,5 @@ public class AdminService {
 //	----- 성엽 끝 -----
 	
 
-	public void adminUpdate(Map<String, String> map) {
-		adminDAO.adminUpdate(map);
-	}
+
 }

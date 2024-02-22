@@ -41,7 +41,11 @@ public class AdminController {
 	}
 	
 	@PostMapping("/insertPro")
-	public String insertPro(@RequestParam Map<String, String> map) {
+	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {
+//		teamService.showCodeList(EnumCodeType.메세지);
+//		Object[] arr = {"로그인"};
+//		teamService.onlyAlert(response, "AM1", arr);
+//		EnumCodeType.메세지.getType() + 1
 		boolean check = adminService.idCheck(map);
 		if(check) {
 			return null;
@@ -63,9 +67,31 @@ public class AdminController {
 	}
 	
 	@GetMapping("/board")
-	public String board() {
+	public String board(Model model) {
+		List<Map<String, String>> mapList = adminService.getBoardList();
+		model.addAttribute("mapList", mapList);
 		return "admin/board";
 	}
+	
+	@PostMapping("/boardHide")
+	public void boardHide(@RequestParam Map<String, String> map) {
+		adminService.boardHide(map);
+	}
+	
+	@PostMapping("/changeSeq")
+	public void changeSeq(@RequestParam Map<String, String> map) {
+		adminService.changeSeq(map);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/header_menu")
 	public String header_menu() {

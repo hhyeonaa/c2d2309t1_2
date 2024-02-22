@@ -10,51 +10,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
 <link href="${pageContext.request.contextPath}/resources/css/admin/category.css" rel="stylesheet">
-<style type="text/css">
-body {
-	padding: 100px 0 0 240px !important;
-}
-
-.preview {
-    border: 1px solid;
-    background-color: white;
-    border-radius: 10px;
-    margin: 0 5% 0 5%;
-}
-
-#category-ul {
-    list-style:none;
-}
- 
-#category-li {
-	flex-basis: none;
-    float: left;
-}
-
-.cateEdit {
-    border: 1px solid;
-    background-color: white;
-    border-radius: 10px;
-    width: 500px;
-    margin: 0 5% 0 5%;
-    padding: 3%;
-    justify-content: center;
-}
-
-.tableHr {
-	border-bottom: 3px solid;
-}
-
-#btn {
-	background-color: white;
-	border: none;
-}
-
-#btnTop {
-    width: 30px;
-    height: 30px;
-}
-</style>
 </head>
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
@@ -63,8 +18,6 @@ body {
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>적용 미리 보기</b></h4></div>
     </div>
-    
-    
     <div class="preview mb-5 ps-3">
 		<div class="navbar navbar-expand-lg">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-justified" id="category-ul">
@@ -104,12 +57,11 @@ body {
 		</div>
    </div> 
    
-   
     <div class="row align-items-center mt-5 mb-4">
         <div><h4 class="card-title"><b>카테고리 설정</b></h4></div>
     </div>
     <div class="cateEdit mb-4">
-		<table class="table align-middle text-center mb-4">
+		<table id="categoryList" class="table align-middle text-center mb-4">
 			<thead class="tableHr">
 				<tr>
 					<th scope="col" >카테고리명</th>
@@ -141,8 +93,8 @@ body {
 			</tbody>
 		</table>
 		<div align="center">
-			<button type="button" class="btn btn-light">저장</button>
-			<button type="button" class="btn btn-dark">취소</button>
+			<button type="button" class="btn btn-light" id="saveBtn">저장</button>
+			<button type="button" class="btn btn-dark" id="resetBtn">취소</button>
 	    </div>
     </div>
 </div>

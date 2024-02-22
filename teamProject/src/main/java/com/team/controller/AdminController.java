@@ -82,6 +82,14 @@ public class AdminController {
 		return "admin/board";
 	}
 	
+ 	@GetMapping("/boardList")
+ 	@ResponseBody
+ 	public ResponseEntity<?> boardList(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> mapList = adminService.getBoardList();
+ 		System.out.println(mapList);
+ 		return ToastUI.resourceData(req, mapList);
+ 	}
+	
 	@PostMapping("/boardHide")
 	public void boardHide(@RequestParam Map<String, String> map) {
 		adminService.boardHide(map);

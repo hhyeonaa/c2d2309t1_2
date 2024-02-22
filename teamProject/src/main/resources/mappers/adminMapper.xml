@@ -52,8 +52,7 @@
 	</update>
 	
 	<select id="getBoardList" resultType="map">
-		select CO_TYPE
-				, SEQ
+		select SEQ
 				, CODE
 				, HIDE
 		from CODE
@@ -65,14 +64,14 @@
 		update CODE
 		set    HIDE = #{HIDE}
 		where  CO_TYPE = 'MM'
-		and	   CO_NO = #{CO_NO}
+		and	   CODE = #{CODE}
 	</update>
 	
 	<update id="changeSeq">
 		update CODE
 		set    SEQ = #{SEQ}
 		where  CO_TYPE = 'MM'
-		and	   CO_NO = #{CO_NO}
+		and	   CODE = #{CODE}
 	</update>	
 	
 	

@@ -23,8 +23,8 @@ $(function(){
 				, data: {AD_NO: AD_NO }
 			})
 			alert(AD_NO + '가 삭제되었습니다.');
-//			$('#adminDiv').load(location.href+' #adminDiv');
-			location.reload();
+			$('#adminDiv').load(location.href+' #adminDiv');
+//			location.reload();
 		} else {
 			alert('삭제가 취소되었습니다.');
 		}
@@ -41,8 +41,8 @@ $(function(){
 						 AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
 			});
 		}
-//		$('#adminDiv').load(location.href+' #adminDiv');
-		location.reload();
+		$('#adminDiv').load(location.href+' #adminDiv');
+//		location.reload();
 	});
 	
 		
@@ -93,9 +93,9 @@ $(function(){
 		.done(function(data) {
 			alert('새로운 관리자 계정이 생성되었습니다.');
 			modal.css('display', 'none');
-//			$('#adminDiv').load(location.href+' #adminDiv');
+			$('#adminDiv').load(location.href+' #adminDiv');
 //			$('#testDiv').load(location.href+' #testDiv');
-			location.reload();
+//			location.reload();
 		 })
 		.fail(function() {
 			alert('입력 정보를 다시 확인해 주십시오.');

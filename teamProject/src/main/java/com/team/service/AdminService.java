@@ -55,4 +55,5 @@ public class AdminService {
 	public void adminUpdate(Map<String, String> map) {
 		adminDAO.adminUpdate(map);
 	}
+
 }

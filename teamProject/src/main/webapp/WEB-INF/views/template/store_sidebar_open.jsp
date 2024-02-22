@@ -183,7 +183,7 @@ ul{
             <div>
                 <div class="nav__brand">
                 	<div class="p-3" style="display:flex; flex-direction: row; align-items: center; ">
-                		<img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
+                		<img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
 <!-- 						<span class="material-symbols-outlined" style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6;">lunch_dining</span> -->
 <!-- 						<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6; font-size: 30px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span> -->
 					</div>

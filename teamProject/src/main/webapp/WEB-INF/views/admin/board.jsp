@@ -15,37 +15,33 @@
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <form action="">
-<div class="container">
+<div class="container" id="boardDiv">
     <div class="row align-items-center mb-4">
-        <div><h4 class="card-title"><b>적용 미리 보기</b></h4></div>
+        <div><h4 class="card-title"><b>현재 저장된 헤더</b></h4></div>
     </div>
     <div class="preview mb-5">
 		<div class="row align-middle">
 			<nav class="navbar navbar-expand-lg navbar-light p-3">
 				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
-					<a class="navbar-brand" href="#" style="font-size: 30px;"><b>꿀당근장터</b></a>
+					<img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="menu">
-					 		<a class="nav-link" href="board/saleBoard">판매</a>
-						</li>
-						<li class="menu">
-							<a class="nav-link" href="#">구매</a>
-						</li>
-						<li class="menu">
-							<a class="nav-link" href="#">나눔</a>
-						</li>
-						<li class="menu">
-							<a class="nav-link" href="#">경매</a>
-						</li>
+						<c:forEach var="board" items="${mapList}">
+							<c:if test="${board.HIDE eq '0'}">
+								<li class="menu">
+							 		<a class="nav-link" href="#">${board.CODE }</a>
+								</li>
+							</c:if>
+						</c:forEach>
 					</ul>
 					<form class="d-flex">
 						<div class="input-group" style="flex-wrap: nowrap;">
 					      <select class="form-select" aria-label="boardSelect">
-					          <option value="판매" selected>판매</option>
-					          <option value="구매">구매</option>
-					          <option value="나눔">나눔</option>
-					          <option value="경매">경매</option>
-				        	</select>
+					      	<c:forEach var="board" items="${mapList}">
+					      		<c:if test="${board.HIDE eq '0'}">
+					      			<option value="${board.CO_NO }">${board.CODE }</option>
+					      		</c:if>
+				          	</c:forEach>
+				          </select>
 					      <input
 					        class="form-control me-2"
 					        type="search"
@@ -53,7 +49,7 @@
 					        aria-label="Search"
 					        id="search"
 					    />
-					    <button class="btn" type="submit" id="searchButton"><ion-icon name="search-outline"></ion-icon></button>
+					    <button class="btn" id="searchButton"><ion-icon name="search-outline"></ion-icon></button>
 					    </div>
 					</form>
 				</div>
@@ -91,14 +87,14 @@
                                 <th scope="col">게시판 유형</th>
                                 <th scope="col">글쓰기 입력폼</th>
                                 <th scope="col">순서</th>
-                                <th scope="col">표시 상태</th>
+                                <th scope="col">숨김 여부</th>
                             </tr>
                         </thead>
                         <tbody>
-<%--                         <c:forEach var="board" items="${mapList}"> --%>
+                        <c:forEach var="board" items="${mapList}">
                             <tr>
-                            	<th>1</th>
-                                <td>판매</td>
+                            	<th>${board.SEQ }</th>
+                                <td>${board.CODE }</td>
                                 <td>
                                 	<div align="center">
 	                                	<select class="form-select">
@@ -113,74 +109,16 @@
                                 <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
                                 <th scope="row">
                                 	<div class="form-check form-switch justify-content-center">
-										<input class="form-check-input" type="checkbox" id="active">
+			                                <c:if test="${board.HIDE eq '1'}">
+												<input class="form-check-input" type="checkbox" id="active" checked>
+			                                </c:if>
+		                           	       	<c:if test="${board.HIDE eq '0'}">
+												<input class="form-check-input" type="checkbox" id="active">
+			                                </c:if>
 									</div>
                                 </th>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>구매</td>
-                                <td>
-                                	<div align="center">
-	                                	<select class="form-select">
-											<option selected disabled>게시판 선택</option>
-											<option value="1">글</option>
-											<option value="2">글+사진</option>
-											<option value="3">공지사항</option>
-										</select>
-									</div>
-								</td>
-                                <td><a href="#" id="insertForm">설정하기</a></td>
-                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-                                <th scope="row">
-                                	<div class="form-check form-switch justify-content-center">
-										<input class="form-check-input" type="checkbox" id="active">
-									</div>
-                                </th>
-                            </tr>
-                            <tr>
-                          		<th>3</th>
-                                <td>나눔</td>
-                                <td>
-                                	<div align="center">
-	                                	<select class="form-select">
-											<option selected disabled>게시판 선택</option>
-											<option value="1">글</option>
-											<option value="2">글+사진</option>
-											<option value="3">공지사항</option>
-										</select>
-									</div>
-								</td>
-                                <td><a href="#" id="insertForm">설정하기</a></td>
-                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-                                <th scope="row">
-                            	    <div class="form-check form-switch justify-content-center">
-										<input class="form-check-input" type="checkbox" id="active">
-									</div>
-                                </th>
-                            </tr>
-                            <tr>
-                            	<th>4</th>
-                            	<td>경매</td>
-                                <td>
-                                	<div align="center">
-	                                	<select class="form-select">
-											<option selected disabled>게시판 선택</option>
-											<option value="1">글</option>
-											<option value="2">글+사진</option>
-											<option value="3">공지사항</option>
-										</select>
-									</div>
-								</td>
-                                <td><a href="#" id="insertForm">설정하기</a></td>
-                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-                                <th scope="row">
-                                	<div class="form-check form-switch justify-content-center">
-										<input class="form-check-input" type="checkbox" id="active">
-									</div>
-                                </th>
-                            </tr>
-<%--                         </c:forEach> --%>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

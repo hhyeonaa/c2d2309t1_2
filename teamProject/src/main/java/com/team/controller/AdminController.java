@@ -82,7 +82,8 @@ public class AdminController {
 	
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
-	public String message_manage(HttpServletResponse response, HttpServletRequest request) {
+	public String message_manage( HttpServletResponse response
+								, HttpServletRequest request) {
 //		code.onlyAlert(response, "안녕");
 //		code.historyBackAlert(response, "안녕히사시부리");
 //		Object[] arr = {"가나다"};
@@ -97,19 +98,24 @@ public class AdminController {
 		
 		teamService.showCodeList(EnumCodeType.메세지);
 		
+		teamService.showCodeList(EnumCodeType.메뉴항목);
+		
 //		System.out.println(EnumCodeType.메세지.getList());
 		
 		Object[] arr = {"안녕"};
+		
+		
+		
+		teamService.moveThePageAlert(response, "AM4", arr, "category_pro");
 //		teamService.onlyAlert(response, EnumCodeType.메세지.type , arr);
 		
 //		teamService.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "member/login");
-		teamService.confirm(response, EnumCodeType.메세지.getType() + 1, arr, "category_pro", false);
+//		teamService.confirm(response, EnumCodeType.메세지.getType() + 1, arr, "category_pro", false);
 		return "admin/message_manage";
 	}
 	
 	@GetMapping("/category_manage")
 	public String category_manage(HttpServletRequest request) {
-		System.out.println(new File(".").getAbsoluteFile());
 		
 		return "admin/category_manage";
 	}
@@ -118,9 +124,15 @@ public class AdminController {
 	public void category_pro(HttpServletResponse response) {
 		teamService.showCodeList(EnumCodeType.메세지);
 		
+		teamService.showCodeList(EnumCodeType.메뉴항목);
+		
 		Object[] arr = {"잘가요"};
 		
-		teamService.moveThePageAlert(response, EnumCodeType.메세지.getType() + 1, arr, "member/login");
+		
+		
+		teamService.onlyAlert(response, "AM1", arr);
+		
+//		teamService.moveThePageAlert(response, EnumCodeType.메세지.getType() + 1, arr, "member/login");
 	}
 	
 	@GetMapping("/trade_manage")

@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
+import com.google.protobuf.DescriptorProtos.SourceCodeInfo.Location;
 import com.team.dao.TeamDAO;
 import com.team.util.EnumCodeType;
 
@@ -45,41 +47,31 @@ public class TeamService {
 //		return abc(selectCodeList, codeType);
 	}
 	
+	
 	public void moveThePageAlert(HttpServletResponse response, String code, Object[] msg, String url) {
+		moveThePageAlert(response, null, code, msg, url);
+	}
+	public void moveThePageAlert(HttpServletResponse response, HttpServletRequest request, String code, Object[] msg, String url) {
 	    try {
 	        response.setContentType("text/html; charset=utf-8");
 	        PrintWriter w = response.getWriter();
 	        String codeSelect = dao.selectCode(codes(code));
+	        String urlText = "history.go(-1);";
 	        
 	        if(codeSelect == null || codeSelect.equals("")) {
 	        	throw new CodeTypeNullException(code);
 	        }
 	        
-	        w.write("<script type='text/javascript'>alert('" + MessageFormat.format(codeSelect.trim(), msg) + "');location.href='" + url + "';</script>");
+	        if(request != null) {
+	        	urlText = "location.href='" + request.getServletPath() + "';";
+	        }
+	        
+	        w.write("<script>alert('" + MessageFormat.format(codeSelect.trim(), msg) + "');" + urlText + "</script>");
 	        w.flush();
 	        w.close();
 	    } catch(CodeTypeNullException | IOException e) {
 	    	e.printStackTrace();
 	    } 
-	}
-	
-	public void historyBackAlert(HttpServletResponse response, String code, Object[] msg) {
-	    try {
-	        response.setContentType("text/html; charset=utf-8");
-	        PrintWriter w = response.getWriter();
-	        String codeSelect = dao.selectCode(codes(code));
-	        
-	        if(codeSelect == null || codeSelect.equals("")) {
-	        	throw new CodeTypeNullException(code);
-	        }
-	        
-	        w.write("<script type='text/javascript'>alert('" + MessageFormat.format(codeSelect.trim(), msg) + "');history.go(-1);</script>");
-	        w.flush();
-	        w.close();
-	    } catch(CodeTypeNullException | IOException e) {
-	    	e.printStackTrace();
-	    }
-	    
 	}
 	
 	public void onlyAlert(HttpServletResponse response, String code, Object[] msg) {
@@ -91,8 +83,8 @@ public class TeamService {
 			if(codeSelect == null || codeSelect.equals("")) {
 	        	throw new CodeTypeNullException(code);
 	        }
-			
-			w.write("<script type='text/javascript'>alert('" + MessageFormat.format(codeSelect.trim(), msg) + "');</script>");
+
+			w.write("<script>alert('" + MessageFormat.format(codeSelect.trim(), msg) + "');</script>");
 			w.flush();
 			w.close();
 	    } catch(CodeTypeNullException | IOException e) {
@@ -100,25 +92,31 @@ public class TeamService {
 	    }
 	}
 	
-	public void confirm(HttpServletResponse response, String code, Object[] msg, String url, boolean historyback) {
+	public void confirm(HttpServletResponse response, String code, Object[] msg, String successUrl) {
+		/* failUrl 입력 안받을시 confirm 함수 false시 자동으로 뒤로가기 설정 */
+		confirm(response, code, msg, successUrl, null);
+	}
+	public void confirm(HttpServletResponse response, String code, Object[] msg, String successUrl, String failUrl) {
 	    try {
 	        response.setContentType("text/html; charset=utf-8");
 	        PrintWriter w = response.getWriter();
-	        String text = ""; 
 	        String codeSelect = dao.selectCode(codes(code));
 			
 	        if(codeSelect == null || codeSelect.equals("")) {
 	        	throw new CodeTypeNullException(code);
 	        }
-			
-	        if(historyback) {
-	        	text = "else { history.go(-1);}";
+	        
+	        if(failUrl == null) {
+	        	failUrl = "history.go(-1);";
 	        }
+			
 //	        System.out.println("여기까지 왔나?");
-	        w.write( "<script type='text/javascript'>"
+	        w.write( "<script>"
 	        	   + "if(confirm('" + MessageFormat.format(codeSelect.trim(), msg) + "')){"
-	        	   +     "location.href='" + urlCheck(url) + "';"
-	        	   + "}" + text 
+	        	   +     "location.href='" + urlCheck(successUrl) + "';"
+	        	   + "} else {"
+	        	   + 	 failUrl
+	        	   + "}"
 	        	   + "</script>"
 	        	   )
 	        	   ;
@@ -166,6 +164,7 @@ public class TeamService {
 	
 }
 
+@SuppressWarnings("serial")
 class CodeTypeNullException extends RuntimeException {
 	private static final String errorMsg = " (코드타입)에 해당하는 코드내용이 테이블에 존재하지 않거나, 사용불가 합니다.";
     public CodeTypeNullException(String msg) {

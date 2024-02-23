@@ -48,6 +48,7 @@ public class AdminService {
 	public List<Map<String, String>> getCategoryList() {
 		return adminDAO.getCategoryList();
 	}
+
 	
 	
 	
@@ -76,6 +77,15 @@ public class AdminService {
 	
 //	----- 성엽 시작 -----
 	
+	public List<Map<String, String>> getMemberList() {
+		
+		return adminDAO.getMemberList();
+	}//
+
+	public List<Map<String, String>> getContentberList() {
+		
+		return adminDAO.getContentberList();
+	}//
 	
 	
 //	----- 성엽 끝 -----

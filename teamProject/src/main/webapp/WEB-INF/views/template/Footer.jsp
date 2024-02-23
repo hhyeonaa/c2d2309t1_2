@@ -20,7 +20,8 @@
   	</div>
   	
   	<div  class="mt-auto" style="margin-bottom: 100px;">
-  		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;">
+  		<a class="dropdown-item" href="${pageContext.request.contextPath}/chat/chatting">
+  		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;"></a>
   	</div>
 </div>
 </div>

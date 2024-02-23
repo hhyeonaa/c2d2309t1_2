@@ -56,11 +56,21 @@ public class BoardController {
 		return "board/saleBoard";
 	}// saleBoard()
 	
+	
+	// 성엽 작업 시작 //
+	
 	@GetMapping("/buyBoard")
-	public String buyBoard() {
+	public String buyBoard(Model model) {
 		System.out.println("BoardController buyBoard()");
+		
+		List<Map<String, String>> buyList = boardService.selectBuyBoard();
+		logger.info("buyList: " + buyList);
+		model.addAttribute("buyList", buyList);
+		
 		return "board/buyBoard";
 	}// buyBoard()
+	
+	// 성엽 작업 끝 //
 	
 	@GetMapping("/divideBoard")
 	public String divideBoard(Model model) {

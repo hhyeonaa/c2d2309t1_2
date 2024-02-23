@@ -52,6 +52,7 @@ public class AdminDAO {
 	public List<Map<String, String>> getCategoryList() {
 		return sqlSession.selectList(namesqace + "getCategoryList");
 	}
+
 	
 	
 	
@@ -79,7 +80,13 @@ public class AdminDAO {
 	
 //	----- 성엽 시작 -----
 	
-	
+	public List<Map<String, String>> getMemberList() {
+		return sqlSession.selectList(namesqace + "getMemberList");
+	}//
+
+	public List<Map<String, String>> getContentberList() {
+		return sqlSession.selectList(namesqace + "getContentberList");
+	}//
 	
 //	----- 성엽 끝 -----	
 	

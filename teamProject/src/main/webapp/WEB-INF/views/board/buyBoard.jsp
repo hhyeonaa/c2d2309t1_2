@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,126 +34,19 @@
             </select>
         </div>
         <!-- 각 카드를 이 위치에 반복 배치 -->
+        <c:forEach var="buy" items="${buyList}">
         <div class="col">
             <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..." onerror="123">
                 <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
+                    <span class="state1">${buy.PRO_TC}</span>
+                    <span class="state2">${buy.PRO_TSC}</span><br>
+                    <p>${buy.PRO_NAME}</p>
+                    <h5><b>${buy.PRO_PRICE}원</b></h5>
                 </div>
             </div>
         </div>
-        <!-- 여기까지 반복 -->
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 -->    
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-                <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 --> 
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <span class="state1">구매</span>
-                    <span class="state2">구매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
-        <!-- 여기까지 반복 -->                             
+        </c:forEach>
 		  
 <!-- 		</div> -->
 

@@ -38,4 +38,9 @@ public class MemberService {
 		System.out.println("MemberService mypage()");
 		return memberDAO.mypage(MEM_ID); 
 	}// mypage()
+//	-----------------------------------------------------------------------------	
+	public void memberEdit(Map<String, String> map) {
+		System.out.println("MemberService memberEdit()");
+		memberDAO.memberEdit(map);
+	}// insertMemeber()
 }// MemberService 클래스

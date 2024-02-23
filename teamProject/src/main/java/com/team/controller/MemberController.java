@@ -122,6 +122,20 @@ public class MemberController{
 		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
+//	-----------------------------------------------------------------------------	
+	@PostMapping("/memberEditPro")
+	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController memberEditPro()");
+		Map<String, String> param = memberService.login(map);
+		if(param != null) {
+			System.out.println("프로필 수정 가능");
+			memberService.memberEdit(map);
+			return "redirect:/member/mypage";
+		} else {
+		System.out.println("기존 고객");
+		return "member/msg";
+		}
+	}//memberEditPro()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")
 	public String myList() {

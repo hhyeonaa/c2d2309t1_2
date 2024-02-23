@@ -67,11 +67,16 @@
 	
 	<update id="memberEdit">
 		update MEMBERS
-		set MEM_NICK = #{MEM_NICK},
-			MEM_PW = #{MEM_PW}
-			MEM_TEL = #{MEM_TEL}
-			MEM_EMAIL = #{MEM_EMAIL}
-		where 
+		set MEM_NAME = #{MEM_NAME}
+		  , MEM_NICK = #{MEM_NICK}
+		  , MEM_PW = #{MEM_PW}
+		  , MEM_TEL = #{MEM_TEL}
+		  , MEM_EMAIL = #{MEM_EMAIL}
+		  , MEM_BIRTH = #{MEM_BIRTH}
+		  , MEM_IMAGE = #{MEM_IMAGE}
+		  , MEM_REDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where 1 = 1
+		and MEM_NO = #{MEM_NO}
 	</update>
 	
 </mapper>

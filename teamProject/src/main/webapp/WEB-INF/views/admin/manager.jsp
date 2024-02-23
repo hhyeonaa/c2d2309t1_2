@@ -16,7 +16,7 @@
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
-<div class="container">
+<div class="container"  id="adminDiv">
     <div class="row align-items-center">
         <div><h4 class="card-title"><b>관리자 목록</b></h4></div>
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">

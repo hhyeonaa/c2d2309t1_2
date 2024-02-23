@@ -45,12 +45,12 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getBoardList");
 	}
 
-	public void boardHide(Map<String, String> map) {
-		sqlSession.update(namesqace + "boardHide", map);
+	public void displayUpdate(Map<String, String> map) {
+		sqlSession.update(namesqace + "displayUpdate", map);
 	}
-
-	public void changeSeq(Map<String, String> map) {
-		sqlSession.update(namesqace + "changeSeq", map);
+	
+	public List<Map<String, String>> getCategoryList() {
+		return sqlSession.selectList(namesqace + "getCategoryList");
 	}
 	
 	

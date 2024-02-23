@@ -56,25 +56,25 @@
 				, CODE
 				, HIDE
 		from CODE
-		where CO_TYPE = 'MM'
+			where  CO_TYPE = 'MM'
 		ORDER BY SEQ
 	</select>
 	
-	<update id="boardHide">
+	<update id="displayUpdate">
 		update CODE
 		set    HIDE = #{HIDE}
-		where  CO_TYPE = 'MM'
+		      , SEQ = #{SEQ}
+		where  CO_TYPE = #{CO_TYPE}
 		and	   CODE = #{CODE}
 	</update>
 	
-	<update id="changeSeq">
-		update CODE
-		set    SEQ = #{SEQ}
-		where  CO_TYPE = 'MM'
-		and	   CODE = #{CODE}
-	</update>	
-	
-	
+	<select id="getCategoryList" resultType="map">
+		select CODE
+				, HIDE
+		from CODE
+		where CO_TYPE = 'CA'
+		ORDER BY SEQ
+	</select>	
 	
 	
 	

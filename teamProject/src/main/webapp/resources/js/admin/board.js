@@ -41,17 +41,11 @@ $(function(){
 		for (let i = 1; i < boardList.rows.length; i++) {
 			$.ajax({
 				type: "post"
-				, url: "boardHide"
-				, data: {CO_TYPE: 'MM'
-						 , CODE: boardList.rows[i].cells[1].innerText
-						 , HIDE: boardList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-			$.ajax({
-				type: "post"
-				, url: "changeSeq"
+				, url: "displayUpdate"
 				, data: {CO_TYPE: 'MM'
 						 , SEQ: i
-						 , CODE:boardList.rows[i].cells[1].innerText }
+						 , CODE: boardList.rows[i].cells[1].innerText
+						 , HIDE: boardList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
 			});
 		}
 //		$('#boardDiv').load(location.href+' #boardDiv');

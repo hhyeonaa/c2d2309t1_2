@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import com.team.service.AdminService;
 
 import com.team.service.TeamService;
 import com.team.util.EnumCodeType;
+import com.team.util.ToastUI;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -35,13 +37,24 @@ public class AdminController {
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
 	public String manager(Model model) {
-		List<Map<String, String>> mapList = adminService.getAdminList();
-		model.addAttribute("mapList", mapList);
+		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
+ 	@GetMapping("/managerList")
+ 	@ResponseBody
+ 	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> mapList = adminService.getAdminList();
+ 		System.out.println(mapList);
+ 		return ToastUI.resourceData(req, mapList);
+ 	}
+	
 	
 	@PostMapping("/insertPro")
-	public String insertPro(@RequestParam Map<String, String> map) {
+	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {
+//		teamService.showCodeList(EnumCodeType.메세지);
+//		Object[] arr = {"로그인"};
+//		teamService.onlyAlert(response, "AM1", arr);
+//		EnumCodeType.메세지.getType() + 1
 		boolean check = adminService.idCheck(map);
 		if(check) {
 			return null;
@@ -63,9 +76,31 @@ public class AdminController {
 	}
 	
 	@GetMapping("/board")
-	public String board() {
+	public String board(Model model) {
+		List<Map<String, String>> mapList = adminService.getBoardList();
+		model.addAttribute("mapList", mapList);
 		return "admin/board";
 	}
+	
+	@PostMapping("/boardHide")
+	public void boardHide(@RequestParam Map<String, String> map) {
+		adminService.boardHide(map);
+	}
+	
+	@PostMapping("/changeSeq")
+	public void changeSeq(@RequestParam Map<String, String> map) {
+		adminService.changeSeq(map);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/header_menu")
 	public String header_menu() {
@@ -82,7 +117,8 @@ public class AdminController {
 	
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
-	public String message_manage(HttpServletResponse response, HttpServletRequest request) {
+	public String message_manage( HttpServletResponse response
+								, HttpServletRequest request) {
 //		code.onlyAlert(response, "안녕");
 //		code.historyBackAlert(response, "안녕히사시부리");
 //		Object[] arr = {"가나다"};
@@ -97,19 +133,24 @@ public class AdminController {
 		
 		teamService.showCodeList(EnumCodeType.메세지);
 		
+		teamService.showCodeList(EnumCodeType.메뉴항목);
+		
 //		System.out.println(EnumCodeType.메세지.getList());
 		
 		Object[] arr = {"안녕"};
+		
+		
+		
+		teamService.moveThePageAlert(response, "AM4", arr, "category_pro");
 //		teamService.onlyAlert(response, EnumCodeType.메세지.type , arr);
 		
 //		teamService.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "member/login");
-		teamService.confirm(response, EnumCodeType.메세지.getType() + 1, arr, "category_pro", false);
+//		teamService.confirm(response, EnumCodeType.메세지.getType() + 1, arr, "category_pro", false);
 		return "admin/message_manage";
 	}
 	
 	@GetMapping("/category_manage")
 	public String category_manage(HttpServletRequest request) {
-		System.out.println(new File(".").getAbsoluteFile());
 		
 		return "admin/category_manage";
 	}
@@ -118,9 +159,15 @@ public class AdminController {
 	public void category_pro(HttpServletResponse response) {
 		teamService.showCodeList(EnumCodeType.메세지);
 		
+		teamService.showCodeList(EnumCodeType.메뉴항목);
+		
 		Object[] arr = {"잘가요"};
 		
-		teamService.moveThePageAlert(response, EnumCodeType.메세지.getType() + 1, arr, "member/login");
+		
+		
+		teamService.onlyAlert(response, "AM1", arr);
+		
+//		teamService.moveThePageAlert(response, EnumCodeType.메세지.getType() + 1, arr, "member/login");
 	}
 	
 	@GetMapping("/trade_manage")

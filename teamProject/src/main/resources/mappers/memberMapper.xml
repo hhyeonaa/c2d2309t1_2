@@ -47,6 +47,13 @@
 		and AD_PW = #{AD_PW}
 	</select>	
 	
+	<select id ="getMember" resultType="map">
+		select *
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+		
+	</select>
+	
 	<select id="mypage" parameterType="map" resultType="map">
 		select M.MEM_NO
 			 , M.MEM_ID
@@ -72,11 +79,11 @@
 		  , MEM_PW = #{MEM_PW}
 		  , MEM_TEL = #{MEM_TEL}
 		  , MEM_EMAIL = #{MEM_EMAIL}
-		  , MEM_BIRTH = #{MEM_BIRTH}
+		  , MEM_BIRTH = replace(cast(#{MEM_BIRTH} as char), "-", "")
 		  , MEM_IMAGE = #{MEM_IMAGE}
 		  , MEM_REDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 		where 1 = 1
-		and MEM_NO = #{MEM_NO}
+		and MEM_ID = #{MEM_ID}
 	</update>
 	
 </mapper>

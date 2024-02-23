@@ -37,6 +37,35 @@ public class AdminDAO {
 		sqlSession.delete(namesqace + "adminDelete", AD_NO);
 	}
 	
+	public void adminUpdate(Map<String, String> map) {
+		sqlSession.update(namesqace + "adminUpdate", map);
+	}
+
+	public List<Map<String, String>> getBoardList() {
+		return sqlSession.selectList(namesqace + "getBoardList");
+	}
+
+	public void boardHide(Map<String, String> map) {
+		sqlSession.update(namesqace + "boardHide", map);
+	}
+
+	public void changeSeq(Map<String, String> map) {
+		sqlSession.update(namesqace + "changeSeq", map);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	----- 현아 끝 -----
 	
 	
@@ -56,7 +85,5 @@ public class AdminDAO {
 	
 	
 
-	public void adminUpdate(Map<String, String> map) {
-		sqlSession.update(namesqace + "adminUpdate", map);
-	}
+
 }

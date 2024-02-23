@@ -25,11 +25,12 @@
 	
 	<select id="getAdminList" resultType="map">
 		select
-			replace(AD_NO, "AD", "") "AD_NO"
+			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
 			, AD_ID 
 			, AD_NAME
 			, AD_ACTIVE
 		from ADMIN
+		ORDER BY AD_NO
 	</select>
 	
 	<select id="idCheck" resultType="String">
@@ -43,7 +44,43 @@
 		delete from ADMIN
 		where AD_NO = #{AD_NO}
 	</delete>
-
+	
+	<update id="adminUpdate">
+		update ADMIN
+		set AD_ACTIVE = #{AD_ACTIVE}
+		where AD_NO = #{AD_NO}
+	</update>
+	
+	<select id="getBoardList" resultType="map">
+		select SEQ
+				, CODE
+				, HIDE
+		from CODE
+		where CO_TYPE = 'MM'
+		ORDER BY SEQ
+	</select>
+	
+	<update id="boardHide">
+		update CODE
+		set    HIDE = #{HIDE}
+		where  CO_TYPE = 'MM'
+		and	   CODE = #{CODE}
+	</update>
+	
+	<update id="changeSeq">
+		update CODE
+		set    SEQ = #{SEQ}
+		where  CO_TYPE = 'MM'
+		and	   CODE = #{CODE}
+	</update>	
+	
+	
+	
+	
+	
+	
+	
+	
 <!-- 	===== 현아 끝 ===== -->
 
 
@@ -63,10 +100,5 @@
 <!-- 	===== 성엽 끝 ===== -->
 	
 	
-	<update id="adminUpdate">
-		update ADMIN
-		set AD_ACTIVE = #{AD_ACTIVE}
-		where AD_NO = #{AD_NO}
-	</update>
-	
+
 </mapper>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>통계</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
 
 <style>
@@ -15,7 +16,7 @@
 #tab-1:checked ~ .tab label:nth-child(1),
 #tab-2:checked ~ .tab label:nth-child(2),
 #tab-3:checked ~ .tab label:nth-child(3) {
-	background-color: rgba(155, 187, 212, 1);
+	background-color: rgba(4, 4, 4, 0.2);
   box-shadow: none;
 }
 .content > div {
@@ -48,7 +49,7 @@
     -webkit-user-select: none;
 }
 .content {
-  background-color: rgba(155, 187, 212, 1);
+  background-color: rgba(4, 4, 4, 0.2);
   min-height: 250px;
 }
 .content > div{
@@ -61,7 +62,7 @@
 
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" width="350" height="350"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 	
 	<div class="container">
     <div class="row align-items-center">
@@ -85,22 +86,24 @@
 			  <div class="content">
 			    <div class="content-dis">
 			      <div style="width: 700px; height: 530px; margin-left: 250px;">
-						<canvas id="bar-chart" width="300" height="230"></canvas>
+			      		<h3 style="text-align: center;">카테고리별 거래량</h3>
+						<canvas id="bar-chart" width="300" height="215"></canvas>
 					</div>
 			    </div>
 			    <div class="content-dis">
 			      <div style="width: 500px; height: 510px; margin-top:20px; margin-left: 300px;">
-						<canvas id="pie-chart" width="250" height="250"></canvas>
+						<h3 style="text-align: center;">성별</h3>
+						<canvas id="pie-chart" width="250" height="235"></canvas>
 					</div>
 			    </div>
 			    <div class="content-dis">
 			      <div style="width: 600px; height: 510px; margin-top:20px; margin-left: 250px;">
-						<canvas id="line-chart" width="300" height="250"></canvas>
+						<h3 style="text-align: center;">총거래 건수 & 금액</h3>
+						<canvas id="line-chart" width="300" height="235"></canvas>
 					</div>
 			    </div>
-			    <div>
-			 </div>
-			
+			  </div>
+			</div>
 			
 		</div>
 	</div>
@@ -138,11 +141,11 @@ new Chart(document.getElementById("bar-chart"), {
 new Chart(document.getElementById("pie-chart"), {
     type: 'pie',
     data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      labels: ["Africa", "North America"],
       datasets: [{
         label: "Population (millions)",
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-        data: [2478,5267,734,784,433]
+        backgroundColor: ["#3e95cd","#c45850"],
+        data: [784,433]
       }]
     },
     options: {

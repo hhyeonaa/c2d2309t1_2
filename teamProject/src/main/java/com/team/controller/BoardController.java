@@ -63,8 +63,11 @@ public class BoardController {
 	}// buyBoard()
 	
 	@GetMapping("/divideBoard")
-	public String divideBoard() {
+	public String divideBoard(Model model) {
 		System.out.println("BoardController divideBoard()");
+		List<Map<String,String>> resultList = boardService.selectDivideBoard();
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/divideBoard";
 	}// divideBoard()
 	
@@ -281,6 +284,7 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+resultMap);
 		model.addAttribute("resultMap",resultMap);

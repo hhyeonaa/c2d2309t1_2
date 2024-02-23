@@ -53,7 +53,7 @@
 			      	<option id="auction" value="경매">경매</option>
 			      </select>
 <!-- 			      <input type="hidden" id="proWr" name="proWr" value="하정우"> -->
-			      <input type="hidden" id="proWr" name="proWr" value="jaewon">
+			      <input type="hidden" id="proWr" name="proWr" value="${sessionScope.MEM_ID}">
 			      <h2>상품 등록</h2>
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>

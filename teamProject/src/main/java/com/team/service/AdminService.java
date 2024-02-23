@@ -40,14 +40,13 @@ public class AdminService {
 	public List<Map<String, String>> getBoardList() {
 		return adminDAO.getBoardList();
 	}
-
-	public void boardHide(Map<String, String> map) {
-		adminDAO.boardHide(map);
+	
+	public void displayUpdate(Map<String, String> map) {
+		adminDAO.displayUpdate(map);
 	}
 
-	public void changeSeq(Map<String, String> map) {
-		adminDAO.changeSeq(map);
-		
+	public List<Map<String, String>> getCategoryList() {
+		return adminDAO.getCategoryList();
 	}
 	
 	

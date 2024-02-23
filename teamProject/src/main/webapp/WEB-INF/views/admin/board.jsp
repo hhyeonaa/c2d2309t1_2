@@ -287,6 +287,8 @@
 		    </nav>
 		</div> 
     </div>
+    
+    <div id="grid"></div>
 </div>
 </form>
 

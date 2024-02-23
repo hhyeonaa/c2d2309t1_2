@@ -84,36 +84,33 @@ public class AdminController {
 		return "admin/board";
 	}
 	
-	@PostMapping("/boardHide")
-	public void boardHide(@RequestParam Map<String, String> map) {
-		adminService.boardHide(map);
-	}
+ 	@GetMapping("/boardList")
+ 	@ResponseBody
+ 	public ResponseEntity<?> boardList(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> mapList = adminService.getBoardList();
+ 		System.out.println(mapList);
+ 		return ToastUI.resourceData(req, mapList);
+ 	}
 	
-	@PostMapping("/changeSeq")
-	public void changeSeq(@RequestParam Map<String, String> map) {
-		adminService.changeSeq(map);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@GetMapping("/header_menu")
-	public String header_menu() {
-		return "admin/header_menu";  
+	@PostMapping("/displayUpdate")
+	public void displayUpdate(@RequestParam Map<String, String> map) {
+		adminService.displayUpdate(map);
 	}
 	
 	@GetMapping("/category")
-	public String category() {
+	public String category(Model model) {
+		List<Map<String, String>> mapList = adminService.getCategoryList();
+		model.addAttribute("mapList", mapList);
 		return "admin/category";
 	}
 	
+ 	@GetMapping("/categoryList")
+ 	@ResponseBody
+ 	public ResponseEntity<?> categoryList(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> mapList = adminService.getCategoryList();
+ 		System.out.println(mapList);
+ 		return ToastUI.resourceData(req, mapList);
+ 	}
 	
 	/* 현아 작업공간 */
 	

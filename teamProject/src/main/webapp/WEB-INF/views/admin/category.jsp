@@ -27,33 +27,13 @@
 					<path d="M4.167 5.417h11.666M4.167 10h11.666M4.167 14.584h11.666" stroke="#000" stroke-linecap="round"></path>
 					</svg>
 				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">의류</a>
-				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">식품</a>
-				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">생활용품</a>
-				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">가전제품</a>
-				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">가구/인테리어</a>
-				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">디지털/가전제품</a>
-				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">도서/티켓</a>
-				</li>
-				<li id="category-li">
-					<a class="nav-link" href="#">잡화</a>
-				</li>	
-				<li id="category-li">
-					<a class="nav-link" href="#">기타</a>
-				</li>	
+				<c:forEach var="category" items="${mapList}">
+					<c:if test="${category.HIDE eq '0'}">
+						<li id="category-li">
+							<a class="nav-link" href="#">${category.CODE }</a>
+						</li>
+					</c:if>
+				</c:forEach>
 			</ul>
 		</div>
    </div> 
@@ -71,33 +51,32 @@
 				</tr>
 			</thead>
 			<tbody class="tableHr">
-				<tr>
-					<td>의류</td>
-					<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-					<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-				</tr>
-				<tr>
-					<td>식품</td>
-					<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-					<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-				</tr>
-				<tr>
-					<td>생활용품</td>
-					<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-					<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-				</tr>
-				<tr>
-					<td>기타</td>
-					<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-					<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-				</tr>
+				<c:forEach var="category" items="${mapList}">
+					<tr>
+						<td>${category.CODE }</td>
+						<td>
+							<button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button>
+						</td>
+						<td>
+							<c:if test="${category.HIDE eq '1'}">
+								<input class="form-check-input" type="checkbox" id="active" checked>
+                            </c:if>
+                       		<c:if test="${category.HIDE eq '0'}">
+								<input class="form-check-input" type="checkbox" id="active">
+                            </c:if>
+							
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		<div align="center">
-			<button type="button" class="btn btn-light" id="saveBtn">저장</button>
-			<button type="button" class="btn btn-dark" id="resetBtn">취소</button>
+			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
+			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 	    </div>
     </div>
+    
+    <div id="grid"></div>
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/admin/category.js"></script>

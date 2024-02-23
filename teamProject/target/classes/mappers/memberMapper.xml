@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mappers.member">
+	<insert id="insertmember">
+		insert into MEMBER
+				( MEM_NO
+				, MEM_ID
+				, MEM_PW
+				, MEM_GENDER
+				, MEM_NAME
+				, MEM_NICK
+				, MEM_BIRTH
+				, MEM_TEL
+				, MEM_EMAIL
+				, MEM_DATE )
+		values ( concat("ME", IFNULL((select MAX(cast(replace(MEM_NO, "ME", "") AS unsigned))+1 FROM MEMBER A), 1))
+				,#{MEM_ID}
+				,#{MEM_PW}
+				,#{MEM_GENDER}
+				,#{MEM_NAME}
+				,#{MEM_NICK}
+				,#{MEM_BIRTH}
+				,#{MEM_TEL}
+				,#{MEM_EMAIL}
+				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s') ) 
+	</insert>
+</mapper>

@@ -102,13 +102,13 @@
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod toss nonCheck">
+										<div class="PaymentGridMethod toss nonCheck" value="tosspay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod kakao nonCheck">
-											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">카카오페이</span>
+										<div class="PaymentGridMethod kakao nonCheck" value="kakaopay">
+											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh"value="kakaopay">카카오페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
@@ -151,6 +151,7 @@
 									상품금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+									<!--PRO_PRICE  -->
 										135,000원
 									</div>
 								</div>
@@ -395,5 +396,7 @@
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/pay/payment.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

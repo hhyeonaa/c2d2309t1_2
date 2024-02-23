@@ -14,6 +14,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>다모임 | 관리자로그인</title>
 <link href="${pageContext.request.contextPath}/resources/css/member/login.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- Bootstrap CSS -->
 <link

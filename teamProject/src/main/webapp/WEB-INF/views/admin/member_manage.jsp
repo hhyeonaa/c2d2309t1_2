@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>

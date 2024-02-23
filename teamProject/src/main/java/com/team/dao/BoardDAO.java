@@ -70,4 +70,9 @@ public class BoardDAO {
 		sqlSession.update(NAMESPACE + ".upHits", map);
 	}// upHits()
 
+	public List<Map<String, String>> selectDivideBoard() {
+		System.out.println("BoardDAO selectDivideBoard()");
+		return sqlSession.selectList(NAMESPACE + ".selectDivideBoard");
+	}// selectDivideBoard()
+
 }// BoardDAO 끝

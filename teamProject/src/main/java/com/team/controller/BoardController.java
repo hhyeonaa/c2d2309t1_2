@@ -63,8 +63,11 @@ public class BoardController {
 	}// buyBoard()
 	
 	@GetMapping("/divideBoard")
-	public String divideBoard() {
+	public String divideBoard(Model model) {
 		System.out.println("BoardController divideBoard()");
+		List<Map<String,String>> resultList = boardService.selectDivideBoard();
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/divideBoard";
 	}// divideBoard()
 	

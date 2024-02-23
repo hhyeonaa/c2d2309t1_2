@@ -55,4 +55,9 @@ public class BoardService {
 		boardDAO.upHits(map);
 	}// upHits()
 
+	public List<Map<String, String>> selectDivideBoard() {
+		System.out.println("BoardService selectDivideBoard()");
+		return boardDAO.selectDivideBoard();
+	}// selectDivideBoard()
+
 }// BoardService 끝

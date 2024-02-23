@@ -1,6 +1,7 @@
 package com.team.controller;
 
 
+import java.io.Console;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -187,20 +188,32 @@ public class AdminController {
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */
+	
 	@GetMapping("/chart")
 	public String chart() {
 		return "admin/chart";
-	}
+	}//
 	
 	@GetMapping("/member_manage")
-	public String member_manage() {
+	public String member_manage(Model model) {
+		
+		List<Map<String, String>> memList = adminService.getMemberList();
+		
+		model.addAttribute("memList", memList);
+		
 		return "admin/member_manage";
-	}
+	}//
 	
 	@GetMapping("/board_content")
-	public String board_content() {
+	public String board_content(Model model) {
+		
+		List<Map<String, String>> contentList = adminService.getContentberList();
+		
+		model.addAttribute("contentList", contentList);
+		
 		return "admin/board_content";
-	}
+	}//
+	
 	/* 성엽 작업공간 */	
 
 

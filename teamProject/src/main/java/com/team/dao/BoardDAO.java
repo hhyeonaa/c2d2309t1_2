@@ -65,4 +65,13 @@ public class BoardDAO {
 		return sqlSession.selectOne(NAMESPACE + ".selectBoardDetail",map);
 	}// selectBoardDetail()
 
+	// 성엽 작업 시작 //
+	
+	public List<Map<String, String>> selectBuyBoard() {
+		System.out.println("BoardDAO selectBuyBoard()");
+		return sqlSession.selectList(NAMESPACE + ".selectBuyBoard");
+	}//
+	
+	// 성엽 작업 끝 //
+
 }// BoardDAO 끝

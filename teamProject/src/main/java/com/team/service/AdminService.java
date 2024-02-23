@@ -49,6 +49,7 @@ public class AdminService {
 		adminDAO.changeSeq(map);
 		
 	}
+
 	
 	
 	
@@ -77,6 +78,15 @@ public class AdminService {
 	
 //	----- 성엽 시작 -----
 	
+	public List<Map<String, String>> getMemberList() {
+		
+		return adminDAO.getMemberList();
+	}//
+
+	public List<Map<String, String>> getContentberList() {
+		
+		return adminDAO.getContentberList();
+	}//
 	
 	
 //	----- 성엽 끝 -----

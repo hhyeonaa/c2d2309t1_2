@@ -38,34 +38,40 @@
 							</div>
 						</div>
 						</section>
-                        <div class="container" style="padding-top: 3%;">
+						<div class="container" style="padding-top: 3%;">
+                            <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>이름</b></label>
+               					<input type="text" name="MEM_NAME" class="form-control" placeholder="${profile.MEM_NAME}" value=""></div>
+						
                             <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>닉네임</b></label>
-               					<input type="text" name="nick_ed" class="form-control" placeholder="${profile.MEM_NICK}" value=""></div>
+               					<input type="text" name="MEM_NICK" class="form-control" placeholder="${profile.MEM_NICK}" value=""></div>
                				
                				<c:choose>
                					<c:when test="${profile.MEM_PW == null}">
                						<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="pw_ed" hidden=""><b>비밀번호</b></label>
-               						<input type="text" name="pw_ed" class="form-control" placeholder="(영문/숫자/특수 포함 8자 이상)" hidden=""></div>
+               						<input type="text" name="MEM_PW" class="form-control" placeholder="(영문/숫자/특수 포함 8자 이상)" hidden=""></div>
                					</c:when>
                					<c:otherwise>
                						<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="pw_ed"><b>비밀번호</b></label>
-               						<input type="text" name="pw_ed" class="form-control" placeholder="(영문/숫자/특수 포함 8자 이상)"></div>
+               						<input type="text" name="MEM_PW2" class="form-control" placeholder="(영문/숫자/특수 포함 8자 이상)"></div>
                					</c:otherwise>
                				</c:choose>
                				
                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="phone_ed"><b>전화번호</b></label>
-               					<input type="text" name="phone_ed" class="form-control" placeholder="${profile.MEM_TEL}"></div>
+               					<input type="text" name="MEM_TEL" class="form-control" placeholder="${profile.MEM_TEL}"></div>
                				
                				<c:choose>
                					<c:when test="${profile.MEM_PW == null}">
 	               					<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed" hidden=""><b>이메일</b></label>
-	               					<input type="text" name="email_ed" class="form-control" placeholder="${profile.MEM_EMAIL}" hidden=""></div>
+	               					<input type="text" name="MEM_EMAIL" class="form-control" placeholder="${profile.MEM_EMAIL}" hidden=""></div>
                					</c:when>
                					<c:otherwise>
 	               					<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed"><b>이메일</b></label>
-	               					<input type="text" name="email_ed" class="form-control" placeholder="${profile.MEM_EMAIL}"></div>
+	               					<input type="text" name="MEM_EMAIL" class="form-control" placeholder="${profile.MEM_EMAIL}"></div>
                					</c:otherwise>
                				</c:choose>
+               				
+               				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="phone_ed"><b>생년월일</b></label>
+               					<input type="date" name="MEM_BIRTH" class="form-control" value="${profile.MEM_BIRTH}"></div>
                				
                				
                				

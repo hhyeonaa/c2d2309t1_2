@@ -39,5 +39,10 @@ public class MemberDAO {
 		System.out.println("" + sqlSession.selectOne(namespace + "mypage", MEM_ID));
 		return sqlSession.selectOne(namespace + "mypage", MEM_ID);
 	}// mypage()
-//	-----------------------------------------------------------------------------	
+//	-----------------------------------------------------------------------------
+	public void memberEdit(Map<String, String> map) {
+		System.out.println("MemberDAO memberEdit()");
+		sqlSession.update(namespace + "memberEdit", map);
+	}// memberEdit()
+	
 }// MemberDAO 클래스

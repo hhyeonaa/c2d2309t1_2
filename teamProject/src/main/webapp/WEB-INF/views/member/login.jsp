@@ -8,6 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -30,19 +31,19 @@
 <body class="text-center">
 
 	<!--  html 전체 영역을 지정하는 container -->
-	<div id="container">
+	<div id="container" class="container rounded-5 shadow" style="width: 400px; height: 500px;">
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
-		<form action="loginPro.cu" method="post" id="form">
+		<form action="loginPro" method="post" id="form">
 			<!-- 로그인 페이지 타이틀 -->
 			<div id="loginBoxTitle"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></div>
 			<!-- 아이디, 비번, 버튼 박스 -->
-			<div id="inputBox" style="height: 200px;">
+			<div id="inputBox" style="height: 330px;">
 				<div class="input-form-box">
-					<input type="text" placeholder="아이디" name="uid" class="form-control">
+					<input type="text" placeholder="아이디" name="MEM_ID" class="form-control">
 				</div>
 				<div class="input-form-box">
-					<input type="password" placeholder="비밀번호" name="upw"
+					<input type="password" placeholder="비밀번호" name="MEM_PW"
 						class="form-control">
 				</div>
 				<div class="button-login-box">
@@ -54,14 +55,16 @@
 						style="width: 100%">이메일로 가입하기</button>  <!-- 회원가입 페이지 이동 -->
 				</div>
 				<!-- 카카오버튼 --> 	
-				<a id="kakao-login-btn" href="javascript:loginWithKakao()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
+				<a id="kakao-login-btn" href="javascript:kakaoLogin()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
 						<img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/><span id="span">Kakao로 시작하기</span></a>
 				<!-- 네이버 버튼 -->
 				<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-success rounded-3">
 						<img src="../resources/img/member/naver.png" id="image" width="24" height="24"/><span id="span">Naver로 시작하기</span></a>
-						<ion-icon name="lock-closed-outline"></ion-icon>
-				<a class="icon-link icon-link-hover mt-2" href="javascript:findId();" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
-				<a class="icon-link icon-link-hover mt-2" href="javascript:findPw();" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
+				<ion-icon name="lock-closed-outline"></ion-icon>
+				<a class="icon-link icon-link-hover mt-2" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
+				<a class="icon-link icon-link-hover mt-2" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
+				<hr>
+				<div style="text-align: right; padding-bottom: 3%;"><a href="adminLogin" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div>
 				
 			</div>
 			</form>
@@ -77,30 +80,33 @@
 		  <span class="close">&times;</span>
 		  <img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		</div>
-	    <h4>회원가입</h4>
+	    <h4>회원가입</h4> 
 	    <!-- 이하 생략 -->
 		<br>
-	    <form>
+	    <form action="">
 	      <div class="form-group">
 	        <label for="id">아이디</label>
 	        <input type="text" id="id" name="id" placeholder="아이디를 입력해 주세요." required>
 	      </div>
 	      <div class="form-group">
 	        <label for="password">비밀번호</label>
-			<input type="password" id="password" name="password" placeholder="(영문/숫자/특수 포함 8자리 이상)" required>
+			<input type="password" id="pw" name="pw" placeholder="(영문/숫자/특수 포함 8자리 이상)" required>
 	      </div>
 	      <div class="form-group">
 			<label for="confirmPassword">비밀번호 확인</label>
-			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력해주세요." required>
+			<input type="password" id="confirmPw" name="confirmPw" placeholder="비밀번호를 다시 입력해주세요." required>
 	      </div>
 	      <div class="form-group">
-	        <label for="phone">전화번호</label>
-	        <input type="text" id="phone" name="phone" placeholder="(하이픈(-) 제외 입력)">
-	      </div>
-	      <div class="form-group">
-	        <label for="email">이메일</label>
-	        <input type="email" id="email" name="email" placeholder="[선택] 이메일주소 (비밀번호 찾기 등 본인 확인용)">
-	      </div>
+			  <label for="gender">성별</label>
+			  <div class="input-group">
+			    <select id="gender" name="gender" class="form-control" required>
+			      <option value="" selected disabled style="font-size: 14px;">성별 선택</option>
+			      <option value="M">남성</option>
+			      <option value="F">여성</option>
+			      <option value="O">기타</option>
+			    </select>
+			  </div>
+			</div>
 	      <div class="form-group" style="width: 47%; float: left; box-sizing: border-box;">
 	        <label for="username">이름</label>
 	        <input type="text" id="username" name="username" placeholder="이름을 입력해 주세요." required>
@@ -114,29 +120,26 @@
 	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>
 	      </div>
 	      <div class="form-group">
-			  <label for="gender">성별</label>
-			  <div class="input-group">
-			    <select id="gender" name="gender" class="form-control" required>
-			      <option value="" selected disabled style="font-size: 14px;">성별 선택</option>
-			      <option value="male">남성</option>
-			      <option value="female">여성</option>
-			      <option value="other">기타</option>
-			    </select>
-			  </div>
-			</div>
-		 <div class="form-group">
-		   <label for="address">주소</label>
-		   <div class="input-group">
-			   <input type="text" id="address" name="address" class="form-control" placeholder="주소를 입력해주세요" required>
-			   <button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button>
-		   </div>
-		    <div class="input-group">
-		  	 <input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요">
-		   </div>
-		 </div>
+	        <label for="phone">전화번호</label>
+	        <input type="text" id="phone" name="phone" placeholder="(하이픈(-) 제외 입력)">
+	      </div>
+	      <div class="form-group">
+	        <label for="email">이메일</label>
+	        <input type="email" id="email" name="email" placeholder="이메일 주소 (비밀번호 찾기 등 본인 확인용)">
+	      </div>
+<!-- 		 <div class="form-group"> -->
+<!-- 		   <label for="address">주소</label> -->
+<!-- 		   <div class="input-group"> -->
+<!-- 			   <input type="text" id="address" name="address" class="form-control" placeholder="주소를 입력해주세요" required> -->
+<!-- 			   <button type="button" id="search-address" class="btn btn-outline-secondary">주소찾기</button> -->
+<!-- 		   </div> -->
+<!-- 		    <div class="input-group"> -->
+<!-- 		  	 <input type="text" id="address-detail" name="address-detail" class="form-control" placeholder="상세주소를 입력해주세요"> -->
+<!-- 		   </div> -->
+<!-- 		 </div> -->
 			<hr>
 	      <div class="button-group">
-	        <input type="submit" value="회원가입">
+	        <input id="insertBtn" type="button" value="회원가입">
 	      </div>
 	    </form>
 	  </div>
@@ -276,7 +279,13 @@
 	    </form>
 	  </div>
 	</div>
-	
+<!-- 카카오 로그인 -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
+ 	    integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8" 
+ 	    crossorigin="anonymous"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!-- 네이버 -->
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
 	<!-- Bootstrap Bundle with Popper -->
 	<script
@@ -288,7 +297,6 @@
 
 
 </body>
-
 <script src="${pageContext.request.contextPath}/resources/js/member/login.js"></script>
 <%-- <jsp:include page="../template/Footer.jsp"/> --%>
 </html>

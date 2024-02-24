@@ -1,18 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html style="margin-top: 100px;">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>게시판 글 관리</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 	
 	<div class="container">
-    <div class="row align-items-center">
-        <div><h4 class="card-title mb-5"><b>게시판 목록</b></h4></div>
+	    <div class="row align-items-center">
+	        <div><h4 class="card-title mb-5"  style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
+	    	
+	    	<div align="center">
+	        <select class="form-select">
+				<option value="1" selected>판매</option>
+				<option value="2">구매</option>
+				<option value="3">나눔</option>
+				<option value="4">경매</option>
+			</select>
+		</div>
     </div>
+	
 	
 	<div class="row">
         <div class="col-lg-12">
@@ -29,39 +42,19 @@
                             </tr>
                         </thead>
                         <tbody id="tbody">
+                        <c:forEach var="content" items="${contentList}">
                             <tr>
-                            	<th>1</th>
-                                <td>제목1</td>
-                                <td>글쓴이</td>
-                                <td>글쓴시간</td>
+                            	<th>${content.PRO_NO}</th>
+                                <td>${content.PRO_NAME}</td>
+                                <td>${content.PRO_WR}</td>
+                                <td>${content.PRO_DATE}</td>
                                 <th scope="row">
                                 	<div>
 										<button class="btn btn-dark">삭제</button>
 									</div>
                                 </th>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>제목2</td>
-                                <td>글쓴이</td>
-                                <td>글쓴시간</td>
-                                <th scope="row">
-                                	<div>
-										<button class="btn btn-dark">삭제</button>
-									</div>
-                                </th>
-                            </tr>
-                            <tr>
-                          		<th>3</th>
-                                <td>제목2</td>
-                                <td>글쓴이</td>
-                                <td>글쓴시간</td>
-                                <th scope="row">
-                            	    <div>
-										<button class="btn btn-dark">삭제</button>
-									</div>
-                                </th>
-                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

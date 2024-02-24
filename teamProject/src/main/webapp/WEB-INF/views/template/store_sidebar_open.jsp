@@ -73,7 +73,7 @@ a {
     left: 0;
     width: var(--nav--width);
     height: 100vh;
-    background-color: var(--bg-color);
+    background-color: #fff;
     color: var(--white-color);
     padding: 1.5rem 1.5rem 2rem;
     transition: .5s;
@@ -113,7 +113,8 @@ a {
     grid-template-columns: max-content max-content;
     align-items: center;
     column-gap: .75rem;
-    color: var(--white-color);
+    color: black;
+    font-weight:bold;
     border-radius: .5rem;
     margin-bottom: 1rem;
     transition: .3s;
@@ -183,8 +184,9 @@ ul{
             <div>
                 <div class="nav__brand">
                 	<div class="p-3" style="display:flex; flex-direction: row; align-items: center; ">
-						<span class="material-symbols-outlined" style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6;">lunch_dining</span>
-						<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6; font-size: 30px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span>
+                		<img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
+<!-- 						<span class="material-symbols-outlined" style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6;">lunch_dining</span> -->
+<!-- 						<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6; font-size: 30px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span> -->
 					</div>
                 </div>
                 <div class="nav__list">
@@ -220,9 +222,6 @@ ul{
 	                    </li>
 	                    <li class=""><a class="nav__link" href="${pageContext.request.contextPath}/admin/board" style="width: 155px;">
 	                    	<small>● 게시판 관리</small></a>
-	                    </li>
-	                    <li class=""><a class="nav__link" href="${pageContext.request.contextPath}/admin/header_menu" style="width: 155px;">
-	                    	<small>● 메뉴 관리</small></a>
 	                    </li>
 	                    <li><a class="nav__link mb-5" href="${pageContext.request.contextPath}/admin/category" style="width: 155px;">
 	                    	<small>● 카테고리 목록 관리</small></a>

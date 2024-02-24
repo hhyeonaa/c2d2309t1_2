@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html style="margin-top: 100px;">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 	
 	<div class="container">
     <div class="row align-items-center">
-        <div><h4 class="card-title mb-5"><b>게시판 목록</b></h4></div>
+        <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
     </div>
 	
 	
@@ -22,39 +25,29 @@
                     <table class="table project-list-table table-nowrap align-middle table-borderless text-center">
                         <thead>
                             <tr>
+                                <th scope="col">번호</th>
                                 <th scope="col">닉네임</th>
+                                <th scope="col">이메일</th>
                                 <th scope="col">가입일</th>
+                                <th scope="col">정지일</th>
                                 <th scope="col">탈퇴</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
+                        <c:forEach var="mem" items="${memList}">
                             <tr>
-                                <td>닉네임</td>
-                                <td>가입일</td>
+                                <td>${mem.MEM_NO}</td>
+                                <td>${mem.MEM_NICK}</td>
+                                <td>${mem.MEM_EMAIL}</td>
+                                <td>${mem.MEM_DATE}</td>
+                                <td>정지일</td>
                                 <th scope="row">
                                 	<div>
 										<button class="btn btn-dark">탈퇴</button>
 									</div>
                                 </th>
                             </tr>
-                            <tr>
-                                <td>닉네임</td>
-                                <td>가입일</td>
-                                <th scope="row">
-                                	<div>
-										<button class="btn btn-dark">탈퇴</button>
-									</div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>닉네임</td>
-                                <td>가입일</td>
-                                <th scope="row">
-                            	    <div>
-										<button class="btn btn-dark">탈퇴</button>
-									</div>
-                                </th>
-                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

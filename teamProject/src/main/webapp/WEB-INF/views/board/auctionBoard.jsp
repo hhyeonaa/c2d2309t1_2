@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <style type="text/css">
 /*  #main {
     display: flex;
@@ -211,7 +212,7 @@
 			  <span style="font-size: 12px;"><img src="https://pics.auction.co.kr/listing/used/2014/txt2_watch.gif" style="height: 13px;width: 13px;padding-bottom: 3px;">2/3 10:00</span><br>
 		     </div>
 		   </div>
-		 </div>
+		 </div> 
         <!-- 여기까지 반복 -->                             
 		  
 <!-- 		</div> -->

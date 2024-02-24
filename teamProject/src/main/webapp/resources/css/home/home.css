@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.css-f96hxp {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 16px 8px;
+}
+.css-1qeni0p {
+    width: 100%;
+    min-height: 250px;
+    padding: 8px 0px;
+}
+.css-1afg07s {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, auto));
+    grid-template-rows: repeat(2, 1fr);
+    overflow-x: unset;
+    overflow-y: hidden;
+    padding: 0px;
+}
+.css-1afg07s {
+    position: relative;
+/*     display: flex; */
+    -webkit-box-align: center;
+    align-items: center;
+    column-gap: 12px;
+    width: 100%;
+    max-width: 100%;
+/*     overflow-x: scroll; */
+/*     padding: 0px 16px; */
+    border-radius: unset;
+}
+#product{
+	margin-bottom: 25px;
+}
+
+.css-f96hxp > button {
+/*     font-size: 14px; */
+/*     font-family: "Spoqa Han Sans Neo"; */
+/*     font-weight: 400; */
+    line-height: 21px;
+    color: rgb(31, 41, 48);
+}

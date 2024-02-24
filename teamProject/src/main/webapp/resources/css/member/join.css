@@ -1,0 +1,392 @@
+@charset "UTF-8";
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+	background: #ffffff;
+}
+
+#container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.center-align {
+	padding-top: 4%;
+}
+
+#loginBox {
+	width: 300px;
+	text-align: center;
+	background-color: #ffffff;
+}
+
+.input-form-box {
+	border: 0px solid #ff0000;
+	display: flex;
+	margin-bottom: 5px;
+}
+
+.input-form-box>span {
+	display: block;
+	text-align: left;
+	padding-top: 5px;
+	min-width: 65px;
+}
+
+.button-login-box {
+	margin: 10px 0;
+}
+
+#loginBoxTitle {
+	color: #000000;
+	font-weight: bold;
+	font-size: 32px;
+	text-transform: uppercase;
+	padding: 5px;
+	margin-bottom: 20px;
+	background: linear-gradient(to right, #270a09, #8ca6ce);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+#inputBox {
+	margin: 10px;
+}
+
+#inputBox button {
+	padding: 3px 5px;
+}
+
+header {
+	background-color: white; 
+	padding:0; 
+	display: flex; 
+	justify-content: center;  
+	box-shadow: 0 3px 3px -3px #d8d8d8; 
+	height: 100px; 
+	z-index:500; 
+	height: auto;
+
+}
+
+
+.row {
+	width: 1080px;
+}
+
+.category {
+	width: 30px;
+	border-radius: 10%;
+	font-size: 10pt;
+    padding: 1px;
+}
+
+#category-ul {
+	display: none;
+}
+
+#search {
+	width: 350px;
+}
+ul {
+ list-style: none;
+}
+#category:hover ~ #category-ul { 
+display: block; 
+} 
+
+.menu{
+	width: 60px;
+}
+
+li {
+	width: auto;
+	float:left;
+}
+
+#button{
+	border-color: gray;
+	border: none;
+}
+
+p {
+	margin-bottom: 0;
+}
+
+#main {
+	width: 1080px;
+}
+
+body {
+	margin-top: 200px;
+	margin: 150px 200px 100px 200px;
+	align-items: center;
+}
+
+.card {
+	width: 250px;
+}
+
+#image {
+	width: 24px;
+	height: 24px;
+}
+
+img {
+	border: 1px; 
+	height: 250px; 
+	width: 250px;
+}
+
+.card-body {
+	height: 100px; 
+	width: 250px;
+}
+.state1 {
+	background-color:gray;
+	size: 8px;
+	color: white;
+	border-radius: 10%;
+	font-size: 10pt;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+.state2 {
+	background-color:#EAB2A1;
+	size: 8px;
+	border-radius: 10%;
+	font-size: 10pt;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+h4 {
+	font-family: sans-serif !important;
+}
+
+/* 회원가입 모달 CSS */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width:30%;
+  padding-top: 10px;
+  height: 100%;
+  font-size: 14px;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #f2f2f2;
+  margin: auto;
+  padding: 40px;
+  border-radius: 10px;
+  width: 500px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.closeId, .closePw,
+.closeIdResult, .closePwResult {
+  color: #aaa;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.closeId:hover,
+.closeId:focus,
+.closePw:hover,
+.closePw:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#signupButton {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#signupButton:hover {
+  background-color: #ff3c36;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.form-group option {
+	font-size: 14px;
+}
+
+.input-group>.form-control {
+	font-size: 14px;
+}
+
+
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ff6f61;
+  box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
+}
+
+input[type="submit"] {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#insertBtn {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#insertBtn:hover {
+  background-color: #ff3c36;
+}
+
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+	font-size: 14px;
+}
+
+input[type="submit"]:hover {
+  background-color: #ff3c36;
+}
+
+
+
+.button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#signupButton,
+#cancelButton {
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#cancelButton {
+  background-color: #95a5a6;
+}
+
+.test1 .test2 {
+	background-color: gray !important;
+}
+
+.test1:hover,
+.test2:hover {
+	background-color: #666666 !important;
+}
+
+.test1, .test2 {
+  background-color: gray !important;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#signupModal {
+  text-align: center;
+  padding-top: 2%;
+}
+
+#signupModal img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+#signupModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#adminLogin:hover {
+	color: red;
+}
+

@@ -301,6 +301,20 @@ input[type="submit"] {
   font-size: 16px;
 }
 
+#insertBtn {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#insertBtn:hover {
+  background-color: #ff3c36;
+}
+
 .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
 	font-size: 14px;
 }
@@ -351,6 +365,7 @@ input[type="submit"]:hover {
 
 #signupModal {
   text-align: center;
+  padding-top: 2%;
 }
 
 #signupModal img {
@@ -369,3 +384,8 @@ input[type="submit"]:hover {
   align-items: center;
   justify-content: center;
 }
+
+#adminLogin:hover {
+	color: red;
+}
+

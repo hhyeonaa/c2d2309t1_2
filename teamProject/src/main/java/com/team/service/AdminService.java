@@ -33,6 +33,36 @@ public class AdminService {
 		adminDAO.adminDelete(AD_NO);
 	}
 	
+	public void adminUpdate(Map<String, String> map) {
+		adminDAO.adminUpdate(map);
+	}
+
+	public List<Map<String, String>> getBoardList() {
+		return adminDAO.getBoardList();
+	}
+	
+	public void displayUpdate(Map<String, String> map) {
+		adminDAO.displayUpdate(map);
+	}
+
+	public List<Map<String, String>> getCategoryList() {
+		return adminDAO.getCategoryList();
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	----- 현아 끝 -----
 	
 	
@@ -47,8 +77,17 @@ public class AdminService {
 	
 //	----- 성엽 시작 -----
 	
+	public List<Map<String, String>> getMemberList() {
+		
+		return adminDAO.getMemberList();
+	}//
+
+	public List<Map<String, String>> getContentberList() {
+		
+		return adminDAO.getContentberList();
+	}//
 	
 	
 //	----- 성엽 끝 -----
-	
+
 }

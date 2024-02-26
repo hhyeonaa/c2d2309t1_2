@@ -14,6 +14,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>다모임 | 관리자로그인</title>
 <link href="${pageContext.request.contextPath}/resources/css/member/login.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- Bootstrap CSS -->
 <link
@@ -30,14 +31,14 @@
 <body class="text-center">
 
 	<!--  html 전체 영역을 지정하는 container -->
-	<div id="container" style="padding-top: 5%;">
+	<div id="container" class="container rounded-5 shadow" style="padding-bottom: 5%; width: 400px; height: 350px;">
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
 		<form action="adminLoginPro" method="post" id="form">
 			<!-- 로그인 페이지 타이틀 -->
 			<div id="loginBoxTitle"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></div>
 			<!-- 아이디, 비번, 버튼 박스 -->
-			<div id="inputBox" style="height: 200px;">
+			<div id="inputBox" style="height: 50px;">
 				<div class="input-form-box">
 					<input type="text" placeholder="아이디" name="AD_ID" id="AD_ID" class="form-control">
 				</div>

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/resources/css/pay/payment.css" rel="stylesheet">
-
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 
 </head>
 <jsp:include page="../template/header.jsp"/>
@@ -102,13 +102,13 @@
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod toss nonCheck">
+										<div class="PaymentGridMethod toss nonCheck" value="tosspay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod kakao nonCheck">
-											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">카카오페이</span>
+										<div class="PaymentGridMethod kakao nonCheck" value="kakaopay">
+											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh"value="kakaopay">카카오페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
@@ -151,6 +151,7 @@
 									상품금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+									<!--PRO_PRICE  -->
 										135,000원
 									</div>
 								</div>
@@ -395,5 +396,7 @@
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/pay/payment.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

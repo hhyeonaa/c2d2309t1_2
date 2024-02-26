@@ -86,7 +86,15 @@ public class AdminService {
 		
 		return adminDAO.getContentberList();
 	}//
+
+	public void memberDelete(String MEM_NO) {
+		adminDAO.memberDelete(MEM_NO);
+	}//
 	
+	public void contentDelete(String PRO_NO) {
+		adminDAO.contentDelete(PRO_NO);
+	}//
+
 	
 //	----- 성엽 끝 -----
 

@@ -87,6 +87,15 @@ public class AdminDAO {
 	public List<Map<String, String>> getContentberList() {
 		return sqlSession.selectList(namesqace + "getContentberList");
 	}//
+
+	public void memberDelete(String MEM_NO) {
+		sqlSession.delete(namesqace + "memberDelete", MEM_NO);
+	}//
+	
+	public void contentDelete(String PRO_NO) {
+		sqlSession.delete(namesqace + "contentDelete", PRO_NO);
+	}//
+
 	
 //	----- 성엽 끝 -----	
 	

@@ -114,6 +114,16 @@
 		where PRO_TC = '판매'
 		ORDER BY PRO_NO DESC
 	</select>
+	
+	<delete id="memberDelete">
+		delete from MEMBERS
+		where MEM_NO = #{MEM_NO}
+	</delete>
+	
+	<delete id="contentDelete">
+		delete from PRODUCT
+		where PRO_NO = #{PRO_NO}
+	</delete>
 
 <!-- 	===== 성엽 끝 ===== -->
 	

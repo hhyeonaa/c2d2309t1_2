@@ -18,14 +18,14 @@
 	        <div><h4 class="card-title mb-5"  style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
 	    	
 	    	<div align="center">
-	        <select class="form-select">
-				<option value="1" selected>판매</option>
-				<option value="2">구매</option>
-				<option value="3">나눔</option>
-				<option value="4">경매</option>
-			</select>
-		</div>
-    </div>
+		        <select id="boardCategory" class="form-select">
+					<option value="1" selected>판매</option>
+					<option value="2">구매</option>
+					<option value="3">나눔</option>
+					<option value="4">경매</option>
+				</select>
+			</div>
+    	</div>
 	
 	<div class="row">
         <div class="col-lg-12">
@@ -51,8 +51,8 @@
                                 <td><fmt:formatDate var="conDate" value="${data}" pattern="yyyy-MM-dd HH:mm:ss "/>${conDate}</td>
                                 <th scope="row">
                                 	<div>
-                                		<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
+                                		<button type="button" class="btn-close"
+                                			onclick="location.href='${pageContext.request.contextPath}/admin/contentDelete?PRO_NO=${content.PRO_NO}'"></button>
 									</div>
                                 </th>
                             </tr>
@@ -63,6 +63,7 @@
             </div>
         </div>
     </div>
+    
     <div class="row g-0 pb-4">
 		<div class="demo">
 		    <nav class="pagination-outer"  aria-label="Page navigation">
@@ -70,8 +71,10 @@
 		    </nav>
 		</div> 
     </div>
+    
 </div>
-	<script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/admin/board_content.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>
 </body>
 </html>
+

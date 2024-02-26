@@ -109,7 +109,6 @@
 	</div>
 </div>
 	
-	
 	<script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>
 </body>

@@ -176,6 +176,22 @@ public class AdminController {
 		return "admin/board_content";
 	}//
 	
+	@GetMapping("/memberDelete")
+	public String delete(@RequestParam String MEM_NO) {
+		
+		adminService.memberDelete(MEM_NO);
+		
+		return "redirect:/admin/member_manage";
+	}//
+	
+	@GetMapping("/contentDelete")
+	public String contentDelete(@RequestParam String PRO_NO) {
+		
+		adminService.contentDelete(PRO_NO);
+		
+		return "redirect:/admin/board_content";
+	}//
+		
 	/* 성엽 작업공간 */	
 
 

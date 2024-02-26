@@ -35,19 +35,19 @@
                             </tr>
                         </thead>
                         <tbody id="tbody">
-                        <c:forEach var="mem" items="${memList}">
-                        <fmt:parseDate var="data" value="${mem.MEM_DATE}" pattern="yyyyMMddHHmmss"/>
+                        <c:forEach var="member" items="${memList}">
+                        <fmt:parseDate var="data" value="${member.MEM_DATE}" pattern="yyyyMMddHHmmss"/>
                             <tr>
-                                <td>${mem.MEM_NO}</td>
-                                <td>${mem.MEM_NICK}</td>
-                                <td>${mem.MEM_NAME}</td>
-                                <td>${mem.MEM_EMAIL}</td>
+                                <td>${member.MEM_NO}</td>
+                                <td>${member.MEM_NICK}</td>
+                                <td>${member.MEM_NAME}</td>
+                                <td>${member.MEM_EMAIL}</td>
                                 <td><fmt:formatDate var="memDate" value="${data}" pattern="yyyy-MM-dd"/>${memDate}</td>
                                 <td>정지일</td>
                                 <th scope="row">
                                 	<div>
-										<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
+										<button type="button" class="btn-close"
+                                			onclick="location.href='${pageContext.request.contextPath}/admin/memberDelete?MEM_NO=${member.MEM_NO}'"></button>
 									</div>
                                 </th>
                             </tr>
@@ -58,6 +58,7 @@
             </div>
         </div>
     </div>
+    
     <div class="row g-0 pb-4">
 		<div class="demo">
 		    <nav class="pagination-outer"  aria-label="Page navigation">
@@ -65,6 +66,7 @@
 		    </nav>
 		</div> 
     </div>
+    
 </div>
 	<script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>

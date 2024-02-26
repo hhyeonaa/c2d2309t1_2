@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team.service.TeamService;
+import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
 
 
@@ -22,7 +22,7 @@ import com.team.util.EnumCodeType;
 public class TeamAjaxController {
 	
 	@Inject
-	private TeamService teamService;
+	private TeamCodeService codeService;
 	
 	@GetMapping
 	@ResponseBody

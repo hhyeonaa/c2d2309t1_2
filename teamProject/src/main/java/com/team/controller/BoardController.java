@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.team.service.BoardService;
-import com.team.service.TeamService;
+import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
 
 @Controller
@@ -40,7 +40,7 @@ public class BoardController {
 	@Inject
 	BoardService boardService;
 	@Inject
-	private TeamService teamService;
+	private TeamCodeService codeService;
 	
 	@GetMapping("/saleBoard")
 	public String saleBoard(Model model) {

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.team.service.MemberService;
-import com.team.service.TeamService;
+import com.team.service.TeamCodeService;
 
 @Controller
 @RequestMapping("/member/*")
@@ -23,8 +23,8 @@ public class MemberController{
 	@Inject
 	private MemberService memberService;
 	@Inject
-	private TeamService teamService;
-//	-----------------------------------------------------------------------------	
+	private TeamCodeService codeService;
+	//	-----------------------------------------------------------------------------	
 	@GetMapping("/join")
 	public String join() {
 		System.out.println("MemberController join()");

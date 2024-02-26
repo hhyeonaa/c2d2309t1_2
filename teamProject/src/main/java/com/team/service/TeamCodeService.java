@@ -44,15 +44,27 @@ public class TeamCodeService implements TeamCodeClassDesign {
 
 	@Override
 	public List<Map<String, String>> selectCodeList(EnumCodeType codeType) {
+		// TODO Auto-generated method stub
+		return selectCodeList(codeType, false);
+	}
+
+	@Override
+	public List<Map<String, String>> selectCodeList(EnumCodeType codeType, boolean check) {
 		
 		String table = EnumCodeType.코드테이블.getType().trim();
+		String hideCheck = EnumCodeType.사용가능항목.getType(); 
 		Map<String, String> code = new HashMap<String, String>();
 		
 		if(EnumCodeType.메세지.toString().trim().equals(codeType.toString().trim())) {
 			table = EnumCodeType.메세지테이블.getType().toString().trim();
 		}
+		
+		if(check) {
+			hideCheck = EnumCodeType.전체보기.getType();
+		}
 		code.put("tableName", table);
 		code.put("codeType", codeType.getType().trim());
+		code.put("hideCheck", hideCheck);
 		List<Map<String, String>> selectCodeList = dao.selectCodeList(code);
 		
 		System.out.println("< " + codeType.toString().trim() + " >");

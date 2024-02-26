@@ -150,24 +150,26 @@ var payCheck = $('.nonCheck')
 			case '카카오페이':
 			debugger;
 //			KakaoPayment();
-			IMP.request_pay({
-				pg: "kakaopay.{TC0ONETIME}",
-				pay_method: "card", // 생략가능
-		  		merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
-		  		name: "주문명:결제테스트",
-		 		amount: 100, // 결제금액
-		 		buyer_email: "test@portone.io",
-		  		buyer_name: "구매자이름",
-		  		buyer_tel: "010-1234-5678",
-		  		buyer_addr: "서울특별시 강남구 삼성동",
-		  		buyer_postcode: "123-456",
-			}, function (rsp) { // callback 로직
-		  		if(rsp.success){
-					  console.log(rsp);
-				  }else{
-					  console.log(res);
-				  }
-			});
+			function requestPay() {
+				IMP.request_pay({
+					pg: "kakaopay.{TC0ONETIME}",
+					pay_method: "card", // 생략가능
+			  		merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
+			  		name: "주문명:결제테스트",
+			 		amount: 100, // 결제금액
+			 		buyer_email: "test@portone.io",
+			  		buyer_name: "구매자이름",
+			  		buyer_tel: "010-1234-5678",
+			  		buyer_addr: "서울특별시 강남구 삼성동",
+			  		buyer_postcode: "123-456"
+				}, function (rsp) { // callback 로직
+			  		if(rsp.success){
+						  console.log(rsp);
+					  }else{
+						  console.log(res);
+					  }
+				});
+			}
 			break;
 			
 			default:

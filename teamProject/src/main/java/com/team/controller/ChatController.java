@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.team.util.EnumCodeType;
-import com.team.service.TeamService;
+import com.team.service.TeamCodeService;
 
 @Controller
 @RequestMapping("/chat/*")
 public class ChatController {
 	
 	@Inject
-	private TeamService teamService;
+	private TeamCodeService codeService;
 	
 	@GetMapping("/chatting")
 	public String chatting() {

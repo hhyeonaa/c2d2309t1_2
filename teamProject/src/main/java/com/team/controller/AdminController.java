@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.AdminService;
 import com.team.service.TeamCodeService;
-import com.team.service.TeamService;
 import com.team.util.EnumCodeType;
 import com.team.util.ToastUI;
 
@@ -132,11 +131,6 @@ public class AdminController {
 		
 //		teamService.showCodeList(EnumCodeType.메세지);	
 //		teamService.showCodeList(EnumCodeType.배송안내문구);
-//		
-//		teamSubmitService.showCodeList(EnumCodeType.메세지);
-//		
-//		teamSubmitService.showCodeList(EnumCodeType.메뉴항목);
-//		
 //		System.out.println(EnumCodeType.메세지.getList());
 		
 		Object[] arr = {"안녕"};

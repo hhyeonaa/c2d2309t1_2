@@ -3,6 +3,7 @@ package com.team.service;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import com.team.dao.MemberDAO;
@@ -32,7 +33,11 @@ public class MemberService {
 		System.out.println("MemberService socialLogin()");
 		return memberDAO.socialLogin(map); 
 	}// socialLogin()
-	
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> getMember(String MEM_ID) {
+		System.out.println("MemberService getMember()");
+		return memberDAO.getMember(MEM_ID); 
+	}// getMember()
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");
@@ -43,4 +48,6 @@ public class MemberService {
 		System.out.println("MemberService memberEdit()");
 		memberDAO.memberEdit(map);
 	}// insertMemeber()
+	
+	
 }// MemberService 클래스

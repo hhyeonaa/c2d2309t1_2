@@ -10,7 +10,7 @@ var grid = (url, perPage, columns) => {
 		el: document.getElementById('grid'),
 		columns: columns,
 		data: dataSource,
-		rowHeaders: ['rowNum'],
+		rowHeaders: ['rowNum', 'checkbox'],
 		pageOptions: {
 	    	useClient: true,
 	    	perPage: perPage

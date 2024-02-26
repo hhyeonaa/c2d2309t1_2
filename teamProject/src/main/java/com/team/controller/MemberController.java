@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.team.service.MemberService;
-import com.team.service.TeamService;
+import com.team.service.TeamCodeService;
 
 @Controller
 @RequestMapping("/member/*")
@@ -23,8 +23,8 @@ public class MemberController{
 	@Inject
 	private MemberService memberService;
 	@Inject
-	private TeamService teamService;
-//	-----------------------------------------------------------------------------	
+	private TeamCodeService codeService;
+	//	-----------------------------------------------------------------------------	
 	@GetMapping("/join")
 	public String join() {
 		System.out.println("MemberController join()");
@@ -34,13 +34,15 @@ public class MemberController{
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController insertPro()");
-		Map<String, String> searchId = memberService.login(map);
+		Map<String, String> searchId = memberService.socialLogin(map);
 		if(searchId == null || searchId.isEmpty()) {
 			System.out.println("첫 회원가입 고객");
 			memberService.insertMemeber(map);
+			return "redirect:/member/login";
+		} else {
+			System.out.println("기존 고객");
+			return "member/msg";
 		}
-		System.out.println("기존 고객");
-		return "redirect:/member/login";
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
@@ -126,15 +128,15 @@ public class MemberController{
 	@PostMapping("/memberEditPro")
 	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController memberEditPro()");
-		Map<String, String> param = memberService.login(map);
-		if(param != null) {
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		Map<String, String> param = memberService.getMember(MEM_ID);
+		System.out.println("param : " + param);
+		System.out.println(map.get("MEM_PW"));
+			System.out.println(map.values());
 			System.out.println("프로필 수정 가능");
 			memberService.memberEdit(map);
+			System.out.println("@@@@@@@@@@@@@@@@@@@@" + map);
 			return "redirect:/member/mypage";
-		} else {
-		System.out.println("기존 고객");
-		return "member/msg";
-		}
 	}//memberEditPro()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")

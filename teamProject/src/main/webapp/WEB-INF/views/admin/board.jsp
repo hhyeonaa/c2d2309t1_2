@@ -88,7 +88,7 @@
                                 <th scope="col">게시판 유형</th>
                                 <th scope="col">글쓰기 입력폼</th>
                                 <th scope="col">순서</th>
-                                <th scope="col">숨김 여부</th>
+                                <th scope="col">사용 여부</th>
                             </tr>
                         </thead>
                         <tbody>

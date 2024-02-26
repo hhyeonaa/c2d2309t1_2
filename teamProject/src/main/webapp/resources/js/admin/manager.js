@@ -25,11 +25,7 @@ $(function(){
 		{
 			name:"AD_ID",
 			header:"ID",
-			filter: {
-		        type: 'text',
-		        showApplyBtn: true,
-		        showClearBtn: true
-		    },
+			filter:"text",
 		    sortable: true,
 			sortingType: 'asc'
 		},

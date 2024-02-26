@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.AdminService;
 import com.team.service.TeamCodeService;
-import com.team.service.TeamService;
 import com.team.util.EnumCodeType;
 import com.team.util.ToastUI;
 
@@ -29,10 +28,8 @@ import com.team.util.ToastUI;
 @RequestMapping("/admin/*")
 public class AdminController {
 	
-	@Inject
-	private TeamService teamSubmitService;
 	@Inject 
-	private TeamCodeService teamAjaxService;
+	private TeamCodeService codeService;
 	@Inject
 	private AdminService adminService;
 	
@@ -131,9 +128,9 @@ public class AdminController {
 //		teamService.showCodeList(EnumCodeType.메세지);	
 //		teamService.showCodeList(EnumCodeType.배송안내문구);
 		
-		teamSubmitService.showCodeList(EnumCodeType.메세지);
+//		teamSubmitService.showCodeList(EnumCodeType.메세지);
 		
-		teamSubmitService.showCodeList(EnumCodeType.메뉴항목);
+//		teamSubmitService.showCodeList(EnumCodeType.메뉴항목);
 		
 //		System.out.println(EnumCodeType.메세지.getList());
 		
@@ -156,7 +153,7 @@ public class AdminController {
 	
 	@GetMapping("/category_pro")
 	public void category_pro(HttpServletResponse response) {
-		teamSubmitService.showCodeList(EnumCodeType.메세지);
+//		teamSubmitService.showCodeList(EnumCodeType.메세지);
 		Object[] arr = {"잘가요"};
 //		teamService.showCodeList(EnumCodeType.메뉴항목);
 		//		teamService.onlyAlert(response, "AM1", arr);

@@ -287,8 +287,8 @@ h2 {
 
 .form-group input:focus {
   outline: none;
-  border-color: #ff6f61;
-  box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
+/*   border-color: #ff6f61; */
+/*   box-shadow: 0 0 8px rgba(255, 111, 97, 0.5); */
 }
 
 input[type="submit"] {

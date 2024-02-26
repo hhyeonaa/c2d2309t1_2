@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 </div>
-<div class="sidebar222 text-center fw-bold  d-flex  flex-column">
+<div class="sidebar222 text-center fw-bold  d-flex  flex-column" style="width: 21.8%;">
   	<div class="border border-dark-subtle  mb-2 p-1">
   		<div >찜한상품</div>
   		<div ><a class="text-danger"><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 123</a></div>
@@ -20,7 +20,8 @@
   	</div>
   	
   	<div  class="mt-auto" style="margin-bottom: 100px;">
-  		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;">
+  		<a class="dropdown-item" href="${pageContext.request.contextPath}/chat/chatting">
+  		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;"></a>
   	</div>
 </div>
 </div>

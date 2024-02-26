@@ -1,18 +1,62 @@
 //결제하기 버튼관련
-function checkSubmit(payCheck) {
-	//결제수단 미 선택시 (nonCheck가 6개)
-	if(payCheck.length == 6){
-		alert('결제수단을 선택해주세요')
-		return false;
-	}
-}
+//function checkSubmit(payCheck) {
+//	//결제수단 미 선택시 (nonCheck가 6개)
+//	if(payCheck.length == 6){
+//		alert('결제수단을 선택해주세요')
+//		return false;
+//	}
+//}
+
+
+
+
+// 토스결제 api
+//function TossPayment(){
+//	IMP.request_pay({
+//		pg: "tosspay.{tosstest}",
+//	})
+//}
+
+
+// 카카오페이 api
+//function KakaoPayment(){
+//	debugger;
+//		var IMP = window.IMP;
+//        IMP.init("imp34662564"); //가맹점 식별코드
+//        
+//        var today = new Date();   
+//        var hours = today.getHours(); // 시
+//        var minutes = today.getMinutes();  // 분
+//        var seconds = today.getSeconds();  // 초
+//        var milliseconds = today.getMilliseconds();
+//        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+//	IMP.request_pay({
+//		pg: "kakaopay.{TC0ONETIME}",
+//		pay_method: "card", // 생략가능
+//  		merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
+//  		name: "주문명:결제테스트",
+// 		amount: 100, // 결제금액
+// 		buyer_email: "test@portone.io",
+//  		buyer_name: "구매자이름",
+//  		buyer_tel: "010-1234-5678",
+//  		buyer_addr: "서울특별시 강남구 삼성동",
+//  		buyer_postcode: "123-456",
+//	}, function (rsp) { // callback 로직
+//  		if(rsp.success){
+//			  console.log(rsp);
+//		  }else{
+//			  console.log(res);
+//		  }
+//	});
+//}
 
 // 스크립트 시작
 $(()=>{
+// 결제할(선택된) 페이 css변경(4)
 var payCheck = $('.nonCheck')
-// 결제할(선택한) 페이값
-var payMethod = $('.check').find('span').text();
-	
+// 결제할(선택된) 페이(4)
+//var payMethod = $('.check').find('span').text().trim();
+//var payMethod1 = $('.check').attr('value');	
 	
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
@@ -24,19 +68,8 @@ var payMethod = $('.check').find('span').text();
 		}
 		$('.Deliveryaddress').show();
 	})
-	
-// 2. 결제수단 클릭 이벤트
-// check(결제수단 클릭), nonCheck(결제수단 미클릭) class
-    $('.PaymentGridMethod').on('click', function () {
-        // 클릭된 요소에 'check' 클래스를 추가하고 'nonCheck' 클래스 제거
-        $(this).addClass('check').removeClass('nonCheck');
-        
-        // 클릭된 요소의 부모 요소에서 다른 요소를 찾아서 'check' 클래스를 제거하고 'nonCheck' 클래스를 추가합니다.
-        $(this).parent().siblings().find('.PaymentGridMethod').addClass('nonCheck').removeClass('check');
-    });
-	
-
-// 3. 배송지 등록 주소 api(배송지 등로 모달)
+		
+// 2. 배송지 등록 주소 api(배송지 등로 모달)
 	$("#address_find").on('click', function() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
@@ -82,11 +115,67 @@ var payMethod = $('.check').find('span').text();
 	    }).open();
 	});
 	
-// 결제하기 버튼 클릭 이벤트(결제수단 관련)
+// 3. 결제수단 클릭 이벤트(css)
+// check(결제수단 클릭), nonCheck(결제수단 미클릭) class
+    $('.PaymentGridMethod').on('click', function () {
+        // 클릭된 요소에 'check' 클래스를 추가하고 'nonCheck' 클래스 제거
+        $(this).addClass('check').removeClass('nonCheck');
+        
+        // 클릭된 요소의 부모 요소에서 다른 요소를 찾아서 'check' 클래스를 제거하고 'nonCheck' 클래스를 추가합니다.
+        $(this).parent().siblings().find('.PaymentGridMethod').addClass('nonCheck').removeClass('check');
+    });
+    
+// 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
-		// 결제수단 체크 유무 확인하기
-		checkSubmit(payCheck);
+		debugger;
+
+		
+//		// 결제수단 체크 유무 확인하기
+//		checkSubmit(payCheck);
 		// 체크된 결제수단 
+		var IMP = window.IMP;
+        IMP.init("imp34662564"); //가맹점 식별코드
+        
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+       	switch($('.check').find('span').text().trim()){
+			case '토스페이':
+			TossPayment();
+			break;
+			
+			case '카카오페이':
+			debugger;
+//			KakaoPayment();
+			IMP.request_pay({
+				pg: "kakaopay.{TC0ONETIME}",
+				pay_method: "card", // 생략가능
+		  		merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
+		  		name: "주문명:결제테스트",
+		 		amount: 100, // 결제금액
+		 		buyer_email: "test@portone.io",
+		  		buyer_name: "구매자이름",
+		  		buyer_tel: "010-1234-5678",
+		  		buyer_addr: "서울특별시 강남구 삼성동",
+		  		buyer_postcode: "123-456",
+			}, function (rsp) { // callback 로직
+		  		if(rsp.success){
+					  console.log(rsp);
+				  }else{
+					  console.log(res);
+				  }
+			});
+			break;
+			
+			default:
+			alert('결제 수단을 선택해주세요');
+			break;	
+		}
+        
+
 	})
 
 })

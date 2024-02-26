@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+body {
+	padding: 100px 0 0 240px !important;
+}
+
+.preview {
+    border: 1px solid;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 5% 0 5%;
+}
+
+#category-ul {
+    list-style: none;
+}
+ 
+#category-li {
+	flex-basis: none;
+    float: left;
+}
+
+.cateEdit {
+    border: 1px solid;
+    background-color: white;
+    border-radius: 10px;
+    width: 500px;
+    margin: 0 5% 0 5%;
+    padding: 3%;
+    justify-content: center;
+}
+
+.tableHr {
+	border-bottom: 3px solid;
+}
+
+#btn {
+	background-color: white;
+	border: none;
+}
+
+#btnTop {
+    width: 30px;
+    height: 30px;
+}

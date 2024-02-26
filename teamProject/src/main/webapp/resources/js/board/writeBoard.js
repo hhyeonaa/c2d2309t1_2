@@ -249,18 +249,29 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		// 텍스트 데이터를 JSON 객체로 준비
 		var textData = {
 		    proName: $('#proName').val(),
+		    proWr: $('#proWr').val(),
 		    proPrice: $('#proPrice').val(),
 		    proTc: $('#proTc').val(),
-		    category1: $('#category1').val(),
+		    proTsc: $('#proTc').val() + '중',
+		    proCate: $('#category1').val(),
 		    category2: $('#category2').val(),
 		    category3: $('#category3').val(),
-		    itemStatus: $('input[name="itemStatus"]:checked').val(),
-		    proContent: $('#proContent').val()
+		    proStatus: $('input[name="itemStatus"]:checked').val(),
+		    proContent: $('#proContent').val(),
+		    /* 경매일 때 추가로 들어가는 부분 */
+		    aucSp: $('#aucSp').val(),
+		    aucInp: $('#aucInp').val(),
+		    aucBp: $('#aucBp').val()
 		};
 		
 		// JSON 객체를 문자열로 변환하여 formData에 추가
 		formData.append('textData', JSON.stringify(textData));
 		
+		/*이미지 없으면 막기*/
+		if(checkFileList[0] == undefined){
+			alert('이미지를 꼭 넣어주세요.');
+			return;
+		}
 		/*파일담기*/
 		for (i = 0; i < checkFileList.length; i++) {
 		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
@@ -279,7 +290,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		for (let key of formData.keys()) {
 			console.log(key);
 		}
-		debugger;
+		//debugger;
 		for (let value of formData.values()) {
 			console.log(value);
 		}
@@ -321,50 +332,90 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	});
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기 끝
 	//테스트용 버튼 누르면 페이지 정보들 확인하기
-	$('#tempSave').on('click',function(){
-		var proName = $('#proName').val(); //상품명
-		var proTc = $('#proTc').val(); //판매,구매,나눔,경매
-		var category1 = $('#category1').val(); //대분류
-		var category2 = $('#category2').val(); //중분류
-		var category3 = $('#category3').val(); //소분류
-		var itemStatus = $('input[name="itemStatus"]:checked').val(); //상품상태
-		var proContent = $('#proContent').val(); //상품상세설명
-		var resultList = []; // 결과를 저장할 배열입니다.
-		debugger;
-		for (i = 0; i < checkFileList.length; i++) {
-		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
-		        for (j = 0; j < checkFileList[i].length; j++) {
-		        	resultList.push(checkFileList[i][j]); // 'result' 배열에 요소를 추가합니다.
-		        }
-		    }
-		}
-		var str = '';
-		for(i = 0; i < resultList.length; i++){
-			str += ('/' + resultList[i].name);
-		}
-		console.log(str);
+	// 공통 기능을 수행하는 함수
+	function handleTempBoard(e, btnId) {
+		e.preventDefault(); // 폼의 기본 제출 동작을 방지
+		var contextPath = getContextPath();
+		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		
-		alert('proName: ' + proName + ' proTc: ' + proTc + ' category1: ' + category1 + ' category2: ' + category2 + ' category3: ' + category3 +
-			' itmeStatus: ' + itemStatus + ' proContent: ' + proContent
-		);
+		// btnId에 따른 조건부 처리
+		var textData = btnId === 'tempSave' ? {
+		    preName: $('#proName').val(),
+		    preMemid: $('#proWr').val(),
+		    prePrice: $('#proPrice').val(),
+		    preTc: $('#proTc').val(),
+		    preCate: $('#category1').val(),
+		    preContent: $('#proContent').val()
+		} : {
+		    praName: $('#proName').val(),
+		    praMemid: $('#proWr').val(),
+		    praTc: $('#proTc').val(),
+		    praCate: $('#category1').val(),
+		    praContent: $('#proContent').val(),
+		    praSp: $('#aucSp').val(),
+		    praInp: $('#aucInp').val(),
+		    praBp: $('#aucBp').val()
+		};
+		
+		// JSON 객체를 문자열로 변환하여 formData에 추가
+		formData.append('textData', JSON.stringify(textData));
+		
+		// btnId에 따라 URL 설정
+		var url = btnId === 'tempSave' ? contextPath+'/board/insertPreBoard' : contextPath+'/board/insertPreAuction';
+		
+		$.ajax({
+		    url: url,
+		    type: 'POST',
+		    data: formData,
+		    processData: false, // jQuery가 데이터를 처리하지 않도록 설정
+		    contentType: false // jQuery가 contentType을 설정하지 않도록 설정
+		}).done(function(response) {
+		    console.log('Upload success:', response);
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+		    console.log('Upload error:', textStatus, errorThrown);
+		});
+	}
+	
+	// 이벤트 위임을 사용하여 부모 요소에서 이벤트 처리
+	$('body').on('click', '#tempSave', function(e) {
+	    handleTempBoard(e, 'tempSave');
 	});
 	
+	$('body').on('click', '#aTempSave', function(e) {
+	    handleTempBoard(e, 'aTempSave');
+	});
+
+	
 	//셀렉트 박스 변경 시 화면 살짝 변경
-	$('#boardSelect').on('change',function(){
+//	$('#proTc').on('change',function(){
+//		$('#noDivide').show();
+//		if($(this).val() == '경매'){
+//			$('#auctionOnly').show();
+//			$('#saleBuy').hide();
+//			$('#divideOnly').hide();
+//		} else if($(this).val() == '판매' || $(this).val() == '구매') {
+//			$('#saleBuy').show();
+//			$('#auctionOnly').hide();
+//			$('#divideOnly').hide();
+//		} else if($(this).val() == '나눔'){
+//			$('#divideOnly').show();
+//			$('#auctionOnly').hide();
+//			$('#saleBuy').hide();
+//			$('#noDivide').hide();
+//		} 
+//	});
+	$('#proTc').on('change',function(){
 		$('#noDivide').show();
-		if($(this).val() == 'auction'){
+		if($(this).val() == '경매'){
 			$('#auctionOnly').show();
 			$('#saleBuy').hide();
 			$('#divideOnly').hide();
-		} else if($(this).val() == 'sale' || $(this).val() == 'buy') {
+			$('#tempSave').attr('id','aTempSave');
+		} else if($(this).val() == '판매' || $(this).val() == '구매' || $(this).val() == '나눔') {
 			$('#saleBuy').show();
 			$('#auctionOnly').hide();
 			$('#divideOnly').hide();
-		} else if($(this).val() == 'divide'){
-			$('#divideOnly').show();
-			$('#auctionOnly').hide();
-			$('#saleBuy').hide();
-			$('#noDivide').hide();
+			$('#aTempSave').attr('id','tempSave');
 		} 
 	});
 	

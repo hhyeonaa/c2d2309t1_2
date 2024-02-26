@@ -11,6 +11,34 @@ body {
     margin: 0 5% 0 5%;
 }
 
+#search {
+	width: 350px;
+	margin: 0 !important;
+}
+ul {
+ list-style: none;
+}
+#category-ul { 
+	display: block; 
+} 
+.menu{
+	width: 60px;
+}
+
+li {
+	width: 100%;
+	float:left;
+}
+
+.input-group>.form-select{
+	width: 18% !important;
+	font-size: 14px;
+	color: #737373;
+}
+#searchButton{
+	border: 1px solid #ced4da;
+	line-height: 100%;
+}
 
 .project-list-table {
     border-collapse: separate;

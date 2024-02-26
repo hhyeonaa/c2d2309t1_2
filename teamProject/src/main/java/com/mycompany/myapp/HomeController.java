@@ -51,4 +51,9 @@ public class HomeController {
 	public String excel() {
 		return "excelTest";
 	}
+	
+	@RequestMapping(value = "/eul", method = RequestMethod.GET)
+	public String eul() {
+		return "excelTest2";
+	}
 }

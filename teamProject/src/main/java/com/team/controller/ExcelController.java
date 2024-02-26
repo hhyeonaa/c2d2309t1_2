@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.team.service.ExcelService;
 import com.team.util.Excel;
+import com.team.util.UploadExcel;
 
 @Controller
 public class ExcelController {
@@ -27,5 +29,12 @@ public class ExcelController {
 		System.out.println(data);
 		excel.edl(excel.createSheet(data), response);
 	} // Excel
+	
+	@GetMapping("eultest")
+	public void eul(HttpServletRequest request) {
+		UploadExcel excel = new UploadExcel();
+		excel.test1(request);
+	}
+	
 	
 }

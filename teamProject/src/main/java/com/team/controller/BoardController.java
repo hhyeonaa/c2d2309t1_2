@@ -297,8 +297,8 @@ public class BoardController {
 		map.put("proDate", proDate);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
-		System.out.println("resultMap: "+resultMap);
-		model.addAttribute("resultMap",resultMap);
+		System.out.println("resultMap: "+ resultMap);
+		model.addAttribute("resultMap", resultMap);
 		return "board/boardDetail";
 	}// boardDetail()
 	

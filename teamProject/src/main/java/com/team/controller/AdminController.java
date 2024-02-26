@@ -49,7 +49,6 @@ public class AdminController {
  		return ToastUI.resourceData(req, mapList);
  	}
 	
-	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {
 //		teamService.showCodeList(EnumCodeType.메세지);
@@ -110,6 +109,11 @@ public class AdminController {
  		System.out.println(mapList);
  		return ToastUI.resourceData(req, mapList);
  	}
+ 	
+	@GetMapping("/inputForm")
+	public String inputForm(Model model) {
+		return "admin/inputForm";
+	}
 	
 	/* 현아 작업공간 */
 	
@@ -128,11 +132,11 @@ public class AdminController {
 		
 //		teamService.showCodeList(EnumCodeType.메세지);	
 //		teamService.showCodeList(EnumCodeType.배송안내문구);
-		
-		teamSubmitService.showCodeList(EnumCodeType.메세지);
-		
-		teamSubmitService.showCodeList(EnumCodeType.메뉴항목);
-		
+//		
+//		teamSubmitService.showCodeList(EnumCodeType.메세지);
+//		
+//		teamSubmitService.showCodeList(EnumCodeType.메뉴항목);
+//		
 //		System.out.println(EnumCodeType.메세지.getList());
 		
 		Object[] arr = {"안녕"};
@@ -154,7 +158,7 @@ public class AdminController {
 	
 	@GetMapping("/category_pro")
 	public void category_pro(HttpServletResponse response) {
-		teamSubmitService.showCodeList(EnumCodeType.메세지);
+//		teamSubmitService.showCodeList(EnumCodeType.메세지);
 		Object[] arr = {"잘가요"};
 //		teamService.showCodeList(EnumCodeType.메뉴항목);
 		//		teamService.onlyAlert(response, "AM1", arr);

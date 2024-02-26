@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.team.service.MemberService;
 import com.team.service.TeamCodeService;
-import com.team.service.TeamService;
 
 @Controller
 @RequestMapping("/member/*")

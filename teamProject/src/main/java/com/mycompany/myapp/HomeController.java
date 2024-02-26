@@ -47,4 +47,8 @@ public class HomeController {
 		return "dontOpen";
 	}
 	
+	@RequestMapping(value = "/excel", method = RequestMethod.GET)
+	public String excel() {
+		return "excelTest";
+	}
 }

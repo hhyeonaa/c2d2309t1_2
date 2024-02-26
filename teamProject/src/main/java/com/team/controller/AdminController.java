@@ -115,16 +115,13 @@ public class AdminController {
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
 	public String message_manage(Model model) {
-		
-		
-		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.메뉴항목));
 		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.메세지));
 		return "admin/message_manage";
 	}
 	
 	@GetMapping("/category_manage")
-	public String category_manage(HttpServletRequest request) {
-		
+	public String category_manage(Model model) {
+		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목));
 		return "admin/category_manage";
 	}
 	

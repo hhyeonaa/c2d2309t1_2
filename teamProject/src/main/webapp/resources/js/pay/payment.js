@@ -54,7 +54,8 @@
 $(()=>{
 // 결제할(선택된) 페이 css변경(4)
 var payCheck = $('.nonCheck')
-
+// 결제할(선택된) 페이(4)
+//var payMethod = $('.check').find('span').text().trim();
 //var payMethod1 = $('.check').attr('value');	
 	
 	
@@ -127,8 +128,8 @@ var payCheck = $('.nonCheck')
 // 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
 		debugger;
-		// 결제할(선택된) 페이(4)
-		var payMethod = $('.check').find('span').text().trim();
+
+		
 //		// 결제수단 체크 유무 확인하기
 //		checkSubmit(payCheck);
 		// 체크된 결제수단 
@@ -141,12 +142,13 @@ var payCheck = $('.nonCheck')
         var seconds = today.getSeconds();  // 초
         var milliseconds = today.getMilliseconds();
         var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-       	switch(payMethod){
+       	switch($('.check').find('span').text().trim()){
 			case '토스페이':
 			TossPayment();
 			break;
 			
 			case '카카오페이':
+			debugger;
 //			KakaoPayment();
 			IMP.request_pay({
 				pg: "kakaopay.{TC0ONETIME}",

@@ -98,6 +98,7 @@
 	<select id="getMemberList" resultType="map">
 		select MEM_NO
 			 , MEM_NICK
+			 , MEM_NAME
 			 , MEM_EMAIL
 			 , MEM_DATE
 		from MEMBERS

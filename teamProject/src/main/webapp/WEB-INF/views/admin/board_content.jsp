@@ -9,6 +9,7 @@
 <title>게시판 글 관리</title>
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
+
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 	
@@ -26,7 +27,6 @@
 		</div>
     </div>
 	
-	
 	<div class="row">
         <div class="col-lg-12">
             <div class="">
@@ -38,19 +38,21 @@
                                 <th scope="col">글제목</th>
                                 <th scope="col">닉네임</th>
                                 <th scope="col">글쓴시간</th>
-                                <th scope="col">삭제</th>
+                                <th scope="col">글삭제</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
                         <c:forEach var="content" items="${contentList}">
+                        <fmt:parseDate var="data" value="${content.PRO_DATE}" pattern="yyyyMMddHHmmss"/>
                             <tr>
                             	<th>${content.PRO_NO}</th>
                                 <td>${content.PRO_NAME}</td>
                                 <td>${content.PRO_WR}</td>
-                                <td>${content.PRO_DATE}</td>
+                                <td><fmt:formatDate var="conDate" value="${data}" pattern="yyyy-MM-dd HH:mm:ss "/>${conDate}</td>
                                 <th scope="row">
                                 	<div>
-										<button class="btn btn-dark">삭제</button>
+                                		<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
 									</div>
                                 </th>
                             </tr>

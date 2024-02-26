@@ -27,6 +27,7 @@
                             <tr>
                                 <th scope="col">번호</th>
                                 <th scope="col">닉네임</th>
+                                <th scope="col">이름</th>
                                 <th scope="col">이메일</th>
                                 <th scope="col">가입일</th>
                                 <th scope="col">정지일</th>
@@ -35,15 +36,18 @@
                         </thead>
                         <tbody id="tbody">
                         <c:forEach var="mem" items="${memList}">
+                        <fmt:parseDate var="data" value="${mem.MEM_DATE}" pattern="yyyyMMddHHmmss"/>
                             <tr>
                                 <td>${mem.MEM_NO}</td>
                                 <td>${mem.MEM_NICK}</td>
+                                <td>${mem.MEM_NAME}</td>
                                 <td>${mem.MEM_EMAIL}</td>
-                                <td>${mem.MEM_DATE}</td>
+                                <td><fmt:formatDate var="memDate" value="${data}" pattern="yyyy-MM-dd"/>${memDate}</td>
                                 <td>정지일</td>
                                 <th scope="row">
                                 	<div>
-										<button class="btn btn-dark">탈퇴</button>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
 									</div>
                                 </th>
                             </tr>

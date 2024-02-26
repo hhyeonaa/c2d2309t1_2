@@ -54,6 +54,24 @@
 		
 	</select>
 	
+	<select id="idCheck" resultType="int">
+		select count(*) 
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="nickCheck" resultType="int">
+		select count(*) 
+		from MEMBERS
+		where MEM_NICK = #{MEM_NICK}
+	</select>
+	
+	<select id="emailCheck" resultType="int">
+		select count(*) 
+		from MEMBERS
+		where MEM_EMAIL = #{MEM_EMAIL}
+	</select>
+	
 	<select id="mypage" parameterType="map" resultType="map">
 		select M.MEM_NO
 			 , M.MEM_ID

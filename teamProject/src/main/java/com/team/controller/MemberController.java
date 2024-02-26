@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.team.service.MemberService;
 import com.team.service.TeamCodeService;
 
@@ -67,7 +69,7 @@ public class MemberController{
 	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController socialLoginPro()");
 		Map<String, String> searchId = memberService.socialLogin(map);
-		
+		System.out.println("@@@@@@@@@@@@@@@@@@@" + searchId);
 		if(searchId == null || searchId.isEmpty()) {
 			System.out.println("첫 회원가입 고객");
 			memberService.insertMemeber(map);
@@ -78,6 +80,32 @@ public class MemberController{
 			
 		return "redirect:../";
 	}// socialLoginPro() 
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/idCheck")	// ajax
+	@ResponseBody
+	public int idCheck(@RequestParam("MEM_ID") String MEM_ID){
+		int result = memberService.idCheck(MEM_ID);
+		System.out.println("result : "+result);
+		return result; 
+	}//idCheck()
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/nickCheck") // ajax
+	@ResponseBody
+	public int nickCheck(@RequestParam("MEM_NICK") String MEM_NICK){
+		System.out.println("MEM_NICK : "+MEM_NICK);
+		int nickCheck = memberService.nickCheck(MEM_NICK);
+		System.out.println("nickCheck : "+ nickCheck);
+		return nickCheck; 
+	}//nickCheck()
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/emailCheck") // ajax
+	@ResponseBody
+	public int emailCheck(@RequestParam("MEM_EMAIL") String MEM_EMAIL){
+		System.out.println("MEM_EMAIL : "+MEM_EMAIL);
+		int emailCheck = memberService.emailCheck(MEM_EMAIL);
+		System.out.println("nickCheck : "+ emailCheck);
+		return emailCheck; 
+	}//emailCheck()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -129,7 +157,7 @@ public class MemberController{
 	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController memberEditPro()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
-		Map<String, String> param = memberService.getMember(MEM_ID);
+		Map<String, String> param = memberService.getMember(MEM_ID, map);
 		System.out.println("param : " + param);
 		System.out.println(map.get("MEM_PW"));
 			System.out.println(map.values());

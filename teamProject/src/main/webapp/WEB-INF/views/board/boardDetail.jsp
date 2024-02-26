@@ -76,20 +76,43 @@ td{
 			<div class="pe-2" style="width: 40%;height: 400px;">
 		 	 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 			  <div class="carousel-indicators">
-			    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-			    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-			    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			  	<c:forEach var="img" items="${imgList}" varStatus="status">
+			  		<c:if test="${status.index eq 0}">
+			  			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index }" class="active" aria-current="true" aria-label="Slide ${status.count }"></button>
+			  		</c:if>
+			  		<c:if test="${status.index ne 0}">
+			  			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index }" aria-label="Slide ${status.count }"></button>
+			  		</c:if>
+			  	</c:forEach>
+<!-- 			    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> -->
+<!-- 			    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
+<!-- 			    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
 			  </div>
 			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="...">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="...">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="...">
-			    </div>
+			  	<c:forEach var="img" items="${imgList}" varStatus="status">
+			  		<c:if test="${status.index eq 0}">
+			  			<div class="carousel-item active">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					    </div>
+			  		</c:if>
+			  		<c:if test="${status.index ne 0}">
+			  			<div class="carousel-item">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					    </div>
+			  		</c:if>
+<!-- 			  		<div class="carousel-item"> -->
+<%-- 				      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block w-100" alt="..."> --%>
+<!-- 				    </div> -->
+			  	</c:forEach>
+<!-- 			    <div class="carousel-item active"> -->
+<%-- 			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="..."> --%>
+<!-- 			    </div> -->
+<!-- 			    <div class="carousel-item"> -->
+<%-- 			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="..."> --%>
+<!-- 			    </div> -->
+<!-- 			    <div class="carousel-item"> -->
+<%-- 			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="..."> --%>
+<!-- 			    </div> -->
 			  </div>
 			  	<div class="modal">
 				    <div class="modalBox"></div>

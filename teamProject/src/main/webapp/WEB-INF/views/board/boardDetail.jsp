@@ -148,14 +148,14 @@ td{
 		 				<td></td>
 		 			</tr>
 		 			<tr>
-		 				<td>교환여부:</td>
-		 				<td>교환불가능</td>
+		 				<td>카테고리:</td>
+		 				<td><a href="#">자켓/점퍼</a></td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>
 		 			<tr>
-		 				<td>배송비:</td>
-		 				<td>배송비포함</td>
+		 				<td></td>
+		 				<td></td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>
@@ -197,8 +197,8 @@ td{
 		 			<tr><td colspan="6">상품 상세 정보</td><tr>
 		 			<tr><td colspan="6"><textarea rows="5" cols="100" readonly>${resultMap['PRO_CONTENT']}</textarea></td></tr>
 		 			<tr style="text-align: center;">
-		 				<td colspan="3">거래지역: 전국</td>
-		 				<td colspan="3">카테고리: <a href="#">자켓/점퍼</a></td>
+		 				<td colspan="3"></td>
+		 				<td colspan="3"></td>
 		 			</tr>
 		 		</table>
 		 		<div class="d-grid gap-2">

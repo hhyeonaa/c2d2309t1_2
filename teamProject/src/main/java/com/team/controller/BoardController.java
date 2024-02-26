@@ -88,8 +88,12 @@ public class BoardController {
 	}// auctionBoard()
 	
 	@GetMapping("/writeBoard")
-	public String writeBoard() {
+	public String writeBoard(Model model) {
 		System.out.println("BoardController writeBoard()");
+		//codeService.selectCode("MM1");
+
+		
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
 		return "board/writeBoard";
 	}// writeBoard()
 	

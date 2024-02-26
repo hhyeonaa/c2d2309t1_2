@@ -1,4 +1,12 @@
 $(function(){
+	var columns = [
+		{name:"CODE", 	 header:"카테고리명"},
+		{name:"CI_TAB",	 header:"순서"},
+		{name:"HIDE", 	 header:"숨김 여부"}
+	]
+	
+	grid("categoryList", 3, columns);
+	
 	let categoryList = document.getElementById('categoryList');
 	var currentRow, preRow;
 	
@@ -18,17 +26,11 @@ $(function(){
 		for (let i = 1; i < categoryList.rows.length; i++) {
 			$.ajax({
 				type: "post"
-				, url: "boardHide"
-				, data: {CO_TYPE: 'CA'
-						 , CODE: categoryList.rows[i].cells[0].innerText
-						 , HIDE: categoryList.rows[i].cells[2].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-			$.ajax({
-				type: "post"
-				, url: "changeSeq"
+				, url: "displayUpdate"
 				, data: {CO_TYPE: 'CA'
 						 , SEQ: i
-						 , CODE:categoryList.rows[i].cells[0].innerText }
+						 , CODE: categoryList.rows[i].cells[0].innerText
+						 , HIDE: categoryList.rows[i].cells[2].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
 			});
 		}
 		location.reload();

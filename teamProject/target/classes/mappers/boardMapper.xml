@@ -6,6 +6,86 @@
 	<select id="select" parameterType="map" resultType="map">
 		SELECT *
 		  FROM PRODUCT
-		 WHERE PRO_WR = #{proWr}
+		 WHERE PRO_NO = #{proNo}
 	</select>
+	<insert id="insertBoard" parameterType="String" statementType="CALLABLE">
+		{CALL PROC_INSERT_BOARD(
+	        #{jsonParams, jdbcType=VARCHAR}
+		)}
+	</insert>
+	<insert id="insertPreBoard" parameterType="map">
+	    INSERT INTO PRODUCT_PRE(PRE_MEMID, PRE_BONO, PRE_TC, PRE_CATE, PRE_NAME, PRE_PRICE, PRE_CONTENT, PRE_DATE)
+	    VALUES (
+	        #{preMemid},
+	        (SELECT IFNULL(MAX(CAST(PRE_BONO AS UNSIGNED)), 0) + 1 FROM (SELECT * FROM PRODUCT_PRE) AS TEMP),
+	        #{preTc},
+	        #{preCate},
+	        #{preName},
+	        #{prePrice},
+	        #{preContent},
+	        DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+	    )
+	</insert>
+	<insert id="insertPreAuction" parameterType="map">
+		INSERT INTO AUCTION_PRE(PRA_MEMID,PRA_CATE,PRA_BONO,PRA_NAME,PRA_CONTENT,PRA_SP,PRA_INP,PRA_BP,PRA_TC,PRA_DATE)
+		VALUES(
+			#{praMemid},
+			#{praCate},
+			(SELECT IFNULL(MAX(CAST(PRA_BONO AS UNSIGNED)), 0) + 1 FROM (SELECT * FROM AUCTION_PRE) AS TEMP),
+			#{praName},
+			#{praContent},
+			#{praSp},
+			#{praInp},
+			#{praBp},
+			#{praTc},
+			DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+		)
+	</insert>
+	
+	<select id="selectSaleBoard" resultType="map">
+		SELECT *
+		  FROM PRODUCT
+		  JOIN IMAGE
+		    ON PRO_NO = IMG_PRONO
+		 WHERE IMG_NO = 1
+		   AND PRO_TC = '판매'
+		 ORDER BY PRO_DATE DESC  
+	</select>
+	
+	<!-- 성엽 작업 시작 -->
+	
+	<select id="selectBuyBoard" resultType="map">
+		SELECT *
+		  FROM PRODUCT
+		  JOIN IMAGE
+		    ON PRO_NO = IMG_PRONO
+		 WHERE IMG_NO = 1
+			AND PRO_TC = '구매'
+	</select>
+	
+	<!-- 성엽 작업 끝 -->
+	
+	
+	<select id="selectBoardDetail" parameterType="map" resultType="map">
+		SELECT *
+		  FROM PRODUCT
+		  JOIN IMAGE
+    		ON PRO_NO = IMG_PRONO
+		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
+	</select>
+	<update id="upHits" parameterType="map">
+		UPDATE PRODUCT
+		   SET PRO_HITS = PRO_HITS + 1
+		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate} 
+	</update>
+	<select id="selectDivideBoard" resultType="map">
+		SELECT *
+		  FROM PRODUCT
+		  JOIN IMAGE
+		    ON PRO_NO = IMG_PRONO
+		 WHERE IMG_NO = 1
+		   AND PRO_TC = '나눔'
+		 ORDER BY PRO_DATE DESC  
+	</select>
+	
 </mapper>

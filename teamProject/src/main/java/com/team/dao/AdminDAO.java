@@ -45,13 +45,14 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getBoardList");
 	}
 
-	public void boardHide(Map<String, String> map) {
-		sqlSession.update(namesqace + "boardHide", map);
+	public void displayUpdate(Map<String, String> map) {
+		sqlSession.update(namesqace + "displayUpdate", map);
+	}
+	
+	public List<Map<String, String>> getCategoryList() {
+		return sqlSession.selectList(namesqace + "getCategoryList");
 	}
 
-	public void changeSeq(Map<String, String> map) {
-		sqlSession.update(namesqace + "changeSeq", map);
-	}
 	
 	
 	
@@ -79,7 +80,13 @@ public class AdminDAO {
 	
 //	----- 성엽 시작 -----
 	
-	
+	public List<Map<String, String>> getMemberList() {
+		return sqlSession.selectList(namesqace + "getMemberList");
+	}//
+
+	public List<Map<String, String>> getContentberList() {
+		return sqlSession.selectList(namesqace + "getContentberList");
+	}//
 	
 //	----- 성엽 끝 -----	
 	

@@ -2,7 +2,7 @@
  * 
  */
 
-function alertMsg(arr , msg, type = false){
+function alertMsg(msg = "AM1", arr = [], type = false){
 	
 	if(typeof(arr) != 'object'){
 		console.log("첫번째 인수(원하는 메세지 데이터)는 배열로 전달받아야 합니다.");
@@ -22,23 +22,25 @@ function alertMsg(arr , msg, type = false){
 		}
 	}
 	
-	
+	var msgReturn = "";
 	
 	$.ajax({
 		type: "get",
 		url: "alert",
 		data: {
 			msgArr : arr,
-			msgText : msg,
-			msgType: type
-//			msgSuccessUrl : successUrl,
-//			msgFailUrl : failUrl
+			msgText : msg
 		},
 		async: false
 	})
 	.done(function(data){
-//		debugger;
-//		alert();
+		if(type){
+			msgReturn = confirm(data.message);						
+		} else {
+			msgReturn = alert(data.message);
+		}
 	})
 	
+	return msgReturn;	
 }
+

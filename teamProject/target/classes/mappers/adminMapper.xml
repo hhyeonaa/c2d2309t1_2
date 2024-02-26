@@ -25,14 +25,15 @@
 	
 	<select id="getAdminList" resultType="map">
 		select
-			AD_NO
+			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
 			, AD_ID 
 			, AD_NAME
 			, AD_ACTIVE
 		from ADMIN
+		ORDER BY AD_NO
 	</select>
 	
-	<select id="idCheck" resultType="map">
+	<select id="idCheck" resultType="String">
 		select
 			AD_ID 
 		from ADMIN
@@ -43,7 +44,43 @@
 		delete from ADMIN
 		where AD_NO = #{AD_NO}
 	</delete>
-
+	
+	<update id="adminUpdate">
+		update ADMIN
+		set AD_ACTIVE = #{AD_ACTIVE}
+		where AD_NO = #{AD_NO}
+	</update>
+	
+	<select id="getBoardList" resultType="map">
+		select SEQ
+				, CODE
+				, HIDE
+		from CODE
+			where  CO_TYPE = 'MM'
+		ORDER BY SEQ
+	</select>
+	
+	<update id="displayUpdate">
+		update CODE
+		set    HIDE = #{HIDE}
+		      , SEQ = #{SEQ}
+		where  CO_TYPE = #{CO_TYPE}
+		and	   CODE = #{CODE}
+	</update>
+	
+	<select id="getCategoryList" resultType="map">
+		select CODE
+				, HIDE
+		from CODE
+		where CO_TYPE = 'CA'
+		ORDER BY SEQ
+	</select>	
+	
+	
+	
+	
+	
+	
 <!-- 	===== 현아 끝 ===== -->
 
 
@@ -58,9 +95,27 @@
 
 <!-- 	===== 성엽 시작 ===== -->
 
-
+	<select id="getMemberList" resultType="map">
+		select MEM_NO
+			 , MEM_NICK
+			 , MEM_EMAIL
+			 , MEM_DATE
+		from MEMBERS
+		ORDER BY MEM_NO DESC
+	</select>
+	
+	<select id="getContentberList" resultType="map">
+		select PRO_NO
+			 , PRO_NAME
+			 , PRO_WR
+			 , PRO_DATE
+		from PRODUCT
+		where PRO_TC = '판매'
+		ORDER BY PRO_NO DESC
+	</select>
 
 <!-- 	===== 성엽 끝 ===== -->
 	
 	
+
 </mapper>

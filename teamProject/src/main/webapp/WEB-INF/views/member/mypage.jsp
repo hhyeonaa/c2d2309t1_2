@@ -28,7 +28,7 @@
                         <section class="css-2fvz7x">
                             <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/profile.png"/>
                             
-                            <c:if test="${profile.MEM_PW == null}">
+                            <c:if test="${profile.MEM_PW == null || profile.MEM_PW == ''}">
                             	<c:choose>
                             		<c:when test="${fn:length(profile.MEM_ID) lt '12'}">
 	                            		<span><b><img src="../resources/img/member/kakao.png" id="image" width="24" height="24"/>${profile.MEM_EMAIL}</b></span>
@@ -44,10 +44,9 @@
                             		 </c:otherwise>
                             	</c:choose>
 		                            
-	                            	
                             </c:if>
                             
-                            <c:if test="${profile.MEM_PW != null}">
+                            <c:if test="${profile.MEM_PW != null && profile.MEM_PW != ''}">
 	                            <span><b><ion-icon name="person-outline"></ion-icon> ${profile.MEM_EMAIL}</b></span>
 	                            <div>
 	                                <span>${profile.MEM_NICK}</span>

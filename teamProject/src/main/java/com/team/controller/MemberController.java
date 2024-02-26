@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.team.service.MemberService;
+import com.team.service.TeamCodeService;
 import com.team.service.TeamService;
 
 @Controller
@@ -23,8 +24,8 @@ public class MemberController{
 	@Inject
 	private MemberService memberService;
 	@Inject
-	private TeamService teamService;
-//	-----------------------------------------------------------------------------	
+	private TeamCodeService codeService;
+	//	-----------------------------------------------------------------------------	
 	@GetMapping("/join")
 	public String join() {
 		System.out.println("MemberController join()");
@@ -132,16 +133,11 @@ public class MemberController{
 		Map<String, String> param = memberService.getMember(MEM_ID);
 		System.out.println("param : " + param);
 		System.out.println(map.get("MEM_PW"));
-		if(param.get("MEM_PW").equals(map.get("MEM_PW"))) {
 			System.out.println(map.values());
 			System.out.println("프로필 수정 가능");
 			memberService.memberEdit(map);
 			System.out.println("@@@@@@@@@@@@@@@@@@@@" + map);
 			return "redirect:/member/mypage";
-		} else {
-		System.out.println("프로필 수정 불가");
-		return "member/msg";
-		}
 	}//memberEditPro()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")

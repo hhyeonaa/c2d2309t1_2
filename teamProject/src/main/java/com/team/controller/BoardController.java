@@ -56,15 +56,28 @@ public class BoardController {
 		return "board/saleBoard";
 	}// saleBoard()
 	
+	
+	// 성엽 작업 시작 //
+	
 	@GetMapping("/buyBoard")
-	public String buyBoard() {
+	public String buyBoard(Model model) {
 		System.out.println("BoardController buyBoard()");
+		
+		List<Map<String, String>> buyList = boardService.selectBuyBoard();
+		logger.info("buyList: " + buyList);
+		model.addAttribute("buyList", buyList);
+		
 		return "board/buyBoard";
 	}// buyBoard()
 	
+	// 성엽 작업 끝 //
+	
 	@GetMapping("/divideBoard")
-	public String divideBoard() {
+	public String divideBoard(Model model) {
 		System.out.println("BoardController divideBoard()");
+		List<Map<String,String>> resultList = boardService.selectDivideBoard();
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/divideBoard";
 	}// divideBoard()
 	
@@ -281,6 +294,7 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+resultMap);
 		model.addAttribute("resultMap",resultMap);

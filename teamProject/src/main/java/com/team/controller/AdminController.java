@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.AdminService;
 import com.team.service.TeamCodeService;
-import com.team.service.TeamService;
 import com.team.util.EnumCodeType;
 import com.team.util.ToastUI;
 
@@ -29,10 +28,8 @@ import com.team.util.ToastUI;
 @RequestMapping("/admin/*")
 public class AdminController {
 	
-	@Inject
-	private TeamService teamSubmitService;
 	@Inject 
-	private TeamCodeService teamAjaxService;
+	private TeamCodeService codeService;
 	@Inject
 	private AdminService adminService;
 	
@@ -117,34 +114,11 @@ public class AdminController {
 	
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
-	public String message_manage( HttpServletResponse response
-								, HttpServletRequest request) {
-//		code.onlyAlert(response, "안녕");
-//		code.historyBackAlert(response, "안녕히사시부리");
-//		Object[] arr = {"가나다"};
-//		service.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "category_manage");
-//		code.confirm(response, "야임마", "category_manage", true);
-		
-//		com.team.util에 message 항목들 보여주는 함수 
-//		본인이 메시지문구 함수 사용전에 showMessage()함수 결과 보고 정해주세요
-		
-//		teamService.showCodeList(EnumCodeType.메세지);	
-//		teamService.showCodeList(EnumCodeType.배송안내문구);
-		
-		teamSubmitService.showCodeList(EnumCodeType.메세지);
-		
-		teamSubmitService.showCodeList(EnumCodeType.메뉴항목);
-		
-//		System.out.println(EnumCodeType.메세지.getList());
-		
-		Object[] arr = {"안녕"};
+	public String message_manage(Model model) {
 		
 		
-		
-//		teamService.onlyAlert(response, EnumCodeType.메세지.type , arr);
-		
-//		teamService.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "member/login");
-//		teamService.confirm(response, EnumCodeType.메세지.getType() + 1, arr, "category_pro", false);
+		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.메뉴항목));
+		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.메세지));
 		return "admin/message_manage";
 	}
 	
@@ -156,12 +130,7 @@ public class AdminController {
 	
 	@GetMapping("/category_pro")
 	public void category_pro(HttpServletResponse response) {
-		teamSubmitService.showCodeList(EnumCodeType.메세지);
 		Object[] arr = {"잘가요"};
-//		teamService.showCodeList(EnumCodeType.메뉴항목);
-		//		teamService.onlyAlert(response, "AM1", arr);
-		
-//		teamService.moveThePageAlert(response, EnumCodeType.메세지.getType() + 1, arr, "member/login");
 	}
 	
 	@GetMapping("/trade_manage")

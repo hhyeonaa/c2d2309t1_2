@@ -15,7 +15,7 @@ document.write('<script type="text/javascript"' +
  	paging("#tbody tr", 5, 0);
 //	alertMsg(["안녕"], "AM1");
 	
-	if(alertMsg("AM1", ["잘가"], true)){
+	if(alertMsg("AM1", ["잘가", "1", "2", "3"], true)){
 		location.href = "/" + window.location.pathname.split("/")[1] + "/member/login";
 		alertMsg("AM1", ["성공"]);
 	}

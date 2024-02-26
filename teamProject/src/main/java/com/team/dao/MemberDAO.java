@@ -24,6 +24,11 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "adminLogin", map);
 	}// adminLogin()
 //	-----------------------------------------------------------------------------	
+	public Map<String, String> getMember(String MEM_ID) {
+		System.out.println("MemberDAO getMember()");
+		return sqlSession.selectOne(namespace + "getMember", MEM_ID);
+	}// getMember()
+//	-----------------------------------------------------------------------------	
 	public Map<String, String> login(Map<String, String> map) {
 		System.out.println("MemberDAO login()");
 		return sqlSession.selectOne(namespace + "login", map);
@@ -44,5 +49,6 @@ public class MemberDAO {
 		System.out.println("MemberDAO memberEdit()");
 		sqlSession.update(namespace + "memberEdit", map);
 	}// memberEdit()
+	
 	
 }// MemberDAO 클래스

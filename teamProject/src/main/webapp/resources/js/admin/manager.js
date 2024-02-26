@@ -7,6 +7,10 @@ $(() => {
 });
 
 
+// alert
+ document.write('<script type="text/javascript"' + 
+                    'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+               '</script>');
 
 $(function(){
 	
@@ -48,7 +52,9 @@ $(function(){
 	$(document).on("click", "#deleteBtn", function () {
 		var rowIndex = $(this).closest('tr').index();
 		let AD_NO= "AD" + adminList.rows[rowIndex+1].cells[0].innerText;
-		var result = confirm(AD_NO + '을 정말로 삭제하시겠습니까?');
+		var result =
+			confirm(AD_NO + '을 정말로 삭제하시겠습니까?');
+//			alertMsg(AD_NO, 'CO_TYPE+CO_NO', true);
 		if(result){
 			$.ajax({
 				type: "post"
@@ -56,10 +62,12 @@ $(function(){
 				, data: {AD_NO: AD_NO }
 			})
 			alert(AD_NO + '가 삭제되었습니다.');
+// 			alertMsg(AD_NO, 'CO_TYPE+CO_NO');
 			$('#adminDiv').load(location.href+' #adminDiv');
 //			location.reload();
 		} else {
 			alert('삭제가 취소되었습니다.');
+// 			alertMsg("삭제", 'CO_TYPE+CO_NO');
 		}
 	});
 
@@ -102,16 +110,19 @@ $(function(){
 	$(document).on("click", "#insertBtn", function () {
 		if($('#AD_ID').val() == ""){
 			alert("아이디를 입력하세요.");
+//			alertMsg("아이디", 'CO_TYPE+CO_NO');
 			$('#AD_ID').focus();
 			return;
 		}
 		if($('#AD_PW').val() == ""){
 			alert("비밀번호를 입력하세요.");
+//			alertMsg("비밀번호", 'CO_TYPE+CO_NO');
 			$('#AD_PW').focus();
 			return;
 		}
 		if($('#AD_NAME').val() == ""){
 			alert("이름을 입력하세요.");
+//			alertMsg("이름", 'CO_TYPE+CO_NO');
 			$('#AD_NAME').focus();
 			return;
 		}
@@ -124,6 +135,7 @@ $(function(){
 		})
 		.done(function(data) {
 			alert('새로운 관리자 계정이 생성되었습니다.');
+//			alertMsg("새로운 관리자 계정", 'CO_TYPE+CO_NO');
 			modal.css('display', 'none');
 			$('#adminDiv').load(location.href+' #adminDiv');
 //			$('#testDiv').load(location.href+' #testDiv');
@@ -131,6 +143,7 @@ $(function(){
 		 })
 		.fail(function() {
 			alert('입력 정보를 다시 확인해 주십시오.');
+//			alertMsg("입력 정보", 'CO_TYPE+CO_NO');
 		});
 	});
 	

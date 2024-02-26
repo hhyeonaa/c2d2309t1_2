@@ -10,6 +10,17 @@ $(() => {
 
 
 $(function(){
+	var columns = [
+		{name:"SEQ", 	 header:"번호"}, 
+		{name:"CODE", 	 header:"게시판명"},
+		{name:"CI_CA",	 header:"게시판 유형"},
+		{name:"CI_IN",	 header:"글쓰기 입력폼"},
+		{name:"CI_TAB",		 header:"순서"},
+		{name:"HIDE", 	 header:"숨김 여부"}
+	]
+	
+	grid("boardList", 3, columns);
+	
 	let boardList = document.getElementById('boardList');
 	var currentRow, preRow;
 	var modal = $('#inputModal');
@@ -30,17 +41,11 @@ $(function(){
 		for (let i = 1; i < boardList.rows.length; i++) {
 			$.ajax({
 				type: "post"
-				, url: "boardHide"
-				, data: {CO_TYPE: 'MM'
-						 , CODE: boardList.rows[i].cells[1].innerText
-						 , HIDE: boardList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-			$.ajax({
-				type: "post"
-				, url: "changeSeq"
+				, url: "displayUpdate"
 				, data: {CO_TYPE: 'MM'
 						 , SEQ: i
-						 , CODE:boardList.rows[i].cells[1].innerText }
+						 , CODE: boardList.rows[i].cells[1].innerText
+						 , HIDE: boardList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
 			});
 		}
 //		$('#boardDiv').load(location.href+' #boardDiv');

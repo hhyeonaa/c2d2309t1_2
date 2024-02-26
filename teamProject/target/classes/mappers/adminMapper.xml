@@ -56,25 +56,25 @@
 				, CODE
 				, HIDE
 		from CODE
-		where CO_TYPE = 'MM'
+			where  CO_TYPE = 'MM'
 		ORDER BY SEQ
 	</select>
 	
-	<update id="boardHide">
+	<update id="displayUpdate">
 		update CODE
 		set    HIDE = #{HIDE}
-		where  CO_TYPE = 'MM'
+		      , SEQ = #{SEQ}
+		where  CO_TYPE = #{CO_TYPE}
 		and	   CODE = #{CODE}
 	</update>
 	
-	<update id="changeSeq">
-		update CODE
-		set    SEQ = #{SEQ}
-		where  CO_TYPE = 'MM'
-		and	   CODE = #{CODE}
-	</update>	
-	
-	
+	<select id="getCategoryList" resultType="map">
+		select CODE
+				, HIDE
+		from CODE
+		where CO_TYPE = 'CA'
+		ORDER BY SEQ
+	</select>	
 	
 	
 	
@@ -95,7 +95,24 @@
 
 <!-- 	===== 성엽 시작 ===== -->
 
-
+	<select id="getMemberList" resultType="map">
+		select MEM_NO
+			 , MEM_NICK
+			 , MEM_EMAIL
+			 , MEM_DATE
+		from MEMBERS
+		ORDER BY MEM_NO DESC
+	</select>
+	
+	<select id="getContentberList" resultType="map">
+		select PRO_NO
+			 , PRO_NAME
+			 , PRO_WR
+			 , PRO_DATE
+		from PRODUCT
+		where PRO_TC = '판매'
+		ORDER BY PRO_NO DESC
+	</select>
 
 <!-- 	===== 성엽 끝 ===== -->
 	

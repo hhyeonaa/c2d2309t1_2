@@ -49,7 +49,23 @@
 		    ON PRO_NO = IMG_PRONO
 		 WHERE IMG_NO = 1
 		   AND PRO_TC = '판매'
+		 ORDER BY PRO_DATE DESC  
 	</select>
+	
+	<!-- 성엽 작업 시작 -->
+	
+	<select id="selectBuyBoard" resultType="map">
+		SELECT *
+		  FROM PRODUCT
+		  JOIN IMAGE
+		    ON PRO_NO = IMG_PRONO
+		 WHERE IMG_NO = 1
+			AND PRO_TC = '구매'
+	</select>
+	
+	<!-- 성엽 작업 끝 -->
+	
+	
 	<select id="selectBoardDetail" parameterType="map" resultType="map">
 		SELECT *
 		  FROM PRODUCT
@@ -57,4 +73,19 @@
     		ON PRO_NO = IMG_PRONO
 		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
 	</select>
+	<update id="upHits" parameterType="map">
+		UPDATE PRODUCT
+		   SET PRO_HITS = PRO_HITS + 1
+		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate} 
+	</update>
+	<select id="selectDivideBoard" resultType="map">
+		SELECT *
+		  FROM PRODUCT
+		  JOIN IMAGE
+		    ON PRO_NO = IMG_PRONO
+		 WHERE IMG_NO = 1
+		   AND PRO_TC = '나눔'
+		 ORDER BY PRO_DATE DESC  
+	</select>
+	
 </mapper>

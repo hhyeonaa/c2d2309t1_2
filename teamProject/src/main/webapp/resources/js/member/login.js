@@ -46,7 +46,7 @@ function loginWithKakao() {
 					          	, MEM_TEL: kakaoTel
 					          	, MEM_EMAIL: kakaoEmail
 	                			},
-                        	url : "insertPro",
+                        	url : "socialLoginPro",
                         	dataType : "text",
                         	success:function(data){
 								console.log(data)
@@ -103,7 +103,7 @@ window.addEventListener('load', function () {
 				   , MEM_TEL: naverLogin.user.mobile.replaceAll("-","").trim()
 				   , MEM_EMAIL: naverLogin.user.email
 			   }
-			   , url : "insertPro"
+			   , url : "socialLoginPro"
 			})
 			.done(
 				function(data){

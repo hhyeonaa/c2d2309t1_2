@@ -1,6 +1,7 @@
 package com.team.controller;
 
 
+import java.io.Console;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.AdminService;
-
+import com.team.service.TeamCodeService;
 import com.team.service.TeamService;
 import com.team.util.EnumCodeType;
 import com.team.util.ToastUI;
@@ -28,8 +29,8 @@ import com.team.util.ToastUI;
 @RequestMapping("/admin/*")
 public class AdminController {
 	
-	@Inject
-	private TeamService teamService;
+	@Inject 
+	private TeamCodeService codeService;
 	@Inject
 	private AdminService adminService;
 	
@@ -128,9 +129,9 @@ public class AdminController {
 //		teamService.showCodeList(EnumCodeType.메세지);	
 //		teamService.showCodeList(EnumCodeType.배송안내문구);
 		
-		teamService.showCodeList(EnumCodeType.메세지);
+		teamSubmitService.showCodeList(EnumCodeType.메세지);
 		
-		teamService.showCodeList(EnumCodeType.메뉴항목);
+		teamSubmitService.showCodeList(EnumCodeType.메뉴항목);
 		
 //		System.out.println(EnumCodeType.메세지.getList());
 		
@@ -138,7 +139,6 @@ public class AdminController {
 		
 		
 		
-		teamService.moveThePageAlert(response, "AM4", arr, "category_pro");
 //		teamService.onlyAlert(response, EnumCodeType.메세지.type , arr);
 		
 //		teamService.moveThePageAlert(response, EnumCodeType.메세지.type + 1, arr, "member/login");
@@ -154,15 +154,10 @@ public class AdminController {
 	
 	@GetMapping("/category_pro")
 	public void category_pro(HttpServletResponse response) {
-		teamService.showCodeList(EnumCodeType.메세지);
-		
-		teamService.showCodeList(EnumCodeType.메뉴항목);
-		
+		teamSubmitService.showCodeList(EnumCodeType.메세지);
 		Object[] arr = {"잘가요"};
-		
-		
-		
-		teamService.onlyAlert(response, "AM1", arr);
+//		teamService.showCodeList(EnumCodeType.메뉴항목);
+		//		teamService.onlyAlert(response, "AM1", arr);
 		
 //		teamService.moveThePageAlert(response, EnumCodeType.메세지.getType() + 1, arr, "member/login");
 	}
@@ -184,20 +179,32 @@ public class AdminController {
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */
+	
 	@GetMapping("/chart")
 	public String chart() {
 		return "admin/chart";
-	}
+	}//
 	
 	@GetMapping("/member_manage")
-	public String member_manage() {
+	public String member_manage(Model model) {
+		
+		List<Map<String, String>> memList = adminService.getMemberList();
+		
+		model.addAttribute("memList", memList);
+		
 		return "admin/member_manage";
-	}
+	}//
 	
 	@GetMapping("/board_content")
-	public String board_content() {
+	public String board_content(Model model) {
+		
+		List<Map<String, String>> contentList = adminService.getContentberList();
+		
+		model.addAttribute("contentList", contentList);
+		
 		return "admin/board_content";
-	}
+	}//
+	
 	/* 성엽 작업공간 */	
 
 

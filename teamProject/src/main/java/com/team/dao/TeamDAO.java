@@ -19,7 +19,7 @@ public class TeamDAO {
 		return sqlSession.selectList(namespace + "selectCodeList", code);
 	}
 	
-	public String selectCode(Map<String, String> code) {
+	public Map<String, String> selectCode(Map<String, String> code) {
 		return sqlSession.selectOne(namespace + "selectCode", code);
 	}
 }

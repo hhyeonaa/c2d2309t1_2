@@ -18,7 +18,9 @@ $(function(){
 		{
 			name:"AD_NO",
 			header:"번호",
-			filter:"number"
+			filter:"number",
+		    sortable: true,
+			sortingType: 'asc'
 		}, 
 		{
 			name:"AD_ID",
@@ -27,21 +29,23 @@ $(function(){
 		        type: 'text',
 		        showApplyBtn: true,
 		        showClearBtn: true
-		    }
+		    },
+		    sortable: true,
+			sortingType: 'asc'
 		},
 		{
 			name:"AD_NAME",
 			header:"이름",
-			filter:"text"
+			filter:"text",
+		    sortable: true,
+			sortingType: 'asc'
 		},
 		{
 			name:"AD_ACTIVE",
 			header:"활성 상태",
-			filter:"select"
-		},
-		{
-			name:"CI_OC",
-			header:"삭제"
+			filter:"select",
+		    sortable: true,
+			sortingType: 'asc'
 		}
 	]
 	grid("managerList", 3, columns);

@@ -15,7 +15,9 @@ public enum EnumCodeType {
 	코드타입("CO_TYPE"),
 	코드내용("CODE"),
 	메세지테이블("MESSAGE"),
-	코드테이블("CODE");
+	코드테이블("CODE"),
+	전체보기("\"1\", \"0\""), 
+	사용가능항목("0");
 	private String type;
 	private List<Map<String, String>> list;
 	

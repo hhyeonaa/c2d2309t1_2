@@ -1,11 +1,14 @@
 package com.team.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
@@ -15,58 +18,53 @@ import com.team.util.EnumCodeType;
 import com.team.util.TeamCodeClassDesign;
 
 @Service
-public class TeamCodeService implements TeamCodeClassDesign{
+public class TeamCodeService implements TeamCodeClassDesign {
 
 	@Inject
 	private TeamDAO dao;
 
 	@Override
-	public Map<String, String> messageForAjax(String code, Object[] arr) {
-		Map<String, String> codeSelect = dao.selectCode(selectOneCode(code, null));
-		String message = MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), arr);
-		
-		codeSelect.clear();
-		codeSelect.put(EnumCodeType.코드내용.getType(), message);
-		
-		return codeSelect;
+	public void submitForAlert(HttpServletResponse response, String code, Object[] msg) {
+		try {
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter w = response.getWriter();
+			Map<String, String> codeSelect = dao.selectCode(tableNameCheck(code, null));
+			
+			if(codeSelect == null) {
+	        	throw new CodeTypeNullException(code);
+	        }
+
+			w.write("<script>alert('" + MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), msg) + "');</script>");
+			w.flush();
+			w.close();
+	    } catch(CodeTypeNullException | IOException e) {
+	    	e.printStackTrace();
+	    }
 	}
 
 	@Override
-	public List<Map<String, String>> selectListCode(String code) {
-		return null;
+	public List<Map<String, String>> selectCodeList(EnumCodeType codeType) {
+		// TODO Auto-generated method stub
+		return selectCodeList(codeType, false);
 	}
 
-	private Map<String, String> selectOneCode(String code, String code2) {
-		
-		Map<String, String> codes = new HashMap<String, String>();
-		String codeType = code.replaceAll("[0-9]", "");
-		String tableName = EnumCodeType.코드테이블.getType().toString().trim();
-		
-    	codes.put(EnumCodeType.코드타입.getType().trim(), codeType);
-    	codes.put(EnumCodeType.코드번호.getType().trim(), code.replaceAll("[^0-9]", ""));
-    	
-    	if(codeType.equals(EnumCodeType.메세지.getType().trim())) {
-    		tableName = EnumCodeType.메세지테이블.getType().toString().trim();
-    	}
-    	codes.put("tableName", tableName);
-    	
-    	return codes;
-	}
-	
-	public Map<String, String> selectOneCode(String code) {
-		return dao.selectCode(selectOneCode(code, null));
-	}
-	
-	public List<Map<String, String>> showCodeList(EnumCodeType codeType) {
+	@Override
+	public List<Map<String, String>> selectCodeList(EnumCodeType codeType, boolean check) {
 		
 		String table = EnumCodeType.코드테이블.getType().trim();
+		String hideCheck = EnumCodeType.사용가능항목.getType(); 
 		Map<String, String> code = new HashMap<String, String>();
 		
 		if(EnumCodeType.메세지.toString().trim().equals(codeType.toString().trim())) {
 			table = EnumCodeType.메세지테이블.getType().toString().trim();
 		}
+		
+		if(check) {
+			hideCheck = EnumCodeType.전체보기.getType();
+		}
 		code.put("tableName", table);
 		code.put("codeType", codeType.getType().trim());
+		code.put("hideCheck", hideCheck);
 		List<Map<String, String>> selectCodeList = dao.selectCodeList(code);
 		
 		System.out.println("< " + codeType.toString().trim() + " >");
@@ -81,27 +79,42 @@ public class TeamCodeService implements TeamCodeClassDesign{
 		
 		return selectCodeList;
 	}
+	
+	@Override
+	public Map<String, String> selectCode(String code) {
+		return dao.selectCode(tableNameCheck(code, null));
+	}
+	
+	@Override
+	public Map<String, String> selectCode(String code, Object[] arr) {
+		return ajaxForAlert(code, arr);
+	}
+	
+	private Map<String, String> ajaxForAlert(String code, Object[] arr) {
+		Map<String, String> codeSelect = dao.selectCode(tableNameCheck(code, null));
+		String message = MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), arr);
+		
+		codeSelect.clear();
+		codeSelect.put(EnumCodeType.코드내용.getType(), message);
+		
+		return codeSelect;
+	}
 
-//	@Override
-//	public int hashCode() {
-//		throw new UnsupportedOperationException("해당 클래스는 hashCode() 메서드 사용 불가");
-//	}
-//	@Override
-//	public boolean equals(Object obj) {
-//		throw new UnsupportedOperationException("해당 클래스는 equals() 메서드 사용 불가");
-//	}
-//	@Override
-//	protected Object clone() throws CloneNotSupportedException {
-//		throw new UnsupportedOperationException("해당 클래스는 clone() 메서드 사용 불가");
-//	}
-//	@Override
-//	public String toString() {
-//		throw new UnsupportedOperationException("해당 클래스는 toString() 메서드 사용 불가");
-//	}
-//	@Override
-//	protected void finalize() throws Throwable {
-//		throw new UnsupportedOperationException("해당 클래스는 finalize() 메서드 사용 불가");
-//	}
+	private Map<String, String> tableNameCheck(String code, Object object) {
+		Map<String, String> codes = new HashMap<String, String>();
+		String codeType = code.replaceAll("[0-9]", "");
+		String tableName = EnumCodeType.코드테이블.getType().toString().trim();
+		
+    	codes.put(EnumCodeType.코드타입.getType().trim(), codeType);
+    	codes.put(EnumCodeType.코드번호.getType().trim(), code.replaceAll("[^0-9]", ""));
+    	
+    	if(codeType.equals(EnumCodeType.메세지.getType().trim())) {
+    		tableName = EnumCodeType.메세지테이블.getType().toString().trim();
+    	}
+    	codes.put("tableName", tableName);
+    	
+    	return codes;
+	}
 	
 }
 

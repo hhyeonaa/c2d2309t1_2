@@ -97,6 +97,7 @@
 
 	<select id="getMemberList" resultType="map">
 		select MEM_NO
+			 , MEM_ID
 			 , MEM_NICK
 			 , MEM_NAME
 			 , MEM_EMAIL
@@ -105,13 +106,35 @@
 		ORDER BY MEM_NO DESC
 	</select>
 	
-	<select id="getContentberList" resultType="map">
+	<select id="getContentboardList" resultType="map">
 		select PRO_NO
 			 , PRO_NAME
 			 , PRO_WR
-			 , PRO_DATE
+			 , date_format(str_to_date(PRO_DATE, '%Y%m%d%H%i%s'), '%Y%m%d %H:%i:%s')  AS PRO_DATE
 		from PRODUCT
-		where PRO_TC = '판매'
+		where PRO_TC = 'MM1'
+		ORDER BY PRO_NO DESC
+	</select>
+	
+	<select id="getBoardCategoryList" parameterType="map" resultType="map">
+		select PRO_NO
+			 , PRO_NAME
+			 , PRO_WR
+			 , date_format(str_to_date(PRO_DATE, '%Y%m%d%H%i%s'), '%Y%m%d %H:%i:%s')  AS PRO_DATE
+		from PRODUCT
+		where 1 = 1
+		<if test="category == 'MM1'">
+		  AND PRO_TC = 'MM1'
+		</if>
+		<if test="category == 'MM2'">
+		  AND PRO_TC = 'MM2'
+		</if>
+		<if test="category == 'MM3'">
+		  AND PRO_TC = 'MM3'
+		</if>
+		<if test="category == 'MM4'">
+		  AND PRO_TC = 'MM4'
+		</if>
 		ORDER BY PRO_NO DESC
 	</select>
 	

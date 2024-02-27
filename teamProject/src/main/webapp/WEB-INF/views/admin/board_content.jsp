@@ -19,10 +19,10 @@
 	    	
 	    	<div align="center">
 		        <select id="boardCategory" class="form-select">
-					<option value="1" selected>판매</option>
-					<option value="2">구매</option>
-					<option value="3">나눔</option>
-					<option value="4">경매</option>
+					<option value="MM1" selected>판매</option>
+					<option value="MM2">구매</option>
+					<option value="MM3">나눔</option>
+					<option value="MM4">경매</option>
 				</select>
 			</div>
     	</div>
@@ -43,12 +43,11 @@
                         </thead>
                         <tbody id="tbody">
                         <c:forEach var="content" items="${contentList}">
-                        <fmt:parseDate var="data" value="${content.PRO_DATE}" pattern="yyyyMMddHHmmss"/>
                             <tr>
                             	<th>${content.PRO_NO}</th>
                                 <td>${content.PRO_NAME}</td>
                                 <td>${content.PRO_WR}</td>
-                                <td><fmt:formatDate var="conDate" value="${data}" pattern="yyyy-MM-dd HH:mm:ss "/>${conDate}</td>
+                                <td>${content.PRO_DATE}</td>
                                 <th scope="row">
                                 	<div>
                                 		<button type="button" class="btn-close"

@@ -26,6 +26,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">번호</th>
+                                <th scope="col">아이디</th>
                                 <th scope="col">닉네임</th>
                                 <th scope="col">이름</th>
                                 <th scope="col">이메일</th>
@@ -39,6 +40,7 @@
                         <fmt:parseDate var="data" value="${member.MEM_DATE}" pattern="yyyyMMddHHmmss"/>
                             <tr>
                                 <td>${member.MEM_NO}</td>
+                                <td>${member.MEM_ID}</td>
                                 <td>${member.MEM_NICK}</td>
                                 <td>${member.MEM_NAME}</td>
                                 <td>${member.MEM_EMAIL}</td>
@@ -68,7 +70,7 @@
     </div>
     
 </div>
-	<script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/admin/member_manage.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>
 </body>
 </html>

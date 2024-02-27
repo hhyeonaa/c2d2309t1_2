@@ -85,19 +85,19 @@
 			  </div>
 			  <div class="content">
 			    <div class="content-dis">
-			      <div style="width: 700px; height: 530px; margin-left: 250px;">
+			      <div style="width: 700px; height: 530px; margin-left: 230px;">
 			      		<h3 style="text-align: center;">가입자 수</h3>
 						<canvas id="bar-chart" width="300" height="215"></canvas>
 					</div>
 			    </div>
 			    <div class="content-dis">
-			      <div style="width: 500px; height: 510px; margin-top:20px; margin-left: 300px;">
+			      <div style="width: 500px; height: 510px; margin-top:20px; margin-left: 320px;">
 						<h3 style="text-align: center;">카테고리별 거래량</h3>
 						<canvas id="pie-chart" width="250" height="235"></canvas>
 					</div>
 			    </div>
 			    <div class="content-dis">
-			      <div style="width: 700px; height: 530px; margin-left: 250px;">
+			      <div style="width: 700px; height: 530px; margin-left: 230px;">
 						<h3 style="text-align: center;">총거래량</h3>
 						<canvas id="bar-chart2" width="300" height="215"></canvas>
 					</div>
@@ -109,68 +109,7 @@
 	</div>
 </div>
 	
-	<script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/admin/chart.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>
 </body>
 </html>
-
-<script type="text/javascript">
-
-new Chart(document.getElementById("bar-chart"), {
-    type: 'bar',
-    data: {
-      labels: ["11월", "12월", "1월", "2월", "3월"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [28,67,104,34,53]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-      }
-    }
-});
-
-new Chart(document.getElementById("pie-chart"), {
-    type: 'pie',
-    data: {
-      labels: ["의류", "가전제품", "식품", "기타"],
-      datasets: [{
-        label: "Population (millions)",
-        backgroundColor: ["#3e95cd", "#8e5ea2","#e8c3b9","#c45850"],
-        data: [1278,327,734,670]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-      }
-    }
-});
-
-new Chart(document.getElementById("bar-chart2"), {
-    type: 'bar',
-    data: {
-      labels: ["11월", "12월", "1월", "2월", "3월"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [98,197,234,384,233]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-      }
-    }
-});
-
-</script>

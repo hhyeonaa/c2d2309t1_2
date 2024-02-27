@@ -82,17 +82,21 @@ public class AdminService {
 		return adminDAO.getMemberList();
 	}//
 
-	public List<Map<String, String>> getContentberList() {
+	public List<Map<String, String>> getContentboardList() {
 		
-		return adminDAO.getContentberList();
+		return adminDAO.getContentboardList();
 	}//
 
 	public void memberDelete(String MEM_NO) {
 		adminDAO.memberDelete(MEM_NO);
 	}//
 	
-	public void contentDelete(String PRO_NO) {
-		adminDAO.contentDelete(PRO_NO);
+	public int contentDelete(String PRO_NO) {
+		return adminDAO.contentDelete(PRO_NO);
+	}//
+
+	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
+		return adminDAO.getBoardCategoryList(param);
 	}//
 
 	

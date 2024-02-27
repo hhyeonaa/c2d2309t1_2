@@ -10,6 +10,7 @@ public interface TeamCodeClassDesign {
 	void submitForAlert(HttpServletResponse response, String code, Object[] msg);
 	
 	List<Map<String, String>> selectCodeList(EnumCodeType codeType);
+	List<Map<String, String>> selectCodeList(EnumCodeType codeType, boolean check);
 	Map<String, String> selectCode(String code);
 	default Map<String, String> selectCode(String code, Object[] arr){
 		return null;

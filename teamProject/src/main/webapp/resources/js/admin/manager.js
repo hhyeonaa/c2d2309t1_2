@@ -52,21 +52,19 @@ $(function(){
 	$(document).on("click", "#deleteBtn", function () {
 		var rowIndex = $(this).closest('tr').index();
 		let AD_NO= "AD" + adminList.rows[rowIndex+1].cells[0].innerText;
+		let AD_ID = adminList.rows[rowIndex+1].cells[1].innerText;
 		var result =
-//			confirm(AD_NO + '을 정말로 삭제하시겠습니까?');
-			alertMsg("AM4", [AD_NO], true);
+			alertMsg("AM4", [AD_ID], true);
 		if(result){
 			$.ajax({
 				type: "post"
 				, url: "deletePro"
 				, data: {AD_NO: AD_NO }
 			})
-//			alert(AD_NO + '가 삭제되었습니다.');
- 			alertMsg("AM1", [AD_NO]);
+ 			alertMsg("AM1", [AD_ID]);
 			$('#adminDiv').load(location.href+' #adminDiv');
 //			location.reload();
 		} else {
-//			alert('삭제가 취소되었습니다.');
  			alertMsg("AM2", ["삭제"]);
 		}
 	});
@@ -109,19 +107,16 @@ $(function(){
 	// 생성버튼 이벤트 
 	$(document).on("click", "#insertBtn", function () {
 		if($('#AD_ID').val() == ""){
-//			alert("아이디를 입력하세요.");
 			alertMsg("AM6", ["아이디"]);
 			$('#AD_ID').focus();
 			return;
 		}
 		if($('#AD_PW').val() == ""){
-//			alert("비밀번호를 입력하세요.");
 			alertMsg("AM6", ["비밀번호"]);
 			$('#AD_PW').focus();
 			return;
 		}
 		if($('#AD_NAME').val() == ""){
-//			alert("이름을 입력하세요.");
 			alertMsg("AM6", ["이름"]);
 			$('#AD_NAME').focus();
 			return;
@@ -134,17 +129,15 @@ $(function(){
 					 AD_NAME: $('#AD_NAME').val() }
 		})
 		.done(function(data) {
-//			alert('새로운 관리자 계정이 생성되었습니다.');
-			alertMsg('AM3', ["새로운 관리자 계정 생성이 "]);
+			if(data == "") {
+				alertMsg('AM5', ["입력 정보"]);
+				return false;
+			}
+			alertMsg('AM3', ["새로운 관리자 계정 생성"]);
 			modal.css('display', 'none');
 			$('#adminDiv').load(location.href+' #adminDiv');
-//			$('#testDiv').load(location.href+' #testDiv');
 //			location.reload();
 		 })
-		.fail(function() {
-//			alert('입력 정보를 다시 확인해 주십시오.');
-			alertMsg('AM5', ["입력 정보"]);
-		});
 	});
 	
 });

@@ -13,38 +13,97 @@ $(() => {
                '</script>');
 
 $(function(){
+	class ButtonRenderer {
+	    constructor() {
+			debugger;
+	        this.element = document.createElement('button');
+	        this.element.setAttribute('type', 'button');
+	        this.element.setAttribute('class', 'deleteBtn border border-0');
+	        $(this.element).append('<ion-icon name="remove-circle-outline"></ion-icon>');
+			debugger;
 	
+	        // 버튼 클릭 이벤트 처리
+	        this.element.addEventListener('click', () => {
+	            alert('Button clicked');
+	        });
+	    }
+	
+	    getElement() {
+	        return this.element;
+	    }
+	
+	    render(props) {
+	        this.element.style.display = 'block';
+	    }
+	}
+	class ToggleRenderer {
+	    constructor() {
+			debugger;
+	        this.element = document.createElement('div');
+	        this.element.setAttribute('class', 'form-check form-switch justify-content-center');
+	        $(this.element).append('<input class="form-check-input" type="checkbox" id="active" checked>');
+			debugger;
+	//        this.element.style.display = 'none'; // 초기에는 숨김
+	
+	        // 버튼 클릭 이벤트 처리
+	        this.element.addEventListener('click', () => {
+//	            alert('Button clicked');
+	        });
+	    }
+	
+	    getElement() {
+	        return this.element;
+	    }
+	
+	    render(props) {
+	        this.element.style.display = 'block';
+	    }
+	}
 	var columns = [
 		{
 			name:"AD_NO",
 			header:"번호",
-			filter:"number"
+			filter:"number",
+		    sortable: true,
+			sortingType: 'asc'
 		}, 
 		{
 			name:"AD_ID",
 			header:"ID",
-			filter: {
-		        type: 'text',
-		        showApplyBtn: true,
-		        showClearBtn: true
-		    }
+			filter:"text",
+		    sortable: true,
+			sortingType: 'asc'
 		},
 		{
 			name:"AD_NAME",
 			header:"이름",
-			filter:"text"
+			filter:"text",
+		    sortable: true,
+			sortingType: 'asc'
 		},
 		{
 			name:"AD_ACTIVE",
 			header:"활성 상태",
-			filter:"select"
+			filter:"select",
+		    sortable: true,
+			sortingType: 'asc',
+			renderer: {
+                type: ToggleRenderer
+            }
 		},
 		{
-			name:"CI_OC",
-			header:"삭제"
+			name:"",
+			header:"삭제",
+			renderer: {
+                type: ButtonRenderer
+            }
 		}
 	]
+	
 	grid("managerList", 3, columns);
+	
+	
+	
 	
 	let adminList = document.getElementById('adminList');
 	

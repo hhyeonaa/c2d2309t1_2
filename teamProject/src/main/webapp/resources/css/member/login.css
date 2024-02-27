@@ -389,3 +389,7 @@ input[type="submit"]:hover {
 	color: red;
 }
 
+#find_id,  #find_pw {
+	cursor: pointer;
+}
+

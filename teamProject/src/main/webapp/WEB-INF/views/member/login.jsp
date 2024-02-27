@@ -64,7 +64,7 @@
 				<a class="icon-link icon-link-hover mt-2" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
 				<a class="icon-link icon-link-hover mt-2" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
 				<hr>
-				<div style="text-align: right; padding-bottom: 3%;"><a href="adminLogin" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div>
+<!-- 				<div style="text-align: right; padding-bottom: 3%;"><a href="adminLogin" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div> -->
 				
 			</div>
 			</form>
@@ -86,7 +86,7 @@
 	    <form action="">
 	      <div class="form-group" style="float: left; box-sizing: border-box; width: 80%;">
 	        <label for="id">아이디</label>
-	        <input type="text" id="id" name="id" placeholder="아이디를 입력해 주세요." required>
+	        <input type="text" id="id" name="id" placeholder="6~12자의 영문, 숫자로만 입력" required>
 	      </div>
 	      <div class="form-group" style="float: right; box-sizing: border-box; width: 20%;">
 	      	<label></label>
@@ -168,9 +168,6 @@
 	        <label for="username">이름</label>
 	        <input type="text" id="username" name="username" placeholder="이름을 입력해 주세요." required>
 	      </div>
-	      <input type="button" value="dup. check" class="dup"><br>
-<label></label>
-<div id="idCheckDiv"></div><br>
 	      <div class="form-group">
 	        <label for="birth">생년월일</label>
 	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>

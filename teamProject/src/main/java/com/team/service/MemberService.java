@@ -54,6 +54,11 @@ public class MemberService {
 		return memberDAO.emailCheck(MEM_EMAIL);
 	}// emailCheck()
 //	-----------------------------------------------------------------------------	
+	public Map<String, String> findEmail(Map<String, String> map) {
+		System.out.println("MemberService findEmail()");
+		return memberDAO.findEmail(map);
+	}// findEmail()
+//	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");
 		return memberDAO.mypage(MEM_ID); 

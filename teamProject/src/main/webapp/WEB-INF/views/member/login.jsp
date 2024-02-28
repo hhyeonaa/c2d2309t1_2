@@ -64,7 +64,7 @@
 				<a class="icon-link icon-link-hover mt-2" id="find_id">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 -->
 				<a class="icon-link icon-link-hover mt-2" id="find_pw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
 				<hr>
-				<div style="text-align: right; padding-bottom: 3%;"><a href="adminLogin" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div>
+<!-- 				<div style="text-align: right; padding-bottom: 3%;"><a href="adminLogin" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div> -->
 				
 			</div>
 			</form>
@@ -84,16 +84,22 @@
 	    <!-- 이하 생략 -->
 		<br>
 	    <form action="">
-	      <div class="form-group">
+	      <div class="form-group" style="float: left; box-sizing: border-box; width: 80%;">
 	        <label for="id">아이디</label>
-	        <input type="text" id="id" name="id" placeholder="아이디를 입력해 주세요." required>
+	        <input type="text" id="id" name="id" placeholder="6~12자의 영문, 숫자로만 입력" required>
+	      </div>
+	      <div class="form-group" style="float: right; box-sizing: border-box; width: 20%;">
+	      	<label></label>
+	      	<small id="idCheckDiv" style="float: right;"></small>
+	        <input type="button" value="중복확인" class="btn btn-outline-secondary btn-xs" id="dup">
+	        
 	      </div>
 	      <div class="form-group">
-	        <label for="password">비밀번호</label>
-			<input type="password" id="pw" name="pw" placeholder="(영문/숫자/특수 포함 8자리 이상)" required>
+	        <label for="password">비밀번호</label><small id="pwResult" style="text-align: right; float: right;"></small>
+			<input type="password" id="pw" name="pw" placeholder="(영문, 숫자, 특수 문자 포함) 6~14자 입력" onchange="checkPasswdLength()" required>
 	      </div>
 	      <div class="form-group">
-			<label for="confirmPassword">비밀번호 확인</label>
+			<label for="confirmPassword">비밀번호 확인</label><small id="pwCheck" style="text-align: right; float: right;"></small>
 			<input type="password" id="confirmPw" name="confirmPw" placeholder="비밀번호를 다시 입력해주세요." required>
 	      </div>
 	      <div class="form-group">
@@ -112,21 +118,22 @@
 	        <input type="text" id="username" name="username" placeholder="이름을 입력해 주세요." required>
 	      </div>
 	      <div class="form-group" style="width: 47%; float: right; box-sizing: border-box;">
-	        <label for="nickname">닉네임</label>
+	        <label for="nickname">닉네임</label><small id="nickCheck" style="text-align: right; float: right;"></small>
 	        <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력해 주세요." required>
       	  </div>
 	      <div class="form-group">
 	        <label for="birth">생년월일</label>
 	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>
 	      </div>
+	       <div class="form-group">
+	        <label for="email">이메일</label><small id="emailCheck" style="text-align: right; float: right;"></small>
+	        <input type="email" id="email" name="email" placeholder="이메일 주소 (비밀번호 찾기 등 본인 확인용)">
+	      </div>
 	      <div class="form-group">
 	        <label for="phone">전화번호</label>
 	        <input type="text" id="phone" name="phone" placeholder="(하이픈(-) 제외 입력)">
 	      </div>
-	      <div class="form-group">
-	        <label for="email">이메일</label>
-	        <input type="email" id="email" name="email" placeholder="이메일 주소 (비밀번호 찾기 등 본인 확인용)">
-	      </div>
+	     
 <!-- 		 <div class="form-group"> -->
 <!-- 		   <label for="address">주소</label> -->
 <!-- 		   <div class="input-group"> -->

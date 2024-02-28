@@ -3,6 +3,7 @@ package com.team.controller;
 
 import java.io.Console;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -168,16 +169,51 @@ public class AdminController {
 		return "admin/member_manage";
 	}//
 	
+	
+	
+	@GetMapping("/memberDelete")
+	public String delete(@RequestParam String MEM_NO) {
+		
+		adminService.memberDelete(MEM_NO);
+		
+		return "redirect:/admin/member_manage";
+	}//
+	
+	@GetMapping("/contentDelete")
+	public String contentDelete(@RequestParam String PRO_NO) {
+		
+		adminService.contentDelete(PRO_NO);
+		
+		return "redirect:/admin/board_content";
+	}//
+	
+	@GetMapping("/content_Delete")
+	@ResponseBody
+	public ResponseEntity<?> content_Delete(@RequestParam String PRO_NO) {
+		Map<String, String> result = new HashMap<String, String>();
+		result.put("result", Integer.toString(adminService.contentDelete(PRO_NO)));
+		
+		return ResponseEntity.ok().body(result);
+	}//
+	
 	@GetMapping("/board_content")
 	public String board_content(Model model) {
 		
-		List<Map<String, String>> contentList = adminService.getContentberList();
+		List<Map<String, String>> contentList = adminService.getContentboardList();
 		
 		model.addAttribute("contentList", contentList);
 		
 		return "admin/board_content";
 	}//
 	
+	@GetMapping("/board_category")
+ 	@ResponseBody
+ 	public ResponseEntity<?> board_category(@RequestParam Map<String, String> param){
+		System.out.println(param); // {category=2}
+ 		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
+ 		return ResponseEntity.ok().body(cateList);
+ 	}//
+		
 	/* 성엽 작업공간 */	
 
 

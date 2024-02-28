@@ -40,41 +40,41 @@
 						</section>
 						<div class="container" style="padding-top: 3%;">
 							<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>아이디</b></label>
-               					<input type="text" name="MEM_ID" class="form-control" value="${profile.MEM_ID}" readonly="readonly" style="color: gray;"></div>
+               					<input type="text" id="MEM_ID" name="MEM_ID" class="form-control" value="${profile.MEM_ID}" readonly="readonly" style="color: gray;"></div>
 							
 							<c:choose>
                					<c:when test="${profile.MEM_PW == null || profile.MEM_PW == ''}">
 	               					<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed" hidden=""><b>이메일</b></label>
-	               					<input type="text" name="MEM_EMAIL" class="form-control" value="${profile.MEM_EMAIL}" hidden=""></div>
+	               					<input type="text" id="MEM_EMAIL" name="MEM_EMAIL" class="form-control" value="${profile.MEM_EMAIL}" hidden="" readonly="readonly" style="color: gray;"></div>
                					</c:when>
                					<c:otherwise>
 	               					<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed"><b>이메일</b></label>
-	               					<input type="text" name="MEM_EMAIL" class="form-control" value="${profile.MEM_EMAIL}"></div>
+	               					<input type="text" id="MEM_EMAIL" name="MEM_EMAIL" class="form-control" value="${profile.MEM_EMAIL}" readonly="readonly" style="color: gray;"></div>
                					</c:otherwise>
                				</c:choose>
 							
                             <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>이름</b></label>
-               					<input type="text" name="MEM_NAME" class="form-control" value="${profile.MEM_NAME}" value=""></div>
+               					<input type="text" id="MEM_NAME" name="MEM_NAME" class="form-control" value="${profile.MEM_NAME}" value=""></div>
 						
-                            <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>닉네임</b></label>
-               					<input type="text" name="MEM_NICK" class="form-control" value="${profile.MEM_NICK}" value=""></div>
+                            <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>닉네임</b></label><small id="nickCheck" style="text-align: right; float: right;"></small>
+               					<input type="text" id="MEM_NICK" name="MEM_NICK" class="form-control" value="${profile.MEM_NICK}" value=""></div>
                				
                				<c:choose>
                					<c:when test="${profile.MEM_PW == null || profile.MEM_PW == ''}">
                						<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="pw_ed" hidden=""><b>비밀번호</b></label>
-               						<input type="text" name="MEM_PW" class="form-control" placeholder="변경할 비밀번호를 입력해 주세요." hidden=""></div>
+               						<input type="password" id="MEM_PW" name="MEM_PW" class="form-control" placeholder="변경할 비밀번호를 입력해 주세요." hidden=""></div>
                					</c:when>
                					<c:otherwise>
-               						<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="pw_ed"><b>비밀번호</b></label>
-               						<input type="text" name="MEM_PW" class="form-control" placeholder="변경할 비밀번호를 입력해 주세요." value="${profile.MEM_PW}"></div>
+               						<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="pw_ed"><b>비밀번호</b></label><small id="pwCheck" style="text-align: right; float: right;"></small>
+               						<input type="password" id="MEM_PW" name="MEM_PW" class="form-control" placeholder="변경할 비밀번호를 입력해 주세요." value="${profile.MEM_PW}"></div>
                					</c:otherwise>
                				</c:choose>
                				
                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="phone_ed"><b>전화번호</b></label>
-               					<input type="text" name="MEM_TEL" class="form-control" value="${profile.MEM_TEL}"></div>
+               					<input type="text" id="MEM_TEL" name="MEM_TEL" class="form-control" value="${profile.MEM_TEL}"></div>
                				
                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="phone_ed"><b>생년월일</b></label>
-               					<input type="date" name="MEM_BIRTH" class="form-control" value="${profile.MEM_BIRTH}"></div>
+               					<input type="date" id="MEM_BIRTH" name="MEM_BIRTH" class="form-control" value="${profile.MEM_BIRTH}"></div>
                				
                				
                				
@@ -103,7 +103,6 @@
 		</div>
 	</div>
 </div>
-</form>
 </body>
 
 <script>
@@ -121,6 +120,6 @@
 // });
 // });
 </script>
-
+<script src="${pageContext.request.contextPath}/resources/js/member/memberEdit.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

@@ -13,38 +13,50 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 
 $(function(){
-	
 	var columns = [
 		{
 			name:"AD_NO",
 			header:"번호",
-			filter:"number"
+			filter:"number",
+		    sortable: true,
+			sortingType: 'asc'
 		}, 
 		{
 			name:"AD_ID",
 			header:"ID",
-			filter: {
-		        type: 'text',
-		        showApplyBtn: true,
-		        showClearBtn: true
-		    }
+			filter:"text",
+		    sortable: true,
+			sortingType: 'asc'
 		},
 		{
 			name:"AD_NAME",
 			header:"이름",
-			filter:"text"
+			filter:"text",
+		    sortable: true,
+			sortingType: 'asc'
 		},
 		{
 			name:"AD_ACTIVE",
 			header:"활성 상태",
-			filter:"select"
+			filter:"select",
+		    sortable: true,
+			sortingType: 'asc',
+			renderer: {
+                type: ToggleButton
+            }
 		},
 		{
-			name:"CI_OC",
-			header:"삭제"
+			name:"",
+			header:"삭제",
+			renderer: {
+                type: DeleteButton
+            }
 		}
 	]
 	grid("managerList", 3, columns);
+	
+	
+	
 	
 	let adminList = document.getElementById('adminList');
 	

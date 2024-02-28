@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,10 +48,13 @@
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
    			      <select id="proTc" name="proTc" style="width: 100px;">
-			      	<option id="sale" value="판매" selected>판매</option>
-			      	<option id="buy" value="구매">구매</option>
-			      	<option id="divide" value="나눔">나눔</option>
-			      	<option id="auction" value="경매">경매</option>
+<!-- 			      	<option id="sale" value="판매" selected>판매</option> -->
+<!-- 			      	<option id="buy" value="구매">구매</option> -->
+<!-- 			      	<option id="divide" value="나눔">나눔</option> -->
+<!-- 			      	<option id="auction" value="경매">경매</option> -->
+					<c:forEach var="menu" items="${menu}">
+						<option value=${menu.CO_TYPE}${menu.CO_NO}>${menu.CODE}</option>
+					</c:forEach>
 			      </select>
 <!-- 			      <input type="hidden" id="proWr" name="proWr" value="하정우"> -->
 			      <input type="hidden" id="proWr" name="proWr" value="${sessionScope.MEM_ID}">
@@ -197,22 +201,22 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
-				   	<div>
-					   	<span>교환</span>
-					   	<div>
-						   	<input name="changeItem" id="changeOk" type="radio" value="가능">
-						   	<label for="changeOk">가능</label>
-					   	</div>
-					   	<div>
-						   	<input name="changeItem" id="changeNot" type="radio" value="불가능" checked>
-						   	<label for="changeNot">불가능</label>
-					   	</div>
-				   	</div>
-				</div>
-			</div>
-			<hr>
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-12 d-flex justify-content-center"> -->
+<!-- 				   	<div> -->
+<!-- 					   	<span>교환</span> -->
+<!-- 					   	<div> -->
+<!-- 						   	<input name="changeItem" id="changeOk" type="radio" value="가능"> -->
+<!-- 						   	<label for="changeOk">가능</label> -->
+<!-- 					   	</div> -->
+<!-- 					   	<div> -->
+<!-- 						   	<input name="changeItem" id="changeNot" type="radio" value="불가능" checked> -->
+<!-- 						   	<label for="changeNot">불가능</label> -->
+<!-- 					   	</div> -->
+<!-- 				   	</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<hr> -->
 			<div class="row">
 				<!-- 판매 구매일 때만 보일 것들 시작 -->
 				<div id="saleBuy">
@@ -225,10 +229,10 @@
 			    	</div>
 		    	</div>
 		    	<div class="row">
-					<div class="mt-3">
-						<input name="offeredPrice" id="offeredPrice" type="checkbox" value="제안받기" checked>
-					   	<label for="offeredPrice">가격 제안받기</label>
-					</div>
+<!-- 					<div class="mt-3"> -->
+<!-- 						<input name="offeredPrice" id="offeredPrice" type="checkbox" value="제안받기" checked> -->
+<!-- 					   	<label for="offeredPrice">가격 제안받기</label> -->
+<!-- 					</div> -->
 		    	</div>
 		    	</div>
 		    	<!-- 판매 구매일 때만 보일 것들 끝 -->
@@ -323,15 +327,15 @@
 <!-- 		    	</div> -->
 <!-- 		  	</div> -->
 <!-- 		  	<hr> -->
-			<div class="row">
-			    <div>
-					<div class="input-group" style="width: 90%;" >
-					    <span class="input-group-text" id="basic-addon1">수량</span>
-					    <input type="text" class="form-control" placeholder="숫자만 입력" aria-label="InputCount" aria-describedby="basic-addon1">
-					</div>
-		    	</div>
-		  	</div>
-		  	<hr>
+<!-- 			<div class="row"> -->
+<!-- 			    <div> -->
+<!-- 					<div class="input-group" style="width: 90%;" > -->
+<!-- 					    <span class="input-group-text" id="basic-addon1">수량</span> -->
+<!-- 					    <input type="text" class="form-control" placeholder="숫자만 입력" aria-label="InputCount" aria-describedby="basic-addon1"> -->
+<!-- 					</div> -->
+<!-- 		    	</div> -->
+<!-- 		  	</div> -->
+<!-- 		  	<hr> -->
 		  	<div id="noDivide">
 			<div class="row">
 				<div class="col-12 d-flex justify-content-center">

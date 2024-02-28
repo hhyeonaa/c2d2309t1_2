@@ -21,38 +21,38 @@
 
 
 // 카카오페이 api
-function KakaoPayment(){
-	debugger;
-	var IMP = window.IMP;
-    IMP.init("imp34662564"); //가맹점 식별코드
-    
-            
-    var today = new Date();   
-    var hours = today.getHours(); // 시
-    var minutes = today.getMinutes();  // 분
-    var seconds = today.getSeconds();  // 초
-    var milliseconds = today.getMilliseconds();
-    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-    
-	IMP.request_pay({
-		pg: "kakaopay.{TC0ONETIME}",
-		pay_method: "card", // 생략가능
-  		merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
-  		name: "주문명:결제테스트",
- 		amount: 100, // 결제금액
- 		buyer_email: "test@portone.io",
-  		buyer_name: "구매자이름",
-  		buyer_tel: "010-1234-5678",
-  		buyer_addr: "서울특별시 강남구 삼성동",
-  		buyer_postcode: "123-456"
-	}, function (rsp) { // callback 로직
-  		if(rsp.success){
-			  console.log(rsp);
-		  }else{
-			  console.log(res);
-		  }
-	});
-}
+//function KakaoPayment(){
+//	debugger;
+//	var IMP = window.IMP;
+//    IMP.init("imp34662564"); //가맹점 식별코드
+//    
+//            
+//    var today = new Date();   
+//    var hours = today.getHours(); // 시
+//    var minutes = today.getMinutes();  // 분
+//    var seconds = today.getSeconds();  // 초
+//    var milliseconds = today.getMilliseconds();
+//    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+//    
+//	IMP.request_pay({
+//		pg: "kakaopay.{TC0ONETIME}",
+//		pay_method: "card", // 생략가능
+//  		merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
+//  		name: "주문명:결제테스트",
+// 		amount: 100, // 결제금액
+// 		buyer_email: "test@portone.io",
+//  		buyer_name: "구매자이름",
+//  		buyer_tel: "010-1234-5678",
+//  		buyer_addr: "서울특별시 강남구 삼성동",
+//  		buyer_postcode: "123-456"
+//	}, function (rsp) { // callback 로직
+//  		if(rsp.success){
+//			  console.log(rsp);
+//		  }else{
+//			  console.log(res);
+//		  }
+//	});
+//}
 
 // 스크립트 시작
 $(()=>{
@@ -132,27 +132,58 @@ var payCheck = $('.nonCheck')
 // 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
 		debugger;
+		var pgId = "";
+		var paypayMethod="";
 		
+		$('#tossPay').on("click", () =>{
+			pgId="tosstest";
+		});
+		
+		$('#kakaoPay').on("click", () =>{
+			pgId="kakaopay.{TC0ONETIME}";
+			paypayMethod="card"
+		})
 //		// 결제수단 체크 유무 확인하기
 //		checkSubmit(payCheck);
 		// 체크된 결제수단 
-//		var IMP = window.IMP;
-//        IMP.init("imp34662564"); //가맹점 식별코드
+		var IMP = window.IMP;
+        IMP.init("imp34662564"); //가맹점 식별코드
 //        
-//        var today = new Date();   
-//        var hours = today.getHours(); // 시
-//        var minutes = today.getMinutes();  // 분
-//        var seconds = today.getSeconds();  // 초
-//        var milliseconds = today.getMilliseconds();
-//        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-       	switch($('.check').find('span').text().trim()){
-			case '토스페이':
-			TossPayment();
-			break;
-			
-			case '카카오페이':
-			debugger;
-			KakaoPayment();
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+        debugger;
+       	IMP.request_pay({
+			pg: pgId,
+			pay_method: paypayMethod, // 생략가능
+  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
+  			name: "주문명:결제테스트",
+	 		amount: 100, // 결제금액
+	 		buyer_email: "test@portone.io",
+  			buyer_name: "구매자이름",
+  			buyer_tel: "010-1234-5678",
+  			buyer_addr: "서울특별시 강남구 삼성동",
+  			buyer_postcode: "123-456"
+		}, function (rsp) { // callback 로직
+  			if(rsp.success){
+				  console.log(rsp);
+		  	}else{
+				  console.log(res);
+			  }
+		});
+        
+//       	switch($('.check').find('span').text().trim()){
+//			case '토스페이':
+//			TossPayment();
+//			break;
+//			
+//			case '카카오페이':
+//			debugger;
+//			KakaoPayment();
 			
 //			IMP.request_pay({
 //				pg: "kakaopay.{TC0ONETIME}",
@@ -172,12 +203,12 @@ var payCheck = $('.nonCheck')
 //					  console.log(res);
 //				  }
 //			});
-			break;
-			
-			default:
-			alert('결제 수단을 선택해주세요');
-			break;	
-		}
+//			break;
+//			
+//			default:
+//			alert('결제 수단을 선택해주세요');
+//			break;	
+//		}
         
 
 	})

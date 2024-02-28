@@ -339,6 +339,8 @@
   width: 100%;
 }
 .tui-grid-cell {
+/* [ToastUI] 텍스트 정렬 수정 (왼쪽 -> 가운데) 02.28 */	
+  text-align: center !important;  
   border-width: 1px;
   border-style: solid;
   white-space: nowrap;
@@ -373,7 +375,7 @@
 }
 .tui-grid-cell-has-input .tui-grid-cell-content {
 /* [ToastUI] 텍스트 정렬 수정 (왼쪽 -> 가운데) 02.26 */
-  text-align: center; 
+  text-align: center !important;  
   padding: 4px 5px;
 }
 .tui-grid-cell-has-tree {
@@ -1209,3 +1211,27 @@
 .tui-grid-context-menu span {
   display: inline-block;
 }
+
+/* 중앙 정렬 추가 02.28 */
+.mca{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mhca{
+  text-align: center;
+}
+.mvca{
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);	
+}
+
+
+
+
+
+
+
+

@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ToastUI/css/tui-pagination.css" />
 	<script src="${pageContext.request.contextPath}/resources/ToastUI/js/tui-pagination.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/ToastUI/js/tui-grid.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/ToastUI/js/tui-renderer.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/toast/grid.js"></script>
     </body>
 </html> 

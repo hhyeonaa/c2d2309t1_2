@@ -48,12 +48,13 @@ var pgId = "";
 var paypayMethod="";
 
 $('#tossPay').on("click", () =>{
-	pgId="tosstest";
+	pgId="tosspay.tosstest";
+	paypayMethod="card";
 });
 
 $('#kakaoPay').on("click", () =>{
 	pgId="kakaopay.TC0ONETIME";
-	paypayMethod="card"
+	paypayMethod="card";
 })
 	
 	

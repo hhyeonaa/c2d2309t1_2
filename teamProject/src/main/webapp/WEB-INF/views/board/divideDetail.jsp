@@ -293,48 +293,21 @@ td{
 </body>
 <script type="text/javascript">
 $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
-// 	$(".carousel-item img").click(function(){
-// 	    let img = new Image();
-// 	    img.src = $(this).attr("src")
-// 	    $('.modalBox').html(img);
-// 	    $(".modal").show();
-// 	});
-// 	// 모달 클릭할때 이미지 닫음
-// 	$(".modal").click(function (e) {
-// 		$(".modal").toggle();
-// 	});
-	$(".carousel-item img").click(function() {
-	    // 이미지 URL을 가져옵니다.
-	    let imgSrc = $(this).attr("src");
-	
-	    // 모달 내에 캐러셀을 동적으로 생성합니다.
-	    let modalContent = `<div id="dynamicCarousel" class="carousel slide" data-bs-ride="carousel">
-	                            <div class="carousel-inner">
-	                                <div class="carousel-item active">
-	                                    <img src="${imgSrc}" class="d-block w-100" alt="...">
-	                                </div>
-	                                // 다른 이미지들을 여기에 동적으로 추가할 수 있습니다.
-	                            </div>
-	                            <button class="carousel-control-prev" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="prev">
-	                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                                <span class="visually-hidden">Previous</span>
-	                            </button>
-	                            <button class="carousel-control-next" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="next">
-	                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                                <span class="visually-hidden">Next</span>
-	                            </button>
-	                        </div>`;
-	
-	    // 모달 내용을 업데이트하고 모달을 표시합니다.
-	    $('.modalBox').html(modalContent);
+    // '.carousel-item img' 선택자를 사용하여 캐러셀 내의 모든 이미지 태그를 선택
+    $('.carousel-item img').each(function() {
+        // this는 현재 반복 중인 img 태그를 가리킴
+        var imgSrc = $(this).attr('src'); // img 태그의 src 속성 값 가져오기
+        console.log(imgSrc); // 콘솔에 src 출력
+    });
+	$(".carousel-item img").click(function(){
+	    let img = new Image();
+	    img.src = $(this).attr("src")
+	    $('.modalBox').html(img);
 	    $(".modal").show();
 	});
-	
-	// 모달 바깥 클릭 시 모달 닫기
-	$(".modal").click(function(e) {
-	    if ($(e.target).hasClass('modal')) {
-	        $(".modal").hide();
-	    }
+	// 모달 클릭할때 이미지 닫음
+	$(".modal").click(function (e) {
+		$(".modal").toggle();
 	});
 
 	

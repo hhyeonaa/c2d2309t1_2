@@ -45,12 +45,19 @@ public class BoardController {
 	@GetMapping("/saleBoard")
 	public String saleBoard(Model model) {
 		System.out.println("BoardController saleBoard()");
+		String proTc = "MM1";
+		Map<String, String> map = new HashMap<>();
+		map.put("proTc", proTc);
+		System.out.println("map: " + map);
 		/*테스트용 select start*/
 //		Map<String, String> map = new HashMap<String, String>();
 //		map.put("proNo", "PR4");
 //		System.out.println(boardService.select(map));
 		/*테스트용 select end*/
-		List<Map<String,String>> resultList = boardService.selectSaleBoard();
+//		List<Map<String,String>> resultList = boardService.selectSaleBoard();
+		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
 		return "board/saleBoard";
@@ -75,7 +82,12 @@ public class BoardController {
 	@GetMapping("/divideBoard")
 	public String divideBoard(Model model) {
 		System.out.println("BoardController divideBoard()");
-		List<Map<String,String>> resultList = boardService.selectDivideBoard();
+		String proTc = "MM3";
+		Map<String, String> map = new HashMap<>();
+		map.put("proTc", proTc);
+		System.out.println("map: " + map);
+//		List<Map<String,String>> resultList = boardService.selectDivideBoard();
+		List<Map<String,String>> resultList = boardService.selectBoard(map);
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
 		return "board/divideBoard";

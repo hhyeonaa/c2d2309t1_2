@@ -80,6 +80,11 @@ public class BoardDAO {
 		System.out.println("BoardDAO selectBuyBoard()");
 		return sqlSession.selectList(NAMESPACE + ".selectBuyBoard");
 	}//
+
+	public List<Map<String, String>> selectBoard(Map<String, String> map) {
+		System.out.println("BoardDAO selectBoard()");
+		return sqlSession.selectList(NAMESPACE + ".selectBoard", map);
+	}// selectBoard()
 	
 	// 성엽 작업 끝 //
 

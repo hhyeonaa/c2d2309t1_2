@@ -75,7 +75,7 @@ td{
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div class="d-flex flex-wrap" style="width: 100%;">
 			<div class="pe-2" style="width: 40%;height: 400px;">
-		 	 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+		 	 <div id="carouselExampleIndicators" class="carousel slide">
 			  <div class="carousel-indicators">
    			  	<c:forEach var="img" items="${imgList}" varStatus="status">
 			  		<c:if test="${status.index eq 0}">
@@ -292,24 +292,98 @@ td{
 </div>
 </body>
 <script type="text/javascript">
+let additionalImages = [];
 $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
-    // '.carousel-item img' 선택자를 사용하여 캐러셀 내의 모든 이미지 태그를 선택
-    $('.carousel-item img').each(function() {
-        // this는 현재 반복 중인 img 태그를 가리킴
-        var imgSrc = $(this).attr('src'); // img 태그의 src 속성 값 가져오기
-        console.log(imgSrc); // 콘솔에 src 출력
+	$('.carousel').carousel('pause');
+//     // '.carousel-item img' 선택자를 사용하여 캐러셀 내의 모든 이미지 태그를 선택
+//     $('.carousel-item img').each(function() {
+//         // this는 현재 반복 중인 img 태그를 가리킴
+//         var imgSrc = $(this).attr('src'); // img 태그의 src 속성 값 가져오기
+//         console.log(imgSrc); // 콘솔에 src 출력
+//     });
+// 	$(".carousel-item img").click(function(){
+// 	    let img = new Image();
+// 	    img.src = $(this).attr("src")
+// 	    $('.modalBox').html(img);
+// 	    $(".modal").show();
+// 	});
+// 	// 모달 클릭할때 이미지 닫음
+// 	$(".modal").click(function (e) {
+// 		$(".modal").toggle();
+// 	});
+// 제일 좋은 방법은 이미지들에게 그냥 클래스를 주는 것이 좋다.
+    $(".carousel-item img").click(function() {
+//     	$('.modalBox').html('');
+//     	additionalImages = [];
+    	
+        // 클릭한 이미지를 첫 번째 이미지로 설정
+        let clickedImgSrc = $(this).attr("src");
+		console.log(clickedImgSrc);
+        // 현재 페이지의 모든 캐러셀 이미지의 src 속성 값 수집
+        
+        $('.carousel-item img').each(function(a, b, c) {
+        	debugger;
+            var imgSrc = $(this).attr('src');
+            // 클릭한 이미지는 제외하고 배열에 추가
+            if (imgSrc !== clickedImgSrc) {
+                additionalImages.push(imgSrc);
+            }
+        });
+        console.log('이미지 배열: ' + additionalImages);
+
+        // 캐러셀 구조 및 컨트롤러 추가
+        let modalContent = `<div id="modalCarousel" class="carousel slide" >
+                                <div class="carousel-inner">
+                                	<div class="carousel-item active">
+		                                <img id="selectImg" src="" class="d-block w-100" alt="Slide 1">
+		                            </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>`;
+        // 모달 내용 업데이트 및 표시
+        $('.modalBox').html(modalContent);
+        $(".modal").show();
+		$('#selectImg').attr('src', clickedImgSrc);
+		for(const e of additionalImages){
+			let item = `<div class="carousel-item">
+							<img src="" class="d-block w-100" alt="...">
+						</div>`;
+			$('#modalCarousel .carousel-inner').append(item);// 캐러셀 아이템 추가
+			$('#modalCarousel .carousel-inner .carousel-item:last img').attr('src', e); // src에 안들어갔지		
+			console.log('item: '+item);
+		}
+		
     });
-	$(".carousel-item img").click(function(){
-	    let img = new Image();
-	    img.src = $(this).attr("src")
-	    $('.modalBox').html(img);
-	    $(".modal").show();
-	});
+	
+ 	// 캐러셀 이전 버튼 클릭 이벤트
+    $('.carousel-control-prev').click(function(event) {
+        event.stopPropagation(); // 이벤트 전파 중지
+        debugger;
+        $('#modalCarousel').carousel('prev'); // 캐러셀 이전 슬라이드로 이동
+    });
+
+    // 캐러셀 다음 버튼 클릭 이벤트
+    $('.carousel-control-next').click(function(event) {
+        event.stopPropagation(); // 이벤트 전파 중지
+        $('#modalCarousel').carousel('next'); // 캐러셀 다음 슬라이드로 이동
+    });
+
+	
 	// 모달 클릭할때 이미지 닫음
 	$(".modal").click(function (e) {
+		e.preventDefault();
+		//alert('여기 왔나?');
+    	$('.modalBox').html('');
+    	additionalImages = [];
 		$(".modal").toggle();
 	});
-
 	
 	// 나눔 신청자에게 채팅하기
     $(".chat-button").click(function(){

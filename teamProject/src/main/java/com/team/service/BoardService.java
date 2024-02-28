@@ -69,4 +69,9 @@ public class BoardService {
 		return boardDAO.selectDivideBoard();
 	}// selectDivideBoard()
 
+	public List<Map<String, String>> selectBoard(Map<String, String> map) {
+		System.out.println("BoardService selectBoard()");
+		return boardDAO.selectBoard(map);
+	}// selectBoard()
+
 }// BoardService 끝

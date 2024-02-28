@@ -46,10 +46,12 @@
 		SELECT *
 		  FROM PRODUCT
 		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO
+		    ON PRO_NO = IMG_PRONO 
+		  JOIN CODE
+		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO) 
 		 WHERE IMG_NO = 1
-		   AND PRO_TC = '판매'
-		 ORDER BY PRO_DATE DESC  
+		   AND PRO_TC = 'MM1'
+		 ORDER BY PRO_DATE DESC
 	</select>
 	
 	<!-- 성엽 작업 시작 -->
@@ -60,7 +62,9 @@
 		  JOIN IMAGE
 		    ON PRO_NO = IMG_PRONO
 		 WHERE IMG_NO = 1
-			AND PRO_TC = '구매'
+<!-- 			AND PRO_TC = '구매' -->
+			AND PRO_TC = 'MM2'
+		  ORDER BY PRO_DATE DESC	
 	</select>
 	
 	<!-- 성엽 작업 끝 -->
@@ -82,10 +86,12 @@
 		SELECT *
 		  FROM PRODUCT
 		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO
+		    ON PRO_NO = IMG_PRONO 
+		  JOIN CODE
+		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO) 
 		 WHERE IMG_NO = 1
-		   AND PRO_TC = '나눔'
-		 ORDER BY PRO_DATE DESC  
+		   AND PRO_TC = 'MM3'
+		 ORDER BY PRO_DATE DESC 
 	</select>
 	
 </mapper>

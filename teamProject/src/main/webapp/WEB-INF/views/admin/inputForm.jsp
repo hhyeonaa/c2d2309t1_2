@@ -58,13 +58,6 @@
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>
 			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
-			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
-			      	<option>[판매] 이거 팜팜팜 24.02.08</option>
-			      	<option>[판매] 이거 팜팜팜 24.02.08</option>
-			      	<option>[나눔] 이거 눔눔눔 24.02.08</option>
-			      	<option>[나눔] 이거 눔눔눔 24.02.08</option>
-			      	<option>[경매] 이거 경경경 24.02.08</option>
-			      	<option>[경매] 이거 경경경 24.02.08</option>
 			      </select>
 			    </div>
 			  </div>
@@ -74,29 +67,14 @@
 			  
 			 <!-- -----------------test용 ------------------------- --> 
 			  
-			 <div class="row  pb-3" id="image">
-			    <div class="col-12 d-flex justify-content-center">
-			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button">
-			      	<img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png">
-			      </label>
-			      <input type='file' id='btnAtt' multiple style="display: none;"/>
-			      <button id="resetImg"><i class="bi bi-trash"></i></button>
-			    </div>
-			    <div class="col-12 d-flex justify-content-center">
-			      <div id='att_zone' class="mt-3" data-placeholder="파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지"></div>
-			    </div>
-			 </div>
-			  
-			 <hr>
-			
-			<!-- input용 -->						
 			<div>
 				<text-input name="상품명"/>
-				<textcheck-input name="가격"/>
+				<text-input name="가격"/>
 				<textarea-input name="상세설명"/>
 				<radio-input name="상품 상태"/>
-				<select-input name="category1" id="category1"/>
+				<select-input name="카테고리 선택"/>
 				<address-input name="거래 지역"/>
+				<image-input name="상품 이미지 등록"/>
 			</div>		
 			
 			<!-- ---------------------------------------------------------------- -->
@@ -111,17 +89,15 @@
 		    	</div>
 		  	</div>
 
-
-
-						
 			</div>
-		</div> <!-- border안  -->
+		</div>
 	</div>
 	</form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
+
 <script defer>
 	class TextInput extends HTMLElement {
 		connectedCallback(){
@@ -140,8 +116,7 @@
 			input.classList.add('form-control');
 			input.placeholder = this.getAttribute('name') + ' 입력';
 			
-	        textDiv.appendChild(span);
-	        textDiv.appendChild(input);
+	        textDiv.append(span, input);
 	        row.appendChild(textDiv);
 	
 	        this.prepend(row, hr);
@@ -158,7 +133,6 @@
 			let hr = document.createElement('hr');
 			
 			// (3) - (textarea)
-			let textareaDiv = document.createElement('div');
 			let label = document.createElement('label');
             label.innerHTML = this.getAttribute('name');
             let textarea = document.createElement('textarea');
@@ -170,10 +144,7 @@
 			span.innerHTML = '0/2000자';
 			span.style.color = 'gray';
             
-            textareaDiv.appendChild(label);
-            textareaDiv.appendChild(textarea);
-            textareaDiv.appendChild(span);
-	        row.appendChild(textareaDiv);
+	        row.append(label,textarea, span);
 	
 	        this.prepend(row, hr);
 		}
@@ -235,17 +206,14 @@
             let span = document.createElement('span');
             span.innerHTML = this.getAttribute('name');
 			
-            let textDiv = document.createElement('div');
             let selectDiv = document.createElement('div');
-
+            selectDiv.style.border = '1px';
+            
             let select = document.createElement('select');
             select.name = this.getAttribute('name');
             select.id = this.getAttribute('id');
-            select.style.width = '100%';
+            select.style.width = '20%';
             select.style.height = '100%';
-            select.style.border = 'none';
-            select.style.padding = '0';
-            select.style.margin = '0';
 
             let options = [
                 '여성의류', '남성의류', '신발', '가방/지갑', '악세서리',
@@ -259,9 +227,8 @@
                 select.add(option);
             });
 
-            selectDiv.appendChild(select);
-            textDiv.append(span, selectDiv);
-            row.appendChild(textDiv);
+            selectDiv.append(select);
+            row.append(span, selectDiv);
 
             this.prepend(row, hr);
         }
@@ -278,24 +245,71 @@
             let span = document.createElement('span');
             span.innerHTML = this.getAttribute('name');
 
+            let addressDiv = document.createElement('div');
             let button = document.createElement('button');
             button.innerHTML = '주소 검색';
+            button.style.width = '10%';
 
             let locationSpan = document.createElement('span');
             locationSpan.innerHTML = '부산 > 부전동';
 
-
-            row.append(span, button, locationSpan);
+            addressDiv.append(button, locationSpan);
+            row.append(span, addressDiv);
 
             this.prepend(row, hr);
         }
     }
+    
+
+	class ImageInput extends HTMLElement {
+		connectedCallback() {
+			// div - row
+			let row = document.createElement('div');
+			row.classList.add('row');
+			let hr = document.createElement('hr');
+
+			let span = document.createElement('span');
+			span.innerHTML = this.getAttribute('name');
+			// 첫줄
+// 	      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button">
+// 	      	<img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png">
+// 	      </label>
+// 	      <input type='file' id='btnAtt' multiple style="display: none;"/>
+// 	      <button id="resetImg"><i class="bi bi-trash"></i></button>
+
+
+//			<div class="col-12 d-flex justify-content-center">
+			let addDiv = document.createElement('div');
+			addDiv.style.justifyContent = 'center';
+			
+			let img = document.createElement('img');
+// 			img.src = '${pageContext.request.contextPath}/resources/img/board/addPhoto.png';
+			let input = document.createElement('input');
+			input.type = 'file';
+			let button = document.createElement('button');
+			button.innerHTML = '<i class="bi bi-trash"></i>';
+
+			// 이미지 미리보기
+//	 	    <div class="col-12 d-flex justify-content-center">
+//	 	      <div id='att_zone' class="mt-3" data-placeholder="파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지"></div>
+//	 	    </div>
+			let preDiv = document.createElement('div');
+			preDiv.style.justifyContent = 'center';
+			
+			addDiv.append(span, img, input, button);
+// 			preDiv.append(span, addDiv, preDiv);
+			row.append(span, addDiv, preDiv);
+			this.prepend(row, hr);
+		}
+	}
+    
     
 	customElements.define('text-input', TextInput);
 	customElements.define('textarea-input', TextareaInput);
 	customElements.define('radio-input', RadioInput);
 	customElements.define('select-input', SelectInput);
 	customElements.define('address-input', AddressInput);
+	customElements.define('image-input', ImageInput);
 	
 	
 // div(2) - (input - checkbox)

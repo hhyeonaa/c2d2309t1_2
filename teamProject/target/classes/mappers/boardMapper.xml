@@ -60,7 +60,7 @@
 		  JOIN IMAGE
 		    ON PRO_NO = IMG_PRONO
 		 WHERE IMG_NO = 1
-			AND PRO_TC = '구매'
+			AND PRO_TC = 'MM2'
 	</select>
 	
 	<!-- 성엽 작업 끝 -->

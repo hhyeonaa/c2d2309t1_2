@@ -61,6 +61,19 @@ var payCheck = $('.nonCheck')
 // 결제할(선택된) 페이(4)
 //var payMethod = $('.check').find('span').text().trim();
 //var payMethod1 = $('.check').attr('value');	
+
+//
+var pgId = "";
+var paypayMethod="";
+
+$('#tossPay').on("click", () =>{
+	pgId="tosstest";
+});
+
+$('#kakaoPay').on("click", () =>{
+	pgId="kakaopay.{TC0ONETIME}";
+	paypayMethod="card"
+})
 	
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
@@ -132,17 +145,8 @@ var payCheck = $('.nonCheck')
 // 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
 		debugger;
-		var pgId = "";
-		var paypayMethod="";
-		
-		$('#tossPay').on("click", () =>{
-			pgId="tosstest";
-		});
-		
-		$('#kakaoPay').on("click", () =>{
-			pgId="kakaopay.{TC0ONETIME}";
-			paypayMethod="card"
-		})
+
+
 //		// 결제수단 체크 유무 확인하기
 //		checkSubmit(payCheck);
 		// 체크된 결제수단 

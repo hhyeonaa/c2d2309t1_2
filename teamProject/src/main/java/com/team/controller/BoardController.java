@@ -315,8 +315,28 @@ public class BoardController {
 	}// boardDetail()
 	
 	@GetMapping("/divideDetail")
-	public String divideDetail() {
+	public String divideDetail(HttpServletRequest request,Model model) {
 		System.out.println("BoardController divideDetail()");
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		logger.info("proWr: "+proWr);
+		logger.info("proDate: "+proDate);
+		Map<String, String> map = new HashMap<>();
+		map.put("proWr", proWr);
+		map.put("proDate", proDate);
+		boardService.upHits(map);
+		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		System.out.println("resultMap: "+ resultMap);
+		String ImgNames = resultMap.get("IMG_NAMES");
+		String[] ImgNameSplit = ImgNames.split("\\|");
+		ArrayList<String> imgList = new ArrayList<>();
+		for (String e : ImgNameSplit) {
+			imgList.add(e);
+		}
+		System.out.println("=====");
+		System.out.println(imgList);
+		model.addAttribute("resultMap", resultMap);
+		model.addAttribute("imgList", imgList);
 		return "board/divideDetail";
 	}// divideDetail()
 	

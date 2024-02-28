@@ -53,7 +53,7 @@
 <!-- 			      	<option id="divide" value="나눔">나눔</option> -->
 <!-- 			      	<option id="auction" value="경매">경매</option> -->
 					<c:forEach var="menu" items="${menu}">
-						<option value=${menu.CODE}>${menu.CODE}</option>
+						<option value=${menu.CO_TYPE}${menu.CO_NO}>${menu.CODE}</option>
 					</c:forEach>
 			      </select>
 <!-- 			      <input type="hidden" id="proWr" name="proWr" value="하정우"> -->
@@ -280,22 +280,22 @@
 		    	<!-- 나눔일 때만 보일 것들 끝 -->
 		  	</div>
 		  	<hr>
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-12 d-flex justify-content-center"> -->
-<!-- 				   	<div> -->
-<!-- 					   	<span>배송비</span> -->
-<!-- 					   	<div> -->
-<!-- 						   	<input name="deliveryCharge" id="includeDeliCharge" type="radio" value="포함" checked> -->
-<!-- 						   	<label for="includeDeliCharge">배송비 포함</label> -->
-<!-- 					   	</div> -->
-<!-- 					   	<div> -->
-<!-- 						   	<input name="deliveryCharge" id="separateDeliCharge" type="radio" value="별도"> -->
-<!-- 						   	<label for="separateDeliCharge">배송비 별도</label> -->
-<!-- 					   	</div> -->
-<!-- 				   	</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<hr> -->
+			<div class="row">
+				<div class="col-12 d-flex justify-content-center">
+				   	<div>
+					   	<span>배송비</span>
+					   	<div>
+						   	<input name="deliveryCharge" id="includeDeliCharge" type="radio" value="포함" checked>
+						   	<label for="includeDeliCharge">배송비 포함</label>
+					   	</div>
+					   	<div>
+						   	<input name="deliveryCharge" id="separateDeliCharge" type="radio" value="별도">
+						   	<label for="separateDeliCharge">배송비 별도</label>
+					   	</div>
+				   	</div>
+				</div>
+			</div>
+			<hr>
 			<div class="row">
 				<div class="col-12 d-flex justify-content-center">
 				<div class="mb-3">

@@ -26,7 +26,7 @@ public class HomeController {
 	 */
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 //	public String home(@RequestParam Map<String, String> param, Model model) {
-//		//1. 카테고리별(판매,구매,나눔,경매) 최신등록글 각 8개  select // 끌올?
+//		//1. 카테고리별(판매,구매,나눔,경매) 최신등록글 각 8개 
 //		List<Map<String, String>> productList = homeService.getProductList();
 //		
 //		model.addAttribute("productList", productList);

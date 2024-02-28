@@ -147,6 +147,11 @@
 		delete from PRODUCT
 		where PRO_NO = #{PRO_NO}
 	</delete>
+	
+	<delete id="cateContentDelete">
+		delete from PRODUCT
+		where PRO_NO = #{PRO_NO}
+	</delete>
 
 <!-- 	===== 성엽 끝 ===== -->
 	

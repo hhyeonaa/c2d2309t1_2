@@ -62,11 +62,8 @@ public class BoardController {
 	@GetMapping("/buyBoard")
 	public String buyBoard(Model model) {
 		System.out.println("BoardController buyBoard()");
-		
 		List<Map<String, String>> buyList = boardService.selectBuyBoard();
-		logger.info("buyList: " + buyList);
 		model.addAttribute("buyList", buyList);
-		
 		return "board/buyBoard";
 	}// buyBoard()
 	

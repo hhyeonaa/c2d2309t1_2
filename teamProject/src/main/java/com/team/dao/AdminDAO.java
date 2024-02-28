@@ -95,6 +95,10 @@ public class AdminDAO {
 	public int contentDelete(String PRO_NO) {
 		return sqlSession.delete(namesqace + "contentDelete", PRO_NO);
 	}//
+	
+	public int cateContentDelete(String PRO_NO) {
+		return sqlSession.delete(namesqace + "cateContentDelete", PRO_NO);
+	}//
 
 	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
 		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);

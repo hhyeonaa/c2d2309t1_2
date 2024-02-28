@@ -37,13 +37,15 @@
         <c:forEach var="buy" items="${buyList}">
         <div class="col">
             <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..." onerror="123">
+            <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${buy.PRO_WR}">
+                <img src="${pageContext.request.contextPath}/resources/img/uploads/${buy.IMG_NAME}" class="card-img-top" alt="${buy.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
                 <div class="card-body">
-                    <span class="state1">${buy.PRO_TC}</span>
+                    <span class="state1">${buy.CODE}</span>
                     <span class="state2">${buy.PRO_TSC}</span><br>
                     <p>${buy.PRO_NAME}</p>
                     <h5><b>${buy.PRO_PRICE}원</b></h5>
                 </div>
+            </a>
             </div>
         </div>
         </c:forEach>

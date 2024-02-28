@@ -18,8 +18,7 @@ $(function(){
 			name:"AD_NO",
 			header:"번호",
 			filter:"number",
-		    sortable: true,
-			sortingType: 'asc'
+		    sortable: true
 		}, 
 		{
 			name:"AD_ID",
@@ -53,7 +52,7 @@ $(function(){
             }
 		}
 	]
-	grid("managerList", 3, columns);
+	grid("managerList", 5, columns, false);
 	
 	
 	

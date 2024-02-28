@@ -15,11 +15,34 @@ $(() => {
 $(function(){
 	
 	var columns = [
-		{name:"AD_NO", 	 header:"번호"}, 
-		{name:"AD_ID", 	 header:"ID"},
-		{name:"AD_NAME", 	 header:"이름"},
-		{name:"AD_ACTIVE",	 header:"활성 상태"},
-		{name:"CI_OC",		 header:"삭제"}
+		{
+			name:"AD_NO",
+			header:"번호",
+			filter:"number"
+		}, 
+		{
+			name:"AD_ID",
+			header:"ID",
+			filter: {
+		        type: 'text',
+		        showApplyBtn: true,
+		        showClearBtn: true
+		    }
+		},
+		{
+			name:"AD_NAME",
+			header:"이름",
+			filter:"text"
+		},
+		{
+			name:"AD_ACTIVE",
+			header:"활성 상태",
+			filter:"select"
+		},
+		{
+			name:"CI_OC",
+			header:"삭제"
+		}
 	]
 	grid("managerList", 3, columns);
 	

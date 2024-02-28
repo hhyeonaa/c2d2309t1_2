@@ -10,7 +10,8 @@
 		  from ${tableName}
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
-		   and HIDE = '0'	     
+		   and HIDE in (${hideCheck})
+		 order by cast(CO_NO as signed)  	     
 	</select>
 	
 	<select id="selectCode" parameterType="map" resultType="map">

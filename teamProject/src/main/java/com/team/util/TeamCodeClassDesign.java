@@ -3,14 +3,18 @@ package com.team.util;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 public interface TeamCodeClassDesign {
 
-	Map<String, String> messageForAjax(String code, Object[] arr);
-	default List<Map<String, String>> selectListCode(String code) {
+	void submitForAlert(HttpServletResponse response, String code, Object[] msg);
+	
+	List<Map<String, String>> selectCodeList(EnumCodeType codeType);
+	List<Map<String, String>> selectCodeList(EnumCodeType codeType, boolean check);
+	Map<String, String> selectCode(String code);
+	default Map<String, String> selectCode(String code, Object[] arr){
 		return null;
 	};
-	default List<Map<String, String>> showCodeList(EnumCodeType codeType){
-		return null;
-	};
+	
 }
 

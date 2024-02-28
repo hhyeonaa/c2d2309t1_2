@@ -142,8 +142,7 @@ $(function(){
 					 ,MEM_TEL: $('#phone').val()
 					 ,MEM_EMAIL: $('#email').val() }
 		})
-		 
-		alert("회원가입 되었습니다.");
+		
 		signupModal.style.display = "none";
 		location.replace('login');
 	})

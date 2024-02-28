@@ -19,22 +19,31 @@ public class TeamCodeService implements TeamCodeClassDesign{
 
 	@Inject
 	private TeamDAO dao;
+	
+	
+	
+//	public Map<String, String> messageForAjax(String code, Object[] arr) {
+//		Map<String, String> codeSelect = dao.selectCode(selectOneCode(code, null));
+//		String message = MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), arr);
+//		
+//		codeSelect.clear();
+//		codeSelect.put(EnumCodeType.코드내용.getType(), message);
+//		
+//		return codeSelect;
+//	}
 
-	@Override
-	public Map<String, String> messageForAjax(String code, Object[] arr) {
-		Map<String, String> codeSelect = dao.selectCode(selectOneCode(code, null));
-		String message = MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), arr);
-		
-		codeSelect.clear();
-		codeSelect.put(EnumCodeType.코드내용.getType(), message);
-		
-		return codeSelect;
-	}
+//	@Override
+//	public Map<String, String> messageForAjax(String code, Object[] arr) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
-	@Override
-	public List<Map<String, String>> selectListCode(String code) {
-		return null;
-	}
+	
+	
+//	@Override
+//	public List<Map<String, String>> selectListCode(String code) {
+//		return null;
+//	}
 
 	private Map<String, String> selectOneCode(String code, String code2) {
 		
@@ -53,12 +62,18 @@ public class TeamCodeService implements TeamCodeClassDesign{
     	return codes;
 	}
 	
+	@Override
+	public Map<String, String> messageForAjax(String code, Object[] arr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public Map<String, String> selectOneCode(String code) {
 		return dao.selectCode(selectOneCode(code, null));
 	}
-	
+
+	@Override
 	public List<Map<String, String>> showCodeList(EnumCodeType codeType) {
-		
 		String table = EnumCodeType.코드테이블.getType().trim();
 		Map<String, String> code = new HashMap<String, String>();
 		
@@ -81,7 +96,7 @@ public class TeamCodeService implements TeamCodeClassDesign{
 		
 		return selectCodeList;
 	}
-
+	
 //	@Override
 //	public int hashCode() {
 //		throw new UnsupportedOperationException("해당 클래스는 hashCode() 메서드 사용 불가");

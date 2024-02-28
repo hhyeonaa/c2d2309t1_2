@@ -30,6 +30,7 @@ var grid = (url, perPage, columns, draggable) => {
 	};
 	const Grid = tui.Grid;
 	const grid = new Grid({
+		rowHeight: 60,
 		draggable: draggable,
 		el: document.getElementById('grid'),
 		columns: columns,

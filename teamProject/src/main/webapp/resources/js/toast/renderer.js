@@ -1,33 +1,44 @@
 class DeleteButton {
 	constructor(props) {
-		debugger;
-		this.element = document.createElement('button');
-		this.element.setAttribute('type', 'button');
-		this.element.setAttribute('class', 'deleteBtn border border-0');
-		$(this.element).append('<ion-icon name="remove-circle-outline"></ion-icon>');
-		var colName = props.columnInfo.header;
+		const el = document.createElement('button');
+		el.type = 'button';
+		el.className  = 'deleteBtn border border-0';
+		el.style = 'padding: 0; background-color:transparent; padding-top:5px';
+		$(el).append('<ion-icon name="remove-circle-outline" style="width:30px; height:30px"></ion-icon>');
+		
 		// 버튼 클릭 이벤트 처리
-		this.element.addEventListener('click', (e, props) => {
+		var colName = props.columnInfo.header;
+		el.addEventListener('click', (e) => {
 		    alert(colName + ' 하시겠습니까?');
 		});
+		
+		this.el = el;
+		this.render(props);
 	}
-    getElement() { return this.element; }
-    render(props) { this.element.style.display = 'block'; }
+    getElement() { return this.el; }
+    render(props) {  }
 }
 
 class ToggleButton {
 	constructor(props) {
-		this.element = document.createElement('div');
-		this.element.setAttribute('class', 'form-check form-switch justify-content-center');
-		this.element.setAttribute('style', 'position: relative');
-		var flag = ''
-		if(props.value == '1') flag = 'checked'; 
-		$(this.element).append('<input class="form-check-input mvca" type="checkbox" id="active" ' + flag + '>');
-		
+		const el = document.createElement('div');
+		el.className  = 'form-check form-switch justify-content-center';
+		el.style = 'position: relative';
+		var flag = (props.value == '1') ? 'checked' : '';
+		$(el).append('<input class="form-check-input mvca" type="checkbox" id="active" ' 
+									+ 'style="width:35px; height:20px"' + flag + '>');
+									
 		// 버튼 클릭 이벤트 처리
-		this.element.addEventListener('click', () => {
+		el.addEventListener('change', (e) => {
+			props.value = e.target.checked ? 1 : 0;
+			this.render(props);
 		});
+		
+		this.el = el;
+		this.render(props);
 	}
-	getElement() { return this.element; }
-	render(props) { this.element.style.display = 'block'; }
+	getElement() { return this.el; }
+	render(props) {
+		this.el.value = String(props.value);
+	}
 }

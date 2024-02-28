@@ -190,7 +190,7 @@
             		</div>
 					<section class="DefaultPayment__Section-sc-64075s-3 eCEzHK">
 						<button class="sc-gEvEer kKRlXK bun-ui-button DefaultPayment__SubmitButton-sc-64075s-2 uviPA" id="paymentBtn"
-							type="submit" color="primary" >결제하기
+							type="button" color="primary" >결제하기
 						</button>
 					</section>
 			</div>

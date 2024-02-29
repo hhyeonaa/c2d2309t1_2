@@ -9,6 +9,10 @@ function loginWithKakao() {
         }
     });
 }
+
+ document.write('<script type="text/javascript"' + 
+                    'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+               '</script>');
 	
     function kakaoLogin() {
         Kakao.Auth.login({
@@ -134,8 +138,6 @@ $(function(){
 		$('#dup').on("click",function(){
 			var id = document.getElementById('id').value;
 			var idRegex = /^[a-zA-Z0-9]{6,12}$/;
-			
-// 			alert("클릭");
 //          아이디 비어있는 경우 제어
 			if($('#id').val() == "" || $('#id').val() == null){
 				$('#idCheckDiv').html("아이디 미입력").css('color', 'gray');
@@ -186,7 +188,7 @@ $(function(){
 		// ~~~~~~~~~~~~~~~~~~~비밀번호 일치 확인~~~~~~~~~~~~~~~~~~~
 		$('#confirmPw').blur(function(){
 			// 비밀번호 확인 비어있는 경우 제어
-			if($('#pw').val() == ' ' || $('#pw').val() == ''){
+			if($('#confirmPw').val() == ' ' || $('#F').val() == ''){
 				$('#pwCheck').html("비밀번호 재입력 필수").css('color', 'gray');
 				return;
 			}
@@ -271,49 +273,49 @@ $(function(){
 	$('#insertBtn').on('click', function(){
 		
 		if($('#id').val() == "" || $('#id').val() == null){
-			alert("아이디를 입력해 주세요.");
+			alertMsg("AM6", ["아이디"]);
 			$('#id').focus();	
 			return false;
 		}
 		
 		if($('#pw').val() == "" || $('#pw').val() == null || $('#confirmPw').val() == "" || $('#confirmPw').val() == null){
-			alert("비밀번호를 입력해 주세요.");
+			alertMsg("AM6", ["비밀번호"]);
 			$('#pw').focus();	
 			return false;
 		}
 		
 		if($('#gender').val() == "" || $('#gender').val() == null){
-			alert("성별을 선택해 주세요.");
+			alertMsg("AM9", ["성별"]);
 			$('#gender').focus();	
 			return false;
 		}
 		
 		if($('#username').val() == "" || $('#username').val() == null){
-			alert("이름을 입력해 주세요.");
+			alertMsg("AM6", ["이름"]);
 			$('#username').focus();	
 			return false;
 		}
 		
 		if($('#nickname').val() == "" || $('#nickname').val() == null){
-			alert("닉네임을 입력해 주세요.");
+			alertMsg("AM6", ["닉네임"]);
 			$('#nickname').focus();	
 			return false;
 		}
 		
 		if($('#birth').val() == "" || $('#birth').val() == null){
-			alert("생년월일을 입력해 주세요.");
+			alertMsg("AM6", ["생년월일"]);
 			$('#birth').focus();	
 			return false;
 		}
 		
 		if($('#email').val() == "" || $('#email').val() == null){
-			alert("이메일을 입력해 주세요.");
+			alertMsg("AM6", ["이메일"]);
 			$('#email').focus();	
 			return false;
 		}
 		
 		if($('#phone').val() == "" || $('#phone').val() == null){
-			alert("전화번호를 입력해 주세요.");
+			alertMsg("AM6", ["전화번호"]);
 			$('#phone').focus();	
 			return false;
 		}

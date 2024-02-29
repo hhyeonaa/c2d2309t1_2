@@ -4,8 +4,8 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 			   
 $(() => {
-	targetColor($("#board_manage"));
-	paging("#tbody tr", 5, 0);
+	targetColor($('#board_manage'));
+	paging('#tbody tr', 5, 0);
 	
 	var columns = [
 		{name:"SEQ", 	 header:"번호"}, 
@@ -28,7 +28,7 @@ $(function(){
 	var modal = $('#inputModal');
 	
 	// 순서 변경 버튼
-	$(document).on("click", "#btnTop", function(){
+	$('#btnTop').on('click', function(){
 	    currentRow = $(this).closest('tr');
 	    preRow = currentRow.prev('tr');
 	    if (preRow.length !== 0) {
@@ -38,12 +38,12 @@ $(function(){
 	});
 	
 	
-	// 저장 버튼
-	$(document).on("click", "#saveBtn", function () {
+//	// 저장 버튼
+	$('#saveBtn').on('click', function () {
 		for (let i = 1; i < boardList.rows.length; i++) {
 			$.ajax({
-				type: "post"
-				, url: "displayUpdate"
+				type: 'post'
+				, url: 'displayUpdate'
 				, data: {CO_TYPE: 'MM'
 						 , SEQ: i
 						 , CODE: boardList.rows[i].cells[1].innerText
@@ -55,14 +55,13 @@ $(function(){
 	});	
 	
 	// 취소 버튼
-	$(document).on("click", "#resetBtn", function () {
+	$('#resetBtn').on('click', function (){
 		location.reload();
 	});
 
 	// 모달창	
 	$('#insertForm').on('click', function(){
 		modal.css('display', 'block');
-		$()
 	})
 	
 	$('#close, #cancelBtn').on('click', function(){

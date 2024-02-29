@@ -15,7 +15,6 @@
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
-<form action="">
 <div class="container" id="boardDiv">
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>현재 저장된 헤더</b></h4></div>
@@ -52,69 +51,68 @@
 					    />
 					    <button class="btn" id="searchButton"><ion-icon name="search-outline"></ion-icon></button>
 					    </div>
-					</form>
+						</form>
 				</div>
 				<div class="writeBtnBox" style="width: 100px; display:flex; justify-content: center;">
 					<span class="material-symbols-outlined addIcon">add_circle</span>
-					<a class="nav-link writeBtn" href="#">상품 등록</a>
+					<a class="nav-link">상품 등록</a>
 				</div>
 				<div class="btn-group">
-			  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
+			  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown">
 					<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인"  style="width: 40px; height: 40px;">
 				</button>
 				  <ul class="dropdown-menu">
-				    <li><a class="dropdown-item" href="#">프로필</a></li>
-				    <li><a class="dropdown-item" href="#">거래내역</a></li>
-				    <li><a class="dropdown-item" href="#">글목록</a></li>
+				    <li><a class="dropdown-item">프로필</a></li>
+				    <li><a class="dropdown-item">거래내역</a></li>
+				    <li><a class="dropdown-item">글목록</a></li>
 				    <li><hr class="dropdown-divider"></li>
-				    <li><a class="dropdown-item" href="#">로그아웃</a></li>
+				    <li><a class="dropdown-item">로그아웃</a></li>
 				  </ul>
 				</div>
 			</nav>
 		</div>
     </div>
+    
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>게시판 목록</b></h4></div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
-            <div class="">
-                <div class="table-responsive">
-                    <table id="boardList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">번호</th>
-                                <th scope="col">게시판명</th>
-                                <th scope="col">게시판 유형</th>
-                                <th scope="col">글쓰기 입력폼</th>
-                                <th scope="col">순서</th>
-                                <th scope="col">사용 여부</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="board" items="${mapList}">
-                            <tr>
-                            	<th>${board.SEQ }</th>
-                                <td>${board.CODE }</td>
+		<div class="col-lg-12">
+			<div class="table-responsive">
+				<table id="boardList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
+					<thead>
+						<tr>
+							<th scope="col">번호</th>
+							<th scope="col">게시판명</th>
+							<th scope="col">게시판 유형</th>
+							<th scope="col">글쓰기 입력폼</th>
+							<th scope="col">순서</th>
+							<th scope="col">사용 여부</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="board" items="${mapList}">
+							<tr>
+								<th>${board.SEQ }</th>
+								<td>${board.CODE }</td>
 								<td>${board.CO_DETAIL }</td>
-                                <td><a href="#" id="insertForm">설정하기</a></td>
-                                <td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-                                <th scope="row">
-                                	<div class="form-check form-switch justify-content-center">
-			                                <c:if test="${board.HIDE eq '1'}">
-												<input class="form-check-input" type="checkbox" id="active" checked>
-			                                </c:if>
-		                           	       	<c:if test="${board.HIDE eq '0'}">
-												<input class="form-check-input" type="checkbox" id="active">
-			                                </c:if>
-									</div>
-                                </th>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+								<td><a href="#" id="insertForm">설정하기</a></td>
+								<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
+								<th scope="row">
+								<div class="form-check form-switch justify-content-center">
+									<c:if test="${board.HIDE eq '1'}">
+										<input class="form-check-input" type="checkbox" id="active" checked>
+									</c:if>
+									<c:if test="${board.HIDE eq '0'}">
+										<input class="form-check-input" type="checkbox" id="active">
+									</c:if>
+								</div>
+								</th>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
         </div>
     </div>
     
@@ -241,7 +239,6 @@
     
     <div id="grid"></div>
 </div>
-</form>
 
 
 

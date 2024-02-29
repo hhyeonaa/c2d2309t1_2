@@ -111,6 +111,12 @@ public class AdminController {
 		return "admin/inputForm";
 	}
 	
+	@PostMapping("/inputFormPro")
+	public String inputFormPro(@RequestParam Map<String, String> map) {
+		System.out.println("map : " + map.entrySet());
+		return "admin/inputFormPro";
+	}
+	
 	/* 현아 작업공간 */
 	
 	/* 무창 작업공간 */
@@ -137,7 +143,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/trade_manage")
-	public String trade_manage() {
+	public String trade_manage(Model model) {
+		model.addAttribute("code1", codeService.selectCode("DD1"));
+		model.addAttribute("code2", codeService.selectCode("DD2"));
 		return "admin/trade_manage";
 	}
 	
@@ -168,8 +176,6 @@ public class AdminController {
 		
 		return "admin/member_manage";
 	}//
-	
-	
 	
 	@GetMapping("/memberDelete")
 	public String delete(@RequestParam String MEM_NO) {

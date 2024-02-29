@@ -1,6 +1,8 @@
 package com.team.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.util.Date;
@@ -10,7 +12,13 @@ import java.util.Properties;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.formula.functions.Address;
@@ -56,8 +64,9 @@ public class MemberController{
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpSession session) {
 		System.out.println("MemberController login()");
+		session.invalidate();
 		return "member/login";
 	}// login()
 //	-----------------------------------------------------------------------------	
@@ -118,40 +127,38 @@ public class MemberController{
 		System.out.println("emailCheck : "+ emailCheck);
 		return emailCheck; 
 	}//emailCheck()
-//	-----------------------------------------------------------------------------
-	@PostMapping("/findId") // ajax
-	@ResponseBody
-	public void findId(@RequestParam Map<String, String> map, HttpSession session) {
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/findId")
+	public String findId(HttpSession session, Model model) {
 		System.out.println("MemberController findId()");
+		model.addAttribute("findId", session.getAttribute("findId"));
+		return "member/findId";
+	}// findId()
+//	-----------------------------------------------------------------------------
+	@PostMapping("/findIdPro")
+	public String findIdPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController findIdPro()");
+		System.out.println("map : " + map);
 		Map<String, String> findId = memberService.findEmail(map);
 		session.setAttribute("findId", findId);
-		
-		if(findId == null) {
-			String msg = "이메일을 다시 확인해 주세요.";
-			System.out.println(msg);
-			session.setAttribute("msg", msg);
+		if(findId.get("MEM_EMAIL") == null) {
+//			Object[] msg = ["이메일을 다시 확인해 주세요."];
+			
 		} else {
-			String receiver = map.get("MEM_EMAIL").toString();
-			String subject = "다모임 - 계정 아이디 찾기 인증번호 발송";
+			String receiver = map.get("MEM_EMAIL");
+			String subject = "[다모임] 아이디 찾기 인증번호 발송 메일";
 			String url= "findId";
-//			String AuthNumber = sendCodemail(map, receiver, subject, url);
-//			session.setAttribute("AuthNumber", AuthNumber);
+			String AuthNumber = sendCodemail(findId, receiver, subject);
+			session.setAttribute("AuthNumber", AuthNumber);
 		}
-	}// findId()
-//	if(sPath.equals("/search_idPro.ow")) {
-//		Map<String, String> authCheck = ownerService.authCheck(req);
-//		session.setAttribute("authCheck", authCheck);
-//		if(authCheck == null) {
-//			String msg = "사업자번호 혹은 이메일을 다시 확인해 주십시오.";
-//			alertAndBack(res, msg);
-//		} else {
-//			String receiver = req.getParameter("OWN_EMAIL"); 
-//			String subject = "다이닝데이 - 점주 계정 아이디 찾기 인증번호 발송";
-//			String url= "search_id.ow";
-//			String AuthNumber = sendCodemail(res, receiver, subject, url);
-//			session.setAttribute("AuthNumber", AuthNumber);
-//		}	
-//	}
+		return "redirect: findId";
+	}// findIdPro()
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/findPw")
+	public String findPw(HttpSession session, Model model) {
+		System.out.println("MemberController findPw()");
+		return "member/findPw";
+	}// findPw()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -237,62 +244,68 @@ public class MemberController{
 		return "member/buyList";
 	}// buyList()
 //	-----------------------------------------------------------------------------
-
 	
-//	public static String sendCodemail(@RequestParam Map<String, String> map, String MEM_EMAIL, String subject, String url) {
-//		Random random = new Random();
-//		int randomNum = random.nextInt(1000000);
-//		String AuthNumber = String.format("%06d", randomNum);
-//		
-//		// 인증번호 메일 발송
-//		String sender = "ljw9863@naver.com";
-//		String receiver = MEM_EMAIL;
-//		String title = subject;
-//		String content = "인증번호는 [" + AuthNumber + "] 입니다.";
-//		
-//		try {
-//			Properties properties = System.getProperties();
-//			
-//			properties.put("mail.smtp.starttls.enable", "true");
-//			properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
-//			properties.put("mail.smtp.host", "smtp.gmail.com");
-//			properties.put("mail.smtp.auth", "true");
-//			properties.put("mail.smtp.port", "587");
-//			
-//			Authenticator authenticator = new GoogleSMTPAuthenticator();
-//			Session mailSession = Session.getDefaultInstance(properties, authenticator);
-//			Message mailMessage = new MimeMessage(mailSession);
-//			Address sender_address = new InternetAddress(sender, "다이닝데이");
-//			Address receiver_address = new InternetAddress(receiver);
-//			
-//			mailMessage.setHeader("content-type", "text/html; charset=UTF-8");
-//			mailMessage.setFrom(sender_address);
-//			mailMessage.addRecipient(RecipientType.TO, receiver_address);
-//			mailMessage.setSubject(title);
-//			mailMessage.setContent(content, "text/html; charset=UTF-8");
-//			mailMessage.setSentDate(new Date());
-//			
-//			Transport.send(mailMessage);
-//			
-//			String msg = "인증번호가 발송되었습니다.";
-//			alertAndGo(map, msg, url);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		
-//		return AuthNumber;
-//	}
-//	
-//	class GoogleSMTPAuthenticator extends Authenticator {
-//		PasswordAuthentication passwordAuthentication;
-//
-//		public GoogleSMTPAuthenticator() {
-//			passwordAuthentication = new PasswordAuthentication("gyeon3241@gmail.com", "yukvgnaszlocornd");
-//		}
-//		
-//		@Override
-//		protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-//			return passwordAuthentication;
-//		}
-//	}	
+		
+		// 인증메일
+		public String sendCodemail(Map<String, String> findId, String MEM_EMAIL, String subject) {
+			Random random = new Random();
+			int randomNum = random.nextInt(1000000);
+			String AuthNumber = String.format("%06d", randomNum);
+			
+			// 인증번호 메일 발송
+			String sender = "ljw9863@naver.com";
+			String receiver = MEM_EMAIL;
+			System.out.println("receiver : " + receiver);
+			String title = subject;
+			System.out.println("title : " + title);
+			String content = "인증번호는 [" + AuthNumber + "] 입니다.";
+			System.out.println("content : " + content);
+			
+			try {
+				Properties properties = System.getProperties();
+				
+				properties.put("mail.smtp.starttls.enable", "true");
+				properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+				properties.put("mail.smtp.host", "smtp.gmail.com");
+				properties.put("mail.smtp.auth", "true");
+				properties.put("mail.smtp.port", "587");
+				
+				javax.mail.Authenticator authenticator = new GoogleSMTPAuthenticator();
+				javax.mail.Session mailSession = javax.mail.Session.getDefaultInstance(properties, authenticator);
+				javax.mail.Message mailMessage = new MimeMessage(mailSession);
+				javax.mail.Address sender_address = new InternetAddress(sender, "다모임");
+				javax.mail.Address receiver_address = new InternetAddress(receiver);
+				
+				mailMessage.setHeader("content-type", "text/html; charset=UTF-8");
+				mailMessage.setFrom(sender_address);
+				mailMessage.addRecipient(RecipientType.TO, receiver_address);
+				mailMessage.setSubject(title);
+				mailMessage.setContent(content, "text/html; charset=UTF-8");
+				mailMessage.setSentDate(new Date());
+				
+				Transport.send(mailMessage);
+				
+				String msg = "인증번호가 발송되었습니다.";
+//				alertAndGo(res, msg, url);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			
+			return AuthNumber;
+		}
+		
+	class GoogleSMTPAuthenticator extends javax.mail.Authenticator {
+		javax.mail.PasswordAuthentication passwordAuthentication;
+
+		public GoogleSMTPAuthenticator() {
+			passwordAuthentication = new javax.mail.PasswordAuthentication("ljw980603@gmail.com", "jtdy kpyr dhhi yyrf");
+		}
+		
+		@Override
+		protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+			return passwordAuthentication;
+		}
+	}
+	
+
 }// MemberController 클래스

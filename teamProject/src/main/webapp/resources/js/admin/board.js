@@ -4,6 +4,7 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 			   
 $(() => {
+	targetColor($("#board_manage"));
 	paging("#tbody tr", 5, 0);
 })
 
@@ -60,6 +61,7 @@ $(function(){
 	// 모달창	
 	$('#insertForm').on('click', function(){
 		modal.css('display', 'block');
+		$()
 	})
 	
 	$('#close, #cancelBtn').on('click', function(){

@@ -31,8 +31,7 @@
 			, AD_ID 
 			, CASE AD_ROLE WHEN '1' THEN '총괄'
 						   WHEN '2' THEN '운영'
-						   WHEN '3' THEN '사이트'
-						   WHEN '4' THEN '시스템'
+						   WHEN '3' THEN '시스템'
 						   ELSE '기본'
 			   END AS "AD_ROLE"
 			, AD_ACTIVE
@@ -59,9 +58,14 @@
 	</update>
 	
 	<select id="getBoardList" resultType="map">
-		select SEQ
-				, CODE
+		select CODE
 				, HIDE
+				, SEQ
+				, CASE CO_DETAIL WHEN '0' THEN '글'
+						   WHEN '1' THEN '글+사진'
+						   WHEN '2' THEN '글+사진+날짜'
+						   ELSE '없음'
+			   END AS "CO_DETAIL"
 		from CODE
 			where  CO_TYPE = 'MM'
 		ORDER BY SEQ

@@ -91,11 +91,10 @@
 	</select>
 	
 	<select id="findEmail" parameterType="map" resultType="map">
-		select MEM_ID
+		select <include refid="MEMBER_ALL" />
 		from MEMBERS
 		where 
-			<if test="MEM_ID != null">AND MEM_ID = #{MEM_ID}</if>
-			<if test="MEM_EMAIL != null">AND MEM_EMAIL = #{MEM_EMAIL} </if>
+			<if test="MEM_EMAIL != null">MEM_EMAIL = #{MEM_EMAIL} </if>
 	</select>
 	
 	<select id="mypage" parameterType="map" resultType="map">

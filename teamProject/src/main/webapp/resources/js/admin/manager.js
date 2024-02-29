@@ -3,6 +3,7 @@ document.write('<script type="text/javascript"' +
 			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/variableCode.js">' +
 			   '</script>');
 $(() => {
+	targetColor($("#role_manage"));
 	paging("#tbody tr", 5, 0);
 });
 
@@ -18,8 +19,7 @@ $(function(){
 			name:"AD_NO",
 			header:"번호",
 			filter:"number",
-		    sortable: true,
-			sortingType: 'asc'
+		    sortable: true
 		}, 
 		{
 			name:"AD_ID",
@@ -53,7 +53,7 @@ $(function(){
             }
 		}
 	]
-	grid("managerList", 3, columns);
+	grid("managerList", 5, columns, false);
 	
 	
 	

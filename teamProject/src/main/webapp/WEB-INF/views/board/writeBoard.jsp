@@ -75,7 +75,6 @@
 			  <hr>
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-center">
-			      <!-- input 요소는 숨겨져 있으므로, label 요소를 중앙 정렬합니다. -->
 			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button"><img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png"></label>
 			      <input type='file' id='btnAtt' multiple style="display: none;"/>
 			      <button id="resetImg"><i class="bi bi-trash"></i></button>
@@ -92,13 +91,7 @@
 			    </div>
 			  </div>
 			  <hr>
-			<!--   <div class="row"> -->
-			<!--     <div class="col-12 d-flex justify-content-center"> -->
-			<!--       <input type="text" id="itemNm" name="itemNm" placeholder="상품명을 입력"> -->
-			<!--     </div> -->
-			<!--   </div> -->
 			<div class="row">
-<!-- 			    <div class="col-12 d-flex justify-content-center"> -->
 			    <div>
 					<div class="input-group" style="width: 90%;">
 					    <span class="input-group-text" id="basic-addon1">상품명</span>

@@ -51,13 +51,8 @@ public class AdminController {
  		return ToastUI.resourceData(req, mapList);
  	}
 	
-	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {
-//		teamService.showCodeList(EnumCodeType.메세지);
-//		Object[] arr = {"로그인"};
-//		teamService.onlyAlert(response, "AM1", arr);
-//		EnumCodeType.메세지.getType() + 1
 		boolean check = adminService.idCheck(map);
 		if(check) {
 			return null;
@@ -112,6 +107,17 @@ public class AdminController {
  		System.out.println(mapList);
  		return ToastUI.resourceData(req, mapList);
  	}
+ 	
+	@GetMapping("/inputForm")
+	public String inputForm(Model model) {
+		return "admin/inputForm";
+	}
+	
+	@PostMapping("/inputFormPro")
+	public String inputFormPro(@RequestParam Map<String, String> map) {
+		System.out.println("map : " + map.entrySet());
+		return "admin/inputFormPro";
+	}
 	
 	/* 현아 작업공간 */
 	

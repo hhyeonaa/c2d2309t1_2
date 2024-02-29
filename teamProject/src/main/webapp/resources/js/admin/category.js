@@ -1,3 +1,8 @@
+document.write('<script type="text/javascript"' + 
+		    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/variableCode.js">' +
+		   '</script>');
+			   
+			   
 $(function(){
 	var columns = [
 		{name:"CODE", 	 header:"카테고리명"},
@@ -7,6 +12,7 @@ $(function(){
 	
 	grid("categoryList", 3, columns);
 	excel("", "download");
+	targetColor($("#catelist_manage"));
 		
 	let categoryList = document.getElementById('categoryList');
 	var currentRow, preRow;

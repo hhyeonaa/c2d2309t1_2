@@ -218,13 +218,13 @@ ul{
 		                        <span class="nav_name">사이트 관리</span>
 		                    </a>       
                     	</li>
-	                    <li><a class="nav__link" href="${pageContext.request.contextPath}/admin/manager" style="width: 155px;">
+	                    <li><a class="nav__link" id="role_manage" href="${pageContext.request.contextPath}/admin/manager" style="width: 155px;">
 	                    	<small>● 권한 관리</small></a>
 	                    </li>
-	                    <li class=""><a class="nav__link" href="${pageContext.request.contextPath}/admin/board" style="width: 155px;">
+	                    <li class=""><a class="nav__link"  id="board_manage"  href="${pageContext.request.contextPath}/admin/board" style="width: 155px;">
 	                    	<small>● 게시판 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link mb-5" href="${pageContext.request.contextPath}/admin/category" style="width: 155px;">
+	                    <li><a class="nav__link mb-5" id="catelist_manage"  href="${pageContext.request.contextPath}/admin/category" style="width: 155px;">
 	                    	<small>● 카테고리 목록 관리</small></a>
 	                    </li>
                     </ul>

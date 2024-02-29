@@ -101,7 +101,7 @@
     </div>
     <div class="row g-0 pb-4">
     	<div class="mb-4" align="right">
-			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
+			<button type="reset" class="btn btn-secondary" id="">취소</button>
 			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
 		<div class="demo">
@@ -113,8 +113,22 @@
     </form>
     
 	<div class="btn-wrapper">
-		<button id="appendBtn">appendBtn</button>
-		<button id="prependBtn">prependBtn</button>
+		<select name="perPage" id="setPerpage">
+			<option selected disabled hidden>선택</option>
+			<option value="-1">기본값</option>
+			<option value="0">한 페이지에 보기</option>
+			<option value="1">1개 씩 보기</option>
+			<option value="5">5개 씩 보기</option>
+			<option value="10">10개 씩 보기</option>
+			<option value="20">20개 씩 보기</option>
+			<option value="30">30개 씩 보기</option>
+			<option value="50">50개 씩 보기</option>
+			<option value="100">100개 씩 보기</option>
+		</select>
+		<button id="appendBtn">행 추가</button>
+		<button id="removeBtn">추가 행 삭제</button>
+		<button id="resetBtn">취소</button>
+		<button id="saveBtn">저장</button>
 	</div>
     <div id="grid"></div>
 </div>

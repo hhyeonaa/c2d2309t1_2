@@ -16,12 +16,18 @@
  draggable(boolean) : 순서 바꾸는 기능 필요 시 (ex. 게시판 관리 페이지) (!!! draggable 사용 시 perPage 는 무조건 0)
 **/
 
+var appendRows = [];
+var defaultPerPage;
 var grid = (url, perPage, columns, draggable) => {
+	defaultPerPage = perPage;
 	var pageOptions = {
 		useClient: true,
 		perPage: perPage
 	};
-	if(perPage === 0) pageOptions = {};
+	if(perPage === 0) {
+		pageOptions = {};
+		$("#setPerpage").remove();
+	}
 	
 	const dataSource = {
 		api: {
@@ -39,15 +45,39 @@ var grid = (url, perPage, columns, draggable) => {
 		pageOptions: pageOptions
 	});
 	
-	
 	const appendBtn = document.getElementById('appendBtn');
-	const appendedData = {
-		AD_NO: '14',
-		AD_ID: 'test14',
-		AD_NAME: '테스트14',
-		AD_ACTIVE: '1'
-    };
+	const appendedData = {};
+    columns.forEach(item => appendedData[item.name] = '')
 	appendBtn.addEventListener('click', () => {
-      grid.appendRow(appendedData);
+		var rowCount = grid.getRowCount();
+		appendRows.push(rowCount);
+		if($("#setPerpage").val() == '0') grid.setPerPage(rowCount + 1, dataSource);
+		grid.appendRow(appendedData);
     });
+    
+    const removeBtn = document.getElementById('removeBtn');
+	removeBtn.addEventListener('click', () => {
+		debugger;
+		grid.removeRows(appendRows);
+		appendRows = [];
+    });
+    
+    const resetBtn = document.getElementById('resetBtn');
+    resetBtn.addEventListener('click', () =>{
+		debugger;
+		grid.reloadData();
+		debugger;	
+	});
+	
+	
+	const setPerpage = document.getElementById('setPerpage');
+	setPerpage.addEventListener('change', function(e){
+		var _perPage = Number(e.target.value);
+		if(_perPage === 0) _perPage = grid.getRowCount();
+		if(e.target.value === "-1") {
+			debugger;
+			_perPage = defaultPerPage;
+		}
+		grid.setPerPage(_perPage, dataSource);
+	});
 }

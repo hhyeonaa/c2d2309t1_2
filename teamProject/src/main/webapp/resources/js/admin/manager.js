@@ -52,7 +52,9 @@ $(function(){
             }
 		}
 	]
-	grid("managerList", 5, columns, false);
+	grid("managerList", 0, columns, false);
+	
+	
 	
 	
 	let adminList = document.getElementById('adminList');

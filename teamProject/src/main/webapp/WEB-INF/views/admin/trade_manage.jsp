@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>거래상태 관리</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <style>
     .insert:hover {
     	background-color: rgb(42, 188, 180, 0.2);
@@ -21,6 +23,8 @@
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 		<main style="background: #f0f0f3; padding: 200px;">
 			<h4 class="mb-5"><b>메세지 문구 관리</b></h4>
+			<textarea style="width: 700px; height: 500px;" placeholder="${code2.CODE}"></textarea>
+			<div>${code1.CODE}</div> 
 			<div>
 				<table class="table table-hover table align-middle table table-sm mt-5">
 					<thead>

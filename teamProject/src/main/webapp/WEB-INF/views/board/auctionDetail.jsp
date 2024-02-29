@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <style type="text/css">
 th {
 	font-size: 25px;
@@ -21,13 +22,13 @@ td{
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 .modalBox {
     position: relative;
     text-align: center;
     top : 15%;
-    left : 30%;
+    left : 25%;
     width: 50%;
     max-height: 50%;
     position : sticky;
@@ -114,7 +115,7 @@ td{
 		 			<tr>
 			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
 			 			<td><i class="bi bi-eye"></i> 112</td>
-			 			<td><i class="bi bi-calendar3"></i>2024/02/06 13:21:33</td>
+			 			<td><i class="bi bi-calendar3"></i>2024/03/06 13:21:33</td>
 			 			<td><img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</td>
 		 			</tr>
 		 			<tr><td colspan="4"><i class="bi bi-stopwatch"></i><span id="timer">타이머 로딩 중...</span> (종료 24/02/15 13:21:33)</td></tr>
@@ -317,7 +318,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
     function updateTimer() {
         const now = new Date();
-        const targetDate = new Date(2024, 1, 15, 13, 21, 33); // 2월은 1로 표기합니다(월은 0부터 시작).
+        const targetDate = new Date(2024, 2, 15, 13, 21, 33); // 2월은 1로 표기합니다(월은 0부터 시작).
         const timer = targetDate - now; // 남은 밀리초
 
         if (timer > 0) {

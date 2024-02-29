@@ -15,11 +15,11 @@ public class TeamDAO {
 	private SqlSession sqlSession;
 	private static final String namespace = "com.team.mappers.teamMapper.";	
 	
-	public List<Map<String, String>> selectCodeList(String codeType) {
-		return sqlSession.selectList(namespace + "selectCodeList", codeType);
+	public List<Map<String, String>> selectCodeList(Map<String, String> code) {
+		return sqlSession.selectList(namespace + "selectCodeList", code);
 	}
 	
-	public String selectCode(Map<String, String> code) {
+	public Map<String, String> selectCode(Map<String, String> code) {
 		return sqlSession.selectOne(namespace + "selectCode", code);
 	}
 }

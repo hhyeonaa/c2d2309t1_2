@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <style>
 .input-file-button, #att_zone {
 /*     display: inline-block; */
@@ -46,11 +48,16 @@
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
    			      <select id="proTc" name="proTc" style="width: 100px;">
-			      	<option id="sale" value="sale" selected>판매</option>
-			      	<option id="buy" value="buy">구매</option>
-			      	<option id="divide" value="divide">나눔</option>
-			      	<option id="auction" value="auction">경매</option>
+<!-- 			      	<option id="sale" value="판매" selected>판매</option> -->
+<!-- 			      	<option id="buy" value="구매">구매</option> -->
+<!-- 			      	<option id="divide" value="나눔">나눔</option> -->
+<!-- 			      	<option id="auction" value="경매">경매</option> -->
+					<c:forEach var="menu" items="${menu}">
+						<option value=${menu.CO_TYPE}${menu.CO_NO}>${menu.CODE}</option>
+					</c:forEach>
 			      </select>
+<!-- 			      <input type="hidden" id="proWr" name="proWr" value="하정우"> -->
+			      <input type="hidden" id="proWr" name="proWr" value="${sessionScope.MEM_ID}">
 			      <h2>상품 등록</h2>
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>
@@ -68,7 +75,6 @@
 			  <hr>
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-center">
-			      <!-- input 요소는 숨겨져 있으므로, label 요소를 중앙 정렬합니다. -->
 			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button"><img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png"></label>
 			      <input type='file' id='btnAtt' multiple style="display: none;"/>
 			      <button id="resetImg"><i class="bi bi-trash"></i></button>
@@ -85,13 +91,7 @@
 			    </div>
 			  </div>
 			  <hr>
-			<!--   <div class="row"> -->
-			<!--     <div class="col-12 d-flex justify-content-center"> -->
-			<!--       <input type="text" id="itemNm" name="itemNm" placeholder="상품명을 입력"> -->
-			<!--     </div> -->
-			<!--   </div> -->
 			<div class="row">
-<!-- 			    <div class="col-12 d-flex justify-content-center"> -->
 			    <div>
 					<div class="input-group" style="width: 90%;">
 					    <span class="input-group-text" id="basic-addon1">상품명</span>
@@ -110,14 +110,10 @@
 						<option>가방/지갑</option>     
 						<option>시계</option>          
 						<option>쥬얼리</option>       
-						<option>패션 액세서리</option>  
 						<option>디지털</option>        
 						<option>가전제품</option>     
 						<option>스포츠/레저</option>  
 						<option>차량/오토바이</option>  
-						<option>스타굿즈</option>    
-						<option>키덜트</option>      
-						<option>예술/희귀/수집품</option> 
 						<option>음반/악기</option>      
 						<option>도서/티켓/문구</option> 
 						<option>뷰티/미용</option>      
@@ -128,7 +124,6 @@
 						<option>유아동/출산</option>     
 						<option>반려동물용품</option>    
 						<option>기타</option>          
-						<option>지역 서비스</option>
 					</select>
 				</div>
 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
@@ -199,22 +194,22 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
-				   	<div>
-					   	<span>교환</span>
-					   	<div>
-						   	<input name="changeItem" id="changeOk" type="radio" value="가능">
-						   	<label for="changeOk">가능</label>
-					   	</div>
-					   	<div>
-						   	<input name="changeItem" id="changeNot" type="radio" value="불가능" checked>
-						   	<label for="changeNot">불가능</label>
-					   	</div>
-				   	</div>
-				</div>
-			</div>
-			<hr>
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-12 d-flex justify-content-center"> -->
+<!-- 				   	<div> -->
+<!-- 					   	<span>교환</span> -->
+<!-- 					   	<div> -->
+<!-- 						   	<input name="changeItem" id="changeOk" type="radio" value="가능"> -->
+<!-- 						   	<label for="changeOk">가능</label> -->
+<!-- 					   	</div> -->
+<!-- 					   	<div> -->
+<!-- 						   	<input name="changeItem" id="changeNot" type="radio" value="불가능" checked> -->
+<!-- 						   	<label for="changeNot">불가능</label> -->
+<!-- 					   	</div> -->
+<!-- 				   	</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<hr> -->
 			<div class="row">
 				<!-- 판매 구매일 때만 보일 것들 시작 -->
 				<div id="saleBuy">
@@ -227,10 +222,10 @@
 			    	</div>
 		    	</div>
 		    	<div class="row">
-					<div class="mt-3">
-						<input name="offeredPrice" id="offeredPrice" type="checkbox" value="제안받기" checked>
-					   	<label for="offeredPrice">가격 제안받기</label>
-					</div>
+<!-- 					<div class="mt-3"> -->
+<!-- 						<input name="offeredPrice" id="offeredPrice" type="checkbox" value="제안받기" checked> -->
+<!-- 					   	<label for="offeredPrice">가격 제안받기</label> -->
+<!-- 					</div> -->
 		    	</div>
 		    	</div>
 		    	<!-- 판매 구매일 때만 보일 것들 끝 -->
@@ -240,7 +235,7 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">시작가</span>
-						    <input type="text" class="form-control" placeholder="가격 입력" aria-label="startCost" aria-describedby="basic-addon1">
+						    <input type="text" class="form-control" id="aucSp" placeholder="가격 입력" aria-label="startCost" aria-describedby="basic-addon1">
 						</div>
 			    	</div>
 		    	</div>
@@ -248,7 +243,7 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">즉시구매가</span>
-						    <input type="text" class="form-control" placeholder="가격 입력" aria-label="directCost" aria-describedby="basic-addon1">
+						    <input type="text" class="form-control" id="aucInp" placeholder="가격 입력" aria-label="directCost" aria-describedby="basic-addon1">
 						</div>
 			    	</div>
 		    	</div>
@@ -256,7 +251,7 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">최소 입찰가</span>
-						    <input type="text" class="form-control" placeholder="가격 입력" aria-label="minCost" aria-describedby="basic-addon1">
+						    <input type="text" class="form-control" id="aucBp" placeholder="가격 입력" aria-label="minCost" aria-describedby="basic-addon1">
 						</div>
 			    	</div>
 		    	</div>
@@ -299,7 +294,8 @@
 				<div class="mb-3">
 					<label for="proContent" class="form-label">상세 설명</label>
 					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
-서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요."></textarea>
+서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요.
+나눔일 경우 나눔 조건도 꼭 입력해주세요."></textarea>
 				</div>
 				<span>0/2000</span>
 				</div>
@@ -324,15 +320,15 @@
 <!-- 		    	</div> -->
 <!-- 		  	</div> -->
 <!-- 		  	<hr> -->
-			<div class="row">
-			    <div>
-					<div class="input-group" style="width: 90%;" >
-					    <span class="input-group-text" id="basic-addon1">수량</span>
-					    <input type="text" class="form-control" placeholder="숫자만 입력" aria-label="InputCount" aria-describedby="basic-addon1">
-					</div>
-		    	</div>
-		  	</div>
-		  	<hr>
+<!-- 			<div class="row"> -->
+<!-- 			    <div> -->
+<!-- 					<div class="input-group" style="width: 90%;" > -->
+<!-- 					    <span class="input-group-text" id="basic-addon1">수량</span> -->
+<!-- 					    <input type="text" class="form-control" placeholder="숫자만 입력" aria-label="InputCount" aria-describedby="basic-addon1"> -->
+<!-- 					</div> -->
+<!-- 		    	</div> -->
+<!-- 		  	</div> -->
+<!-- 		  	<hr> -->
 		  	<div id="noDivide">
 			<div class="row">
 				<div class="col-12 d-flex justify-content-center">

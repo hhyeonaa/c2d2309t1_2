@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
@@ -22,49 +25,42 @@
                     <table class="table project-list-table table-nowrap align-middle table-borderless text-center">
                         <thead>
                             <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">아이디</th>
                                 <th scope="col">닉네임</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">이메일</th>
                                 <th scope="col">가입일</th>
                                 <th scope="col">정지일</th>
                                 <th scope="col">탈퇴</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
+                        <c:forEach var="member" items="${memList}">
+                        <fmt:parseDate var="data" value="${member.MEM_DATE}" pattern="yyyyMMddHHmmss"/>
                             <tr>
-                                <td>닉네임</td>
-                                <td>가입일</td>
+                                <td>${member.MEM_NO}</td>
+                                <td>${member.MEM_ID}</td>
+                                <td>${member.MEM_NICK}</td>
+                                <td>${member.MEM_NAME}</td>
+                                <td>${member.MEM_EMAIL}</td>
+                                <td><fmt:formatDate var="memDate" value="${data}" pattern="yyyy-MM-dd"/>${memDate}</td>
                                 <td>정지일</td>
                                 <th scope="row">
                                 	<div>
-										<button class="btn btn-dark">탈퇴</button>
+										<button type="button" class="btn-close"
+                                			onclick="location.href='${pageContext.request.contextPath}/admin/memberDelete?MEM_NO=${member.MEM_NO}'"></button>
 									</div>
                                 </th>
                             </tr>
-                            <tr>
-                                <td>닉네임</td>
-                                <td>가입일</td>
-                                <td>정지일</td>
-                                <th scope="row">
-                                	<div>
-										<button class="btn btn-dark">탈퇴</button>
-									</div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>닉네임</td>
-                                <td>가입일</td>
-                                <td>정지일</td>
-                                <th scope="row">
-                            	    <div>
-										<button class="btn btn-dark">탈퇴</button>
-									</div>
-                                </th>
-                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="row g-0 pb-4">
 		<div class="demo">
 		    <nav class="pagination-outer"  aria-label="Page navigation">
@@ -72,8 +68,9 @@
 		    </nav>
 		</div> 
     </div>
+    
 </div>
-	<script src="${pageContext.request.contextPath}/resources/js/admin/manager.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/admin/member_manage.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>
 </body>
 </html>

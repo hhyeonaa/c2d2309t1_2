@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.team.service.BoardService;
-import com.team.service.TeamService;
+import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
 
 @Controller
@@ -38,28 +40,56 @@ public class BoardController {
 	@Inject
 	BoardService boardService;
 	@Inject
-	private TeamService teamService;
+	private TeamCodeService codeService;
 	
 	@GetMapping("/saleBoard")
-	public String saleBoard() {
+	public String saleBoard(Model model) {
 		System.out.println("BoardController saleBoard()");
+		String proTc = "MM1";
+		Map<String, String> map = new HashMap<>();
+		map.put("proTc", proTc);
+		System.out.println("map: " + map);
 		/*테스트용 select start*/
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("proWr", "하정우");
-		System.out.println(boardService.select(map));
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("proNo", "PR4");
+//		System.out.println(boardService.select(map));
 		/*테스트용 select end*/
+//		List<Map<String,String>> resultList = boardService.selectSaleBoard();
+		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/saleBoard";
 	}// saleBoard()
 	
+	
+	// 성엽 작업 시작 //
+	
 	@GetMapping("/buyBoard")
-	public String buyBoard() {
+	public String buyBoard(Model model) {
 		System.out.println("BoardController buyBoard()");
+		
+		List<Map<String, String>> buyList = boardService.selectBuyBoard();
+		logger.info("buyList: " + buyList);
+		model.addAttribute("buyList", buyList);
+		
 		return "board/buyBoard";
 	}// buyBoard()
 	
+	// 성엽 작업 끝 //
+	
 	@GetMapping("/divideBoard")
-	public String divideBoard() {
+	public String divideBoard(Model model) {
 		System.out.println("BoardController divideBoard()");
+		String proTc = "MM3";
+		Map<String, String> map = new HashMap<>();
+		map.put("proTc", proTc);
+		System.out.println("map: " + map);
+//		List<Map<String,String>> resultList = boardService.selectDivideBoard();
+		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/divideBoard";
 	}// divideBoard()
 	
@@ -70,8 +100,12 @@ public class BoardController {
 	}// auctionBoard()
 	
 	@GetMapping("/writeBoard")
-	public String writeBoard() {
+	public String writeBoard(Model model) {
 		System.out.println("BoardController writeBoard()");
+		//codeService.selectCode("MM1");
+
+		
+//		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
 		return "board/writeBoard";
 	}// writeBoard()
 	
@@ -143,10 +177,19 @@ public class BoardController {
 //	        System.out.println("Saved file: " + fileName + " to " + uploadDir);
 //	    }
 	    List<String> imageFilenames = new ArrayList<>();
+//	    for (MultipartFile img : imgs) {
+//	        String fileName = img.getOriginalFilename(); // 원본 파일 이름 가져오기
+//	        imageFilenames.add(fileName);
+//	        File destFile = new File(realPath + File.separator + fileName);
+//	        img.transferTo(destFile); // 파일 저장
+//	        System.out.println("Saved file: " + fileName + " to " + realPath);
+//	    }
 	    for (MultipartFile img : imgs) {
-	        String fileName = img.getOriginalFilename(); // 원본 파일 이름 가져오기
+	        String originalFileName = img.getOriginalFilename();
+	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
 	        imageFilenames.add(fileName);
-	        File destFile = new File(realPath + File.separator + fileName);
+	        File destFile = new File(realPath + "\\" + fileName);
 	        img.transferTo(destFile); // 파일 저장
 	        System.out.println("Saved file: " + fileName + " to " + realPath);
 	    }
@@ -214,17 +257,98 @@ public class BoardController {
 //
 //        return "board/saleBoard"; // 업로드 결과를 보여줄 뷰의 이름
 //    }
-	
+	@PostMapping("/insertPreBoard")
+	public ResponseEntity<?> insertPreBoard(@RequestParam Map<String, String> textData){
+		System.out.println("BoardController insertPreBoard()");
+		// 텍스트 데이터 처리
+	    logger.info("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+        logger.info(textDataJson);
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+
+        // 파싱된 Map의 내용 출력
+        logger.info("parsedMap: " + parsedMap);
+        boardService.insertPreBoard(parsedMap);
+        
+		return ResponseEntity.ok("Data received successfully");
+	}// insertPreBoard()
+	@PostMapping("/insertPreAuction")
+	public ResponseEntity<?> insertPreAuction(@RequestParam Map<String, String> textData){
+		System.out.println("BoardController insertPreAuction()");
+		// 텍스트 데이터 처리
+	    logger.info("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+        logger.info(textDataJson);
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+
+        // 파싱된 Map의 내용 출력
+        logger.info("parsedMap: " + parsedMap);
+        boardService.insertPreAuction(parsedMap);
+        
+		return ResponseEntity.ok("Data received successfully");
+	}// insertPreAuction()	
 	
 	@GetMapping("/boardDetail")
-	public String boardDetail() {
+	public String boardDetail(HttpServletRequest request,Model model) {
 		System.out.println("BoardController boardDetail()");
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		logger.info("proWr: "+proWr);
+		logger.info("proDate: "+proDate);
+		Map<String, String> map = new HashMap<>();
+		map.put("proWr", proWr);
+		map.put("proDate", proDate);
+		boardService.upHits(map);
+		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		System.out.println("resultMap: "+ resultMap);
+		String ImgNames = resultMap.get("IMG_NAMES");
+		String[] ImgNameSplit = ImgNames.split("\\|");
+		ArrayList<String> imgList = new ArrayList<>();
+		for (String e : ImgNameSplit) {
+			imgList.add(e);
+		}
+		System.out.println("=====");
+		System.out.println(imgList);
+		model.addAttribute("resultMap", resultMap);
+		model.addAttribute("imgList", imgList);
 		return "board/boardDetail";
 	}// boardDetail()
 	
 	@GetMapping("/divideDetail")
-	public String divideDetail() {
+	public String divideDetail(HttpServletRequest request,Model model) {
 		System.out.println("BoardController divideDetail()");
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		logger.info("proWr: "+proWr);
+		logger.info("proDate: "+proDate);
+		Map<String, String> map = new HashMap<>();
+		map.put("proWr", proWr);
+		map.put("proDate", proDate);
+		boardService.upHits(map);
+		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		System.out.println("resultMap: "+ resultMap);
+		String ImgNames = resultMap.get("IMG_NAMES");
+		String[] ImgNameSplit = ImgNames.split("\\|");
+		ArrayList<String> imgList = new ArrayList<>();
+		for (String e : ImgNameSplit) {
+			imgList.add(e);
+		}
+		System.out.println("=====");
+		System.out.println(imgList);
+		model.addAttribute("resultMap", resultMap);
+		model.addAttribute("imgList", imgList);
 		return "board/divideDetail";
 	}// divideDetail()
 	
@@ -234,6 +358,63 @@ public class BoardController {
 		return "board/auctionDetail";
 	}// auctionDetail()
 	
-	
+	@GetMapping("/deleteBoard")
+	public String deleteBoard(HttpServletRequest request) {
+		System.out.println("BoardController deleteBoard()");
+		System.out.println("글번호: "+request.getParameter("proNo"));
+		String proNo = request.getParameter("proNo");
+		System.out.println("글종류: "+request.getParameter("proTc"));
+		String proTc = request.getParameter("proTc");
+		String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("proNo", proNo);
+		delMap.put("proTc", proTc);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+//		for(Map<String,String> map : oldImgMap) {
+//			System.out.println("하나하나: "+map);
+//			System.out.println("이미지 이름: " + map.get("IMG_NAME"));
+//			oldImgList.add(map.get("IMG_NAME"));
+//		}
+		System.out.println("oldImgList: " + oldImgList);
+//		System.out.println("oldImgMap: " + oldImgMap);
+		int successDelete = boardService.deleteBoard(delMap);
+		System.out.println("삭제후 숫자: " + successDelete);
+		if(successDelete == 1) {
+			System.out.println("삭제 성공@@@");
+			oldImgList.forEach(t -> {
+				new File(path + "\\" + t).delete();
+				System.out.println(t);
+			});
+//			for(String imgName : oldImgList) {
+//				File file = new File(path + "\\" + imgName);
+//				file.delete();
+//			}
+		} else {
+			// 삭제 실패 . . . .
+			// 그 화면으로 돌아가는 방법?
+			System.out.println("삭제 실패@@@");
+		}
+		
+		
+		String goBoard = "";
+		switch (proTc) {
+		case "MM1":
+			goBoard = "redirect:/board/saleBoard";
+			break;
+		case "MM2":
+			goBoard = "redirect:/board/buyBoard";
+			break;
+		case "MM3":
+			goBoard = "redirect:/board/divideBoard";
+			break;	
+		default:
+			goBoard = "redirect:/board/auctionBoard";
+			break;
+		}
+		return goBoard;
+	}// deleteBoard()
 	
 }// 클래스 끝

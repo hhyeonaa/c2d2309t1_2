@@ -64,8 +64,9 @@ public class MemberController{
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpSession session) {
 		System.out.println("MemberController login()");
+		session.invalidate();
 		return "member/login";
 	}// login()
 //	-----------------------------------------------------------------------------	

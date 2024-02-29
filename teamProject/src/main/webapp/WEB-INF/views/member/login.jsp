@@ -46,6 +46,11 @@
 					<input type="password" placeholder="비밀번호" name="MEM_PW"
 						class="form-control">
 				</div>
+				<!-- 테스트 계정 로그인 -->
+<!-- 				<div class="button-login-box"> -->
+<!-- 					<button type="submit" class="btn btn-primary btn-xs" -->
+<!-- 						style="width: 100%">테스트 계정 로그인</button> -->
+<!-- 				</div> -->
 				<div class="button-login-box">
 					<button type="submit" class="btn btn-secondary btn-xs"
 						style="width: 100%">로그인</button>
@@ -64,6 +69,7 @@
 				<a class="icon-link icon-link-hover mt-2" href="findId">아이디찾기</a> | <!-- 아이디찾기 페이지 이동 id="find_id"-->
 				<a class="icon-link icon-link-hover mt-2" href="findPw">비밀번호찾기</a>	 <!-- 비밀번호찾기 페이지 이동 --> 
 				<hr>
+				<!-- 관리자 로그인 -->
 <!-- 				<div style="text-align: right; padding-bottom: 3%;"><a href="adminLogin" id="adminLogin"><small>관리자 <ion-icon name="settings-outline"></ion-icon></small></a></div> -->
 				
 			</div>

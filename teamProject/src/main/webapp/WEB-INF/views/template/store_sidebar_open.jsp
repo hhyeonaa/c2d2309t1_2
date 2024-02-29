@@ -239,18 +239,18 @@ ul{
 	                    <li><a class="nav__link" id="message_manage" href="${pageContext.request.contextPath}/admin/message_manage" style="width: 155px;">
 	                    	<small>● 메세지 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link" id="category_manage" href="${pageContext.request.contextPath}/admin/category_manage" style="width: 155px;">
-	                    	<small>● 카테고리 항목 관리</small></a>
+	                    <li><a class="nav__link" id="code_manage" href="${pageContext.request.contextPath}/admin/code_manage" style="width: 155px;">
+	                    	<small>● 코드 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link" id="trade_manage" href="${pageContext.request.contextPath}/admin/trade_manage" style="width: 155px;">
-	                    	<small>● 거래상태 관리</small></a>
-	                    </li>
-	                    <li><a class="nav__link" id="declare_manage" href="${pageContext.request.contextPath}/admin/declare_manage" style="width: 155px;">
-	                    	<small>● 신고 항목 관리</small></a>
-	                    </li>
-	                    <li><a class="nav__link" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;">
-	                    	<small>● 검색 가격 관리</small></a>
-	                    </li>
+<%-- 	                    <li><a class="nav__link" id="trade_manage" href="${pageContext.request.contextPath}/admin/trade_manage" style="width: 155px;"> --%>
+<!-- 	                    	<small>● 거래상태 관리</small></a> -->
+<!-- 	                    </li> -->
+<%-- 	                    <li><a class="nav__link" id="declare_manage" href="${pageContext.request.contextPath}/admin/declare_manage" style="width: 155px;"> --%>
+<!-- 	                    	<small>● 신고 항목 관리</small></a> -->
+<!-- 	                    </li> -->
+<%-- 	                    <li><a class="nav__link" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;"> --%>
+<!-- 	                    	<small>● 검색 가격 관리</small></a> -->
+<!-- 	                    </li> -->
 	                    <li><a class="nav__link mb-5" id="data_upload" href="${pageContext.request.contextPath}/eul" style="width: 155px;">
 	                    	<small>● 데이터 업로드</small></a>
 	                    </li>

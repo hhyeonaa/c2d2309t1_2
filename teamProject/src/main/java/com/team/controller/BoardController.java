@@ -105,7 +105,7 @@ public class BoardController {
 		//codeService.selectCode("MM1");
 
 		
-		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
+//		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
 		return "board/writeBoard";
 	}// writeBoard()
 	

@@ -26,7 +26,7 @@
 					<img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<c:forEach var="board" items="${mapList}">
-							<c:if test="${board.HIDE eq '0'}">
+							<c:if test="${board.ACTIVE eq '1'}">
 								<li class="menu">
 							 		<a class="nav-link" href="#">${board.CODE }</a>
 								</li>
@@ -37,7 +37,7 @@
 						<div class="input-group" style="flex-wrap: nowrap;">
 					      <select class="form-select" aria-label="boardSelect">
 					      	<c:forEach var="board" items="${mapList}">
-					      		<c:if test="${board.HIDE eq '0'}">
+					      		<c:if test="${board.ACTIVE eq '1'}">
 					      			<option value="${board.CO_NO }">${board.CODE }</option>
 					      		</c:if>
 				          	</c:forEach>
@@ -100,10 +100,10 @@
 								<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
 								<th scope="row">
 								<div class="form-check form-switch justify-content-center">
-									<c:if test="${board.HIDE eq '1'}">
+									<c:if test="${board.ACTIVE eq '1'}">
 										<input class="form-check-input" type="checkbox" id="active" checked>
 									</c:if>
-									<c:if test="${board.HIDE eq '0'}">
+									<c:if test="${board.ACTIVE eq '0'}">
 										<input class="form-check-input" type="checkbox" id="active">
 									</c:if>
 								</div>

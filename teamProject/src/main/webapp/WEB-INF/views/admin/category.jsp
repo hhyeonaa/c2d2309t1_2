@@ -28,7 +28,7 @@
 					</svg>
 				</li>
 				<c:forEach var="category" items="${mapList}">
-					<c:if test="${category.HIDE eq '0'}">
+					<c:if test="${category.ACTIVE eq '1'}">
 						<li id="category-li">
 							<a class="nav-link" href="#">${category.CODE }</a>
 						</li>
@@ -58,10 +58,10 @@
 							<button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button>
 						</td>
 						<td>
-							<c:if test="${category.HIDE eq '1'}">
+							<c:if test="${category.ACTIVE eq '1'}">
 								<input class="form-check-input" type="checkbox" id="active" checked>
                             </c:if>
-                       		<c:if test="${category.HIDE eq '0'}">
+                       		<c:if test="${category.ACTIVE eq '0'}">
 								<input class="form-check-input" type="checkbox" id="active">
                             </c:if>
 							

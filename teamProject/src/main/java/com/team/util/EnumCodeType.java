@@ -11,6 +11,8 @@ public enum EnumCodeType {
 	거래상태("TM"), 
 	배송안내문구("DLM"),
 	메뉴항목("MM"),
+	상품상태("PS"),
+	상세설명("DD"),
 	코드번호("CO_NO"),
 	코드타입("CO_TYPE"),
 	코드내용("CODE"),

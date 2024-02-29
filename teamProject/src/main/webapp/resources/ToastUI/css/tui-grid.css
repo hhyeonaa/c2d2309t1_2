@@ -377,6 +377,8 @@
 /* [ToastUI] 텍스트 정렬 수정 (왼쪽 -> 가운데) 02.26 */
   text-align: center !important;  
   padding: 4px 5px;
+/* [ToastUI] 텍스트 크기 추가 02.28 */
+  font-size: large;
 }
 .tui-grid-cell-has-tree {
   height: inherit;

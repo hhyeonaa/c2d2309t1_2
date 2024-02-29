@@ -9,7 +9,7 @@
 	<title>중고거래</title>
     <!-- CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="${pageContext.request.contextPath}/resources/js/common/jquery-3.6.0.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/common/jquery.twbsPagination.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/variable.css" />
@@ -248,8 +248,11 @@ ul{
 	                    <li><a class="nav__link" id="declare_manage" href="${pageContext.request.contextPath}/admin/declare_manage" style="width: 155px;">
 	                    	<small>● 신고 항목 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link mb-5" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;">
+	                    <li><a class="nav__link" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;">
 	                    	<small>● 검색 가격 관리</small></a>
+	                    </li>
+	                    <li><a class="nav__link mb-5" id="data_upload" href="${pageContext.request.contextPath}/eul" style="width: 155px;">
+	                    	<small>● 데이터 업로드</small></a>
 	                    </li>
                     </ul>
 				</div>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mappers.memberMapper">
+
+	<sql id="MEMBER_ALL">
+		MEM_NO
+	  , MEM_ID
+	  , MEM_PW
+	  , MEM_NAME
+	  , MEM_BIRTH
+	  , MEM_TEL
+	  , MEM_EMAIL
+	  , MEM_GENDER
+	  , MEM_NICK
+	  , MEM_DATE
+	  , MEM_REDATE
+	  , MEM_IMAGE
+	  , MEM_RENEW
+	  , MEM_ACC
+	  , MEM_CAT
+	</sql>
+
+	<insert id="insertmember">
+		insert into MEMBERS
+				( MEM_NO
+				, MEM_ID
+				, MEM_PW
+				, MEM_GENDER
+				, MEM_NAME
+				, MEM_NICK
+				, MEM_BIRTH
+				, MEM_TEL
+				, MEM_EMAIL
+				, MEM_DATE )
+		values ( concat("ME", IFNULL((select MAX(cast(replace(MEM_NO, "ME", "") AS unsigned))+1 FROM MEMBERS A), 1))
+				,#{MEM_ID}
+				,#{MEM_PW}
+				,#{MEM_GENDER}
+				,#{MEM_NAME}
+				,#{MEM_NICK}
+				,#{MEM_BIRTH}
+				,#{MEM_TEL}
+				,#{MEM_EMAIL}
+				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s') ) 
+	</insert>
+	
+	<select id="login" resultType="map">
+		select MEM_ID, MEM_PW, MEM_NICK
+		from MEMBERS
+		where MEM_ID = #{MEM_ID} 
+		and MEM_PW = #{MEM_PW}
+	</select>
+	
+	<select id="socialLogin" resultType="map">
+		select MEM_ID
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}	
+	</select>	
+	
+	<select id="adminLogin" resultType="map">
+		select AD_ID, AD_PW
+		from ADMIN
+		where AD_ID = #{AD_ID} 
+		and AD_PW = #{AD_PW}
+	</select>	
+	
+	<select id ="getMember" resultType="map">
+		select <include refid="MEMBER_ALL" />
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="idCheck" resultType="int">
+		select count(MEM_ID)
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="nickCheck" resultType="int">
+		select count(MEM_NICK)
+		from MEMBERS
+		where MEM_NICK = #{MEM_NICK}
+	</select>
+	
+	<select id="emailCheck" resultType="int">
+		select count(MEM_EMAIL)
+		from MEMBERS
+		where MEM_EMAIL = #{MEM_EMAIL}
+	</select>
+	
+	<select id="findEmail" parameterType="map" resultType="map">
+		select <include refid="MEMBER_ALL" />
+		from MEMBERS
+		where 
+			<if test="MEM_EMAIL != null">MEM_EMAIL = #{MEM_EMAIL} </if>
+	</select>
+	
+	<select id="mypage" parameterType="map" resultType="map">
+		select M.MEM_NO
+			 , M.MEM_ID
+			 , M.MEM_PW
+			 , M.MEM_IMAGE
+			 , M.MEM_EMAIL
+			 , M.MEM_NAME
+			 , M.MEM_NICK
+			 , M.MEM_TEL
+			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
+			 , S.SCO_SCORE
+		from MEMBERS M
+		left outer join SCORE S
+		on M.MEM_NO = S.MEM_NO
+		where 1 = 1
+		and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<update id="memberEdit">
+		update MEMBERS
+		set MEM_NAME = #{MEM_NAME}
+		  , MEM_NICK = #{MEM_NICK}
+		  , MEM_PW = #{MEM_PW}
+		  , MEM_TEL = #{MEM_TEL}
+		  , MEM_EMAIL = #{MEM_EMAIL}
+		  , MEM_BIRTH = replace(cast(#{MEM_BIRTH} as char), "-", "")
+		  , MEM_IMAGE = #{MEM_IMAGE}
+		  , MEM_REDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where 1 = 1
+		and MEM_ID = #{MEM_ID}
+	</update>
+	
+	
+	
+</mapper>

@@ -189,7 +189,7 @@ public class BoardController {
 	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
 	        imageFilenames.add(fileName);
-	        File destFile = new File(realPath + File.separator + fileName);
+	        File destFile = new File(realPath + "\\" + fileName);
 	        img.transferTo(destFile); // 파일 저장
 	        System.out.println("Saved file: " + fileName + " to " + realPath);
 	    }
@@ -358,6 +358,63 @@ public class BoardController {
 		return "board/auctionDetail";
 	}// auctionDetail()
 	
-	
+	@GetMapping("/deleteBoard")
+	public String deleteBoard(HttpServletRequest request) {
+		System.out.println("BoardController deleteBoard()");
+		System.out.println("글번호: "+request.getParameter("proNo"));
+		String proNo = request.getParameter("proNo");
+		System.out.println("글종류: "+request.getParameter("proTc"));
+		String proTc = request.getParameter("proTc");
+		String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("proNo", proNo);
+		delMap.put("proTc", proTc);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+//		for(Map<String,String> map : oldImgMap) {
+//			System.out.println("하나하나: "+map);
+//			System.out.println("이미지 이름: " + map.get("IMG_NAME"));
+//			oldImgList.add(map.get("IMG_NAME"));
+//		}
+		System.out.println("oldImgList: " + oldImgList);
+//		System.out.println("oldImgMap: " + oldImgMap);
+		int successDelete = boardService.deleteBoard(delMap);
+		System.out.println("삭제후 숫자: " + successDelete);
+		if(successDelete == 1) {
+			System.out.println("삭제 성공@@@");
+			oldImgList.forEach(t -> {
+				new File(path + "\\" + t).delete();
+				System.out.println(t);
+			});
+//			for(String imgName : oldImgList) {
+//				File file = new File(path + "\\" + imgName);
+//				file.delete();
+//			}
+		} else {
+			// 삭제 실패 . . . .
+			// 그 화면으로 돌아가는 방법?
+			System.out.println("삭제 실패@@@");
+		}
+		
+		
+		String goBoard = "";
+		switch (proTc) {
+		case "MM1":
+			goBoard = "redirect:/board/saleBoard";
+			break;
+		case "MM2":
+			goBoard = "redirect:/board/buyBoard";
+			break;
+		case "MM3":
+			goBoard = "redirect:/board/divideBoard";
+			break;	
+		default:
+			goBoard = "redirect:/board/auctionBoard";
+			break;
+		}
+		return goBoard;
+	}// deleteBoard()
 	
 }// 클래스 끝

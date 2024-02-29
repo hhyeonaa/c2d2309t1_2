@@ -60,7 +60,7 @@
 				</div>
 				<div class="btn-group">
 			  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
-					<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
+					<img src="${pageContext.request.contextPath}/resources/img/common/user.png" alt="로그인"  style="width: 40px; height: 40px;">
 				</button>
 				  <ul class="dropdown-menu">
 				    <li><a class="dropdown-item" href="#">프로필</a></li>

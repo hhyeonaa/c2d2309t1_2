@@ -1,4 +1,10 @@
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/variableCode.js">' +
+			   '</script>');
+ 
 $(()=>{
+	targetColor($("#data_upload"));
+	
 	$("#tableSelect").on("change", function(){
 		$("#excelFormBtn").remove();
 		$("#tableSelect").after('<button id="excelFormBtn" class="btn btn-success"><img class="excel_icon" src="resources/img/excel/file_excel_icon.png"alt="excel_icon">양식 다운로드</button>');

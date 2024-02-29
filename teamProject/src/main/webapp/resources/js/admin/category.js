@@ -11,9 +11,9 @@ $(function(){
 	]
 	
 	grid("categoryList", 3, columns);
-	
+	excel();
 	targetColor($("#catelist_manage"));
-	
+		
 	let categoryList = document.getElementById('categoryList');
 	var currentRow, preRow;
 	

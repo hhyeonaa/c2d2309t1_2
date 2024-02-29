@@ -29,7 +29,7 @@
 					<input type="file" id="fileInput" class="form-control" name="fileInput">
 					<div class="btnBox">
 						<button class="btn btn-primary">엑셀 업로드</button>
-						<button class="btn btn-danger">초기화</button>	
+						<input type="reset" class="btn btn-danger" value="초기화" />	
 					</div>
 				</form>
 			</div>

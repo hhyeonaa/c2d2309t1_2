@@ -1,0 +1,62 @@
+@charset "UTF-8";
+/* ----------------------------------------------------- */
+.btnSize{
+	font-size: 12px !important;
+	font-weight: bold !important;
+	box-shadow: 1px 1px 3px #d8d8d8;
+}
+
+/* ----------------------------------------------------- */
+.excelBox{
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.excel_icon{
+	width: 15px;
+	height: 15px;
+	margin-right: 3px; 
+}
+
+/* ----------------------------------------------------- */
+.excelModalBox{
+	display:none;
+	
+	padding: 15px;
+	box-shadow: 1px 1px 3px #d8d8d8;
+	
+	width: auto;
+	height: auto;
+	
+    position: absolute;
+    z-index: 100;
+    top: 38px;
+	
+	background: white;	
+}
+
+.mb_5px{
+	margin-bottom: 5px;
+}
+
+.font_blod_13px{
+	font-weight: bold;
+	font-size: 13px;
+	margin-right: 5px;
+}
+
+#fileInput{
+	font-size: 13px;
+}
+
+.btnBox{
+	margin-top: 5px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.uLBtn{
+	margin-right: 5px;
+}

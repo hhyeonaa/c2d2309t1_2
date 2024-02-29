@@ -6,7 +6,8 @@ $(function(){
 	]
 	
 	grid("categoryList", 3, columns);
-	
+	excel();
+		
 	let categoryList = document.getElementById('categoryList');
 	var currentRow, preRow;
 	

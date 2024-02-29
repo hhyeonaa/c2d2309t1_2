@@ -1,21 +1,11 @@
 /**
- * 게시물 상세 페이지 js 입니다.
+ * 나눔 상세 페이지 js 입니다.
  */
  document.write('<script type="text/javascript"' + 
                     'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
-               '</script>');
+               '</script>')
 let additionalImages = [];
 $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
-//	$(".carousel-item img").click(function(){
-//	    let img = new Image();
-//	    img.src = $(this).attr("src")
-//	    $('.modalBox').html(img);
-//	    $(".modal").show();
-//	});
-//	// 모달 클릭할때 이미지 닫음
-//	$(".modal").click(function (e) {
-//		$(".modal").toggle();
-//	});
 	$('.carousel').carousel('pause');
 // 제일 좋은 방법은 이미지들에게 그냥 클래스를 주는 것이 좋다.
     $(".carousel-item img").click(function() {
@@ -88,6 +78,18 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		$(".modal").toggle();
 	});
 	
+	// 나눔 신청자에게 채팅하기
+    $(".chat-button").click(function(){
+        // 클릭된 버튼의 부모 div에 접근
+        var parentDiv = $(this).closest('div');
+		var spanText = parentDiv.find('span');	
+        // 부모 div를 콘솔에 로그
+//         console.log(parentDiv.text());
+        console.log(spanText.text());
+
+        // 여기에서 parentDiv를 조작
+    });
+    
 	// 글 삭제 버튼
 	$('#deleteBoard').on('click',function(){
 		const proNo = $('#proNo').val();

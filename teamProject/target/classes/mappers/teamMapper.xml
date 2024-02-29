@@ -6,6 +6,7 @@
 
 	<select id="selectCodeList" parameterType="map" resultType="map">
 <<<<<<< HEAD
+<<<<<<< HEAD
 		select  CO_TYPE
 			  , CO_NO
 			  , CODE
@@ -89,6 +90,24 @@
 		   and CO_TYPE = #{CO_TYPE}
 		   and HIDE = '0'
 >>>>>>> branch 'jaewon' of https://github.com/hhyeonaa/c2d2309t1_2.git
+=======
+		
+		select CO_TYPE, CO_NO, CODE
+		  from ${tableName}
+		 where 1 = 1  
+		   and CO_TYPE = #{codeType}
+		   and HIDE in (${hideCheck})
+		 order by cast(CO_NO as signed)  	     
+	</select>
+	
+	<select id="selectCode" parameterType="map" resultType="map">
+		select CODE
+		  from ${tableName}			
+		 where 1 = 1
+		   and CO_NO = #{CO_NO}
+		   and CO_TYPE = #{CO_TYPE}
+		   and HIDE = '0'
+>>>>>>> branch 'hjwhome' of https://github.com/hhyeonaa/c2d2309t1_2.git
 	</select>
 
 </mapper>

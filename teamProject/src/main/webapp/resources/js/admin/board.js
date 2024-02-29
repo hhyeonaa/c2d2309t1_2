@@ -16,7 +16,7 @@ $(() => {
 	]
 	
 	grid("boardList", 3, columns);
-	excel();
+	excel("", "download");
 })
 
 

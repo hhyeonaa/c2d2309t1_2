@@ -53,7 +53,7 @@ $(function(){
 		}
 	]
 	grid("managerList", 5, columns, false);
-	excel();
+	excel("upload", "download"); // 
 	
 	
 	

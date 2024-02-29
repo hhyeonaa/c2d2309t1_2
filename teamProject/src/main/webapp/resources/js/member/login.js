@@ -180,7 +180,6 @@ $(function(){
 				$('#pwResult').html("적합한 비밀번호 입니다.").css('color', 'green')
 			} else{
 				$('#pwResult').html("비밀번호는 (영문, 숫자, 특수 문자 포함) 6~14자여야 합니다.").css('color', 'red')
-				return
 			}
 		});
 		
@@ -196,9 +195,10 @@ $(function(){
 		   		return
 //		    	    $('#confirmPw').val('');	// 공백만들기
 //		      		$('#confirmPw').focus();	// 커서 이동
-		    } else {
-				$('#pwCheck').html("비밀번호가 일치합니다.").css('color', 'green')
-			}
+		   } 
+			
+			$('#pwCheck').html("비밀번호가 일치합니다.").css('color', 'green')
+			
 		});
 		
 		// ~~~~~~~~~~~~~~~~~~~닉네임 중복 체크~~~~~~~~~~~~~~~~~~~	
@@ -214,15 +214,13 @@ $(function(){
 				url:'nickCheck',
 				data:{'MEM_NICK':$('#nickname').val()},
 				success:function(data){
-	// 					alert(result)
+					var msg = "이미 사용중인 닉네임 입니다.";;
+					var color = 'red';
 					if(data == 0){
-						$("#nickCheck").text("사용가능한 닉네임 입니다.").css('color', 'green');
-						
-					}else{
-						$("#nickCheck").text("이미 사용중인 닉네임 입니다.").css('color', 'red');
-						return;
+						msg = "사용가능한 닉네임 입니다.";
+						color = 'green';
 					}
-					
+					$("#nickCheck").text(msg).css('color', color);
 				}
 			});
 		});	
@@ -247,17 +245,18 @@ $(function(){
 					if(data == 0){
 						if (emailRegex.test(email)) {
 							$("#emailCheck").text("사용가능한 이메일 입니다.").css('color', 'green');
+							return;
 						} else{
 							$("#emailCheck").text("올바른 이메일 형식이 아닙니다.").css('color', 'red');
-//							$('#pwResult').html("비밀번호는 (영문, 숫자, 특수 문자 포함) 6~14자여야 합니다.").css('color', 'red')
 							return;
+//							$('#pwResult').html("비밀번호는 (영문, 숫자, 특수 문자 포함) 6~14자여야 합니다.").css('color', 'red')
 						}
 //						$("#emailCheck").text("사용가능한 이메일 입니다.").css('color', 'green');
 						
-					}else{
-						$("#emailCheck").text("이미 사용중인 이메일 입니다.").css('color', 'red');
-						return;
 					}
+					
+					$("#emailCheck").text("이미 사용중인 이메일 입니다.").css('color', 'red');
+					
 					
 				}
 			});
@@ -343,20 +342,32 @@ $(function(){
 	
 	
 	// -----------------아이디 찾기------------------
-	// 아이디 찾기 버튼 클릭 시 모달 열기
-	$('#find_id').on('click', function(){
-		idModal.style.display = "block";
-	})
-	
-	// x버튼 클릭 시 모달 종료
-	$('.closeId').on('click', function closeId(){
-		idModal.style.display = "none";	
-	});
+//	// 아이디 찾기 버튼 클릭 시 모달 열기
+//	$('#find_id').on('click', function(){
+//		idModal.style.display = "block";
+//		$('#idNumber').on('click', function(){
+//			$.ajax({
+//				type: 'POST',
+//				url:'findId',
+//				data:{'MEM_EMAIL':$('#email_id').val()}
+//			})
+//			.done({
+//				
+//			})
+//		});
+//	})
+//	
+//	// x버튼 클릭 시 모달 종료
+//	$('.closeId').on('click', function closeId(){
+//		idModal.style.display = "none";	
+//	});
 	
 	// -----------------아이디 찾기 결과------------------
 	// 다음 버튼 클릭 시 모달 열기
 	$('#idNext').on('click', function(){
 		idModal.style.display = "none";
+//		session.removeAttribute("AuthNumber");
+//		session.removeAttribute("authCheck");
 		idResultModal.style.display = "block";
 	})
 	

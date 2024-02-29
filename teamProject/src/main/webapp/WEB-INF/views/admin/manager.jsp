@@ -22,7 +22,7 @@
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
 			<div>
 			    <a data-mdb-toggle="pill" href="#" role="tab" aria-controls="register" aria-selected="true"
-			       class="btn" id="btnAdd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
+			       class="btn" id="btnAddd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
 			</div>
         </div>
     </div>
@@ -112,6 +112,10 @@
     </div>
     </form>
     
+	<div class="btn-wrapper">
+		<button id="appendBtn">appendBtn</button>
+		<button id="prependBtn">prependBtn</button>
+	</div>
     <div id="grid"></div>
 </div>
 </body>

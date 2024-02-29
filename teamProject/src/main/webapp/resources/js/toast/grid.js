@@ -38,4 +38,16 @@ var grid = (url, perPage, columns, draggable) => {
 		rowHeaders: ['rowNum', 'checkbox'],
 		pageOptions: pageOptions
 	});
+	
+	
+	const appendBtn = document.getElementById('appendBtn');
+	const appendedData = {
+		AD_NO: '14',
+		AD_ID: 'test14',
+		AD_NAME: '테스트14',
+		AD_ACTIVE: '1'
+    };
+	appendBtn.addEventListener('click', () => {
+      grid.appendRow(appendedData);
+    });
 }

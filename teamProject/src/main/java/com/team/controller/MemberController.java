@@ -1,11 +1,13 @@
 package com.team.controller;
 
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.formula.functions.Address;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,8 +74,9 @@ public class MemberController{
 	}// login()
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/loginPro")
-	public String loginPro(@RequestParam Map<String, String> map, HttpSession session) {
+	public String loginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) {
 		System.out.println("MemberController loginPro()");
+		Object[] msg = {"아이디, 비밀번호"};
 		Map<String, String> check = memberService.login(map);
 		System.out.println("check : " + check);
 		if(check != null) {
@@ -136,29 +140,83 @@ public class MemberController{
 	}// findId()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/findIdPro")
-	public String findIdPro(@RequestParam Map<String, String> map, HttpSession session) {
-		System.out.println("MemberController findIdPro()");
-		System.out.println("map : " + map);
-		Map<String, String> findId = memberService.findEmail(map);
-		session.setAttribute("findId", findId);
-		if(findId.get("MEM_EMAIL") == null) {
-//			Object[] msg = ["이메일을 다시 확인해 주세요."];
-			
-		} else {
-			String receiver = map.get("MEM_EMAIL");
-			String subject = "[다모임] 아이디 찾기 인증번호 발송 메일";
-			String url= "findId";
-			String AuthNumber = sendCodemail(findId, receiver, subject);
-			session.setAttribute("AuthNumber", AuthNumber);
-		}
-		return "redirect: findId";
+	public String findIdPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) {
+		try {
+			System.out.println("MemberController findIdPro()");
+			System.out.println("map : " + map);
+			Object[] msg = {"이메일"};
+			Map<String, String> findId = memberService.findId(map);
+			System.out.println("findId" + findId);
+			session.setAttribute("findId", findId);
+			if(findId.get("MEM_EMAIL") == null) {
+				codeService.submitForAlert(response, "AM5", msg);
+			} else {
+				String receiver = map.get("MEM_EMAIL");
+				String subject = "[다모임] 아이디 찾기 인증번호 발송 메일";
+				String url= "findId";
+				String AuthNumber = sendCodemail(findId, receiver, subject);
+				session.setAttribute("AuthNumber", AuthNumber);
+			}
+		} catch (Exception e) {
+			System.err.println("정보 입력 오류");
+		} return "redirect: findId";
 	}// findIdPro()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/findPw")
 	public String findPw(HttpSession session, Model model) {
 		System.out.println("MemberController findPw()");
+		model.addAllAttributes((Map<String, String>)session.getAttribute("findPw"));
 		return "member/findPw";
 	}// findPw()
+//	-----------------------------------------------------------------------------
+	@PostMapping("/findPwPro")
+	public String findPwPro(@RequestParam Map<String, String> map, HttpSession session) {
+		try {
+			System.out.println("MemberController findPwPro()");
+			System.out.println("map : " + map);
+			Map<String, String> findPw = memberService.findId(map);
+			session.setAttribute("findPw", findPw);
+			if(findPw.get("MEM_EMAIL") == null) {
+//				Object[] msg = ["이메일을 다시 확인해 주세요."];
+				
+			} else {
+				String receiver = map.get("MEM_EMAIL");
+				String subject = "[다모임] 비밀번호 찾기 인증번호 발송 메일";
+				String AuthNumber = sendCodemail(findPw, receiver, subject);
+				session.setAttribute("AuthNumber", AuthNumber);
+			}
+			
+		} catch (Exception e) {
+			System.err.println("정보 입력 오류");
+		} return "redirect: findPw";
+		
+//		try {
+//			System.out.println("MemberController findIdPro()");
+//			System.out.println("map : " + map);
+//			Object[] msg = {"이메일"};
+//			Map<String, String> findId = memberService.findId(map);
+//			System.out.println("findId" + findId);
+//			session.setAttribute("findId", findId);
+//			if(findId.get("MEM_EMAIL") == null) {
+//				codeService.submitForAlert(response, "AM5", msg);
+//			} else {
+//				String receiver = map.get("MEM_EMAIL");
+//				String subject = "[다모임] 아이디 찾기 인증번호 발송 메일";
+//				String url= "findId";
+//				String AuthNumber = sendCodemail(findId, receiver, subject);
+//				session.setAttribute("AuthNumber", AuthNumber);
+//			}
+//		} catch (Exception e) {
+//			System.err.println("정보 입력 오류");
+//		} return "redirect: findId";
+	}// findPwPro()
+//	-----------------------------------------------------------------------------	
+	@PostMapping("/pwUpdate")
+	@ResponseBody
+	public ResponseEntity<?> pwUpdate(@RequestParam Map<String, String> map) {
+		System.out.println("MemberController pwUpdate()");
+		return ResponseEntity.ok().body(memberService.pwUpdate(map));
+	}// pwUpdate()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -177,7 +235,6 @@ public class MemberController{
 	public String adminLoginPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController adminLoginPro()");
 		Map<String, String> check = memberService.adminLogin(map);
-		System.out.println(check);
 		if(check != null) {
 			session.setAttribute("MEM_ID", check.get("AD_ROLE"));
 			return "redirect:/admin/member_manage";
@@ -190,10 +247,8 @@ public class MemberController{
 	public String mypage(Model model, HttpSession session) {
 		System.out.println("MemberController mypage()");
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
-		System.out.println("@@@@@@" + MEM_ID.toString());
 		Map<String, String> profile = memberService.mypage(MEM_ID);
 		model.addAttribute("profile", profile);
-		System.out.println("profile : " + profile);
 		return "member/mypage";
 	}// mypage()
 //	-----------------------------------------------------------------------------
@@ -211,10 +266,6 @@ public class MemberController{
 		System.out.println("MemberController memberEditPro()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> param = memberService.getMember(MEM_ID, map);
-		System.out.println("param : " + param);
-		System.out.println(map.get("MEM_PW"));
-			System.out.println(map.values());
-			System.out.println("프로필 수정 가능");
 			memberService.memberEdit(map);
 			System.out.println("@@@@@@@@@@@@@@@@@@@@" + map);
 			return "redirect:/member/mypage";
@@ -245,7 +296,9 @@ public class MemberController{
 	}// buyList()
 //	-----------------------------------------------------------------------------
 	
-		
+	
+	
+//  ===============================================메일 전송 관련===============================================	
 		// 인증메일
 		public String sendCodemail(Map<String, String> findId, String MEM_EMAIL, String subject) {
 			Random random = new Random();
@@ -255,11 +308,9 @@ public class MemberController{
 			// 인증번호 메일 발송
 			String sender = "ljw9863@naver.com";
 			String receiver = MEM_EMAIL;
-			System.out.println("receiver : " + receiver);
 			String title = subject;
-			System.out.println("title : " + title);
 			String content = "인증번호는 [" + AuthNumber + "] 입니다.";
-			System.out.println("content : " + content);
+			System.out.println(content);
 			
 			try {
 				Properties properties = System.getProperties();
@@ -285,14 +336,15 @@ public class MemberController{
 				
 				Transport.send(mailMessage);
 				
-				String msg = "인증번호가 발송되었습니다.";
+//				Object[] msg = {"인증번호"};
 //				alertAndGo(res, msg, url);
+//				codeService.submitForAlert(response, "AM13", msg);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			
 			return AuthNumber;
-		}
+		}// sendCodemail()
 		
 	class GoogleSMTPAuthenticator extends javax.mail.Authenticator {
 		javax.mail.PasswordAuthentication passwordAuthentication;
@@ -304,8 +356,8 @@ public class MemberController{
 		@Override
 		protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
 			return passwordAuthentication;
-		}
+		}// GoogleSMTPAuthenticator()
 	}
-	
+//  ===============================================메일 전송 관련===============================================		
 
 }// MemberController 클래스

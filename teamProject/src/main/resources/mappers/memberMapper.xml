@@ -72,8 +72,14 @@
 		where MEM_ID = #{MEM_ID}
 	</select>
 	
+	<select id="memCheck" resultType="map">
+		select <include refid="MEMBER_ALL" />
+		from MEMBERS
+		where MEM_PW = #{MEM_PW}
+	</select>
+	
 	<select id="idCheck" resultType="int">
-		select count(MEM_ID)
+		select count(MEM_NICK)
 		from MEMBERS
 		where MEM_ID = #{MEM_ID}
 	</select>
@@ -90,12 +96,15 @@
 		where MEM_EMAIL = #{MEM_EMAIL}
 	</select>
 	
-	<select id="findEmail" parameterType="map" resultType="map">
+	<select id="findId" parameterType="map" resultType="map">
 		select <include refid="MEMBER_ALL" />
 		from MEMBERS
 		where 
 			<if test="MEM_EMAIL != null">MEM_EMAIL = #{MEM_EMAIL} </if>
+			<if test="MEM_NAME != null">AND MEM_NAME = #{MEM_NAME} </if>
+			<if test="MEM_ID != null">AND MEM_ID = #{MEM_ID} </if>
 	</select>
+	
 	
 	<select id="mypage" parameterType="map" resultType="map">
 		select M.MEM_NO
@@ -128,7 +137,11 @@
 		where 1 = 1
 		and MEM_ID = #{MEM_ID}
 	</update>
-	
-	
+
+	<update id="pwUpdate" parameterType="map">
+ 		update MEMBERS
+ 		set MEM_PW = #{MEM_PW}
+ 		where MEM_EMAIL = #{MEM_EMAIL}
+	</update>
 	
 </mapper>

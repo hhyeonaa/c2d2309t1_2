@@ -36,7 +36,7 @@
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
 		<!-- 로그인 페이지 타이틀 -->
-		<img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
+		<img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		<h4>아이디 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>
@@ -45,10 +45,6 @@
 	      <div class="form-group">
 	        <label for="username">이름</label>
 	        <input type="text" id="username" name="MEM_NAME" placeholder="이름을 입력해 주세요." value="${findId.MEM_NAME}" required>
-	      </div>
-	      <div class="form-group">
-	        <label for="birth">생년월일</label>
-	        <input type="text" id="birth" name="MEM_BIRTH" placeholder="생년월일 8자리" value="${findId.MEM_BIRTH}" required>
 	      </div>
 	      <div class="form-group">
 	        <label for="email">이메일</label>

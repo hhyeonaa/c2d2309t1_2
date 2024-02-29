@@ -248,8 +248,11 @@ ul{
 	                    <li><a class="nav__link" id="declare_manage" href="${pageContext.request.contextPath}/admin/declare_manage" style="width: 155px;">
 	                    	<small>● 신고 항목 관리</small></a>
 	                    </li>
-	                    <li><a class="nav__link mb-5" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;">
+	                    <li><a class="nav__link" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;">
 	                    	<small>● 검색 가격 관리</small></a>
+	                    </li>
+	                    <li><a class="nav__link mb-5" id="data_upload" href="${pageContext.request.contextPath}/eul" style="width: 155px;">
+	                    	<small>● 데이터 업로드</small></a>
 	                    </li>
                     </ul>
 				</div>

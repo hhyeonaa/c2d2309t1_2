@@ -23,8 +23,8 @@
 				<option value="3">나눔</option>
 				<option value="4">경매</option>
 			</select>
-		</div>
-    </div>
+			</div>
+    	</div>
 	
 	
 	<div class="row">

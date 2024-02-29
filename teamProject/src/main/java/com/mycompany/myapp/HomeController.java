@@ -54,6 +54,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/eul", method = RequestMethod.GET)
 	public String eul() {
-		return "excelTest2";
+		return "excelUpload";
 	}
 }

@@ -8,11 +8,15 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.ExcelService;
 import com.team.util.Excel;
+import com.team.util.ToastUI;
 import com.team.util.UploadExcel;
 
 @Controller
@@ -31,9 +35,10 @@ public class ExcelController {
 	} // Excel
 	
 	@GetMapping("eultest")
-	public void eul(HttpServletRequest request) {
+	@ResponseBody
+	public ResponseEntity<?> eul(@RequestParam Map<String, String> param, HttpServletRequest request) {
 		UploadExcel excel = new UploadExcel();
-		excel.test1(request);
+		return ToastUI.resourceData(param, excel.test1(request));
 	}
 	
 	

@@ -22,7 +22,7 @@ public class TeamCodeService implements TeamCodeClassDesign {
 
 	@Inject
 	private TeamDAO dao;
-
+	
 	@Override
 	public void submitForAlert(HttpServletResponse response, String code, Object[] msg) {
 		try {

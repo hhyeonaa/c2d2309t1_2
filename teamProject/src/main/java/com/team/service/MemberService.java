@@ -34,10 +34,30 @@ public class MemberService {
 		return memberDAO.socialLogin(map); 
 	}// socialLogin()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> getMember(String MEM_ID) {
+	public Map<String, String> getMember(String MEM_ID, Map<String, String> map) {
 		System.out.println("MemberService getMember()");
-		return memberDAO.getMember(MEM_ID); 
+		return memberDAO.getMember(MEM_ID, map); 
 	}// getMember()
+//	-----------------------------------------------------------------------------	
+	public int idCheck(String MEM_ID) {
+		System.out.println("MemberService idCheck()");
+		return memberDAO.idCheck(MEM_ID);
+	}// idCheck()
+//	-----------------------------------------------------------------------------	
+	public int nickCheck(String MEM_NICK) {
+		System.out.println("MemberService nickCheck()");
+		return memberDAO.nickCheck(MEM_NICK);
+	}// nickCheck()
+//	-----------------------------------------------------------------------------	
+	public int emailCheck(String MEM_EMAIL) {
+		System.out.println("MemberService emailCheck()");
+		return memberDAO.emailCheck(MEM_EMAIL);
+	}// emailCheck()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> findEmail(Map<String, String> map) {
+		System.out.println("MemberService findEmail()");
+		return memberDAO.findEmail(map);
+	}// findEmail()
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");

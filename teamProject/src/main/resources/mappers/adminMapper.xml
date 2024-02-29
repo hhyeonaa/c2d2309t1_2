@@ -13,21 +13,28 @@
 			, AD_PW
 			, AD_NAME
 			, AD_DATE
-			, AD_ACTIVE)
+			, AD_ACTIVE
+			, AD_ROLE)
 		values (CONCAT("AD", IFNULL((SELECT MAX(CAST(replace(AD_NO, "AD", "") AS unsigned))+1
 									 FROM ADMIN A), 1))
 			, #{AD_ID}
 			, #{AD_PW}
 			, #{AD_NAME}
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-			, '1')
+			, '1'
+			, '0')
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
 		select
 			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
 			, AD_ID 
-			, AD_NAME
+			, CASE AD_ROLE WHEN '1' THEN '총괄'
+						   WHEN '2' THEN '운영'
+						   WHEN '3' THEN '사이트'
+						   WHEN '4' THEN '시스템'
+						   ELSE '기본'
+			   END AS "AD_ROLE"
 			, AD_ACTIVE
 		from ADMIN
 		ORDER BY AD_NO

@@ -29,8 +29,8 @@ $(function(){
 			sortingType: 'asc'
 		},
 		{
-			name:"AD_NAME",
-			header:"이름",
+			name:"AD_ROLE",
+			header:"권한",
 			filter:"text",
 		    sortable: true,
 			sortingType: 'asc'
@@ -84,10 +84,13 @@ $(function(){
 	// 저장 버튼
 	$(document).on("click", "#saveBtn", function () {
 		for (let i = 1; i < adminList.rows.length; i++) {
+//			console.log(adminList.rows[i].cells[2].options[selectedIndex].value);
+			debugger;
 			$.ajax({
 				type: "post"
 				, url: "updatePro"
 				, data: {AD_NO: "AD" + adminList.rows[i].cells[0].innerText,
+						 AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value,
 						 AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
 			});
 		}

@@ -8,6 +8,11 @@
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <title>글쓰기 입력폼 TEST</title>
 <style>
+span {
+	font-weight: bold;
+}
+
+
 .input-file-button, #att_zone {
 /*     display: inline-block; */
 }
@@ -68,13 +73,14 @@
 			 <!-- -----------------test용 ------------------------- --> 
 			  
 			<div>
-				<text-input name="상품명"/>
-				<text-input name="가격"/>
-				<textarea-input name="상세설명"/>
-				<radio-input name="상품 상태"/>
-				<select-input name="카테고리 선택"/>
-				<address-input name="거래 지역"/>
-				<image-input name="상품 이미지 등록"/>
+				<text-input name="상품명" id="subject" />
+				<text-input name="작성자" id="name" />
+				<text-input name="가격" id="price" />
+				<textarea-input name="상세설명" id="content" />
+				<radio-input name="상품 상태" id="state" />
+				<select-input name="카테고리 선택" id="category" />
+				<address-input name="거래 지역" id="address" />
+				<image-input name="상품 이미지 등록" id="image" />
 			</div>		
 			
 			<!-- ---------------------------------------------------------------- -->
@@ -133,7 +139,7 @@
 			let hr = document.createElement('hr');
 			
 			// (3) - (textarea)
-			let label = document.createElement('label');
+			let label = document.createElement('span');
             label.innerHTML = this.getAttribute('name');
             let textarea = document.createElement('textarea');
             textarea.classList.add('form-control');
@@ -249,9 +255,11 @@
             let button = document.createElement('button');
             button.innerHTML = '주소 검색';
             button.style.width = '10%';
-
-            let locationSpan = document.createElement('span');
-            locationSpan.innerHTML = '부산 > 부전동';
+            button.style.backgroundColor = 'white';
+            button.style.borderRadius = '10px';
+            
+            let locationSpan = document.createElement('label');
+            locationSpan.innerHTML = '검색 결과: 부산 > 부전동';
 
             addressDiv.append(button, locationSpan);
             row.append(span, addressDiv);
@@ -282,12 +290,17 @@
 			let addDiv = document.createElement('div');
 			addDiv.style.justifyContent = 'center';
 			
+			
+			
 			let img = document.createElement('img');
 // 			img.src = '${pageContext.request.contextPath}/resources/img/board/addPhoto.png';
 			let input = document.createElement('input');
 			input.type = 'file';
 			let button = document.createElement('button');
+			button.style.backgroundColor = 'white';
+            button.style.borderRadius = '10px';
 			button.innerHTML = '<i class="bi bi-trash"></i>';
+
 
 			// 이미지 미리보기
 //	 	    <div class="col-12 d-flex justify-content-center">

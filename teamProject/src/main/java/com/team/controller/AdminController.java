@@ -217,7 +217,7 @@ public class AdminController {
 	@ResponseBody
 	public ResponseEntity<?> content_Delete(@RequestParam String PRO_NO) {
 		Map<String, String> result = new HashMap<String, String>();
-		result.put("result", Integer.toString(adminService.contentDelete(PRO_NO)));
+		result.put("result", Integer.toString(adminService.cateContentDelete(PRO_NO)));
 		
 		return ResponseEntity.ok().body(result);
 	}//

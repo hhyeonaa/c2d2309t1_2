@@ -94,6 +94,10 @@ public class AdminService {
 	public int contentDelete(String PRO_NO) {
 		return adminDAO.contentDelete(PRO_NO);
 	}//
+	
+	public int cateContentDelete(String PRO_NO) {
+		return adminDAO.cateContentDelete(PRO_NO);
+	}//
 
 	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
 		return adminDAO.getBoardCategoryList(param);

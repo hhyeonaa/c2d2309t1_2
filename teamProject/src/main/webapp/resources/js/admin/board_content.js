@@ -6,7 +6,7 @@ document.write('<script type="text/javascript"' +
 $(() => {
 	paging("#tbody tr", 10, 0);
 })
-	
+
 // 셀렉트 박스 체인지 이벤트	
 $("#boardCategory").on("change", function(){
 	$.ajax({
@@ -19,19 +19,21 @@ $("#boardCategory").on("change", function(){
 	.done(function(data){
 	$("#tbody").empty();
 	for(content of data){
-		var trTag = '<tr>'
-                    	+'<th class="proNo">'+content.PRO_NO+'</th>'
-                        +'<td>'+content.PRO_NAME+'</td>'
-                        +'<td>'+content.PRO_WR+'</td>'
-                        +'<td>'+content.PRO_DATE+'</td>'
-                        +'<th class="btnBox" scope="row">'
-                        	+'<div>'
-                        		+'<button type="button" class="btn-close delBtn"></button>'
-							+'</div>'
-                        +'</th>'
-                    +'</tr>'
+		var trTag = 
+			'<tr>'
+		    	+'<th class="proNo">'+content.PRO_NO+'</th>'
+		        +'<td>'+content.PRO_NAME+'</td>'
+		        +'<td>'+content.PRO_WR+'</td>'
+		        +'<td>'+content.PRO_DATE+'</td>'
+		        +'<th class="btnBox" scope="row">'
+		        	+'<div>'
+		        		+'<button type="button" class="btn-close delBtn"></button>'
+					+'</div>'
+		        +'</th>'
+		    +'</tr>'
     	$("#tbody").append(trTag);
 	}
+	// 카테고리 버튼 삭제
 	$(".delBtn").on("click", function(){
 			var curTr = $(this).parents("tr");
 			$.ajax({

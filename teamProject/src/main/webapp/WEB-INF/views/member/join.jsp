@@ -111,6 +111,7 @@
 </div>
 </body>
 
+<script src="${pageContext.request.contextPath}/resources/js/member/login.js"></script>
 <%-- <script src="${pageContext.request.contextPath}/resources/js/member/login.js"></script> --%>
 <%-- <jsp:include page="../template/Footer.jsp"/> --%>
 </html>

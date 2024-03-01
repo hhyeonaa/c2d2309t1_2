@@ -41,6 +41,19 @@ function alertMsg(msg = "AM0", arr = ["error"], type = false){
 		}
 	})
 	
-	return msgReturn;	
+	return msgReturn;
 }
+
+const codeName = {
+	메세지: "AM",
+	카테고리항목: "CM", 
+	신고항목: "DCM", 
+	가격범위: "PM", 
+	거래상태: "TM", 
+	배송안내문구: "DLM",
+	메뉴항목: "MM",
+	상품상태: "PS",
+	상세설명: "DD"
+}
+
 

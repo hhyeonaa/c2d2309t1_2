@@ -22,13 +22,13 @@ td{
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 .modalBox {
     position: relative;
     text-align: center;
     top : 15%;
-    left : 30%;
+    left : 25%;
     width: 50%;
     max-height: 50%;
     position : sticky;

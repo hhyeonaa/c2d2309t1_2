@@ -9,26 +9,25 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
 import com.team.dao.TeamDAO;
 import com.team.util.CodeTypeNullException;
 import com.team.util.EnumCodeType;
-import com.team.util.TeamCodeClassDesign;
 
 @Service
-public class TeamCodeService implements TeamCodeClassDesign {
+public class TeamCodeService {
 
 	@Inject
 	private TeamDAO dao;
-
-	@Override
+	
 	public void submitForAlert(HttpServletResponse response, String code, Object[] msg) {
 		try {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter w = response.getWriter();
-			Map<String, String> codeSelect = dao.selectCode(tableNameCheck(code, null));
+			Map<String, String> codeSelect = dao.selectCode(tableNameCheck(code));
 			
 			if(codeSelect == null) {
 	        	throw new CodeTypeNullException(code);
@@ -42,21 +41,53 @@ public class TeamCodeService implements TeamCodeClassDesign {
 	    }
 	}
 
-	@Override
-	public List<Map<String, String>> selectCodeList(EnumCodeType codeType) {
-		// TODO Auto-generated method stub
-		return selectCodeList(codeType, false);
+	public List<Map<String, String>> selectCodeList(String codeType, HttpSession session, boolean check) {
+		return selectCodes(EnumCodeType.valueOf(codeType), session, check);
+	}
+	
+	public List<Map<String, String>> selectCodeList(String codeType, HttpSession session) {
+		return selectCodes(EnumCodeType.valueOf(codeType), session, false);
 	}
 
-	@Override
-	public List<Map<String, String>> selectCodeList(EnumCodeType codeType, boolean check) {
+	public List<Map<String, String>> selectCodeList(EnumCodeType codeType, HttpSession session ,boolean check) {
+		return selectCodes(codeType, session, check);
+	}
+	
+	public List<Map<String, String>> selectCodeList(EnumCodeType codeType, HttpSession session) {
+		return selectCodes(codeType, session, false);
+	}
+	
+	public Map<String, String> selectCode(String code) {
+		
+		Map<String, String> selectCode = dao.selectCode(tableNameCheck(code));
+		try {
+			if(selectCode == null) {
+	        	throw new CodeTypeNullException(code);
+	        }
+		} catch (CodeTypeNullException e) {
+			e.printStackTrace();
+		}
+		
+		return selectCode;
+	}
+	
+	public Map<String, String> selectCode(String code, Object[] arr) {
+		return ajaxForAlert(code, arr);
+	}
+	
+	private List<Map<String, String>> selectCodes(EnumCodeType codeType, HttpSession session, boolean check) {
 		
 		String table = EnumCodeType.코드테이블.getType().trim();
-		String hideCheck = EnumCodeType.사용가능항목.getType(); 
+		String hideCheck = EnumCodeType.사용가능항목.getType();
+		String ses = (String)session.getAttribute("MEM_ID");
 		Map<String, String> code = new HashMap<String, String>();
 		
 		if(EnumCodeType.메세지.toString().trim().equals(codeType.toString().trim())) {
 			table = EnumCodeType.메세지테이블.getType().toString().trim();
+		}
+		
+		if(!ses.equals("1") || !ses.equals("2") || !ses.equals("3")) {
+			ses = "";
 		}
 		
 		if(check) {
@@ -65,42 +96,51 @@ public class TeamCodeService implements TeamCodeClassDesign {
 		code.put("tableName", table);
 		code.put("codeType", codeType.getType().trim());
 		code.put("hideCheck", hideCheck);
+		code.put("AD_ROLE", ses);
 		List<Map<String, String>> selectCodeList = dao.selectCodeList(code);
 		
-		System.out.println("< " + codeType.toString().trim() + " >");
-		System.out.println(EnumCodeType.코드타입.getType() + " + " + EnumCodeType.코드번호.getType() + " / " + EnumCodeType.코드내용.getType());
-		
-		selectCodeList.forEach(t -> System.out.println(
-			t.get(EnumCodeType.코드타입.getType().trim()) + 
-			t.get(EnumCodeType.코드번호.getType().trim()) + "  :  " +
-			t.get(EnumCodeType.코드내용.getType().trim()))
-		);
-		System.out.println();
+		try {
+			if(selectCodeList == null) {
+	        	throw new CodeTypeNullException(codeType.getType().trim());
+	        }
+			
+			System.out.println("< " + codeType.toString().trim() + " >");
+			System.out.println(EnumCodeType.코드타입.getType() + " + " + EnumCodeType.코드번호.getType() + " / " + EnumCodeType.코드내용.getType());
+			
+			selectCodeList.forEach(t -> System.out.println(
+				t.get(EnumCodeType.코드타입.getType().trim()) + 
+				t.get(EnumCodeType.코드번호.getType().trim()) + "  :  " +
+				t.get(EnumCodeType.코드내용.getType().trim()))
+			);
+			System.out.println();
+			
+		} catch (CodeTypeNullException e) {
+			e.printStackTrace();
+		}
 		
 		return selectCodeList;
 	}
 	
-	@Override
-	public Map<String, String> selectCode(String code) {
-		return dao.selectCode(tableNameCheck(code, null));
-	}
-	
-	@Override
-	public Map<String, String> selectCode(String code, Object[] arr) {
-		return ajaxForAlert(code, arr);
-	}
-	
 	private Map<String, String> ajaxForAlert(String code, Object[] arr) {
-		Map<String, String> codeSelect = dao.selectCode(tableNameCheck(code, null));
-		String message = MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), arr);
 		
-		codeSelect.clear();
-		codeSelect.put(EnumCodeType.코드내용.getType(), message);
+		Map<String, String> selectCode = dao.selectCode(tableNameCheck(code));
+		try {
+			if(selectCode == null) {
+	        	throw new CodeTypeNullException(code);
+	        }
+			String message = MessageFormat.format(selectCode.get(EnumCodeType.코드내용.getType()), arr);
+			
+			selectCode.clear();
+			selectCode.put(EnumCodeType.코드내용.getType(), message);
+		} catch (CodeTypeNullException e) {
+			e.printStackTrace();
+		}
 		
-		return codeSelect;
+		return selectCode;
 	}
 
-	private Map<String, String> tableNameCheck(String code, Object object) {
+	private Map<String, String> tableNameCheck(String code) {
+		
 		Map<String, String> codes = new HashMap<String, String>();
 		String codeType = code.replaceAll("[0-9]", "");
 		String tableName = EnumCodeType.코드테이블.getType().toString().trim();
@@ -115,7 +155,5 @@ public class TeamCodeService implements TeamCodeClassDesign {
     	
     	return codes;
 	}
-	
+
 }
-
-

@@ -5,27 +5,43 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.ExcelService;
 import com.team.util.Excel;
+import com.team.util.ToastUI;
+import com.team.util.UploadExcel;
 
 @Controller
+@RequestMapping("/excel/*")
 public class ExcelController {
 	
 	@Inject
 	private ExcelService excelService;
+	Excel excel = new Excel();
 	
 	@GetMapping("edl")
-	public void edl (HttpServletResponse response) throws IOException {
-		Excel excel = new Excel();
+	public void edl (@RequestParam Map<String,String> param, HttpServletResponse response) throws IOException {
+		System.out.println(param);
 		
-		List<Map<String, String>> data = excelService.selectData();
-		System.out.println(data);
-		excel.edl(excel.createSheet(data), response);
+		excel.edl(excel.createSheet(param), response);
 	} // Excel
+	
+	@GetMapping("eultest")
+	@ResponseBody
+	public ResponseEntity<?> eul(@RequestParam Map<String, String> param, HttpServletRequest request) {
+		UploadExcel excel = new UploadExcel();
+		return ToastUI.resourceData(param, excel.test1(request));
+	}
+	
 	
 }

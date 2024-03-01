@@ -1,5 +1,6 @@
 package com.team.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,5 +69,21 @@ public class BoardService {
 		System.out.println("BoardService selectDivideBoard()");
 		return boardDAO.selectDivideBoard();
 	}// selectDivideBoard()
+
+	public List<Map<String, String>> selectBoard(Map<String, String> map) {
+		System.out.println("BoardService selectBoard()");
+		return boardDAO.selectBoard(map);
+	}// selectBoard()
+
+	public List<Map<String, String>> getImgMap(Map<String, String> delMap) {
+		System.out.println("BoardService getImgMap()");
+		return boardDAO.getImgMap(delMap);
+	}// getImgMap()
+
+	public int deleteBoard(Map<String, String> delMap) {
+		System.out.println("BoardService deleteBoard()");
+		return boardDAO.deleteBoard(delMap);
+	}// deleteBoard()
+
 
 }// BoardService 끝

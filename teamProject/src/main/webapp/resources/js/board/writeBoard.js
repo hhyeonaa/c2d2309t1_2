@@ -1,6 +1,9 @@
 /**
  * 글쓰기 페이지 자바스크립트
  */
+ document.write('<script type="text/javascript"' + 
+                    'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+               '</script>');
 
 var customSelect2 = function(tag){
 	tag.select2({
@@ -99,7 +102,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 // 		var totalFiles = sel_files.length + filesToAdd.length; // 기존 파일과 추가될 파일의 총 개수
 		var totalFiles = resultList.length + filesToAdd.length;
 		if (totalFiles > 6) {
-		  alert("최대 6개의 이미지만 업로드할 수 있습니다.");
+			alertMsg("AM10", ["최대 6개"]);
+//		  alert("최대 6개의 이미지만 업로드할 수 있습니다.");
 		  return false; // 파일 추가 작업 중단
 		}
 		return true; // 파일 추가 작업 계속
@@ -107,11 +111,14 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	// 이미지 파일 크기를 체크하고, 5MB를 초과할 경우 경고합니다.
 	function checkFileSize(file) {
-		var maxSize = 5 * 1024 * 1024; // 5MB를 바이트 단위로 변환
+		var maxSize = 1 * 1024 * 1024; // 5MB를 바이트 단위로 변환
 		if (file.size > maxSize) {
-		  alert(file.name + " 파일의 크기가 5MB를 초과합니다.");
+		  //alert(file.name + " 파일의 크기가 5MB를 초과합니다.");
+		  alertMsg("AM10",[file.name, "1MB"]);
 		  return false; // 파일 추가 작업 중단
 		}
+//		$(document).on("click", "#btn", function(){})
+		
 		return true; // 파일 추가 작업 계속
 	}// checkFileSize() 함수 끝
 	
@@ -252,7 +259,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proWr: $('#proWr').val(),
 		    proPrice: $('#proPrice').val(),
 		    proTc: $('#proTc').val(),
-		    proTsc: $('#proTc').val() + '중',
+//		    proTsc: $('#proTc').val() + '중',
+			proTsc: '거래전',
 		    proCate: $('#category1').val(),
 		    category2: $('#category2').val(),
 		    category3: $('#category3').val(),

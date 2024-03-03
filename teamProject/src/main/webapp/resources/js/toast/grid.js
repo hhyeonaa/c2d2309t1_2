@@ -18,6 +18,7 @@
 
 var appendRows = [];
 var defaultPerPage;
+
 var grid = (url, perPage, columns, draggable) => {
 	defaultPerPage = perPage;
 	var pageOptions = {
@@ -31,8 +32,10 @@ var grid = (url, perPage, columns, draggable) => {
 	
 	const dataSource = {
 		api: {
-			readData: { url: url, method: 'GET' }
-		}
+			readData: { url: url, method: 'GET' },
+			updateData: { url: url + "U", method: 'PUT' }
+		},
+  		contentType: 'application/json'
 	};
 	const Grid = tui.Grid;
 	const grid = new Grid({
@@ -69,6 +72,12 @@ var grid = (url, perPage, columns, draggable) => {
 		debugger;	
 	});
 	
+	const updateBtn = document.getElementById('updateBtn');
+	debugger;
+	updateBtn.addEventListener('click', function(){
+		debugger;
+		grid.request('updateData');
+	});
 	
 	const setPerpage = document.getElementById('setPerpage');
 	setPerpage.addEventListener('change', function(e){
@@ -80,4 +89,5 @@ var grid = (url, perPage, columns, draggable) => {
 		}
 		grid.setPerPage(_perPage, dataSource);
 	});
+	
 }

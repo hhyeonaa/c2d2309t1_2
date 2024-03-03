@@ -18,21 +18,25 @@ $(function(){
 			name:"AD_NO",
 			header:"번호",
 			filter:"number",
-		    sortable: true
+		    sortable: true,
+		    editor: "text"
+		    
 		}, 
 		{
 			name:"AD_ID",
 			header:"ID",
 			filter:"text",
 		    sortable: true,
-			sortingType: 'asc'
+			sortingType: 'asc',
+		    editor: "text"
 		},
 		{
 			name:"AD_NAME",
 			header:"이름",
 			filter:"text",
 		    sortable: true,
-			sortingType: 'asc'
+			sortingType: 'asc',
+		    editor: "text"
 		},
 		{
 			name:"AD_ACTIVE",

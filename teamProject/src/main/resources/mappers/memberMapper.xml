@@ -60,7 +60,7 @@
 	</select>	
 	
 	<select id="adminLogin" resultType="map">
-		select AD_ID, AD_PW
+		select AD_ROLE
 		from ADMIN
 		where AD_ID = #{AD_ID} 
 		and AD_PW = #{AD_PW}
@@ -144,7 +144,78 @@
  		where MEM_EMAIL = #{MEM_EMAIL}
 	</update>
 	
-	<select id="myList">
-		select 
+	<select id="myListSell" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM1'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListBuy" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM2'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListShare" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM3'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListAuction" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , A.AUC_TSC
+			 , A.AUC_NAME
+			 , A.AUC_SELLER
+			 , format(A.AUC_BP, 0) as "AUC_BP"
+			 , DATE_FORMAT(A.AUC_ETIME, '%m/%d %H%:%i') as "AUC_ETIME"
+			 , format(A.AUC_INP, 0) as "AUC_INP"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join AUCTION A
+		on M.MEM_ID = A.AUC_SELLER
+        left outer join CODE C
+        on A.AUC_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on A.AUC_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM4'
+        and M.MEM_ID = #{MEM_ID}
 	</select>
 </mapper>

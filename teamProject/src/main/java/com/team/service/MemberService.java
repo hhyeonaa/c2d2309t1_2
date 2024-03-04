@@ -1,5 +1,6 @@
 package com.team.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -83,6 +84,25 @@ public class MemberService {
 		System.out.println("MemberService memberEdit()");
 		memberDAO.memberEdit(map);
 	}// insertMemeber()
-	
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> myListSell(String MEM_ID) {
+		System.out.println("MemberService myListSell()");
+		return memberDAO.myListSell(MEM_ID); 
+	}// myListSell()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> myListBuy(String MEM_ID) {
+		System.out.println("MemberService myListBuy()");
+		return memberDAO.myListBuy(MEM_ID); 
+	}// myListBuy()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> myListShare(String MEM_ID) {
+		System.out.println("MemberService myListShare()");
+		return memberDAO.myListShare(MEM_ID); 
+	}// myListShare()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> myListAuction(String MEM_ID) {
+		System.out.println("MemberService myListAuction()");
+		return memberDAO.myListAuction(MEM_ID); 
+	}// myListAuction()
 	
 }// MemberService 클래스

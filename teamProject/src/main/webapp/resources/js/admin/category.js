@@ -1,12 +1,38 @@
+document.write('<script type="text/javascript"' + 
+		    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/variableCode.js">' +
+		   '</script>');
+			   
+			   
 $(function(){
 	var columns = [
-		{name:"CODE", 	 header:"카테고리명"},
-		{name:"CI_TAB",	 header:"순서"},
-		{name:"HIDE", 	 header:"숨김 여부"}
+		{
+			name:"SEQ",
+			header:"번호",
+			filter:"number",
+		    sortable: true
+		},
+		{
+			name:"CODE",
+			header:"카테고리명",
+			filter:"text",
+		    sortable: true
+		}, 
+		{
+			name:"ACTIVE",
+			header:"활성 상태",
+			filter:"select",
+		    sortable: true,
+			sortingType: 'asc',
+			renderer: {
+                type: ToggleButton
+            }
+		}
 	]
 	
-	grid("categoryList", 3, columns);
-	
+	grid("categoryList", 3, columns, true);
+	excel("", "download");
+	targetColor($("#catelist_manage"));
+		
 	let categoryList = document.getElementById('categoryList');
 	var currentRow, preRow;
 	

@@ -1,5 +1,6 @@
 package com.team.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -77,7 +78,6 @@ public class MemberDAO {
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberDAO mypage()");
-		System.out.println("" + sqlSession.selectOne(namespace + "mypage", MEM_ID));
 		return sqlSession.selectOne(namespace + "mypage", MEM_ID);
 	}// mypage()
 //	-----------------------------------------------------------------------------
@@ -85,6 +85,26 @@ public class MemberDAO {
 		System.out.println("MemberDAO memberEdit()");
 		sqlSession.update(namespace + "memberEdit", map);
 	}// memberEdit()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListSell(String MEM_ID) {
+		System.out.println("MemberDAO myListSell()");
+		return sqlSession.selectList(namespace + "myListSell", MEM_ID);
+	}// myListSell()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListBuy(String MEM_ID) {
+		System.out.println("MemberDAO myListBuy()");
+		return sqlSession.selectList(namespace + "myListBuy", MEM_ID);
+	}// myListBuy()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListShare(String MEM_ID) {
+		System.out.println("MemberDAO myListShare()");
+		return sqlSession.selectList(namespace + "myListShare", MEM_ID);
+	}// myListShare()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListAuction(String MEM_ID) {
+		System.out.println("MemberDAO myListAuction()");
+		return sqlSession.selectList(namespace + "myListAuction", MEM_ID);
+	}// myListAuction()
 	
 	
 }// MemberDAO 클래스

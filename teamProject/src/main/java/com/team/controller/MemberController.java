@@ -236,7 +236,7 @@ public class MemberController{
 		System.out.println("MemberController adminLoginPro()");
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
-			session.setAttribute("AD_ID", map);
+			session.setAttribute("AD_ID", check.get("AD_ROLE"));
 			return "redirect:/admin/member_manage";
 		}
 		return "member/msg";
@@ -267,13 +267,25 @@ public class MemberController{
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> param = memberService.getMember(MEM_ID, map);
 			memberService.memberEdit(map);
-			System.out.println("@@@@@@@@@@@@@@@@@@@@" + map);
 			return "redirect:/member/mypage";
 	}//memberEditPro()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")
-	public String myList() {
-		System.out.println("MemberController tradeList()");
+	public String myList(Model model, HttpSession session) {
+		System.out.println("MemberController myList()");
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		// 내 판매 목록
+		List<Map<String,String>> myListSell = memberService.myListSell(MEM_ID);
+		model.addAttribute("myListSell", myListSell);
+		// 내 구매 목록
+		List<Map<String,String>> myListBuy = memberService.myListBuy(MEM_ID);
+		model.addAttribute("myListBuy", myListBuy);
+		// 내 나눔 목록
+		List<Map<String,String>> myListShare = memberService.myListShare(MEM_ID);
+		model.addAttribute("myListShare", myListShare);
+		// 내 나눔 목록
+		List<Map<String,String>> myListAuction = memberService.myListAuction(MEM_ID);
+		model.addAttribute("myListAuction", myListAuction);
 		return "member/myList";
 	}// myList()
 //	-----------------------------------------------------------------------------

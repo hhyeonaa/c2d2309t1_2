@@ -10,10 +10,12 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,13 +51,8 @@ public class AdminController {
  		return ToastUI.resourceData(req, mapList);
  	}
 	
-	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {
-//		teamService.showCodeList(EnumCodeType.메세지);
-//		Object[] arr = {"로그인"};
-//		teamService.onlyAlert(response, "AM1", arr);
-//		EnumCodeType.메세지.getType() + 1
 		boolean check = adminService.idCheck(map);
 		if(check) {
 			return null;
@@ -110,24 +107,35 @@ public class AdminController {
  		System.out.println(mapList);
  		return ToastUI.resourceData(req, mapList);
  	}
+ 	
+	@GetMapping("/inputForm")
+	public String inputForm(Model model) {
+		return "admin/inputForm";
+	}
+	
+	@PostMapping("/inputFormPro")
+	public String inputFormPro(@RequestParam Map<String, String> map) {
+		System.out.println("map : " + map.entrySet());
+		return "admin/inputFormPro";
+	}
 	
 	/* 현아 작업공간 */
 	
 	/* 무창 작업공간 */
 	@GetMapping("/message_manage")
-	public String message_manage(Model model) {
+	public String message_manage(Model model, HttpSession session) {
 		
-		codeService.selectCodeList(EnumCodeType.메세지, true);
+		codeService.selectCodeList(EnumCodeType.메세지, session, true);
 		
 		
-		codeService.selectCodeList(EnumCodeType.메세지);
+		codeService.selectCodeList(EnumCodeType.메세지, session);
 		
 		return "admin/message_manage";
 	}
 	
 	@GetMapping("/category_manage")
-	public String category_manage(Model model) {
-		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, true));
+	public String category_manage(Model model, HttpSession session) {
+		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, session, true));
 		return "admin/category_manage";
 	}
 	
@@ -151,6 +159,24 @@ public class AdminController {
 	@GetMapping("/price_manage")
 	public String price_manage() {
 		return "admin/price_manage";
+	}
+	
+	@GetMapping("/code_manage")
+	public String code_manage(@RequestParam Map<String, String> param, Model model) {
+		String getUrlCode = param.get(EnumCodeType.코드내용.getType());
+		if(getUrlCode == null) {
+			param.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
+		}
+		model.addAllAttributes(param);
+		
+		return "admin/code_manage";
+	}
+	
+	@PostMapping("/codePro")
+	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
+
+		List<Map<String, String>> data = codeService.selectCodeList(param.get(EnumCodeType.코드내용.getType()), session);
+		return ResponseEntity.ok().body(data);
 	}
 	/* 무창 작업공간 */
 	

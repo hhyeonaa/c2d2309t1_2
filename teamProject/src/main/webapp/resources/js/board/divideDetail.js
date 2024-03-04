@@ -101,4 +101,14 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		alertMsg("AM2",["삭제"]);
 	})
+	
+	// 글 수정 버튼
+	$('#updateBtn').on('click',function(){
+		// 데이터를 다 들고 가야 하니까
+		const proWr = $('#proWr').val();
+		const proDate = $('#proDate').val();
+		alert(proWr + ' ' + proDate);
+		location.href="/" + window.location.pathname.split("/")[1] +"/board/writeBoard?proWr="+proWr+"&proDate="+proDate;
+		return;
+	})
 })

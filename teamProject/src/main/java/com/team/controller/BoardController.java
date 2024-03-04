@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -100,12 +101,12 @@ public class BoardController {
 	}// auctionBoard()
 	
 	@GetMapping("/writeBoard")
-	public String writeBoard(Model model) {
+	public String writeBoard(Model model, HttpSession session) {
 		System.out.println("BoardController writeBoard()");
 		//codeService.selectCode("MM1");
 
 		
-		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
 		return "board/writeBoard";
 	}// writeBoard()
 	

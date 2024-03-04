@@ -162,12 +162,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/code_manage")
-	public String code_manage(@RequestParam Map<String, String> param, Model model) {
-		String getUrlCode = param.get(EnumCodeType.코드내용.getType());
-		if(getUrlCode == null) {
-			param.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
-		}
-		model.addAllAttributes(param);
+	public String code_manage(Model model) {
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("codeTitle", EnumCodeType.메뉴항목.toString().trim());
+		data.put("codeType", EnumCodeType.메뉴항목.getType());
+		
 		
 		return "admin/code_manage";
 	}

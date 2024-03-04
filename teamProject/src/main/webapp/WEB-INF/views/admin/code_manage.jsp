@@ -21,8 +21,9 @@
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 		<main style="background: #f0f0f3; padding: 200px;">
-			<input type="text" value="${CODE}">
-			<h4 class="mb-5"><b>메세지 문구 관리 (코드타입 : AM)</b></h4>
+			<input type="text" value="${codeTitle}">
+			<input type="text" value="${codeType}">
+			<h4 class="mb-5"><b>${codeTitle} 관리 (코드타입 : ${codeType})</b></h4>
 			<div>
 				<table class="table table-hover table align-middle table table-sm mt-5">
 					<thead>

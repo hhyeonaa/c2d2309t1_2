@@ -117,10 +117,10 @@ $('#kakaoPay').on("click", () =>{
 // 3. 결제수단 클릭 이벤트(css)
 // check(결제수단 클릭), nonCheck(결제수단 미클릭) class
     $('.PaymentGridMethod').on('click', function () {
-        // 클릭된 요소에 'check' 클래스를 추가하고 'nonCheck' 클래스 제거
+        // 클릭된 요소에 'check'를 추가하고 'nonCheck' 제거
         $(this).addClass('check').removeClass('nonCheck');
         
-        // 클릭된 요소의 부모 요소에서 다른 요소를 찾아서 'check' 클래스를 제거하고 'nonCheck' 클래스를 추가합니다.
+        // 클릭된 요소의 부모 요소에서 다른 요소를 찾아서 'check' 클래스를 제거하고 'nonCheck' 추가
         $(this).parent().siblings().find('.PaymentGridMethod').addClass('nonCheck').removeClass('check');
     });
     

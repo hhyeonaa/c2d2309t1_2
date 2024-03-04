@@ -1,11 +1,18 @@
 package com.team.controller;
 
+import java.util.Map;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.team.util.EnumCodeType;
+import com.team.service.PayService;
 import com.team.service.TeamCodeService;
 
 
@@ -15,9 +22,11 @@ public class PayController {
 
 	@Inject
 	private TeamCodeService codeService;
+	@Inject
+	private PayService payService;
 	
 	@GetMapping("/payment")
-	public String payment() {
+	public String payment(@RequestParam Map<String, String> param, HttpSession session, Model model) {
 		System.out.println("PayController payment()");
 		return "/pay/payment";
 	}// payment()

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public class HomeDAO {
 	@Inject
 	private SqlSession sqlSession;
-	private static final String namespace = "com.itwillbs.mappers.homeMapper";
+	private static final String namespace = "com.team.mappers.homeMapper";
 
 	public List<Map<String, String>> getSaleProductList() {
 		return sqlSession.selectList(namespace+".getSaleProductList");
@@ -26,7 +26,7 @@ public class HomeDAO {
 		return sqlSession.selectList(namespace+".getDivProductList");
 	}
 	
-	public List<Map<String, String>> getActProductList() {
-		return sqlSession.selectList(namespace+".getActProductList");
+	public List<Map<String, String>> getAucProductList() {
+		return sqlSession.selectList(namespace+".getAucProductList");
 	}
 }

@@ -29,8 +29,8 @@ public class HomeService {
 		return homeDAO.getDivProductList();
 	}
 	
-	public List<Map<String, String>> getActProductList() {
+	public List<Map<String, String>> getAucProductList() {
 	
-		return homeDAO.getActProductList();
+		return homeDAO.getAucProductList();
 	}
 }

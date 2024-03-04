@@ -27,9 +27,18 @@ public class HomeController {
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 //	public String home(@RequestParam Map<String, String> param, Model model) {
 //		//1. 카테고리별(판매,구매,나눔,경매) 최신등록글 각 8개 
-//		List<Map<String, String>> productList = homeService.getProductList();
-//		
-//		model.addAttribute("productList", productList);
+//		//판매
+		//List<Map<String, String>> saleList = homeService.getSaleProductList();
+//		//구매
+		//List<Map<String, String>> buyList = homeService.getBuyProductList();
+		//나눔
+		//List<Map<String, String>> divList = homeService.getDivProductList();
+		//경매
+		//List<Map<String, String>> actList = homeService.getActProductList();
+//		model.addAttribute("saleList", saleList);
+//		model.addAttribute("buyList", buyList);
+//		model.addAttribute("divList", divList);
+//		model.addAttribute("actList", actList);
 //		return "home";
 //	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)

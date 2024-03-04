@@ -14,7 +14,19 @@ public class HomeDAO {
 	private SqlSession sqlSession;
 	private static final String namespace = "com.itwillbs.mappers.homeMapper";
 
-	public List<Map<String, String>> getProductList() {
-		return sqlSession.selectList(namespace+".getProductList");
+	public List<Map<String, String>> getSaleProductList() {
+		return sqlSession.selectList(namespace+".getSaleProductList");
+	}
+	
+	public List<Map<String, String>> getBuyProductList() {
+		return sqlSession.selectList(namespace+".getBuyProductList");
+	}
+	
+	public List<Map<String, String>> getDivProductList() {
+		return sqlSession.selectList(namespace+".getDivProductList");
+	}
+	
+	public List<Map<String, String>> getActProductList() {
+		return sqlSession.selectList(namespace+".getActProductList");
 	}
 }

@@ -17,7 +17,7 @@ var requestPay = (pgId, paypayMethod) => {
   			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
   			name: "주문명:결제테스트",
 	 		amount: 100, // 결제금액
-	 		buyer_email: "test@portone.io",
+	 		//buyer_email: "test@portone.io",
   			buyer_name: "구매자이름",
   			buyer_tel: "010-1234-5678",
   			buyer_addr: "서울특별시 강남구 삼성동",

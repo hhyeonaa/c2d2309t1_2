@@ -331,7 +331,7 @@
 									<label for="address-title" class="text__label">배송지명</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt" id="address-title" maxlength="10" value="">
+									<input class="input_txt" name="ADD_NICK" id="address-title" maxlength="10" value="">
 								</div>
 							</div>
 							
@@ -340,7 +340,7 @@
 									<label for="address-name" class="text__label">받는 분</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block; width: 470px;">
-									<input class="input_txt" id="address-name" maxlength="10" placeholder="수령인 이름을 입력해주세요">
+									<input class="input_txt" name="ADD_RECEIVER" id="address-name" maxlength="10" placeholder="수령인 이름을 입력해주세요">
 								</div>
 							</div>
 							
@@ -349,7 +349,7 @@
 									<label for="address-tel" class="text__label">연락처</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt" id="address-tel" maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
+									<input class="input_txt"  name="ADD_PHONE" id="address-tel" maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
 								</div>
 							</div>
 
@@ -358,7 +358,7 @@
 									<label for="address-destination" class="sprite__mypage--after text__label text__label-check">주소</label>
 								</div>
 								<div class="box__input" id="box-zipcode" style="width: 390px;">
-									<input type="text" id="address-zipcode" class="input_txt" title="우편번호" readonly="" name="ZipCode">
+									<input type="text" name="ADD_POST" id="address-zipcode" class="input_txt" title="우편번호" readonly="" name="ZipCode">
 								</div>
 									<button type="button" class="button__address-search" id="address_find">주소찾기</button>
 							</div>
@@ -366,13 +366,13 @@
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input" style="margin-bottom: 20px; width: 470px;">
-										<input type="text" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="">
+										<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="">
 									</div>
 								</div>
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input box__text-area" style="display: block; width: 470px;">
-										<input class="input_txt" id="address-detail" maxlength="50" value="" >
+										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="" >
 									</div>
 								
 								</div>

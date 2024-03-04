@@ -2,9 +2,6 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.team.mappers.excel">
-	<insert id="insertData" parameterType="map">
-			
-			
-	</insert>
+<mapper namespace="com.team.mappers.admin">
+ 
 </mapper>

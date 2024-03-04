@@ -45,7 +45,6 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
- 		System.out.println(mapList);
  		return ToastUI.resourceData(req, mapList);
  	}
 	

@@ -1,3 +1,8 @@
+//// 2-1 배송지 저장하기
+//function payAddSubmit(){
+//	
+//}
+
 // 4. 결제 api
 var IMP = window.IMP;
 var requestPay = (pgId, paypayMethod) => {
@@ -43,7 +48,6 @@ var payCheck = $('.nonCheck')
 //var payMethod = $('.check').find('span').text().trim();
 //var payMethod1 = $('.check').attr('value');	
 
-//
 var pgId = "";
 var paypayMethod="";
 
@@ -68,7 +72,7 @@ $('#kakaoPay').on("click", () =>{
 		$('.Deliveryaddress').show();
 	})
 		
-// 2. 배송지 등록 주소 api(배송지 등로 모달)
+// 2. 배송지 등록 주소 api(배송지 등록 모달)
 	$("#address_find").on('click', function() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
@@ -113,6 +117,26 @@ $('#kakaoPay').on("click", () =>{
 	        }
 	    }).open();
 	});
+
+// 2-1 배송지 등록 저장
+	$('#payAddbtn').on('click', function(){
+		// 배송지 등록 정보 유효성
+		var addnick = $('input[name=ADD_NICK]').val(); 
+		var receiver = $('input[name=ADD_RECEIBER]').val();
+		var 
+		if(addnick = ''){
+			alert("배송지명을 입력하세요.")
+			addnick.focus();
+			return false;
+		}
+		if(receiver = ''){
+			alert("수령인을 입력하세요.")
+			receiver.focus();
+			return false;
+		}
+	
+	}
+	
 	
 // 3. 결제수단 클릭 이벤트(css)
 // check(결제수단 클릭), nonCheck(결제수단 미클릭) class

@@ -4,8 +4,19 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.mappers.payMapper">
 	
+	<sql id="ADDRESS_ALL">
+		ADD_NO
+		, MEM_NO
+		, ADD_POST
+		, ADD_NAME
+		, ADD_DETAIL
+		, ADD_NICK
+		, ADD_RECEIVER
+		, ADD_PHONE
+	</sql>
 	
-	<INSERT ID="insertAddress">
+	
+	<insert id="insertAddress">
 		INSERT INTO ADDRESS
 			( ADD_NO
 			, MEM_NO
@@ -23,28 +34,29 @@
 			, #{ADD_NICK}
 			, #{ADD_RECEIVER}
 			, #{ADD_PHONE})
-	</INSERT>
+	</insert>
 
-	<INSERT ID="insertAddress">
-		INSERT INTO ADDRESS
-		    ( ADD_NO
-		    , MEM_NO
-		    , ADD_POST
-		    , ADD_NAME
-		    , ADD_DETAIL
-		    , ADD_NICK
-		    , ADD_RECEIVER
-		    , ADD_PHONE)
-		VALUES (CONCAT('ADD', IFNULL((SELECT MAX(CAST(REPLACE(ADD_NO, 'ADD', '') AS UNSIGNED))
-                    					FROM ADDRESS 
-                    					WHERE MEM_NO = #{MEM_NO}), 0) + 1),
-     #{MEM_NO},
-     #{ADD_POST},
-     #{ADD_NAME},
-     #{ADD_DETAIL},
-     #{ADD_NICK},
-     #{ADD_RECEIVER},
-     #{ADD_PHONE});
-	</INSERT>
+<!-- 	<insert id="insertAddress"> -->
+<!-- 		INSERT INTO ADDRESS -->
+<!-- 		    ( ADD_NO -->
+<!-- 		    , MEM_NO -->
+<!-- 		    , ADD_POST -->
+<!-- 		    , ADD_NAME -->
+<!-- 		    , ADD_DETAIL -->
+<!-- 		    , ADD_NICK -->
+<!-- 		    , ADD_RECEIVER -->
+<!-- 		    , ADD_PHONE) -->
+<!-- 		VALUES (CONCAT('ADD', IFNULL((SELECT MAX(CAST(REPLACE(ADD_NO, 'ADD', '') AS UNSIGNED)) -->
+<!--                     					FROM ADDRESS  -->
+<!--                     					WHERE MEM_NO = #{MEM_NO}), 0) + 1), -->
+<!--                     				(SELECT MAX(CAST(REPLACE(ADD_NO, 'ADD', '') AS UNSIGNED)) FROM ADDRESS) + 1)),	 -->
+<!-- 		     #{MEM_NO}, -->
+<!-- 		     #{ADD_POST}, -->
+<!-- 		     #{ADD_NAME}, -->
+<!-- 		     #{ADD_DETAIL}, -->
+<!-- 		     #{ADD_NICK}, -->
+<!-- 		     #{ADD_RECEIVER}, -->
+<!-- 		     #{ADD_PHONE}); -->
+<!-- 	</insert> -->
 	
 </mapper>

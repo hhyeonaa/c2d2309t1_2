@@ -321,7 +321,7 @@
 <!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	      <form>
+	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post">
 	      	<div class="modal-body">
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__new-address">
@@ -383,7 +383,7 @@
 	 		</div>
 		  	<div id="addaddressbtn" class="modal-footer">
 		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		    	<button type="submit" class="btn btn-primary" >저장</button>
+		    	<button type="submit" class="btn btn-primary" id="payAddbtn">저장</button>
 		  	</div>
 	      </form>
 	    </div>

@@ -2,6 +2,13 @@
 body {
 	padding: 100px 0 0 240px !important;
 }
+
+.form-select {
+	width: 50% !important;
+    float: none !important;
+    text-align: center;
+}
+
 .project-list-table {
     border-collapse: separate;
     border-spacing: 0 12px;

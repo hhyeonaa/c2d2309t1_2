@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+
+#selectContainer{
+	display: flex;
+	align-items: baseline;
+}
+
+.form-select{
+	width: auto !important;
+	margin-bottom: 20px;
+	margin-right: 10px;
+}
+
+#excelFormBtn{
+	margin-right: 10px;
+}
+
+.excel_icon{
+	width: 20px;
+	height: 20px;
+	margin-right: 3px; 
+}
+
+/* -------------------------------------- */
+#uploadContainer{
+	background-color: white;
+	
+	padding: 20px ;
+	margin-bottom: 20px;
+}
+
+#fileForm{
+	display: flex;
+	flex-direction: row;
+}
+
+#fileInput{
+	width: auto !important;
+	flex-grow:1;
+	margin-right: 10px; 
+}
+
+/* -------------------------------------- */
+#contentContainer{
+	background-color: white;
+	padding: 20px ;
+}
+
+.noFile{
+	font-weight: bold;
+}

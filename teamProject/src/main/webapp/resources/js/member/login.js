@@ -9,6 +9,10 @@ function loginWithKakao() {
         }
     });
 }
+
+ document.write('<script type="text/javascript"' + 
+                    'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+               '</script>');
 	
     function kakaoLogin() {
         Kakao.Auth.login({
@@ -134,8 +138,6 @@ $(function(){
 		$('#dup').on("click",function(){
 			var id = document.getElementById('id').value;
 			var idRegex = /^[a-zA-Z0-9]{6,12}$/;
-			
-// 			alert("클릭");
 //          아이디 비어있는 경우 제어
 			if($('#id').val() == "" || $('#id').val() == null){
 				$('#idCheckDiv').html("아이디 미입력").css('color', 'gray');
@@ -180,14 +182,13 @@ $(function(){
 				$('#pwResult').html("적합한 비밀번호 입니다.").css('color', 'green')
 			} else{
 				$('#pwResult').html("비밀번호는 (영문, 숫자, 특수 문자 포함) 6~14자여야 합니다.").css('color', 'red')
-				return
 			}
 		});
 		
 		// ~~~~~~~~~~~~~~~~~~~비밀번호 일치 확인~~~~~~~~~~~~~~~~~~~
 		$('#confirmPw').blur(function(){
 			// 비밀번호 확인 비어있는 경우 제어
-			if($('#pw').val() == ' ' || $('#pw').val() == ''){
+			if($('#confirmPw').val() == ' ' || $('#F').val() == ''){
 				$('#pwCheck').html("비밀번호 재입력 필수").css('color', 'gray');
 				return;
 			}
@@ -196,9 +197,10 @@ $(function(){
 		   		return
 //		    	    $('#confirmPw').val('');	// 공백만들기
 //		      		$('#confirmPw').focus();	// 커서 이동
-		    } else {
-				$('#pwCheck').html("비밀번호가 일치합니다.").css('color', 'green')
-			}
+		   } 
+			
+			$('#pwCheck').html("비밀번호가 일치합니다.").css('color', 'green')
+			
 		});
 		
 		// ~~~~~~~~~~~~~~~~~~~닉네임 중복 체크~~~~~~~~~~~~~~~~~~~	
@@ -214,15 +216,13 @@ $(function(){
 				url:'nickCheck',
 				data:{'MEM_NICK':$('#nickname').val()},
 				success:function(data){
-	// 					alert(result)
+					var msg = "이미 사용중인 닉네임 입니다.";;
+					var color = 'red';
 					if(data == 0){
-						$("#nickCheck").text("사용가능한 닉네임 입니다.").css('color', 'green');
-						
-					}else{
-						$("#nickCheck").text("이미 사용중인 닉네임 입니다.").css('color', 'red');
-						return;
+						msg = "사용가능한 닉네임 입니다.";
+						color = 'green';
 					}
-					
+					$("#nickCheck").text(msg).css('color', color);
 				}
 			});
 		});	
@@ -247,17 +247,18 @@ $(function(){
 					if(data == 0){
 						if (emailRegex.test(email)) {
 							$("#emailCheck").text("사용가능한 이메일 입니다.").css('color', 'green');
+							return;
 						} else{
 							$("#emailCheck").text("올바른 이메일 형식이 아닙니다.").css('color', 'red');
-//							$('#pwResult').html("비밀번호는 (영문, 숫자, 특수 문자 포함) 6~14자여야 합니다.").css('color', 'red')
 							return;
+//							$('#pwResult').html("비밀번호는 (영문, 숫자, 특수 문자 포함) 6~14자여야 합니다.").css('color', 'red')
 						}
 //						$("#emailCheck").text("사용가능한 이메일 입니다.").css('color', 'green');
 						
-					}else{
-						$("#emailCheck").text("이미 사용중인 이메일 입니다.").css('color', 'red');
-						return;
 					}
+					
+					$("#emailCheck").text("이미 사용중인 이메일 입니다.").css('color', 'red');
+					
 					
 				}
 			});
@@ -272,49 +273,49 @@ $(function(){
 	$('#insertBtn').on('click', function(){
 		
 		if($('#id').val() == "" || $('#id').val() == null){
-			alert("아이디를 입력해 주세요.");
+			alertMsg("AM6", ["아이디"]);
 			$('#id').focus();	
 			return false;
 		}
 		
 		if($('#pw').val() == "" || $('#pw').val() == null || $('#confirmPw').val() == "" || $('#confirmPw').val() == null){
-			alert("비밀번호를 입력해 주세요.");
+			alertMsg("AM6", ["비밀번호"]);
 			$('#pw').focus();	
 			return false;
 		}
 		
 		if($('#gender').val() == "" || $('#gender').val() == null){
-			alert("성별을 선택해 주세요.");
+			alertMsg("AM9", ["성별"]);
 			$('#gender').focus();	
 			return false;
 		}
 		
 		if($('#username').val() == "" || $('#username').val() == null){
-			alert("이름을 입력해 주세요.");
+			alertMsg("AM6", ["이름"]);
 			$('#username').focus();	
 			return false;
 		}
 		
 		if($('#nickname').val() == "" || $('#nickname').val() == null){
-			alert("닉네임을 입력해 주세요.");
+			alertMsg("AM6", ["닉네임"]);
 			$('#nickname').focus();	
 			return false;
 		}
 		
 		if($('#birth').val() == "" || $('#birth').val() == null){
-			alert("생년월일을 입력해 주세요.");
+			alertMsg("AM6", ["생년월일"]);
 			$('#birth').focus();	
 			return false;
 		}
 		
 		if($('#email').val() == "" || $('#email').val() == null){
-			alert("이메일을 입력해 주세요.");
+			alertMsg("AM6", ["이메일"]);
 			$('#email').focus();	
 			return false;
 		}
 		
 		if($('#phone').val() == "" || $('#phone').val() == null){
-			alert("전화번호를 입력해 주세요.");
+			alertMsg("AM6", ["전화번호"]);
 			$('#phone').focus();	
 			return false;
 		}
@@ -343,20 +344,32 @@ $(function(){
 	
 	
 	// -----------------아이디 찾기------------------
-	// 아이디 찾기 버튼 클릭 시 모달 열기
-	$('#find_id').on('click', function(){
-		idModal.style.display = "block";
-	})
-	
-	// x버튼 클릭 시 모달 종료
-	$('.closeId').on('click', function closeId(){
-		idModal.style.display = "none";	
-	});
+//	// 아이디 찾기 버튼 클릭 시 모달 열기
+//	$('#find_id').on('click', function(){
+//		idModal.style.display = "block";
+//		$('#idNumber').on('click', function(){
+//			$.ajax({
+//				type: 'POST',
+//				url:'findId',
+//				data:{'MEM_EMAIL':$('#email_id').val()}
+//			})
+//			.done({
+//				
+//			})
+//		});
+//	})
+//	
+//	// x버튼 클릭 시 모달 종료
+//	$('.closeId').on('click', function closeId(){
+//		idModal.style.display = "none";	
+//	});
 	
 	// -----------------아이디 찾기 결과------------------
 	// 다음 버튼 클릭 시 모달 열기
 	$('#idNext').on('click', function(){
 		idModal.style.display = "none";
+//		session.removeAttribute("AuthNumber");
+//		session.removeAttribute("authCheck");
 		idResultModal.style.display = "block";
 	})
 	

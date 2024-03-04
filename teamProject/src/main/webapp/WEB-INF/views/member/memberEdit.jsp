@@ -41,7 +41,6 @@
 						<div class="container" style="padding-top: 3%;">
 							<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>아이디</b></label>
                					<input type="text" id="MEM_ID" name="MEM_ID" class="form-control" value="${profile.MEM_ID}" readonly="readonly" style="color: gray;"></div>
-							
 							<c:choose>
                					<c:when test="${profile.MEM_PW == null || profile.MEM_PW == ''}">
 	               					<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="email_ed" hidden=""><b>이메일</b></label>

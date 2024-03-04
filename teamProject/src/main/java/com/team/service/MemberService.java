@@ -39,6 +39,11 @@ public class MemberService {
 		return memberDAO.getMember(MEM_ID, map); 
 	}// getMember()
 //	-----------------------------------------------------------------------------	
+	public Map<String, String> memCheck(String MEM_PW, Map<String, String> map) {
+		System.out.println("MemberService memCheck()");
+		return memberDAO.memCheck(MEM_PW, map); 
+	}// memCheck()
+//	-----------------------------------------------------------------------------	
 	public int idCheck(String MEM_ID) {
 		System.out.println("MemberService idCheck()");
 		return memberDAO.idCheck(MEM_ID);
@@ -54,10 +59,20 @@ public class MemberService {
 		return memberDAO.emailCheck(MEM_EMAIL);
 	}// emailCheck()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> findEmail(Map<String, String> map) {
-		System.out.println("MemberService findEmail()");
-		return memberDAO.findEmail(map);
-	}// findEmail()
+	public Map<String, String> findId(Map<String, String> map) {
+		System.out.println("MemberService findId()");
+		return memberDAO.findId(map);
+	}// findId()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> findPw(Map<String, String> map) {
+		System.out.println("MemberService findPw()");
+		return memberDAO.findId(map);
+	}// findPw()
+//	-----------------------------------------------------------------------------	
+	public int pwUpdate(Map<String, String> findPw) {
+		System.out.println("MemberService pwUpdate()");
+		return memberDAO.pwUpdate(findPw);
+	}// pwUpdate()
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");

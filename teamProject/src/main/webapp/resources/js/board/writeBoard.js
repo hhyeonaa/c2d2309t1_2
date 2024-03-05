@@ -24,8 +24,54 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	customSelect2($("#boardSelect"));
 	customSelect2($("#selectPreBoard"));
 	
+	var IsOldImgs = $('#oldImgs').val();
+	var arr = [];
+	if(IsOldImgs != ''){
+		var imgs = IsOldImgs.split('|');
+		imgs.forEach(function(imgUrl) {
+        	displayImageFromUrl(imgUrl, imgUrl);
+//        	checkFileList[0].push(imgUrl)
+			arr.push(imgUrl);
+        });
+		//aert(imgs);
+		checkFileList[0] = arr;
+	}
 // 	$("#boardSelect").select2();
 // 	$("#selectPreBoard").select2();
+	// 글 수정 시 이미지 미리보기
+	function displayImageFromUrl(imageUrl, fileName) {
+	    var img = $('<img/>', {
+	        'src': "../resources/img/uploads/"+imageUrl, // 기존의 이미지 URL을 사용
+	        'style': 'width:100%;height:100%;'
+	    });
+	
+	    var div = $('<div/>', {
+	        'style': 'display:inline-block;position:relative;width:150px;height:120px;margin:5px;border:1px solid #00f;'
+	    }).append(img);
+	
+	    var btn = $('<input/>', {
+	        'type': 'button',
+	        'value': 'x',
+	        'style': 'width:30px;height:30px;position:absolute;font-size:24px;right:0px;bottom:90px;background-color:rgba(255,255,255,0.1);color:#f00;font:icon;' // 버튼 스타일을 설정합니다.
+	    }).click(function() {
+	        $(this).parent().remove();
+		    $('#att_zone').find($("input[type=hidden]")).remove();
+		    for(var i = 0; i < checkFileList.length; i++){
+		    	if(checkFileList[i] === undefined || checkFileList[i].length === 0) continue;
+		    	for(var j = 0; j < checkFileList[i].length; j++){
+		    		if(checkFileList[i][j].name === fileName){
+		    			checkFileList[i].splice(j,1);
+		    		}
+		    	}
+		    }
+		    $("#btnAtt").val("");// 임시추가?
+	    });
+	
+	    div.append(btn);
+	    $('#att_zone').append(div);
+	    $('#att_zone').append('<input type="hidden" value="' + fileName + '"/>');
+	}
+
 	// 이미지 미리보기를 생성하고 화면에 표시하는 함수입니다.
 	function displayImagePreview(file, fileName) {
 		var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체를 생성합니다.

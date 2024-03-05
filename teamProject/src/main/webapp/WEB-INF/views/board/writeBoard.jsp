@@ -47,6 +47,10 @@
 			<div class="container">
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
+<%-- 			    <c:forEach var="oldImgName" items="${imgList}" varStatus="i"> --%>
+<%-- 				    <input type="text" id="oldImg${i.count}" value="${oldImgName}"> --%>
+<%-- 			    </c:forEach> --%>
+				<input type="text" id="oldImgs" name="oldImgs" value="${resultMap.IMG_NAMES}">
 				<select id="proTc" name="proTc" style="width: 100px;">
 				    <c:forEach var="menu" items="${menu}">
 				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
@@ -60,6 +64,11 @@
 				        </c:choose>
 				    </c:forEach>
 				</select>
+<!-- 				<select id="proTsc" name="proTsc" style="width: 100px;"> -->
+<%-- 					<c:forEach var="proTsc" items="${trade}"> --%>
+<%-- 						<option value="${proTsc.CO_TYPE}${proTsc.CO_NO}">${proTsc.CODE}</option> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> -->
 
 			      <c:if test="${empty resultMap.PRO_DATE}">
 				  <input type="hidden" id="proTsc" name="proTsc" value="">
@@ -124,6 +133,22 @@
 		  	</div>
 		  	<hr>
 		  	<div class="row justify-content-center">
+			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>거래상태<br>선택<th></tr></table></div>
+			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
+					<select name="proTsc" id="proTsc" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
+						<c:forEach var="tsc" items="${trade}">
+						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/>
+							<c:choose>
+								<c:when test="${tradeCode eq resultMap.PRO_TSC}">
+									<option value="${tsc.CO_TYPE}${tsc.CO_NO}" selected>${tsc.CODE}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${tsc.CO_TYPE}${tsc.CO_NO}">${tsc.CODE}</option>  
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</div>
 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>카테고리<br>선택<th></tr></table></div>
 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
 					<select name="category1" id="category1" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
@@ -143,29 +168,6 @@
 					    <option value="가구/인테리어" ${resultMap.PRO_CATE == '가구/인테리어' ? 'selected' : ''}>가구/인테리어</option>
 					    <option value="생활/주방용품" ${resultMap.PRO_CATE == '생활/주방용품' ? 'selected' : ''}>생활/주방용품</option>
 					    <option value="공구/산업용품" ${resultMap.PRO_CATE == '공구/산업용품' ? 'selected' : ''}>공구/산업용품</option>       
-					</select>
-				</div>
-			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
-			  		<select name="category2" id="category2" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-					    <option value="아우터">아우터</option>
-					    <option>상의</option>
-					    <option>바지</option>
-					    <option>치마</option>
-					    <option>원피스</option>
-					    <option>점프수트</option>
-					    <option>셋업/세트</option>
-					    <option>언더웨어/홈웨어</option>
-					    <option>테마/이벤트</option>
-					</select>
-			  	</div>
-			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
-					<select name="category3" id="category3" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-					    <option value="패딩">패딩</option>
-					    <option>점퍼</option>
-					    <option>코트</option>
-					    <option>자켓</option>
-					    <option>가디건</option>
-					    <option>조끼/베스트</option>
 					</select>
 				</div>
 			</div>

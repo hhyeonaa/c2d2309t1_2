@@ -255,7 +255,7 @@ public class MemberController{
 	@GetMapping("/memberEdit")
 	public String memberEdit(Model model, HttpSession session) {
 		System.out.println("MemberController memberEdit()");
-		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> profile = memberService.mypage(MEM_ID);
 		model.addAttribute("profile", profile);
 		return "member/memberEdit";

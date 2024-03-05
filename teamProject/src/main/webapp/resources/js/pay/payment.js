@@ -23,7 +23,7 @@ var requestPay = (pgId, paypayMethod) => {
 			pg: pgId,
 			pay_method: paypayMethod, // 생략가능
   			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
-  			name: productname,
+  			name: productname, //상품명
 	 		amount: 100, // 결제금액
 	 		//buyer_email: "test@portone.io",
   			buyer_name: "구매자이름",
@@ -165,7 +165,7 @@ $('#kakaoPay').on("click", () =>{
 			adddetail.focus();
 			return false;
 		}
-	}
+	})
 	
 	
 // 3. 결제수단 클릭 이벤트(css)

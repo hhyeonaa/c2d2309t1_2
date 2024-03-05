@@ -14,6 +14,7 @@ public class PayDAO {
 	@Inject
 	private SqlSession sqlSession;
 	private static final String namespace = "com.team.mappers.payMapper";
+	private static final String namespace1 = "com.team.mappers.memberMapper.";
 	
 	//결제할 상품 정보 select
 	public Map<String, String> getPayProList(Map<String, String> map) {

@@ -8,12 +8,15 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.team.dao.MemberDAO;
 import com.team.dao.PayDAO;
 
 @Service
 public class PayService {
 	@Inject
 	private PayDAO payDAO;
+	@Inject
+	private MemberDAO memberDAO;
 
 	//결제할 상품 정보 select
 	public Map<String, String> getPayProList(Map<String, String> map) {

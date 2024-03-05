@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.util.EnumCodeType;
+import com.team.service.MemberService;
 import com.team.service.PayService;
 import com.team.service.TeamCodeService;
 
@@ -27,26 +28,36 @@ public class PayController {
 	private TeamCodeService codeService;
 	@Inject
 	private PayService payService;
+	@Inject
+	private MemberService memberService;
 	
 	@GetMapping("/payment")
-	public String payment(HttpSession session, Model model,HttpServletRequest request) {
+	public String payment(@RequestParam Map<String, String> param, HttpSession session, Model model,HttpServletRequest request) {
 		System.out.println("PayController payment()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
 		//로그인한 회원 정보 및 배송지 정보 select
+		param.put("MEM_ID", MEM_ID);
+		//로그인 회원 정보 select
+		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
+		System.out.println(param2);
+		model.addAttribute("buyerInfo", param2);
+		
+		//회원 배송지 목록 select
+		//List<Map<String, String>> memAddList = payService.getMemAddList(); 
 		
 		//결제할 상품 정보 select
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		
 		Map<String, String> payProList = payService.getPayProList(map);
-		System.out.println(payProList.get("PRO_PRICE"));
+		
 		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
-		System.out.println(payPrice);
 		model.addAttribute("payPrice",payPrice);
 		model.addAttribute("payProList",payProList);
-		System.out.println(payProList);
+		
 		return "/pay/payment";
 	}// payment()
 	

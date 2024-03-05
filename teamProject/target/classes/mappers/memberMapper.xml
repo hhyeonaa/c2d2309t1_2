@@ -219,9 +219,16 @@
         and M.MEM_ID = #{MEM_ID}
 	</select>
 	
-	<delete id="memberDelete">
+	<select id="deleteCheck" parameterType="map" resultType="map">
+		select MEM_NO, MEM_EMAIL
+		from MEMBERS
+		where MEM_EMAIL = #{MEM_EMAIL}
+		and MEM_NO = #{MEM_NO}
+	</select>
+	
+	<delete id="memberDelete" parameterType="map">
 		delete 
 		from MEMBERS
-		where MEM_ID = #{MEM_ID}
+		where MEM_NO = #{MEM_NO}
 	</delete>
 </mapper>

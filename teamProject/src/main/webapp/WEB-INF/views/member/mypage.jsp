@@ -78,8 +78,8 @@
                             </svg>
                         </a>
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='buyList'">
-                            <span id="span02">구매 내역</span>
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
+                            <span id="span02">거래 신청 내역</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg02">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>

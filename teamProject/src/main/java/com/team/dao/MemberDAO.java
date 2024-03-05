@@ -105,10 +105,15 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace + "myListAuction", MEM_ID);
 	}// myListAuction()
 //	-----------------------------------------------------------------------------	
-	public int memberDelete(Map<String, String> map) {
+	public Map<String, String> deleteCheck(Map<String, String> map) {
+		System.out.println("MemberDAO deleteCheck()");
+		return sqlSession.selectOne(namespace + "deleteCheck", map);
+	}// deleteCheck()
+//	-----------------------------------------------------------------------------	
+	public void memberDelete(Map<String, String> map) {
 		System.out.println("MemberDAO memberDelete()");
 		System.out.println(map + "  !@#$%");
-		return sqlSession.delete(namespace + "memberDelete", map);
+		sqlSession.delete(namespace + "memberDelete", map);
 	}// memberDelete()
 	
 }// MemberDAO 클래스

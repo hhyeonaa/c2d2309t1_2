@@ -189,26 +189,6 @@ public class MemberController{
 		} catch (Exception e) {
 			System.err.println("정보 입력 오류");
 		} return "redirect: findPw";
-		
-//		try {
-//			System.out.println("MemberController findIdPro()");
-//			System.out.println("map : " + map);
-//			Object[] msg = {"이메일"};
-//			Map<String, String> findId = memberService.findId(map);
-//			System.out.println("findId" + findId);
-//			session.setAttribute("findId", findId);
-//			if(findId.get("MEM_EMAIL") == null) {
-//				codeService.submitForAlert(response, "AM5", msg);
-//			} else {
-//				String receiver = map.get("MEM_EMAIL");
-//				String subject = "[다모임] 아이디 찾기 인증번호 발송 메일";
-//				String url= "findId";
-//				String AuthNumber = sendCodemail(findId, receiver, subject);
-//				session.setAttribute("AuthNumber", AuthNumber);
-//			}
-//		} catch (Exception e) {
-//			System.err.println("정보 입력 오류");
-//		} return "redirect: findId";
 	}// findPwPro()
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/pwUpdate")
@@ -289,6 +269,12 @@ public class MemberController{
 		return "member/myList";
 	}// myList()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/tradeList")
+	public String tradeList(Model model, HttpSession session) {
+		System.out.println("MemberController tradeList()");
+		return "member/tradeList";
+	}// tradeList()
+//	-----------------------------------------------------------------------------
 	@GetMapping("/likeList")
 	public String likeList() {
 		System.out.println("MemberController likeList()");
@@ -315,15 +301,33 @@ public class MemberController{
 //	-----------------------------------------------------------------------------
 	@PostMapping("/memberDeletePro")
 	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session) {
-		String MEM_ID = session.getAttribute("MEM_ID").toString();
-		System.out.println(MEM_ID +"  dfasdfhsdf");
-		Map<String, String> profile = memberService.mypage(MEM_ID);
-		System.out.println(profile +"  profile");	
-		int MEMBERS = memberService.memberDelete(map);
-		System.out.println(MEMBERS + "  !@#!#@#");
+		System.out.println("MemberController memberDeletePro()");
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		String MEM_EMAIL = (String)session.getAttribute("MEM_EMAIL");
+		System.out.println("String MEM_ID : " + MEM_ID);
+		System.out.println("String MEM_EMAIL : " + MEM_EMAIL);
+		Map<String, String> profile = memberService.memberDelete(MEM_ID);
+		profile.get("MEM_EMAIL");
+		System.out.println("profile.get(\"MEM_EMAIL\") : " + profile.get("MEM_EMAIL"));
+		System.out.println("profile.get(\"MEM_ID\") : " + profile.get("MEM_ID"));
+		profile.get("MEM_PW");
+		System.out.println("profile : " + profile);
+		if (profile.get("MEM_EMAIL") != null) {
+			if (profile.get("MEM_ID").equals(MEM_ID)) {
+				memberService.memberDelete(profile);
+				session.invalidate();
+				return "redirect:../";
+			} else {
+				System.err.println("이메일 불일치");
+				return "member/msg";
+			}
+		} else {
+			System.err.println("이메일 미입력");
+			return "member/msg";
+		}
 		
-		return "";
 	}
+//	-----------------------------------------------------------------------------	
 	
 //	@PostMapping("deletePro")
 //	public String deletePro(MemberDTO memberDTO) {

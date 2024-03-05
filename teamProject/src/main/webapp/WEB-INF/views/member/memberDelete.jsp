@@ -54,7 +54,7 @@
 		     &nbsp; '회원탈퇴'를 클릭하시면 모든 정보가 삭제됩니다.
 		     </div>
 		     <div class="form-outline mt-5 mb-3 text-left">
-			  	<p><label style="float: left;">본인 계정 확인을 위해 이메일을 입력해 주십시오.</label></p>
+			  	<p><label style="float: left;">본인 계정 확인을 위해 이메일을 입력해 주세요.</label></p>
 			    <p style="padding-top: 2%;"><input type="email" id="MEM_EMAIL" name="MEM_EMAIL" class="form-control" placeholder="이메일 입력" required="required"></p>
 			 </div>
 		     <div class="form-outline mt-5 mb-3 text-left">
@@ -69,7 +69,7 @@
 			 </div>
 			 <div class="modal-footer" id="quit-modal-footer">
 		       <button type="submit" id="deleteBtn" class="btn btn-outline-danger">회원탈퇴</button> &nbsp;
-		       <button type="button" id="cancelBtn" class="btn btn-outline-secondary">취소</button>     
+		       <button type="button" id="cancelBtn" class="btn btn-outline-secondary" onclick="window.history.back()">취소</button>     
 		     </div>
 	   </form>
 	   </div>
@@ -87,13 +87,5 @@
 
 
 </body>
-<script>
-	var AuthNumber = '<%=(String)session.getAttribute("AuthNumber")%>';
-</script>
-<%
-	session.removeAttribute("AuthNumber");
-	session.removeAttribute("authCheck");
-%>
-<script src="${pageContext.request.contextPath}/resources/js/member/find.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

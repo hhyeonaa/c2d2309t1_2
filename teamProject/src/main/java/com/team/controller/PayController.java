@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -27,10 +28,19 @@ public class PayController {
 	private PayService payService;
 	
 	@GetMapping("/payment")
-	public String payment(@RequestParam Map<String, String> param, HttpSession session, Model model,HttpServletRequest request) {
+	public String payment(@RequestParam Map<String, String> map, HttpSession session, Model model,HttpServletRequest request) {
 		System.out.println("PayController payment()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
-		System.out.println(MEM_ID);
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		//로그인한 회원 정보 및 배송지 정보 select
+		
+		//결제할 상품 정보 select
+		map.put("proWr", proWr);
+		map.put("proDate", proDate);
+		List<Map<String, String>> payProList = payService.getPayProList(map);
+		model.addAttribute("payProList",payProList);
+		System.out.println(payProList);
 		return "/pay/payment";
 	}// payment()
 	

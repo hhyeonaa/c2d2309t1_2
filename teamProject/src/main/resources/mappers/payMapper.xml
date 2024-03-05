@@ -15,6 +15,17 @@
 		, ADD_PHONE
 	</sql>
 	
+	<!--결제할 상품 정보 select  -->
+	<select id="getPayProList" resultType="map" parameterType="map">
+		SELECT *
+		FROM PRODUCT
+		JOIN IMAGE
+			ON PRO_NO = IMG_PRONO
+		WHERE IMG_NO = "1"
+		AND PRO_WR = #{proWr}
+		AND PRO_DATE = #{proDate}	
+	</select>
+			
 	
 	<insert id="insertAddress">
 		INSERT INTO ADDRESS

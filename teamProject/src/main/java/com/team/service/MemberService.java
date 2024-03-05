@@ -104,5 +104,11 @@ public class MemberService {
 		System.out.println("MemberService myListAuction()");
 		return memberDAO.myListAuction(MEM_ID); 
 	}// myListAuction()
+//	-----------------------------------------------------------------------------	
+	public int memberDelete(Map<String, String> map) {
+		System.out.println("MemberService memberDelete()");
+		System.out.println(map + " ~~~~~~~~~~map~~~~~~~~~~~~~");
+		return memberDAO.memberDelete(map);
+	}// memberDelete()
 	
 }// MemberService 클래스

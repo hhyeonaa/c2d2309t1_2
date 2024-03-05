@@ -121,8 +121,8 @@
                         </a>
                         <hr style="border-color: white;">
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='withdrawal'">
-                            <span id="span05">계정삭제</span>
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='memberDelete'">
+                            <span id="span05">회원탈퇴</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg05">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>

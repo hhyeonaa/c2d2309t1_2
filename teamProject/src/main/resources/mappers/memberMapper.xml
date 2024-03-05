@@ -218,4 +218,10 @@
         where concat(C.CO_TYPE, C.CO_NO) = 'MM4'
         and M.MEM_ID = #{MEM_ID}
 	</select>
+	
+	<delete id="memberDelete">
+		delete 
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+	</delete>
 </mapper>

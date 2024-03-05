@@ -307,7 +307,39 @@ public class MemberController{
 		return "member/buyList";
 	}// buyList()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/memberDelete")
+	public String memberDelete() {
+		System.out.println("MemberController memberDelete()");
+		return "member/memberDelete";
+	}// memberDelete()
+//	-----------------------------------------------------------------------------
+	@PostMapping("/memberDeletePro")
+	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session) {
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		System.out.println(MEM_ID +"  dfasdfhsdf");
+		Map<String, String> profile = memberService.mypage(MEM_ID);
+		System.out.println(profile +"  profile");	
+		int MEMBERS = memberService.memberDelete(map);
+		System.out.println(MEMBERS + "  !@#!#@#");
+		
+		return "";
+	}
 	
+//	@PostMapping("deletePro")
+//	public String deletePro(MemberDTO memberDTO) {
+//		System.out.println("MemberController deletePro()");
+//		HttpSession session = null;
+//		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
+//		if(memberDTO2 != null) {
+//			memberService.deleteMember(memberDTO);
+//			// 세션 초기화
+//			session.invalidate();
+//			System.out.println("회원탈퇴 완료!");
+//			return "redirect:/member/login";
+//		}
+//		System.out.println("아이디/비밀번호 불일치!");
+//		return "member/msg";
+//	}// deletePro()
 	
 	
 //  ===============================================메일 전송 관련===============================================	

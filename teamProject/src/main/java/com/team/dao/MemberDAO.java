@@ -72,7 +72,6 @@ public class MemberDAO {
 //	-----------------------------------------------------------------------------	
 	public int pwUpdate(Map<String, String> findPw) {
 		System.out.println("MemberDAO pwUpdate()");
-		System.out.println(findPw);
 		return sqlSession.update(namespace + "pwUpdate", findPw);
 	}// pwUpdate()
 //	-----------------------------------------------------------------------------	
@@ -105,6 +104,11 @@ public class MemberDAO {
 		System.out.println("MemberDAO myListAuction()");
 		return sqlSession.selectList(namespace + "myListAuction", MEM_ID);
 	}// myListAuction()
-	
+//	-----------------------------------------------------------------------------	
+	public int memberDelete(Map<String, String> map) {
+		System.out.println("MemberDAO memberDelete()");
+		System.out.println(map + "  !@#$%");
+		return sqlSession.delete(namespace + "memberDelete", map);
+	}// memberDelete()
 	
 }// MemberDAO 클래스

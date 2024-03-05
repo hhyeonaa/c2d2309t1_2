@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class PayController {
 	private PayService payService;
 	
 	@GetMapping("/payment")
-	public String payment(@RequestParam Map<String, String> map, HttpSession session, Model model,HttpServletRequest request) {
+	public String payment(HttpSession session, Model model,HttpServletRequest request) {
 		System.out.println("PayController payment()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		String proWr = request.getParameter("proWr");
@@ -36,9 +37,10 @@ public class PayController {
 		//로그인한 회원 정보 및 배송지 정보 select
 		
 		//결제할 상품 정보 select
+		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
-		List<Map<String, String>> payProList = payService.getPayProList(map);
+		Map<String, String> payProList = payService.getPayProList(map);
 		model.addAttribute("payProList",payProList);
 		System.out.println(payProList);
 		return "/pay/payment";

@@ -15,8 +15,8 @@ public class PayService {
 	@Inject
 	private PayDAO payDAO;
 
-	public List<Map<String, String>> getPayProList(Map<String, String> map) {
-
+	//결제할 상품 정보 select
+	public Map<String, String> getPayProList(Map<String, String> map) {
 		return payDAO.getPayProList(map);
 	}
 

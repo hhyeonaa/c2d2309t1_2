@@ -15,8 +15,9 @@ public class PayDAO {
 	private SqlSession sqlSession;
 	private static final String namespace = "com.team.mappers.payMapper";
 	
-	public List<Map<String, String>> getPayProList(Map<String, String> map) {
-		return sqlSession.selectList(namespace + ".getPayList",map);
+	//결제할 상품 정보 select
+	public Map<String, String> getPayProList(Map<String, String> map) {
+		return sqlSession.selectOne(namespace + ".getPayList",map);
 	}
 
 //	// 배송지 저장

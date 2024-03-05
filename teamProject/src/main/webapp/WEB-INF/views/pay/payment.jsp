@@ -30,8 +30,8 @@
                 </div>
                 <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
-					<span class="productPostTitle">따봉도치 팜ㅍㅍㅍ</span><br>
-					<span class="productPrice">100,000원</span>
+					<span class="productPostTitle" id="payProName">${payProList.PRO_NAME}</span><br>
+					<span class="productPrice">${payProList.PRO_PRICE }원</span>
                 </div>
             </div>
             <hr class="sechr">
@@ -153,7 +153,7 @@
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									<!--PRO_PRICE  -->
-										135,000원
+										${payProList.PRO_PRICE }원
 									</div>
 								</div>
 								
@@ -163,27 +163,27 @@
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 										<span class="PricingTablePanel__Fee-sc-1e9itak-3 kzWuNm">
-											+3,000원
+											+3000원
 										</span>
 									</div>
 								</div>
 
-								<div class="Table__Row-sc-178gola-1 FeeRows__Row-sc-zf2uot-4 kxBvfn UYDMx">
-									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu">
-										안전결제 수수료
-									</div>
-									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu direction-column">
-										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl">
-										&nbsp;+4,830원
-										</span>
-									</div>
-								</div>
+<!-- 								<div class="Table__Row-sc-178gola-1 FeeRows__Row-sc-zf2uot-4 kxBvfn UYDMx"> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu"> -->
+<!-- 										안전결제 수수료 -->
+<!-- 									</div> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu direction-column"> -->
+<!-- 										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl"> -->
+<!-- 										&nbsp;+4,830원 -->
+<!-- 										</span> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL">
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									총 결제금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
-										142,830원
+									${payPrice + 3000 }원
 									</div>
 								</div>
 							</div>	            			

@@ -15,14 +15,15 @@ var requestPay = (pgId, paypayMethod) => {
         var milliseconds = today.getMilliseconds();
         var makeMerchantUid = hours +  minutes + seconds + milliseconds;
         
-        
+		var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
+        var productname = $("#payProName").text().trim();//제품name
         
         debugger;
        	IMP.request_pay({
 			pg: pgId,
 			pay_method: paypayMethod, // 생략가능
   			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
-  			name: "주문명:결제테스트",
+  			name: productname,
 	 		amount: 100, // 결제금액
 	 		//buyer_email: "test@portone.io",
   			buyer_name: "구매자이름",

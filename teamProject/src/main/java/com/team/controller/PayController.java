@@ -41,6 +41,10 @@ public class PayController {
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
 		Map<String, String> payProList = payService.getPayProList(map);
+		System.out.println(payProList.get("PRO_PRICE"));
+		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
+		System.out.println(payPrice);
+		model.addAttribute("payPrice",payPrice);
 		model.addAttribute("payProList",payProList);
 		System.out.println(payProList);
 		return "/pay/payment";

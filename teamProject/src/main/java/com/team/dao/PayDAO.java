@@ -17,7 +17,7 @@ public class PayDAO {
 	
 	//결제할 상품 정보 select
 	public Map<String, String> getPayProList(Map<String, String> map) {
-		return sqlSession.selectOne(namespace + ".getPayList",map);
+		return sqlSession.selectOne(namespace + ".getPayProList",map);
 	}
 
 //	// 배송지 저장

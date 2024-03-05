@@ -276,7 +276,7 @@ td{
 		 			<tr>
 		 				<td colspan="2">
 		 					<button class="btn btn-warning" style="width: 30%;">채팅</button>
-		 					<button class="btn btn-success" style="width: 30%;">바로구매</button>
+		 					<button class="btn btn-success" style="width: 30%;" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
 		 				</td>
 		 			</tr>		 					
 		 		</table>

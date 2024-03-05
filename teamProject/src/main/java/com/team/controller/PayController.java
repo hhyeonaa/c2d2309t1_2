@@ -3,6 +3,7 @@ package com.team.controller;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,10 @@ public class PayController {
 	private PayService payService;
 	
 	@GetMapping("/payment")
-	public String payment(@RequestParam Map<String, String> param, HttpSession session, Model model) {
+	public String payment(@RequestParam Map<String, String> param, HttpSession session, Model model,HttpServletRequest request) {
 		System.out.println("PayController payment()");
+		String MEM_ID = request.getParameter("MEM_ID");
+		System.out.println(MEM_ID);
 		return "/pay/payment";
 	}// payment()
 	

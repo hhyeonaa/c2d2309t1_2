@@ -15,6 +15,8 @@ var requestPay = (pgId, paypayMethod) => {
         var milliseconds = today.getMilliseconds();
         var makeMerchantUid = hours +  minutes + seconds + milliseconds;
         
+        
+        
         debugger;
        	IMP.request_pay({
 			pg: pgId,
@@ -31,6 +33,11 @@ var requestPay = (pgId, paypayMethod) => {
   			if(rsp.success){
 				  debugger;
 				  console.log(rsp);
+//				  $.ajax({
+//					  type: "post",
+//					  url: "${pageContext.request.contextPath}/pay/paySuccess",
+//				  })//ajax
+				  
 		  	}else{
 				  debugger;
 				  console.log(res);
@@ -123,7 +130,10 @@ $('#kakaoPay').on("click", () =>{
 		// 배송지 등록 정보 유효성
 		var addnick = $('input[name=ADD_NICK]').val(); 
 		var receiver = $('input[name=ADD_RECEIBER]').val();
-		var 
+		var phone = $('input[name=ADD_PHONE]').val();
+		var post = $('input[name=ADD_POST]').val();
+		var addname = $('input[name=ADD_NAME]').val();
+		var adddetail = $('input[name=ADD_DETAIL]').val();
 		if(addnick = ''){
 			alert("배송지명을 입력하세요.")
 			addnick.focus();
@@ -134,7 +144,26 @@ $('#kakaoPay').on("click", () =>{
 			receiver.focus();
 			return false;
 		}
-	
+		if(phone =''){
+			alert("연락처을 입력하세요.")
+			phone.focus();
+			return false;
+		}
+		if(post =''){
+			alert("주소 입력하세요.")
+			post.focus();
+			return false;
+		}
+		if(addname =''){
+			alert("주소 입력하세요.")
+			addname.focus();
+			return false;
+		}
+		if(adddetail =''){
+			alert("상세주소를 입력하세요.")
+			adddetail.focus();
+			return false;
+		}
 	}
 	
 	

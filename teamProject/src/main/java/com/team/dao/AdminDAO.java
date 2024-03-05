@@ -53,10 +53,13 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getCategoryList");
 	}
 
+	public void inputForm(Map<String, String> map) {
+		sqlSession.insert(namesqace + "inputForm", map);
+	}
 	
-	
-	
-	
+	public List<Map<String, String>> getForm(Map<String, String> map) {
+		return sqlSession.selectList(namesqace + "getForm", map);
+	}
 	
 	
 	
@@ -99,6 +102,7 @@ public class AdminDAO {
 	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
 		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
 	}//
+
 	
 //	----- 성엽 끝 -----	
 	

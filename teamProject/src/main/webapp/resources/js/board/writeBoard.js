@@ -73,7 +73,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		
 		  div.append(btn); // 생성된 버튼을 div에 추가합니다.
 		  $('#att_zone').append(div); // 완성된 div를 페이지의 'att_zone'에 추가합니다.
-		  $('#att_zone').append('<input type="hidden" value="' + fileName + '"/>');
+		  $('#att_zone').append('<input type="hidden" id="image-in" value="' + fileName + '"/>');
 		};
 		reader.readAsDataURL(file); // FileReader 객체를 사용해 파일을 데이터 URL로 읽습니다.
 	}// displayImagePreview()함수 끝

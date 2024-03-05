@@ -47,7 +47,7 @@
 				<tr>
 					<th scope="col" >카테고리명</th>
 					<th scope="col">순서</th>
-					<th scope="col">숨김 여부</th>
+					<th scope="col">사용 여부</th>
 				</tr>
 			</thead>
 			<tbody class="tableHr">

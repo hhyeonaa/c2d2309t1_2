@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -89,8 +90,13 @@ public class AdminController {
  	}
 	
 	@PostMapping("/displayUpdate")
-	public void displayUpdate(@RequestParam Map<String, String> map) {
-		adminService.displayUpdate(map);
+	@ResponseBody
+	public ResponseEntity<?> displayUpdate(@RequestBody List<Map<String, String>> requestBody) {
+		List<Map<String, String>> arrList = requestBody;
+	    for (Map<String, String> entry : arrList) {
+	        adminService.displayUpdate(entry);
+	    }
+		return ResponseEntity.ok().body(arrList);
 	}
 	
 	@GetMapping("/category")
@@ -114,10 +120,23 @@ public class AdminController {
 	}
 	
 	@PostMapping("/inputFormPro")
-	public String inputFormPro(@RequestParam Map<String, String> map) {
+//	@ResponseBody
+	public String inputFormPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MEM_ID: " + (String)session.getAttribute("MEM_ID"));
+		map.put("MEM_ID", (String)session.getAttribute("MEM_ID"));
 		System.out.println("map : " + map.entrySet());
+		adminService.inputForm(map);
 		return "admin/inputFormPro";
 	}
+	
+	@GetMapping
+	@ResponseBody
+	public ResponseEntity<?> getForm(@RequestParam Map<String, String> map) {
+		List<Map<String, String>> formList = adminService.getForm(map);
+		System.out.println("리스트: " + formList.toString());
+		return ResponseEntity.ok().body(formList);
+	}
+	
 	
 	/* 현아 작업공간 */
 	

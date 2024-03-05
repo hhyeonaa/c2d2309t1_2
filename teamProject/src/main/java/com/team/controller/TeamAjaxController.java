@@ -29,7 +29,6 @@ public class TeamAjaxController {
 	
 	@GetMapping
 	@ResponseBody
-//	public String alert(@RequestParam Map<String, String> param, @PathVariable String b) {
 	public ResponseEntity<?> alert(@RequestParam MultiValueMap<String, Object> param) {
 
 		Map<String, String> params = new HashMap<String, String>();

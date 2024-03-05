@@ -36,37 +36,37 @@
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
 		<!-- 로그인 페이지 타이틀 -->
-		<img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
+		<img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
 		<h4>비밀번호 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>
-	    <form>
+	    <form action="findPwPro" method="post" name="searchForm">
 	      <div class="form-group">
 	        <label for="id">아이디</label>
-	        <input type="text" id="id" name="MEM_ID" placeholder="아이디를 입력해 주세요." required>
+	        <input type="text" id="id" name="MEM_ID" placeholder="아이디를 입력해 주세요." value="${MEM_ID}" required>
 	      </div>
 	      <div class="form-group">
 	        <label for="username">이름</label>
-	        <input type="text" id="username" name="MEM_NAME" placeholder="이름을 입력해 주세요." required>
+	        <input type="text" id="username" name="MEM_NAME" placeholder="이름을 입력해 주세요." value="${MEM_NAME}" required>
 	      </div>
 	      <div class="form-group">
 	        <label for="email">이메일</label>
-	        <input type="email" id="email" name="MEM_EMAIL" placeholder="이메일 주소를 입력해 주세요." required>
+	        <input type="email" id="email" name="MEM_EMAIL" placeholder="이메일 주소를 입력해 주세요." value="${MEM_EMAIL}"  required>
 	      </div>
 	      <div class="button-group">
-	        <input type="button" value="인증번호 받기" style="width: 100%;" class="test2" id="pwNumber">
+	        <input type="submit" value="인증번호 받기" style="width: 100%;" class="test2" id="pwNumber">
 	      </div>
 			<hr>
 		  <div class="form-group">
 	        <label for="certify" style="width: 100%;">인증번호</label>
-	        <input type="text" id="certify" name="certify" required>
+	        <input type="text" id="authCode" name="authCode">
 	      </div>
 	      <div class="button-group">
 	        <input type="button" value="다음" style="width: 100%;" class="test2" id="pwNext">
 	      </div>
 	      <br>
 	      <div style="text-align: right;"><a href="login"><ion-icon name="arrow-back-outline"></ion-icon></a></div>
-	      
+	      </form>
 	      <!-- 비밀번호 찾기 결과 모달 -->
 	<div id="pwResultModal" class="modal" style="padding-top: 10%;">
 	  <div class="modal-content" style="width: 25%;">
@@ -80,25 +80,28 @@
 		  <div class="modal-body" id="auth-modal-body">
 			<h6>인증이 정상적으로 완료되었습니다. <br> 새롭게 변경할 비밀번호를 입력해주세요.</h6>&nbsp;
 			<hr>
+<!-- 			<form action="pwUpdate" method="post"> -->
 		    <div class="form-outline mb-4">
-				<div style="text-align: left;"><label>새 비밀번호</label></div>
-		    	<input type="password" name="OWN_PW" id="pw" onchange="check_pw()"
+				<div style="text-align: left;"><label>새 비밀번호</label></div><small id="newPw" style="text-align: right; float: right;"></small>
+		    	<input type="password" name="MEM_PW" id="pw"
 		  		       class="form-control" placeholder="(영문/숫자/특수 포함 8자리 이상)">
 	        </div>
+	        
 			<div class="form-outline mb-4">
-			    <div style="text-align: left;"><label>새 비밀번호 확인</label> </div>
-			    <input type="password" name="OWN_PWCHECK" id="pw2" onchange="check_pw()"
+			    <div style="text-align: left;"><label>새 비밀번호 확인</label></div><small id="newPw2" style="text-align: right; float: right;"></small>
+			    <input type="password" id="pw2"
 			    	   class="form-control" placeholder="비밀번호를 다시 입력해주세요.">&nbsp;
 			    <span id="check"></span>
 			</div>
 			
 			<div class="button-group">
-	        <input type="button" value="변경" style="width: 100%;" class="test1" id="idNumber">
-	      </div>
+	        <input type="button" value="변경" style="width: 100%;" class="test1" id="pwUpdate">
+	        </div>
+<!-- 	        </form> -->
 		</div>
 	   </div>
 	  </div>
-	    </form>
+	    
 	  </div>
 	</div>
 	

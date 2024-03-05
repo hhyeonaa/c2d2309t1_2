@@ -59,7 +59,7 @@
 	
 	<select id="getBoardList" resultType="map">
 		select CODE
-				, HIDE
+				, ACTIVE
 				, SEQ
 				, CASE CO_DETAIL WHEN '0' THEN '글'
 						   WHEN '1' THEN '글+사진'
@@ -80,8 +80,9 @@
 	</update>
 	
 	<select id="getCategoryList" resultType="map">
-		select CODE
-				, HIDE
+		select SEQ
+				, CODE
+				, ACTIVE
 		from CODE
 		where CO_TYPE = 'CA'
 		ORDER BY SEQ

@@ -125,17 +125,17 @@ public class AdminController {
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
 		
-		codeService.selectCodeList(EnumCodeType.메세지, session, true);
+//		codeService.selectCodeList(EnumCodeType.메세지, session, true);
 		
 		
-		codeService.selectCodeList(EnumCodeType.메세지, session);
+//		codeService.selectCodeList(EnumCodeType.메세지, session);
 		
 		return "admin/message_manage";
 	}
 	
 	@GetMapping("/category_manage")
 	public String category_manage(Model model, HttpSession session) {
-		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, session, true));
+//		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, session, true));
 		return "admin/category_manage";
 	}
 	
@@ -146,8 +146,8 @@ public class AdminController {
 	
 	@GetMapping("/trade_manage")
 	public String trade_manage(Model model) {
-		model.addAttribute("code1", codeService.selectCode("DD1"));
-		model.addAttribute("code2", codeService.selectCode("DD2"));
+//		model.addAttribute("code1", codeService.selectCode("DD1"));
+//		model.addAttribute("code2", codeService.selectCode("DD2"));
 		return "admin/trade_manage";
 	}
 	
@@ -163,19 +163,22 @@ public class AdminController {
 	
 	@GetMapping("/code_manage")
 	public String code_manage(Model model) {
-		Map<String, String> data = new HashMap<String, String>();
-		data.put("codeTitle", EnumCodeType.메뉴항목.toString().trim());
-		data.put("codeType", EnumCodeType.메뉴항목.getType());
+		Map<String, String> existingData = new HashMap<String, String>();
+		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
 		
-		
+		model.addAllAttributes(existingData);
+		model.addAttribute("typeList", EnumCodeType.전체코드타입.getCodeTypeList());
 		return "admin/code_manage";
 	}
 	
-	@PostMapping("/codePro")
+	@GetMapping("/codePro")
+	@ResponseBody
 	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
-
-		List<Map<String, String>> data = codeService.selectCodeList(param.get(EnumCodeType.코드내용.getType()), session);
+//		System.out.println(EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType()))); 
+		List<Map<String, String>> data = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType())), session);
 		return ResponseEntity.ok().body(data);
+//		return ResponseEntity.ok().body(null);
 	}
 	/* 무창 작업공간 */
 	

@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
@@ -29,12 +30,11 @@ public class TeamAjaxController {
 	
 	@GetMapping
 	@ResponseBody
-	public ResponseEntity<?> alert(@RequestParam MultiValueMap<String, Object> param) {
-
-		Map<String, String> params = new HashMap<String, String>();
+	public ResponseEntity<?> alert(@RequestParam MultiValueMap<String, Object> param, HttpSession session) {
 		Object[] arr = param.get("msgArr[]").toArray();
+		Map<String, String> params = new HashMap<String, String>();
 		
-		params = codeService.selectCode(param.get("msgText").get(0).toString(), arr);
+		params = codeService.selectMessage(param.get("msgText").get(0).toString(), arr, session);
 		params.put("isConfirm", param.get("msgIsTrue").get(0).toString());
 		
 		return ResponseEntity.ok().body(params);

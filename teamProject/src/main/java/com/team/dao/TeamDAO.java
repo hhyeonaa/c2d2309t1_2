@@ -22,4 +22,12 @@ public class TeamDAO {
 	public Map<String, String> selectCode(Map<String, String> code) {
 		return sqlSession.selectOne(namespace + "selectCode", code);
 	}
+	
+	public Map<String, String> selectMessage(Map<String, String> code) {
+		return sqlSession.selectOne(namespace + "selectMessage", code);
+	}
+	
+	public Map<String, String> selectMessageList(Map<String, String> code) {
+		return sqlSession.selectOne(namespace + "selectMessageList", code);
+	}
 }

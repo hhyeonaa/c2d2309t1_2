@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +16,20 @@
     .delete:hover {
     	background-color: rgb(255, 0, 0, 0.3);
     }
+    button + button {
+    	margin-left: 10px;
+    }
 </style>	
 </head>
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 		<main style="background: #f0f0f3; padding: 200px;">
-			<input type="text" value="${codeTitle}">
-			<input type="text" value="${codeType}">
-			<h4 class="mb-5"><b>${codeTitle} 관리 (코드타입 : ${codeType})</b></h4>
+			<input type="text" value="${CODE}" id="selectListItem">
+			<div style="display: flex; justify-content: flex-start;">
+				<c:forEach var="item" items="${typeList}">
+					<button type="button" class="btn btn-outline-primary">${item.title}</button>
+				</c:forEach>
+			</div>
 			<div>
 				<table class="table table-hover table align-middle table table-sm mt-5">
 					<thead>

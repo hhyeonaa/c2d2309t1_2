@@ -29,7 +29,7 @@ public class PayController {
 	@GetMapping("/payment")
 	public String payment(@RequestParam Map<String, String> param, HttpSession session, Model model,HttpServletRequest request) {
 		System.out.println("PayController payment()");
-		String MEM_ID = request.getParameter("MEM_ID");
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		System.out.println(MEM_ID);
 		return "/pay/payment";
 	}// payment()

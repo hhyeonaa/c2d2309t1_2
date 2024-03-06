@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.awt.Menu;
 import java.io.File;
 import java.io.IOException;
 import java.lang.System.Logger;
@@ -101,12 +102,32 @@ public class BoardController {
 	}// auctionBoard()
 	
 	@GetMapping("/writeBoard")
-	public String writeBoard(Model model, HttpSession session) {
+	public String writeBoard(HttpServletRequest request,Model model,HttpSession session) {
 		System.out.println("BoardController writeBoard()");
-		//codeService.selectCode("MM1");
-
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		if(proWr != null || proDate != null) {
+			Map<String, String> map = new HashMap<>();
+			map.put("proWr", proWr);
+			map.put("proDate", proDate);
+			Map<String,String> resultMap = boardService.selectBoardDetail(map);
+			System.out.println("resultMap: "+ resultMap);
+			String ImgNames = resultMap.get("IMG_NAMES");
+			String[] ImgNameSplit = ImgNames.split("\\|");
+			ArrayList<String> imgList = new ArrayList<>();
+			for (String e : ImgNameSplit) {
+				imgList.add(e);
+			}
+			System.out.println("=====");
+			System.out.println(imgList);
+			model.addAttribute("resultMap", resultMap);
+			model.addAttribute("imgList", imgList);
+		}
 		
-//		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
+		//codeService.selectCode("MM1");
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
+		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
 		return "board/writeBoard";
 	}// writeBoard()
 	

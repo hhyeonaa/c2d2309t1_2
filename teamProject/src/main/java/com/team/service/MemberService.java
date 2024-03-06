@@ -105,15 +105,15 @@ public class MemberService {
 		return memberDAO.myListAuction(MEM_ID); 
 	}// myListAuction()
 //	-----------------------------------------------------------------------------	
+	public Map<String, String> deleteCheck(Map<String, String> map) {
+		System.out.println("MemberService deleteCheck()");
+		return memberDAO.deleteCheck(map); 
+	}// deleteCheck()
+//	-----------------------------------------------------------------------------	
 	public void memberDelete(Map<String, String> map) {
 		System.out.println("MemberService memberDelete()");
 		System.out.println(map + " ~~~~~~~~~~map~~~~~~~~~~~~~");
 		memberDAO.memberDelete(map);
 	}// memberDelete()
-//	-----------------------------------------------------------------------------	
-	public Map<String, String> deleteCheck(Map<String, String> map, String MEM_ID) {
-		System.out.println("MemberService deleteCheck()");
-		return memberDAO.deleteCheck(map,MEM_ID); 
-	}// deleteCheck()
 	
 }// MemberService 클래스

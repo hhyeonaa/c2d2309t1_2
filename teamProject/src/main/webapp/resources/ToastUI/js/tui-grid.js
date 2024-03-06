@@ -13022,6 +13022,7 @@ var Grid = /** @class */ (function () {
      */
     Grid.prototype.reloadData = function () {
         this.dataProvider.reloadData();
+        alert('gd');
     };
     /**
      * Restore the data to the original data.

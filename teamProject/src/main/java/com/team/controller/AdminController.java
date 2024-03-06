@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,8 +49,11 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
- 		System.out.println(mapList);
  		return ToastUI.resourceData(req, mapList);
+ 	}
+ 	@PutMapping("/managerListU")
+ 	public void managerListU(@RequestBody String updatedRows) {
+ 		System.out.println(updatedRows);
  	}
 	
 	@PostMapping("/insertPro")
@@ -89,8 +94,13 @@ public class AdminController {
  	}
 	
 	@PostMapping("/displayUpdate")
-	public void displayUpdate(@RequestParam Map<String, String> map) {
-		adminService.displayUpdate(map);
+	@ResponseBody
+	public ResponseEntity<?> displayUpdate(@RequestBody List<Map<String, String>> requestBody) {
+		List<Map<String, String>> arrList = requestBody;
+	    for (Map<String, String> entry : arrList) {
+	        adminService.displayUpdate(entry);
+	    }
+		return ResponseEntity.ok().body(arrList);
 	}
 	
 	@GetMapping("/category")
@@ -114,10 +124,23 @@ public class AdminController {
 	}
 	
 	@PostMapping("/inputFormPro")
-	public String inputFormPro(@RequestParam Map<String, String> map) {
+//	@ResponseBody
+	public String inputFormPro(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MEM_ID: " + (String)session.getAttribute("MEM_ID"));
+		map.put("MEM_ID", (String)session.getAttribute("MEM_ID"));
 		System.out.println("map : " + map.entrySet());
+		adminService.inputForm(map);
 		return "admin/inputFormPro";
 	}
+	
+	@GetMapping
+	@ResponseBody
+	public ResponseEntity<?> getForm(@RequestParam Map<String, String> map) {
+		List<Map<String, String>> formList = adminService.getForm(map);
+		System.out.println("리스트: " + formList.toString());
+		return ResponseEntity.ok().body(formList);
+	}
+	
 	
 	/* 현아 작업공간 */
 	
@@ -125,17 +148,17 @@ public class AdminController {
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
 		
-		codeService.selectCodeList(EnumCodeType.메세지, session, true);
+//		codeService.selectCodeList(EnumCodeType.메세지, session, true);
 		
 		
-		codeService.selectCodeList(EnumCodeType.메세지, session);
+//		codeService.selectCodeList(EnumCodeType.메세지, session);
 		
 		return "admin/message_manage";
 	}
 	
 	@GetMapping("/category_manage")
 	public String category_manage(Model model, HttpSession session) {
-		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, session, true));
+//		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, session, true));
 		return "admin/category_manage";
 	}
 	
@@ -146,8 +169,8 @@ public class AdminController {
 	
 	@GetMapping("/trade_manage")
 	public String trade_manage(Model model) {
-		model.addAttribute("code1", codeService.selectCode("DD1"));
-		model.addAttribute("code2", codeService.selectCode("DD2"));
+//		model.addAttribute("code1", codeService.selectCode("DD1"));
+//		model.addAttribute("code2", codeService.selectCode("DD2"));
 		return "admin/trade_manage";
 	}
 	
@@ -162,22 +185,33 @@ public class AdminController {
 	}
 	
 	@GetMapping("/code_manage")
-	public String code_manage(@RequestParam Map<String, String> param, Model model) {
-		String getUrlCode = param.get(EnumCodeType.코드내용.getType());
-		if(getUrlCode == null) {
-			param.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
-		}
-		model.addAllAttributes(param);
+	public String code_manage(Model model) {
+		Map<String, String> existingData = new HashMap<String, String>();
+		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
 		
+		model.addAllAttributes(existingData);
+		model.addAttribute("typeList", EnumCodeType.전체코드타입.getCodeKeyList());
 		return "admin/code_manage";
 	}
 	
-	@PostMapping("/codePro")
-	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
-
-		List<Map<String, String>> data = codeService.selectCodeList(param.get(EnumCodeType.코드내용.getType()), session);
-		return ResponseEntity.ok().body(data);
-	}
+	@GetMapping("/codePro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session){
+		List<Map<String, String>> data = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+		System.out.println(data);
+ 		return ToastUI.resourceData(param, data);
+ 	}
+	
+//	@GetMapping("/codePro")
+//	@ResponseBody
+//	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
+//		System.out.println(EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType()))); 
+//		List<Map<String, String>> data = codeService.selectCodeList(
+//				EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType())), session);
+//		return ResponseEntity.ok().body(data);
+//		return ResponseEntity.ok().body(null);
+//	}
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */

@@ -302,19 +302,16 @@ public class MemberController{
 	@PostMapping("/memberDeletePro")
 	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController memberDeletePro()");
-		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		session.setAttribute("MEM_EMAIL", map.get("MEM_EMAIL"));
 		String MEM_EMAIL = (String)session.getAttribute("MEM_EMAIL");
-		System.out.println("String MEM_ID : " + MEM_ID);
-		System.out.println("String MEM_EMAIL : " + MEM_EMAIL);
-		Map<String, String> profile = memberService.memberDelete(MEM_ID);
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		Map<String, String> profile = memberService.mypage(MEM_ID);
 		profile.get("MEM_EMAIL");
-		System.out.println("profile.get(\"MEM_EMAIL\") : " + profile.get("MEM_EMAIL"));
-		System.out.println("profile.get(\"MEM_ID\") : " + profile.get("MEM_ID"));
 		profile.get("MEM_PW");
-		System.out.println("profile : " + profile);
 		if (profile.get("MEM_EMAIL") != null) {
-			if (profile.get("MEM_ID").equals(MEM_ID)) {
+			if (MEM_EMAIL.equals(profile.get("MEM_EMAIL"))) {
 				memberService.memberDelete(profile);
+				System.out.println("이메일 일치 삭제 가능");
 				session.invalidate();
 				return "redirect:../";
 			} else {
@@ -327,24 +324,7 @@ public class MemberController{
 		}
 		
 	}
-//	-----------------------------------------------------------------------------	
-	
-//	@PostMapping("deletePro")
-//	public String deletePro(MemberDTO memberDTO) {
-//		System.out.println("MemberController deletePro()");
-//		HttpSession session = null;
-//		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
-//		if(memberDTO2 != null) {
-//			memberService.deleteMember(memberDTO);
-//			// 세션 초기화
-//			session.invalidate();
-//			System.out.println("회원탈퇴 완료!");
-//			return "redirect:/member/login";
-//		}
-//		System.out.println("아이디/비밀번호 불일치!");
-//		return "member/msg";
-//	}// deletePro()
-	
+
 	
 //  ===============================================메일 전송 관련===============================================	
 		// 인증메일

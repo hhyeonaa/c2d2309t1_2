@@ -73,7 +73,7 @@
 	
 	<update id="displayUpdate">
 		update CODE
-		set    HIDE = #{HIDE}
+		set    ACTIVE = #{ACTIVE}
 		      , SEQ = #{SEQ}
 		where  CO_TYPE = #{CO_TYPE}
 		and	   CODE = #{CODE}
@@ -88,8 +88,39 @@
 		ORDER BY SEQ
 	</select>	
 	
+	<insert id="inputForm">
+		insert into PRODUCT
+			(PRO_NO
+			, PRO_WR
+			, PRO_NAME
+			, PRO_PRICE
+			, PRO_CONTENT
+			, PRO_CATE
+			, PRO_STATUS
+			, PRO_DATE
+			)
+		values (CONCAT('PR', IFNULL((SELECT MAX(CAST(replace(PRO_NO, 'PR', '') AS unsigned))+1
+									 FROM PRODUCT A), 1))
+			, #{MEM_ID}
+			, #{PRO_NAME}
+			, #{PRO_PRICE}
+			, #{PRO_CONTENT}
+			, #{PRO_CATE}
+			, #{PRO_STATUS}
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
+	</insert>
 	
-	
+	<select id="getForm" resultType="map">
+			select 
+				CO_TYPE
+				, CO_NO
+				, CODE
+				, CO_DETAIL
+				, SEQ
+			from CODE
+			where CO_TYPE = 'FO'
+			and ACTIVE = '1'
+	</select>
 	
 	
 	

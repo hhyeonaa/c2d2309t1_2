@@ -55,5 +55,17 @@ const codeName = {
 	상품상태: "PS",
 	상세설명: "DD"
 }
+Object.freeze(codeName);
 
+const columnTitle = {
+	타입 : "CO_TYPE",
+	번호 : "CO_NO",
+	내용 : "CODE",
+	순서 : "SEQ",
+	속성 : "CO_DETAIL",
+	권한 : "AD_ROLE",
+	활성여부_관리자 : "HIDE",
+	활성여부_사용자 : "ACTIVE",
+}
+Object.freeze(columnTitle);
 

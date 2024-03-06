@@ -16,17 +16,26 @@
  draggable(boolean) : 순서 바꾸는 기능 필요 시 (ex. 게시판 관리 페이지) (!!! draggable 사용 시 perPage 는 무조건 0)
 **/
 
-var grid = (url, perPage, columns, draggable) => {
+var appendRows = [];
+var defaultPerPage;
+
+var grid = (url, perPage, columns, draggable, parameter) => {
+	defaultPerPage = perPage;
 	var pageOptions = {
 		useClient: true,
 		perPage: perPage
 	};
-	if(perPage === 0) pageOptions = {};
+	if(perPage === 0) {
+		pageOptions = {};
+		$("#setPerpage").remove();
+	}
 	
 	const dataSource = {
 		api: {
-			readData: { url: url, method: 'GET' }
-		}
+			readData: { url: url, method: 'GET', initParams: { param: parameter }},
+			updateData: { url: url + "U", method: 'PUT' }
+		},
+  		contentType: 'application/json'
 	};
 	const Grid = tui.Grid;
 	const grid = new Grid({
@@ -38,4 +47,47 @@ var grid = (url, perPage, columns, draggable) => {
 		rowHeaders: ['rowNum', 'checkbox'],
 		pageOptions: pageOptions
 	});
+	
+	const appendBtn = document.getElementById('appendBtn');
+	const appendedData = {};
+    columns.forEach(item => appendedData[item.name] = '')
+	appendBtn.addEventListener('click', () => {
+		var rowCount = grid.getRowCount();
+		appendRows.push(rowCount);
+		if($("#setPerpage").val() == '0') grid.setPerPage(rowCount + 1, dataSource);
+		grid.appendRow(appendedData);
+    });
+    
+    const removeBtn = document.getElementById('removeBtn');
+	removeBtn.addEventListener('click', () => {
+		debugger;
+		grid.removeRows(appendRows);
+		appendRows = [];
+    });
+    
+    const resetBtn = document.getElementById('resetBtn');
+    resetBtn.addEventListener('click', () =>{
+		debugger;
+		grid.reloadData();
+		debugger;	
+	});
+	
+	const updateBtn = document.getElementById('updateBtn');
+	debugger;
+	updateBtn.addEventListener('click', function(){
+		debugger;
+		grid.request('updateData');
+	});
+	
+	const setPerpage = document.getElementById('setPerpage');
+	setPerpage.addEventListener('change', function(e){
+		var _perPage = Number(e.target.value);
+		if(_perPage === 0) _perPage = grid.getRowCount();
+		if(e.target.value === "-1") {
+			debugger;
+			_perPage = defaultPerPage;
+		}
+		grid.setPerPage(_perPage, dataSource);
+	});
+	
 }

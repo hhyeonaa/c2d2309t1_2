@@ -22,7 +22,7 @@
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
 			<div>
 			    <a data-mdb-toggle="pill" href="#" role="tab" aria-controls="register" aria-selected="true"
-			       class="btn" id="btnAdd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
+			       class="btn" id="btnAddd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
 			</div>
         </div>
     </div>
@@ -83,7 +83,6 @@
 											<option value="1">총괄</option>
 											<option value="2">운영</option>
 											<option value="3">사이트</option>
-											<option value="4">시스템</option>
 										</select>
 									</td>
 	                                <td scope="row">
@@ -110,7 +109,7 @@
     </div>
     <div class="row g-0 pb-4">
     	<div class="mb-4" align="right">
-			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
+			<button type="reset" class="btn btn-secondary" id="">취소</button>
 			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
 		<div class="demo">
@@ -120,7 +119,26 @@
 		</div> 
     </div>
     </form>
-    <div id="excel"></div>
+    
+	<div class="btn-wrapper">
+		<select name="perPage" id="setPerpage">
+			<option selected disabled hidden>선택</option>
+			<option value="-1">기본값</option>
+			<option value="0">한 페이지에 보기</option>
+			<option value="1">1개 씩 보기</option>
+			<option value="5">5개 씩 보기</option>
+			<option value="10">10개 씩 보기</option>
+			<option value="20">20개 씩 보기</option>
+			<option value="30">30개 씩 보기</option>
+			<option value="50">50개 씩 보기</option>
+			<option value="100">100개 씩 보기</option>
+		</select>
+		<button id="appendBtn">행 추가</button>
+		<button id="removeBtn">추가 행 삭제</button>
+		<button id="resetBtn">취소</button>
+		<button id="saveBtn">저장</button>
+		<button id="updateBtn">수정</button>
+	</div>
     <div id="grid"></div>
 </div>
 </body>

@@ -19,21 +19,25 @@ $(function(){
 			name:"AD_NO",
 			header:"번호",
 			filter:"number",
-		    sortable: true
+		    sortable: true,
+		    editor: "text"
+		    
 		}, 
 		{
 			name:"AD_ID",
 			header:"ID",
 			filter:"text",
 		    sortable: true,
-			sortingType: 'asc'
+			sortingType: 'asc',
+		    editor: "text"
 		},
 		{
 			name:"AD_ROLE",
 			header:"권한",
 			filter:"text",
 		    sortable: true,
-			sortingType: 'asc'
+			sortingType: 'asc',
+		    editor: "text"
 		},
 		{
 			name:"AD_ACTIVE",
@@ -54,7 +58,7 @@ $(function(){
 		}
 	]
 	grid("managerList", 5, columns, false);
-	excel("upload", "download");
+	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 	
 	

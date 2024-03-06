@@ -21,6 +21,11 @@ public class PayDAO {
 		return sqlSession.selectOne(namespace + ".getPayProList",map);
 	}
 
+	//회원 배송지 목록  select
+	public List<Map<String, String>> getMemAdd(Map<String, String> map2) {
+		return sqlSession.selectList(namespace + ".getMemAdd", map2);
+	}
+	
 //	// 배송지 저장
 //	public void insertAddress(Map<String, String> map) {
 //		sqlSession.insert(namespace + ".insertAddress", map); 

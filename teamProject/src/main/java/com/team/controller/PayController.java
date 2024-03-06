@@ -37,15 +37,19 @@ public class PayController {
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
-		//로그인한 회원 정보 및 배송지 정보 select
-		param.put("MEM_ID", MEM_ID);
+		
 		//로그인 회원 정보 select
+		param.put("MEM_ID", MEM_ID);
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
 		System.out.println(param2);
+		System.out.println(param2.get("MEM_NO"));
 		model.addAttribute("buyerInfo", param2);
 		
-		//회원 배송지 목록 select
-		//List<Map<String, String>> memAddList = payService.getMemAddList(); 
+		//로그인한 회원 정보 및 배송지 정보 select
+		Map<String, String> map2 = new HashMap<>();
+		map2.put("MEM_NO", param2.get("MEM_NO"));
+		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
+		model.addAttribute("memAddList", memAddList);
 		
 		//결제할 상품 정보 select
 		Map<String, String> map = new HashMap<>();

@@ -22,6 +22,12 @@ public class PayService {
 	public Map<String, String> getPayProList(Map<String, String> map) {
 		return payDAO.getPayProList(map);
 	}
+	
+	//회원 배송지 목록 select
+	public List<Map<String, String>> getMemAdd(Map<String, String> map2) {
+		return payDAO.getMemAdd(map2);
+	}
+
 
 //	// 배송지 저장
 //	public void insertAddress(Map<String, String> map) {

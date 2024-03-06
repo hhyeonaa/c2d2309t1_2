@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,6 +50,10 @@ public class AdminController {
  	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
  		return ToastUI.resourceData(req, mapList);
+ 	}
+ 	@PutMapping("/managerListU")
+ 	public void managerListU(@RequestBody String updatedRows) {
+ 		System.out.println(updatedRows);
  	}
 	
 	@PostMapping("/insertPro")

@@ -3,7 +3,9 @@ package com.team.controller;
 
 import java.io.Console;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.team.service.AdminService;
 import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
+import com.team.util.JsonUtils;
 import com.team.util.ToastUI;
 
 @Controller
@@ -45,7 +48,7 @@ public class AdminController {
 		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
- 	@GetMapping("/managerList")
+ 	@GetMapping("/managerListR")
  	@ResponseBody
  	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
@@ -53,7 +56,8 @@ public class AdminController {
  	}
  	@PutMapping("/managerListU")
  	public void managerListU(@RequestBody String updatedRows) {
- 		System.out.println(updatedRows);
+ 		Map<String, String> map = ToastUI.getRealData(updatedRows);
+ 		System.out.println(map);
  	}
 	
 	@PostMapping("/insertPro")

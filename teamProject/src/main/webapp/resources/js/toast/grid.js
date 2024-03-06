@@ -32,8 +32,10 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 	
 	const dataSource = {
 		api: {
-			readData: { url: url, method: 'GET', initParams: { param: parameter }},
-			updateData: { url: url + "U", method: 'PUT' }
+			createData: { url: url + "C", method: 'POST',   initParams: { param: parameter }},
+			readData:   { url: url + "R", method: 'GET',    initParams: { param: parameter }},
+			updateData: { url: url + "U", method: 'PUT',    initParams: { param: parameter }},
+		    deleteData: { url: url + "D", method: 'DELETE', initParams: { param: parameter }}
 		},
   		contentType: 'application/json'
 	};
@@ -48,22 +50,44 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		pageOptions: pageOptions
 	});
 	
-	const appendBtn = document.getElementById('appendBtn');
-	const appendedData = {};
-    columns.forEach(item => appendedData[item.name] = '')
-	appendBtn.addEventListener('click', () => {
-		var rowCount = grid.getRowCount();
-		appendRows.push(rowCount);
-		if($("#setPerpage").val() == '0') grid.setPerPage(rowCount + 1, dataSource);
-		grid.appendRow(appendedData);
-    });
-    
-    const removeBtn = document.getElementById('removeBtn');
-	removeBtn.addEventListener('click', () => {
+//	const appendBtn = document.getElementById('appendBtn');
+//	const appendedData = {};
+//    columns.forEach(item => appendedData[item.name] = '')
+//	appendBtn.addEventListener('click', () => {
+//		var rowCount = grid.getRowCount();
+//		appendRows.push(rowCount);
+//		if($("#setPerpage").val() == '0') grid.setPerPage(rowCount + 1, dataSource);
+//		grid.appendRow(appendedData);
+//    });
+//    
+//    const removeBtn = document.getElementById('removeBtn');
+//	removeBtn.addEventListener('click', () => {
+//		debugger;
+//		grid.removeRows(appendRows);
+//		appendRows = [];
+//    });
+
+	$(document).on("click", "#insertBtn", function () {
 		debugger;
-		grid.removeRows(appendRows);
-		appendRows = [];
-    });
+		$.ajax({
+			type: "post"
+			, url: "insertPro"
+			, data: {AD_ID: $('#AD_ID').val(),
+					 AD_PW: $('#AD_PW').val(),
+					 AD_NAME: $('#AD_NAME').val() }
+		})
+		.done(function(data) {
+			debugger;
+			if(data == "") {
+				return false;
+			}
+			debugger;
+			debugger;
+			modal.css('display', 'none');
+			$('#adminDiv').load(location.href+' #adminDiv');
+//			location.reload();
+		 })
+	});
     
     const resetBtn = document.getElementById('resetBtn');
     resetBtn.addEventListener('click', () =>{

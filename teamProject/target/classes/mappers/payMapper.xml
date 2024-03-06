@@ -27,7 +27,7 @@
 	</select>
 			
 	<!--로그인 회원 배송지  select  -->
-	<select id="getMemAdd2" resultType="map">
+	<select id="getMemAdd" resultType="map">
 		SELECT * 
 			FROM MEMBERS M
 			JOIN ADDRESS A

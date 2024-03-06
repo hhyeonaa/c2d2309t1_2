@@ -45,7 +45,7 @@ public class PayController {
 		System.out.println(param2.get("MEM_NO"));
 		model.addAttribute("buyerInfo", param2);
 		
-		//로그인한 회원 정보 및 배송지 정보 select
+		//로그인한 회원 정보 및 배송지리스트 select(ajax?), 기본 최근배송지 select?
 		Map<String, String> map2 = new HashMap<>();
 		map2.put("MEM_NO", param2.get("MEM_NO"));
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);

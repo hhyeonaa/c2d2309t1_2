@@ -27,7 +27,7 @@ $(() => {
 		},  
 		{
 			name: columnTitle.활성여부_관리자,
-			header:"활성 상태",
+			header:"숨김 여부",
 			filter:"select",
 		    sortable: true,
 			renderer: {
@@ -43,9 +43,9 @@ $(() => {
 		}
 	]
 
-	$(document).on("click", "button", function(){
-		
-		$("button").attr("class", "btn btn-outline-primary");
+	$(document).on("click", "#selectCodeBtn button", function(){
+		debugger;
+		$("#selectCodeBtn button").attr("class", "btn btn-outline-primary");
 		$(this).attr("class", "btn btn-primary");
 		
 		let keys = Object.keys(codeName);

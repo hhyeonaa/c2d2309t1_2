@@ -5,7 +5,6 @@
 <mapper namespace="com.team.mappers.teamMapper">
 
 	<select id="selectCodeList" parameterType="map" resultType="map">
-	
 		select  CO_TYPE
 			  , CO_NO
 			  , CODE
@@ -16,14 +15,15 @@
 		  from CODE
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
+		   
 	  <choose>
-	    <when test="AD_ROLE == '1'">
+	    <when test="trim(AD_ROLE) == '1'">
 		   and HIDE in ('0', '1') 					 	
 		</when>
-		<when test="AD_ROLE == '2'">
+		<when test="trim(AD_ROLE) == '2'">
 		   and HIDE = '0' 					 	
 		</when>
-		<when test="AD_ROLE == '3'">
+		<when test="trim(AD_ROLE) == '3'">
 		   and HIDE = '0' 					 	
 		</when>
 		<otherwise>

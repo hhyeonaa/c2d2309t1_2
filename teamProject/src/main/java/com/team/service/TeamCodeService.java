@@ -90,7 +90,6 @@ public class TeamCodeService implements TeamCodeInterface{
 		code.put("codeType", codeType.getType().trim());
 		code.put("AD_ROLE", ses);
 		List<Map<String, String>> selectCodeList = dao.selectCodeList(code);
-		
 		try {
 			if(selectCodeList == null) {
 	        	throw new CodeTypeNullException(codeType.getType().trim());

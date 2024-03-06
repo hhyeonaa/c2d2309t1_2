@@ -35,7 +35,7 @@ public enum EnumCodeType {
 		return type_;
 	}
 	
-	public List<Map<String, String>> getCodeTypeList() {
+	public List<Map<String, String>> getCodeKeyList() {
 		return EnumTotalCodeList.전체코드타입.getArr_();
 	}
 	
@@ -65,7 +65,7 @@ enum EnumTotalCodeList{
 	            .filter(f -> !f.toString().contains("코드") && !f.toString().equals("메세지"))
 	            .map(m -> {
 	                Map<String, String> data = new HashMap<>();
-	                data.put("title", m.toString());
+	                data.put("key", m.toString());
 	                return data;
 	            })
 	            .collect(Collectors.toList());

@@ -13,7 +13,6 @@ public interface TeamCodeInterface {
 	Map<String, String> selectCode(String code, HttpSession session);
 	Map<String, String> selectMessage(String code, Object[] msg, HttpSession session);
 	List<Map<String, String>> selectCodeList(EnumCodeType codeType, HttpSession session);
-	List<Map<String, String>> selectCodeList(String codeType, HttpSession session);
 	List<Map<String, String>> selectMessageList(EnumCodeType codeType, HttpSession session);
 	
 	

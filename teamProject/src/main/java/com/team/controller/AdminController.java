@@ -47,7 +47,6 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
- 		System.out.println(mapList);
  		return ToastUI.resourceData(req, mapList);
  	}
 	
@@ -167,19 +166,28 @@ public class AdminController {
 		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
 		
 		model.addAllAttributes(existingData);
-		model.addAttribute("typeList", EnumCodeType.전체코드타입.getCodeTypeList());
+		model.addAttribute("typeList", EnumCodeType.전체코드타입.getCodeKeyList());
 		return "admin/code_manage";
 	}
 	
 	@GetMapping("/codePro")
-	@ResponseBody
-	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
-//		System.out.println(EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType()))); 
+ 	@ResponseBody
+ 	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session){
 		List<Map<String, String>> data = codeService.selectCodeList(
-				EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType())), session);
-		return ResponseEntity.ok().body(data);
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+		System.out.println(data);
+ 		return ToastUI.resourceData(param, data);
+ 	}
+	
+//	@GetMapping("/codePro")
+//	@ResponseBody
+//	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
+//		System.out.println(EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType()))); 
+//		List<Map<String, String>> data = codeService.selectCodeList(
+//				EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType())), session);
+//		return ResponseEntity.ok().body(data);
 //		return ResponseEntity.ok().body(null);
-	}
+//	}
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */

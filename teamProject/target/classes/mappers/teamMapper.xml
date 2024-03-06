@@ -9,8 +9,10 @@
 		select  CO_TYPE
 			  , CO_NO
 			  , CODE
-		 	  , CASE WHEN #{AD_ROLE} = '1'  then HIDE
-		 	  		 WHEN #{AD_ROLE} != '1' then ACTIVE END AS "HIDE"
+			  , SEQ
+			  , CO_DETAIL
+		 	  , HIDE
+		 	  , ACTIVE
 		  from CODE
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
@@ -25,10 +27,10 @@
 		   and HIDE = '0' 					 	
 		</when>
 		<otherwise>
-		   and ACTIVE = '0'	
+		   and ACTIVE = '1'
 		</otherwise>
 	  </choose>  
-		 order by cast(CO_NO as signed) desc 	   
+		 order by cast(SEQ as signed)	   
 		    
 	</select>
 	

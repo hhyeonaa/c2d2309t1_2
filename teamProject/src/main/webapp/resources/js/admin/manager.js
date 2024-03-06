@@ -54,7 +54,7 @@ $(function(){
 		}
 	]
 	grid("managerList", 5, columns, false);
-	excel("upload", "download");
+	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 	
 	

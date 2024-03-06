@@ -16,7 +16,7 @@
  draggable(boolean) : 순서 바꾸는 기능 필요 시 (ex. 게시판 관리 페이지) (!!! draggable 사용 시 perPage 는 무조건 0)
 **/
 
-var grid = (url, perPage, columns, draggable) => {
+var grid = (url, perPage, columns, draggable, parameter) => {
 	var pageOptions = {
 		useClient: true,
 		perPage: perPage
@@ -25,7 +25,7 @@ var grid = (url, perPage, columns, draggable) => {
 	
 	const dataSource = {
 		api: {
-			readData: { url: url, method: 'GET' }
+			readData: { url: url, method: 'GET', initParams: { param: parameter }}
 		}
 	};
 	const Grid = tui.Grid;

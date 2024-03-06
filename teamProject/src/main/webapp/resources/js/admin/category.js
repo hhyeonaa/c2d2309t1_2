@@ -30,7 +30,7 @@ $(function(){
 	]
 	
 	grid("categoryList", 3, columns, true);
-	excel("", "download");
+	excel("download");
 	targetColor($("#catelist_manage"));
 		
 	let categoryList = document.getElementById('categoryList');

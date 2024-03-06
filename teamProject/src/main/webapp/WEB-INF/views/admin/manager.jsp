@@ -120,7 +120,6 @@
 		</div> 
     </div>
     </form>
-    <div id="excel"></div>
     <div id="grid"></div>
 </div>
 </body>

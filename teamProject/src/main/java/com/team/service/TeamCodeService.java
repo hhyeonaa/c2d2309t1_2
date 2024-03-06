@@ -60,11 +60,6 @@ public class TeamCodeService implements TeamCodeInterface{
 	}
 	
 	@Override
-	public List<Map<String, String>> selectCodeList(String codeType, HttpSession session) {
-		return selectCodes(EnumCodeType.valueOf(codeType), session);
-	}
-
-	@Override
 	public Map<String, String> selectCode(String code, HttpSession session) {
 		
 		Map<String, String> selectCode = dao.selectCode(codeTextSeparate(code, session));
@@ -86,7 +81,9 @@ public class TeamCodeService implements TeamCodeInterface{
 		
 		if (ses instanceof String && !ses.equals("1") && !ses.equals("2") && !ses.equals("3")) {
 		    ses = "";
-		} else {
+		} 
+		
+		if(ses == null) {
 		    ses = "";
 		}
 		
@@ -108,7 +105,7 @@ public class TeamCodeService implements TeamCodeInterface{
 	
 	private Map<String, String> ajaxForAlert(String code, Object[] arr, HttpSession session) {
 		
-		Map<String, String> selectCode = dao.selectCode(codeTextSeparate(code, session));
+		Map<String, String> selectCode = dao.selectMessage(codeTextSeparate(code, session));
 		try {
 			if(selectCode == null) {
 	        	throw new CodeTypeNullException(code);

@@ -43,7 +43,7 @@ $(() => {
 	]
 
 	grid("boardList", 5, columns, true);
-	excel();
+	excel('download');
 })
 $(function(){
 	let boardList = document.getElementById('boardList');

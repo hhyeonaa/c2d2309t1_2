@@ -83,7 +83,6 @@
 											<option value="1">총괄</option>
 											<option value="2">운영</option>
 											<option value="3">사이트</option>
-											<option value="4">시스템</option>
 										</select>
 									</td>
 	                                <td scope="row">

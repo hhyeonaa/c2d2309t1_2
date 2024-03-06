@@ -99,6 +99,16 @@ public class AdminService {
 		return adminDAO.getBoardCategoryList(param);
 	}//
 
+	public void inputForm(Map<String, String> map) {
+		adminDAO.inputForm(map);
+	}
+
+	public List<Map<String, String>> getForm(Map<String, String> map) {
+		return adminDAO.getForm(map);
+	}
+
+
+
 	
 //	----- 성엽 끝 -----
 

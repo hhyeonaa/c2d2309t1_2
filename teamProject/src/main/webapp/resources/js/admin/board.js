@@ -51,7 +51,7 @@ $(function(){
 	var modal = $('#inputModal');
 
 	// 순서 변경 버튼
-	$('#btnTop').on('click', function(){
+	$(document).on('click', '#btnTop', function(){
 	    currentRow = $(this).closest('tr');
 	    preRow = currentRow.prev('tr');
 	    if (preRow.length !== 0) {
@@ -65,19 +65,24 @@ $(function(){
 	
 //	// 저장 버튼
 	$('#saveBtn').on('click', function () {
+		var arr = [];
 		for (let i = 1; i < boardList.rows.length; i++) {
-			$.ajax({
-				type: 'post'
-				, url: 'displayUpdate'
-				, data: {CO_TYPE: 'MM'
-						 , SEQ: i
-						 , CODE: boardList.rows[i].cells[1].innerText
-						 , HIDE: boardList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-		}
-//		$('#boardDiv').load(location.href+' #boardDiv');
+			arr.push(
+				{CO_TYPE: 'MM'
+				 , SEQ: i
+				 , CODE: boardList.rows[i].cells[1].innerText
+				 , ACTIVE: boardList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 
+				}
+			)
+		};
+		$.ajax({
+			type: "post"
+			, contentType: 'application/json'
+			, url: "displayUpdate"
+			, data: JSON.stringify(arr)
+		})
 		location.reload();
-	});	
+	});
 
 	// 취소 버튼
 	$('#resetBtn').on('click', function (){

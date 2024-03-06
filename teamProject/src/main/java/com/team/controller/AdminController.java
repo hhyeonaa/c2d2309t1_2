@@ -169,8 +169,6 @@ public class AdminController {
 		return "admin/member_manage";
 	}//
 	
-	
-	
 	@GetMapping("/memberDelete")
 	public String delete(@RequestParam String MEM_NO) {
 		
@@ -190,6 +188,7 @@ public class AdminController {
 	@GetMapping("/content_Delete")
 	@ResponseBody
 	public ResponseEntity<?> content_Delete(@RequestParam String PRO_NO) {
+		
 		Map<String, String> result = new HashMap<String, String>();
 		result.put("result", Integer.toString(adminService.cateContentDelete(PRO_NO)));
 		
@@ -209,11 +208,12 @@ public class AdminController {
 	@GetMapping("/board_category")
  	@ResponseBody
  	public ResponseEntity<?> board_category(@RequestParam Map<String, String> param){
-		System.out.println(param); // {category=2}
+		
  		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
+ 		
  		return ResponseEntity.ok().body(cateList);
  	}//
-		
+	
 	/* 성엽 작업공간 */	
 
 

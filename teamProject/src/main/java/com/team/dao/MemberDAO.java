@@ -105,7 +105,7 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace + "myListAuction", MEM_ID);
 	}// myListAuction()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> deleteCheck(Map<String, String> map) {
+	public Map<String, String> deleteCheck(Map<String, String> map, String MEM_ID) {
 		System.out.println("MemberDAO deleteCheck()");
 		return sqlSession.selectOne(namespace + "deleteCheck", map);
 	}// deleteCheck()

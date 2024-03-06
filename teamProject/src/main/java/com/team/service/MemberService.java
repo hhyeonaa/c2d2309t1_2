@@ -111,9 +111,9 @@ public class MemberService {
 		memberDAO.memberDelete(map);
 	}// memberDelete()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> deleteCheck(Map<String, String> map) {
+	public Map<String, String> deleteCheck(Map<String, String> map, String MEM_ID) {
 		System.out.println("MemberService deleteCheck()");
-		return memberDAO.deleteCheck(map); 
+		return memberDAO.deleteCheck(map,MEM_ID); 
 	}// deleteCheck()
 	
 }// MemberService 클래스

@@ -87,7 +87,9 @@ $(function(){
 
 	// 저장 버튼
 	$(document).on("click", "#saveBtn", function () {
+		debugger;
 		for (let i = 1; i < adminList.rows.length; i++) {
+			
 //			console.log(adminList.rows[i].cells[2].options[selectedIndex].value);
 			debugger;
 			$.ajax({
@@ -158,5 +160,7 @@ $(function(){
 //			location.reload();
 		 })
 	});
+	
+	
 	
 });

@@ -22,7 +22,7 @@
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
 			<div>
 			    <a data-mdb-toggle="pill" href="#" role="tab" aria-controls="register" aria-selected="true"
-			       class="btn" id="btnAddd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
+			       class="btn" id="btnAdd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
 			</div>
         </div>
     </div>
@@ -109,7 +109,7 @@
     </div>
     <div class="row g-0 pb-4">
     	<div class="mb-4" align="right">
-			<button type="reset" class="btn btn-secondary" id="">취소</button>
+			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
 			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
 		<div class="demo">

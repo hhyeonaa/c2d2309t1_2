@@ -91,7 +91,7 @@ public class AdminController {
 		List<Map<String, String>> mapList = adminService.getBoardList();
 		model.addAttribute("mapList", mapList);
 		List<Map<String, String>> formList = adminService.getForm(map);
-		System.out.println("리스트: " + formList);
+		System.out.println("리스트: " + formList.toString());
 		model.addAttribute("formList", formList);
 		return "admin/board";
 	}
@@ -110,6 +110,7 @@ public class AdminController {
 		List<Map<String, String>> arrList = requestBody;
 	    for (Map<String, String> entry : arrList) {
 	        adminService.displayUpdate(entry);
+	        System.out.println(entry);
 	    }
 		return ResponseEntity.ok().body(arrList);
 	}

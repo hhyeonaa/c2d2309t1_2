@@ -92,42 +92,27 @@ $(function(){
 
 	// 모달창	
 	$('#insertForm').on('click', function(){
-		$.ajax({
-			method: 'get'
-			, url: 'getForm'
-		})
-		.done(function(data){
-			console.log(data);
-//			for(i = 0; i < data.length; i++){
-//				$('#formName').append(data[i].formName);
-//		 		$('#CO_DETAIL').text(data[i].CO_DETAIL);
-//		 		debugger;
-//			}
-//	 			$("#menuName").append("<div class='row'><p>" + menuList.MENU_NAME + "</p></div>");
-//	 			$("#menuCount").append("<div class='row'><p>" + menuList.MENU_COUNT + "</p></div>");
-//	 			$("#menuPrice").append("<div class='row'><p>" + menuList.PAID_PRICE + "</p></div>");
-		    modal.css('display', 'block');
-			debugger;
-		});
+	    modal.css('display', 'block');
 	});
 	
 	// 모달 안 저장 버튼
 	$('#formSaveBtn').on('click', function () {
-		var arr = [];
+		var formArr = [];
 		for (let i = 1; i < inputList.rows.length; i++) {
-			arr.push(
-				{CO_TYPE: 'MM'
+			formArr.push(
+				{CO_TYPE: 'FO'
 				 , SEQ: i
-				 , CODE: inputList.rows[i].cells[1].innerText
-				 , ACTIVE: inputList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 
+				 , CODE: inputList.rows[i].cells[0].innerText
+				 , ACTIVE: inputList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
 				}
 			)
+			debugger;
 		};
 		$.ajax({
 			type: "post"
 			, contentType: 'application/json'
 			, url: "displayUpdate"
-			, data: JSON.stringify(arr)
+			, data: JSON.stringify(formArr)
 		})
 		location.reload();
 	});

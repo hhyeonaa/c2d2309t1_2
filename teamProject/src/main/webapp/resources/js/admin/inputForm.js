@@ -112,6 +112,7 @@ class SelectInput extends HTMLElement {
         selectDiv.style.border = '1px';
         
         let select = document.createElement('select');
+        select.classList.add('form-select');
         select.name = this.getAttribute('name');
         select.id = this.getAttribute('id');
         select.style.width = '20%';

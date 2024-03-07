@@ -53,7 +53,7 @@ span {
 			<div class="container">
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
-				<select id="proTc" name="proTc" style="width: 100px;">
+				<select id="proTc" class="form-select" name="proTc" style="width: 100px;">
 				    <c:forEach var="menu" items="${menu}">
 				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
 				        <c:choose>

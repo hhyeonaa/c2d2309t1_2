@@ -148,10 +148,6 @@ public class AdminController {
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
 		
-//		codeService.selectCodeList(EnumCodeType.메세지, session, true);
-		
-		
-//		codeService.selectCodeList(EnumCodeType.메세지, session);
 		
 		return "admin/message_manage";
 	}
@@ -197,6 +193,9 @@ public class AdminController {
 	@GetMapping("/codePro")
  	@ResponseBody
  	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session){
+		System.out.println("코드타입 : " + EnumCodeType.코드내용.stringToEnumType(param.get("param")));
+		System.out.println("session : " + session.getAttribute("MEM_ID"));
+		
 		List<Map<String, String>> data = codeService.selectCodeList(
 				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
 		System.out.println(data);

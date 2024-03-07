@@ -115,5 +115,9 @@ public class MemberService {
 		System.out.println(map + " ~~~~~~~~~~map~~~~~~~~~~~~~");
 		memberDAO.memberDelete(map);
 	}// memberDelete()
-	
+//	-----------------------------------------------------------------------------	
+	public void resetImage(String MEM_NO) {
+		System.out.println("MemberService memberEdit()");
+		memberDAO.resetImage(MEM_NO);
+	}// insertMemeber()
 }// MemberService 클래스

@@ -92,14 +92,18 @@ public class MemberController{
 		System.out.println("MemberController socialLoginPro()");
 		Map<String, String> searchId = memberService.socialLogin(map);
 		System.out.println("@@@@@@@@@@@@@@@@@@@" + searchId);
-		if(searchId == null || searchId.isEmpty()) {
+		if(searchId.get("MEM_ID") == null || searchId.get("MEM_ID").isEmpty()) {
 			System.out.println("첫 회원가입 고객");
 			memberService.insertMemeber(map);
-		} 
+		} else { 
+			if (searchId.get("MEM_CAT") == "0") {
+				
+			}
 		System.out.println("이미 가입한 고객");
 		session.setAttribute("MEM_ID", map.get("MEM_ID"));
 		memberService.socialLogin(map);
-			
+		}
+		
 		return "redirect:../";
 	}// socialLoginPro() 
 //	-----------------------------------------------------------------------------	
@@ -300,14 +304,14 @@ public class MemberController{
 	}// memberDelete()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/memberDeletePro")
-	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session) {
+	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) {
 		System.out.println("MemberController memberDeletePro()");
 		session.setAttribute("MEM_EMAIL", map.get("MEM_EMAIL"));
 		String MEM_EMAIL = (String)session.getAttribute("MEM_EMAIL");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> profile = memberService.mypage(MEM_ID);
+		System.out.println(profile + "@#^$%@#^%$^#@%");
 		profile.get("MEM_EMAIL");
-		profile.get("MEM_PW");
 		if (profile.get("MEM_EMAIL") != null) {
 			if (MEM_EMAIL.equals(profile.get("MEM_EMAIL"))) {
 				memberService.memberDelete(profile);
@@ -322,9 +326,36 @@ public class MemberController{
 			System.err.println("이메일 미입력");
 			return "member/msg";
 		}
+//		Object[] msg = {"이메일"};
+//		if(map.get("MEM_EMAIL") != null) {
+//			System.out.println("map.get(\"MEM_EMAIL\")" + map.get("MEM_EMAIL"));
+//			if(map.get("MEM_EMAIL").equals(profile.get("MEM_EMAIL"))) {
+//				memberService.memberDelete(map);
+//				System.out.println("이메일 일치");
+////				session.invalidate();
+//				return "redirect:../";
+//			} else {
+//				System.err.println("이메일 불일치");
+//			}
+//		}
+//		return "redirect:/member/memberDelete";
+		
 		
 	}
-
+//	-----------------------------------------------------------------------------
+	@PostMapping("/resetImage")
+	public String resetImage(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController resetImage()");
+		String MEM_IMAGE = (String)session.getAttribute("MEM_IMAGE");
+		session.setAttribute("MEM_IMAGE", MEM_IMAGE);
+		String MEM_NO = (String)session.getAttribute("MEM_NO");
+		return "redirect:/member/memberEdit";
+	}// memberDelete()
+//	if(sPath.equals("/resetImage.cu")) {
+//	String CUS_NO = (String) session.getAttribute("CUS_NO");
+//	customerService.resetImage(CUS_NO);
+//	res.sendRedirect("cus_edit.cu");
+//}
 	
 //  ===============================================메일 전송 관련===============================================	
 		// 인증메일

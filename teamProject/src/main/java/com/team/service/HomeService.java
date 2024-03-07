@@ -14,8 +14,23 @@ public class HomeService {
 	@Inject
 	private HomeDAO homeDAO;
 
-	public List<Map<String, String>> getProductList() {
+	public List<Map<String, String>> getSaleProductList() {
 		
-		return homeDAO.getProductList();
+		return homeDAO.getSaleProductList();
+	}
+	
+	public List<Map<String, String>> getBuyProductList() {
+		
+		return homeDAO.getBuyProductList();
+	}
+	
+	public List<Map<String, String>> getDivProductList() {
+		
+		return homeDAO.getDivProductList();
+	}
+	
+	public List<Map<String, String>> getAucProductList() {
+	
+		return homeDAO.getAucProductList();
 	}
 }

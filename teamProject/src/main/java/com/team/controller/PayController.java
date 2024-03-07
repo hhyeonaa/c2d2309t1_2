@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,7 +53,7 @@ public class PayController {
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
 		model.addAttribute("memAddList", memAddList);
 		
-		//payment 최근(기본)배송지 select ADD_BASIC = "1"
+		//payment 최근(기본)배송지 select ADD_BASIC = "1" >> 수정하기 (basic X)
 		Map<String, String> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
 		
@@ -70,14 +71,7 @@ public class PayController {
 		return "/pay/payment";
 	}// payment()
 	
-	//ajax 배송리스트 모달 
-//	@GetMapping("/addList")
-//	public ResponseEntity<String> addList(@RequestParam Map<String, String> param) {
-//		System.out.println("ajax addList");
-//		List<Map<String, String>> addList = payService.getAddList(param);
-//		return addList ;
-//	}
-	
+	// 회원 배송지 리스트 모달창 ajax
 	@GetMapping("/addList")
 	@ResponseBody
 	public List<Map<String, String>> addList(@RequestParam Map<String, String> param, Model model) {
@@ -85,8 +79,15 @@ public class PayController {
 		List<Map<String, String>> addList = payService.getAddList(param);
 		model.addAttribute("addList", addList);
 		return addList;
-	}
+	}//addList()
 	
+	// 회원 배송지 등록추가 insert ajax
+	@PostMapping("/addDelivery")
+	public ResponseEntity<?> addDelivery(@RequestParam Map<String, String> param){
+		System.out.println("ajax addDelivery");
+		System.out.println(param);
+		return  ResponseEntity.ok().body(payService.addDelivery(param));
+	}//addDelivery()
 	
 	@GetMapping("/completepay")
 	public String completepay() {

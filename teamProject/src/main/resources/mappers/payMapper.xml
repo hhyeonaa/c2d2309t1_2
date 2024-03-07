@@ -54,7 +54,7 @@
 			WHERE M.MEM_NO = #{MEM_NO}	
 	</select>
 	
-	<insert id="insertAddress">
+	<insert id="addDelivery">
 		INSERT INTO ADDRESS
 			( ADD_NO
 			, MEM_NO

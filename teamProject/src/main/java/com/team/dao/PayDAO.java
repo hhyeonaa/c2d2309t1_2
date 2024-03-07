@@ -33,6 +33,10 @@ public class PayDAO {
 	public List<Map<String, String>> getAddList(Map<String, String> param) {
 		return sqlSession.selectList(namespace + ".getAddList", param);
 	}
+
+	public int addDelivery(Map<String, String> param) {
+		return sqlSession.insert(namespace + ".addDelivery", param);
+	}
 	
 //	// 배송지 저장
 //	public void insertAddress(Map<String, String> map) {

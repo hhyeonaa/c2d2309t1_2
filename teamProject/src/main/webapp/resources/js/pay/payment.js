@@ -247,13 +247,26 @@ selectMethod();
 // 6.새 배송지 추가 저장 취소 관련
 	// 새 배송지 추가저장 
 	$("#payAddbtn").on('click', function(){
-		var ADD_NICK = $("#address-title").val();
-		var ADD_RECEIVER = $("#address-name").val();
-		var ADD_PHONE = $("#address-tel").val();
-		var ADD_POST = $("#address-zipcode").val();
-		var ADD_NAME = $("#address-front").val();
-		var ADD_DETAIL = $("#address-detail").val();
-		var MEM_NO = $('#MEM_NO').val()
+		debugger;
+		$.ajax({
+			url:"addDelivery",
+			type:'post',
+			data:{
+				ADD_NICK : $("#address-title").val(),
+				ADD_RECEIVER : $("#address-name").val(),
+				ADD_PHONE : $("#address-tel").val(),
+				ADD_POST : $("#address-zipcode").val(),
+				ADD_NAME : $("#address-front").val(),
+				ADD_DETAIL : $("#address-detail").val(),
+				MEM_NO : $('#MEM_NO').val()
+				},
+			success:function(result){
+				debugger;			
+			},
+			fail:function(){
+				
+			}	
+		})//ajax
 		$("#staticBackdrop").modal("show");
 	})
 	//  모달 취소 > 배송리스트 모달

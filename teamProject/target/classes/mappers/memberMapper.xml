@@ -96,9 +96,9 @@
 	
 	<select id="emailCheck" resultType="int">
 		select count(MEM_EMAIL)
-			 , MEM_CAT
 		from MEMBERS
 		where MEM_EMAIL = #{MEM_EMAIL}
+		
 	</select>
 	
 	<select id="findId" parameterType="map" resultType="map">

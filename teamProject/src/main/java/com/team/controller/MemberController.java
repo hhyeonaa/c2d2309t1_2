@@ -92,18 +92,17 @@ public class MemberController{
 		System.out.println("MemberController socialLoginPro()");
 		Map<String, String> searchId = memberService.socialLogin(map);
 		System.out.println("@@@@@@@@@@@@@@@@@@@" + searchId);
-		if(searchId.get("MEM_ID") == null || searchId.get("MEM_ID").isEmpty()) {
+		if(searchId == null || searchId.isEmpty()) {
 			System.out.println("첫 회원가입 고객");
 			memberService.insertMemeber(map);
-		} else { 
-			if (searchId.get("MEM_CAT") == "0") {
-				
-			}
+		} else if (searchId != null && searchId.get("MEM_CAT").equals("2")) {
+			System.err.println("탈퇴 고객");
+			return "redirect:/member/msg";
+		} else {
 		System.out.println("이미 가입한 고객");
 		session.setAttribute("MEM_ID", map.get("MEM_ID"));
 		memberService.socialLogin(map);
-		}
-		
+		}	
 		return "redirect:../";
 	}// socialLoginPro() 
 //	-----------------------------------------------------------------------------	

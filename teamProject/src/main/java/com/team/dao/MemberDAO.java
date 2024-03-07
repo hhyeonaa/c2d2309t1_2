@@ -67,6 +67,7 @@ public class MemberDAO {
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> socialLogin(Map<String, String> map) {
 		System.out.println("MemberDAO socialLogin()");
+		System.out.println("MemberDAO socialLogin()" + map);
 		return sqlSession.selectOne(namespace + "socialLogin", map);
 	}// socialLogin()
 //	-----------------------------------------------------------------------------	

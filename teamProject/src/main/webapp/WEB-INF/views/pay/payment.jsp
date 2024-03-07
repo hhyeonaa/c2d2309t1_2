@@ -159,7 +159,7 @@
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									상품금액
 									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice">
 									<!--PRO_PRICE  -->
 										${payProList.PRO_PRICE }원
 									</div>
@@ -191,7 +191,7 @@
 									총 결제금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
-									${payPrice}<div>원</div>
+									<span id="allPrice">${payProList.PRO_PRICE + 3000}</span><div> 원</div>
 									</div>
 								</div>
 							</div>	            			

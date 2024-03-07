@@ -1,6 +1,19 @@
-//$(function() {
-//	$("#modal").modal("show");
-//});
+// 1-1 거래방식 선택 +  배송료 , 최종금액 관련함수
+function selectMethod(){
+	$("input[name='optradio']").change(function () {
+	var deliprice = parseInt($('.kzWuNm').text().trim().match(/\d+/)[0]);
+	var prodprice = parseInt($('#prodprice').text().trim().match(/\d+/)[0]);
+		if($("input[name='optradio']:checked").val() == 'option2'){
+			$('.Deliveryaddress').hide();
+			$('.NBdoU').hide();//배송료 +3000
+			$("#allPrice").text(prodprice);
+			return;
+		}
+		$("#allPrice").text(prodprice + deliprice);
+		$('.Deliveryaddress').show();
+		$('.NBdoU').show();
+	})
+}
 
 //// 2-1 배송지 저장하기
 //function payAddSubmit(){
@@ -104,20 +117,7 @@ $('#kakaoPay').on("click", () =>{
 	
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
-// 	var radio = $("input[name='optradio']:checked").val();
-	$("input[name='optradio']").change(function () {
-	
-	parseInt($('#totalprice').text().trim().match(/\d+/)[0]) + parseInt($('.kzWuNm').text().trim().match(/\d+/)[0])
-		if($("input[name='optradio']:checked").val() == 'option2'){
-			$('.Deliveryaddress').hide();
-			$('.NBdoU').hide();//배송료 +3000
-			parseInt($('#totalprice').text().trim().match(/\d+/)[0]) - parseInt($('.kzWuNm').text().trim().match(/\d+/)[0])
-			return;
-		}
-		$('.Deliveryaddress').show();
-		$('.NBdoU').show();
-		parseInt($('#totalprice').text().trim().match(/\d+/)[0]) + parseInt($('.kzWuNm').text().trim().match(/\d+/)[0])
-	})
+selectMethod();
 		
 // 2. 배송지 등록 주소 api(배송지 등록 모달)
 	$("#address_find").on('click', function() {

@@ -210,6 +210,27 @@ public class AdminController {
 		return "admin/chart";
 	}//
 	
+	@GetMapping("/member_report")
+	public String member_report(Model model) {
+		
+		List<Map<String, String>> reportList = adminService.getReportList();
+		
+		model.addAttribute("reportList", reportList);
+		
+		return "admin/member_report";
+	}//
+	
+	// 채팅만들어지고 이동
+	@GetMapping("/member_report_test")
+	public String member_report_test(Model model) {
+		
+		List<Map<String, String>> reportList = adminService.getReportList();
+		
+		model.addAttribute("reportList", reportList);
+		
+		return "redirect:admin/member_report";
+	}//
+	
 	@GetMapping("/member_manage")
 	public String member_manage(Model model) {
 		
@@ -218,6 +239,14 @@ public class AdminController {
 		model.addAttribute("memList", memList);
 		
 		return "admin/member_manage";
+	}//
+	
+	@GetMapping("/memberStop")
+	public String stop(@RequestParam String MEM_NO) {
+		
+		adminService.memberStop(MEM_NO);
+		
+		return "redirect:/admin/member_manage";
 	}//
 	
 	@GetMapping("/memberDelete")
@@ -239,8 +268,9 @@ public class AdminController {
 	@GetMapping("/content_Delete")
 	@ResponseBody
 	public ResponseEntity<?> content_Delete(@RequestParam String PRO_NO) {
+		
 		Map<String, String> result = new HashMap<String, String>();
-		result.put("result", Integer.toString(adminService.contentDelete(PRO_NO)));
+		result.put("result", Integer.toString(adminService.cateContentDelete(PRO_NO)));
 		
 		return ResponseEntity.ok().body(result);
 	}//
@@ -258,11 +288,12 @@ public class AdminController {
 	@GetMapping("/board_category")
  	@ResponseBody
  	public ResponseEntity<?> board_category(@RequestParam Map<String, String> param){
-		System.out.println(param); // {category=2}
+		
  		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
+ 		
  		return ResponseEntity.ok().body(cateList);
  	}//
-		
+	
 	/* 성엽 작업공간 */	
 
 

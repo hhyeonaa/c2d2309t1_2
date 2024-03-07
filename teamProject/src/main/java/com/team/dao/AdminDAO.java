@@ -91,18 +91,29 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getContentboardList");
 	}//
 
+	public void memberStop(String MEM_NO) {
+		sqlSession.update(namesqace + "memberStop", MEM_NO);
+	}//
+	
 	public void memberDelete(String MEM_NO) {
-		sqlSession.delete(namesqace + "memberDelete", MEM_NO);
+		sqlSession.update(namesqace + "memberDelete", MEM_NO);
 	}//
 	
 	public int contentDelete(String PRO_NO) {
 		return sqlSession.delete(namesqace + "contentDelete", PRO_NO);
+	}//
+	
+	public int cateContentDelete(String PRO_NO) {
+		return sqlSession.delete(namesqace + "cateContentDelete", PRO_NO);
 	}//
 
 	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
 		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
 	}//
 
+	public List<Map<String, String>> getReportList() {
+		return sqlSession.selectList(namesqace + "getReportList");
+	}//
 	
 //	----- 성엽 끝 -----	
 	

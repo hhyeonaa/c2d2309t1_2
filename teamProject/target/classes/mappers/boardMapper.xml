@@ -96,6 +96,8 @@
 		  FROM PRODUCT p
 		  JOIN (select IMG_PRONO, group_concat(IMG_NAME order by IMG_NO separator '|') IMG_NAMES from IMAGE group by IMG_PRONO) i
 		    ON p.PRO_NO = i.IMG_PRONO
+		  JOIN ADDRESS a
+			ON p.PRO_ADDRESS = a.ADD_NO
 		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
 	</select>
 	<update id="upHits" parameterType="map">

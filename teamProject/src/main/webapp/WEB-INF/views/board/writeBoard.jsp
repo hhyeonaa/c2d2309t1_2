@@ -176,16 +176,20 @@
 				   	</div>
 				</div>
 				<div class="col-12 d-flex justify-content-center pt-3">
-				<input type="hidden" id="addNo" value="">
-				<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
-				<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
 				<c:if test="${empty resultMap.PRO_DATE}">
+					<input type="hidden" id="addNo" value="">
+					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
+					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
 					<input class="col-7 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
+					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
 				</c:if>
 				<c:if test="${!empty resultMap.PRO_DATE}">
-					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.PRO_ADDRESS}" placeholder="거래지역 선택" readonly>
+					<input type="hidden" id="addNo" value="${resultMap.PRO_ADDRESS}">
+					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임">
+					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호">
+					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
+					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력">
 				</c:if>
-				<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
 				</div>
 			</div>
 			<hr>

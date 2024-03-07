@@ -326,7 +326,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    category3: $('#category3').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: $('#inputRegion').val(),
+		    proAddress: $('#addNo').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),

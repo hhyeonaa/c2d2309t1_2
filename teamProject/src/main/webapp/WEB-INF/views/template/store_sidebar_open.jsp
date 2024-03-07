@@ -200,6 +200,9 @@ ul{
 						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_manage" style="width: 155px;">
 			            	<small>● 회원 관리</small></a>
 			            </li>
+						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_report" style="width: 155px;">
+			            	<small>● 신고 관리</small></a>
+			            </li>
 			            <li><a class="nav__link" href="${pageContext.request.contextPath}/admin/chart" style="width: 155px;">
 			            	<small>● 통계</small></a>
 			            </li>

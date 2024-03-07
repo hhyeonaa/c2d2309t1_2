@@ -87,6 +87,10 @@ public class AdminService {
 		return adminDAO.getContentboardList();
 	}//
 
+	public void memberStop(String MEM_NO) {
+		adminDAO.memberStop(MEM_NO);
+	}//
+	
 	public void memberDelete(String MEM_NO) {
 		adminDAO.memberDelete(MEM_NO);
 	}//
@@ -103,7 +107,10 @@ public class AdminService {
 		return adminDAO.getBoardCategoryList(param);
 	}//
 
-	
+	public List<Map<String, String>> getReportList() {
+		return adminDAO.getReportList();
+	}//
+
 //	----- 성엽 끝 -----
 
 }

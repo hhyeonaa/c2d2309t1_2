@@ -159,6 +159,27 @@ public class AdminController {
 		return "admin/chart";
 	}//
 	
+	@GetMapping("/member_report")
+	public String member_report(Model model) {
+		
+		List<Map<String, String>> reportList = adminService.getReportList();
+		
+		model.addAttribute("reportList", reportList);
+		
+		return "admin/member_report";
+	}//
+	
+	// 채팅만들어지고 이동
+	@GetMapping("/member_report_test")
+	public String member_report_test(Model model) {
+		
+		List<Map<String, String>> reportList = adminService.getReportList();
+		
+		model.addAttribute("reportList", reportList);
+		
+		return "redirect:admin/member_report";
+	}//
+	
 	@GetMapping("/member_manage")
 	public String member_manage(Model model) {
 		
@@ -167,6 +188,14 @@ public class AdminController {
 		model.addAttribute("memList", memList);
 		
 		return "admin/member_manage";
+	}//
+	
+	@GetMapping("/memberStop")
+	public String stop(@RequestParam String MEM_NO) {
+		
+		adminService.memberStop(MEM_NO);
+		
+		return "redirect:/admin/member_manage";
 	}//
 	
 	@GetMapping("/memberDelete")

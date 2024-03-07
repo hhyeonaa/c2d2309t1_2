@@ -14,7 +14,7 @@
 	
 	<div class="container">
     <div class="row align-items-center">
-        <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
+        <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>회원 목록</b></h4></div>
     </div>
 	
 	
@@ -31,7 +31,8 @@
                                 <th scope="col">이름</th>
                                 <th scope="col">이메일</th>
                                 <th scope="col">가입일</th>
-                                <th scope="col">정지일</th>
+                                <th scope="col">누적신고</th>
+                                <th scope="col">정지</th>
                                 <th scope="col">탈퇴</th>
                             </tr>
                         </thead>
@@ -45,7 +46,15 @@
                                 <td>${member.MEM_NAME}</td>
                                 <td>${member.MEM_EMAIL}</td>
                                 <td><fmt:formatDate var="memDate" value="${data}" pattern="yyyy-MM-dd"/>${memDate}</td>
-                                <td>정지일</td>
+                                <td>${member.COUNT}</td>
+	                            <th scope="row">
+	                                <c:if test="${ 3 < member.COUNT}">
+	                                	<div>
+											<button type="button" class="btn-close"
+											onclick="location.href='${pageContext.request.contextPath}/admin/memberStop?MEM_NO=${member.MEM_NO}'"></button>
+										</div>
+									</c:if>
+	                            </th>
                                 <th scope="row">
                                 	<div>
 										<button type="button" class="btn-close"

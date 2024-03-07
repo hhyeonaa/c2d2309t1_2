@@ -96,14 +96,17 @@
 <!-- 	===== 성엽 시작 ===== -->
 
 	<select id="getMemberList" resultType="map">
-		select MEM_NO
-			 , MEM_ID
-			 , MEM_NICK
-			 , MEM_NAME
-			 , MEM_EMAIL
-			 , MEM_DATE
-		from MEMBERS
-		ORDER BY MEM_NO DESC
+		 select MEM_NO
+			  , MEM_ID
+			  , MEM_NICK
+			  , MEM_NAME
+			  , MEM_EMAIL
+			  , MEM_DATE
+			  , (select COUNT(*)
+				  from REPORT
+				 where RPT_USER_IDX = MEM_ID) as COUNT
+		  from MEMBERS
+		 ORDER BY MEM_NO DESC;
 	</select>
 	
 	<select id="getContentboardList" resultType="map">
@@ -138,10 +141,17 @@
 		ORDER BY PRO_NO DESC
 	</select>
 	
-	<delete id="memberDelete">
-		delete from MEMBERS
-		where MEM_NO = #{MEM_NO}
-	</delete>
+	<update id="memberStop">
+		update MEMBERS
+		   set MEM_CAT = '1'
+		 WHERE MEM_CAT = '0'
+	</update>
+	
+	<update id="memberDelete">
+		update MEMBERS
+		   set MEM_CAT = '2'
+		 WHERE MEM_CAT = '0'
+	</update>
 	
 	<delete id="contentDelete">
 		delete from PRODUCT
@@ -152,6 +162,21 @@
 		delete from PRODUCT
 		where PRO_NO = #{PRO_NO}
 	</delete>
+	
+	<select id="getReportList" resultType="map">
+		select 
+			   RPT_IDX
+			 , USER_IDX
+			 , RPT_USER_IDX
+			 , RPT_SELECT
+			 , RPT_TIME
+		from REPORT
+		ORDER BY RPT_IDX DESC
+	</select>
+
+	
+
+
 
 <!-- 	===== 성엽 끝 ===== -->
 	

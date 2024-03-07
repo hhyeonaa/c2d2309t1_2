@@ -108,11 +108,13 @@ span {
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin/inputForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-// 	let formDiv = document.createElement('div');
-
+	var trade = '${trade}';
+// 	var menu = '${menu}';
+// 	var category = '${category}';
 	
 	customElements.define('text-input', TextInput);
 	customElements.define('textarea-input', TextareaInput);

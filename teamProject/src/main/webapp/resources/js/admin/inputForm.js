@@ -65,14 +65,21 @@ class RadioInput extends HTMLElement {
         let span = document.createElement('span');
         span.innerHTML = this.getAttribute('name');
         
-        // Radio buttons and labels
+        // Radio
+//        var tradeDataElement = document.getElementById("tradeData");
+//		var tradeList = JSON.parse(tradeDataElement.getAttribute("data-trade"));
+//		
+//		// tradeList를 이용한 원하는 작업 수행
+//		console.log(tradeList);
+//    	debugger;
+		
         let radioData = [
-            { data: '1', value: '새상품(사용하지 않은 상품)' },
-            { data: '2', value: '사용감 없음(사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음)' },
-            { data: '3', value: '사용감 적음(눈에 띄는 흔적이나 얼룩이 약간 있음)' },
-            { data: '4', value: '사용감 많음(눈에 띄는 흔적이나 얼룩이 많이 있음)' },
-            { data: '5', value: '고장/파손 상품(기능 이상이나 외관 손상 등으로 수리/수선 필요)' }
-        ];
+            { raData: '1', value: '새상품(사용하지 않은 상품)' },
+            { raData: '2', value: '사용감 없음(사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음)' },
+            { raData: '3', value: '사용감 적음(눈에 띄는 흔적이나 얼룩이 약간 있음)' },
+            { raData: '4', value: '사용감 많음(눈에 띄는 흔적이나 얼룩이 많이 있음)' },
+            { raData: '5', value: '고장/파손 상품(기능 이상이나 외관 손상 등으로 수리/수선 필요)' }
+   		];
 
         radioData.forEach(data => {
             let radioDiv = document.createElement('div');
@@ -80,7 +87,7 @@ class RadioInput extends HTMLElement {
             radioInput.type = 'radio';
             radioInput.name = this.getAttribute('name');
             radioInput.id = this.getAttribute('id-data');
-            radioInput.value = data.data;
+            radioInput.value = data.raData;
 
             let radioLabel = document.createElement('label');
             radioLabel.innerHTML = data.value;

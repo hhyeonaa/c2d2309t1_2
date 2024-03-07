@@ -181,8 +181,15 @@ $('#kakaoPay').on("click", () =>{
 // 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
 		debugger;
-		if(pgId == "") alert('결제 수단을 선택해주세요');
+		if(pgId == "") {
+			alert('결제 수단을 선택해주세요');
+			return false;
+		}
 		requestPay(pgId, paypayMethod);
+		if($('.kGbUWb').text()==""){
+			alert('배송주소를 입력해주세요');
+			return false;
+		}
 	})
 
 })

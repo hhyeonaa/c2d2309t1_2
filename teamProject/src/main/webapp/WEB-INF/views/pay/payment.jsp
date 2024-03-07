@@ -56,20 +56,27 @@
 	            	<div class="DeliveryInfo">
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
+            				<c:if test="${!empty memAddBasic }">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb">홍길동</p>
-            						<!--저장된 배송정보 없을 시 배송지 등록노출  -->
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.MEM_NAME}</p>
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 수정</span>
-<!--             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 등록</span> -->
-            						<!--저장된 배송정보 있을 때 배송지 변경노출  -->
-									<!-- <span class="DeliveryCard_ChangeAddress">변경</span> -->
             					</div>
             					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
-            						(47246) 부산광역시 부산진구 부전동 동천로 109 삼한골든게이트 7층
+            						(${memAddBasic.ADD_POST}) ${memAddBasic.ADD_NAME} ${memAddBasic.ADD_DETAIL}
             					</p>	
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
-            						051-803-0909
+            						${memAddBasic.MEM_TEL}
             					</p>
+            				</c:if>	
+            				<c:if test="${empty memAddBasic }">
+            					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 등록</span>
+            						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
+            							등록된 배송정보가 없습니다 
+            						</p>
+            					</div>
+            				</c:if>
             				</section>
             			</div>
             			<div class="Delivery Request mt-3">

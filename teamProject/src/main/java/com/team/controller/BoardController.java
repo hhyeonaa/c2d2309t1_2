@@ -123,11 +123,13 @@ public class BoardController {
 			model.addAttribute("resultMap", resultMap);
 			model.addAttribute("imgList", imgList);
 		}
-		
+		System.out.println(session.getAttribute("MEM_ID"));
 		//codeService.selectCode("MM1");
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
 		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
 		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
+		System.out.println("category확인: " + codeService.selectCodeList(EnumCodeType.카테고리항목, session));
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
 		return "board/writeBoard";
 	}// writeBoard()
 	

@@ -70,6 +70,11 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    div.append(btn);
 	    $('#att_zone').append(div);
 	    $('#att_zone').append('<input type="hidden" value="' + fileName + '"/>');
+	    $('#att_zone input[type="hidden"]').each(function() {
+			var value = $(this).val();
+			console.log('기존이미지: '+value); // 콘솔에 각 숨김 입력의 값을 출력
+		});
+
 	}
 
 	// 이미지 미리보기를 생성하고 화면에 표시하는 함수입니다.

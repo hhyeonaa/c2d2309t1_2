@@ -145,22 +145,25 @@
 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>카테고리<br>선택<th></tr></table></div>
 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
 					<select name="category1" id="category1" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-					    <option value="여성의류" ${resultMap.PRO_CATE == '여성의류' ? 'selected' : ''}>여성의류</option>
-					    <option value="남성의류" ${resultMap.PRO_CATE == '남성의류' ? 'selected' : ''}>남성의류</option>
-					    <option value="신발" ${resultMap.PRO_CATE == '신발' ? 'selected' : ''}>신발</option>
-					    <option value="가방/지갑" ${resultMap.PRO_CATE == '가방/지갑' ? 'selected' : ''}>가방/지갑</option>
-					    <option value="시계" ${resultMap.PRO_CATE == '시계' ? 'selected' : ''}>시계</option>
-					    <option value="쥬얼리" ${resultMap.PRO_CATE == '쥬얼리' ? 'selected' : ''}>쥬얼리</option>
-					    <option value="디지털" ${resultMap.PRO_CATE == '디지털' ? 'selected' : ''}>디지털</option>
-					    <option value="가전제품" ${resultMap.PRO_CATE == '가전제품' ? 'selected' : ''}>가전제품</option>
-					    <option value="스포츠/레저" ${resultMap.PRO_CATE == '스포츠/레저' ? 'selected' : ''}>스포츠/레저</option>
-					    <option value="차량/오토바이" ${resultMap.PRO_CATE == '차량/오토바이' ? 'selected' : ''}>차량/오토바이</option>
-					    <option value="음반/악기" ${resultMap.PRO_CATE == '음반/악기' ? 'selected' : ''}>음반/악기</option>
-					    <option value="도서/티켓/문구" ${resultMap.PRO_CATE == '도서/티켓/문구' ? 'selected' : ''}>도서/티켓/문구</option>
-					    <option value="뷰티/미용" ${resultMap.PRO_CATE == '뷰티/미용' ? 'selected' : ''}>뷰티/미용</option>
-					    <option value="가구/인테리어" ${resultMap.PRO_CATE == '가구/인테리어' ? 'selected' : ''}>가구/인테리어</option>
-					    <option value="생활/주방용품" ${resultMap.PRO_CATE == '생활/주방용품' ? 'selected' : ''}>생활/주방용품</option>
-					    <option value="공구/산업용품" ${resultMap.PRO_CATE == '공구/산업용품' ? 'selected' : ''}>공구/산업용품</option>       
+<%-- 					    <option value="여성의류" ${resultMap.PRO_CATE == '여성의류' ? 'selected' : ''}>여성의류</option> --%>
+<%-- 					    <option value="남성의류" ${resultMap.PRO_CATE == '남성의류' ? 'selected' : ''}>남성의류</option> --%>
+<%-- 					    <option value="신발" ${resultMap.PRO_CATE == '신발' ? 'selected' : ''}>신발</option> --%>
+<%-- 					    <option value="가방/지갑" ${resultMap.PRO_CATE == '가방/지갑' ? 'selected' : ''}>가방/지갑</option> --%>
+<%-- 					    <option value="시계" ${resultMap.PRO_CATE == '시계' ? 'selected' : ''}>시계</option> --%>
+<%-- 					    <option value="쥬얼리" ${resultMap.PRO_CATE == '쥬얼리' ? 'selected' : ''}>쥬얼리</option> --%>
+<%-- 					    <option value="디지털" ${resultMap.PRO_CATE == '디지털' ? 'selected' : ''}>디지털</option> --%>
+<%-- 					    <option value="가전제품" ${resultMap.PRO_CATE == '가전제품' ? 'selected' : ''}>가전제품</option> --%>
+<%-- 					    <option value="스포츠/레저" ${resultMap.PRO_CATE == '스포츠/레저' ? 'selected' : ''}>스포츠/레저</option> --%>
+<%-- 					    <option value="차량/오토바이" ${resultMap.PRO_CATE == '차량/오토바이' ? 'selected' : ''}>차량/오토바이</option> --%>
+<%-- 					    <option value="음반/악기" ${resultMap.PRO_CATE == '음반/악기' ? 'selected' : ''}>음반/악기</option> --%>
+<%-- 					    <option value="도서/티켓/문구" ${resultMap.PRO_CATE == '도서/티켓/문구' ? 'selected' : ''}>도서/티켓/문구</option> --%>
+<%-- 					    <option value="뷰티/미용" ${resultMap.PRO_CATE == '뷰티/미용' ? 'selected' : ''}>뷰티/미용</option> --%>
+<%-- 					    <option value="가구/인테리어" ${resultMap.PRO_CATE == '가구/인테리어' ? 'selected' : ''}>가구/인테리어</option> --%>
+<%-- 					    <option value="생활/주방용품" ${resultMap.PRO_CATE == '생활/주방용품' ? 'selected' : ''}>생활/주방용품</option> --%>
+<%-- 					    <option value="공구/산업용품" ${resultMap.PRO_CATE == '공구/산업용품' ? 'selected' : ''}>공구/산업용품</option>        --%>
+						<c:forEach var="cate" items="${category}">
+							<option value="${cate.CO_TYPE}${cate.CO_NO}">${cate.CODE}</option>
+						</c:forEach>
 					</select>
 				</div>
 			</div>

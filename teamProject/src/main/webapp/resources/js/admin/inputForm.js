@@ -141,7 +141,7 @@ class SelectInput extends HTMLElement {
 
 class AddressInput extends HTMLElement {
     connectedCallback() {
-		document.write('<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
+//		document.write('<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
 		
     	// div - row
         let row = document.createElement('div');
@@ -211,7 +211,6 @@ class AddressInput extends HTMLElement {
 	        fileInput.style.display = 'none';
 
 	        fileDiv.append(label, fileInput);
-
 	        // 미리보기 공간
 	        let fileUploadZoneDiv = document.createElement('div');
 	        fileUploadZoneDiv.classList.add('col-12', 'd-flex', 'justify-content-center');

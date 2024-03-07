@@ -17,6 +17,7 @@
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
 	  <choose>
+<<<<<<< HEAD
 	    <when test='AD_ROLE.equals("1") and AD_ROLE == "1"'>
 		   and HIDE in ('0', '1') 					 	
 		</when>
@@ -90,6 +91,82 @@
 		   and HIDE = '0'
 		</if>  
 		 order by cast(CO_NO as signed)
+=======
+	    <when test="AD_ROLE == '1'">
+		   and HIDE in ('0', '1') 					 	
+		</when>
+		<when test="AD_ROLE == '2'">
+		   and HIDE = '0' 					 	
+		</when>
+		<when test="AD_ROLE == '3'">
+		   and HIDE = '0' 					 	
+		</when>
+		<otherwise>
+		   and ACTIVE = '1'
+		</otherwise>
+	  </choose>  
+		 order by cast(SEQ as signed)	   
+		    
+	</select>
+	
+	<select id="selectCode" parameterType="map" resultType="map">
+	
+		select CODE
+		  from CODE			
+		 where 1 = 1
+		   and CO_NO = #{CO_NO}
+		   and CO_TYPE = #{CO_TYPE}
+	  <choose>
+	    <when test="AD_ROLE == '1'">
+		   and HIDE in ('0', '1') 					 	
+		</when>
+		<when test="AD_ROLE == '2'">
+		   and HIDE = '0' 					 	
+		</when>
+		<when test="AD_ROLE == '3'">
+		   and HIDE = '0' 					 	
+		</when>
+		<otherwise>
+		   and ACTIVE = '1'
+		</otherwise>
+	  </choose>
+	     
+	</select>
+	
+	<select id="selectMessage" parameterType="map" resultType="map">
+	
+		select CODE
+		  from MESSAGE			
+		 where 1 = 1
+		   and CO_NO = #{CO_NO}
+		   and CO_TYPE = #{CO_TYPE}
+		<if test="AD_ROLE == '1'">
+		   and HIDE in ('0', '1')
+		</if>
+		<if test="AD_ROLE != '1'">
+		   and HIDE = '0'
+		</if>
+	     order by cast(CO_NO as signed) desc  
+	     
+	</select>
+
+	<select id="selectMessageList" parameterType="map" resultType="map">
+		
+		select  CO_TYPE
+			  , CO_NO
+			  , CODE
+		 	  , HIDE
+		  from MESSAGE
+		 where 1 = 1  
+		   and CO_TYPE = #{codeType}
+	  	<if test="AD_ROLE == '1'">
+		   and HIDE in ('0', '1')
+		</if>
+		<if test="AD_ROLE != '1'">
+		   and HIDE = '0'
+		</if>  
+		 order by cast(CO_NO as signed) desc
+>>>>>>> branch 'hyeona' of https://github.com/hhyeonaa/c2d2309t1_2.git
 		
 	</select>
 

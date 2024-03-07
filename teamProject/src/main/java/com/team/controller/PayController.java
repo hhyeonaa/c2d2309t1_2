@@ -8,11 +8,13 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.util.EnumCodeType;
 import com.team.service.MemberService;
@@ -43,14 +45,16 @@ public class PayController {
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
 		model.addAttribute("buyerInfo", param2);
 		
-		//로그인한 회원 정보 및 배송지리스트 select(ajax?), 기본 최근배송지 select?(basic)
+		//로그인한 회원 정보 및 배송지리스트 select(ajax?), 
 		Map<String, String> map2 = new HashMap<>();
 		map2.put("MEM_NO", param2.get("MEM_NO"));
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
 		model.addAttribute("memAddList", memAddList);
-		//payment 최근배송지 select
+		
+		//payment 최근(기본)배송지 select ADD_BASIC = "1"
 		Map<String, String> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
+		
 		//결제할 상품 정보 select
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
@@ -64,6 +68,15 @@ public class PayController {
 		
 		return "/pay/payment";
 	}// payment()
+	
+	//ajax 배송리스트 모달 
+//	@GetMapping("/addList")
+//	public ResponseEntity<String> addList(@RequestParam Map<String, String> param) {
+//		System.out.println("ajax addList");
+//		
+////		return ;
+//	}
+	
 	
 	@GetMapping("/completepay")
 	public String completepay() {

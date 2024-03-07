@@ -57,9 +57,10 @@
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
             				<c:if test="${!empty memAddBasic }">
+            				<input id="MEM_ID" type="hidden" value="${memAddBasic.MEM_ID}" name="MEM_ID">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.MEM_NAME}</p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 수정</span>
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>
             					</div>
             					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
             						(${memAddBasic.ADD_POST}) ${memAddBasic.ADD_NAME} ${memAddBasic.ADD_DETAIL}
@@ -71,7 +72,7 @@
             				<c:if test="${empty memAddBasic }">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">배송지 등록</span>
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delInsertBtn">배송지 등록</span>
             						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
             							등록된 배송정보가 없습니다 
             						</p>

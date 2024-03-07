@@ -126,9 +126,9 @@ $('#kakaoPay').on("click", () =>{
 	    }).open();
 	});
 
-// 2-1 배송지 등록 저장
+// 2-1 배송지목록 등록 저장
 	$('#payAddbtn').on('click', function(){
-		// 배송지 등록 정보 유효성
+		// 배송지목록 등록 정보 유효성
 		var addnick = $('input[name=ADD_NICK]').val(); 
 		var receiver = $('input[name=ADD_RECEIBER]').val();
 		var phone = $('input[name=ADD_PHONE]').val();
@@ -191,6 +191,18 @@ $('#kakaoPay').on("click", () =>{
 			return false;
 		}
 	})
+// 5.배송지리스트 모달관련
+//	$('#staticBackdrop').on('show.bs.modal', function(){
+//		$.ajax({
+//			url:"${pageContext.request.contextPath}/pay/addList",
+//			data:{MEM_ID : $('#MEM_ID').val() },
+//			success:function(result){
+//				
+//			}
+//		})//ajax
+			
+	})
+
 
 })
 

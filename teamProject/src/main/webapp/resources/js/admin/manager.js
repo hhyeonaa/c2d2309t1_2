@@ -32,7 +32,7 @@ $(function(){
 		    editor: "text"
 		},
 		{
-			name:"AD_ROLE",
+			name:"ROL_NAME",
 			header:"권한",
 			filter:"text",
 		    sortable: true,
@@ -87,21 +87,23 @@ $(function(){
 
 	// 저장 버튼
 	$(document).on("click", "#saveBtn", function () {
-		debugger;
+		var arr = [];
 		for (let i = 1; i < adminList.rows.length; i++) {
-			
-//			console.log(adminList.rows[i].cells[2].options[selectedIndex].value);
-			debugger;
-			$.ajax({
-				type: "post"
-				, url: "updatePro"
-				, data: {AD_NO: "AD" + adminList.rows[i].cells[0].innerText,
-						 AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value,
-						 AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-		}
-		$('#adminDiv').load(location.href+' #adminDiv');
-//		location.reload();
+			arr.push(
+				{AD_NO: "AD" + adminList.rows[i].cells[0].innerText
+				 , AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value
+				 , AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
+				}
+			)
+		};
+		$.ajax({
+			type: "post"
+			, contentType: 'application/json'
+			, url: "updatePro"
+			, data: JSON.stringify(arr)
+		});
+//		$('#adminDiv').load(location.href+' #adminDiv');
+		location.reload();
 	});
 	
 		

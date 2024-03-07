@@ -78,7 +78,7 @@
 	                                <td>${admin.AD_ID }</td>
                                 	<td>
                                 		<select class="form-select" id="role">
-											<option selected hidden>${admin.AD_ROLE }</option>
+											<option selected hidden>${admin.ROL_NAME }</option>
 											<option value="0">기본</option>
 											<option value="1">총괄</option>
 											<option value="2">운영</option>

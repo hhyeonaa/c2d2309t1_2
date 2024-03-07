@@ -37,9 +37,17 @@ class ToggleButton {
 									+ flag + ' value="' + value + '">');
 									
 		// 버튼 클릭 이벤트 처리
-		el.addEventListener('change', (e) => {
-			props.value = e.target.checked ? 1 : 0;
-			this.render(props);
+		el.addEventListener('d', (e) => {
+			debugger;
+//			if (typeof props.columnInfo.renderer.onchange === 'function') {
+//			    props.columnInfo.renderer.onchange(e.target.checked ? "1" : "0");
+//			} else {
+//			    console.error('props.onChange is not a function');
+//			}
+			
+			
+//			props.value = e.target.checked ? "1" : "0";
+//			this.render(props);
 		});
 		
 		this.el = el;
@@ -49,6 +57,11 @@ class ToggleButton {
 	getElement() { return this.el; }
 	render(props) {
 		debugger;
-		this.el.value = String(props.value);
+//		this.el.value = props.value;
+		if (props.value === '1') {
+			this.el.querySelector('.form-check-input').checked = true;
+		} else {
+			this.el.querySelector('.form-check-input').checked = false;
+		}
 	}
 }

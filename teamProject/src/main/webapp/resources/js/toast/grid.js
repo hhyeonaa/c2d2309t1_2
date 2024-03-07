@@ -103,6 +103,11 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		grid.request('updateData');
 	});
 	
+	debugger;
+	$("#active").on("change", function(){
+		debugger;
+	});
+	
 	const setPerpage = document.getElementById('setPerpage');
 	setPerpage.addEventListener('change', function(e){
 		var _perPage = Number(e.target.value);

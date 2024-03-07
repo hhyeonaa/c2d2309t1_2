@@ -148,10 +148,6 @@ public class AdminController {
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
 		
-//		codeService.selectCodeList(EnumCodeType.메세지, session, true);
-		
-		
-//		codeService.selectCodeList(EnumCodeType.메세지, session);
 		
 		return "admin/message_manage";
 	}

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+#modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 10px 20px 30px 20px;
+	border: 1px solid #888;
+	width: 20%;
+	position: fixed;
+    top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#modal-body {
+	padding: 20px 10px 20px 0px;
+}
+
+#modal-footer {
+	padding-top: 20px;
+	align-content: right;
+}
+
+#close {
+	color: salmon;
+  	float: right;
+  	font-size: 50px;
+  	font-weight: bold;
+  	border-color: #ffffff;
+  	background-color: #ffffff;
+  	border-style: none;
+}
+
+#close:hover,
+#close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}

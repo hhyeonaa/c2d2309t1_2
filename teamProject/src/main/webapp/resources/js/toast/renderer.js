@@ -37,7 +37,7 @@ class ToggleButton {
 									+ flag + ' value="' + value + '">');
 									
 		// 버튼 클릭 이벤트 처리
-		el.addEventListener('d', (e) => {
+		el.addEventListener('change', (e) => {
 			debugger;
 //			if (typeof props.columnInfo.renderer.onchange === 'function') {
 //			    props.columnInfo.renderer.onchange(e.target.checked ? "1" : "0");
@@ -46,8 +46,8 @@ class ToggleButton {
 //			}
 			
 			
-//			props.value = e.target.checked ? "1" : "0";
-//			this.render(props);
+			props.value = e.target.checked ? "1" : "0";
+			this.render(props, 1);
 		});
 		
 		this.el = el;
@@ -55,13 +55,15 @@ class ToggleButton {
 		debugger
 	}
 	getElement() { return this.el; }
-	render(props) {
+	render(props, flag) {
 		debugger;
-//		this.el.value = props.value;
-		if (props.value === '1') {
-			this.el.querySelector('.form-check-input').checked = true;
-		} else {
-			this.el.querySelector('.form-check-input').checked = false;
-		}
+		this.el.value = props.value;
+		if(flag == 1)
+			props.grid.setValue(props.rowKey, props.columnInfo.name, props.value == "1" ? "1" : "0");
+//		if (props.value === '1') {
+//			this.el.querySelector('.form-check-input').checked = true;
+//		} else {
+//			this.el.querySelector('.form-check-input').checked = false;
+//		}
 	}
 }

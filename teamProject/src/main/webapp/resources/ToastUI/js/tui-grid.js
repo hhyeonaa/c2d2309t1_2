@@ -25438,6 +25438,8 @@ exports.confirmMutation = void 0;
 var message_1 = __webpack_require__(62);
 function confirmMutation(type, params) {
     var count = Object.keys(params).reduce(function (acc, key) { return acc + params[key].length; }, 0);
+//  [ToastUI] update는 메시지창 안띄우기 수정 03.07
+    if(type == "UPDATE") return true;
     return count ? confirm(message_1.getConfirmMessage(type, count)) : alert(message_1.getAlertMessage(type));
 }
 exports.confirmMutation = confirmMutation;

@@ -9,19 +9,25 @@ class DeleteButton {
 		// 버튼 클릭 이벤트 처리
 		var colName = props.columnInfo.header;
 		el.addEventListener('click', (e) => {
-		    alert(colName + ' 하시겠습니까?');
+		    if(confirm(colName + ' 하시겠습니까?')){
+				props.grid.removeRow(props.rowKey);
+				props.grid.request('deleteData');
+				props.grid.reloadData();
+			}
+			
+			this.render(props);
 		});
 		
 		this.el = el;
 		this.render(props);
 	}
     getElement() { return this.el; }
-    render(props) {  }
+    render(props) {
+	}
 }
 
 class ToggleButton {
 	constructor(props) {
-		debugger;
 		const el = document.createElement('div');
 		el.className  = 'form-check form-switch justify-content-center';
 		el.style = 'position: relative';
@@ -38,7 +44,6 @@ class ToggleButton {
 									
 		// 버튼 클릭 이벤트 처리
 		el.addEventListener('change', (e) => {
-			debugger;
 //			if (typeof props.columnInfo.renderer.onchange === 'function') {
 //			    props.columnInfo.renderer.onchange(e.target.checked ? "1" : "0");
 //			} else {
@@ -52,11 +57,9 @@ class ToggleButton {
 		
 		this.el = el;
 		this.render(props);
-		debugger
 	}
 	getElement() { return this.el; }
 	render(props, flag) {
-		debugger;
 		this.el.value = props.value;
 		if(flag == 1)
 			props.grid.setValue(props.rowKey, props.columnInfo.name, props.value == "1" ? "1" : "0");

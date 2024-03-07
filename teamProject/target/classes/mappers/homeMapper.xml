@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mappers.homeMapper">
+
+<select id="getProductList" resultType="Map">
+	<!-- 판매 최신순 8개 -->  -->
+	SELECT *
+		FROM PRODUCT
+		JOIN IMAGE
+			ON PRO_NO = IMG_PRONO
+		WHERE IMG_NO = 1
+			AND PRO_TC = 'MM1'
+		ORDER BY PRO_DATE DESC
+		LIMIT 8;
+</select>
+
+</mapper>

@@ -32,10 +32,10 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 	
 	const dataSource = {
 		api: {
-			createData: { url: url + "C", method: 'POST',   initParams: { param: parameter }},
-			readData:   { url: url + "R", method: 'GET',    initParams: { param: parameter }},
-			updateData: { url: url + "U", method: 'PUT',    initParams: { param: parameter }},
-		    deleteData: { url: url + "D", method: 'DELETE', initParams: { param: parameter }}
+			createData: { url: url, method: 'POST',   initParams: { param: parameter }},
+			readData:   { url: url, method: 'GET',    initParams: { param: parameter }},
+			updateData: { url: url, method: 'PUT',    initParams: { param: parameter }},
+		    deleteData: { url: url, method: 'DELETE', initParams: { param: parameter }}
 		},
   		contentType: 'application/json'
 	};

@@ -48,17 +48,21 @@ public class AdminController {
 		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
- 	@GetMapping("/managerListR")
+ 	@GetMapping("/managerPro")
  	@ResponseBody
- 	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
+ 	public ResponseEntity<?> readManager(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
  		return ToastUI.resourceData(req, mapList);
  	}
- 	@PutMapping("/managerListU")
- 	public void managerListU(@RequestBody String updatedRows) {
- 		Map<String, String> map = ToastUI.getRealData(updatedRows);
- 		System.out.println(map);
+ 	@PutMapping("/managerPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateManager(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		
+ 		System.out.println(result);
+ 		return null;
  	}
+ 	
 	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {

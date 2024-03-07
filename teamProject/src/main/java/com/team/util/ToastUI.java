@@ -35,25 +35,33 @@ public class ToastUI {
 	}
 	
 	// 코드 개판. 수정 必
-	public static Map<String, String> getRealData(String jsonStr){
+	public static List<Map<String, String>> getRealData(String jsonStr){
+		System.out.println(jsonStr);
 		Gson gson = new Gson();
 		Map<String, Object> map = gson.fromJson(jsonStr, Map.class);
+		System.out.println(map);
  		ArrayList<Map> list = (ArrayList<Map>)map.get("updatedRows");
- 		Map<String, Object> map2 = list.get(0);
- 		Map<String, String> map3 = new HashMap();
  		
- 		Iterator<Map.Entry<String,Object>> it = map2.entrySet().iterator();
- 		while(it.hasNext()) {
- 			Map.Entry<String,Object> entry = it.next();
- 			if(entry.getValue() == null ) break;
- 			try {
- 		    	  double d = Double.parseDouble(entry.getValue().toString());
- 		    	  int a = (int)d;
- 		    	 map3.put(entry.getKey(), a+"");
- 		    } catch (NumberFormatException e) {
- 		    	map3.put(entry.getKey(), entry.getValue().toString());
- 		    }
+ 		List<Map<String, String>> result = new ArrayList();
+ 		for(int i = 0; i < list.size(); i++) {
+ 			Map<String, Object> map2 = list.get(i);
+ 	 		Map<String, String> map3 = new HashMap();
+ 	 		
+ 	 		Iterator<Map.Entry<String,Object>> it = map2.entrySet().iterator();
+ 	 		while(it.hasNext()) {
+ 	 			Map.Entry<String,Object> entry = it.next();
+ 	 			if(entry.getValue() == null ) break;
+ 	 			try {
+ 	 		    	  double d = Double.parseDouble(entry.getValue().toString());
+ 	 		    	  int a = (int)d;
+ 	 		    	 map3.put(entry.getKey(), a+"");
+ 	 		    } catch (NumberFormatException e) {
+ 	 		    	map3.put(entry.getKey(), entry.getValue().toString());
+ 	 		    }
+ 	 		}
+ 	 		result.add(map3);
  		}
- 		return map3;
+ 		
+ 		return result;
 	}
 }

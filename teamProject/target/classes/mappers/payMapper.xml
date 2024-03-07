@@ -45,6 +45,15 @@
 			AND ADD_BASIC = '1'	
 	</select>
 	
+	<!--로그인 회원 배송리스트 select  -->
+	<select id="getAddList" resultType="map">
+		SELECT * 
+			FROM MEMBERS M
+			JOIN ADDRESS A
+				ON M.MEM_NO = A.MEM_NO
+			WHERE M.MEM_NO = #{MEM_NO}	
+	</select>
+	
 	<insert id="insertAddress">
 		INSERT INTO ADDRESS
 			( ADD_NO

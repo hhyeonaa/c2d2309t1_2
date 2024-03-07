@@ -32,6 +32,10 @@ public class PayService {
 		return payDAO.getMemAddBasic(map2);
 	}
 
+	public List<Map<String, String>> getAddList(Map<String, String> param) {
+		return payDAO.getAddList(param);
+	}
+
 
 //	// 배송지 저장
 //	public void insertAddress(Map<String, String> map) {

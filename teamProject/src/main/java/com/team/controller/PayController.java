@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.util.EnumCodeType;
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 import com.team.service.MemberService;
 import com.team.service.PayService;
 import com.team.service.TeamCodeService;
@@ -45,7 +46,7 @@ public class PayController {
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
 		model.addAttribute("buyerInfo", param2);
 		
-		//로그인한 회원 정보 및 배송지리스트 select(ajax?), 
+		//로그인한 회원 정보 및 배송지리스트 select(ajax?), >> 모달창 ajax
 		Map<String, String> map2 = new HashMap<>();
 		map2.put("MEM_NO", param2.get("MEM_NO"));
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
@@ -73,9 +74,19 @@ public class PayController {
 //	@GetMapping("/addList")
 //	public ResponseEntity<String> addList(@RequestParam Map<String, String> param) {
 //		System.out.println("ajax addList");
-//		
-////		return ;
+//		List<Map<String, String>> addList = payService.getAddList(param);
+//		return addList ;
 //	}
+	
+	@GetMapping("/addList")
+	@ResponseBody
+	public List<Map<String, String>> addList(@RequestParam Map<String, String> param) {
+		System.out.println("ajax addList");
+		List<Map<String, String>> addList = payService.getAddList(param);
+		System.out.println("!@#!@#!");
+		System.out.println(addList);
+		return addList;
+	}
 	
 	
 	@GetMapping("/completepay")

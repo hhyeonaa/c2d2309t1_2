@@ -192,14 +192,14 @@ $('#kakaoPay').on("click", () =>{
 		}
 	})
 // 5.배송지리스트 모달관련
-//	$('#staticBackdrop').on('show.bs.modal', function(){
-//		$.ajax({
-//			url:"${pageContext.request.contextPath}/pay/addList",
-//			data:{MEM_ID : $('#MEM_ID').val() },
-//			success:function(result){
-//				
-//			}
-//		})//ajax
+	$('#staticBackdrop').on('show.bs.modal', function(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/pay/addList",
+			data:{MEM_ND : $('#MEM_NO').val() },
+			success:function(result){
+				
+			}
+		})//ajax
 			
 	})
 

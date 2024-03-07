@@ -57,7 +57,7 @@
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
             				<c:if test="${!empty memAddBasic }">
-            				<input id="MEM_ID" type="hidden" value="${memAddBasic.MEM_ID}" name="MEM_ID">
+            				<input id="MEM_NO" type="hidden" value="${memAddBasic.MEM_NO}" name="MEM_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.MEM_NAME}</p>
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>

@@ -57,7 +57,7 @@ $(function(){
             }
 		}
 	]
-	grid("managerList", 5, columns, false);
+	grid("managerPro", 5, columns, false);
 	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 	
@@ -110,7 +110,7 @@ $(function(){
 	// 모달창 관련	
 	var modal = $('#addModal');
 	
-	$('#btnAdd').on('click', function(){
+	$('#appendBtn').on('click', function(){
 		modal.css('display', 'block');
 	});
 	
@@ -128,7 +128,8 @@ $(function(){
 	
 	
 	// 생성버튼 이벤트 
-	$(document).on("click", "#insertBtn", function () {
+	$(document).on("click", "#insertBtnnnnn", function () {
+		debugger;
 		if($('#AD_ID').val() == ""){
 			alertMsg("AM6", ["아이디"]);
 			$('#AD_ID').focus();
@@ -150,13 +151,17 @@ $(function(){
 			, data: {AD_ID: $('#AD_ID').val(),
 					 AD_PW: $('#AD_PW').val(),
 					 AD_NAME: $('#AD_NAME').val() }
+			, async: false
 		})
 		.done(function(data) {
+			debugger;
 			if(data == "") {
 				alertMsg('AM5', ["입력 정보"]);
 				return false;
 			}
+			debugger;
 			alertMsg('AM3', ["새로운 관리자 계정 생성"]);
+			debugger;
 			modal.css('display', 'none');
 			$('#adminDiv').load(location.href+' #adminDiv');
 //			location.reload();

@@ -233,75 +233,31 @@
 								</div>
 								<div class="addressList">
 									<ul id="divAddress" class="deliveryaddress">
-										<li class="addressInfo mb-4">
-											<div class="boxdeliveryaddress">
-												<div class="boxdeliveryaddressTitle">
-													<span>배송지이름(XXX)</span>
-													<button type="button" class="button__delivery-choice">선택</button>
-												</div>
-												<div class="useraddressinfo">
-													<div id="useraddressinfo">
-														<div class="boxdeliveryaddressContent">
-															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
-														</div>
-														<div class="boxdeliveryaddressName">
-															<span>홍길동</span>
-															<span>010-2222-2222</span>
-														</div>
-													</div>
-													<div class="deliverybtn">
-														<button>수정</button>
-														<button>삭제</button>
-													</div>	
-												</div>
-											</div>
-										</li>
-										<li class="addressInfo mb-4">
-											<div class="boxdeliveryaddress">
-												<div class="boxdeliveryaddressTitle">
-													<span>배송지이름(XXX)</span>
-													<button type="button" class="button__delivery-choice">선택</button>
-												</div>
-												<div class="useraddressinfo">
-													<div id="useraddressinfo">
-														<div class="boxdeliveryaddressContent">
-															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
-														</div>
-														<div class="boxdeliveryaddressName">
-															<span>홍길동</span>
-															<span>010-2222-2222</span>
-														</div>
-													</div>
-													<div class="deliverybtn">
-														<button>수정</button>
-														<button>삭제</button>
-													</div>	
-												</div>
-											</div>
-										</li>										
-										<li class="addressInfo mb-4">
-											<div class="boxdeliveryaddress">
-												<div class="boxdeliveryaddressTitle">
-													<span>배송지이름(XXX)</span>
-													<button type="button" class="button__delivery-choice">선택</button>
-												</div>
-												<div class="useraddressinfo">
-													<div id="useraddressinfo">
-														<div class="boxdeliveryaddressContent">
-															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span>
-														</div>
-														<div class="boxdeliveryaddressName">
-															<span>홍길동</span>
-															<span>010-2222-2222</span>
-														</div>
-													</div>
-													<div class="deliverybtn">
-														<button>수정</button>
-														<button>삭제</button>
-													</div>	
-												</div>
-											</div>
-										</li>
+<%-- 										<c:forEach var="AA" items="${memAddList }"> --%>
+<!-- 										<li class="addressInfo mb-4"> -->
+<!-- 											<div class="boxdeliveryaddress"> -->
+<!-- 												<div class="boxdeliveryaddressTitle"> -->
+<!-- 													<span>집집집</span> -->
+<!-- 													<button type="button" class="button__delivery-choice">선택</button> -->
+<!-- 												</div> -->
+<!-- 												<div class="useraddressinfo"> -->
+<!-- 													<div id="useraddressinfo"> -->
+<!-- 														<div class="boxdeliveryaddressContent"> -->
+<!-- 															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span> -->
+<!-- 														</div> -->
+<!-- 														<div class="boxdeliveryaddressName"> -->
+<!-- 															<span>홍길동</span> -->
+<!-- 															<span>010-2222-2222</span> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+<!-- 													<div class="deliverybtn"> -->
+<!-- 														<button>수정</button> -->
+<!-- 														<button>삭제</button> -->
+<!-- 													</div>	 -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</li> -->
+<%-- 										</c:forEach>	 --%>
 									</ul>
 								</div>
 							</section>
@@ -391,7 +347,7 @@
 	      		</div>
 	 		</div>
 		  	<div id="addaddressbtn" class="modal-footer">
-		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="payCancelbtn">취소</button>
 		    	<button type="submit" class="btn btn-primary" id="payAddbtn">저장</button>
 		  	</div>
 	      </form>

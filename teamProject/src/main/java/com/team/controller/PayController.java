@@ -80,11 +80,13 @@ public class PayController {
 	
 	@GetMapping("/addList")
 	@ResponseBody
-	public List<Map<String, String>> addList(@RequestParam Map<String, String> param) {
+	public List<Map<String, String>> addList(@RequestParam Map<String, String> param, Model model) {
 		System.out.println("ajax addList");
+		System.out.println(param);
 		List<Map<String, String>> addList = payService.getAddList(param);
 		System.out.println("!@#!@#!");
 		System.out.println(addList);
+		model.addAttribute("addList", addList);
 		return addList;
 	}
 	

@@ -1,3 +1,7 @@
+//$(function() {
+//	$("#modal").modal("show");
+//});
+
 //// 2-1 배송지 저장하기
 //function payAddSubmit(){
 //	
@@ -46,7 +50,34 @@ var requestPay = (pgId, paypayMethod) => {
 		});
 }
 
-
+//5-1 배송지리스트
+function addList(result){
+	for (let item of result) {
+		$("#divAddress").append('<li class="addressInfo mb-4">'+
+									'<div class="boxdeliveryaddress">'+
+										'<div class="boxdeliveryaddressTitle">'+
+											'<span>'+item.ADD_NICK +'</span>'+
+											'<button type="button" class="button__delivery-choice">선택</button>'+
+										'</div>'+
+										'<div class="useraddressinfo">'+
+											'<div id="useraddressinfo">'+
+												'<div class="boxdeliveryaddressContent">'+
+													'<span>('+item.ADD_POST +') ' +item.ADD_NAME +' ' +item.ADD_DETAIL+'</span>'+
+												'</div>'+
+												'<div class="boxdeliveryaddressName">'+
+													'<span>'+item.ADD_RECEIVER +'</span> '+
+													'<span>'+item.ADD_PHONE +'</span>'+
+												'</div>'+
+											'</div>'+
+											'<div class="deliverybtn">'+
+												'<button>수정</button>'+
+												'<button>삭제</button>'+
+											'</div>'+	
+										'</div>'+
+									'</div>'+
+								'</li>')
+	}
+}
 
 // 스크립트 시작
 $(()=>{
@@ -187,22 +218,39 @@ $('#kakaoPay').on("click", () =>{
 		}
 		requestPay(pgId, paypayMethod);
 		if($('.kGbUWb').text()==""){
-			alert('배송주소를 입력해주세요');
+			alert('배송주소를 등록해주세요');
 			return false;
 		}
 	})
 // 5.배송지리스트 모달관련
 	$('#staticBackdrop').on('show.bs.modal', function(){
+		debugger;
 		$.ajax({
-			url:"${pageContext.request.contextPath}/pay/addList",
-			data:{MEM_ND : $('#MEM_NO').val() },
+			url:"addList",
+			data:{MEM_NO : $('#MEM_NO').val() },
 			success:function(result){
-				
+				debugger;
+				$("#divAddress").empty();
+				addList(result)
+			},
+			fail:function(){
+				debugger;
 			}
 		})//ajax
 			
 	})
 
-
+// 6.새 배송지 추가 저장 취소 버튼관련
+	$("#payAddbtn").on('click', function(){
+		
+		
+		$("#staticBackdrop").modal("show");
+	})
+	
+	$("#payCancelbtn").on('click', function(){
+		$("#staticBackdrop").modal("show");
+	})
+	
+	
 })
 

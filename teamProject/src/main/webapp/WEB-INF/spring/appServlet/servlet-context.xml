@@ -34,6 +34,9 @@
 	
 	<websocket:handlers>
 	    <websocket:mapping handler="WebSocketHandler" path="/chat"/>
+	    <websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
 	    <websocket:sockjs />
 	</websocket:handlers>
 	

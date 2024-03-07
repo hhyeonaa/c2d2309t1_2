@@ -78,27 +78,4 @@ enum EnumTotalCodeList{
 	            .orElse(null);
 	}
 	
-//	public EnumCodeType stringToEnumType(String str) {
-//	EnumCodeType currentKey = null;
-//	for(EnumCodeType enumCodeType : arr_) {
-//		if(enumCodeType.getType().equals(str)) {
-//			currentKey = enumCodeType;
-//			break;
-//		}
-//	}
-//	return currentKey;
-//}
-	
-//	public List<Map<String, String>> getArr_() {
-//	List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-//	
-//	for(EnumCodeType enumCodeType : arr_) {
-//		Map<String, String> data = new HashMap<String, String>();
-//		if(enumCodeType.toString().contains("코드") || enumCodeType.toString().equals("메세지")) continue;
-//		data.put("title", enumCodeType.toString());
-//		list.add(data);
-//	}
-//	return list;
-//}
-	
 }

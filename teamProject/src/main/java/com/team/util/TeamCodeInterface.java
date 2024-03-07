@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 public interface TeamCodeInterface {
 
-	void submitForAlert(HttpServletResponse response, String code, Object[] msg);
+	void submitForAlert(HttpServletResponse response, String code, Object[] msg, String url);
 	
 	Map<String, String> selectCode(String code, HttpSession session);
 	Map<String, String> selectMessage(String code, Object[] msg, HttpSession session);

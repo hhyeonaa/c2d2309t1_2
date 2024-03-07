@@ -133,7 +133,7 @@ public class AdminController {
 		return "admin/inputFormPro";
 	}
 	
-	@GetMapping
+	@GetMapping("/getForm")
 	@ResponseBody
 	public ResponseEntity<?> getForm(@RequestParam Map<String, String> map) {
 		List<Map<String, String>> formList = adminService.getForm(map);
@@ -148,36 +148,13 @@ public class AdminController {
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
 		
-		
 		return "admin/message_manage";
 	}
 	
-	@GetMapping("/category_manage")
-	public String category_manage(Model model, HttpSession session) {
-//		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, session, true));
-		return "admin/category_manage";
-	}
-	
-	@GetMapping("/category_pro")
-	public void category_pro(HttpServletResponse response) {
-		Object[] arr = {"잘가요"};
-	}
-	
-	@GetMapping("/trade_manage")
-	public String trade_manage(Model model) {
-//		model.addAttribute("code1", codeService.selectCode("DD1"));
-//		model.addAttribute("code2", codeService.selectCode("DD2"));
-		return "admin/trade_manage";
-	}
-	
-	@GetMapping("/declare_manage")
-	public String declare_manage() {
-		return "admin/declare_manage";
-	}
-	
-	@GetMapping("/price_manage")
-	public String price_manage() {
-		return "admin/price_manage";
+	@GetMapping("/message_managePro")
+	@ResponseBody
+	public ResponseEntity<?> message_managePro(@RequestParam Map<String, String> param, HttpSession session) {
+		return ToastUI.resourceData(param, codeService.selectMessageList(EnumCodeType.메세지, session));
 	}
 	
 	@GetMapping("/code_manage")
@@ -193,24 +170,17 @@ public class AdminController {
 	@GetMapping("/codePro")
  	@ResponseBody
  	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session){
-		System.out.println("코드타입 : " + EnumCodeType.코드내용.stringToEnumType(param.get("param")));
-		System.out.println("session : " + session.getAttribute("MEM_ID"));
-		
 		List<Map<String, String>> data = codeService.selectCodeList(
 				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
-		System.out.println(data);
  		return ToastUI.resourceData(param, data);
  	}
 	
-//	@GetMapping("/codePro")
-//	@ResponseBody
-//	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
-//		System.out.println(EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType()))); 
-//		List<Map<String, String>> data = codeService.selectCodeList(
-//				EnumCodeType.코드내용.stringToEnumType(param.get(EnumCodeType.코드내용.getType())), session);
-//		return ResponseEntity.ok().body(data);
-//		return ResponseEntity.ok().body(null);
-//	}
+	@GetMapping("/logout")
+	public void logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		session.invalidate();
+		codeService.submitForAlert(response, "AM3", new Object[]{"로그아웃"}, request.getContextPath());
+	}
+	
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */

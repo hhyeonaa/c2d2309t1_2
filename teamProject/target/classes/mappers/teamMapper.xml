@@ -89,7 +89,7 @@
 		<if test='AD_ROLE != "1"'>
 		   and HIDE = '0'
 		</if>  
-		 order by cast(CO_NO as signed) desc
+		 order by cast(CO_NO as signed)
 		
 	</select>
 

@@ -25,23 +25,33 @@ public class TeamCodeService implements TeamCodeInterface{
 	private TeamDAO dao;
 	
 	@Override
-	public void submitForAlert(HttpServletResponse response, String code, Object[] msg) {
+	public void submitForAlert(HttpServletResponse response, String code, Object[] msg, String url) {
 		
 		try {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter w = response.getWriter();
-			Map<String, String> codeSelect = dao.selectCode(codeTextSeparate(code, null));
+			String pageMove = "location.href = '" + url + "';";
+			Map<String, String> codeSelect = dao.selectMessage(codeTextSeparate(code, null));
 			
 			if(codeSelect == null) {
 	        	throw new CodeTypeNullException(code);
 	        }
-
-			w.write("<script>alert('" + MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), msg) + "');</script>");
+			if(url == null) {
+				pageMove = "";
+			}
+			w.write("<script>"
+				  + 	"alert('" + MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), msg) + "');"
+				  +		pageMove
+				  + "</script>");
 			w.flush();
 			w.close();
 	    } catch(CodeTypeNullException | IOException e) {
 	    	e.printStackTrace();
 	    }
+	}
+	
+	public void submitForAlert(HttpServletResponse response, String code, Object[] msg) {
+		submitForAlert(response, code, msg, null);
 	}
 	
 	@Override
@@ -76,6 +86,7 @@ public class TeamCodeService implements TeamCodeInterface{
 	
 	private List<Map<String, String>> selectCodes(EnumCodeType codeType, HttpSession session) {
 		
+		String codeTypeName = codeType.getType().trim();
 		String ses = (String)session.getAttribute("MEM_ID");
 		Map<String, String> code = new HashMap<String, String>();
 		
@@ -87,9 +98,12 @@ public class TeamCodeService implements TeamCodeInterface{
 		    ses = "";
 		}
 		
-		code.put("codeType", codeType.getType().trim());
+		code.put("codeType", codeTypeName);
 		code.put("AD_ROLE", ses);
-		List<Map<String, String>> selectCodeList = dao.selectCodeList(code);
+		
+		List<Map<String, String>> selectCodeList = codeTypeName.equals("AM") ? dao.selectMessageList(code) 
+																		 	 : dao.selectCodeList(code)
+																		 	 ;
 		try {
 			if(selectCodeList == null) {
 	        	throw new CodeTypeNullException(codeType.getType().trim());
@@ -126,8 +140,8 @@ public class TeamCodeService implements TeamCodeInterface{
 		
     	codes.put(EnumCodeType.코드타입.getType().trim(), codeType);
     	codes.put(EnumCodeType.코드번호.getType().trim(), code.replaceAll("[^0-9]", ""));
-    	codes.put("AD_ROLE", (String)session.getAttribute("MEM_ID"));
-    	
+    	codes.put("AD_ROLE", session == null ? "" : (String)session.getAttribute("MEM_ID"));
+
     	return codes;
 	}
 

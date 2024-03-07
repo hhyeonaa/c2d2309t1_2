@@ -22,7 +22,7 @@ function alertMsg(msg = "AM0", arr = ["error"], type = false){
 	}
 	
 	var msgReturn = "";
- 
+
 	$.ajax({
 		type: "get",
 		url: "alert",

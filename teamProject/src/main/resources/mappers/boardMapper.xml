@@ -83,9 +83,12 @@
 		SELECT *
 		  FROM PRODUCT
 		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO
+			ON PRO_NO = IMG_PRONO
+		  JOIN CODE
+			ON PRO_TC = CONCAT(CO_TYPE, CO_NO)
 		 WHERE IMG_NO = 1
-			AND PRO_TC = 'MM2'
+		   AND PRO_TC = CONCAT(CO_TYPE, '2')
+		 ORDER BY PRO_DATE DESC 
 	</select>
 	
 	<!-- 성엽 작업 끝 -->

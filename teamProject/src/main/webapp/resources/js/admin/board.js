@@ -47,6 +47,7 @@ $(() => {
 })
 $(function(){
 	let boardList = document.getElementById('boardList');
+	let inputList = document.getElementById('inputList');
 	var currentRow, preRow;
 	var modal = $('#inputModal');
 
@@ -63,7 +64,7 @@ $(function(){
 
 	
 	
-//	// 저장 버튼
+	// 저장 버튼
 	$('#saveBtn').on('click', function () {
 		var arr = [];
 		for (let i = 1; i < boardList.rows.length; i++) {
@@ -91,12 +92,48 @@ $(function(){
 
 	// 모달창	
 	$('#insertForm').on('click', function(){
-		modal.css('display', 'block');
-		$()
-	})
+		$.ajax({
+			method: 'get'
+			, url: 'getForm'
+		})
+		.done(function(data){
+			console.log(data);
+//			for(i = 0; i < data.length; i++){
+//				$('#formName').append(data[i].formName);
+//		 		$('#CO_DETAIL').text(data[i].CO_DETAIL);
+//		 		debugger;
+//			}
+//	 			$("#menuName").append("<div class='row'><p>" + menuList.MENU_NAME + "</p></div>");
+//	 			$("#menuCount").append("<div class='row'><p>" + menuList.MENU_COUNT + "</p></div>");
+//	 			$("#menuPrice").append("<div class='row'><p>" + menuList.PAID_PRICE + "</p></div>");
+		    modal.css('display', 'block');
+			debugger;
+		});
+	});
+	
+	// 모달 안 저장 버튼
+	$('#formSaveBtn').on('click', function () {
+		var arr = [];
+		for (let i = 1; i < inputList.rows.length; i++) {
+			arr.push(
+				{CO_TYPE: 'MM'
+				 , SEQ: i
+				 , CODE: inputList.rows[i].cells[1].innerText
+				 , ACTIVE: inputList.rows[i].cells[5].querySelector('input[type="checkbox"]').checked ? 1 : 0 
+				}
+			)
+		};
+		$.ajax({
+			type: "post"
+			, contentType: 'application/json'
+			, url: "displayUpdate"
+			, data: JSON.stringify(arr)
+		})
+		location.reload();
+	});
 
 	$('#close, #cancelBtn').on('click', function(){
 		modal.css('display', 'none');
-	})
+	});
 	
 });

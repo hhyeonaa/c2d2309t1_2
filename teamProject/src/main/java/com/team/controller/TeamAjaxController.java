@@ -28,10 +28,10 @@ public class TeamAjaxController {
 	@ResponseBody
 	public ResponseEntity<?> alert(@RequestParam MultiValueMap<String, Object> param, HttpSession session) {
 		Object[] arr = param.get("msgArr[]").toArray();
-		
 		Map<String, String> params = codeService.selectMessage(param.getFirst("msgText").toString(), arr, session);
-	    params.put("isConfirm", param.getFirst("msgIsTrue").toString());
 		
+	    params.put("isConfirm", param.getFirst("msgIsTrue").toString());
+	    
 		return ResponseEntity.ok().body(params);
 	}
 	

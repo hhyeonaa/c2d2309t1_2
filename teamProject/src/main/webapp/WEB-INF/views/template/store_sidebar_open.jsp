@@ -201,6 +201,9 @@ ul{
 						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_manage" style="width: 155px;">
 			            	<small>● 회원 관리</small></a>
 			            </li>
+						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_report" style="width: 155px;">
+			            	<small>● 신고 관리</small></a>
+			            </li>
 			            <li><a class="nav__link" href="${pageContext.request.contextPath}/admin/chart" style="width: 155px;">
 			            	<small>● 통계</small></a>
 			            </li>
@@ -264,25 +267,12 @@ ul{
 		                    <span class="nav_name">계정</span>
 		                </a>
                 	</li>
-                    <li class="mt-2"><a class="nav__link" href="#" style="width: 155px;">
+                    <li class="mt-2"><a class="nav__link" id="logout" href="${pageContext.request.contextPath}/admin/logout" style="width: 155px;">
                     	<small>● 로그아웃</small></a>
                     </li>
             	</ul>
             </div>
         </nav>
     </div>
-    <script type="text/javascript">
-// 		$(() => {
-// 			var chekcStoreNum = $("input[name=STORE_NO]").val();
-// 			if(chekcStoreNum == '0'){
-// 				$(".nav__list").hide();
-// 				$($(".nav__list")[0]).show();
-// 				return;
-// 			} 
-// 			$(".nav__list").show();
-// 			$($(".nav__list")[0]).hide();
-			
-// 		})
-	</script>
 </html> 
  

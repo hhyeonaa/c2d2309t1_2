@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,14 +53,28 @@ span {
 			<div class="container">
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
-   			      <select id="proTc" name="proTc" style="width: 100px;">
-			      	<option id="sale" value="판매" selected>판매</option>
-			      	<option id="buy" value="구매">구매</option>
-			      	<option id="divide" value="나눔">나눔</option>
-			      	<option id="auction" value="경매">경매</option>
-			      </select>
+				<select id="proTc" name="proTc" style="width: 100px;">
+				    <c:forEach var="menu" items="${menu}">
+				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
+				        <c:choose>
+				            <c:when test="${menuCode eq resultMap.PRO_TC}">
+				                <option value="${menu.CO_TYPE}${menu.CO_NO}" selected>${menu.CODE}</option>
+				            </c:when>
+				            <c:otherwise>
+				                <option value="${menu.CO_TYPE}${menu.CO_NO}">${menu.CODE}</option>
+				            </c:otherwise>
+				        </c:choose>
+				    </c:forEach>
+				</select>
+			      <c:if test="${empty resultMap.PRO_DATE}">
+				  <input type="hidden" id="proTsc" name="proTsc" value="">
+				  <h2>상품 등록</h2>					
+			      </c:if>
+			      <c:if test="${!empty resultMap.PRO_DATE}">
+				  <input type="hidden" id="proTsc" name="proTsc" value="${resultMap.PRO_TSC}">					
+			      <h2>상품 수정</h2>
+			      </c:if>
 			      <input type="hidden" id="proWr" name="proWr" value="${sessionScope.MEM_ID}">
-			      <h2>상품 등록</h2>
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>
 			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
@@ -72,16 +87,6 @@ span {
 			 <!-- -----------------test용 ------------------------- --> 
 			<div id='formDiv'>
 			</div>  
-			
-			<div>
-				<text-input name="상품명" id-data="subject" />
-				<text-input name="가격" id-data="price" />
-				<textarea-input name="상세설명" id-data="content" />
-				<radio-input name="상품 상태" id-data="state" />
-				<select-input name="카테고리 선택" id="category" />
-				<address-input name="거래 지역" id-data="address" />
-				<image-input name="상품 이미지 등록" id-data="image" />
-			</div>		
 			
 			<!-- ---------------------------------------------------------------- -->
 			
@@ -104,6 +109,7 @@ span {
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin/inputForm.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 // 	let formDiv = document.createElement('div');
 
@@ -126,8 +132,7 @@ $(function(){
 	.done(function(data){
 		console.log(data);
 		for(i = 0; i < data.length; i++){
-			debugger;
-// 			$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].CODE.split('/')[0] + ' id-data=' + data[i].CODE.split('/')[1] + ' />');
+			$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' />');
 		}
 	});
 	
@@ -137,13 +142,14 @@ $(function(){
 			type: 'post'
 			, url: 'inputFormPro'
 			, data: {
-				PRO_NAME: $('#subject').val(),
-					 PRO_PRICE: $('#price').val(),
-					 PRO_CONTENT: $('#content').val(),
-					 PRO_STATUS: 'PS' + $('input[id="state"]:checked').val(),
-					 PRO_CATE: 'CA' + $('select[id=category]').val(),
-					 PRO_ADDRESS: $('label[id="address"]').text(),
-					 PRO_IMAGE: $('#image-in').val()}
+				PRO_TC: $('select[id=proTc]').val()
+				, PRO_NAME: $('#subject').val()
+				, PRO_PRICE: $('#price').val()
+				, PRO_CONTENT: $('#content').val()
+				, PRO_STATUS: 'PS' + $('input[id="state"]:checked').val()
+				, PRO_CATE: 'CA' + $('select[id=category]').val()
+				, PRO_ADDRESS: $('label[id="address"]').text()
+				, PRO_IMAGE: $('#image-in').val()}
 		})
 		.done(function(data){
 			location.replace('board/main');

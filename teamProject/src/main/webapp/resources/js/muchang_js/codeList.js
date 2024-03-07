@@ -46,7 +46,7 @@ $(() => {
 	$(document).on("click", "#selectCodeBtn button", function(){
 		$("#selectCodeBtn button").attr("class", "btn btn-outline-primary");
 		$(this).attr("class", "btn btn-primary");
-		
+		debugger;
 		let keys = Object.keys(codeName);
 		var str = $(this).text();
 		let param = keys.includes(str) ? codeName[str] : alertMsg("AM12", ["해당 항목", "현재 사용"]);
@@ -58,7 +58,6 @@ $(() => {
 	})
 
 	$("#selectCodeBtn :first").trigger("click");
-	 
 	 
 	var modal = $('#addModal');
 	

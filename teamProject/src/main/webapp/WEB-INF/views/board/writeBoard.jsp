@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,15 +47,38 @@
 			<div class="container">
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
-   			      <select id="proTc" name="proTc" style="width: 100px;">
-			      	<option id="sale" value="판매" selected>판매</option>
-			      	<option id="buy" value="구매">구매</option>
-			      	<option id="divide" value="나눔">나눔</option>
-			      	<option id="auction" value="경매">경매</option>
-			      </select>
-<!-- 			      <input type="hidden" id="proWr" name="proWr" value="하정우"> -->
+<%-- 			    <c:forEach var="oldImgName" items="${imgList}" varStatus="i"> --%>
+<%-- 				    <input type="text" id="oldImg${i.count}" value="${oldImgName}"> --%>
+<%-- 			    </c:forEach> --%>
+				<input type="text" id="oldImgs" name="oldImgs" value="${resultMap.IMG_NAMES}">
+				<select id="proTc" name="proTc" style="width: 100px;">
+				    <c:forEach var="menu" items="${menu}">
+				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
+				        <c:choose>
+				            <c:when test="${menuCode eq resultMap.PRO_TC}">
+				                <option value="${menu.CO_TYPE}${menu.CO_NO}" selected>${menu.CODE}</option>
+				            </c:when>
+				            <c:otherwise>
+				                <option value="${menu.CO_TYPE}${menu.CO_NO}">${menu.CODE}</option>
+				            </c:otherwise>
+				        </c:choose>
+				    </c:forEach>
+				</select>
+<!-- 				<select id="proTsc" name="proTsc" style="width: 100px;"> -->
+<%-- 					<c:forEach var="proTsc" items="${trade}"> --%>
+<%-- 						<option value="${proTsc.CO_TYPE}${proTsc.CO_NO}">${proTsc.CODE}</option> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> -->
+
+			      <c:if test="${empty resultMap.PRO_DATE}">
+				  <input type="hidden" id="proTsc" name="proTsc" value="">
+				  <h2>상품 등록</h2>					
+			      </c:if>
+			      <c:if test="${!empty resultMap.PRO_DATE}">
+				  <input type="hidden" id="proTsc" name="proTsc" value="${resultMap.PRO_TSC}">					
+			      <h2>상품 수정</h2>
+			      </c:if>
 			      <input type="hidden" id="proWr" name="proWr" value="${sessionScope.MEM_ID}">
-			      <h2>상품 등록</h2>
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>
 			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
@@ -71,7 +95,6 @@
 			  <hr>
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-center">
-			      <!-- input 요소는 숨겨져 있으므로, label 요소를 중앙 정렬합니다. -->
 			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button"><img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png"></label>
 			      <input type='file' id='btnAtt' multiple style="display: none;"/>
 			      <button id="resetImg"><i class="bi bi-trash"></i></button>
@@ -88,68 +111,56 @@
 			    </div>
 			  </div>
 			  <hr>
-			<!--   <div class="row"> -->
-			<!--     <div class="col-12 d-flex justify-content-center"> -->
-			<!--       <input type="text" id="itemNm" name="itemNm" placeholder="상품명을 입력"> -->
-			<!--     </div> -->
-			<!--   </div> -->
 			<div class="row">
-<!-- 			    <div class="col-12 d-flex justify-content-center"> -->
 			    <div>
 					<div class="input-group" style="width: 90%;">
 					    <span class="input-group-text" id="basic-addon1">상품명</span>
+					    <c:if test="${empty resultMap.PRO_DATE}">
 					    <input type="text" class="form-control" id="proName" name="proName" placeholder="상품명 입력" aria-label="ItemName" aria-describedby="basic-addon1">
+						</c:if>
+					    <c:if test="${!empty resultMap.PRO_DATE}">
+					    <input type="text" class="form-control" id="proName" name="proName" value="${resultMap.PRO_NAME}" placeholder="상품명 입력" aria-label="ItemName" aria-describedby="basic-addon1">
+						</c:if>
 					</div>
 		    	</div>
 		  	</div>
 		  	<hr>
 		  	<div class="row justify-content-center">
+			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>거래상태<br>선택<th></tr></table></div>
+			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
+					<select name="proTsc" id="proTsc" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
+						<c:forEach var="tsc" items="${trade}">
+						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/>
+							<c:choose>
+								<c:when test="${tradeCode eq resultMap.PRO_TSC}">
+									<option value="${tsc.CO_TYPE}${tsc.CO_NO}" selected>${tsc.CODE}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${tsc.CO_TYPE}${tsc.CO_NO}">${tsc.CODE}</option>  
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</div>
 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>카테고리<br>선택<th></tr></table></div>
 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
 					<select name="category1" id="category1" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-						<option value="여성의류">여성의류</option>    
-						<option>남성의류</option>     
-						<option>신발</option>         
-						<option>가방/지갑</option>     
-						<option>시계</option>          
-						<option>쥬얼리</option>       
-						<option>디지털</option>        
-						<option>가전제품</option>     
-						<option>스포츠/레저</option>  
-						<option>차량/오토바이</option>  
-						<option>음반/악기</option>      
-						<option>도서/티켓/문구</option> 
-						<option>뷰티/미용</option>      
-						<option>가구/인테리어</option>   
-						<option>생활/주방용품</option>  
-						<option>공구/산업용품</option>   
-						<option>식품</option>          
-						<option>유아동/출산</option>     
-						<option>반려동물용품</option>    
-						<option>기타</option>          
-					</select>
-				</div>
-			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
-			  		<select name="category2" id="category2" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-					    <option value="아우터">아우터</option>
-					    <option>상의</option>
-					    <option>바지</option>
-					    <option>치마</option>
-					    <option>원피스</option>
-					    <option>점프수트</option>
-					    <option>셋업/세트</option>
-					    <option>언더웨어/홈웨어</option>
-					    <option>테마/이벤트</option>
-					</select>
-			  	</div>
-			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
-					<select name="category3" id="category3" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-					    <option value="패딩">패딩</option>
-					    <option>점퍼</option>
-					    <option>코트</option>
-					    <option>자켓</option>
-					    <option>가디건</option>
-					    <option>조끼/베스트</option>
+					    <option value="여성의류" ${resultMap.PRO_CATE == '여성의류' ? 'selected' : ''}>여성의류</option>
+					    <option value="남성의류" ${resultMap.PRO_CATE == '남성의류' ? 'selected' : ''}>남성의류</option>
+					    <option value="신발" ${resultMap.PRO_CATE == '신발' ? 'selected' : ''}>신발</option>
+					    <option value="가방/지갑" ${resultMap.PRO_CATE == '가방/지갑' ? 'selected' : ''}>가방/지갑</option>
+					    <option value="시계" ${resultMap.PRO_CATE == '시계' ? 'selected' : ''}>시계</option>
+					    <option value="쥬얼리" ${resultMap.PRO_CATE == '쥬얼리' ? 'selected' : ''}>쥬얼리</option>
+					    <option value="디지털" ${resultMap.PRO_CATE == '디지털' ? 'selected' : ''}>디지털</option>
+					    <option value="가전제품" ${resultMap.PRO_CATE == '가전제품' ? 'selected' : ''}>가전제품</option>
+					    <option value="스포츠/레저" ${resultMap.PRO_CATE == '스포츠/레저' ? 'selected' : ''}>스포츠/레저</option>
+					    <option value="차량/오토바이" ${resultMap.PRO_CATE == '차량/오토바이' ? 'selected' : ''}>차량/오토바이</option>
+					    <option value="음반/악기" ${resultMap.PRO_CATE == '음반/악기' ? 'selected' : ''}>음반/악기</option>
+					    <option value="도서/티켓/문구" ${resultMap.PRO_CATE == '도서/티켓/문구' ? 'selected' : ''}>도서/티켓/문구</option>
+					    <option value="뷰티/미용" ${resultMap.PRO_CATE == '뷰티/미용' ? 'selected' : ''}>뷰티/미용</option>
+					    <option value="가구/인테리어" ${resultMap.PRO_CATE == '가구/인테리어' ? 'selected' : ''}>가구/인테리어</option>
+					    <option value="생활/주방용품" ${resultMap.PRO_CATE == '생활/주방용품' ? 'selected' : ''}>생활/주방용품</option>
+					    <option value="공구/산업용품" ${resultMap.PRO_CATE == '공구/산업용품' ? 'selected' : ''}>공구/산업용품</option>       
 					</select>
 				</div>
 			</div>
@@ -160,12 +171,13 @@
 				   	<span>거래지역</span>
 				   	<button class="btn btn-outline-secondary">내 위치</button>
 				   	<button class="btn btn-outline-secondary">최근 지역</button>
-				   	<button class="btn btn-outline-secondary">주소 검색</button>
-				   	<button class="btn btn-outline-secondary">지역설정안함</button>
+				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 검색</button>
+				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button>
 				   	</div>
 				</div>
 				<div class="col-12 d-flex justify-content-center pt-3">
-				<input class="col-9 text-center" type="text" value="" placeholder="거래지역 선택하기" readonly>
+				<input class="col-9 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
+				<input class="col-3 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
 				</div>
 			</div>
 			<hr>
@@ -173,42 +185,21 @@
 				<div class="col-12 d-flex justify-content-center">
 				   	<div>
 				   	<span>상품 상태</span>
-				   	<div>
-					   	<input name="itemStatus" id="item1" type="radio" value="새상품">
-					   	<label for="item1">새상품<small>(사용하지 않은 상품)</small></label>
-				   	</div>
-				   	<div>
-					   	<input name="itemStatus" id="item2" type="radio" value="사용감 없음">
-					   	<label for="item2">사용감 없음<small>(사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음)</small></label>
-				   	</div>
-				   	<div>
-					   	<input name="itemStatus" id="item3" type="radio" value="사용감 적음">
-					   	<label for="item3">사용감 적음<small>(눈에 띄는 흔적이나 얼룩이 약간 있음)</small></label>
-				   	</div>
-				   	<div>
-					   	<input name="itemStatus" id="item4" type="radio" value="사용감 많음">
-					   	<label for="item4">사용감 많음<small>(눈에 띄는 흔적이나 얼룩이 많이 있음)</small></label>
-				   	</div>
-				   	<div>
-					   	<input name="itemStatus" id="item5" type="radio" value="고장/파손 상품">
-					   	<label for="item5">고장/파손 상품<small>(기능 이상이나 외관 손상 등으로 수리/수선필요)</small></label>
-				   	</div>
-				   	</div>
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
-				   	<div>
-					   	<span>교환</span>
-					   	<div>
-						   	<input name="changeItem" id="changeOk" type="radio" value="가능">
-						   	<label for="changeOk">가능</label>
-					   	</div>
-					   	<div>
-						   	<input name="changeItem" id="changeNot" type="radio" value="불가능" checked>
-						   	<label for="changeNot">불가능</label>
-					   	</div>
+				   	<c:forEach var="ps" items="${productStatus}" varStatus="i">
+						<div>
+							<c:set var="psCode" value="${ps.CO_TYPE}${ps.CO_NO}"/>
+							<c:choose>
+								<c:when test="${psCode eq resultMap.PRO_STATUS}">
+								    <input name="itemStatus" id="item${i.count}" type="radio" value="${ps.CO_TYPE}${ps.CO_NO}" checked>
+								    <label for="item${i.count}">${ps.CODE}</label>
+								</c:when>
+								<c:otherwise>
+								    <input name="itemStatus" id="item${i.count}" type="radio" value="${ps.CO_TYPE}${ps.CO_NO}">
+								    <label for="item${i.count}">${ps.CODE}</label>
+								</c:otherwise>
+							</c:choose>
+						</div>
+				   	</c:forEach>
 				   	</div>
 				</div>
 			</div>
@@ -220,15 +211,20 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">가격</span>
+						    <c:if test="${empty resultMap.PRO_DATE}">
 						    <input type="text" id="proPrice" class="form-control" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
+							</c:if>
+							<c:if test="${!empty resultMap.PRO_DATE}">
+							<input type="text" id="proPrice" class="form-control" value="${resultMap.PRO_PRICE}" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
+							</c:if>
 						</div>
 			    	</div>
 		    	</div>
 		    	<div class="row">
-					<div class="mt-3">
-						<input name="offeredPrice" id="offeredPrice" type="checkbox" value="제안받기" checked>
-					   	<label for="offeredPrice">가격 제안받기</label>
-					</div>
+<!-- 					<div class="mt-3"> -->
+<!-- 						<input name="offeredPrice" id="offeredPrice" type="checkbox" value="제안받기" checked> -->
+<!-- 					   	<label for="offeredPrice">가격 제안받기</label> -->
+<!-- 					</div> -->
 		    	</div>
 		    	</div>
 		    	<!-- 판매 구매일 때만 보일 것들 끝 -->
@@ -296,9 +292,16 @@
 				<div class="col-12 d-flex justify-content-center">
 				<div class="mb-3">
 					<label for="proContent" class="form-label">상세 설명</label>
+					<c:if test="${empty resultMap.PRO_DATE}">
 					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
 서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요.
 나눔일 경우 나눔 조건도 꼭 입력해주세요."></textarea>
+					</c:if>
+					<c:if test="${!empty resultMap.PRO_DATE}">
+					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="구매시기, 브랜드/모델명, 제품의 상태 (사용감, 하자 유무) 등을 입력해 주세요.
+서로가 믿고 거래할 수 있도록, 자세한 정보와 다양한 각도의 상품 사진을 올려주세요.
+나눔일 경우 나눔 조건도 꼭 입력해주세요.">${resultMap.PRO_CONTENT}</textarea>
+					</c:if>					
 				</div>
 				<span>0/2000</span>
 				</div>
@@ -323,15 +326,15 @@
 <!-- 		    	</div> -->
 <!-- 		  	</div> -->
 <!-- 		  	<hr> -->
-			<div class="row">
-			    <div>
-					<div class="input-group" style="width: 90%;" >
-					    <span class="input-group-text" id="basic-addon1">수량</span>
-					    <input type="text" class="form-control" placeholder="숫자만 입력" aria-label="InputCount" aria-describedby="basic-addon1">
-					</div>
-		    	</div>
-		  	</div>
-		  	<hr>
+<!-- 			<div class="row"> -->
+<!-- 			    <div> -->
+<!-- 					<div class="input-group" style="width: 90%;" > -->
+<!-- 					    <span class="input-group-text" id="basic-addon1">수량</span> -->
+<!-- 					    <input type="text" class="form-control" placeholder="숫자만 입력" aria-label="InputCount" aria-describedby="basic-addon1"> -->
+<!-- 					</div> -->
+<!-- 		    	</div> -->
+<!-- 		  	</div> -->
+<!-- 		  	<hr> -->
 		  	<div id="noDivide">
 			<div class="row">
 				<div class="col-12 d-flex justify-content-center">
@@ -362,6 +365,7 @@ OO페이 배지로 더 많은 관심을 받을 수 있어요.
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript"></script>
 </body>
 

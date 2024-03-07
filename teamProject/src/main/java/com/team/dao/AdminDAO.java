@@ -53,10 +53,13 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getCategoryList");
 	}
 
+	public void inputForm(Map<String, String> map) {
+		sqlSession.insert(namesqace + "inputForm", map);
+	}
 	
-	
-	
-	
+	public List<Map<String, String>> getForm(Map<String, String> map) {
+		return sqlSession.selectList(namesqace + "getForm", map);
+	}
 	
 	
 	
@@ -84,9 +87,22 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getMemberList");
 	}//
 
-	public List<Map<String, String>> getContentberList() {
-		return sqlSession.selectList(namesqace + "getContentberList");
+	public List<Map<String, String>> getContentboardList() {
+		return sqlSession.selectList(namesqace + "getContentboardList");
 	}//
+
+	public void memberDelete(String MEM_NO) {
+		sqlSession.delete(namesqace + "memberDelete", MEM_NO);
+	}//
+	
+	public int contentDelete(String PRO_NO) {
+		return sqlSession.delete(namesqace + "contentDelete", PRO_NO);
+	}//
+
+	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
+		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
+	}//
+
 	
 //	----- 성엽 끝 -----	
 	

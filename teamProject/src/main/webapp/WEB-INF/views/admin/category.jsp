@@ -17,7 +17,7 @@
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container">
     <div class="row align-items-center mb-4">
-        <div><h4 class="card-title"><b>적용 미리 보기</b></h4></div>
+        <div><h4 class="card-title"><b>최근 저장된 카테고리</b></h4></div>
     </div>
     <div class="preview mb-5 ps-3">
 		<div class="navbar navbar-expand-lg">
@@ -28,7 +28,7 @@
 					</svg>
 				</li>
 				<c:forEach var="category" items="${mapList}">
-					<c:if test="${category.HIDE eq '0'}">
+					<c:if test="${category.ACTIVE eq '1'}">
 						<li id="category-li">
 							<a class="nav-link" href="#">${category.CODE }</a>
 						</li>
@@ -47,7 +47,7 @@
 				<tr>
 					<th scope="col" >카테고리명</th>
 					<th scope="col">순서</th>
-					<th scope="col">숨김 여부</th>
+					<th scope="col">사용 여부</th>
 				</tr>
 			</thead>
 			<tbody class="tableHr">
@@ -58,10 +58,10 @@
 							<button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button>
 						</td>
 						<td>
-							<c:if test="${category.HIDE eq '1'}">
+							<c:if test="${category.ACTIVE eq '1'}">
 								<input class="form-check-input" type="checkbox" id="active" checked>
                             </c:if>
-                       		<c:if test="${category.HIDE eq '0'}">
+                       		<c:if test="${category.ACTIVE eq '0'}">
 								<input class="form-check-input" type="checkbox" id="active">
                             </c:if>
 							
@@ -75,7 +75,7 @@
 			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 	    </div>
     </div>
-    
+    <div id="excel"></div>
     <div id="grid"></div>
 </div>
 </body>

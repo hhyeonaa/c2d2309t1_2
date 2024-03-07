@@ -34,10 +34,45 @@ public class MemberService {
 		return memberDAO.socialLogin(map); 
 	}// socialLogin()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> getMember(String MEM_ID) {
+	public Map<String, String> getMember(String MEM_ID, Map<String, String> map) {
 		System.out.println("MemberService getMember()");
-		return memberDAO.getMember(MEM_ID); 
+		return memberDAO.getMember(MEM_ID, map); 
 	}// getMember()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> memCheck(String MEM_PW, Map<String, String> map) {
+		System.out.println("MemberService memCheck()");
+		return memberDAO.memCheck(MEM_PW, map); 
+	}// memCheck()
+//	-----------------------------------------------------------------------------	
+	public int idCheck(String MEM_ID) {
+		System.out.println("MemberService idCheck()");
+		return memberDAO.idCheck(MEM_ID);
+	}// idCheck()
+//	-----------------------------------------------------------------------------	
+	public int nickCheck(String MEM_NICK) {
+		System.out.println("MemberService nickCheck()");
+		return memberDAO.nickCheck(MEM_NICK);
+	}// nickCheck()
+//	-----------------------------------------------------------------------------	
+	public int emailCheck(String MEM_EMAIL) {
+		System.out.println("MemberService emailCheck()");
+		return memberDAO.emailCheck(MEM_EMAIL);
+	}// emailCheck()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> findId(Map<String, String> map) {
+		System.out.println("MemberService findId()");
+		return memberDAO.findId(map);
+	}// findId()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> findPw(Map<String, String> map) {
+		System.out.println("MemberService findPw()");
+		return memberDAO.findId(map);
+	}// findPw()
+//	-----------------------------------------------------------------------------	
+	public int pwUpdate(Map<String, String> findPw) {
+		System.out.println("MemberService pwUpdate()");
+		return memberDAO.pwUpdate(findPw);
+	}// pwUpdate()
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberService mypage()");

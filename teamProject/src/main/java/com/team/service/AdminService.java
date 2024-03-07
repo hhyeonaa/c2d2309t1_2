@@ -82,11 +82,33 @@ public class AdminService {
 		return adminDAO.getMemberList();
 	}//
 
-	public List<Map<String, String>> getContentberList() {
+	public List<Map<String, String>> getContentboardList() {
 		
-		return adminDAO.getContentberList();
+		return adminDAO.getContentboardList();
+	}//
+
+	public void memberDelete(String MEM_NO) {
+		adminDAO.memberDelete(MEM_NO);
 	}//
 	
+	public int contentDelete(String PRO_NO) {
+		return adminDAO.contentDelete(PRO_NO);
+	}//
+
+	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
+		return adminDAO.getBoardCategoryList(param);
+	}//
+
+	public void inputForm(Map<String, String> map) {
+		adminDAO.inputForm(map);
+	}
+
+	public List<Map<String, String>> getForm(Map<String, String> map) {
+		return adminDAO.getForm(map);
+	}
+
+
+
 	
 //	----- 성엽 끝 -----
 

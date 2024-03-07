@@ -21,12 +21,20 @@ class DeleteButton {
 
 class ToggleButton {
 	constructor(props) {
+		debugger;
 		const el = document.createElement('div');
 		el.className  = 'form-check form-switch justify-content-center';
 		el.style = 'position: relative';
-		var flag = (props.value == '1') ? 'checked' : '';
+		var flag = '';
+		var value = '0'
+		if(props.value == '1'){
+			flag = 'checked';
+			value = '1';
+		}
+		
 		$(el).append('<input class="form-check-input mvca" type="checkbox" id="active" ' 
-									+ 'style="width:35px; height:20px"' + flag + '>');
+									+ 'style="width:35px; height:20px"' 
+									+ flag + ' value="' + value + '">');
 									
 		// 버튼 클릭 이벤트 처리
 		el.addEventListener('change', (e) => {
@@ -36,9 +44,11 @@ class ToggleButton {
 		
 		this.el = el;
 		this.render(props);
+		debugger
 	}
 	getElement() { return this.el; }
 	render(props) {
+		debugger;
 		this.el.value = String(props.value);
 	}
 }

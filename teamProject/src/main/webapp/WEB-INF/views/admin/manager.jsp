@@ -66,7 +66,7 @@
                             <tr>
                                 <th scope="col">번호</th>
                                 <th scope="col">ID</th>
-                                <th scope="col">이름</th>
+                                <th scope="col">권한</th>
                                 <th scope="col">활성 상태</th>
                                 <th scope="col">삭제</th>
                             </tr>
@@ -76,7 +76,15 @@
 	                            <tr>
 	                            	<th>${admin.AD_NO }</th>
 	                                <td>${admin.AD_ID }</td>
-	                                <td>${admin.AD_NAME }</td>
+                                	<td>
+                                		<select class="form-select" id="role">
+											<option selected hidden>${admin.AD_ROLE }</option>
+											<option value="0">기본</option>
+											<option value="1">총괄</option>
+											<option value="2">운영</option>
+											<option value="3">사이트</option>
+										</select>
+									</td>
 	                                <td scope="row">
 		                                <div class="form-check form-switch justify-content-center">
 			                                <c:if test="${admin.AD_ACTIVE eq '1'}">
@@ -126,7 +134,7 @@
 			<option value="100">100개 씩 보기</option>
 		</select>
 		<button id="appendBtn">행 추가</button>
-		<button id="removeBtn">추가 행 삭제</button>
+<!-- 		<button id="removeBtn">추가 행 삭제</button> -->
 		<button id="resetBtn">취소</button>
 		<button id="saveBtn">저장</button>
 		<button id="updateBtn">수정</button>

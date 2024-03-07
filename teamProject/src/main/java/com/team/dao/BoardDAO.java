@@ -74,6 +74,7 @@ public class BoardDAO {
 		System.out.println("BoardDAO selectDivideBoard()");
 		return sqlSession.selectList(NAMESPACE + ".selectDivideBoard");
 	}// selectDivideBoard()
+	
 	// 성엽 작업 시작 //
 	
 	public List<Map<String, String>> selectBuyBoard() {
@@ -82,5 +83,29 @@ public class BoardDAO {
 	}//
 	
 	// 성엽 작업 끝 //
+	public List<Map<String, String>> selectBoard(Map<String, String> map) {
+		System.out.println("BoardDAO selectBoard()");
+		return sqlSession.selectList(NAMESPACE + ".selectBoard", map);
+	}// selectBoard()
+
+	public List<Map<String, String>> getImgMap(Map<String, String> delMap) {
+		System.out.println("BoardDAO getImgMap()");
+		return sqlSession.selectList(NAMESPACE + ".getImgMap", delMap);
+	}// getImgMap()
+
+	public int deleteBoard(Map<String, String> delMap) {
+		System.out.println("BoardDAO deleteBoard()");
+//		String proNo = delMap.get("proNo");
+		delMap.put("success", "0");
+		sqlSession.selectOne(NAMESPACE + ".deleteBoard", delMap);
+		int result = 0;
+		String success = delMap.get("success"); 
+		if(success.equals("1")) {
+			result = 1;
+		}
+		return result;
+	}// deleteBoard()
+	
+	
 
 }// BoardDAO 끝

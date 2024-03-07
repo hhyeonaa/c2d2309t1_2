@@ -15,7 +15,7 @@ public class ExcelService {
 	@Inject
 	private ExcelDAO excelDAO;
 	
-	public List<Map<String, String>> selectData() {
-		return excelDAO.selectData();
+	public int insertData(Map<String, Object> uploadData) {
+		return excelDAO.insertData(uploadData);
 	}
 }

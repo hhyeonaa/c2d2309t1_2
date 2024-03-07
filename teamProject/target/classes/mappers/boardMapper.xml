@@ -42,15 +42,40 @@
 		)
 	</insert>
 	
-	<select id="selectSaleBoard" resultType="map">
+	<select id="selectBoard" resultType="map" parameterType="map">
 		SELECT *
 		  FROM PRODUCT
 		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO
+		    ON PRO_NO = IMG_PRONO 
+		  JOIN CODE
+		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO) 
 		 WHERE IMG_NO = 1
-		   AND PRO_TC = '판매'
-		 ORDER BY PRO_DATE DESC  
+		 <if test="proTc == 'MM1'">
+		 	AND PRO_TC = 'MM1'
+		 </if>
+		 <if test="proTc == 'MM2'">
+		 	AND PRO_TC = 'MM2'
+		 </if>
+		 <if test="proTc == 'MM3'">
+		 	AND PRO_TC = 'MM3'
+		 </if>
+ 		 <if test="proTc == 'MM4'">
+		 	AND PRO_TC = 'MM4'
+		 </if>
+		 ORDER BY PRO_DATE DESC
 	</select>
+	
+<!-- 	<select id="selectSaleBoard" resultType="map"> -->
+<!-- 		SELECT * -->
+<!-- 		  FROM PRODUCT -->
+<!-- 		  JOIN IMAGE -->
+<!-- 		    ON PRO_NO = IMG_PRONO  -->
+<!-- 		  JOIN CODE -->
+<!-- 		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO)  -->
+<!-- 		 WHERE IMG_NO = 1 -->
+<!-- 		   AND PRO_TC = 'MM1' -->
+<!-- 		 ORDER BY PRO_DATE DESC -->
+<!-- 	</select> -->
 	
 	<!-- 성엽 작업 시작 -->
 	
@@ -60,7 +85,7 @@
 		  JOIN IMAGE
 		    ON PRO_NO = IMG_PRONO
 		 WHERE IMG_NO = 1
-			AND PRO_TC = '구매'
+			AND PRO_TC = 'MM2'
 	</select>
 	
 	<!-- 성엽 작업 끝 -->
@@ -78,14 +103,27 @@
 		   SET PRO_HITS = PRO_HITS + 1
 		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate} 
 	</update>
-	<select id="selectDivideBoard" resultType="map">
+<!-- 	<select id="selectDivideBoard" resultType="map"> -->
+<!-- 		SELECT * -->
+<!-- 		  FROM PRODUCT -->
+<!-- 		  JOIN IMAGE -->
+<!-- 		    ON PRO_NO = IMG_PRONO  -->
+<!-- 		  JOIN CODE -->
+<!-- 		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO)  -->
+<!-- 		 WHERE IMG_NO = 1 -->
+<!-- 		   AND PRO_TC = 'MM3' -->
+<!-- 		 ORDER BY PRO_DATE DESC  -->
+<!-- 	</select> -->
+	<select id="getImgMap" resultType="map">
 		SELECT *
-		  FROM PRODUCT
-		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO
-		 WHERE IMG_NO = 1
-		   AND PRO_TC = '나눔'
-		 ORDER BY PRO_DATE DESC  
+		  FROM IMAGE
+		 WHERE IMG_PRONO = #{proNo};
+	</select>
+	<select id="deleteBoard" parameterType="map" statementType="CALLABLE">
+		{CALL PROC_DELETE_BOARD(
+	        #{proNo, mode=IN, jdbcType=VARCHAR},
+	        #{success, mode=OUT, jdbcType=VARCHAR}
+		)}		
 	</select>
 	
 </mapper>

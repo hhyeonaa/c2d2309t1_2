@@ -102,32 +102,32 @@
 							<div class="PaymentGrid__Wrapper-sc-96u70s-0 iKNlZe mt-3">
 								<div class="PaymentGrid__Row-sc-96u70s-1 wwNXT">
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod toss nonCheck" value="tosspay">
+										<div class="PaymentGridMethod toss nonCheck" value="tosspay" id="tossPay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">토스페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod kakao nonCheck" value="kakaopay">
+										<div class="PaymentGridMethod kakao nonCheck" value="kakaopay" id="kakaoPay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh"value="kakaopay">카카오페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod naver nonCheck">
+										<div class="PaymentGridMethod naver nonCheck" id="naverPay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
 										</div>
 									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod phonepay nonCheck">
+										<div class="PaymentGridMethod phonepay nonCheck" id="phonePay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">휴대폰결제</span>
 										</div>
 									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod samsung nonCheck">
+										<div class="PaymentGridMethod samsung nonCheck" id="samsungPay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">삼성페이</span>
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod apple nonCheck">
+										<div class="PaymentGridMethod apple nonCheck" id="applePay">
 											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">애플페이</span>
 										</div>
 									</div>										
@@ -190,7 +190,7 @@
             		</div>
 					<section class="DefaultPayment__Section-sc-64075s-3 eCEzHK">
 						<button class="sc-gEvEer kKRlXK bun-ui-button DefaultPayment__SubmitButton-sc-64075s-2 uviPA" id="paymentBtn"
-							type="submit" color="primary">결제하기
+							type="button" color="primary" >결제하기
 						</button>
 					</section>
 			</div>
@@ -397,6 +397,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/pay/payment.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

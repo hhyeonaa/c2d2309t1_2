@@ -5,7 +5,15 @@
 <mapper namespace="com.team.mappers.homeMapper">
 
 <select id="getProductList" resultType="Map">
-	
+	<!-- 판매 최신순 8개 -->  -->
+	SELECT *
+		FROM PRODUCT
+		JOIN IMAGE
+			ON PRO_NO = IMG_PRONO
+		WHERE IMG_NO = 1
+			AND PRO_TC = 'MM1'
+		ORDER BY PRO_DATE DESC
+		LIMIT 8;
 </select>
 
 </mapper>

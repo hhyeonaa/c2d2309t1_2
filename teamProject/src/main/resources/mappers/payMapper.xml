@@ -54,6 +54,7 @@
 			WHERE M.MEM_NO = #{MEM_NO}	
 	</select>
 	
+	<!--회원 배송지 insert  -->
 	<insert id="addDelivery">
 		INSERT INTO ADDRESS
 			( ADD_NO
@@ -64,37 +65,19 @@
 			, ADD_NICK
 			, ADD_RECEIVER
 			, ADD_PHONE)
-		VALUES ( CONCAT("ADD", IFNULL((SELECT MAX(CAST(REPLACE(ADD_NO,"ADD", "") AS UNSIGNED))+1) FROM ADDRESS A), 1))	 
+		VALUES 
+			( 
+			  (CONCAT("ADD", IFNULL( (SELECT MAX(CAST(REPLACE(ADD_NO,"ADD", "") AS UNSIGNED)) + 1 FROM ADDRESS A) , 1)))	 
 			, #{MEM_NO}
 			, #{ADD_POST}
 			, #{ADD_NAME}
 			, #{ADD_DETAIL}
 			, #{ADD_NICK}
 			, #{ADD_RECEIVER}
-			, #{ADD_PHONE})
+			, #{ADD_PHONE}
+			)
 	</insert>
-
-<!-- 	<insert id="insertAddress"> -->
-<!-- 		INSERT INTO ADDRESS -->
-<!-- 		    ( ADD_NO -->
-<!-- 		    , MEM_NO -->
-<!-- 		    , ADD_POST -->
-<!-- 		    , ADD_NAME -->
-<!-- 		    , ADD_DETAIL -->
-<!-- 		    , ADD_NICK -->
-<!-- 		    , ADD_RECEIVER -->
-<!-- 		    , ADD_PHONE) -->
-<!-- 		VALUES (CONCAT('ADD', IFNULL((SELECT MAX(CAST(REPLACE(ADD_NO, 'ADD', '') AS UNSIGNED)) -->
-<!--                     					FROM ADDRESS  -->
-<!--                     					WHERE MEM_NO = #{MEM_NO}), 0) + 1), -->
-<!--                     				(SELECT MAX(CAST(REPLACE(ADD_NO, 'ADD', '') AS UNSIGNED)) FROM ADDRESS) + 1)),	 -->
-<!-- 		     #{MEM_NO}, -->
-<!-- 		     #{ADD_POST}, -->
-<!-- 		     #{ADD_NAME}, -->
-<!-- 		     #{ADD_DETAIL}, -->
-<!-- 		     #{ADD_NICK}, -->
-<!-- 		     #{ADD_RECEIVER}, -->
-<!-- 		     #{ADD_PHONE}); -->
-<!-- 	</insert> -->
+	
+	<!--회원 수정할 배송지 select -->
 	
 </mapper>

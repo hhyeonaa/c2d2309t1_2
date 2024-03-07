@@ -68,6 +68,7 @@ function addList(result){
 	for (let item of result) {
 		$("#divAddress").append('<li class="addressInfo mb-4">'+
 									'<div class="boxdeliveryaddress">'+
+									'<input id="ADD_NO" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO">' +
 										'<div class="boxdeliveryaddressTitle">'+
 											'<span>'+item.ADD_NICK +'</span>'+
 											'<button type="button" class="button__delivery-choice">선택</button>'+
@@ -83,8 +84,8 @@ function addList(result){
 												'</div>'+
 											'</div>'+
 											'<div class="deliverybtn">'+
-												'<button>수정</button>'+
-												'<button>삭제</button>'+
+												'<button id="deliUpdate">수정</button>'+
+												'<button id="deliDelete">삭제</button>'+
 											'</div>'+	
 										'</div>'+
 									'</div>'+
@@ -261,10 +262,14 @@ selectMethod();
 				MEM_NO : $('#MEM_NO').val()
 				},
 			success:function(result){
-				debugger;			
+				debugger;
+				if(result = 1){
+					$("#staticBackdrop1").modal("hide");
+				}			
 			},
 			fail:function(){
-				
+				alert("주소추가실패!");
+				$("#staticBackdrop1").modal("hide");
 			}	
 		})//ajax
 		$("#staticBackdrop").modal("show");
@@ -276,6 +281,22 @@ selectMethod();
 	// x버튼 > 배송리스트 모달
 	$("#payListXbtn").on('click', function(){
 		$("#staticBackdrop").modal("show");
+	})
+	
+	//7.배송지 수정버튼 > select,update
+	//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출력
+	$("#deliUpdate").on('click', function(){
+		debugger;
+		$ajax({
+			url: "addDeliveryUpdate",
+			data: {ADD_NO : $('#ADD_NO').val()}
+		})//ajax
+		.done(function(data){
+			if(data != null){
+				debugger;
+				alert("여기까지")
+			}
+		})	
 	})
 	
 })

@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,11 +84,21 @@ public class PayController {
 	
 	// 회원 배송지 등록추가 insert ajax
 	@PostMapping("/addDelivery")
+	@ResponseBody
 	public ResponseEntity<?> addDelivery(@RequestParam Map<String, String> param){
 		System.out.println("ajax addDelivery");
-		System.out.println(param);
 		return  ResponseEntity.ok().body(payService.addDelivery(param));
 	}//addDelivery()
+	
+	//회원 배송지 수정할 배송지 select ajax
+	@GetMapping("/addDeliveryUpdate")
+	public Map<String, String> addDeliveryUpdate(@RequestParam Map<String, String> param, Model model){
+		System.out.println("ajax addDeliveryUpdate");
+		System.out.println(param);
+		Map<String, String> addUpList = payService.getaddDelivery(param);
+		model.addAttribute("addUpList", addUpList);
+		return addUpList;
+	}//addDeliveryUpdate()
 	
 	@GetMapping("/completepay")
 	public String completepay() {

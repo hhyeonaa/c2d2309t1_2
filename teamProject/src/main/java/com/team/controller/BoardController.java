@@ -71,11 +71,8 @@ public class BoardController {
 	@GetMapping("/buyBoard")
 	public String buyBoard(Model model) {
 		System.out.println("BoardController buyBoard()");
-		
 		List<Map<String, String>> buyList = boardService.selectBuyBoard();
-		logger.info("buyList: " + buyList);
 		model.addAttribute("buyList", buyList);
-		
 		return "board/buyBoard";
 	}// buyBoard()
 	
@@ -106,6 +103,10 @@ public class BoardController {
 		System.out.println("BoardController writeBoard()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
+		String id = (String)session.getAttribute("MEM_ID");
+		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
+		System.out.println("주소왔니? " + selectAddress);
+		model.addAttribute("selectAddress", selectAddress);
 		if(proWr != null || proDate != null) {
 			Map<String, String> map = new HashMap<>();
 			map.put("proWr", proWr);
@@ -123,11 +124,21 @@ public class BoardController {
 			model.addAttribute("resultMap", resultMap);
 			model.addAttribute("imgList", imgList);
 		}
-		
 		//codeService.selectCode("MM1");
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
 		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
 		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
+		List<Map<String, String>> placeHolder =  codeService.selectCodeList(EnumCodeType.상세설명, session);
+		Map<String, String> detailTxt = new HashMap<>();
+		int i = 0;
+		for (Map<String, String> map : placeHolder) {
+			i++;
+		    String value = map.get("CODE"); // 특정 키에 대한 값 조회
+		    detailTxt.put("dTxt"+i, value);
+		}
+		model.addAttribute("detailTxt", detailTxt);
 		return "board/writeBoard";
 	}// writeBoard()
 	

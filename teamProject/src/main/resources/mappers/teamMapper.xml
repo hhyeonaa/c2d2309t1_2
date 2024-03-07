@@ -17,13 +17,13 @@
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
 	  <choose>
-	    <when test="AD_ROLE == '1'">
+	    <when test='AD_ROLE.equals("1") and AD_ROLE == "1"'>
 		   and HIDE in ('0', '1') 					 	
 		</when>
-		<when test="AD_ROLE == '2'">
+		<when test='AD_ROLE.equals("2") and AD_ROLE == "2"'>
 		   and HIDE = '0' 					 	
 		</when>
-		<when test="AD_ROLE == '3'">
+		<when test='AD_ROLE.equals("3") and AD_ROLE == "3"'>
 		   and HIDE = '0' 					 	
 		</when>
 		<otherwise>
@@ -42,13 +42,13 @@
 		   and CO_NO = #{CO_NO}
 		   and CO_TYPE = #{CO_TYPE}
 	  <choose>
-	    <when test="AD_ROLE == '1'">
+	    <when test='AD_ROLE.equals("1") and AD_ROLE == "1"'>
 		   and HIDE in ('0', '1') 					 	
 		</when>
-		<when test="AD_ROLE == '2'">
+		<when test='AD_ROLE.equals("2") and AD_ROLE == "2"'>
 		   and HIDE = '0' 					 	
 		</when>
-		<when test="AD_ROLE == '3'">
+		<when test='AD_ROLE.equals("3") and AD_ROLE == "3"'>
 		   and HIDE = '0' 					 	
 		</when>
 		<otherwise>
@@ -65,13 +65,12 @@
 		 where 1 = 1
 		   and CO_NO = #{CO_NO}
 		   and CO_TYPE = #{CO_TYPE}
-		<if test="AD_ROLE == '1'">
+		<if test='AD_ROLE.equals("1") and AD_ROLE == "1"'>
 		   and HIDE in ('0', '1')
 		</if>
-		<if test="AD_ROLE != '1'">
+		<if test='AD_ROLE != "1"'>
 		   and HIDE = '0'
 		</if>
-	     order by cast(CO_NO as signed) desc  
 	     
 	</select>
 
@@ -84,13 +83,13 @@
 		  from MESSAGE
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
-	  	<if test="AD_ROLE == '1'">
+	  	<if test='AD_ROLE.equals("1") and AD_ROLE == "1"'>
 		   and HIDE in ('0', '1')
 		</if>
-		<if test="AD_ROLE != '1'">
+		<if test='AD_ROLE != "1"'>
 		   and HIDE = '0'
 		</if>  
-		 order by cast(CO_NO as signed) desc
+		 order by cast(CO_NO as signed)
 		
 	</select>
 

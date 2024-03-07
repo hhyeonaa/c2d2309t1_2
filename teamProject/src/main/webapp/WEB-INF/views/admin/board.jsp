@@ -121,97 +121,48 @@
 	<div id="inputModal" class="modal">
 	  <div class="modal-content mt-5" id="modal-content">
 	     <div class="modal-header" id="modal-header">
-		     <h3 class="modal-title" id="modal-title"><b>판매게시판 입력폼</b></h3>
+		     <h3 class="modal-title" id="modal-title"><b>${board.CODE }게시판 입력폼</b></h3>
 		     <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
 		     	&times;</button>
 	     </div>
 	     <div class="modal-body" id="modal-body">
 		    <div class="boardEdit">
-				<table class="table text-center mb-4">
+				<table id="inputList" class="table text-center mb-4">
 					<thead class="tableHr align-middle ">
 						<tr>
-							<th scope="col" >라벨명</th>
+							<th scope="col" >라벨명/ID</th>
 							<th scope="col">타입</th>
 							<th scope="col">순서</th>
 							<th scope="col">숨김 여부</th>
 						</tr>
 					</thead>
 					<tbody class="tableHr" id="tbody">
+						<c:forEach var="form" items="${formList}">
 						<tr>
 							<td align="center">
 								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="글제목"/>
+								  	<input type="text" id="${form.CODE}" class="form-control text-center" value="${form.CODE}"/>
 								</div>
 							</td>
 							<td align="center">
 								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="단답형"/>
+								  	<input type="text" id="${form.CO_DETAIL}" class="form-control text-center" value="${form.CO_DETAIL}"/>
 								</div>
 							</td>
 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
 							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
 						</tr>
-						<tr>
-							<td>
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="작성일"/>
-								</div>
-							</td>
-					        <td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="날짜/시간형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="form-outline align-top text-start">
-								  	<input type="text" name="" class="form-control" value="상품 종류"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="식품"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="의류"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="전자제품"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="잡화"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="기타"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="목록 선택형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="이미지 등록"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="파일 첨부형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="상세내용"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="장문형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
+<!-- 							<td> -->
+<!-- 								<div class="form-outline align-top text-start"> -->
+<!-- 								  	<input type="text" name="" class="form-control" value="상품 종류"/> -->
+<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="식품"/> -->
+<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="의류"/> -->
+<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="전자제품"/> -->
+<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="잡화"/> -->
+<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="기타"/> -->
+<!-- 								</div> -->
+<!-- 							</td> -->
+						</c:forEach>
 					</tbody>
 				</table>
 		    </div>		

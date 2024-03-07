@@ -98,7 +98,6 @@
 		select count(MEM_EMAIL)
 		from MEMBERS
 		where MEM_EMAIL = #{MEM_EMAIL}
-		
 	</select>
 	
 	<select id="findId" parameterType="map" resultType="map">

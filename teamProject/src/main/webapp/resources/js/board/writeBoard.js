@@ -23,6 +23,12 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 // 	var sel_files = []; // 선택된 파일들을 저장할 배열입니다.
 	customSelect2($("#boardSelect"));
 	customSelect2($("#selectPreBoard"));
+	customSelect2($("#category1"));
+	
+	//<br> => enter
+	var text = $('#itemPay').val();
+	text = text.split('<br>').join("\r\n");
+	$('#itemPay').val(text);
 	
 	var IsOldImgs = $('#oldImgs').val();
 	var arr = [];
@@ -70,6 +76,11 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    div.append(btn);
 	    $('#att_zone').append(div);
 	    $('#att_zone').append('<input type="hidden" value="' + fileName + '"/>');
+	    $('#att_zone input[type="hidden"]').each(function() {
+			var value = $(this).val();
+			console.log('기존이미지: '+value); // 콘솔에 각 숨김 입력의 값을 출력
+		});
+
 	}
 
 	// 이미지 미리보기를 생성하고 화면에 표시하는 함수입니다.
@@ -315,7 +326,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    category3: $('#category3').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: ($('#inputRegion').val()+' '+$('#detailRegion').val()).trim(),
+		    proAddress: $('#inputRegion').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),
@@ -537,6 +548,18 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    }).open({
 			autoClose:true
 		});
+	})
+	
+	$('#selectAddress').on('change',function(){
+		var fullAdd = $('#selectAddress').val();
+		var addList = fullAdd.split(',');
+		console.log(addList);
+		$('#regionNick').val($('#selectAddress option:checked').text());
+		$('#addNo').val(addList[0]);
+		$('#regionCode').val(addList[1]);
+		$('#inputRegion').val(addList[2]);
+		$('#detailRegion').val(addList[3]);
+		
 	})
 	
 });//document ready 끝

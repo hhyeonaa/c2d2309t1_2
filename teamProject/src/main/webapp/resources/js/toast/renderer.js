@@ -21,24 +21,47 @@ class DeleteButton {
 
 class ToggleButton {
 	constructor(props) {
+		debugger;
 		const el = document.createElement('div');
 		el.className  = 'form-check form-switch justify-content-center';
 		el.style = 'position: relative';
-		var flag = (props.value == '1') ? 'checked' : '';
+		var flag = '';
+		var value = '0'
+		if(props.value == '1'){
+			flag = 'checked';
+			value = '1';
+		}
+		
 		$(el).append('<input class="form-check-input mvca" type="checkbox" id="active" ' 
-									+ 'style="width:35px; height:20px"' + flag + '>');
+									+ 'style="width:35px; height:20px"' 
+									+ flag + ' value="' + value + '">');
 									
 		// 버튼 클릭 이벤트 처리
-		el.addEventListener('change', (e) => {
-			props.value = e.target.checked ? 1 : 0;
-			this.render(props);
+		el.addEventListener('d', (e) => {
+			debugger;
+//			if (typeof props.columnInfo.renderer.onchange === 'function') {
+//			    props.columnInfo.renderer.onchange(e.target.checked ? "1" : "0");
+//			} else {
+//			    console.error('props.onChange is not a function');
+//			}
+			
+			
+//			props.value = e.target.checked ? "1" : "0";
+//			this.render(props);
 		});
 		
 		this.el = el;
 		this.render(props);
+		debugger
 	}
 	getElement() { return this.el; }
 	render(props) {
-		this.el.value = String(props.value);
+		debugger;
+//		this.el.value = props.value;
+		if (props.value === '1') {
+			this.el.querySelector('.form-check-input').checked = true;
+		} else {
+			this.el.querySelector('.form-check-input').checked = false;
+		}
 	}
 }

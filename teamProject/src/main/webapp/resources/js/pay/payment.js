@@ -79,6 +79,8 @@ function addList(result){
 	}
 }// addList()
 
+
+
 // 스크립트 시작
 $(()=>{
 // 결제할(선택된) 페이 css변경(4)
@@ -104,11 +106,17 @@ $('#kakaoPay').on("click", () =>{
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
 // 	var radio = $("input[name='optradio']:checked").val();
 	$("input[name='optradio']").change(function () {
+	
+	parseInt($('#totalprice').text().trim().match(/\d+/)[0]) + parseInt($('.kzWuNm').text().trim().match(/\d+/)[0])
 		if($("input[name='optradio']:checked").val() == 'option2'){
 			$('.Deliveryaddress').hide();
+			$('.NBdoU').hide();//배송료 +3000
+			parseInt($('#totalprice').text().trim().match(/\d+/)[0]) - parseInt($('.kzWuNm').text().trim().match(/\d+/)[0])
 			return;
 		}
 		$('.Deliveryaddress').show();
+		$('.NBdoU').show();
+		parseInt($('#totalprice').text().trim().match(/\d+/)[0]) + parseInt($('.kzWuNm').text().trim().match(/\d+/)[0])
 	})
 		
 // 2. 배송지 등록 주소 api(배송지 등록 모달)
@@ -245,14 +253,17 @@ $('#kakaoPay').on("click", () =>{
 		var ADD_POST = $("#address-zipcode").val();
 		var ADD_NAME = $("#address-front").val();
 		var ADD_DETAIL = $("#address-detail").val();
-		
+		var MEM_NO = $('#MEM_NO').val()
 		$("#staticBackdrop").modal("show");
 	})
 	//  모달 취소 > 배송리스트 모달
 	$("#payCancelbtn").on('click', function(){
 		$("#staticBackdrop").modal("show");
 	})
-	
+	// x버튼 > 배송리스트 모달
+	$("#payListXbtn").on('click', function(){
+		$("#staticBackdrop").modal("show");
+	})
 	
 })
 

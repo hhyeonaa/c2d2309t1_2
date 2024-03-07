@@ -191,7 +191,7 @@
 									총 결제금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
-									${payPrice + 3000 }원
+									${payPrice}<div>원</div>
 									</div>
 								</div>
 							</div>	            			
@@ -284,7 +284,7 @@
 	      <!-- 수정 버튼시 title 배송지 수정 -->
 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 추가</h1>
 <!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="payListXbtn"></button>
 	      </div>
 	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post">
 	      	<div class="modal-body">

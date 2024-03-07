@@ -125,5 +125,11 @@
 	        #{success, mode=OUT, jdbcType=VARCHAR}
 		)}		
 	</select>
-	
+	<select id="selectAddress" resultType="map">
+		SELECT A.ADD_NO,A.ADD_POST,A.ADD_NAME,A.ADD_DETAIL,A.ADD_NICK,M.MEM_ID
+		  FROM ADDRESS A
+		  JOIN MEMBERS M
+		    ON A.MEM_NO = M.MEM_NO
+		 WHERE M.MEM_ID = #{id}  
+	</select>
 </mapper>

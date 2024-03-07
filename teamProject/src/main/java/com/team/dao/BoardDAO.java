@@ -105,6 +105,11 @@ public class BoardDAO {
 		}
 		return result;
 	}// deleteBoard()
+
+	public List<Map<String, String>> selectAddress(String id) {
+		System.out.println("BoardDAO selectAddress()");
+		return sqlSession.selectList(NAMESPACE + ".selectAddress", id);
+	}// selectAddress()
 	
 	
 

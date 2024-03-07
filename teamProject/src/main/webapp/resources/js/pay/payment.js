@@ -77,7 +77,7 @@ function addList(result){
 									'</div>'+
 								'</li>')
 	}
-}
+}// addList()
 
 // 스크립트 시작
 $(()=>{
@@ -211,7 +211,6 @@ $('#kakaoPay').on("click", () =>{
     
 // 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
-		debugger;
 		if(pgId == "") {
 			alert('결제 수단을 선택해주세요');
 			return false;
@@ -224,29 +223,32 @@ $('#kakaoPay').on("click", () =>{
 	})
 // 5.배송지리스트 모달관련
 	$('#staticBackdrop').on('show.bs.modal', function(){
-		debugger;
 		$.ajax({
 			url:"addList",
 			data:{MEM_NO : $('#MEM_NO').val() },
 			success:function(result){
-				debugger;
 				$("#divAddress").empty();
 				addList(result)
 			},
 			fail:function(){
-				debugger;
 			}
 		})//ajax
 			
 	})
 
-// 6.새 배송지 추가 저장 취소 버튼관련
+// 6.새 배송지 추가 저장 취소 관련
+	// 새 배송지 추가저장 
 	$("#payAddbtn").on('click', function(){
-		
+		var ADD_NICK = $("#address-title").val();
+		var ADD_RECEIVER = $("#address-name").val();
+		var ADD_PHONE = $("#address-tel").val();
+		var ADD_POST = $("#address-zipcode").val();
+		var ADD_NAME = $("#address-front").val();
+		var ADD_DETAIL = $("#address-detail").val();
 		
 		$("#staticBackdrop").modal("show");
 	})
-	
+	//  모달 취소 > 배송리스트 모달
 	$("#payCancelbtn").on('click', function(){
 		$("#staticBackdrop").modal("show");
 	})

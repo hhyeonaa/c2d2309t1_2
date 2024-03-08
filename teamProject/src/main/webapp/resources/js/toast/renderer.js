@@ -9,19 +9,25 @@ class DeleteButton {
 		// 버튼 클릭 이벤트 처리
 		var colName = props.columnInfo.header;
 		el.addEventListener('click', (e) => {
-		    alert(colName + ' 하시겠습니까?');
+		    if(confirm(colName + ' 하시겠습니까?')){
+				props.grid.removeRow(props.rowKey);
+				props.grid.request('deleteData');
+				props.grid.reloadData();
+			}
+			
+			this.render(props);
 		});
 		
 		this.el = el;
 		this.render(props);
 	}
     getElement() { return this.el; }
-    render(props) {  }
+    render(props) {
+	}
 }
 
 class ToggleButton {
 	constructor(props) {
-		debugger;
 		const el = document.createElement('div');
 		el.className  = 'form-check form-switch justify-content-center';
 		el.style = 'position: relative';
@@ -37,8 +43,7 @@ class ToggleButton {
 									+ flag + ' value="' + value + '">');
 									
 		// 버튼 클릭 이벤트 처리
-		el.addEventListener('d', (e) => {
-			debugger;
+		el.addEventListener('change', (e) => {
 //			if (typeof props.columnInfo.renderer.onchange === 'function') {
 //			    props.columnInfo.renderer.onchange(e.target.checked ? "1" : "0");
 //			} else {
@@ -46,22 +51,22 @@ class ToggleButton {
 //			}
 			
 			
-//			props.value = e.target.checked ? "1" : "0";
-//			this.render(props);
+			props.value = e.target.checked ? "1" : "0";
+			this.render(props, 1);
 		});
 		
 		this.el = el;
 		this.render(props);
-		debugger
 	}
 	getElement() { return this.el; }
-	render(props) {
-		debugger;
-//		this.el.value = props.value;
-		if (props.value === '1') {
-			this.el.querySelector('.form-check-input').checked = true;
-		} else {
-			this.el.querySelector('.form-check-input').checked = false;
-		}
+	render(props, flag) {
+		this.el.value = props.value;
+		if(flag == 1)
+			props.grid.setValue(props.rowKey, props.columnInfo.name, props.value == "1" ? "1" : "0");
+//		if (props.value === '1') {
+//			this.el.querySelector('.form-check-input').checked = true;
+//		} else {
+//			this.el.querySelector('.form-check-input').checked = false;
+//		}
 	}
 }

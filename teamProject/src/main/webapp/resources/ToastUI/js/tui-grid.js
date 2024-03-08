@@ -4497,13 +4497,14 @@ var messages = {
             resizeHandleGuide: 'You can change the width of the column by mouse drag, and initialize the width by double-clicking.',
         },
         net: {
-            confirmCreate: 'Are you sure you want to create {{count}} data?',
-            confirmUpdate: 'Are you sure you want to update {{count}} data?',
-            confirmDelete: 'Are you sure you want to delete {{count}} data?',
+//			[ToastUI] 데이터 변경 시 언어 수정 (영어 -> 한글) 03.07
+            confirmCreate: '정말로 {{count}}개의 데이터를 추가하시겠습니까?',
+            confirmUpdate: '정말로 {{count}}개의 데이터를 수정하시겠습니까?',
+            confirmDelete: '정말로 {{count}}개의 데이터를 삭제하시겠습니까?',
             confirmModify: 'Are you sure you want to modify {{count}} data?',
-            noDataToCreate: 'No data to create.',
-            noDataToUpdate: 'No data to update.',
-            noDataToDelete: 'No data to delete.',
+            noDataToCreate: '추가할 데이터가 없습니다.',
+            noDataToUpdate: '수정할 데이터가 없습니다.',
+            noDataToDelete: '삭제할 데이터가 없습니다.',
             noDataToModify: 'No data to modify.',
             failResponse: 'An error occurred while requesting data.\nPlease try again.',
         },
@@ -25437,6 +25438,8 @@ exports.confirmMutation = void 0;
 var message_1 = __webpack_require__(62);
 function confirmMutation(type, params) {
     var count = Object.keys(params).reduce(function (acc, key) { return acc + params[key].length; }, 0);
+//  [ToastUI] update는 메시지창 안띄우기 수정 03.07
+    if(type == "UPDATE") return true;
     return count ? confirm(message_1.getConfirmMessage(type, count)) : alert(message_1.getAlertMessage(type));
 }
 exports.confirmMutation = confirmMutation;

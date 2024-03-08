@@ -16,17 +16,28 @@
  draggable(boolean) : 순서 바꾸는 기능 필요 시 (ex. 게시판 관리 페이지) (!!! draggable 사용 시 perPage 는 무조건 0)
 **/
 
-var grid = (url, perPage, columns, draggable) => {
+var appendRows = [];
+var defaultPerPage;
+
+var grid = (url, perPage, columns, draggable, parameter) => {
+	defaultPerPage = perPage;
 	var pageOptions = {
 		useClient: true,
 		perPage: perPage
 	};
-	if(perPage === 0) pageOptions = {};
+	if(perPage === 0) {
+		pageOptions = {};
+		$("#setPerpage").remove();
+	}
 	
 	const dataSource = {
 		api: {
-			readData: { url: url, method: 'GET' }
-		}
+			createData: { url: url, method: 'POST',   initParams: { param: parameter }},
+			readData:   { url: url, method: 'GET',    initParams: { param: parameter }},
+			updateData: { url: url, method: 'PUT',    initParams: { param: parameter }},
+		    deleteData: { url: url, method: 'DELETE', initParams: { param: parameter }}
+		},
+  		contentType: 'application/json'
 	};
 	const Grid = tui.Grid;
 	const grid = new Grid({
@@ -38,4 +49,74 @@ var grid = (url, perPage, columns, draggable) => {
 		rowHeaders: ['rowNum', 'checkbox'],
 		pageOptions: pageOptions
 	});
+	
+//	const appendBtn = document.getElementById('appendBtn');
+//	const appendedData = {};
+//    columns.forEach(item => appendedData[item.name] = '')
+//	appendBtn.addEventListener('click', () => {
+//		var rowCount = grid.getRowCount();
+//		appendRows.push(rowCount);
+//		if($("#setPerpage").val() == '0') grid.setPerPage(rowCount + 1, dataSource);
+//		grid.appendRow(appendedData);
+//    });
+//    
+//    const removeBtn = document.getElementById('removeBtn');
+//	removeBtn.addEventListener('click', () => {
+//		debugger;
+//		grid.removeRows(appendRows);
+//		appendRows = [];
+//    });
+
+	$(document).on("click", "#insertBtn", function () {
+		debugger;
+		$.ajax({
+			type: "post"
+			, url: "insertPro"
+			, data: {AD_ID: $('#AD_ID').val(),
+					 AD_PW: $('#AD_PW').val(),
+					 AD_NAME: $('#AD_NAME').val() }
+		})
+		.done(function(data) {
+			debugger;
+			if(data == "") {
+				return false;
+			}
+			debugger;
+			debugger;
+			modal.css('display', 'none');
+			$('#adminDiv').load(location.href+' #adminDiv');
+//			location.reload();
+		 })
+	});
+    
+    const resetBtn = document.getElementById('resetBtn');
+    resetBtn.addEventListener('click', () =>{
+		debugger;
+		grid.reloadData();
+		debugger;	
+	});
+	
+	const updateBtn = document.getElementById('updateBtn');
+	debugger;
+	updateBtn.addEventListener('click', function(){
+		debugger;
+		grid.request('updateData');
+	});
+	
+	debugger;
+	$("#active").on("change", function(){
+		debugger;
+	});
+	
+	const setPerpage = document.getElementById('setPerpage');
+	setPerpage.addEventListener('change', function(e){
+		var _perPage = Number(e.target.value);
+		if(_perPage === 0) _perPage = grid.getRowCount();
+		if(e.target.value === "-1") {
+			debugger;
+			_perPage = defaultPerPage;
+		}
+		grid.setPerPage(_perPage, dataSource);
+	});
+	
 }

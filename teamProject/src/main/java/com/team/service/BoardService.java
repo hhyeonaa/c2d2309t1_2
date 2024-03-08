@@ -85,5 +85,10 @@ public class BoardService {
 		return boardDAO.deleteBoard(delMap);
 	}// deleteBoard()
 
+	public List<Map<String, String>> selectAddress(String id) {
+		System.out.println("BoardService selectAddress()");
+		return boardDAO.selectAddress(id);
+	}// selectAddress()
+
 
 }// BoardService 끝

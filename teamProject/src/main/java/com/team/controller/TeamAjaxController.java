@@ -1,12 +1,9 @@
 package com.team.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
@@ -29,14 +26,12 @@ public class TeamAjaxController {
 	
 	@GetMapping
 	@ResponseBody
-	public ResponseEntity<?> alert(@RequestParam MultiValueMap<String, Object> param) {
-
-		Map<String, String> params = new HashMap<String, String>();
+	public ResponseEntity<?> alert(@RequestParam MultiValueMap<String, Object> param, HttpSession session) {
 		Object[] arr = param.get("msgArr[]").toArray();
+		Map<String, String> params = codeService.selectMessage(param.getFirst("msgText").toString(), arr, session);
 		
-		params = codeService.selectCode(param.get("msgText").get(0).toString(), arr);
-		params.put("isConfirm", param.get("msgIsTrue").get(0).toString());
-		
+	    params.put("isConfirm", param.getFirst("msgIsTrue").toString());
+	    
 		return ResponseEntity.ok().body(params);
 	}
 	

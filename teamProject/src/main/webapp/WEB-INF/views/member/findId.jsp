@@ -37,6 +37,7 @@
 		<div id="loginBox">
 		<!-- 로그인 페이지 타이틀 -->
 		<img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
+		<hr>
 		<h4>아이디 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>

@@ -37,7 +37,7 @@ $(function(){
 	var currentRow, preRow;
 	
 	// 순서 변경 버튼
-	$(document).on("click", "#btnTop", function(){
+	$(document).on('click', '#btnTop', function(){
 	    currentRow = $(this).closest('tr');
 	    preRow = currentRow.prev('tr');
 	    if (preRow.length !== 0) {
@@ -46,25 +46,25 @@ $(function(){
 	    return false;
 	});
 	
-	
 	// 저장 버튼
-	$(document).on("click", "#saveBtn", function () {
+	$('#saveBtn').on('click', function () {
+		var arr = [];
 		for (let i = 1; i < categoryList.rows.length; i++) {
-			$.ajax({
-				type: "post"
-				, url: "displayUpdate"
-				, data: {CO_TYPE: 'CA'
-						 , SEQ: i
-						 , CODE: categoryList.rows[i].cells[0].innerText
-						 , HIDE: categoryList.rows[i].cells[2].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-		}
-		location.reload();
-	});	
-	
-	// 취소 버튼
-	$(document).on("click", "#resetBtn", function () {
+			arr.push(
+				{CO_TYPE: 'CA'
+				 , SEQ: i
+				 , CODE: categoryList.rows[i].cells[0].innerText
+				 , ACTIVE: categoryList.rows[i].cells[2].querySelector('input[type="checkbox"]').checked ? 1 : 0 
+				}
+			)
+		};
+		$.ajax({
+			type: "post"
+			, contentType: 'application/json'
+			, url: "displayUpdate"
+			, data: JSON.stringify(arr)
+		})
 		location.reload();
 	});
-
+	
 });

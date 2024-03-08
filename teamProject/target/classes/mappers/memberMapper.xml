@@ -33,7 +33,8 @@
 				, MEM_BIRTH
 				, MEM_TEL
 				, MEM_EMAIL
-				, MEM_DATE )
+				, MEM_DATE
+				, MEM_CAT )
 		values ( concat("ME", IFNULL((select MAX(cast(replace(MEM_NO, "ME", "") AS unsigned))+1 FROM MEMBERS A), 1))
 				,#{MEM_ID}
 				,#{MEM_PW}
@@ -43,20 +44,23 @@
 				,#{MEM_BIRTH}
 				,#{MEM_TEL}
 				,#{MEM_EMAIL}
-				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s') ) 
+				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+				,'0' ) 
 	</insert>
 	
 	<select id="login" resultType="map">
 		select MEM_ID, MEM_PW, MEM_NICK
 		from MEMBERS
-		where MEM_ID = #{MEM_ID} 
+		where MEM_ID = #{MEM_ID}
 		and MEM_PW = #{MEM_PW}
+		and MEM_CAT = '0'
 	</select>
 	
 	<select id="socialLogin" resultType="map">
 		select MEM_ID
+			 , MEM_CAT
 		from MEMBERS
-		where MEM_ID = #{MEM_ID}	
+		where MEM_ID = #{MEM_ID}
 	</select>	
 	
 	<select id="adminLogin" resultType="map">
@@ -92,6 +96,7 @@
 	
 	<select id="emailCheck" resultType="int">
 		select count(MEM_EMAIL)
+			 , MEM_CAT
 		from MEMBERS
 		where MEM_EMAIL = #{MEM_EMAIL}
 	</select>
@@ -117,6 +122,7 @@
 			 , M.MEM_TEL
 			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
 			 , S.SCO_SCORE
+			 , M.MEM_CAT
 		from MEMBERS M
 		left outer join SCORE S
 		on M.MEM_NO = S.MEM_NO
@@ -144,4 +150,98 @@
  		where MEM_EMAIL = #{MEM_EMAIL}
 	</update>
 	
+	<select id="myListSell" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM1'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListBuy" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM2'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListShare" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM3'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListAuction" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , A.AUC_TSC
+			 , A.AUC_NAME
+			 , A.AUC_SELLER
+			 , format(A.AUC_BP, 0) as "AUC_BP"
+			 , DATE_FORMAT(A.AUC_ETIME, '%m/%d %H%:%i') as "AUC_ETIME"
+			 , format(A.AUC_INP, 0) as "AUC_INP"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join AUCTION A
+		on M.MEM_ID = A.AUC_SELLER
+        left outer join CODE C
+        on A.AUC_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on A.AUC_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM4'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="deleteCheck" resultType="map">
+		select MEM_NO, MEM_EMAIL
+		from MEMBERS
+		where MEM_EMAIL = #{MEM_EMAIL}
+		and MEM_NO = #{MEM_NO}
+	</select>
+	
+	<update id="memberDelete" parameterType="map">
+		update MEMBERS
+		set MEM_CAT = '2'
+		  , MEM_EXDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where MEM_EMAIL = #{MEM_EMAIL}
+	</update>
+	
+	<update  id="resetImage" parameterType="String">
+		update 	MEMBERS
+		set 	MEM_IMAGE = default
+		where 	MEM_NO = #{MEM_NO};
+	</update>
 </mapper>

@@ -83,9 +83,12 @@
 		SELECT *
 		  FROM PRODUCT
 		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO
+			ON PRO_NO = IMG_PRONO
+		  JOIN CODE
+			ON PRO_TC = CONCAT(CO_TYPE, CO_NO)
 		 WHERE IMG_NO = 1
-			AND PRO_TC = 'MM2'
+		   AND PRO_TC = CONCAT(CO_TYPE, '2')
+		 ORDER BY PRO_DATE DESC 
 	</select>
 	
 	<!-- 성엽 작업 끝 -->
@@ -125,5 +128,11 @@
 	        #{success, mode=OUT, jdbcType=VARCHAR}
 		)}		
 	</select>
-	
+	<select id="selectAddress" resultType="map">
+		SELECT A.ADD_NO,A.ADD_POST,A.ADD_NAME,A.ADD_DETAIL,A.ADD_NICK,M.MEM_ID
+		  FROM ADDRESS A
+		  JOIN MEMBERS M
+		    ON A.MEM_NO = M.MEM_NO
+		 WHERE M.MEM_ID = #{id}  
+	</select>
 </mapper>

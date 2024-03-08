@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.awt.Menu;
 import java.io.File;
 import java.io.IOException;
 import java.lang.System.Logger;
@@ -13,6 +14,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -69,11 +71,8 @@ public class BoardController {
 	@GetMapping("/buyBoard")
 	public String buyBoard(Model model) {
 		System.out.println("BoardController buyBoard()");
-		
 		List<Map<String, String>> buyList = boardService.selectBuyBoard();
-		logger.info("buyList: " + buyList);
 		model.addAttribute("buyList", buyList);
-		
 		return "board/buyBoard";
 	}// buyBoard()
 	
@@ -100,12 +99,46 @@ public class BoardController {
 	}// auctionBoard()
 	
 	@GetMapping("/writeBoard")
-	public String writeBoard(Model model) {
+	public String writeBoard(HttpServletRequest request,Model model,HttpSession session) {
 		System.out.println("BoardController writeBoard()");
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		String id = (String)session.getAttribute("MEM_ID");
+		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
+		System.out.println("주소왔니? " + selectAddress);
+		model.addAttribute("selectAddress", selectAddress);
+		if(proWr != null || proDate != null) {
+			Map<String, String> map = new HashMap<>();
+			map.put("proWr", proWr);
+			map.put("proDate", proDate);
+			Map<String,String> resultMap = boardService.selectBoardDetail(map);
+			System.out.println("resultMap: "+ resultMap);
+			String ImgNames = resultMap.get("IMG_NAMES");
+			String[] ImgNameSplit = ImgNames.split("\\|");
+			ArrayList<String> imgList = new ArrayList<>();
+			for (String e : ImgNameSplit) {
+				imgList.add(e);
+			}
+			System.out.println("=====");
+			System.out.println(imgList);
+			model.addAttribute("resultMap", resultMap);
+			model.addAttribute("imgList", imgList);
+		}
 		//codeService.selectCode("MM1");
-
-		
-//		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
+		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
+		List<Map<String, String>> placeHolder =  codeService.selectCodeList(EnumCodeType.상세설명, session);
+		Map<String, String> detailTxt = new HashMap<>();
+		int i = 0;
+		for (Map<String, String> map : placeHolder) {
+			i++;
+		    String value = map.get("CODE"); // 특정 키에 대한 값 조회
+		    detailTxt.put("dTxt"+i, value);
+		}
+		model.addAttribute("detailTxt", detailTxt);
 		return "board/writeBoard";
 	}// writeBoard()
 	

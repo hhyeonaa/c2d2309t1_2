@@ -248,6 +248,7 @@ selectMethod();
 // 6.새 배송지 추가 저장 취소 관련
 	// 새 배송지 추가저장 
 	$("#payAddbtn").on('click', function(){
+		$("#staticBackdrop").modal("hide");
 		debugger;
 		$.ajax({
 			url:"addDelivery",
@@ -286,6 +287,7 @@ selectMethod();
 	//7.배송지 수정버튼 > select,update
 	//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출력
 	$("#deliUpdate").on('click', function(){
+		$("#staticBackdrop").modal("hide");
 		debugger;
 		$ajax({
 			url: "addDeliveryUpdate",

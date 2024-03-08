@@ -35,14 +35,15 @@
 			WHERE M.MEM_NO = #{MEM_NO}	
 	</select>
 	
-	<!--로그인 회원 최근 배송지(기본배송지) select  -->
+	<!--로그인 회원 배송지 select  -->
 	<select id="getMemAddBasic" resultType="map">
 		SELECT * 
 			FROM MEMBERS M
 			JOIN ADDRESS A
 				ON M.MEM_NO = A.MEM_NO
 			WHERE M.MEM_NO = #{MEM_NO}
-			AND ADD_BASIC = '1'	
+			ORDER BY A.ADD_NO
+			LIMIT 1;	
 	</select>
 	
 	<!--로그인 회원 배송리스트 select  -->
@@ -79,5 +80,7 @@
 	</insert>
 	
 	<!--회원 수정할 배송지 select -->
-	
+<!-- 	<select> -->
+<!-- 		SELECT  -->
+<!-- 	</select> -->
 </mapper>

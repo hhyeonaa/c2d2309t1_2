@@ -31,7 +31,6 @@
 	
 	<!-- websocket -->
 	<beans:bean id="WebSocketHandler" class="com.team.chat.WebSocketHandler" />        
-	
 	<websocket:handlers>
 	    <websocket:mapping handler="WebSocketHandler" path="/chat"/>
 	    <websocket:handshake-interceptors>

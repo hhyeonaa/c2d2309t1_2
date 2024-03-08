@@ -119,7 +119,7 @@
 		 			<tr>
 		 				<td colspan="4">
 		 					<button class="btn btn-danger btn-lg">찜</button>
-		 					<button class="btn btn-warning btn-lg">채팅</button>
+		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
 		 					<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
@@ -220,12 +220,6 @@
 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
 		 			</tr>
 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
-		 			<tr>
-		 				<td colspan="2">
-		 					<button class="btn btn-warning" style="width: 30%;">채팅</button>
-		 					<button class="btn btn-success" style="width: 30%;" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
-		 				</td>
-		 			</tr>		 					
 		 		</table>
 		 	</div>
 		</div>
@@ -234,6 +228,7 @@
 </div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/startChat.js"></script>
 <script type="text/javascript">
 
 </script>

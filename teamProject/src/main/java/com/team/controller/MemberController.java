@@ -221,6 +221,7 @@ public class MemberController{
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
 			session.setAttribute("AD_ID", check.get("AD_ROLE"));
+			session.setAttribute("ROL_NO", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		}
 		return "member/msg";

@@ -133,7 +133,7 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 			AD_NAME: $('#AD_NAME').val(),
 			AD_ACTIVE: "0",
 			AD_NO: grid.getRowCount() + 1,
-			AD_ROLE: "총괄" 
+			AD_ROLE: "RO1" 
 		};
 		grid.appendRow(row);
 		grid.request("createData");

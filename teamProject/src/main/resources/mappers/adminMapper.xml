@@ -54,19 +54,19 @@
 		where AD_NO = #{AD_NO}
 	</update>
 	
-	<select id="getBoardList" resultType="map">
-		select CODE
-				, ACTIVE
-				, SEQ
-				, CASE CO_DETAIL WHEN '0' THEN '글'
-						   WHEN '1' THEN '글+사진'
-						   WHEN '2' THEN '글+사진+날짜'
-						   ELSE '없음'
-			   END AS "CO_DETAIL"
-		from CODE
-			where  CO_TYPE = 'MM'
-		ORDER BY SEQ
-	</select>
+<!-- 	<select id="getBoardList" resultType="map"> -->
+<!-- 		select CODE -->
+<!-- 				, ACTIVE -->
+<!-- 				, SEQ -->
+<!-- 				, CASE CO_DETAIL WHEN '0' THEN '글' -->
+<!-- 						   WHEN '1' THEN '글+사진' -->
+<!-- 						   WHEN '2' THEN '글+사진+날짜' -->
+<!-- 						   ELSE '없음' -->
+<!-- 			   END AS "CO_DETAIL" -->
+<!-- 		from CODE -->
+<!-- 			where  CO_TYPE = 'MM' -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select> -->
 	
 	<update id="displayUpdate">
 		update CODE
@@ -76,14 +76,14 @@
 		and	   CODE = #{CODE}
 	</update>
 	
-	<select id="getCategoryList" resultType="map">
-		select SEQ
-				, CODE
-				, ACTIVE
-		from CODE
-		where CO_TYPE = 'CA'
-		ORDER BY SEQ
-	</select>	
+<!-- 	<select id="getCategoryList" resultType="map"> -->
+<!-- 		select SEQ -->
+<!-- 				, CODE -->
+<!-- 				, ACTIVE -->
+<!-- 		from CODE -->
+<!-- 		where CO_TYPE = 'CM' -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select>	 -->
 	
 	<insert id="inputForm">
 		insert into PRODUCT

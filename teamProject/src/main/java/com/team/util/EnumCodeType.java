@@ -19,7 +19,8 @@ public enum EnumCodeType {
 	코드번호("CO_NO"),
 	코드타입("CO_TYPE"),
 	코드내용("CODE"),
-	전체코드타입("CODE_LIST")
+	전체코드타입("CODE_LIST"),
+	입력폼항목("FO")
 //	메세지테이블("MESSAGE"),
 //	코드테이블("CODE"),
 //	전체보기("\"1\", \"0\""), 

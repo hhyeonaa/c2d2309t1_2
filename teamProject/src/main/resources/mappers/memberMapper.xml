@@ -65,6 +65,7 @@
 	
 	<select id="adminLogin" resultType="map">
 		select AD_ROLE
+			, ROL_NO
 		from ADMIN
 		where AD_ID = #{AD_ID} 
 		and AD_PW = #{AD_PW}

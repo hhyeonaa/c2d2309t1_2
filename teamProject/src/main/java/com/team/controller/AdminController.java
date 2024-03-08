@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.AdminService;
+import com.team.service.BoardService;
 import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
 import com.team.util.JsonUtils;
@@ -106,21 +107,25 @@ public class AdminController {
 	}
 	
 	@GetMapping("/board")
-	public String board(@RequestParam Map<String, String> map, Model model) {
-		List<Map<String, String>> mapList = adminService.getBoardList();
-		model.addAttribute("mapList", mapList);
-		List<Map<String, String>> formList = adminService.getForm(map);
-		System.out.println("리스트: " + formList.toString());
-		model.addAttribute("formList", formList);
+	public String board(@RequestParam Map<String, String> map, Model model, HttpSession session) {
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("form", codeService.selectCodeList(EnumCodeType.입력폼항목, session));
 		return "admin/board";
 	}
 	
- 	@GetMapping("/boardList")
+ 	@GetMapping("/boardPro")
  	@ResponseBody
- 	public ResponseEntity<?> boardList(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> mapList = adminService.getBoardList();
- 		System.out.println(mapList);
+ 	public ResponseEntity<?> readBoard(@RequestParam Map<String, String> req, HttpSession session) {
+ 		List<Map<String, String>> mapList = codeService.selectCodeList(EnumCodeType.메뉴항목, session);
  		return ToastUI.resourceData(req, mapList);
+ 	}
+ 	
+ 	@PutMapping("/boardPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateBoard(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		System.out.println(result);
+ 		return null;
  	}
 	
 	@PostMapping("/displayUpdate")
@@ -135,26 +140,66 @@ public class AdminController {
 	}
 	
 	@GetMapping("/category")
-	public String category(Model model) {
-		List<Map<String, String>> mapList = adminService.getCategoryList();
-		model.addAttribute("mapList", mapList);
+	public String category(Model model, HttpSession session) {
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
 		return "admin/category";
 	}
 	
- 	@GetMapping("/categoryList")
+ 	@GetMapping("/categoryPro")
  	@ResponseBody
- 	public ResponseEntity<?> categoryList(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> mapList = adminService.getCategoryList();
- 		System.out.println(mapList);
+ 	public ResponseEntity<?> readCategory(@RequestParam Map<String, String> req, HttpSession session){
+ 		List<Map<String, String>> mapList = codeService.selectCodeList(EnumCodeType.카테고리항목, session);
  		return ToastUI.resourceData(req, mapList);
  	}
  	
+ 	@PutMapping("/categoryPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateCategory(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		System.out.println(result);
+ 		return null;
+ 	}
+ 	
 	@GetMapping("/inputForm")
-	public String inputForm(Model model, HttpSession session) {
+	public String inputForm(HttpServletRequest request, Model model, HttpSession session) {
+		BoardService boardService = new BoardService();
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
+		String id = (String)session.getAttribute("MEM_ID");
+//		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
+//		System.out.println("주소왔니? " + selectAddress);
+//		model.addAttribute("selectAddress", selectAddress);
+		if(proWr != null || proDate != null) {
+			Map<String, String> map = new HashMap<>();
+			map.put("proWr", proWr);
+			map.put("proDate", proDate);
+			Map<String,String> resultMap = boardService.selectBoardDetail(map);
+			System.out.println("resultMap: "+ resultMap);
+			String ImgNames = resultMap.get("IMG_NAMES");
+			String[] ImgNameSplit = ImgNames.split("\\|");
+			ArrayList<String> imgList = new ArrayList<>();
+			for (String e : ImgNameSplit) {
+				imgList.add(e);
+			}
+			System.out.println("=====");
+			System.out.println(imgList);
+			model.addAttribute("resultMap", resultMap);
+			model.addAttribute("imgList", imgList);
+		}
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
 		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
 		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
 		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
+		List<Map<String, String>> placeHolder =  codeService.selectCodeList(EnumCodeType.상세설명, session);
+		Map<String, String> detailTxt = new HashMap<>();
+		int i = 0;
+		for (Map<String, String> map : placeHolder) {
+			i++;
+		    String value = map.get("CODE"); // 특정 키에 대한 값 조회
+		    detailTxt.put("dTxt"+i, value);
+		}
+		model.addAttribute("detailTxt", detailTxt);
 		return "admin/inputForm";
 	}
 	

@@ -37,17 +37,17 @@ public class AdminService {
 		adminDAO.adminUpdate(map);
 	}
 
-	public List<Map<String, String>> getBoardList() {
-		return adminDAO.getBoardList();
-	}
+//	public List<Map<String, String>> getBoardList() {
+//		return adminDAO.getBoardList();
+//	}
 	
 	public void displayUpdate(Map<String, String> map) {
 		adminDAO.displayUpdate(map);
 	}
 
-	public List<Map<String, String>> getCategoryList() {
-		return adminDAO.getCategoryList();
-	}
+//	public List<Map<String, String>> getCategoryList() {
+//		return adminDAO.getCategoryList();
+//	}
 
 	
 	

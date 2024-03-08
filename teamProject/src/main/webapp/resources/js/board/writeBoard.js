@@ -53,7 +53,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		
 		            const filename = arr[i]; // 파일 이름 지정
 		            const file = new File([blob], filename, {type: "image/png"}); // 파일 객체 생성
-		
+		  
 		            // 파일 객체 정보 출력 (예시)
 		            console.log("File name: " + file.name);
 		            console.log("File type: " + file.type);

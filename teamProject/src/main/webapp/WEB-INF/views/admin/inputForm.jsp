@@ -126,7 +126,6 @@ span {
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
-
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/inputForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -139,7 +138,7 @@ span {
 	customElements.define('radio-input', RadioInput);
 	customElements.define('select-input', SelectInput);
 	customElements.define('address-input', AddressInput);
-// 	customElements.define('image-input', ImageInput);
+	customElements.define('checkbox-input', CheckboxInput);
 
 	
 	

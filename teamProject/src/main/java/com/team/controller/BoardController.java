@@ -25,10 +25,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.team.service.AdminService;
 import com.team.service.BoardService;
 import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
@@ -506,5 +508,33 @@ public class BoardController {
 		}
 		return goBoard;
 	}// deleteBoard()
+	
+	
+	
+	@GetMapping("/inputForm")
+	public String inputForm(Model model, HttpSession session) {
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
+		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
+		return "admin/inputForm";
+	}
+	
+	@Inject
+	AdminService adminService = new AdminService();
+	
+	@GetMapping("/getForm")
+	@ResponseBody
+	public ResponseEntity<?> getForm(@RequestParam Map<String, String> map) {
+		List<Map<String, String>> formList = adminService.getForm(map);
+		
+		for (Map<String, String> code : formList) {
+			String codeValue = code.get("CODE");
+			code.put("formName", codeValue.split("/")[0]);
+			code.put("formID", codeValue.split("/")[1]);
+		}
+		System.out.println("리스트: " + formList.toString());
+		return ResponseEntity.ok().body(formList);
+	}
 	
 }// 클래스 끝

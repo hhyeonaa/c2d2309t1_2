@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,21 +49,39 @@ public class AdminController {
 		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
+	@PostMapping("/managerPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> createManager(@RequestBody String createdRows) {
+ 		System.out.println(createdRows);
+ 		List<Map<String, String>> result = ToastUI.getRealData(createdRows);
+ 		
+ 		System.out.println(result);
+ 		return null;
+ 	}
+	
  	@GetMapping("/managerPro")
  	@ResponseBody
  	public ResponseEntity<?> readManager(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
  		return ToastUI.resourceData(req, mapList);
  	}
+ 	
  	@PutMapping("/managerPro")
  	@ResponseBody
  	public ResponseEntity<?> updateManager(@RequestBody String updatedRows) {
+ 		
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
  		
  		System.out.println(result);
  		return null;
  	}
- 	
+ 	@DeleteMapping("/managerPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> deleteManager(@RequestParam Map<String, String> deletedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
+ 		System.out.println(result);
+ 		return null;
+ 	}
 	
 	@PostMapping("/insertPro")
 	public String insertPro(@RequestParam Map<String, String> map, HttpServletResponse response) {
@@ -91,7 +110,7 @@ public class AdminController {
 		List<Map<String, String>> mapList = adminService.getBoardList();
 		model.addAttribute("mapList", mapList);
 		List<Map<String, String>> formList = adminService.getForm(map);
-		System.out.println("리스트: " + formList);
+		System.out.println("리스트: " + formList.toString());
 		model.addAttribute("formList", formList);
 		return "admin/board";
 	}
@@ -110,6 +129,7 @@ public class AdminController {
 		List<Map<String, String>> arrList = requestBody;
 	    for (Map<String, String> entry : arrList) {
 	        adminService.displayUpdate(entry);
+	        System.out.println(entry);
 	    }
 		return ResponseEntity.ok().body(arrList);
 	}
@@ -134,6 +154,7 @@ public class AdminController {
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
 		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
 		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
 		return "admin/inputForm";
 	}
 	
@@ -158,7 +179,6 @@ public class AdminController {
 		}
 		System.out.println("리스트: " + formList.toString());
 		return ResponseEntity.ok().body(formList);
-
 	}
 	
 	
@@ -199,6 +219,11 @@ public class AdminController {
 	public void logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		session.invalidate();
 		codeService.submitForAlert(response, "AM3", new Object[]{"로그아웃"}, request.getContextPath());
+	}
+	
+	@GetMapping("/drawing")
+	public String drawing() {
+		return "admin/drawing";
 	}
 	
 	/* 무창 작업공간 */

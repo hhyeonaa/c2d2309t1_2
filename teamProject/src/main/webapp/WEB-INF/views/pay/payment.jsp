@@ -57,9 +57,10 @@
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
             				<c:if test="${!empty memAddBasic }">
+            				<c:forEach var="memAddBasic" items="${memAddBasic}">
             				<input id="MEM_NO" type="hidden" value="${memAddBasic.MEM_NO}" name="MEM_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.MEM_NAME}</p>
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.ADD_RECEIVER}</p>
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>
             					</div>
             					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
@@ -68,6 +69,7 @@
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
             						${memAddBasic.MEM_TEL}
             					</p>
+            				</c:forEach>	
             				</c:if>	
             				<c:if test="${empty memAddBasic }">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
@@ -159,7 +161,7 @@
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									상품금액
 									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice">
 									<!--PRO_PRICE  -->
 										${payProList.PRO_PRICE }원
 									</div>
@@ -191,7 +193,7 @@
 									총 결제금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
-									${payPrice}<div>원</div>
+									<span id="allPrice">${payProList.PRO_PRICE + 3000}</span><div> 원</div>
 									</div>
 								</div>
 							</div>	            			
@@ -233,42 +235,14 @@
 								</div>
 								<div class="addressList">
 									<ul id="divAddress" class="deliveryaddress">
-<%-- 										<c:forEach var="AA" items="${memAddList }"> --%>
-<!-- 										<li class="addressInfo mb-4"> -->
-<!-- 											<div class="boxdeliveryaddress"> -->
-<!-- 												<div class="boxdeliveryaddressTitle"> -->
-<!-- 													<span>집집집</span> -->
-<!-- 													<button type="button" class="button__delivery-choice">선택</button> -->
-<!-- 												</div> -->
-<!-- 												<div class="useraddressinfo"> -->
-<!-- 													<div id="useraddressinfo"> -->
-<!-- 														<div class="boxdeliveryaddressContent"> -->
-<!-- 															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span> -->
-<!-- 														</div> -->
-<!-- 														<div class="boxdeliveryaddressName"> -->
-<!-- 															<span>홍길동</span> -->
-<!-- 															<span>010-2222-2222</span> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 													<div class="deliverybtn"> -->
-<!-- 														<button>수정</button> -->
-<!-- 														<button>삭제</button> -->
-<!-- 													</div>	 -->
-<!-- 												</div> -->
-<!-- 											</div> -->
-<!-- 										</li> -->
-<%-- 										</c:forEach>	 --%>
+										<!--//쿼리  -->
 									</ul>
 								</div>
 							</section>
-						</div>
+						</div>	
 					</div>	
 				</div>
 			</div>
-<!--  	      	<div class="modal-footer">  -->
-<!--  	        	<button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>  -->
-<!--  	        	<button type="submit" class="btn btn-primary" >저장하기</button> -->
-<!--  	      	</div>  -->
 	      </form>
 	    </div>
 	  </div>
@@ -286,7 +260,7 @@
 <!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="payListXbtn"></button>
 	      </div>
-	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post">
+<%-- 	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post"> --%>
 	      	<div class="modal-body">
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__new-address">
@@ -339,9 +313,7 @@
 									<div class="box__input box__text-area" style="display: block; width: 470px;">
 										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="" >
 									</div>
-								
 								</div>
-									
 						</section>
 					</div>
 	      		</div>
@@ -350,7 +322,7 @@
 		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="payCancelbtn">취소</button>
 		    	<button type="submit" class="btn btn-primary" id="payAddbtn">저장</button>
 		  	</div>
-	      </form>
+<!-- 	      </form> -->
 	    </div>
 	  </div>
 	</div>

@@ -107,7 +107,7 @@
 			, #{PRO_CATE}
 			, #{PRO_STATUS}
 			, #{PRO_TC}
-			, '거래전'
+			, 'TM1'
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
 	</insert>
 	
@@ -118,9 +118,11 @@
 				, CODE
 				, CO_DETAIL
 				, SEQ
+				, ACTIVE
 			from CODE
 			where CO_TYPE = 'FO'
-			and ACTIVE = '1'
+			and CO_NO != '7'
+			ORDER BY SEQ
 	</select>
 	
 	

@@ -102,8 +102,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		code.put("ROL_NO", ses);
 		
 		List<Map<String, String>> selectCodeList = codeTypeName.equals("AM") ? dao.selectMessageList(code) 
-																		 	 : dao.selectCodeList(code)
-																		 	 ;
+																		 	 : dao.selectCodeList(code);
 		try {
 			if(selectCodeList == null) {
 	        	throw new CodeTypeNullException(codeType.getType().trim());
@@ -140,7 +139,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		
     	codes.put(EnumCodeType.코드타입.getType().trim(), codeType);
     	codes.put(EnumCodeType.코드번호.getType().trim(), code.replaceAll("[^0-9]", ""));
-    	codes.put("AD_ROLE", session == null ? "" : (String)session.getAttribute("MEM_ID"));
+    	codes.put("ROL_NO", session == null ? "" : (String)session.getAttribute("MEM_ID"));
 
     	return codes;
 	}

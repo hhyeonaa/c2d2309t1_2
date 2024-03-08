@@ -62,8 +62,6 @@ public class BoardController {
 		List<Map<String,String>> resultList = boardService.selectBoard(map);
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
-		logger.info("resultList: "+resultList);
-		model.addAttribute("resultList",resultList);
 		return "board/saleBoard";
 	}// saleBoard()
 	
@@ -72,9 +70,13 @@ public class BoardController {
 	
 	@GetMapping("/buyBoard")
 	public String buyBoard(Model model) {
-		System.out.println("BoardController buyBoard()");
-		List<Map<String, String>> buyList = boardService.selectBuyBoard();
-		model.addAttribute("buyList", buyList);
+		String proTc = "MM2";
+		Map<String, String> map = new HashMap<>();
+		map.put("proTc", proTc);
+		System.out.println("map: " + map);
+		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/buyBoard";
 	}// buyBoard()
 	
@@ -89,7 +91,7 @@ public class BoardController {
 		System.out.println("map: " + map);
 //		List<Map<String,String>> resultList = boardService.selectDivideBoard();
 		List<Map<String,String>> resultList = boardService.selectBoard(map);
-		logger.info("resultList: "+resultList);
+		System.out.println("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
 		return "board/divideBoard";
 	}// divideBoard()
@@ -233,19 +235,17 @@ public class BoardController {
 	    return ResponseEntity.ok("Data and files received successfully");
 	}
 	
-//	public void updateBoard(Map<String, String> param) {
-//		pamram.get(img);	// 화면에서 가져온 사진 2개
-//		= boardService.getImgMap(param); // DB에서 가져온 2개 (수정전 2개)
-//		
-//		
-//	}
 	@PostMapping("/updateBoardPro")
 	public ResponseEntity<?> updateBoardPro(
 	        @RequestParam Map<String, String> textData,
 	        @RequestParam("imgs") List<MultipartFile> imgs,
 	        HttpServletRequest request) throws IOException {
 		System.out.println("BoardController updateBoardPro()");
-		
+//		업데이트할 때...
+//		글 번호를 찾아온다.(아이디와 date로)
+//		delete로 그 글번호를 사용하여 이미지테이블에서 이미지 파일 삭제
+//		그리고 구해놓은 글번호를 사용하여 그 글에 접근하여
+//		기존 정보들에 update를 한다...
 	    // 텍스트 데이터 처리
 		System.out.println("textData: " + textData);
 	    // 원본 Map의 textData 값 (JSON 문자열)
@@ -259,6 +259,33 @@ public class BoardController {
         Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
         // 파싱된 Map의 내용 출력
         System.out.println("parsedMap: " + parsedMap);
+        // 글번호 구해오기
+        Map<String, String> getNumMap = new HashMap<>();
+        getNumMap.put("proWr", parsedMap.get("proWr"));
+        getNumMap.put("proDate", parsedMap.get("proDate"));
+        String proNo = boardService.getProNo(getNumMap);
+        System.out.println("글번호 확인용: " + proNo);
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(실제 이미지도 삭제)
+        String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("proNo", proNo);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+		System.out.println("oldImgList: " + oldImgList);
+		//int successDelete = boardService.deleteBoard(delMap);
+		//System.out.println("삭제후 숫자: " + successDelete);
+		//if(successDelete == 1) {
+		//	System.out.println("삭제 성공@@@");
+		oldImgList.forEach(t -> {
+			new File(path + "\\" + t).delete();
+			System.out.println(t);
+		});
+		//} else {
+		//	System.out.println("삭제 실패@@@");
+		//}
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(끝부분)
 	    ServletContext context = request.getSession().getServletContext();
 	    String realPath = context.getRealPath("/resources/img/uploads");
 	    System.out.println("realPath: " + realPath);
@@ -273,6 +300,8 @@ public class BoardController {
 	        System.out.println("Saved file: " + fileName + " to " + realPath);
 	    }
 	    //boardService.insertBoard(parsedMap, imageFilenames);
+	    parsedMap.put("proNo", proNo);
+	    boardService.updateBoard(parsedMap, imageFilenames);
 
 	    return ResponseEntity.ok("Data and files received successfully");
 	}

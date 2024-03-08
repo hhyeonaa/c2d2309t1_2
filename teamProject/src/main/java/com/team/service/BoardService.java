@@ -90,5 +90,19 @@ public class BoardService {
 		return boardDAO.selectAddress(id);
 	}// selectAddress()
 
+	public String getProNo(Map<String, String> getNumMap) {
+		System.out.println("BoardService getProNo()");
+		return boardDAO.getProNo(getNumMap);
+	}// getProNo()
+
+	public void updateBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardService updateBoard()");
+		// 리스트의 크기가 6보다 작은 동안 'empty'를 추가
+//        while (imageFilenames.size() < 6) {
+//            imageFilenames.add("empty");
+//        }
+		boardDAO.updateBoard(parsedMap,imageFilenames);
+	}// updateBoard()
+
 
 }// BoardService 끝

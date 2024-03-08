@@ -49,11 +49,13 @@ var requestPay = (pgId, paypayMethod) => {
   			buyer_postcode: "123-456"
 		}, function (rsp) { // callback 로직
   			if(rsp.success){
+				  
 				  debugger;
 				  console.log(rsp);
 //				  $.ajax({
 //					  type: "post",
 //					  url: "paySuccess",
+//					  data: JSON.stringify(rsp)   
 //				  })//ajax
 				  
 		  	}else{
@@ -65,32 +67,36 @@ var requestPay = (pgId, paypayMethod) => {
 
 //5-1 배송지리스트
 function addList(result){
+	var i = 0;    
 	for (let item of result) {
-		$("#divAddress").append('<li class="addressInfo mb-4">'+
+		$("#divAddress").append('<li class="addressInfo mb-4" id="addListNo' + i + '">'+
 									'<div class="boxdeliveryaddress">'+
 									'<input id="ADD_NO" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO">' +
 									'<input id="MEM_NO1" type="hidden" value="'+item.MEM_NO+'" name="MEM_NO">' +
 										'<div class="boxdeliveryaddressTitle">'+
 											'<span>'+item.ADD_NICK +'</span>'+
-											'<button type="button" class="button__delivery-choice">선택</button>'+
+											'<button type="button" class="button__delivery-choice" id="choiceBtn' + i + '">선택</button>'+
 										'</div>'+
 										'<div class="useraddressinfo">'+
 											'<div id="useraddressinfo">'+
 												'<div class="boxdeliveryaddressContent">'+
-													'<span>('+item.ADD_POST +') ' +item.ADD_NAME +' ' +item.ADD_DETAIL+'</span>'+
+													'<span>(<span class="addPost">'+item.ADD_POST +'</span>) ' 
+															+ '<span class="addName">' +item.ADD_NAME +'</span> ' 
+															+ '<span class="addDetail">' +item.ADD_DETAIL +'</span></span>'+
 												'</div>'+
 												'<div class="boxdeliveryaddressName">'+
-													'<span>'+item.ADD_RECEIVER +'</span> '+
-													'<span>'+item.ADD_PHONE +'</span>'+
+													'<span class="addReceiver">'+item.ADD_RECEIVER +'</span> '+
+													'<span class="addTel">'+item.ADD_PHONE +'</span>'+
 												'</div>'+
 											'</div>'+
 											'<div class="deliverybtn">'+
-												'<button type="submit" id="deliUpdate">수정</button>'+
-												'<button type="submit" id="deliDelete">삭제</button>'+
+												'<button type="button" class="deliUpdate">수정</button>'+
+												'<button type="button" class="deliDelete">삭제</button>'+
 											'</div>'+	
 										'</div>'+
 									'</div>'+
 								'</li>')
+		i++;
 	}
 }// addList()
 
@@ -176,32 +182,32 @@ selectMethod();
 		var post = $('input[name=ADD_POST]').val();
 		var addname = $('input[name=ADD_NAME]').val();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
-		if(addnick = ''){
+		if(addnick == ''){
 			alert("배송지명을 입력하세요.")
 			addnick.focus();
 			return false;
 		}
-		if(receiver = ''){
+		if(receiver == ''){
 			alert("수령인을 입력하세요.")
 			receiver.focus();
 			return false;
 		}
-		if(phone =''){
+		if(phone == ''){
 			alert("연락처을 입력하세요.")
 			phone.focus();
 			return false;
 		}
-		if(post =''){
+		if(post == ''){
 			alert("주소 입력하세요.")
 			post.focus();
 			return false;
 		}
-		if(addname =''){
+		if(addname == ''){
 			alert("주소 입력하세요.")
 			addname.focus();
 			return false;
 		}
-		if(adddetail =''){
+		if(adddetail == ''){
 			alert("상세주소를 입력하세요.")
 			adddetail.focus();
 			return false;
@@ -233,9 +239,14 @@ selectMethod();
 	})
 // 5.배송지리스트 모달관련
 	$('#staticBackdrop').on('show.bs.modal', function(){
+		$("#payUpdateBtn").attr("id", "payAddbtn");
+		$("#payAddbtn").text("저장");
+		
+		
 		$.ajax({
 			url:"addList",
 			data:{MEM_NO : $('#MEM_NO').val() },
+			async: false,
 			success:function(result){
 				$("#divAddress").empty();
 				addList(result)
@@ -243,7 +254,56 @@ selectMethod();
 			fail:function(){
 			}
 		})//ajax
+		//7.배송지 수정버튼 > select,update
+		//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출
+		$(".deliUpdate").on('click', function(){
+			$("#staticBackdrop").modal("hide");
+			debugger;
+			$.ajax({
+				url: "addDeliveryUpdate",
+				data: {ADD_NO : $('#ADD_NO').val()
+					  ,MEM_NO : $('#MEM_NO1').val()},
+				async: false
+			})//ajax
+			.done(function(data){
+				if(data != null){
+					alert("여기까지")
+					$("#address-title").val(data.ADD_NICK);
+					$("#address-name").val(data.ADD_RECEIVER);
+					$("#address-tel").val(data.ADD_PHONE);
+					$("#address-zipcode").val(data.ADD_POST);
+					$("#address-front").val(data.ADD_NAME);
+					$("#address-detail").val(data.ADD_DETAIL);
+					
+					debugger;
+					
+					$("#payAddbtn").attr("id", "payUpdateBtn");
+					$("#payUpdateBtn").text("수정");
+				}
+			})
+			.fail(function(){
+				debugger;
+			})
+			$("#staticBackdrop1").modal("show");
+		}) // 7끝	
+		
+		
+		$(".button__delivery-choice").on("click", function(e){
+			debugger;
 			
+			var idNum = $(this).attr("id").replace("choiceBtn", "");
+			var list = $("#addListNo" + idNum);
+			debugger;
+			
+			$("#addReceiver").text(list.find(".addReceiver").text());
+			$("#addPost").text(list.find(".addPost").text());
+			$("#addName").text(list.find(".addName").text());
+			$("#addDetail").text(list.find(".addDetail").text());
+			$("#addTel").text(list.find(".addTel").text());
+			debugger;
+			$("#staticBackdrop").modal("hide");
+		})
+		
 	})
 
 // 6.새 배송지 추가 저장 취소 관련
@@ -262,12 +322,13 @@ selectMethod();
 				ADD_NAME : $("#address-front").val(),
 				ADD_DETAIL : $("#address-detail").val(),
 				MEM_NO : $('#MEM_NO').val()
-				},
+			},
+			async: false,	
 			success:function(result){
 				debugger;
-				if(result = 1){
+				if(result == 1){
 					$("#staticBackdrop1").modal("hide");
-					$("#staticBackdrop").modal("show");
+//					$("#staticBackdrop").modal("show");
 				}			
 			},
 			fail:function(){
@@ -275,35 +336,35 @@ selectMethod();
 				$("#staticBackdrop1").modal("hide");
 			}	
 		})//ajax
+		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
 	})
 	//  모달 취소 > 배송리스트 모달
 	$("#payCancelbtn").on('click', function(){
+		debugger;
+		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
 	})
 	// x버튼 > 배송리스트 모달
 	$("#payListXbtn").on('click', function(){
+		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
 	})
 	
-	//7.배송지 수정버튼 > select,update
-	//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출력
-	$("#deliUpdate").on('click', function(){
-//		$("#staticBackdrop").modal("hide");
-		$("#staticBackdrop1").modal("show");
-		debugger;
-		$ajax({
-			url: "addDeliveryUpdate",
-			data: {ADD_NO : $('#ADD_NO').val()
-				  ,MEM_NO : $('#MEM_NO1').val()}
-		})//ajax
-		.done(function(data){
-			if(data !== null){
-				debugger;
-				alert("여기까지")
-			}
-		})	
-	})
+	// 수정 버튼
+	$(".payUpdateBtn").on("click",function(){
+		
+		
+		$("#staticBackdrop1").modal("hide");
+		$("#staticBackdrop").modal("show");
+	});
+	
+	
+//	8. 
+	
+	
+	
+	
 	
 })
 

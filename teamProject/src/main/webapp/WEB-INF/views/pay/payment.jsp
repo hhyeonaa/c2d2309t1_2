@@ -60,14 +60,16 @@
             				<c:forEach var="memAddBasic" items="${memAddBasic}">
             				<input id="MEM_NO" type="hidden" value="${memAddBasic.MEM_NO}" name="MEM_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.ADD_RECEIVER}</p>
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver">${memAddBasic.ADD_RECEIVER}</p>
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>
             					</div>
             					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
-            						(${memAddBasic.ADD_POST}) ${memAddBasic.ADD_NAME} ${memAddBasic.ADD_DETAIL}
+            						(<span id="addPost">${memAddBasic.ADD_POST}</span>)
+            						<span id="addName">${memAddBasic.ADD_NAME}</span>
+            						<span id="addDetail">${memAddBasic.ADD_DETAIL}</span>
             					</p>	
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
-            						${memAddBasic.MEM_TEL}
+									<span id="addTel">${memAddBasic.ADD_PHONE}</span>            						
             					</p>
             				</c:forEach>	
             				</c:if>	
@@ -223,7 +225,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <form>
-	      	<div class="modal-body">
+	      	<div class="modal-body" style="height:700px">
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__address-list">
 						<div id="content" class="userDeliveryList">
@@ -265,13 +267,13 @@
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
-<%-- 						<c:if test="${!empty memAddBasic }"> --%>
+<%-- 						<c:if test="${!empty addUpList }"> --%>
 							<div class="new-address new-address__title" id="newaddress">
 								<div class="box__label">
 									<label for="address-title" class="text__label">배송지명</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt" name="ADD_NICK" id="address-title" maxlength="10" value="">
+									<input class="input_txt" name="ADD_NICK" id="address-title" maxlength="10" value="${addUpList.ADD_NICK }">
 								</div>
 							</div>
 							
@@ -280,7 +282,7 @@
 									<label for="address-name" class="text__label">받는 분</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block; width: 470px;">
-									<input class="input_txt" name="ADD_RECEIVER" id="address-name" maxlength="10" placeholder="수령인 이름을 입력해주세요">
+									<input class="input_txt" name="ADD_RECEIVER" id="address-name" value="${addUpList.ADD_RECEIVER }" maxlength="10" placeholder="수령인 이름을 입력해주세요">
 								</div>
 							</div>
 							
@@ -289,7 +291,7 @@
 									<label for="address-tel" class="text__label">연락처</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt"  name="ADD_PHONE" id="address-tel" maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
+									<input class="input_txt"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
 								</div>
 							</div>
 
@@ -298,7 +300,7 @@
 									<label for="address-destination" class="sprite__mypage--after text__label text__label-check">주소</label>
 								</div>
 								<div class="box__input" id="box-zipcode" style="width: 390px;">
-									<input type="text" name="ADD_POST" id="address-zipcode" class="input_txt" title="우편번호" readonly="" name="ZipCode">
+									<input type="text" name="ADD_POST" id="address-zipcode"  value="${addUpList.ADD_POST }" class="input_txt" title="우편번호" readonly="" name="ZipCode">
 								</div>
 									<button type="button" class="button__address-search" id="address_find">주소찾기</button>
 							</div>
@@ -306,13 +308,13 @@
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input" style="margin-bottom: 20px; width: 470px;">
-										<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="">
+										<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="${addUpList.ADD_NAME }">
 									</div>
 								</div>
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input box__text-area" style="display: block; width: 470px;">
-										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="" >
+										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="${addUpList.ADD_DETAIL }" >
 									</div>
 								</div>
 <%-- 						</c:if>	 --%>

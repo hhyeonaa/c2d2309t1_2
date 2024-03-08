@@ -71,14 +71,15 @@
 <!-- 				</select> -->
 
 			      <c:if test="${empty resultMap.PRO_DATE}">
-				  <input type="hidden" id="proTsc" name="proTsc" value="">
+<!-- 				  <input type="hidden" id="proTsc" name="proTsc" value=""> -->
 				  <h2>상품 등록</h2>					
 			      </c:if>
 			      <c:if test="${!empty resultMap.PRO_DATE}">
-				  <input type="hidden" id="proTsc" name="proTsc" value="${resultMap.PRO_TSC}">					
+<%-- 				  <input type="hidden" id="proTsc" name="proTsc" value="${resultMap.PRO_TSC}">					 --%>
 			      <h2>상품 수정</h2>
 			      </c:if>
 			      <input type="hidden" id="proWr" name="proWr" value="${sessionScope.MEM_ID}">
+			      <input type="hidden" id="proDate" name="proDate" value="${resultMap.PRO_DATE}">
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>
 			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
@@ -164,6 +165,7 @@
 				<div class="col-12 d-flex justify-content-center">
 				   	<div>
 				   	<select id="selectAddress">
+				   		<option value="0">주소 선택</option>
 				   		<c:forEach var="add" items="${selectAddress}">
 				   			<option value="${add.ADD_NO},${add.ADD_POST},${add.ADD_NAME},${add.ADD_DETAIL}">${add.ADD_NICK}</option>
 				   		</c:forEach>
@@ -171,21 +173,25 @@
 				   	<span>거래지역</span>
 <!-- 				   	<button class="btn btn-outline-secondary">내 위치</button> -->
 <!-- 				   	<button class="btn btn-outline-secondary">최근 지역</button> -->
-				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 검색</button>
+				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 등록</button>
 <!-- 				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button> -->
 				   	</div>
 				</div>
 				<div class="col-12 d-flex justify-content-center pt-3">
-				<input type="hidden" id="addNo" value="">
-				<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
-				<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
 				<c:if test="${empty resultMap.PRO_DATE}">
+					<input type="hidden" id="addNo" value="">
+					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
+					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
 					<input class="col-7 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
+					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
 				</c:if>
 				<c:if test="${!empty resultMap.PRO_DATE}">
-					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.PRO_ADDRESS}" placeholder="거래지역 선택" readonly>
+					<input type="hidden" id="addNo" value="${resultMap.PRO_ADDRESS}">
+					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임">
+					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호">
+					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
+					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력">
 				</c:if>
-				<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
 				</div>
 			</div>
 			<hr>
@@ -352,8 +358,14 @@
 			</div>
 			<div class="row p-3" style="position: sticky; bottom: 0; z-index: 99999; background-color: black;">
 			    <div class="d-flex justify-content-evenly">
-					<button class="btn btn-light" id="tempSave">임시저장</button>
-					<button class="btn btn-warning" id="submitBtn">등록하기</button>
+			    	<c:if test="${empty resultMap.PRO_DATE}">
+						<button class="btn btn-light" id="tempSave">임시저장</button>
+						<button class="btn btn-warning" id="submitBtn">등록하기</button>
+		    		</c:if>
+		    		<c:if test="${!empty resultMap.PRO_DATE}">
+						<button class="btn btn-light" id="cancelBtn">취소</button>
+						<button class="btn btn-warning" id="updateBtn">수정하기</button>		    			
+		    		</c:if>
 		    	</div>
 		  	</div>
 						

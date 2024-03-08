@@ -28,7 +28,7 @@ public class PayService {
 		return payDAO.getMemAdd(map2);
 	}
 	//추후 수정
-	public Map<String, String> getMemAddBasic(Map<String, String> map2) {
+	public List<Map<String, String>> getMemAddBasic(Map<String, String> map2) {
 		return payDAO.getMemAddBasic(map2);
 	}
 	//회원 배송지리스트 select

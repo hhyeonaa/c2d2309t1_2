@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mappers.adminMapper">
+	
+<!-- 	===== 현아 시작 ===== -->
+
+	<insert id="adminInsert">
+		insert into ADMIN
+			(AD_NO
+			, AD_ID 
+			, AD_PW
+			, AD_NAME
+			, AD_DATE
+			, AD_ACTIVE
+			, ROL_NO)
+		values (CONCAT("AD", IFNULL((SELECT MAX(CAST(replace(AD_NO, "AD", "") AS unsigned))+1
+									 FROM ADMIN A), 1))
+			, #{AD_ID}
+			, #{AD_PW}
+			, #{AD_NAME}
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+			, 'RO2'
+			, '0')
+	</insert>
+	
+	<select id="getAdminList" resultType="map">
+		select
+			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
+			, a.AD_ID
+			, r.ROL_NAME
+			, a.AD_ACTIVE
+		from ADMIN a join ROLE r
+		on a.ROL_NO = r.ROL_NO
+		ORDER BY AD_NO
+	</select>
+	
+	<select id="idCheck" resultType="String">
+		select
+			AD_ID 
+		from ADMIN
+		where AD_ID = #{AD_ID}
+	</select>
+	
+	<delete id="adminDelete">
+		delete from ADMIN
+		where AD_NO = #{AD_NO}
+	</delete>
+	
+	<update id="adminUpdate">
+		update ADMIN
+		set AD_ACTIVE = #{AD_ACTIVE}
+		where AD_NO = #{AD_NO}
+	</update>
+	
+	<select id="getBoardList" resultType="map">
+		select CODE
+				, ACTIVE
+				, SEQ
+				, CASE CO_DETAIL WHEN '0' THEN '글'
+						   WHEN '1' THEN '글+사진'
+						   WHEN '2' THEN '글+사진+날짜'
+						   ELSE '없음'
+			   END AS "CO_DETAIL"
+		from CODE
+			where  CO_TYPE = 'MM'
+		ORDER BY SEQ
+	</select>
+	
+	<update id="displayUpdate">
+		update CODE
+		set    ACTIVE = #{ACTIVE}
+		      , SEQ = #{SEQ}
+		where  CO_TYPE = #{CO_TYPE}
+		and	   CODE = #{CODE}
+	</update>
+	
+	<select id="getCategoryList" resultType="map">
+		select SEQ
+				, CODE
+				, ACTIVE
+		from CODE
+		where CO_TYPE = 'CA'
+		ORDER BY SEQ
+	</select>	
+	
+	<insert id="inputForm">
+		insert into PRODUCT
+			(PRO_NO
+			, PRO_WR
+			, PRO_NAME
+			, PRO_PRICE
+			, PRO_CONTENT
+			, PRO_CATE
+			, PRO_STATUS
+			, PRO_TC
+			, PRO_TSC
+			, PRO_DATE
+			)
+		values (CONCAT('PR', IFNULL((SELECT MAX(CAST(replace(PRO_NO, 'PR', '') AS unsigned))+1
+									 FROM PRODUCT A), 1))
+			, #{MEM_ID}
+			, #{PRO_NAME}
+			, #{PRO_PRICE}
+			, #{PRO_CONTENT}
+			, #{PRO_CATE}
+			, #{PRO_STATUS}
+			, #{PRO_TC}
+			, '거래전'
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
+	</insert>
+	
+	<select id="getForm" resultType="map">
+			select 
+				CO_TYPE
+				, CO_NO
+				, CODE
+				, CO_DETAIL
+				, SEQ
+			from CODE
+			where CO_TYPE = 'FO'
+			and ACTIVE = '1'
+	</select>
+	
+	
+	
+<!-- 	===== 현아 끝 ===== -->
+
+
+
+<!-- 	===== 무창 시작 ===== -->
+
+	
+
+<!-- 	===== 무창 끝 ===== -->
+
+
+
+<!-- 	===== 성엽 시작 ===== -->
+
+	<select id="getMemberList" resultType="map">
+		 select MEM_NO
+			  , MEM_ID
+			  , MEM_NICK
+			  , MEM_NAME
+			  , MEM_EMAIL
+			  , MEM_DATE
+			  , (select COUNT(*)
+				  from REPORT
+				 where RPT_USER_IDX = MEM_ID) as COUNT
+		  from MEMBERS
+		 ORDER BY MEM_NO DESC;
+	</select>
+	
+	<select id="getContentboardList" resultType="map">
+		select PRO_NO
+			 , PRO_NAME
+			 , PRO_WR
+			 , date_format(str_to_date(PRO_DATE, '%Y%m%d%H%i%s'), '%Y%m%d %H:%i:%s')  AS PRO_DATE
+		from PRODUCT
+		where PRO_TC = 'MM1'
+		ORDER BY PRO_NO DESC
+	</select>
+	
+	<select id="getBoardCategoryList" parameterType="map" resultType="map">
+		select PRO_NO
+			 , PRO_NAME
+			 , PRO_WR
+			 , date_format(str_to_date(PRO_DATE, '%Y%m%d%H%i%s'), '%Y%m%d %H:%i:%s')  AS PRO_DATE
+		from PRODUCT
+		where 1 = 1
+		<if test="category == 'MM1'">
+		  AND PRO_TC = 'MM1'
+		</if>
+		<if test="category == 'MM2'">
+		  AND PRO_TC = 'MM2'
+		</if>
+		<if test="category == 'MM3'">
+		  AND PRO_TC = 'MM3'
+		</if>
+		<if test="category == 'MM4'">
+		  AND PRO_TC = 'MM4'
+		</if>
+		ORDER BY PRO_NO DESC
+	</select>
+	
+	<update id="memberStop">
+		update MEMBERS
+		   set MEM_CAT = '1'
+		 WHERE MEM_CAT = '0'
+	</update>
+	
+	<update id="memberDelete">
+		update MEMBERS
+		   set MEM_CAT = '2'
+		 WHERE MEM_CAT = '0'
+	</update>
+	
+	<delete id="contentDelete">
+		delete from PRODUCT
+		where PRO_NO = #{PRO_NO}
+	</delete>
+	
+	<delete id="cateContentDelete">
+		delete from PRODUCT
+		where PRO_NO = #{PRO_NO}
+	</delete>
+	
+	<select id="getReportList" resultType="map">
+		select 
+			   RPT_IDX
+			 , USER_IDX
+			 , RPT_USER_IDX
+			 , RPT_SELECT
+			 , RPT_TIME
+		from REPORT
+		ORDER BY RPT_IDX DESC
+	</select>
+
+	
+
+
+
+<!-- 	===== 성엽 끝 ===== -->
+	
+	
+
+</mapper>

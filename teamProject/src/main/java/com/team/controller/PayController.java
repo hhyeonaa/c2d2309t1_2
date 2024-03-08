@@ -55,7 +55,7 @@ public class PayController {
 		model.addAttribute("memAddList", memAddList);
 		
 		//payment 배송지 1개 orderby select
-		Map<String, String> memAddBasic = payService.getMemAddBasic(map2);
+		List<Map<String, String>> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
 		
 		//결제할 상품 정보 select

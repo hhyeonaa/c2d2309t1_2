@@ -57,9 +57,10 @@
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
             				<c:if test="${!empty memAddBasic }">
+            				<c:forEach var="memAddBasic" items="${memAddBasic}">
             				<input id="MEM_NO" type="hidden" value="${memAddBasic.MEM_NO}" name="MEM_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.MEM_NAME}</p>
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.ADD_RECEIVER}</p>
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>
             					</div>
             					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
@@ -68,6 +69,7 @@
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
             						${memAddBasic.MEM_TEL}
             					</p>
+            				</c:forEach>	
             				</c:if>	
             				<c:if test="${empty memAddBasic }">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
@@ -237,7 +239,7 @@
 									</ul>
 								</div>
 							</section>
-						</div>
+						</div>	
 					</div>	
 				</div>
 			</div>

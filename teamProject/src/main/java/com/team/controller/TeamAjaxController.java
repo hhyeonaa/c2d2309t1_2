@@ -28,6 +28,7 @@ public class TeamAjaxController {
 	@ResponseBody
 	public ResponseEntity<?> alert(@RequestParam MultiValueMap<String, Object> param, HttpSession session) {
 		Object[] arr = param.get("msgArr[]").toArray();
+		System.out.println(param);
 		Map<String, String> params = codeService.selectMessage(param.getFirst("msgText").toString(), arr, session);
 		
 	    params.put("isConfirm", param.getFirst("msgIsTrue").toString());

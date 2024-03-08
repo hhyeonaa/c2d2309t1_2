@@ -203,7 +203,9 @@ public class AdminController {
 		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
 		
 		model.addAllAttributes(existingData);
-		model.addAttribute("typeList", EnumCodeType.전체코드타입.getCodeKeyList());
+		model.addAttribute("keyList", EnumCodeType.전체코드타입.getKeyList());
+		model.addAttribute("valueList", EnumCodeType.전체코드타입.getValueList());
+		System.out.println(EnumCodeType.전체코드타입.getValueList());
 		return "admin/code_manage";
 	}
 	
@@ -212,6 +214,7 @@ public class AdminController {
  	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session){
 		List<Map<String, String>> data = codeService.selectCodeList(
 				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+		
  		return ToastUI.resourceData(param, data);
  	}
 	

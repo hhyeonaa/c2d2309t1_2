@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,15 +21,18 @@
     button + button {
     	margin-left: 10px;
     }
+    .select2-container {
+    	z-index: 9999 !important; /* or a higher value than the modal's z-index */
+	}
 </style>	
 </head>
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 		<main style="background: #f0f0f3; padding: 200px;">
-			<input type="text" value="${CODE}" id="selectListItem">
+			<input type="hidden" value="${CODE}" id="selectListItem">
 			<div style="display: flex; justify-content: flex-start;" id="selectCodeBtn">
-				<c:forEach var="item" items="${typeList}">
-					<button type="button" class="btn btn-outline-primary">${item.key}</button>
+				<c:forEach var="items" items="${keyList}">
+					<button type="button" class="btn btn-outline-primary">${items.key}</button>
 				</c:forEach>
 			</div>
 			<div style="display: flex; justify-content: flex-end">
@@ -58,28 +62,25 @@
 			<!-- 관리자추가 모달창 -->
 			<div id="addModal" class="modal">
 			  	<div class="modal-content mt-5" id="modal-content">
-			     	<div class="modal-header" id="modal-header">
-				    	<h3 class="modal-title" id="modal-title"><b>관리자 추가</b></h3>
-				     	<button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
-				     	&times;</button>
+			     	<div class="modal-header" id="modal-header" style="display: flex; flex-direction: column; align-items: flex-start">
+			     		<div style="display: flex; align-items: baseline; width: 300px; justify-content: space-between;" id="header-modal">
+				     		<button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">&times;</button>
+			     		</div>
+				     	<div style="display: flex;">
+				     		<select id="selectCodeList" style="width: 250px;">
+				     			<option value="true">＊항목을 선택해주세요 :)</option>
+								<c:forEach begin="0" end="${fn:length(valueList)}" step="1" var="i">
+									<option value="${valueList[i].value}">${keyList[i].key}</option>
+								</c:forEach>
+							</select>
+			     		</div>
 			     	</div>
-			     	<div class="modal-body" id="modal-body">
-					<div class="form-outline mb-4">
-					  	<div style="text-align: left;"> <label>아이디</label> </div>
-					  	<input type="text" name="AD_ID" id="AD_ID" class="form-control"/>
-					</div>
-					<div class="form-outline mb-4">
-						<div style="text-align: left;"> <label>비밀번호</label> </div>
-					    	<input type="password" name="AD_PW" id="AD_PW" class="form-control" />
-					</div>
-					<div class="form-outline mb-4">
-					  	<div style="text-align: left;"> <label>이름</label> </div>
-					  	<input type="text" name="AD_NAME" id="AD_NAME" class="form-control"/>
-					</div>
+			     	<div class="modal-body p-3" id="modal-body">
+			     		
 			     	</div>
 			     	<div class="modal-footer" id="modal-footer">
 			       		<button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
-		    	   		<button type="button" id="insertBtn" class="btn btn-outline-danger">생성</button>
+		    	   		<button type="button" id="insertBtn" class="btn btn-outline-danger">저장</button>
 			     	</div>
 			  	</div>
 			</div>

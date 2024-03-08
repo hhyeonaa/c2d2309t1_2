@@ -83,11 +83,11 @@
 		
 		<div id="chatContentsContainer">
 			<div id="chatHead">
-				<div>이미지</div>
-				<div class="chatRoomContents">
-					<div class="userNick">[닉네임]</div>
-					<div class="postTit">다른 게시물 제목</div>
-				</div>
+<!-- 				<div>이미지</div> -->
+<!-- 				<div class="chatRoomContents"> -->
+<!-- 					<div class="userNick">[닉네임]</div> -->
+<!-- 					<div class="postTit">다른 게시물 제목</div> -->
+<!-- 				</div> -->
 <!-- 				<div id="systemContainer"> -->
 <!-- 					<div class="reportBtn"> -->
 <!-- 						<span class="material-symbols-outlined reportIcon">notifications_active</span> -->

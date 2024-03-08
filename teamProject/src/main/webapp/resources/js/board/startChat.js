@@ -4,6 +4,22 @@ document.write('<script type="text/javascript"' +
 
 $(()=>{
 	$(".startChatBtn").on("click", function(){
+		
+		// 채팅방이 있는지 확인		
+		$.ajax({
+			url: '/' + window.location.pathname.split("/")[1] + '/chat/roomCheck',
+			type: "get",
+			data: {
+				proNo: $(".proNo").val(),
+				memId: $(".id_session").val()
+			},
+		})
+		.done(function(data){
+			console.log(data);
+			debugger;
+		})
+		
+		
 		//if(alertMsg("AM1", ["채팅을 시작하시겠습니까?"], true)){
 			$("#chatModal").css("display", "block");
 			

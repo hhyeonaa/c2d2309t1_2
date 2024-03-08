@@ -37,17 +37,17 @@ public class AdminService {
 		adminDAO.adminUpdate(map);
 	}
 
-	public List<Map<String, String>> getBoardList() {
-		return adminDAO.getBoardList();
-	}
+//	public List<Map<String, String>> getBoardList() {
+//		return adminDAO.getBoardList();
+//	}
 	
 	public void displayUpdate(Map<String, String> map) {
 		adminDAO.displayUpdate(map);
 	}
 
-	public List<Map<String, String>> getCategoryList() {
-		return adminDAO.getCategoryList();
-	}
+//	public List<Map<String, String>> getCategoryList() {
+//		return adminDAO.getCategoryList();
+//	}
 
 	
 	
@@ -87,12 +87,20 @@ public class AdminService {
 		return adminDAO.getContentboardList();
 	}//
 
+	public void memberStop(String MEM_NO) {
+		adminDAO.memberStop(MEM_NO);
+	}//
+	
 	public void memberDelete(String MEM_NO) {
 		adminDAO.memberDelete(MEM_NO);
 	}//
 	
 	public int contentDelete(String PRO_NO) {
 		return adminDAO.contentDelete(PRO_NO);
+	}//
+	
+	public int cateContentDelete(String PRO_NO) {
+		return adminDAO.cateContentDelete(PRO_NO);
 	}//
 
 	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
@@ -106,10 +114,11 @@ public class AdminService {
 	public List<Map<String, String>> getForm(Map<String, String> map) {
 		return adminDAO.getForm(map);
 	}
-
-
-
 	
+	public List<Map<String, String>> getReportList() {
+		return adminDAO.getReportList();
+	}//
+
 //	----- 성엽 끝 -----
 
 }

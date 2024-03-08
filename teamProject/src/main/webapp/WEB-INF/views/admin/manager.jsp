@@ -22,7 +22,7 @@
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
 			<div>
 			    <a data-mdb-toggle="pill" href="#" role="tab" aria-controls="register" aria-selected="true"
-			       class="btn" id="btnAddd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
+			       class="btn" id="btnAdd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
 			</div>
         </div>
     </div>
@@ -78,7 +78,7 @@
 	                                <td>${admin.AD_ID }</td>
                                 	<td>
                                 		<select class="form-select" id="role">
-											<option selected hidden>${admin.AD_ROLE }</option>
+											<option selected hidden>${admin.ROL_NAME }</option>
 											<option value="0">기본</option>
 											<option value="1">총괄</option>
 											<option value="2">운영</option>
@@ -109,7 +109,7 @@
     </div>
     <div class="row g-0 pb-4">
     	<div class="mb-4" align="right">
-			<button type="reset" class="btn btn-secondary" id="">취소</button>
+			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
 			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
 		<div class="demo">
@@ -134,10 +134,10 @@
 			<option value="100">100개 씩 보기</option>
 		</select>
 		<button id="appendBtn">행 추가</button>
-		<button id="removeBtn">추가 행 삭제</button>
+<!-- 		<button id="removeBtn">추가 행 삭제</button> -->
 		<button id="resetBtn">취소</button>
 		<button id="saveBtn">저장</button>
-		<button id="updateBtn">수정</button>
+		<button id="ckDeleteBtn">선택삭제</button>
 	</div>
     <div id="grid"></div>
 </div>

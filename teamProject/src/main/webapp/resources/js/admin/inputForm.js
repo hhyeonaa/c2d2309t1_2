@@ -1,3 +1,13 @@
+document.write('<script src="/' + window.location.pathname.split("/")[1] + '/resources/js/board/writeBoard.js');
+
+// 외부 js파일 호출(erlangc.js)
+//document.write('<script src="/com/js/erlangc.js"></script>'); 
+// 외부 js파일에 있는 함수 호출(Agents)
+// function Agents() --> erlangc.js 파일 내에 정의된 함수 
+
+// 사용 예시
+//var Agents_t = Agents(SLA, SERVICE_TIME, tempVal ,AHT);
+
 class TextInput extends HTMLElement {
 	connectedCallback(){
 		// div - row
@@ -65,14 +75,21 @@ class RadioInput extends HTMLElement {
         let span = document.createElement('span');
         span.innerHTML = this.getAttribute('name');
         
-        // Radio buttons and labels
+        // Radio
+//      var tradeDataElement = document.getElementById("tradeData");
+//		var tradeList = JSON.parse(tradeDataElement.getAttribute("data-trade"));
+//		
+//		// tradeList를 이용한 원하는 작업 수행
+//		console.log(tradeList);
+//    	debugger;
+		
         let radioData = [
-            { data: '1', value: '새상품(사용하지 않은 상품)' },
-            { data: '2', value: '사용감 없음(사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음)' },
-            { data: '3', value: '사용감 적음(눈에 띄는 흔적이나 얼룩이 약간 있음)' },
-            { data: '4', value: '사용감 많음(눈에 띄는 흔적이나 얼룩이 많이 있음)' },
-            { data: '5', value: '고장/파손 상품(기능 이상이나 외관 손상 등으로 수리/수선 필요)' }
-        ];
+            { raData: '1', value: '새상품(사용하지 않은 상품)' },
+            { raData: '2', value: '사용감 없음(사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음)' },
+            { raData: '3', value: '사용감 적음(눈에 띄는 흔적이나 얼룩이 약간 있음)' },
+            { raData: '4', value: '사용감 많음(눈에 띄는 흔적이나 얼룩이 많이 있음)' },
+            { raData: '5', value: '고장/파손 상품(기능 이상이나 외관 손상 등으로 수리/수선 필요)' }
+   		];
 
         radioData.forEach(data => {
             let radioDiv = document.createElement('div');
@@ -80,7 +97,7 @@ class RadioInput extends HTMLElement {
             radioInput.type = 'radio';
             radioInput.name = this.getAttribute('name');
             radioInput.id = this.getAttribute('id-data');
-            radioInput.value = data.data;
+            radioInput.value = data.raData;
 
             let radioLabel = document.createElement('label');
             radioLabel.innerHTML = data.value;
@@ -112,6 +129,7 @@ class SelectInput extends HTMLElement {
         selectDiv.style.border = '1px';
         
         let select = document.createElement('select');
+        select.classList.add('form-select');
         select.name = this.getAttribute('name');
         select.id = this.getAttribute('id');
         select.style.width = '20%';
@@ -141,7 +159,7 @@ class SelectInput extends HTMLElement {
 
 class AddressInput extends HTMLElement {
     connectedCallback() {
-		document.write('<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
+//		document.write('<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
 		
     	// div - row
         let row = document.createElement('div');
@@ -211,10 +229,10 @@ class AddressInput extends HTMLElement {
 	        fileInput.style.display = 'none';
 
 	        fileDiv.append(label, fileInput);
-
+	        
 	        // 미리보기 공간
 	        let fileUploadZoneDiv = document.createElement('div');
-	        fileUploadZoneDiv.classList.add('col-12', 'd-flex', 'justify-content-center');
+	        fileUploadZoneDiv.classList.add('col-12', 'd-flex', 'justify-content-center', 'pt-3');
 	        fileUploadZoneDiv.id = 'att_zone';
 	        fileUploadZoneDiv.dataset.placeholder = '파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지';
 

@@ -43,39 +43,19 @@
 	</insert>
 	
 	<select id="selectBoard" resultType="map" parameterType="map">
-		SELECT *
+		SELECT PRO_WR,PRO_NAME,PRO_PRICE,PRO_DATE,IMG_NAME
+			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
 		  FROM PRODUCT
-		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO 
-		  JOIN CODE
-		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO) 
-		 WHERE IMG_NO = 1
-		 <if test="proTc == 'MM1'">
-		 	AND PRO_TC = 'MM1'
-		 </if>
-		 <if test="proTc == 'MM2'">
-		 	AND PRO_TC = 'MM2'
-		 </if>
-		 <if test="proTc == 'MM3'">
-		 	AND PRO_TC = 'MM3'
-		 </if>
- 		 <if test="proTc == 'MM4'">
-		 	AND PRO_TC = 'MM4'
-		 </if>
+		  JOIN IMAGE ON PRO_NO = IMG_PRONO
+		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
+		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
+	    <if test="proTc != null">
+	       AND PRO_TC = #{proTc}
+	    </if>
+	     WHERE IMG_NO = 1
 		 ORDER BY PRO_DATE DESC
 	</select>
 	
-<!-- 	<select id="selectSaleBoard" resultType="map"> -->
-<!-- 		SELECT * -->
-<!-- 		  FROM PRODUCT -->
-<!-- 		  JOIN IMAGE -->
-<!-- 		    ON PRO_NO = IMG_PRONO  -->
-<!-- 		  JOIN CODE -->
-<!-- 		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO)  -->
-<!-- 		 WHERE IMG_NO = 1 -->
-<!-- 		   AND PRO_TC = 'MM1' -->
-<!-- 		 ORDER BY PRO_DATE DESC -->
-<!-- 	</select> -->
 	
 	<!-- 성엽 작업 시작 -->
 	
@@ -83,19 +63,31 @@
 		SELECT *
 		  FROM PRODUCT
 		  JOIN IMAGE
-		    ON PRO_NO = IMG_PRONO
+			ON PRO_NO = IMG_PRONO
+		  JOIN CODE
+			ON PRO_TC = CONCAT(CO_TYPE, CO_NO)
 		 WHERE IMG_NO = 1
-			AND PRO_TC = 'MM2'
+		   AND PRO_TC = CONCAT(CO_TYPE, '2')
+		 ORDER BY PRO_DATE DESC 
 	</select>
 	
 	<!-- 성엽 작업 끝 -->
 	
 	
 	<select id="selectBoardDetail" parameterType="map" resultType="map">
-		SELECT *
+		SELECT PRO_NO,PRO_TC,PRO_WR,PRO_DATE,PRO_PRICE,PRO_HITS,PRO_CONTENT,PRO_NAME,PRO_STATUS,PRO_TSC,PRO_CATE,PRO_ADDRESS
+			  ,ADD_NAME,ADD_NO,ADD_POST,ADD_DETAIL,ADD_NICK
+			  ,IMG_NAMES
+		      ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
+		      ,CODE_CATE.CODE AS PRO_CATE_CODE, CODE_STATUS.CODE AS PRO_STATUS_CODE
 		  FROM PRODUCT p
 		  JOIN (select IMG_PRONO, group_concat(IMG_NAME order by IMG_NO separator '|') IMG_NAMES from IMAGE group by IMG_PRONO) i
 		    ON p.PRO_NO = i.IMG_PRONO
+		  JOIN ADDRESS a ON p.PRO_ADDRESS = a.ADD_NO
+		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
+		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
+		  JOIN CODE AS CODE_CATE ON PRO_CATE = CONCAT(CODE_CATE.CO_TYPE, CODE_CATE.CO_NO)
+		  JOIN CODE AS CODE_STATUS ON PRO_STATUS = CONCAT(CODE_STATUS.CO_TYPE, CODE_STATUS.CO_NO)	
 		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
 	</select>
 	<update id="upHits" parameterType="map">
@@ -103,17 +95,6 @@
 		   SET PRO_HITS = PRO_HITS + 1
 		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate} 
 	</update>
-<!-- 	<select id="selectDivideBoard" resultType="map"> -->
-<!-- 		SELECT * -->
-<!-- 		  FROM PRODUCT -->
-<!-- 		  JOIN IMAGE -->
-<!-- 		    ON PRO_NO = IMG_PRONO  -->
-<!-- 		  JOIN CODE -->
-<!-- 		    ON PRO_TC = CONCAT(CO_TYPE,CO_NO)  -->
-<!-- 		 WHERE IMG_NO = 1 -->
-<!-- 		   AND PRO_TC = 'MM3' -->
-<!-- 		 ORDER BY PRO_DATE DESC  -->
-<!-- 	</select> -->
 	<select id="getImgMap" resultType="map">
 		SELECT *
 		  FROM IMAGE
@@ -125,5 +106,41 @@
 	        #{success, mode=OUT, jdbcType=VARCHAR}
 		)}		
 	</select>
-	
+	<select id="selectAddress" resultType="map">
+		SELECT A.ADD_NO,A.ADD_POST,A.ADD_NAME,A.ADD_DETAIL,A.ADD_NICK,M.MEM_ID
+		  FROM ADDRESS A
+		  JOIN MEMBERS M
+		    ON A.MEM_NO = M.MEM_NO
+		 WHERE M.MEM_ID = #{id}  
+	</select>
+	<select id="getProNo" parameterType="map" resultType="String">
+		SELECT PRO_NO
+		  FROM PRODUCT
+		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
+	</select>
+	<delete id="deleteImgs" parameterType="map">
+		DELETE FROM IMAGE
+		WHERE IMG_PRONO = #{proNo}
+	</delete>
+	<insert id="insertImgs" parameterType="map">
+	    INSERT INTO IMAGE (IMG_CATE, IMG_PRONO, IMG_NO, IMG_NAME)
+	    VALUES
+	    <foreach collection="imagesWithNumbers" item="image" separator=",">
+	        (#{proCate}, #{proNo}, #{image.imgNo}, #{image.filename})
+	    </foreach>
+	</insert>
+	<update id="updateBoard" parameterType="map">
+		UPDATE PRODUCT
+		   SET PRO_CATE = #{proCate}
+			  ,PRO_NAME = #{proName}
+			  ,PRO_PRICE = #{proPrice}
+			  ,PRO_CONTENT = #{proContent}
+			  ,PRO_TC = #{proTc}
+			  ,PRO_TSC = #{proTsc}
+			  ,PRO_CDATE = date_format(NOW(),'%Y%m%d%H%i%s')
+			  ,PRO_STATUS = #{proStatus}
+			  ,PRO_ADDRESS = #{proAddress}
+		WHERE PRO_NO = #{proNo}	
+	</update>
+
 </mapper>

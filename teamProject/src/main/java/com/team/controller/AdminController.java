@@ -201,6 +201,11 @@ public class AdminController {
 		codeService.submitForAlert(response, "AM3", new Object[]{"로그아웃"}, request.getContextPath());
 	}
 	
+	@GetMapping("/drawing")
+	public String drawing() {
+		return "admin/drawing";
+	}
+	
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */

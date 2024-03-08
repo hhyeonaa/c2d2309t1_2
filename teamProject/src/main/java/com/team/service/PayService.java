@@ -27,7 +27,7 @@ public class PayService {
 	public List<Map<String, String>> getMemAdd(Map<String, String> map2) {
 		return payDAO.getMemAdd(map2);
 	}
-	//추후 수정
+	//배송지 1개 orderby select
 	public List<Map<String, String>> getMemAddBasic(Map<String, String> map2) {
 		return payDAO.getMemAddBasic(map2);
 	}

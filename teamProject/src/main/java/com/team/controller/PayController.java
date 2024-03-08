@@ -46,6 +46,7 @@ public class PayController {
 		//로그인 회원 정보 select
 		param.put("MEM_ID", MEM_ID);
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
+		System.out.println(param2);
 		model.addAttribute("buyerInfo", param2);
 		
 		//로그인한 회원 정보 및 배송지리스트 select(ajax?), >> 모달창 ajax
@@ -57,6 +58,7 @@ public class PayController {
 		//payment 배송지 1개 orderby select
 		List<Map<String, String>> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
+		System.out.println("== : " + memAddBasic);
 		
 		//결제할 상품 정보 select
 		Map<String, String> map = new HashMap<>();
@@ -92,11 +94,13 @@ public class PayController {
 	
 	//회원 배송지 수정할 배송지 select ajax
 	@GetMapping("/addDeliveryUpdate")
+	@ResponseBody
 	public Map<String, String> addDeliveryUpdate(@RequestParam Map<String, String> param, Model model){
 		System.out.println("ajax addDeliveryUpdate");
 		System.out.println(param);
 		Map<String, String> addUpList = payService.getaddDelivery(param);
 		model.addAttribute("addUpList", addUpList);
+		System.out.println(addUpList);
 		return addUpList;
 	}//addDeliveryUpdate()
 	

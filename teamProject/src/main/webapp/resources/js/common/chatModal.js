@@ -9,23 +9,34 @@ $(()=>{
 	
 	$(".chatRoom").on("click", function(){
 		
-		var systemContainer = '<div id="systemContainer">' +
-									'<div class="reportBtn">' +
-										'<span class="material-symbols-outlined reportIcon">notifications_active</span>' +
-									'</div>' +
-									'<div>' +
-										'<select class="form-select">' +
-											'<option>거래가능</option>' +
-											'<option>거래중</option>' +
-											'<option>거래완료</option>' +
-										'</select>' +
-									'</div>' +
-									'<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span>' +
-								'</div>'
-		
 	})
 	
 })
+
+var startChat = function(proNo, nickName, title){
+	var chatRoomContents = '<div>이미지</div>'+
+							'<div class="chatRoomContents">'+
+								'<div class="userNick">['+nickName+']</div>'+
+								'<div class="postTit">'+title+'</div>'+
+							'</div>';
+	
+	var systemContainer = '<div id="systemContainer">' +
+								'<div class="reportBtn">' +
+									'<span class="material-symbols-outlined reportIcon">notifications_active</span>' +
+								'</div>' +
+								'<div>' +
+									'<select class="form-select">' +
+										'<option>거래가능</option>' +
+										'<option>거래중</option>' +
+										'<option>거래완료</option>' +
+									'</select>' +
+								'</div>' +
+								'<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span>' +
+							'</div>';
+	
+	
+									
+} 
 
 var id = "${sessionScope.MEM_ID}";
 $("#sendBtn").click(function() {

@@ -88,19 +88,19 @@
 					<div class="userNick">[닉네임]</div>
 					<div class="postTit">다른 게시물 제목</div>
 				</div>
-				<div id="systemContainer">
-					<div class="reportBtn">
-						<span class="material-symbols-outlined reportIcon">notifications_active</span>
-					</div>
-					<div>
-						<select class="form-select">
-							<option>거래가능</option>
-							<option>거래중</option>
-							<option>거래완료</option>
-						</select>
-					</div>
-					<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span>
-				</div>
+<!-- 				<div id="systemContainer"> -->
+<!-- 					<div class="reportBtn"> -->
+<!-- 						<span class="material-symbols-outlined reportIcon">notifications_active</span> -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<select class="form-select"> -->
+<!-- 							<option>거래가능</option> -->
+<!-- 							<option>거래중</option> -->
+<!-- 							<option>거래완료</option> -->
+<!-- 						</select> -->
+<!-- 					</div> -->
+<!-- 					<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span> -->
+<!-- 				</div> -->
 			</div>
 			<div id="chatBody">
 				<span id="chatChoicePlease">채팅을 선택해주세요</span>

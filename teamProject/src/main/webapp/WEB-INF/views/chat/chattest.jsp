@@ -39,6 +39,9 @@
 	let sock = new SockJS("http://localhost:8080/myapp/chat");
 	sock.onmessage = onMessage;
 	sock.onclose = onClose;
+	
+	debugger;
+	
 	// 메시지 전송
 	function sendMessage() {
 		sock.send($("#message").val());

@@ -17,6 +17,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	private static Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 	
+	int room = 1;
+	
 	// websocket 연결 성공 시
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -24,12 +26,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		logger.info("{} 연결됨", session.getId());
 	}
 
-	// websocket 연결 종료 시
+	// websocket 메세지 수신 및 송신
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
-		
-		
+		System.out.println(session.getAttributes());
+		System.out.println(session.getHandshakeHeaders());
+		//{HTTP.SESSION.ID=890633AEE5E9ED8D591854F452A7966A}
+		//{host=[localhost:8080], connection=[Upgrade], pragma=[no-cache], cache-control=[no-cache], user-agent=[Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36], upgrade=[websocket], origin=[http://localhost:8080], sec-websocket-version=[13], accept-encoding=[gzip, deflate, br, zstd], accept-language=[ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7], cookie=[JSESSIONID=890633AEE5E9ED8D591854F452A7966A; G_ENABLED_IDPS=google; g_state={"i_l":0}], sec-websocket-key=[wEc06W2115HmF4CbbkihCw==], sec-websocket-extensions=[permessage-deflate; client_max_window_bits]}
 		
 		// 모든 유저에게 메세지 출력
 		for(WebSocketSession sess : sessionList) {
@@ -37,7 +41,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		}
 	}
 
-	// websocket 메세지 수신 및 송신	
+	// websocket 연결 종료 시	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		sessionList.remove(session);

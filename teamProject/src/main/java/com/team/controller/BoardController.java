@@ -243,7 +243,11 @@ public class BoardController {
 	        @RequestParam("imgs") List<MultipartFile> imgs,
 	        HttpServletRequest request) throws IOException {
 		System.out.println("BoardController updateBoardPro()");
-		
+//		업데이트할 때...
+//		글 번호를 찾아온다.(아이디와 date로)
+//		delete로 그 글번호를 사용하여 이미지테이블에서 이미지 파일 삭제
+//		그리고 구해놓은 글번호를 사용하여 그 글에 접근하여
+//		기존 정보들에 update를 한다...
 	    // 텍스트 데이터 처리
 		System.out.println("textData: " + textData);
 	    // 원본 Map의 textData 값 (JSON 문자열)
@@ -257,6 +261,14 @@ public class BoardController {
         Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
         // 파싱된 Map의 내용 출력
         System.out.println("parsedMap: " + parsedMap);
+        // 글번호 구해오기
+        System.out.println("확인용: " + parsedMap.get("proWr"));
+        System.out.println("확인용: " + parsedMap.get("proDate"));
+        Map<String, String> getNumMap = new HashMap<>();
+        getNumMap.put("proWr", parsedMap.get("proWr"));
+        getNumMap.put("proDate", parsedMap.get("proDate"));
+        String proNo = boardService.getProNo(getNumMap);
+        
 	    ServletContext context = request.getSession().getServletContext();
 	    String realPath = context.getRealPath("/resources/img/uploads");
 	    System.out.println("realPath: " + realPath);

@@ -90,5 +90,10 @@ public class BoardService {
 		return boardDAO.selectAddress(id);
 	}// selectAddress()
 
+	public String getProNo(Map<String, String> getNumMap) {
+		System.out.println("BoardService getProNo()");
+		return boardDAO.getProNo(getNumMap);
+	}// getProNo()
+
 
 }// BoardService 끝

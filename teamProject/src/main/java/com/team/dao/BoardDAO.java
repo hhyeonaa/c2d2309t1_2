@@ -110,6 +110,11 @@ public class BoardDAO {
 		System.out.println("BoardDAO selectAddress()");
 		return sqlSession.selectList(NAMESPACE + ".selectAddress", id);
 	}// selectAddress()
+
+	public String getProNo(Map<String, String> getNumMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

@@ -291,7 +291,8 @@ selectMethod();
 		debugger;
 		$ajax({
 			url: "addDeliveryUpdate",
-			data: {ADD_NO : $('#ADD_NO').val()}
+			data: {ADD_NO : $('#ADD_NO').val()
+				  ,MEM_NO : $('#MEM_NO').val()}
 		})//ajax
 		.done(function(data){
 			if(data != null){

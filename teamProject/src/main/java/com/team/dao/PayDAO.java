@@ -26,7 +26,7 @@ public class PayDAO {
 		return sqlSession.selectList(namespace + ".getMemAdd", map2);
 	}
 	
-	//추후 수정
+	//배송지 1개 orderby select
 	public List<Map<String, String>> getMemAddBasic(Map<String, String> map2) {
 		return sqlSession.selectList(namespace + ".getMemAddBasic", map2);
 	}

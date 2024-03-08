@@ -42,7 +42,8 @@ public class PayDAO {
 	}
 	
 	//회원 수정할 배송지 select
-	public Map<String, String> getaddDelivery(Map<String, String> param) {
+	public Map<String, String> getaddDelivery(Map<String, String> param){
+		System.out.println(param);
 		return sqlSession.selectOne(namespace + ".getaddDelivery", param);
 	}
 	

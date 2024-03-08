@@ -53,7 +53,7 @@ var requestPay = (pgId, paypayMethod) => {
 				  console.log(rsp);
 //				  $.ajax({
 //					  type: "post",
-//					  url: "${pageContext.request.contextPath}/pay/paySuccess",
+//					  url: "paySuccess",
 //				  })//ajax
 				  
 		  	}else{
@@ -69,6 +69,7 @@ function addList(result){
 		$("#divAddress").append('<li class="addressInfo mb-4">'+
 									'<div class="boxdeliveryaddress">'+
 									'<input id="ADD_NO" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO">' +
+									'<input id="MEM_NO1" type="hidden" value="'+item.MEM_NO+'" name="MEM_NO">' +
 										'<div class="boxdeliveryaddressTitle">'+
 											'<span>'+item.ADD_NICK +'</span>'+
 											'<button type="button" class="button__delivery-choice">선택</button>'+
@@ -84,8 +85,8 @@ function addList(result){
 												'</div>'+
 											'</div>'+
 											'<div class="deliverybtn">'+
-												'<button id="deliUpdate">수정</button>'+
-												'<button id="deliDelete">삭제</button>'+
+												'<button type="submit" id="deliUpdate">수정</button>'+
+												'<button type="submit" id="deliDelete">삭제</button>'+
 											'</div>'+	
 										'</div>'+
 									'</div>'+
@@ -266,6 +267,7 @@ selectMethod();
 				debugger;
 				if(result = 1){
 					$("#staticBackdrop1").modal("hide");
+					$("#staticBackdrop").modal("show");
 				}			
 			},
 			fail:function(){
@@ -287,15 +289,16 @@ selectMethod();
 	//7.배송지 수정버튼 > select,update
 	//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출력
 	$("#deliUpdate").on('click', function(){
-		$("#staticBackdrop").modal("hide");
+//		$("#staticBackdrop").modal("hide");
+		$("#staticBackdrop1").modal("show");
 		debugger;
 		$ajax({
 			url: "addDeliveryUpdate",
 			data: {ADD_NO : $('#ADD_NO').val()
-				  ,MEM_NO : $('#MEM_NO').val()}
+				  ,MEM_NO : $('#MEM_NO1').val()}
 		})//ajax
 		.done(function(data){
-			if(data != null){
+			if(data !== null){
 				debugger;
 				alert("여기까지")
 			}

@@ -80,7 +80,12 @@
 	</insert>
 	
 	<!--회원 수정할 배송지 select -->
-<!-- 	<select> -->
-<!-- 		SELECT  -->
-<!-- 	</select> -->
+	<select id="getaddDelivery" resultType="map">
+		SELECT *
+			FROM MEMBERS M
+			JOIN ADDRESS A
+				ON M.MEM_NO = A.MEM_NO
+			WHERE M.MEM_NO = #{MEM_NO}
+			AND A.ADD_NO = #{ADD_NO}
+	</select>
 </mapper>

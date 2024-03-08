@@ -265,6 +265,7 @@
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
+<%-- 						<c:if test="${!empty memAddBasic }"> --%>
 							<div class="new-address new-address__title" id="newaddress">
 								<div class="box__label">
 									<label for="address-title" class="text__label">배송지명</label>
@@ -314,6 +315,7 @@
 										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="" >
 									</div>
 								</div>
+<%-- 						</c:if>	 --%>
 						</section>
 					</div>
 	      		</div>

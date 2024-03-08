@@ -46,6 +46,7 @@ public class PayController {
 		//로그인 회원 정보 select
 		param.put("MEM_ID", MEM_ID);
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
+		System.out.println(param2);
 		model.addAttribute("buyerInfo", param2);
 		
 		//로그인한 회원 정보 및 배송지리스트 select(ajax?), >> 모달창 ajax
@@ -97,6 +98,7 @@ public class PayController {
 		System.out.println(param);
 		Map<String, String> addUpList = payService.getaddDelivery(param);
 		model.addAttribute("addUpList", addUpList);
+		System.out.println(addUpList);
 		return addUpList;
 	}//addDeliveryUpdate()
 	

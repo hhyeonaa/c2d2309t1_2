@@ -25,18 +25,26 @@ public class PayDAO {
 	public List<Map<String, String>> getMemAdd(Map<String, String> map2) {
 		return sqlSession.selectList(namespace + ".getMemAdd", map2);
 	}
-
-	public Map<String, String> getMemAddBasic(Map<String, String> map2) {
-		return sqlSession.selectOne(namespace + ".getMemAddBasic", map2);
+	
+	//추후 수정
+	public List<Map<String, String>> getMemAddBasic(Map<String, String> map2) {
+		return sqlSession.selectList(namespace + ".getMemAddBasic", map2);
 	}
-
+	
+	//회원 배송지리스트 select
 	public List<Map<String, String>> getAddList(Map<String, String> param) {
 		return sqlSession.selectList(namespace + ".getAddList", param);
 	}
 	
-//	// 배송지 저장
-//	public void insertAddress(Map<String, String> map) {
-//		sqlSession.insert(namespace + ".insertAddress", map); 
-//	}
+	//회원 배송지등록 insert
+	public int addDelivery(Map<String, String> param) {
+		return sqlSession.insert(namespace + ".addDelivery", param);
+	}
+	
+	//회원 수정할 배송지 select
+	public Map<String, String> getaddDelivery(Map<String, String> param) {
+		return sqlSession.selectOne(namespace + ".getaddDelivery", param);
+	}
+	
 
 }

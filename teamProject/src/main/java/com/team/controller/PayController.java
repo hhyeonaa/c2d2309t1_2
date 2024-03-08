@@ -54,7 +54,7 @@ public class PayController {
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
 		model.addAttribute("memAddList", memAddList);
 		
-		//payment 최근(기본)배송지 select ADD_BASIC = "1" >> 수정하기 (basic X)
+		//payment 배송지 1개 orderby select
 		Map<String, String> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
 		

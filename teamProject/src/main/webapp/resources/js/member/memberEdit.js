@@ -1,5 +1,24 @@
 $(function(){
-	debugger
+
+//	function editImage() {
+//		let CUS_IMAGE = document.getElementById("CUS_IMAGE");
+//		CUS_IMAGE.click();
+//	}
+//	
+//	function setThumbnail(event){
+//		var reader = new FileReader();
+//		reader.onload = function(event){
+//			document.getElementById("newImage").src = event.target.result;
+//		};
+//		reader.readAsDataURL(event.target.files[0]);
+//	}
+	
+	function resetImage() {
+		debugger;
+		// document.getElementById("newImage").src = "upload/profile.png";
+		if(confirm("현재 프로필이미지를 삭제하고 기본으로 변경하시겠습니까?")) document.location = 'resetImage';
+	}
+	
 	// ~~~~~~~~~~~~~~~~~~~비밀번호 유효성 검사~~~~~~~~~~~~~~~~~~~
 	$('#MEM_PW').blur(function(){
 		// 비밀번호 확인 비어있는 경우 제어
@@ -69,6 +88,8 @@ $(function(){
 			$('#MEM_BIRTH').focus();	
 			return false;
 		}
+		
+		
 //		
 //		$.ajax({
 //			type: "post"

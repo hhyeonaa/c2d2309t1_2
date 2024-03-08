@@ -60,6 +60,8 @@
 		 	<div style="width: 60%; height: 400px;">
 		 	<input type="hidden" id="proNo" value="${resultMap.PRO_NO}">
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
+		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
+		 	<input type="hidden" id="proDate" value="${resultMap.PRO_DATE}">
 		 		<table>
 		 			<tr><th>${resultMap.PRO_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
@@ -162,9 +164,11 @@
 		 			</td></tr>
 
 		 		</table>
+		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button">글 수정</button>
+				  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
 				</div>
+				</c:if>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
 		 		<table class="table" style="text-align: center;">

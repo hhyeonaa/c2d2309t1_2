@@ -4,56 +4,58 @@
 document.write('<script type="text/javascript"' + 
 			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/variableCode.js">' +
 			   '</script>');
- 
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+			   '</script>');  
 $(() => {
  
  	targetColor($("#message_manage"));
+ 
+	let columns = [
+		{
+			name: columnTitle.번호,
+			header:"번호",
+//			filter:"number",
+		    sortable: true
+		},
+		{
+			name: columnTitle.내용,
+			header:"코드내용",
+			filter:"text",
+		    sortable: true
+		},  
+		{
+			name: columnTitle.활성여부_관리자,
+			header:"숨김 여부",
+			filter:"select",
+		    sortable: false,
+			renderer: {
+	            type: ToggleButton
+	        }
+		},
+		{
+			name:"",
+			header:"삭제",
+			renderer: {
+	            type: DeleteButton
+	        }
+		}
+	]
+
+	$("#excel").remove();
+	$("#grid").empty();
+	grid("message_managePro", 5, columns, false);
+	excel('updownload', 'MESSAGE'); 
+ 
+ 	var modal = $('#addModal');
+ 
+ 	$('#btnAdd').on('click', function(){
+		modal.css('display', 'block');
+	});
+	
+	$('#close, #cancelBtn').on('click', function(){
+		modal.css('display', 'none');
+	});	 
  	
-	 
- 	paging("#tbody tr", 5, 0);	
- 
-// 	$(document).on("click", ".insert", function(){
-//			
-//	}) 	
-	
-		
-	
- 
 })
-
-function ajaxJson(){
-	var ajaxData = {};
-}
-
-
-//function prependFunc(codeNo){
-//	$("#tbody").prepend(
-//		'<tr>' +
-//			'<th scope="row" class="text-center"><input type="checkbox" style="width: 25px; height: 25px;"></th>' +
-//			'<td class="text-center">' + codeNo + '</td>' +
-//			'<td class="text-center"></td>' +
-//			'<td class="text-center" style="width: 75px;">' +
-//				'<span style="font-size: 33px; color: green; border: 1px solid green;" class="save material-symbols-outlined">done</span>' +
-//			'</td>' +
-//			'<td class="text-center" style="width: 75px;">' +
-//				'<span style="font-size: 33px; color: red; border: 1px solid red;" class="delete material-symbols-outlined">delete</span>' +
-//			'</td>' +
-//		'</tr>')
-//
-//}
-
-function ajaxFunc(_url){
-	
-	$.ajax({
-		url: _url,
-		caches: false,
-		
-	})
-	.done(function(data){
-		
-	})
-	.fail(function(){
-		
-	})
-}
 

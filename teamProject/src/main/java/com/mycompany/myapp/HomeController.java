@@ -73,4 +73,9 @@ public class HomeController {
 	public String eul() {
 		return "excelUpload";
 	}
+	
+	@RequestMapping(value = "/chattest", method = RequestMethod.GET)
+	public String chattest() {
+		return "chat/chattest";
+	}
 }

@@ -18,3 +18,51 @@
 	padding-bottom: 3%;
 }
 
+#menuBar {
+	padding-left: 2%;
+	padding-right: 3%;
+	padding-top: 1%;
+	padding-bottom: 2%;
+}
+
+div{margin:0;}
+
+.tab_wrap{
+  overflow:hidden;
+  width: 700px;
+  margin:0 auto;
+  border-bottom:1px solid #cdcdcd;
+}
+.tab_wrap input{
+  display:none;
+}
+.tab_wrap label{
+  display:block; float:left; width:25%; height:35px;
+  text-align:center;  line-height:35px;
+  border-right:1px dotted #cdcdcd;
+  cursor:pointer;
+}
+.tab_wrap label.on{
+  color:#fff;
+  background-color:#A27B3A;
+}
+.tab_content{
+  display:none;
+  width: 1080px;
+  height: 100%;
+  margin:0 auto;
+  padding:5px 10px;
+  box-sizing:border-box;
+}
+.tab_content1{
+  display:block;
+}
+
+#emptySell, #emptyBuy, #emptyShare, #emptyAuction {
+	padding-top: 120px;
+	padding-left: 42%;
+	height: 300px;
+	text-align: center;
+	font-size: 20px;
+	font-family: sans-serif;
+}

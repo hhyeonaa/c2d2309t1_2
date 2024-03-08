@@ -17,7 +17,7 @@
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container">
     <div class="row align-items-center mb-4">
-        <div><h4 class="card-title"><b>최근 저장된 카테고리</b></h4></div>
+        <div><h4 class="card-title"><b>현재 저장된 카테고리</b></h4></div>
     </div>
     <div class="preview mb-5 ps-3">
 		<div class="navbar navbar-expand-lg">
@@ -47,7 +47,7 @@
 				<tr>
 					<th scope="col" >카테고리명</th>
 					<th scope="col">순서</th>
-					<th scope="col">숨김 여부</th>
+					<th scope="col">사용 여부</th>
 				</tr>
 			</thead>
 			<tbody class="tableHr">

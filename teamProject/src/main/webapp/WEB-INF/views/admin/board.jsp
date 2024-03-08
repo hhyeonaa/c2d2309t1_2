@@ -127,30 +127,31 @@
 	     </div>
 	     <div class="modal-body" id="modal-body">
 		    <div class="boardEdit">
-				<table id="inputList" class="table text-center mb-4">
-					<thead class="tableHr align-middle ">
+				<table id="inputList" class="table text-center align-middle mb-4">
+					<thead class="tableHr align-middle">
 						<tr>
 							<th scope="col" >라벨명/ID</th>
 							<th scope="col">타입</th>
 							<th scope="col">순서</th>
-							<th scope="col">숨김 여부</th>
+							<th scope="col">사용 여부</th>
 						</tr>
 					</thead>
 					<tbody class="tableHr" id="tbody">
 						<c:forEach var="form" items="${formList}">
 						<tr>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" id="${form.CODE}" class="form-control text-center" value="${form.CODE}"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" id="${form.CO_DETAIL}" class="form-control text-center" value="${form.CO_DETAIL}"/>
-								</div>
-							</td>
+							<td>${form.CODE}</td>
+							<td>${form.CO_DETAIL}</td>
 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
+							<td>
+								<div class="form-check form-switch justify-content-center">
+									<c:if test="${form.ACTIVE eq '1'}">
+										<input class="form-check-input" type="checkbox" id="active" checked>
+									</c:if>
+									<c:if test="${form.ACTIVE eq '0'}">
+										<input class="form-check-input" type="checkbox" id="active">
+									</c:if>
+								</div>
+							</td>
 						</tr>
 <!-- 							<td> -->
 <!-- 								<div class="form-outline align-top text-start"> -->
@@ -165,6 +166,13 @@
 						</c:forEach>
 					</tbody>
 				</table>
+<!-- 			    <div class="row g-0 pb-4"> -->
+<!-- 					<div class="demo"> -->
+<!-- 					    <nav class="pagination-outer"  aria-label="Page navigation"> -->
+<!-- 					        <ul class="pagination" id="pagination"></ul> -->
+<!-- 					    </nav> -->
+<!-- 					</div>  -->
+<!-- 			    </div> -->
 		    </div>		
 	     </div>
 	     

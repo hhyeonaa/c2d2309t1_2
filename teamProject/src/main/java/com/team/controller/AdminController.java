@@ -58,12 +58,14 @@ public class AdminController {
  		System.out.println(result);
  		return null;
  	}
+	
  	@GetMapping("/managerPro")
  	@ResponseBody
  	public ResponseEntity<?> readManager(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
  		return ToastUI.resourceData(req, mapList);
  	}
+ 	
  	@PutMapping("/managerPro")
  	@ResponseBody
  	public ResponseEntity<?> updateManager(@RequestBody String updatedRows) {
@@ -108,7 +110,7 @@ public class AdminController {
 		List<Map<String, String>> mapList = adminService.getBoardList();
 		model.addAttribute("mapList", mapList);
 		List<Map<String, String>> formList = adminService.getForm(map);
-		System.out.println("리스트: " + formList);
+		System.out.println("리스트: " + formList.toString());
 		model.addAttribute("formList", formList);
 		return "admin/board";
 	}
@@ -127,6 +129,7 @@ public class AdminController {
 		List<Map<String, String>> arrList = requestBody;
 	    for (Map<String, String> entry : arrList) {
 	        adminService.displayUpdate(entry);
+	        System.out.println(entry);
 	    }
 		return ResponseEntity.ok().body(arrList);
 	}
@@ -151,6 +154,7 @@ public class AdminController {
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
 		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
 		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
 		return "admin/inputForm";
 	}
 	
@@ -175,7 +179,6 @@ public class AdminController {
 		}
 		System.out.println("리스트: " + formList.toString());
 		return ResponseEntity.ok().body(formList);
-
 	}
 	
 	

@@ -66,7 +66,7 @@ class RadioInput extends HTMLElement {
         span.innerHTML = this.getAttribute('name');
         
         // Radio
-//        var tradeDataElement = document.getElementById("tradeData");
+//      var tradeDataElement = document.getElementById("tradeData");
 //		var tradeList = JSON.parse(tradeDataElement.getAttribute("data-trade"));
 //		
 //		// tradeList를 이용한 원하는 작업 수행
@@ -219,9 +219,10 @@ class AddressInput extends HTMLElement {
 	        fileInput.style.display = 'none';
 
 	        fileDiv.append(label, fileInput);
+	        
 	        // 미리보기 공간
 	        let fileUploadZoneDiv = document.createElement('div');
-	        fileUploadZoneDiv.classList.add('col-12', 'd-flex', 'justify-content-center');
+	        fileUploadZoneDiv.classList.add('col-12', 'd-flex', 'justify-content-center', 'pt-3');
 	        fileUploadZoneDiv.id = 'att_zone';
 	        fileUploadZoneDiv.dataset.placeholder = '파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지';
 

@@ -60,6 +60,7 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> updateManager(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		
  		System.out.println(result);
  		return null;
  	}
@@ -161,7 +162,6 @@ public class AdminController {
 		}
 		System.out.println("리스트: " + formList.toString());
 		return ResponseEntity.ok().body(formList);
-
 	}
 	
 	

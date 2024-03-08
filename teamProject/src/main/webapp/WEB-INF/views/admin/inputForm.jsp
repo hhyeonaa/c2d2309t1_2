@@ -83,7 +83,25 @@ span {
 			  </div>
 			  
 			 <hr>
-
+			  <div class="row">
+			    <div class="col-12 d-flex justify-content-center">
+			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button"><img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png"></label>
+			      <input type='file' id='btnAtt' multiple style="display: none;"/>
+			      <button id="resetImg"><i class="bi bi-trash"></i></button>
+			    </div>
+			  </div>
+			  <div class="row">
+			    <div class="col-12 d-flex justify-content-center">
+			      <div id='att_zone' class="mt-3" data-placeholder="파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지"></div>
+			    </div>
+			  </div>
+			  <div class="row">
+			    <div class="col-12 d-flex justify-content-center pt-3">
+			      <p></p>
+			    </div>
+			  </div>
+			  
+			  
 			 <!-- -----------------test용 ------------------------- --> 
 			<div id='formDiv'>
 			</div>  
@@ -109,7 +127,7 @@ span {
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin/inputForm.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/inputForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	var trade = '${trade}';
@@ -121,7 +139,7 @@ span {
 	customElements.define('radio-input', RadioInput);
 	customElements.define('select-input', SelectInput);
 	customElements.define('address-input', AddressInput);
-	customElements.define('image-input', ImageInput);
+// 	customElements.define('image-input', ImageInput);
 
 	
 	
@@ -138,25 +156,25 @@ $(function(){
 		}
 	});
 	
-	$('#insertBtn').on('click', function() {
-		console.log($("#content").attr("id-data"));
-		$.ajax({
-			type: 'post'
-			, url: 'inputFormPro'
-			, data: {
-				PRO_TC: $('select[id=proTc]').val()
-				, PRO_NAME: $('#subject').val()
-				, PRO_PRICE: $('#price').val()
-				, PRO_CONTENT: $('#content').val()
-				, PRO_STATUS: 'PS' + $('input[id="state"]:checked').val()
-				, PRO_CATE: 'CA' + $('select[id=category]').val()
-				, PRO_ADDRESS: $('label[id="address"]').text()
-				, PRO_IMAGE: $('#image-in').val()}
-		})
-		.done(function(data){
-			location.replace('board/main');
-		});
-	});
+// 	$('#insertBtn').on('click', function() {
+// 		console.log($("#content").attr("id-data"));
+// 		$.ajax({
+// 			type: 'post'
+// 			, url: 'inputFormPro'
+// 			, data: {
+// 				PRO_TC: $('select[id=proTc]').val()
+// 				, PRO_NAME: $('#subject').val()
+// 				, PRO_PRICE: $('#price').val()
+// 				, PRO_CONTENT: $('#content').val()
+// 				, PRO_STATUS: 'PS' + $('input[id="state"]:checked').val()
+// 				, PRO_CATE: 'CA' + $('select[id=category]').val()
+// 				, PRO_ADDRESS: $('label[id="address"]').text()
+// 				, PRO_IMAGE: $('#image-in').val()}
+// 		})
+// 		.done(function(data){
+// 			location.replace('board/main');
+// 		});
+// 	});
 });
 	
 </script>

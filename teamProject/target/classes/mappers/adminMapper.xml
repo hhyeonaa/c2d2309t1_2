@@ -121,7 +121,7 @@
 				, ACTIVE
 			from CODE
 			where CO_TYPE = 'FO'
-<!-- 			and ACTIVE = '1' -->
+			and CO_NO != '7'
 			ORDER BY SEQ
 	</select>
 	

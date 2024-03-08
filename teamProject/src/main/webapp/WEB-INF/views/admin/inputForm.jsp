@@ -41,7 +41,7 @@ span {
 
 </style>
 </head>
-<jsp:include page="../template/header.jsp"/>s
+<jsp:include page="../template/header.jsp"/>
 	
 <body class="d-flex flex-column min-vh-100">
 
@@ -123,15 +123,19 @@ span {
 	</div>
 <!-- 	</form> -->
 </div>
+
+<div id="tradeData" data-trade="${trade}"></div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/inputForm.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin/inputForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+	var menu = '${menu}';
 	var trade = '${trade}';
-// 	var menu = '${menu}';
-// 	var category = '${category}';
+	var productStatus = '${productStatus}';
+	var category = '${category}';
 	
 	customElements.define('text-input', TextInput);
 	customElements.define('textarea-input', TextareaInput);
@@ -155,28 +159,29 @@ $(function(){
 		}
 	});
 	
-// 	$('#insertBtn').on('click', function() {
-// 		console.log($("#content").attr("id-data"));
-// 		$.ajax({
-// 			type: 'post'
-// 			, url: 'inputFormPro'
-// 			, data: {
-// 				PRO_TC: $('select[id=proTc]').val()
-// 				, PRO_NAME: $('#subject').val()
-// 				, PRO_PRICE: $('#price').val()
-// 				, PRO_CONTENT: $('#content').val()
-// 				, PRO_STATUS: 'PS' + $('input[id="state"]:checked').val()
-// 				, PRO_CATE: 'CA' + $('select[id=category]').val()
-// 				, PRO_ADDRESS: $('label[id="address"]').text()
-// 				, PRO_IMAGE: $('#image-in').val()}
-// 		})
-// 		.done(function(data){
-// 			location.replace('board/main');
-// 		});
-// 	});
+	$('#insertBtn').on('click', function() {
+		console.log($("#content").attr("id-data"));
+		$.ajax({
+			type: 'post'
+			, url: 'inputFormPro'
+			, data: {
+				PRO_TC: $('select[id=proTc]').val()
+				, PRO_NAME: $('#subject').val()
+				, PRO_PRICE: $('#price').val()
+				, PRO_CONTENT: $('#content').val()
+				, PRO_STATUS: 'PS' + $('input[id="state"]:checked').val()
+				, PRO_CATE: 'CA' + $('select[id=category]').val()
+				, PRO_ADDRESS: $('label[id="address"]').text()
+				, PRO_IMAGE: $('#image-in').val()}
+		})
+		.done(function(data){
+			location.replace('board/main');
+		});
+	});
 });
-	
 </script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
 </body>
 
 <jsp:include page="../template/Footer.jsp"/>

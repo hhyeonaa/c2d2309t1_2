@@ -5,7 +5,7 @@ document.write('<script type="text/javascript"' +
 
 $(() => {
 	targetColor($('#board_manage'));
-	paging('#tbody tr', 5, 0);
+//	paging('#tbody tr', 5, 0);
 
 	var columns = [
 		{
@@ -42,7 +42,7 @@ $(() => {
 		}
 	]
 
-	grid("boardList", 5, columns, true);
+	grid("boardPro", 5, columns, true);
 	excel('download');
 })
 $(function(){

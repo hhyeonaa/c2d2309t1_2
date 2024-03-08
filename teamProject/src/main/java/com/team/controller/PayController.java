@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,8 +54,8 @@ public class PayController {
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
 		model.addAttribute("memAddList", memAddList);
 		
-		//payment 최근(기본)배송지 select ADD_BASIC = "1"
-		Map<String, String> memAddBasic = payService.getMemAddBasic(map2);
+		//payment 배송지 1개 orderby select
+		List<Map<String, String>> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
 		
 		//결제할 상품 정보 select
@@ -70,14 +72,7 @@ public class PayController {
 		return "/pay/payment";
 	}// payment()
 	
-	//ajax 배송리스트 모달 
-//	@GetMapping("/addList")
-//	public ResponseEntity<String> addList(@RequestParam Map<String, String> param) {
-//		System.out.println("ajax addList");
-//		List<Map<String, String>> addList = payService.getAddList(param);
-//		return addList ;
-//	}
-	
+	// 회원 배송지 리스트 모달창 ajax
 	@GetMapping("/addList")
 	@ResponseBody
 	public List<Map<String, String>> addList(@RequestParam Map<String, String> param, Model model) {
@@ -85,8 +80,25 @@ public class PayController {
 		List<Map<String, String>> addList = payService.getAddList(param);
 		model.addAttribute("addList", addList);
 		return addList;
-	}
+	}//addList()
 	
+	// 회원 배송지 등록추가 insert ajax
+	@PostMapping("/addDelivery")
+	@ResponseBody
+	public ResponseEntity<?> addDelivery(@RequestParam Map<String, String> param){
+		System.out.println("ajax addDelivery");
+		return  ResponseEntity.ok().body(payService.addDelivery(param));
+	}//addDelivery()
+	
+	//회원 배송지 수정할 배송지 select ajax
+	@GetMapping("/addDeliveryUpdate")
+	public Map<String, String> addDeliveryUpdate(@RequestParam Map<String, String> param, Model model){
+		System.out.println("ajax addDeliveryUpdate");
+		System.out.println(param);
+		Map<String, String> addUpList = payService.getaddDelivery(param);
+		model.addAttribute("addUpList", addUpList);
+		return addUpList;
+	}//addDeliveryUpdate()
 	
 	@GetMapping("/completepay")
 	public String completepay() {

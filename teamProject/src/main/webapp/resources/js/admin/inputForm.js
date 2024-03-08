@@ -1,3 +1,13 @@
+document.write('<script src="/' + window.location.pathname.split("/")[1] + '/resources/js/board/writeBoard.js');
+
+// 외부 js파일 호출(erlangc.js)
+//document.write('<script src="/com/js/erlangc.js"></script>'); 
+// 외부 js파일에 있는 함수 호출(Agents)
+// function Agents() --> erlangc.js 파일 내에 정의된 함수 
+
+// 사용 예시
+//var Agents_t = Agents(SLA, SERVICE_TIME, tempVal ,AHT);
+
 class TextInput extends HTMLElement {
 	connectedCallback(){
 		// div - row

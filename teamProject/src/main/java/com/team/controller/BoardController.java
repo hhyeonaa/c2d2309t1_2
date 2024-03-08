@@ -233,6 +233,51 @@ public class BoardController {
 	    return ResponseEntity.ok("Data and files received successfully");
 	}
 	
+//	public void updateBoard(Map<String, String> param) {
+//		pamram.get(img);	// 화면에서 가져온 사진 2개
+//		= boardService.getImgMap(param); // DB에서 가져온 2개 (수정전 2개)
+//		
+//		
+//	}
+	@PostMapping("/updateBoardPro")
+	public ResponseEntity<?> updateBoardPro(
+	        @RequestParam Map<String, String> textData,
+	        @RequestParam("imgs") List<MultipartFile> imgs,
+	        HttpServletRequest request) throws IOException {
+		System.out.println("BoardController updateBoardPro()");
+		
+	    // 텍스트 데이터 처리
+		System.out.println("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+        // 파싱된 Map의 내용 출력
+        System.out.println("parsedMap: " + parsedMap);
+	    ServletContext context = request.getSession().getServletContext();
+	    String realPath = context.getRealPath("/resources/img/uploads");
+	    System.out.println("realPath: " + realPath);
+	    List<String> imageFilenames = new ArrayList<>();
+	    for (MultipartFile img : imgs) {
+	        String originalFileName = img.getOriginalFilename();
+	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
+	        imageFilenames.add(fileName);
+	        File destFile = new File(realPath + "\\" + fileName);
+	        img.transferTo(destFile); // 파일 저장
+	        System.out.println("Saved file: " + fileName + " to " + realPath);
+	    }
+	    //boardService.insertBoard(parsedMap, imageFilenames);
+
+	    return ResponseEntity.ok("Data and files received successfully");
+	}
+	
+	
 //	@PostMapping("/writeBoardPro")
 //	public String writeBoardPro(
 //			@RequestParam("proName") String proName,

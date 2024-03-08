@@ -50,6 +50,11 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		pageOptions: pageOptions
 	});
 	
+	grid.on('afterChange', ev => {
+		debugger;
+		grid.request('updateData');
+	})
+	
 //	const appendBtn = document.getElementById('appendBtn');
 //	const appendedData = {};
 //    columns.forEach(item => appendedData[item.name] = '')
@@ -67,27 +72,28 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 //		appendRows = [];
 //    });
 
-	$(document).on("click", "#insertBtn", function () {
-		debugger;
-		$.ajax({
-			type: "post"
-			, url: "insertPro"
-			, data: {AD_ID: $('#AD_ID').val(),
-					 AD_PW: $('#AD_PW').val(),
-					 AD_NAME: $('#AD_NAME').val() }
-		})
-		.done(function(data) {
-			debugger;
-			if(data == "") {
-				return false;
-			}
-			debugger;
-			debugger;
-			modal.css('display', 'none');
-			$('#adminDiv').load(location.href+' #adminDiv');
-//			location.reload();
-		 })
-	});
+// 누가 한거지?
+//	$(document).on("click", "#insertBtn", function () {
+//		debugger;
+//		$.ajax({
+//			type: "post"
+//			, url: "insertPro"
+//			, data: {AD_ID: $('#AD_ID').val(),
+//					 AD_PW: $('#AD_PW').val(),
+//					 AD_NAME: $('#AD_NAME').val() }
+//		})
+//		.done(function(data) {
+//			debugger;
+//			if(data == "") {
+//				return false;
+//			}
+//			debugger;
+//			debugger;
+//			modal.css('display', 'none');
+//			$('#adminDiv').load(location.href+' #adminDiv');
+////			location.reload();
+//		 })
+//	});
     
     const resetBtn = document.getElementById('resetBtn');
     resetBtn.addEventListener('click', () =>{
@@ -96,17 +102,53 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		debugger;	
 	});
 	
-	const updateBtn = document.getElementById('updateBtn');
-	debugger;
-	updateBtn.addEventListener('click', function(){
+	
+	$("#ckDeleteBtn").on("click", function(){
+		grid.removeCheckedRows(true);
+		grid.request("deleteData");
+		grid.reloadData();
+	})
+	
+	$(document).on("click", "#insertBtn", function () {
 		debugger;
-		grid.request('updateData');
+		if($('#AD_ID').val() == ""){
+			alertMsg("AM6", ["아이디"]);
+			$('#AD_ID').focus();
+			return;
+		}
+		if($('#AD_PW').val() == ""){
+			alertMsg("AM6", ["비밀번호"]);
+			$('#AD_PW').focus();
+			return;
+		}
+		if($('#AD_NAME').val() == ""){
+			alertMsg("AM6", ["이름"]);
+			$('#AD_NAME').focus();
+			return;
+		}
+		
+		var row = {
+			AD_ID: $('#AD_ID').val(),
+			AD_PW: $('#AD_PW').val(),
+			AD_NAME: $('#AD_NAME').val(),
+			AD_ACTIVE: "0",
+			AD_NO: grid.getRowCount() + 1,
+			AD_ROLE: "RO1" 
+		};
+		grid.appendRow(row);
+		grid.request("createData");
+		$("#addModal").modal("hide");
+		
 	});
 	
-	debugger;
-	$("#active").on("change", function(){
-		debugger;
-	});
+	
+//	const updateBtn = document.getElementById('updateBtn');
+//	debugger;
+//	updateBtn.addEventListener('click', function(){
+//		debugger;
+//		grid.request('updateData');
+//	});
+	
 	
 	const setPerpage = document.getElementById('setPerpage');
 	setPerpage.addEventListener('change', function(e){

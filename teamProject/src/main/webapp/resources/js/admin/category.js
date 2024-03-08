@@ -29,7 +29,7 @@ $(function(){
 		}
 	]
 	
-	grid("categoryList", 3, columns, true);
+	grid("categoryPro", 5, columns, true);
 	excel("download");
 	targetColor($("#catelist_manage"));
 		
@@ -51,7 +51,7 @@ $(function(){
 		var arr = [];
 		for (let i = 1; i < categoryList.rows.length; i++) {
 			arr.push(
-				{CO_TYPE: 'CA'
+				{CO_TYPE: 'CM'
 				 , SEQ: i
 				 , CODE: categoryList.rows[i].cells[0].innerText
 				 , ACTIVE: categoryList.rows[i].cells[2].querySelector('input[type="checkbox"]').checked ? 1 : 0 

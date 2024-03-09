@@ -21,7 +21,6 @@ $(function(){
 			filter:"number",
 		    sortable: true,
 		    editor: "text"
-		    
 		}, 
 		{
 			name:"AD_ID",
@@ -45,16 +44,12 @@ $(function(){
 			filter:"select",
 		    sortable: true,
 			sortingType: 'asc',
-			renderer: {
-                type: ToggleButton
-            }
+			renderer: { type: ToggleButton }
 		},
 		{
-			name:"",
+			name:"DELETE",
 			header:"삭제",
-			renderer: {
-                type: DeleteButton
-            }
+			renderer: { type: DeleteButton }
 		}
 	]
 	grid("managerPro", 5, columns, false);

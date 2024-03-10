@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mappers.payMapper">
+	
+	<sql id="ADDRESS_ALL">
+		ADD_NO
+		, MEM_NO
+		, ADD_POST
+		, ADD_NAME
+		, ADD_DETAIL
+		, ADD_NICK
+		, ADD_RECEIVER
+		, ADD_PHONE
+	</sql>
+	
+	<!--결제할 상품 정보 select  -->
+	<select id="getPayProList" resultType="map" parameterType="map">
+		SELECT *
+		FROM PRODUCT
+		JOIN IMAGE
+			ON PRO_NO = IMG_PRONO
+		WHERE IMG_NO = "1"
+		AND PRO_WR = #{proWr}
+		AND PRO_DATE = #{proDate}	
+	</select>
+			
+	<!--로그인 회원 배송지리스트  select  -->
+	<select id="getMemAdd" resultType="map">
+		SELECT * 
+			FROM MEMBERS M
+			JOIN ADDRESS A
+				ON M.MEM_NO = A.MEM_NO
+			WHERE M.MEM_NO = #{MEM_NO}	
+	</select>
+	
+	<!--로그인 회원 배송지 select  -->
+	<select id="getMemAddBasic" resultType="map">
+		SELECT * 
+			FROM MEMBERS M
+			JOIN ADDRESS A
+				ON M.MEM_NO = A.MEM_NO
+			WHERE M.MEM_NO = #{MEM_NO}
+			ORDER BY CAST(SUBSTR(A.ADD_NO, 4) AS UNSIGNED)
+			LIMIT 1
+	</select>
+	
+	<!--로그인 회원 배송리스트 select  -->
+	<select id="getAddList" resultType="map">
+		SELECT * 
+			FROM MEMBERS M
+			JOIN ADDRESS A
+				ON M.MEM_NO = A.MEM_NO
+			WHERE M.MEM_NO = #{MEM_NO}	
+	</select>
+	
+	<!--회원 배송지 insert  -->
+	<insert id="addDelivery">
+		INSERT INTO ADDRESS
+			( ADD_NO
+			, MEM_NO
+			, ADD_POST
+			, ADD_NAME
+			, ADD_DETAIL
+			, ADD_NICK
+			, ADD_RECEIVER
+			, ADD_PHONE)
+		VALUES 
+			( 
+			  (CONCAT("ADD", IFNULL( (SELECT MAX(CAST(REPLACE(ADD_NO,"ADD", "") AS UNSIGNED)) + 1 FROM ADDRESS A) , 1)))	 
+			, #{MEM_NO}
+			, #{ADD_POST}
+			, #{ADD_NAME}
+			, #{ADD_DETAIL}
+			, #{ADD_NICK}
+			, #{ADD_RECEIVER}
+			, #{ADD_PHONE}
+			)
+	</insert>
+	
+	<!--회원 수정할 배송지 select -->
+	<select id="getaddDelivery" resultType="map">
+		SELECT *
+			FROM MEMBERS M
+			JOIN ADDRESS A
+				ON M.MEM_NO = A.MEM_NO
+			WHERE M.MEM_NO = #{MEM_NO}
+			AND A.ADD_NO = #{ADD_NO}
+	</select>
+</mapper>

@@ -78,12 +78,11 @@
 	                                <td>${admin.AD_ID }</td>
                                 	<td>
                                 		<select class="form-select" id="role">
-											<option selected hidden>${admin.AD_ROLE }</option>
+											<option selected hidden>${admin.ROL_NAME }</option>
 											<option value="0">기본</option>
 											<option value="1">총괄</option>
 											<option value="2">운영</option>
 											<option value="3">사이트</option>
-											<option value="4">시스템</option>
 										</select>
 									</td>
 	                                <td scope="row">
@@ -120,7 +119,26 @@
 		</div> 
     </div>
     </form>
-    <div id="excel"></div>
+    
+	<div class="btn-wrapper">
+		<select name="perPage" id="setPerpage">
+			<option selected disabled hidden>선택</option>
+			<option value="-1">기본값</option>
+			<option value="0">한 페이지에 보기</option>
+			<option value="1">1개 씩 보기</option>
+			<option value="5">5개 씩 보기</option>
+			<option value="10">10개 씩 보기</option>
+			<option value="20">20개 씩 보기</option>
+			<option value="30">30개 씩 보기</option>
+			<option value="50">50개 씩 보기</option>
+			<option value="100">100개 씩 보기</option>
+		</select>
+		<button id="appendBtn">행 추가</button>
+<!-- 		<button id="removeBtn">추가 행 삭제</button> -->
+		<button id="resetBtn">취소</button>
+		<button id="saveBtn">저장</button>
+		<button id="ckDeleteBtn">선택삭제</button>
+	</div>
     <div id="grid"></div>
 </div>
 </body>

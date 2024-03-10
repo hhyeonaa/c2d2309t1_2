@@ -14,28 +14,25 @@
 			, AD_NAME
 			, AD_DATE
 			, AD_ACTIVE
-			, AD_ROLE)
+			, ROL_NO)
 		values (CONCAT("AD", IFNULL((SELECT MAX(CAST(replace(AD_NO, "AD", "") AS unsigned))+1
 									 FROM ADMIN A), 1))
 			, #{AD_ID}
 			, #{AD_PW}
 			, #{AD_NAME}
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-			, '1'
+			, 'RO2'
 			, '0')
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
 		select
-			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
-			, AD_ID 
-			, CASE AD_ROLE WHEN '1' THEN '총괄'
-						   WHEN '2' THEN '운영'
-						   WHEN '3' THEN '시스템'
-						   ELSE '기본'
-			   END AS "AD_ROLE"
-			, AD_ACTIVE
-		from ADMIN
+			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
+			, a.AD_ID
+			, r.ROL_NAME
+			, a.AD_ACTIVE
+		from ADMIN a join ROLE r
+		on a.ROL_NO = r.ROL_NO
 		ORDER BY AD_NO
 	</select>
 	
@@ -57,39 +54,76 @@
 		where AD_NO = #{AD_NO}
 	</update>
 	
-	<select id="getBoardList" resultType="map">
-		select CODE
-				, ACTIVE
-				, SEQ
-				, CASE CO_DETAIL WHEN '0' THEN '글'
-						   WHEN '1' THEN '글+사진'
-						   WHEN '2' THEN '글+사진+날짜'
-						   ELSE '없음'
-			   END AS "CO_DETAIL"
-		from CODE
-			where  CO_TYPE = 'MM'
-		ORDER BY SEQ
-	</select>
+<!-- 	<select id="getBoardList" resultType="map"> -->
+<!-- 		select CODE -->
+<!-- 				, ACTIVE -->
+<!-- 				, SEQ -->
+<!-- 				, CASE CO_DETAIL WHEN '0' THEN '글' -->
+<!-- 						   WHEN '1' THEN '글+사진' -->
+<!-- 						   WHEN '2' THEN '글+사진+날짜' -->
+<!-- 						   ELSE '없음' -->
+<!-- 			   END AS "CO_DETAIL" -->
+<!-- 		from CODE -->
+<!-- 			where  CO_TYPE = 'MM' -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select> -->
 	
 	<update id="displayUpdate">
 		update CODE
-		set    HIDE = #{HIDE}
+		set    ACTIVE = #{ACTIVE}
 		      , SEQ = #{SEQ}
 		where  CO_TYPE = #{CO_TYPE}
 		and	   CODE = #{CODE}
 	</update>
 	
-	<select id="getCategoryList" resultType="map">
-		select SEQ
+<!-- 	<select id="getCategoryList" resultType="map"> -->
+<!-- 		select SEQ -->
+<!-- 				, CODE -->
+<!-- 				, ACTIVE -->
+<!-- 		from CODE -->
+<!-- 		where CO_TYPE = 'CM' -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select>	 -->
+	
+	<insert id="inputForm">
+		insert into PRODUCT
+			(PRO_NO
+			, PRO_WR
+			, PRO_NAME
+			, PRO_PRICE
+			, PRO_CONTENT
+			, PRO_CATE
+			, PRO_STATUS
+			, PRO_TC
+			, PRO_TSC
+			, PRO_DATE
+			)
+		values (CONCAT('PR', IFNULL((SELECT MAX(CAST(replace(PRO_NO, 'PR', '') AS unsigned))+1
+									 FROM PRODUCT A), 1))
+			, #{MEM_ID}
+			, #{PRO_NAME}
+			, #{PRO_PRICE}
+			, #{PRO_CONTENT}
+			, #{PRO_CATE}
+			, #{PRO_STATUS}
+			, #{PRO_TC}
+			, 'TM1'
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
+	</insert>
+	
+	<select id="getForm" resultType="map">
+			select 
+				CO_TYPE
+				, CO_NO
 				, CODE
+				, CO_DETAIL
+				, SEQ
 				, ACTIVE
-		from CODE
-		where CO_TYPE = 'CA'
-		ORDER BY SEQ
-	</select>	
-	
-	
-	
+			from CODE
+			where CO_TYPE = 'FO'
+			and CO_NO != '7'
+			ORDER BY SEQ
+	</select>
 	
 	
 	
@@ -108,14 +142,17 @@
 <!-- 	===== 성엽 시작 ===== -->
 
 	<select id="getMemberList" resultType="map">
-		select MEM_NO
-			 , MEM_ID
-			 , MEM_NICK
-			 , MEM_NAME
-			 , MEM_EMAIL
-			 , MEM_DATE
-		from MEMBERS
-		ORDER BY MEM_NO DESC
+		 select MEM_NO
+			  , MEM_ID
+			  , MEM_NICK
+			  , MEM_NAME
+			  , MEM_EMAIL
+			  , MEM_DATE
+			  , (select COUNT(*)
+				  from REPORT
+				 where RPT_USER_IDX = MEM_ID) as COUNT
+		  from MEMBERS
+		 ORDER BY MEM_NO DESC;
 	</select>
 	
 	<select id="getContentboardList" resultType="map">
@@ -150,10 +187,17 @@
 		ORDER BY PRO_NO DESC
 	</select>
 	
-	<delete id="memberDelete">
-		delete from MEMBERS
-		where MEM_NO = #{MEM_NO}
-	</delete>
+	<update id="memberStop">
+		update MEMBERS
+		   set MEM_CAT = '1'
+		 WHERE MEM_CAT = '0'
+	</update>
+	
+	<update id="memberDelete">
+		update MEMBERS
+		   set MEM_CAT = '2'
+		 WHERE MEM_CAT = '0'
+	</update>
 	
 	<delete id="contentDelete">
 		delete from PRODUCT
@@ -164,6 +208,21 @@
 		delete from PRODUCT
 		where PRO_NO = #{PRO_NO}
 	</delete>
+	
+	<select id="getReportList" resultType="map">
+		select 
+			   RPT_IDX
+			 , USER_IDX
+			 , RPT_USER_IDX
+			 , RPT_SELECT
+			 , RPT_TIME
+		from REPORT
+		ORDER BY RPT_IDX DESC
+	</select>
+
+	
+
+
 
 <!-- 	===== 성엽 끝 ===== -->
 	

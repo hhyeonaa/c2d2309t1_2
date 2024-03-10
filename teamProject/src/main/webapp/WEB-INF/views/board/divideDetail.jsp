@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,6 +61,8 @@
 		 	<div style="width: 60%; height: 400px;">
 		 	<input type="hidden" id="proNo" value="${resultMap.PRO_NO}">
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
+		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
+		 	<input type="hidden" id="proDate" value="${resultMap.PRO_DATE}">
 		 		<table>
 		 			<tr><th>${resultMap.PRO_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
@@ -79,13 +82,19 @@
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
-		 				<td>사용감 적음</td>
-		 				<td></td>
-		 				<td></td>
+		 				<c:set var="statusValue" value="${resultMap.PRO_STATUS_CODE}" />
+		 				<c:choose>
+						    <c:when test="${fn:contains(statusValue, '(')}">
+						        <td>${fn:substringBefore(statusValue, '(')}</td>
+						    </c:when>
+						    <c:otherwise>
+						        <td>${statusValue}</td>
+						    </c:otherwise>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>카테고리:</td>
-		 				<td><a href="#">자켓/점퍼</a></td>
+		 				<td><a href="#">${resultMap.PRO_CATE_CODE}</a></td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>
@@ -97,7 +106,7 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td><i class="bi bi-building-check"></i>부산광역시 사하구 하단제2동</td>
+		 				<td><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>	
@@ -162,9 +171,11 @@
 		 			</td></tr>
 
 		 		</table>
+		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button">글 수정</button>
+				  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
 				</div>
+				</c:if>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
 		 		<table class="table" style="text-align: center;">

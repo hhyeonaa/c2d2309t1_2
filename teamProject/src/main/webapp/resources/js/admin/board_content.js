@@ -15,6 +15,7 @@ $("#boardCategory").on("change", function(){
 			category: $(this).val()
 		}
 	})
+	
 	// 테이블 그리기
 	.done(function(data){
 	$("#tbody").empty();
@@ -33,6 +34,7 @@ $("#boardCategory").on("change", function(){
 		    +'</tr>'
     	$("#tbody").append(trTag);
 	}
+	
 	// 카테고리 버튼 삭제
 	$(".delBtn").on("click", function(){
 			var curTr = $(this).parents("tr");

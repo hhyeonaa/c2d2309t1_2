@@ -5,71 +5,92 @@
 <mapper namespace="com.team.mappers.teamMapper">
 
 	<select id="selectCodeList" parameterType="map" resultType="map">
+	
 		select  CO_TYPE
 			  , CO_NO
 			  , CODE
-		 <if test="'1' == AD_ROLE and 'MESSAGE' != tableName">
-		   	  , HIDE
-		 </if>
-		   
-		 <if test="'2' == AD_ROLE and 'MESSAGE' != tableName">
-		   	  , HIDE
-		 </if>  
-		   
-		 <if test="('' == AD_ROLE or '3' == AD_ROLE) and 'MESSAGE' != tableName">
-		      , ACTIVE
-		 </if>
-		 
-		 <if test="'1' != AD_ROLE and 'MESSAGE' == tableName">
-		      , HIDE
-		 </if>  
-		     
-		 <if test="'1' == AD_ROLE and 'MESSAGE' == tableName">
-		      , HIDE
-		 </if>
-		 
-		  from ${tableName}
+			  , SEQ
+			  , CO_DETAIL
+		 	  , HIDE
+		 	  , ACTIVE
+		  from CODE
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
-		   
-		 <if test="'1' == AD_ROLE and 'MESSAGE' != tableName">
-		   and HIDE in ('1', '0')
-		 </if>
-		   
-		 <if test="'2' == AD_ROLE and 'MESSAGE' != tableName">
-		   and HIDE = '0'
-		 </if>  
-		   
-		 <if test="('' == AD_ROLE or '3' == AD_ROLE) and 'MESSAGE' != tableName">
-		   and ACTIVE = '0'
-		 </if>
-		 
-		 <if test="'1' != AD_ROLE and 'MESSAGE' == tableName">
-		   and HIDE = '0'
-		 </if>  
-		   
-		 <if test="'1' == AD_ROLE and 'MESSAGE' == tableName">
-		   and HIDE in ('1', '0')
-		 </if>    
-		 
-		 order by cast(CO_NO as signed)  	     
+	  <choose>
+	    <when test='ROL_NO == "RO1"'>
+		   and HIDE in ('0', '1') 					 	
+		</when>
+		<when test='ROL_NO == "RO2"'>
+		   and HIDE = '0' 					 	
+		</when>
+		<when test='ROL_NO == "RO3"'>
+		   and HIDE = '0' 					 	
+		</when>
+		<otherwise>
+		   and ACTIVE = '1'
+		</otherwise>
+	  </choose>  
+		 order by cast(SEQ as signed)	   
+		    
 	</select>
 	
 	<select id="selectCode" parameterType="map" resultType="map">
+	
 		select CODE
-		  from ${tableName}			
+		  from CODE			
 		 where 1 = 1
 		   and CO_NO = #{CO_NO}
 		   and CO_TYPE = #{CO_TYPE}
-		   
-		<if test="'MESSAGE' == tableName">
-	       and HIDE = '0'
+	  <choose>
+	    <when test='ROL_NO == "RO1"'>
+		   and HIDE in ('0', '1') 					 	
+		</when>
+		<when test='ROL_NO == "RO2"'>
+		   and HIDE = '0' 					 	
+		</when>
+		<when test='ROL_NO == "RO3"'>
+		   and HIDE = '0' 					 	
+		</when>
+		<otherwise>
+		   and ACTIVE = '1'
+		</otherwise>
+	  </choose>
+	     
+	</select>
+	
+	<select id="selectMessage" parameterType="map" resultType="map">
+	
+		select CODE
+		  from MESSAGE			
+		 where 1 = 1
+		   and CO_NO = #{CO_NO}
+		   and CO_TYPE = #{CO_TYPE}
+		<if test='ROL_NO == "RO1"'>
+		   and HIDE in ('0', '1')
 		</if>
+		<if test='ROL_NO != "RO1"'>
+		   and HIDE = '0'
+		</if>
+	     
+	</select>
+
+	<select id="selectMessageList" parameterType="map" resultType="map">
 		
-		<if test="'CODE' == tableName">
-	       and ACTIVE = '0'
+		select  CO_TYPE
+			  , CO_NO
+			  , CODE
+		 	  , HIDE
+		  from MESSAGE
+		 where 1 = 1  
+		   and CO_TYPE = #{codeType}
+		<if test='ROL_NO == "RO1"'>
+		   and HIDE in ('0', '1')
 		</if>
-		   
+		<if test='ROL_NO != "RO1"'>
+		   and HIDE = '0'
+		</if>  
+		 order by cast(CO_NO as signed)
+		
 	</select>
 
 </mapper>

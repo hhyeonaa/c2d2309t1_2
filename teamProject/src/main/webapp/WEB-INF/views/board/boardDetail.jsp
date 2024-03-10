@@ -8,62 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
-<style type="text/css">
-th {
-	font-size: 25px;
-}
-td{
-	font-size: 15px;
-}
-/* image modal */
-.modal {
-    display: none;
-    z-index: 500;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-.modalBox {
-    position: relative;
-    text-align: center;
-    top : 15%;
-    left : 25%;
-    width: 50%;
-    max-height: 50%;
-    position : sticky;
-}
-.carousel-item > img:hover{
-/*     cursor: -webkit-zoom-in; */
-    cursor: pointer;
-}
-/* image modal end */
-
-.btn-lg {
-	display: inline-block; /* Align buttons in a row */
-	width: 32%; /* Each button takes up one-third of the container's width */
-	box-sizing: border-box; /* Include padding and border in the button's total width */
-	margin: 0; /* Remove default margins */
-	text-align: center; /* Center the text inside buttons */
-	/* Adjust padding as needed, but remember it affects the total width if box-sizing is border-box */
-}
-.center-align {
-    text-align: center;
-    vertical-align: middle;
-    position: relative;
-}
-.img-innertext{
-    position: absolute;
-    left: 50%;
-    bottom: 0%;
-    transform: translate( -50%, -50% );
-    color: white;
-    background-color : rgb(0,0,0,0.5);
-    width: 150px;
-}
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/board/boardDetail.css" rel="stylesheet">
 </head>
 <jsp:include page="../template/header.jsp"/>
 	
@@ -174,8 +119,8 @@ td{
 		 			<tr>
 		 				<td colspan="4">
 		 					<button class="btn btn-danger btn-lg">찜</button>
-		 					<button class="btn btn-warning btn-lg">채팅</button>
-		 					<button class="btn btn-success btn-lg">바로구매</button>
+		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
+		 					<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
 <!-- 			 			<td><button class="btn btn-warning btn-lg">채팅</button></td> -->
@@ -207,9 +152,11 @@ td{
 		 				<td colspan="3"></td>
 		 			</tr>
 		 		</table>
+		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<div class="d-grid gap-2">
 				  <button class="btn btn-secondary" type="button">글 수정</button>
 				</div>
+				</c:if>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
 		 		<table class="table" style="text-align: center;">
@@ -273,12 +220,6 @@ td{
 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
 		 			</tr>
 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
-		 			<tr>
-		 				<td colspan="2">
-		 					<button class="btn btn-warning" style="width: 30%;">채팅</button>
-		 					<button class="btn btn-success" style="width: 30%;">바로구매</button>
-		 				</td>
-		 			</tr>		 					
 		 		</table>
 		 	</div>
 		</div>
@@ -287,6 +228,7 @@ td{
 </div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/startChat.js"></script>
 <script type="text/javascript">
 
 </script>

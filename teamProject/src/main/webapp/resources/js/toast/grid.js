@@ -52,7 +52,7 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 	
 	grid.on('afterChange', ev => {
 		debugger;
-		grid.request('updateData');
+		var a = grid.request('updateData');
 	})
 	
 //	const appendBtn = document.getElementById('appendBtn');

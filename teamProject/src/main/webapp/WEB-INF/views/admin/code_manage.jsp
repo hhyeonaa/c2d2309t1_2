@@ -80,7 +80,7 @@
 			     	</div>
 			     	<div class="modal-footer" id="modal-footer">
 			       		<button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
-		    	   		<button type="button" id="insertBtn" class="btn btn-outline-danger">저장</button>
+		    	   		<button type="button" id="beforeInsertBtn" class="btn btn-outline-danger">저장</button>
 			     	</div>
 			  	</div>
 			</div>

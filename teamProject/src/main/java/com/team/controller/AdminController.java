@@ -254,9 +254,36 @@ public class AdminController {
 		return "admin/code_manage";
 	}
 	
-	@GetMapping("/codePro")
+	@GetMapping("/codePro")//	get
  	@ResponseBody
- 	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session){
+ 	public ResponseEntity<?> getCodePro(@RequestParam Map<String, String> param, HttpSession session){
+		List<Map<String, String>> data = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+		
+ 		return ToastUI.resourceData(param, data);
+ 	}
+	
+	@PostMapping("/codePro")//	post
+ 	@ResponseBody
+ 	public ResponseEntity<?> insertCodePro(@RequestParam Map<String, String> param, HttpSession session){
+		List<Map<String, String>> data = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+		
+ 		return ToastUI.resourceData(param, data);
+ 	}
+	
+	@PutMapping("/codePro")	//	put
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateCodePro(@RequestParam Map<String, String> param, HttpSession session){
+		List<Map<String, String>> data = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+		
+ 		return ToastUI.resourceData(param, data);
+ 	}
+	
+	@DeleteMapping("/codePro")	//	delete
+ 	@ResponseBody
+ 	public ResponseEntity<?> deleteCodePro(@RequestParam Map<String, String> param, HttpSession session){
 		List<Map<String, String>> data = codeService.selectCodeList(
 				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
 		

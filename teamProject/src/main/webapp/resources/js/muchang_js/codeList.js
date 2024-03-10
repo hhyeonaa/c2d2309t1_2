@@ -22,7 +22,8 @@ $(() => {
 			name: columnTitle.내용,
 			header:"코드내용",
 			filter:"text",
-		    sortable: true
+		    sortable: true,
+		    editor: "text"
 		},  
 		{
 			name: columnTitle.활성여부_관리자,
@@ -41,12 +42,17 @@ $(() => {
 	        }
 		}
 	]
-
+	
+	debugger;
+	const msg = "해당 이름은 사용이 불가능합니다. 다른 이름을 사용 해주세요.";
+	msgFormatting(msg);
+	
 	targetColor($("#code_manage"));
 	customSelect2($("#selectCodeList"));
 
-	$(document).on("click", "#insertBtn", function(){
-		validCheck($("#selectCodeList").val());
+	$(document).on("click", "#beforeInsertBtn", function(){
+		validCheck($("#selectCodeList").val()) === 'true' ? $("#insertBtn").trigger("click") 
+														  : alertMsg("AM5", ["내용 및 금액란"]);
 	})
 
 	$(document).on("click", "#selectCodeBtn button", function(){
@@ -148,29 +154,14 @@ function changeModalBody(isTypePM){
 }
 
 const validCheck = function(selectList){
-	
 	let data = {};
-    const isPM = selectList === "PM";
-    
-    const isHide = $("#activeCheck").prop("checked") ? "1" : "0";
-    
-    const codeList = isPM
-        ? $("#priceTag input")
-            .map((index, input) => `${formatPrice($(input).val())} ${index === 0 ? "이상 ~ " : "이하"}`)
-            .get()
-            .join(' ')
-        : $("#modal-body textarea").val();
-	
-	if(codeList === '' || codeList === undefined || codeList === null){
-		alertMsg("AM5", ["내용 또는 금액란 "]);
-		return;
-	}
-	
-	data.HIDE = isHide;
-	data.CODE = codeList;
-	data.CO_TYPE = selectList;
-	
-	return data;
+	const isHide = $("#activeCheck").prop("checked") ? "1" : "0";
+	const isPM = selectList === "PM";
+  	const codeList = isPM
+    	? $("#priceTag input").map((index, input) => `${formatPrice($(input).val())} ${index ? "이상 ~ " : "이하"}`).get().join(' ')
+    	: $("#modal-body textarea").val();
+
+  	return typeof codeList === 'string' && codeList.trim() !== '';
 }		
 
 function formatPrice(price) {
@@ -180,6 +171,19 @@ function formatPrice(price) {
     // 최종적으로 "원" 기호 추가
     return formattedPrice + '원';
 }		
+
+function msgFormatting(msg){
+	const particles = ['은(는)', '이(가)', '을(를)', '의', '와(과)', '까지'];
+
+	const result = msg.split(" ").map((word, index) => {
+	  	const lastChar = word.slice(-1);
+	  	const foundParticle = particles.find(p => lastChar === p[1] && lastChar === (p[3] || p[2]));
+	  	return foundParticle ? `{${index}}${foundParticle.slice(2)}` : word;
+	}).join(" ");
+	
+	console.log(result);
+	return result;
+}
 
 var customSelect2 = function(tag){
 	tag.select2({

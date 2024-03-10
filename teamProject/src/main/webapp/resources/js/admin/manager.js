@@ -19,8 +19,7 @@ $(function(){
 			name:"AD_NO",
 			header:"번호",
 			filter:"number",
-		    sortable: true,
-		    editor: "text"
+		    sortable: true
 		}, 
 		{
 			name:"AD_ID",

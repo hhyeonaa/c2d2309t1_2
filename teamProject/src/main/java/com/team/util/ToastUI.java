@@ -22,7 +22,6 @@ public class ToastUI {
 	// req  : @RequestParam 으로 가져온 Map (페이징 처리로 쓰여질 "page", "perPage" 가 담겨옴)
 	// data : 화면에 뿌려줄 List 타입의 데이터
 	public static ResponseEntity<?> resourceData(Map<String, String> req, List data){
-		
 		Map<String, Object> pageMap = new HashMap<String, Object>();
 		pageMap.put("page", Integer.parseInt(req.get("page")));
 		pageMap.put("totalCount", data.size());
@@ -40,7 +39,6 @@ public class ToastUI {
 	// @RequestBody에 넘어온 String 타입의 createdRows, updatedRows
 	// {A:[{B:.., C:.., D:..}]}
 	public static List<Map<String, String>> getRealData(String jsonStr){
-		System.out.println(jsonStr);
 		List<Map<String, String>> realData = new ArrayList<>();
 		
 		JsonParser.parseString(jsonStr)													// String -> JsonElement
@@ -63,7 +61,6 @@ public class ToastUI {
 	}
 	// @RequestParam에 넘어온 Map 타입의 deletedRows
 	public static List<Map<String, String>> getRealData(Map<String, String> deletedRows) {
-		System.out.println(deletedRows);
 		List<Map<String, String>> realData = new ArrayList<>();
 		
 		deletedRows.entrySet()		

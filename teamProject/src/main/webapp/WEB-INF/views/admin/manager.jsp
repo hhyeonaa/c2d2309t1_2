@@ -133,10 +133,8 @@
 			<option value="50">50개 씩 보기</option>
 			<option value="100">100개 씩 보기</option>
 		</select>
-		<button id="appendBtn">행 추가</button>
-<!-- 		<button id="removeBtn">추가 행 삭제</button> -->
-		<button id="resetBtn">취소</button>
-		<button id="saveBtn">저장</button>
+		<button id="appendBtn">추가</button>
+		<button id="resetBtn">새로고침</button>
 		<button id="ckDeleteBtn">선택삭제</button>
 	</div>
     <div id="grid"></div>

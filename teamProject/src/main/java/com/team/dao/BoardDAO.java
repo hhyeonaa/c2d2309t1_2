@@ -141,6 +141,21 @@ public class BoardDAO {
 		sqlSession.insert(NAMESPACE+".insertImgs", allMap);//	이미지 테이블에 다시 이미지 넣기
 	    sqlSession.update(NAMESPACE+".updateBoard", parsedMap);
 	}// updateBoard()
+
+	public List<Map<String, String>> selectAuction(Map<String, String> map) {
+		System.out.println("BoardDAO selectAuction()");
+		return sqlSession.selectList(NAMESPACE + ".selectAuction", map);
+	}// selectAuction()
+
+	public void aucHits(Map<String, String> map) {
+		System.out.println("BoardDAO aucHits()");
+		sqlSession.update(NAMESPACE + ".aucHits", map);
+	}// aucHits()
+
+	public Map<String, String> selectAuctionDetail(Map<String, String> map) {
+		System.out.println("BoardDAO selectAuctionDetail()");
+		return sqlSession.selectOne(NAMESPACE+".selectAuctionDetail",map);
+	}// selectAuctionDetail()
 	
 	
 

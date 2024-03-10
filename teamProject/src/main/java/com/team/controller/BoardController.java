@@ -97,8 +97,15 @@ public class BoardController {
 	}// divideBoard()
 	
 	@GetMapping("/auctionBoard")
-	public String auctionBoard() {
+	public String auctionBoard(Model model) {
 		System.out.println("BoardController auctionBoard()");
+		String aucTc = "MM4";
+		Map<String, String> map = new HashMap<>();
+		map.put("aucTc", aucTc);
+		System.out.println("map: " + map);
+		List<Map<String,String>> resultList = boardService.selectAuction(map);
+		System.out.println("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/auctionBoard";
 	}// auctionBoard()
 	
@@ -440,8 +447,6 @@ public class BoardController {
 		System.out.println("BoardController divideDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
-		logger.info("proWr: "+proWr);
-		logger.info("proDate: "+proDate);
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
@@ -462,11 +467,57 @@ public class BoardController {
 	}// divideDetail()
 	
 	@GetMapping("/auctionDetail")
-	public String auctionDetail() {
+	public String auctionDetail(HttpServletRequest request,Model model) {
 		System.out.println("BoardController auctionDetail()");
+		String aucSeller = request.getParameter("aucSeller");
+		String aucDate = request.getParameter("aucDate");
+		Map<String, String> map = new HashMap<>();
+		map.put("aucSeller", aucSeller);
+		map.put("aucDate", aucDate);
+		boardService.aucHits(map);
+		Map<String,String> resultMap = boardService.selectAuctionDetail(map);
+		System.out.println("resultMap: "+ resultMap);
+		String ImgNames = resultMap.get("IMG_NAMES");
+		String[] ImgNameSplit = ImgNames.split("\\|");
+		ArrayList<String> imgList = new ArrayList<>();
+		for (String e : ImgNameSplit) {
+			imgList.add(e);
+		}
+		System.out.println("=====");
+		System.out.println(imgList);
+		model.addAttribute("resultMap", resultMap);
+		model.addAttribute("imgList", imgList);
 		return "board/auctionDetail";
 	}// auctionDetail()
 	
+	@GetMapping("/deleteAuction")
+	public String deleteAuction(HttpServletRequest request) {
+		System.out.println("BoardController deleteAuction()");
+		String aucNo = request.getParameter("aucNo");
+		String aucTc = request.getParameter("aucTc");
+		System.out.println("글번호: " + aucNo);
+		String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("aucNo", aucNo);
+		delMap.put("aucTc", aucTc);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+		System.out.println("oldImgList: " + oldImgList);
+		int successDelete = boardService.deleteBoard(delMap);
+		System.out.println("삭제후 숫자: " + successDelete);
+		if(successDelete == 1) {
+			System.out.println("삭제 성공@@@");
+			oldImgList.forEach(t -> {
+				new File(path + "\\" + t).delete();
+				System.out.println(t);
+			});
+		} else {
+			System.out.println("삭제 실패@@@");
+		}
+		return "redirect:/board/auctionBoard";
+	}// deleteAuction()
 	@GetMapping("/deleteBoard")
 	public String deleteBoard(HttpServletRequest request) {
 		System.out.println("BoardController deleteBoard()");

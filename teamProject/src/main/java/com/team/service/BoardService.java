@@ -104,5 +104,20 @@ public class BoardService {
 		boardDAO.updateBoard(parsedMap,imageFilenames);
 	}// updateBoard()
 
+	public List<Map<String, String>> selectAuction(Map<String, String> map) {
+		System.out.println("BoardService selectAuction()");
+		return boardDAO.selectAuction(map);
+	}// selectAuction()
+
+	public void aucHits(Map<String, String> map) {
+		System.out.println("BoardService aucHits()");
+		boardDAO.aucHits(map);
+	}// aucHits()
+
+	public Map<String, String> selectAuctionDetail(Map<String, String> map) {
+		System.out.println("BoardService selectAuctionDetail()");
+		return boardDAO.selectAuctionDetail(map);
+	}// selectAuctionDetail()
+
 
 }// BoardService 끝

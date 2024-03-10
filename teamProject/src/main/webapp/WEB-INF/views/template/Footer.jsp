@@ -60,7 +60,10 @@
 	<div id="chatContainer">
 		<div id="exit">X</div>
 		<div id="chatListContainer">
-			<div id="chatListTit">채팅 리스트</div>
+			<div id="chatListTit">
+				<span>내가 건 채팅</span> / 
+				<span>내 게시물 채팅</span>
+			</div>
 			<div id="chatList">
 				<div class="chatRoom myPost" id="PR23">
 					<div>이미지</div>

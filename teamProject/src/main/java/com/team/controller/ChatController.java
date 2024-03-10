@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -32,12 +33,20 @@ public class ChatController {
 	
 	@GetMapping("/roomCheck")
 	public ResponseEntity<?> roomCheck(@RequestParam Map<String, String> param) {
-		
-		System.out.println("enter : roomCheck");
-		
-		String result = chatService.roomCheck(param);
-		
-		return ResponseEntity.ok().body("1");
+		Map<String, String> result = chatService.roomCheck(param);
+		return ResponseEntity.ok().body(result.get("result"));
 	}
+	
+	@GetMapping("createRoom")
+	public ResponseEntity<?> createRoom(@RequestParam Map<String, String> param) {
+		return ResponseEntity.ok().body(chatService.createRoom(param));
+	}
+	
+	@GetMapping("chatRoomData")
+	public ResponseEntity<?> chatRoomData(@RequestParam Map<String, String> param) {
+		System.out.println("enter : chatRoomData");
+		return ResponseEntity.ok().body(chatService.chatRoomData(param));
+	}
+	
 	
 }// 클래스 끝

@@ -87,12 +87,8 @@ public class AdminService {
 		return adminDAO.getContentboardList();
 	}//
 
-	public void memberStop(String MEM_NO) {
-		adminDAO.memberStop(MEM_NO);
-	}//
-	
-	public void memberDelete(String MEM_NO) {
-		adminDAO.memberDelete(MEM_NO);
+	public boolean memberStop(Map<String, String> dto) {
+		return adminDAO.memberStop(dto);
 	}//
 	
 	public int contentDelete(String PRO_NO) {

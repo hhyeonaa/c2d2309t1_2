@@ -13,26 +13,23 @@
 			, AD_PW
 			, AD_NAME
 			, AD_DATE
-			, AD_ACTIVE
-			, ROL_NO)
+			, AD_ACTIVE)
 		values (CONCAT("AD", IFNULL((SELECT MAX(CAST(replace(AD_NO, "AD", "") AS unsigned))+1
 									 FROM ADMIN A), 1))
 			, #{AD_ID}
 			, #{AD_PW}
 			, #{AD_NAME}
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-			, 'RO2'
-			, '0')
+			, '1')
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
 		select
-			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
-			, a.AD_ID
-			, r.ROL_NAME
-			, a.AD_ACTIVE
-		from ADMIN a join ROLE r
-		on a.ROL_NO = r.ROL_NO
+			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
+			, AD_ID 
+			, AD_NAME
+			, AD_ACTIVE
+		from ADMIN
 		ORDER BY AD_NO
 	</select>
 	
@@ -54,76 +51,33 @@
 		where AD_NO = #{AD_NO}
 	</update>
 	
-<!-- 	<select id="getBoardList" resultType="map"> -->
-<!-- 		select CODE -->
-<!-- 				, ACTIVE -->
-<!-- 				, SEQ -->
-<!-- 				, CASE CO_DETAIL WHEN '0' THEN '글' -->
-<!-- 						   WHEN '1' THEN '글+사진' -->
-<!-- 						   WHEN '2' THEN '글+사진+날짜' -->
-<!-- 						   ELSE '없음' -->
-<!-- 			   END AS "CO_DETAIL" -->
-<!-- 		from CODE -->
-<!-- 			where  CO_TYPE = 'MM' -->
-<!-- 		ORDER BY SEQ -->
-<!-- 	</select> -->
+	<select id="getBoardList" resultType="map">
+		select SEQ
+				, CODE
+				, HIDE
+		from CODE
+			where  CO_TYPE = 'MM'
+		ORDER BY SEQ
+	</select>
 	
 	<update id="displayUpdate">
 		update CODE
-		set    ACTIVE = #{ACTIVE}
+		set    HIDE = #{HIDE}
 		      , SEQ = #{SEQ}
 		where  CO_TYPE = #{CO_TYPE}
 		and	   CODE = #{CODE}
 	</update>
 	
-<!-- 	<select id="getCategoryList" resultType="map"> -->
-<!-- 		select SEQ -->
-<!-- 				, CODE -->
-<!-- 				, ACTIVE -->
-<!-- 		from CODE -->
-<!-- 		where CO_TYPE = 'CM' -->
-<!-- 		ORDER BY SEQ -->
-<!-- 	</select>	 -->
+	<select id="getCategoryList" resultType="map">
+		select CODE
+				, HIDE
+		from CODE
+		where CO_TYPE = 'CA'
+		ORDER BY SEQ
+	</select>	
 	
-	<insert id="inputForm">
-		insert into PRODUCT
-			(PRO_NO
-			, PRO_WR
-			, PRO_NAME
-			, PRO_PRICE
-			, PRO_CONTENT
-			, PRO_CATE
-			, PRO_STATUS
-			, PRO_TC
-			, PRO_TSC
-			, PRO_DATE
-			)
-		values (CONCAT('PR', IFNULL((SELECT MAX(CAST(replace(PRO_NO, 'PR', '') AS unsigned))+1
-									 FROM PRODUCT A), 1))
-			, #{MEM_ID}
-			, #{PRO_NAME}
-			, #{PRO_PRICE}
-			, #{PRO_CONTENT}
-			, #{PRO_CATE}
-			, #{PRO_STATUS}
-			, #{PRO_TC}
-			, 'TM1'
-			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
-	</insert>
 	
-	<select id="getForm" resultType="map">
-			select 
-				CO_TYPE
-				, CO_NO
-				, CODE
-				, CO_DETAIL
-				, SEQ
-				, ACTIVE
-			from CODE
-			where CO_TYPE = 'FO'
-			and CO_NO != '7'
-			ORDER BY SEQ
-	</select>
+	
 	
 	
 	

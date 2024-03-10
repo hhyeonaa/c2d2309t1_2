@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestBody;
+=======
+>>>>>>> branch 'ksy' of https://github.com/hhyeonaa/c2d2309t1_2.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -314,20 +317,18 @@ public class AdminController {
 		return "admin/member_manage";
 	}//
 	
-	@GetMapping("/memberStop")
-	public String stop(@RequestParam String MEM_NO) {
+	@PostMapping("/memberStop")
+	@ResponseBody
+	public ResponseEntity<?> stop(@RequestParam Map<String, String> dto) {
 		
-		adminService.memberStop(MEM_NO);
+		boolean isUpdate = adminService.memberStop(dto);
+//		isUpdate = isUpdate ? adminService.memberDelete(dto.get("state")) : false;
+		Map<String, Boolean> param = new HashMap<String, Boolean>();
+		param.put("isSuccess", isUpdate);
 		
-		return "redirect:/admin/member_manage";
-	}//
-	
-	@GetMapping("/memberDelete")
-	public String delete(@RequestParam String MEM_NO) {
+		System.out.println(param);
 		
-		adminService.memberDelete(MEM_NO);
-		
-		return "redirect:/admin/member_manage";
+		return ResponseEntity.ok().body(param);
 	}//
 	
 	@GetMapping("/contentDelete")

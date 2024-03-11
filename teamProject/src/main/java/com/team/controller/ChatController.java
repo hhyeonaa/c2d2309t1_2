@@ -37,12 +37,12 @@ public class ChatController {
 		return ResponseEntity.ok().body(result.get("result"));
 	}
 	
-	@GetMapping("createRoom")
+	@GetMapping("/createRoom")
 	public ResponseEntity<?> createRoom(@RequestParam Map<String, String> param) {
 		return ResponseEntity.ok().body(chatService.createRoom(param));
 	}
 	
-	@GetMapping("chatRoomData")
+	@GetMapping("/chatRoomData")
 	public ResponseEntity<?> chatRoomData(@RequestParam Map<String, String> param) {
 		return ResponseEntity.ok().body(chatService.chatRoomData(param));
 	}

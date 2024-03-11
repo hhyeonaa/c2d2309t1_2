@@ -212,6 +212,12 @@ var createChat = function(proNo, memId){
 // 채팅방 입장
 var enterChat = function(roomNo, target, nickName, title){
 	
+	// 소켓 연결
+	let sock = new SockJS("http://localhost:8080/myapp/chat");
+	sock.onopen = onOpen;
+	sock.onmessage = onMessage;
+	sock.onclose = onClose;
+	
 	// 소켓 방 생성
 	register(roomNo);
 	

@@ -206,18 +206,27 @@
       overflow: hidden;
     }
 
-    .bar {
-      height: 100%;
-      background-color: #EAB2A1;
-      transition: width 0.5s;
-      border-radius: 25px;
-    }
+.bar {
+  height: 100%;
+  background-color: #EAB2A1;
+  transition: width 0.5s;
+  border-radius: 25px;
+}
 
-    .label {
-      text-align: center;
-      margin-left: 5px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      color: #333;
-      font-weight: bold;
-    }
+.label {
+  text-align: center;
+  margin-left: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}
+
+#span01, #span02, #span03, #span04, #span05 {
+	cursor: pointer;
+}
+
+#svg01, #svg02, #svg03, #svg04, #svg05 {
+	cursor: pointer;
+} 
+ 

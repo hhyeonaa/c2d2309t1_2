@@ -34,6 +34,18 @@ public class Excel {
 	
 	CellStyle cellStyle;
 	
+	
+	// 03.05 추가해야할 사항
+	//	[엑셀 업로드]
+	//	- 양식 다운로드는 db에서 (pk 제외)
+	//	- pk코드 테이블 따로 빼기
+	//	- 유효성 검사는 x
+	
+	//	[엑셀 다운로드]
+	// 	- 엑셀 다운로드 구현
+	//	- 필터는 추후 고민
+	
+	
 	// 다운로드 (Excel DownLoad)
 	public void edl(XSSFWorkbook wb, HttpServletResponse response){
 		// 컨텐츠 타입과 파일명 지정

@@ -19,9 +19,7 @@ $(function(){
 			name:"AD_NO",
 			header:"번호",
 			filter:"number",
-		    sortable: true,
-		    editor: "text"
-		    
+		    sortable: true
 		}, 
 		{
 			name:"AD_ID",
@@ -32,7 +30,7 @@ $(function(){
 		    editor: "text"
 		},
 		{
-			name:"AD_ROLE",
+			name:"ROL_NAME",
 			header:"권한",
 			filter:"text",
 		    sortable: true,
@@ -45,16 +43,12 @@ $(function(){
 			filter:"select",
 		    sortable: true,
 			sortingType: 'asc',
-			renderer: {
-                type: ToggleButton
-            }
+			renderer: { type: ToggleButton }
 		},
 		{
-			name:"",
+			name:"DELETE",
 			header:"삭제",
-			renderer: {
-                type: DeleteButton
-            }
+			renderer: { type: DeleteButton }
 		}
 	]
 	grid("managerPro", 5, columns, false);
@@ -87,19 +81,23 @@ $(function(){
 
 	// 저장 버튼
 	$(document).on("click", "#saveBtn", function () {
+		var arr = [];
 		for (let i = 1; i < adminList.rows.length; i++) {
-//			console.log(adminList.rows[i].cells[2].options[selectedIndex].value);
-			debugger;
-			$.ajax({
-				type: "post"
-				, url: "updatePro"
-				, data: {AD_NO: "AD" + adminList.rows[i].cells[0].innerText,
-						 AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value,
-						 AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-		}
-		$('#adminDiv').load(location.href+' #adminDiv');
-//		location.reload();
+			arr.push(
+				{AD_NO: "AD" + adminList.rows[i].cells[0].innerText
+				 , AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value
+				 , AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
+				}
+			)
+		};
+		$.ajax({
+			type: "post"
+			, contentType: 'application/json'
+			, url: "updatePro"
+			, data: JSON.stringify(arr)
+		});
+//		$('#adminDiv').load(location.href+' #adminDiv');
+		location.reload();
 	});
 	
 		
@@ -163,5 +161,7 @@ $(function(){
 //			location.reload();
 		 })
 	});
+	
+	
 	
 });

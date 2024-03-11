@@ -1,5 +1,7 @@
 package com.team.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -105,6 +107,40 @@ public class BoardDAO {
 		}
 		return result;
 	}// deleteBoard()
+
+	public List<Map<String, String>> selectAddress(String id) {
+		System.out.println("BoardDAO selectAddress()");
+		return sqlSession.selectList(NAMESPACE + ".selectAddress", id);
+	}// selectAddress()
+
+	public String getProNo(Map<String, String> getNumMap) {
+		System.out.println("BoardDAO getProNo()");
+		return sqlSession.selectOne(NAMESPACE+".getProNo",getNumMap);
+	}// getProNo()
+
+	public void updateBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardDAO updateBoard()");
+		System.out.println("dao : " + parsedMap);
+		System.out.println("dao : " + imageFilenames);
+	    // 새로운 Map 객체 생성
+	    Map<String, Object> allMap = new HashMap<>();
+	    // parsedMap의 모든 항목을 allMap으로 복사
+	    allMap.putAll(parsedMap);
+	    // imageFilenames 리스트를 allMap에 추가
+	    allMap.put("imageFilenames", imageFilenames);
+	    List<Map<String, Object>> imagesWithNumbers = new ArrayList<>();
+	    int imgNo = 1;
+	    for (String filename : imageFilenames) {
+	        Map<String, Object> imageMap = new HashMap<>();
+	        imageMap.put("filename", filename);
+	        imageMap.put("imgNo", imgNo++);
+	        imagesWithNumbers.add(imageMap);
+	    }
+	    allMap.put("imagesWithNumbers", imagesWithNumbers);
+		sqlSession.delete(NAMESPACE+".deleteImgs", parsedMap); // 이미지 테이블에서 이미지들 삭제 가능
+		sqlSession.insert(NAMESPACE+".insertImgs", allMap);//	이미지 테이블에 다시 이미지 넣기
+	    sqlSession.update(NAMESPACE+".updateBoard", parsedMap);
+	}// updateBoard()
 	
 	
 

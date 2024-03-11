@@ -44,7 +44,6 @@ public class ChatController {
 	
 	@GetMapping("chatRoomData")
 	public ResponseEntity<?> chatRoomData(@RequestParam Map<String, String> param) {
-		System.out.println("enter : chatRoomData");
 		return ResponseEntity.ok().body(chatService.chatRoomData(param));
 	}
 	

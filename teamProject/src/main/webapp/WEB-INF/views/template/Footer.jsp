@@ -61,8 +61,8 @@
 		<div id="exit">X</div>
 		<div id="chatListContainer">
 			<div id="chatListTit">
-				<span>내가 건 채팅</span> / 
-				<span>내 게시물 채팅</span>
+				<span id="yourPostChat" class="on">내가 건 채팅</span> / 
+				<span id="myPostChat">내 게시물 채팅</span>
 			</div>
 			<div id="chatList">
 				<div class="chatRoom myPost" id="PR23">
@@ -128,7 +128,7 @@
 <!-- 					</div> -->
 <!-- 				</div> -->
 <!-- 				<div id="chatBar"> -->
-<!-- 					<input class="form-control" type="text" placeholder="메시지를 입력해주세요."> -->
+<!-- 					<input id="sendText" class="form-control" type="text" placeholder="메시지를 입력해주세요."> -->
 <!-- 					<button id="sendBtn" class="btn">전송</button> -->
 <!-- 				</div> -->
 			</div>

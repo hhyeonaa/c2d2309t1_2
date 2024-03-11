@@ -81,7 +81,7 @@ public class MemberController{
 		System.out.println("check : " + check);
 		if(check != null) {
 			session.setAttribute("MEM_ID", map.get("MEM_ID"));
-			session.setAttribute("MEM_NICK", map.get("MEM_NICK"));
+			session.setAttribute("MEM_NICK", check.get("MEM_NICK"));
 			return "redirect:../";
 		}
 		return "member/msg";

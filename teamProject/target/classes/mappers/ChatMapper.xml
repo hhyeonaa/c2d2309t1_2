@@ -34,17 +34,26 @@
 			 , C.PRO_NO
 		     , C.MEM_NO
 		     , C.CR_TIME
+		     , M.MEM_ID
 		     , M.MEM_NICK
 		     , IFNULL(M.MEM_IMAGE, "따봉도치.jpg") MEM_IMAGE
 		     , P.PRO_NAME
 		  FROM CHAT_ROOM C
 		  JOIN PRODUCT P
-		    ON P.PRO_NO = C.PRO_NO
+		    ON C.PRO_NO = P.PRO_NO
 		  JOIN MEMBERS M
+		  <if test='post == "yourPost"'>
 		    ON P.PRO_WR = M.MEM_ID
 		 WHERE C.MEM_NO = (SELECT MEM_NO
 						   FROM MEMBERS
-					 	  WHERE MEM_ID = #{memId});
+					 	  WHERE MEM_ID = #{memId})
+		  </if>
+		  <if test='post == "myPost"'>
+		    ON C.MEM_NO = M.MEM_NO
+	 	 WHERE C.PRO_NO IN ((SELECT PRO_NO FROM PRODUCT WHERE PRO_WR = #{memId}))
+		  </if>
+		  
+		  
 	</select>
 	
 </mapper>

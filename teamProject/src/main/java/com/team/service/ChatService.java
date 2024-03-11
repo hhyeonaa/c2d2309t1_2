@@ -27,5 +27,5 @@ public class ChatService {
 		return chatDAO.chatRoomData(param);
 		
 	}
-
+	
 }

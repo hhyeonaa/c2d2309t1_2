@@ -66,7 +66,7 @@
 	
 	<div class="container">
     <div class="row align-items-center">
-        <div><h4 class="card-title mb-5" style="padding-top: 100px; padding-bottom: 50px;"><b>통계</b></h4></div>
+        <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>통계</b></h4></div>
     </div>
 	
 	

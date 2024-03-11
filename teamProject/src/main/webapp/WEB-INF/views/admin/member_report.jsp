@@ -35,10 +35,10 @@
                         <tbody id="tbody">
                         <c:forEach var="report" items="${reportList}">
                             <tr>
-                                <td>${report.RPT_IDX}</td>
-                                <td>${report.USER_IDX}</td>
-                                <td>${report.RPT_USER_IDX}</td>
-                                <td>${report.RPT_SELECT}</td>
+                                <td>${report.RPT_NO}</td>
+                                <td>${report.USER_NO}</td>
+                                <td>${report.RPT_USER_NO}</td>
+                                <td>${report.CODE}</td>
                                 <td>${report.RPT_TIME}</td>
                             </tr>
                         </c:forEach>

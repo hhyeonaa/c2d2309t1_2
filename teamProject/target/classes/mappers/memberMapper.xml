@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mappers.memberMapper">
+
+	<sql id="MEMBER_ALL">
+		MEM_NO
+	  , MEM_ID
+	  , MEM_PW
+	  , MEM_NAME
+	  , MEM_BIRTH
+	  , MEM_TEL
+	  , MEM_EMAIL
+	  , MEM_GENDER
+	  , MEM_NICK
+	  , MEM_DATE
+	  , MEM_REDATE
+	  , MEM_IMAGE
+	  , MEM_RENEW
+	  , MEM_ACC
+	  , MEM_CAT
+	</sql>
+
+	<insert id="insertmember">
+		insert into MEMBERS
+				( MEM_NO
+				, MEM_ID
+				, MEM_PW
+				, MEM_GENDER
+				, MEM_NAME
+				, MEM_NICK
+				, MEM_BIRTH
+				, MEM_TEL
+				, MEM_EMAIL
+				, MEM_DATE
+				, MEM_CAT
+				, MEM_IMAGE )
+		values ( concat("ME", IFNULL((select MAX(cast(replace(MEM_NO, "ME", "") AS unsigned))+1 FROM MEMBERS A), 1))
+				,#{MEM_ID}
+				,#{MEM_PW}
+				,#{MEM_GENDER}
+				,#{MEM_NAME}
+				,#{MEM_NICK}
+				,#{MEM_BIRTH}
+				,#{MEM_TEL}
+				,#{MEM_EMAIL}
+				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+				,'0'
+				,'profile.png' ) 
+	</insert>
+	
+	<select id="login" resultType="map">
+		select MEM_ID, MEM_PW, MEM_NICK
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+		and MEM_PW = #{MEM_PW}
+		and MEM_CAT = '0'
+	</select>
+	
+	<select id="socialLogin" resultType="map">
+		select MEM_ID
+			 , MEM_CAT
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+	</select>	
+	
+	<select id="adminLogin" resultType="map">
+		select AD_ROLE
+			, ROL_NO
+		from ADMIN
+		where AD_ID = #{AD_ID} 
+		and AD_PW = #{AD_PW}
+	</select>	
+	
+	<select id ="getMember" resultType="map">
+		select <include refid="MEMBER_ALL" />
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="memCheck" resultType="map">
+		select <include refid="MEMBER_ALL" />
+		from MEMBERS
+		where MEM_PW = #{MEM_PW}
+	</select>
+	
+	<select id="idCheck" resultType="int">
+		select count(MEM_NICK)
+		from MEMBERS
+		where MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="nickCheck" resultType="int">
+		select count(MEM_NICK)
+		from MEMBERS
+		where MEM_NICK = #{MEM_NICK}
+	</select>
+	
+	<select id="emailCheck" resultType="int">
+		select count(MEM_EMAIL)
+		from MEMBERS
+		where MEM_EMAIL = #{MEM_EMAIL}
+	</select>
+	
+	<select id="findId" parameterType="map" resultType="map">
+		select <include refid="MEMBER_ALL" />
+		from MEMBERS
+		where 
+			<if test="MEM_EMAIL != null">MEM_EMAIL = #{MEM_EMAIL} </if>
+			<if test="MEM_NAME != null">AND MEM_NAME = #{MEM_NAME} </if>
+			<if test="MEM_ID != null">AND MEM_ID = #{MEM_ID} </if>
+	</select>
+	
+	
+	<select id="mypage" parameterType="map" resultType="map">
+		select M.MEM_NO
+			 , M.MEM_ID
+			 , M.MEM_PW
+			 , M.MEM_IMAGE
+			 , M.MEM_EMAIL
+			 , M.MEM_NAME
+			 , M.MEM_NICK
+			 , M.MEM_TEL
+			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
+			 , S.SCO_SCORE
+			 , M.MEM_CAT
+			 , M.MEM_IMAGE
+		from MEMBERS M
+		left outer join SCORE S
+		on M.MEM_NO = S.MEM_NO
+		where 1 = 1
+		and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<update id="memberEdit">
+		update MEMBERS
+		set MEM_NAME = #{MEM_NAME}
+		  , MEM_NICK = #{MEM_NICK}
+		  , MEM_PW = #{MEM_PW}
+		  , MEM_TEL = #{MEM_TEL}
+		  , MEM_IMAGE = if(#{MEM_IMAGE} = '', MEM_IMAGE, #{MEM_IMAGE})
+		  , MEM_REDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where 1 = 1
+		and MEM_ID = #{MEM_ID}
+	</update>
+
+	<update id="pwUpdate" parameterType="map">
+ 		update MEMBERS
+ 		set MEM_PW = #{MEM_PW}
+ 		where MEM_EMAIL = #{MEM_EMAIL}
+	</update>
+	
+	<select id="myListSell" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM1'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListBuy" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM2'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListShare" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM3'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="myListAuction" parameterType="map" resultType="map">
+		select M.MEM_ID
+			 , A.AUC_TSC
+			 , A.AUC_NAME
+			 , A.AUC_SELLER
+			 , format(A.AUC_BP, 0) as "AUC_BP"
+			 , DATE_FORMAT(A.AUC_ETIME, '%m/%d %H%:%i') as "AUC_ETIME"
+			 , format(A.AUC_INP, 0) as "AUC_INP"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join AUCTION A
+		on M.MEM_ID = A.AUC_SELLER
+        left outer join CODE C
+        on A.AUC_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on A.AUC_NO = I.IMG_PRONO
+        where concat(C.CO_TYPE, C.CO_NO) = 'MM4'
+        and M.MEM_ID = #{MEM_ID}
+	</select>
+	
+	<select id="deleteCheck" resultType="map">
+		select MEM_NO, MEM_EMAIL
+		from MEMBERS
+		where MEM_EMAIL = #{MEM_EMAIL}
+		and MEM_NO = #{MEM_NO}
+	</select>
+	
+	<update id="memberDelete" parameterType="map">
+		update MEMBERS
+		set MEM_CAT = '2'
+		  , MEM_EXDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where MEM_EMAIL = #{MEM_EMAIL}
+	</update>
+	
+	<update  id="resetImage" parameterType="String">
+		update 	MEMBERS
+		set 	MEM_IMAGE = default
+		where 	MEM_ID = #{MEM_ID}
+	</update>
+</mapper>

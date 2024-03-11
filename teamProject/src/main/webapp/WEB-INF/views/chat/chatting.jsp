@@ -56,6 +56,49 @@
 
 </style>
 
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+				data-bs-target="#exampleModal12">신고</button>
+				
+			
+			<div class="modal fade" id="exampleModal12" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div
+					class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+					<div class="modal-content data-bs-target="chatRoom" style="height: 650px;">
+						<div class="modal-header">
+							<h2>대화목록</h2>
+							<div>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<div id="container">
+								<aside>
+									<header>
+										<p class="fs-5">
+											<c:forEach var="dcm" items="${dcm}" varStatus="v">
+												 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br>
+										    </c:forEach>
+									    </p>
+									</header>
+								</aside>
+							</div>
+						</div>
+						<button type="button" class="btn btn-primary"
+							data-bs-dismiss="modal">신고하기</button>
+					</div>
+				</div>
+			</div>	
+				
+				
+				
+				
+				
+				
+				
+
+	
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 				data-bs-target="#exampleModal">채팅하기</button>
@@ -83,12 +126,10 @@
 												alt="random" width="80" height="80"
 												style="margin-left: 20px; margin-right: 30px;">
 												<div class="content">
-												<c:forEach var="member" items="${memList}">
-													<h4>${member.MEM_NO}</h4>
+													<h4>닉네임</h4>
 													<span class="preview">메시지 미리보기</span> <span class="meta"
 														style="margin-left: 300px;"> 2024-02-06 12:32 </span>
-													<input type="hidden" class="${member.MEM_NO}" value="${member.MEM_NO}">
-												</c:forEach>
+													<input type="hidden" class="memNo" value="ME1">
 												</div>
 											</li>
 											<li class="li_1">
@@ -223,19 +264,19 @@
     	})
     	
     	
-    	
+    	// 신고하기 버튼 클릭 시
     	$("#reportBtn").on("click", function(){
-    		debugger;
     		$.ajax({
-    			url: "chartReport",
+    			url: "insertReport",
     			type: "POST",
     			data: {
-    				rptUserIdx: $(this).closest("div").find("input[type=hidden]").val(),
+    				rptUserIdx: $(".memNo").val(),
     				rptCode: $('input[name="rd01"]:checked').val()
     			}
     		})
     		.done(function(data){
-    			debugger;
+    			console.log(data);
+    			alert('신고가완료되었습니다.')
     		})
     		.fail(function(){
     			debugger;

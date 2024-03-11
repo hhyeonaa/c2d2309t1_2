@@ -52,6 +52,8 @@
 <c:set var="uriParts" value="${fn:split(currentUri, '/')}" />
 <c:set var="fileNameWithExtension" value="${uriParts[fn:length(uriParts) - 1]}" />
 <c:set var="fileName" value="${fn:replace(fileNameWithExtension, '.jsp', '')}" />
+<input type="hidden" class="id_session" value="${sessionScope.MEM_ID}">
+<input type="hidden" class="nick_session" value="${sessionScope.MEM_NICK}">
 
 		<div class="row">
 			<nav class="navbar navbar-expand-lg navbar-light">

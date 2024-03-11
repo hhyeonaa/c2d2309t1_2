@@ -308,6 +308,7 @@ public class MemberController{
 		Map<String, String> profile = memberService.mypage(MEM_ID);
 		profile.get("MEM_EMAIL");
 		profile.get("MEM_PW");
+		System.out.println("profile.get(\"MEM_PW\")" + profile.get("MEM_PW"));
 		if (profile.get("MEM_EMAIL") != null) {
 			if (MEM_EMAIL.equals(profile.get("MEM_EMAIL"))) {
 				memberService.memberDelete(profile);

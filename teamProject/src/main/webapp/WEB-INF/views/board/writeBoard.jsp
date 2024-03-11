@@ -55,7 +55,7 @@
 				    <c:forEach var="menu" items="${menu}">
 				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
 				        <c:choose>
-				            <c:when test="${menuCode eq resultMap.PRO_TC}">
+				            <c:when test="${menuCode eq resultMap.PRO_TC || menuCode eq resultMap.AUC_TC}">
 				                <option value="${menu.CO_TYPE}${menu.CO_NO}" selected>${menu.CODE}</option>
 				            </c:when>
 				            <c:otherwise>
@@ -70,15 +70,18 @@
 <%-- 					</c:forEach> --%>
 <!-- 				</select> -->
 
-			      <c:if test="${empty resultMap.PRO_DATE}">
-				  <input type="hidden" id="proTsc" name="proTsc" value="">
+			      <c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
+<!-- 				  <input type="hidden" id="proTsc" name="proTsc" value=""> -->
 				  <h2>상품 등록</h2>					
 			      </c:if>
-			      <c:if test="${!empty resultMap.PRO_DATE}">
-				  <input type="hidden" id="proTsc" name="proTsc" value="${resultMap.PRO_TSC}">					
+			      <c:if test="${!empty resultMap.PRO_DATE || !empty resultMap.AUC_DATE}">
+<%-- 				  <input type="hidden" id="proTsc" name="proTsc" value="${resultMap.PRO_TSC}">					 --%>
 			      <h2>상품 수정</h2>
 			      </c:if>
 			      <input type="hidden" id="proWr" name="proWr" value="${sessionScope.MEM_ID}">
+			      <input type="hidden" id="proDate" name="proDate" value="${resultMap.PRO_DATE}">
+			      <input type="hidden" id="aucSeller" name="aucSeller" value="${resultMap.AUC_SELLER}">
+			      <input type="hidden" id="aucDate" name="aucDate" value="${resultMap.AUC_DATE}">
 			      <select id="selectPreBoard">
 			      	<option value="" selected>임시저장글</option>
 			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
@@ -115,11 +118,16 @@
 			    <div>
 					<div class="input-group" style="width: 90%;">
 					    <span class="input-group-text" id="basic-addon1">상품명</span>
-					    <c:if test="${empty resultMap.PRO_DATE}">
+					    <c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 					    <input type="text" class="form-control" id="proName" name="proName" placeholder="상품명 입력" aria-label="ItemName" aria-describedby="basic-addon1">
 						</c:if>
-					    <c:if test="${!empty resultMap.PRO_DATE}">
-					    <input type="text" class="form-control" id="proName" name="proName" value="${resultMap.PRO_NAME}" placeholder="상품명 입력" aria-label="ItemName" aria-describedby="basic-addon1">
+						<c:if test="${!empty resultMap.PRO_DATE || !empty resultMap.AUC_DATE}">
+						    <c:if test="${!empty resultMap.PRO_DATE || empty resultMap.AUC_DATE}">
+						    <input type="text" class="form-control" id="proName" name="proName" value="${resultMap.PRO_NAME}" placeholder="상품명 입력" aria-label="ItemName" aria-describedby="basic-addon1">
+							</c:if>
+							<c:if test="${empty resultMap.PRO_DATE || !empty resultMap.AUC_DATE}">
+						    <input type="text" class="form-control" id="proName" name="proName" value="${resultMap.AUC_NAME}" placeholder="상품명 입력" aria-label="ItemName" aria-describedby="basic-addon1">
+							</c:if>
 						</c:if>
 					</div>
 		    	</div>
@@ -132,7 +140,7 @@
 						<c:forEach var="tsc" items="${trade}">
 						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/>
 							<c:choose>
-								<c:when test="${tradeCode eq resultMap.PRO_TSC}">
+								<c:when test="${tradeCode eq resultMap.PRO_TSC || tradeCode eq resultMap.AUC_TSC}">
 									<option value="${tsc.CO_TYPE}${tsc.CO_NO}" selected>${tsc.CODE}</option>
 								</c:when>
 								<c:otherwise>
@@ -148,7 +156,7 @@
 						<c:forEach var="cate" items="${category}">
 							<c:set var="cateCode" value="${cate.CO_TYPE}${cate.CO_NO}"/>
 							<c:choose>
-								<c:when test="${cateCode eq resultMap.PRO_CATE}">
+								<c:when test="${cateCode eq resultMap.PRO_CATE || cateCode eq resultMap.AUC_CATE}">
 									<option value="${cate.CO_TYPE}${cate.CO_NO}" selected>${cate.CODE}</option>
 								</c:when>
 								<c:otherwise>
@@ -164,6 +172,7 @@
 				<div class="col-12 d-flex justify-content-center">
 				   	<div>
 				   	<select id="selectAddress">
+				   		<option value="0">주소 선택</option>
 				   		<c:forEach var="add" items="${selectAddress}">
 				   			<option value="${add.ADD_NO},${add.ADD_POST},${add.ADD_NAME},${add.ADD_DETAIL}">${add.ADD_NICK}</option>
 				   		</c:forEach>
@@ -171,21 +180,32 @@
 				   	<span>거래지역</span>
 <!-- 				   	<button class="btn btn-outline-secondary">내 위치</button> -->
 <!-- 				   	<button class="btn btn-outline-secondary">최근 지역</button> -->
-				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 검색</button>
+				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 등록</button>
 <!-- 				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button> -->
 				   	</div>
 				</div>
 				<div class="col-12 d-flex justify-content-center pt-3">
-				<input type="hidden" id="addNo" value="">
-				<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
-				<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
-				<c:if test="${empty resultMap.PRO_DATE}">
+				<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
+					<input type="hidden" id="addNo" value="">
+					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
+					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
 					<input class="col-7 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
+					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
 				</c:if>
 				<c:if test="${!empty resultMap.PRO_DATE}">
-					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.PRO_ADDRESS}" placeholder="거래지역 선택" readonly>
+					<input type="hidden" id="addNo" value="${resultMap.PRO_ADDRESS}">
+					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임">
+					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호">
+					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
+					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력">
 				</c:if>
-				<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
+				<c:if test="${!empty resultMap.AUC_DATE}">
+					<input type="hidden" id="addNo" value="${resultMap.AUC_ADDRESS}">
+					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임">
+					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호">
+					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
+					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력">
+				</c:if>
 				</div>
 			</div>
 			<hr>
@@ -197,7 +217,7 @@
 						<div>
 							<c:set var="psCode" value="${ps.CO_TYPE}${ps.CO_NO}"/>
 							<c:choose>
-								<c:when test="${psCode eq resultMap.PRO_STATUS}">
+								<c:when test="${psCode eq resultMap.PRO_STATUS || psCode eq resultMap.AUC_STATUS}">
 								    <input name="itemStatus" id="item${i.count}" type="radio" value="${ps.CO_TYPE}${ps.CO_NO}" checked>
 								    <label for="item${i.count}">${ps.CODE}</label>
 								</c:when>
@@ -242,7 +262,12 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">시작가</span>
+						    <c:if test="${empty resultMap.AUC_SP}">
 						    <input type="text" class="form-control" id="aucSp" placeholder="가격 입력" aria-label="startCost" aria-describedby="basic-addon1">
+							</c:if>
+							<c:if test="${!empty resultMap.AUC_SP}">
+						    <input type="text" class="form-control" id="aucSp" value="${resultMap.AUC_SP}" placeholder="가격 입력" aria-label="startCost" aria-describedby="basic-addon1">
+							</c:if>
 						</div>
 			    	</div>
 		    	</div>
@@ -250,7 +275,12 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">즉시구매가</span>
+						    <c:if test="${empty resultMap.AUC_INP}">
 						    <input type="text" class="form-control" id="aucInp" placeholder="가격 입력" aria-label="directCost" aria-describedby="basic-addon1">
+							</c:if>
+							<c:if test="${!empty resultMap.AUC_INP}">
+						    <input type="text" class="form-control" id="aucInp" value="${resultMap.AUC_INP}" placeholder="가격 입력" aria-label="directCost" aria-describedby="basic-addon1">
+							</c:if>
 						</div>
 			    	</div>
 		    	</div>
@@ -258,7 +288,12 @@
 				    <div>
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">최소 입찰가</span>
+						    <c:if test="${empty resultMap.AUC_MINP}">
 						    <input type="text" class="form-control" id="aucBp" placeholder="가격 입력" aria-label="minCost" aria-describedby="basic-addon1">
+							</c:if>
+							<c:if test="${!empty resultMap.AUC_MINP}">
+						    <input type="text" class="form-control" id="aucBp" value="${resultMap.AUC_MINP}" placeholder="가격 입력" aria-label="minCost" aria-describedby="basic-addon1">
+							</c:if>
 						</div>
 			    	</div>
 		    	</div>
@@ -285,12 +320,12 @@
 				   	<div>
 					   	<span>배송비</span>
 					   	<div>
-						   	<input name="deliveryCharge" id="includeDeliCharge" type="radio" value="포함" checked>
-						   	<label for="includeDeliCharge">배송비 포함</label>
+						   	<input name="deliveryCharge" id="includeDeliCharge" type="radio" value="포함">
+						   	<label for="includeDeliCharge">배송비 포함(+3000)</label>
 					   	</div>
 					   	<div>
-						   	<input name="deliveryCharge" id="separateDeliCharge" type="radio" value="별도">
-						   	<label for="separateDeliCharge">배송비 별도</label>
+						   	<input name="deliveryCharge" id="separateDeliCharge" type="radio" value="별도" checked>
+						   	<label for="separateDeliCharge">배송비 없음</label>
 					   	</div>
 				   	</div>
 				</div>
@@ -300,11 +335,14 @@
 				<div class="col-12 d-flex justify-content-center">
 				<div class="mb-3">
 					<label for="proContent" class="form-label">상세 설명</label>
-					<c:if test="${empty resultMap.PRO_DATE}">
+					<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}"></textarea>
 					</c:if>
 					<c:if test="${!empty resultMap.PRO_DATE}">
 					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}">${resultMap.PRO_CONTENT}</textarea>
+					</c:if>
+					<c:if test="${!empty resultMap.AUC_DATE}">
+					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}">${resultMap.AUC_CONTENT}</textarea>
 					</c:if>					
 				</div>
 				<span>0/2000</span>
@@ -352,8 +390,18 @@
 			</div>
 			<div class="row p-3" style="position: sticky; bottom: 0; z-index: 99999; background-color: black;">
 			    <div class="d-flex justify-content-evenly">
-					<button class="btn btn-light" id="tempSave">임시저장</button>
-					<button class="btn btn-warning" id="submitBtn">등록하기</button>
+			    	<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
+						<button class="btn btn-light" id="tempSave">임시저장</button>
+						<button class="btn btn-warning" id="submitBtn">등록하기</button>
+		    		</c:if>
+		    		<c:if test="${!empty resultMap.PRO_DATE}">
+						<button class="btn btn-light" id="cancelBtn">취소</button>
+						<button class="btn btn-warning" id="updateBtn">수정하기</button>		    			
+		    		</c:if>
+		    		<c:if test="${!empty resultMap.AUC_DATE}">
+						<button class="btn btn-light" id="cancelBtn">취소</button>
+						<button class="btn btn-warning" id="updateAuction">수정하기</button>		    			
+		    		</c:if>
 		    	</div>
 		  	</div>
 						

@@ -79,13 +79,13 @@ function paging(pgEvent, pageSize, oneOrZero){
  * 로딩창 띄우기
  * 
  */
-$(() => {
-	$(window).ajaxStart(function(){   
-		$("#loading").show();  
-	}).ajaxStop(function(){   
-	  	$("#loading").hide();  
-	});
-})	
+//$(() => {
+//	$(window).ajaxStart(function(){   
+//		$("#loading").show();  
+//	}).ajaxStop(function(){   
+//	  	$("#loading").hide();  
+//	});
+//})	
 	
 
 

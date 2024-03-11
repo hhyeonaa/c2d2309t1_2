@@ -56,26 +56,33 @@
 	            	<div class="DeliveryInfo">
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
-            				<c:if test="${!empty memAddBasic }">
-            				<input id="MEM_NO" type="hidden" value="${memAddBasic.MEM_NO}" name="MEM_NO">
+<%--             				<c:if test="${!empty memAddBasic }"> --%>
+<%--             				<c:forEach var="memAddBasic" items="${memAddBasic}"> --%>
+							<div id="hideOrShow">
+            					<input id="MEM_NO" type="hidden" value="" name="MEM_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb">${memAddBasic.MEM_NAME}</p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver"></p>
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn"></span>
             					</div>
-            					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
-            						(${memAddBasic.ADD_POST}) ${memAddBasic.ADD_NAME} ${memAddBasic.ADD_DETAIL}
+            					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg" id="addSpan"> 
+            						<span id="addName"></span>
+            						<span id="addDetail"></span>
             					</p>	
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
-            						${memAddBasic.MEM_TEL}
+									<span id="addTel"></span>            						
             					</p>
-            				</c:if>	
+<%--             				</c:forEach>	 --%>
+<%--             				</c:if>	 --%>
+							</div>
             				<c:if test="${empty memAddBasic }">
-            					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delInsertBtn">배송지 등록</span>
-            						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
-            							등록된 배송정보가 없습니다 
-            						</p>
+            					<div id="sOrH">
+	            					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
+	            						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
+	            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delInsertBtn">배송지 등록</span>
+	            						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
+	            							등록된 배송정보가 없습니다 
+	            						</p>
+	            					</div>
             					</div>
             				</c:if>
             				</section>
@@ -159,7 +166,7 @@
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									상품금액
 									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
+									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice">
 									<!--PRO_PRICE  -->
 										${payProList.PRO_PRICE }원
 									</div>
@@ -191,7 +198,7 @@
 									총 결제금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
-									${payPrice}<div>원</div>
+									<span id="allPrice">${payProList.PRO_PRICE + 3000}</span><div> 원</div>
 									</div>
 								</div>
 							</div>	            			
@@ -221,7 +228,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <form>
-	      	<div class="modal-body">
+	      	<div class="modal-body" style="height:700px">
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__address-list">
 						<div id="content" class="userDeliveryList">
@@ -233,42 +240,14 @@
 								</div>
 								<div class="addressList">
 									<ul id="divAddress" class="deliveryaddress">
-<%-- 										<c:forEach var="AA" items="${memAddList }"> --%>
-<!-- 										<li class="addressInfo mb-4"> -->
-<!-- 											<div class="boxdeliveryaddress"> -->
-<!-- 												<div class="boxdeliveryaddressTitle"> -->
-<!-- 													<span>집집집</span> -->
-<!-- 													<button type="button" class="button__delivery-choice">선택</button> -->
-<!-- 												</div> -->
-<!-- 												<div class="useraddressinfo"> -->
-<!-- 													<div id="useraddressinfo"> -->
-<!-- 														<div class="boxdeliveryaddressContent"> -->
-<!-- 															<span>(우편번호XXX) 부산광역시 부산진구 부전동 동천로 109 삼한골드게이트 7층</span> -->
-<!-- 														</div> -->
-<!-- 														<div class="boxdeliveryaddressName"> -->
-<!-- 															<span>홍길동</span> -->
-<!-- 															<span>010-2222-2222</span> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 													<div class="deliverybtn"> -->
-<!-- 														<button>수정</button> -->
-<!-- 														<button>삭제</button> -->
-<!-- 													</div>	 -->
-<!-- 												</div> -->
-<!-- 											</div> -->
-<!-- 										</li> -->
-<%-- 										</c:forEach>	 --%>
+										<!--//쿼리  -->
 									</ul>
 								</div>
 							</section>
-						</div>
+						</div>	
 					</div>	
 				</div>
 			</div>
-<!--  	      	<div class="modal-footer">  -->
-<!--  	        	<button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>  -->
-<!--  	        	<button type="submit" class="btn btn-primary" >저장하기</button> -->
-<!--  	      	</div>  -->
 	      </form>
 	    </div>
 	  </div>
@@ -286,17 +265,18 @@
 <!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="payListXbtn"></button>
 	      </div>
-	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post">
+<%-- 	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post"> --%>
 	      	<div class="modal-body">
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
+<%-- 						<c:if test="${!empty addUpList }"> --%>
 							<div class="new-address new-address__title" id="newaddress">
 								<div class="box__label">
 									<label for="address-title" class="text__label">배송지명</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt" name="ADD_NICK" id="address-title" maxlength="10" value="">
+									<input class="input_txt" name="ADD_NICK" id="address-title" maxlength="10" value="${addUpList.ADD_NICK }">
 								</div>
 							</div>
 							
@@ -305,7 +285,7 @@
 									<label for="address-name" class="text__label">받는 분</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block; width: 470px;">
-									<input class="input_txt" name="ADD_RECEIVER" id="address-name" maxlength="10" placeholder="수령인 이름을 입력해주세요">
+									<input class="input_txt" name="ADD_RECEIVER" id="address-name" value="${addUpList.ADD_RECEIVER }" maxlength="10" placeholder="수령인 이름을 입력해주세요">
 								</div>
 							</div>
 							
@@ -314,7 +294,7 @@
 									<label for="address-tel" class="text__label">연락처</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt"  name="ADD_PHONE" id="address-tel" maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
+									<input class="input_txt"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
 								</div>
 							</div>
 
@@ -323,7 +303,7 @@
 									<label for="address-destination" class="sprite__mypage--after text__label text__label-check">주소</label>
 								</div>
 								<div class="box__input" id="box-zipcode" style="width: 390px;">
-									<input type="text" name="ADD_POST" id="address-zipcode" class="input_txt" title="우편번호" readonly="" name="ZipCode">
+									<input type="text" name="ADD_POST" id="address-zipcode"  value="${addUpList.ADD_POST }" class="input_txt" title="우편번호" readonly="" name="ZipCode">
 								</div>
 									<button type="button" class="button__address-search" id="address_find">주소찾기</button>
 							</div>
@@ -331,17 +311,16 @@
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input" style="margin-bottom: 20px; width: 470px;">
-										<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="">
+										<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="${addUpList.ADD_NAME }">
 									</div>
 								</div>
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input box__text-area" style="display: block; width: 470px;">
-										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="" >
+										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="${addUpList.ADD_DETAIL }" >
 									</div>
-								
 								</div>
-									
+<%-- 						</c:if>	 --%>
 						</section>
 					</div>
 	      		</div>
@@ -350,7 +329,7 @@
 		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="payCancelbtn">취소</button>
 		    	<button type="submit" class="btn btn-primary" id="payAddbtn">저장</button>
 		  	</div>
-	      </form>
+<!-- 	      </form> -->
 	    </div>
 	  </div>
 	</div>

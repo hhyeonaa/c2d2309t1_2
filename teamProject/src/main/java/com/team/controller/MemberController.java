@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.protobuf.Message;
 import com.mysql.cj.Session;
 import com.team.service.MemberService;
@@ -233,6 +236,7 @@ public class MemberController{
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
 			session.setAttribute("AD_ID", check.get("AD_ROLE"));
+			session.setAttribute("ROL_NO", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		}
 		return "member/msg";
@@ -272,22 +276,30 @@ public class MemberController{
 	
 	@PostMapping("/memberEditPro")
 	@ResponseBody
-	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletRequest request, MultipartFile image) throws Exception {
+	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, 
+										   HttpServletRequest request, @RequestParam MultipartFile image) throws Exception {
 		System.out.println("MemberController memberEditPro()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		map.put("MEM_ID", MEM_ID);
-		Map<String, String> param = memberService.getMember(MEM_ID, map);
+		System.out.println("map : " + map);
+		String[] mapArr = map.get("map").replace("{", "").replace("}", "").split(",");
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		for(String arr : mapArr) {
+			Map<String, String> dataFormat = new HashMap<String, String>();
+			dataFormat.put(arr.split(":")[0].trim(),arr.split(":")[1].trim());
+			list.add(dataFormat);
+			
+		}
+		System.out.println("%%%%%%%%%% : " + list);
 		int memberEdit = memberService.memberEdit(map);
 		ServletContext context = request.getSession().getServletContext();
-//	    String realPath = context.getRealPath("/resources/img/uploads");
-//	    System.out.println("realPath : " + realPath);
 	    
 	 // 첨부파일 업로드 => pom.xml 프로그램 설치
  		// servlet-context.xml에 설정
  		// 파일이름 중복 방지 => 랜덤문자_파일이름
  		UUID uuid = UUID.randomUUID();
  		String filename = uuid.toString() + "_" + image.getOriginalFilename();
- 		// 원본파일 => 위치/파일이름으로 복사(업로드)
+// 		// 원본파일 => 위치/파일이름으로 복사(업로드)
  		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
 	    
 		return ResponseEntity.ok().body(memberEdit);

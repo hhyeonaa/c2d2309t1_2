@@ -25,6 +25,38 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	customSelect2($("#selectPreBoard"));
 	customSelect2($("#category1"));
 	
+    var proTcValue = $('#proTc').val();
+    
+    if (proTcValue == 'MM4') {
+        $('#noDivide').show();
+        $('#auctionOnly').show();
+        $('#saleBuy').hide();
+        $('#divideOnly').hide();
+        $('#tempSave').attr('id', 'aTempSave');
+    } else if (proTcValue == 'MM1' || proTcValue == 'MM2' || proTcValue == 'MM3') {
+        $('#noDivide').show();
+        $('#saleBuy').show();
+        $('#auctionOnly').hide();
+        $('#divideOnly').hide();
+        $('#aTempSave').attr('id', 'tempSave');
+    }
+    
+    $('#proTc').on('change', function() {
+        $('#noDivide').show();
+        
+        if ($(this).val() == 'MM4') {
+            $('#auctionOnly').show();
+            $('#saleBuy').hide();
+            $('#divideOnly').hide();
+            $('#tempSave').attr('id', 'aTempSave');
+        } else if ($(this).val() == 'MM1' || $(this).val() == 'MM2' || $(this).val() == 'MM3') {
+            $('#saleBuy').show();
+            $('#auctionOnly').hide();
+            $('#divideOnly').hide();
+            $('#aTempSave').attr('id', 'tempSave');
+        }
+    });
+	
 	//<br> => enter
 	var text = $('#itemPay').val();
 	text = text.split('<br>').join("\r\n");
@@ -510,19 +542,42 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 //			$('#noDivide').hide();
 //		} 
 //	});
-	$('#proTc').on('change',function(){
-		$('#noDivide').show();
-		if($(this).val() == 'MM4'){
-			$('#auctionOnly').show();
-			$('#saleBuy').hide();
-			$('#divideOnly').hide();
-			$('#tempSave').attr('id','aTempSave');
-		} else if($(this).val() == 'MM1' || $(this).val() == 'MM2' || $(this).val() == 'MM3') {
-			$('#saleBuy').show();
-			$('#auctionOnly').hide();
-			$('#divideOnly').hide();
-			$('#aTempSave').attr('id','tempSave');
-		} 
+//	$('#proTc').on('change',function(){
+//		$('#noDivide').show();
+//		if($(this).val() == 'MM4'){
+//			$('#auctionOnly').show();
+//			$('#saleBuy').hide();
+//			$('#divideOnly').hide();
+//			$('#tempSave').attr('id','aTempSave');
+//		} else if($(this).val() == 'MM1' || $(this).val() == 'MM2' || $(this).val() == 'MM3') {
+//			$('#saleBuy').show();
+//			$('#auctionOnly').hide();
+//			$('#divideOnly').hide();
+//			$('#aTempSave').attr('id','tempSave');
+//		} 
+//	});
+	$('input[name="deliveryCharge"]').on('change', function() {
+	    var checkedRadioId = $('input[name="deliveryCharge"]:checked').attr('id');
+//	    alert(checkedRadioId);
+	
+	    var aucSpValue = parseInt($('#aucSp').val()); // 현재 값을 정수로 변환하여 가져옴
+		var proPriceValue = parseInt($('#proPrice').val());
+		
+		if($('#proTc').val() === 'MM4'){
+			if (checkedRadioId === 'includeDeliCharge') {
+		        $('#aucSp').val(aucSpValue + 3000); // 현재 값에 3000을 더함
+		    } else {
+		        $('#aucSp').val(aucSpValue - 3000); // 현재 값에서 3000을 뺌
+		    }	
+		} else {
+			if (checkedRadioId === 'includeDeliCharge') {
+		        $('#proPrice').val(proPriceValue + 3000); // 현재 값에 3000을 더함
+		    } else {
+		        $('#proPrice').val(proPriceValue - 3000); // 현재 값에서 3000을 뺌
+		    }
+		}
+		
+	    
 	});
 	
 	$('#noRegion').on('click',function(e){
@@ -655,6 +710,75 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		$.ajax({
 			url: contextPath+'/board/updateBoardPro', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: formData,
+			processData: false, // jQuery가 데이터를 처리하지 않도록 설정
+			contentType: false // jQuery가 contentType을 설정하지 않도록 설정
+		}).done(function(response) {
+			// 파일 업로드 성공 시 처리
+			console.log('Upload success:', response);
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			// 파일 업로드 실패 시 처리
+			console.log('Upload error:', textStatus, errorThrown);
+		});
+	})
+	
+	$('#updateAuction').on('click',function(e){
+		e.preventDefault();
+		var contextPath = getContextPath();
+		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
+		var resultList = []; // 결과를 저장할 배열입니다.
+		var aucTsc = $('#proTsc').val();
+		// 텍스트 데이터를 JSON 객체로 준비
+		var textData = {
+		    aucName: $('#proName').val(),
+		    aucSeller: $('#aucSeller').val(),
+		    aucDate: $('#aucDate').val(),
+		    //proPrice: $('#proPrice').val(),
+		    aucTc: $('#proTc').val(),
+			aucTsc: aucTsc,
+		    aucCate: $('#category1').val(),
+		    aucStatus: $('input[name="itemStatus"]:checked').val(),
+		    aucContent: $('#proContent').val(),
+		    aucAddress: $('#addNo').val(),
+		    /* 경매일 때 추가로 들어가는 부분 */
+		    aucSp: $('#aucSp').val(),
+		    aucInp: $('#aucInp').val(),
+		    aucMinp: $('#aucBp').val()
+		};
+		
+		// JSON 객체를 문자열로 변환하여 formData에 추가
+		formData.append('textData', JSON.stringify(textData));
+		console.log('txtData: ' + textData);
+		/*이미지 없으면 막기*/
+		if(checkFileList[0] == undefined){
+			alertMsg("AM6", ["이미지"]);
+			return;
+		}
+		/*파일담기*/
+		for (i = 0; i < checkFileList.length; i++) {
+		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
+		        for (j = 0; j < checkFileList[i].length; j++) {
+		        	resultList.push(checkFileList[i][j]); // 'result' 배열에 요소를 추가합니다.
+		        }
+		    }
+		}
+		// 파일 리스트 추가
+		for (var i = 0; i < resultList.length; i++) {
+			// 각 파일을 'imgs'라는 이름으로 개별적으로 추가합니다.
+			// 서버 측에서는 'imgs'라는 이름으로 파일 리스트를 받을 수 있습니다.
+			formData.append('imgs', resultList[i]);
+		}
+		
+		for (let key of formData.keys()) {
+			console.log(key);
+		}
+		//debugger;
+		for (let value of formData.values()) {
+			console.log(value);
+		}
+		$.ajax({
+			url: contextPath+'/board/updateAuction', // 서버 엔드포인트 URL
 			type: 'POST',
 			data: formData,
 			processData: false, // jQuery가 데이터를 처리하지 않도록 설정

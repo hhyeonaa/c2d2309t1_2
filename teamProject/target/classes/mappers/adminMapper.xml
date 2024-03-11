@@ -133,6 +133,7 @@
 
 <!-- 	===== 무창 시작 ===== -->
 
+<<<<<<< HEAD
 	<select id="codeSelect" parameterType="java.util.List" resultType="map">
 		<foreach collection="list" item="code" open="" close="" separator=";">
 		select ACTIVE
@@ -236,6 +237,10 @@
 		</foreach>
 	</delete>
 	
+=======
+	
+
+>>>>>>> branch 'hjwhome' of https://github.com/hhyeonaa/c2d2309t1_2.git
 <!-- 	===== 무창 끝 ===== -->
 
 

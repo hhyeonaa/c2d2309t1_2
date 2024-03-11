@@ -21,6 +21,9 @@
 
 <!-- footer -->
 <link href="${pageContext.request.contextPath}/resources/css/common/variables.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/common/variable.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/js/common/variableCode.js"></script> 
+<script src="${pageContext.request.contextPath}/resources/js/common/jquery.twbsPagination.min.js" type="text/javascript"></script>
 <link href="${pageContext.request.contextPath}/resources/css/common/main.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/common/bootstrap-icons.css" rel="stylesheet">
 

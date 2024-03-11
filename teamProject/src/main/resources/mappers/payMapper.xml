@@ -98,7 +98,7 @@
 		    ADD_NICK = #{ADD_NICK}, 
 		    ADD_RECEIVER = #{ADD_RECEIVER}, 
 		    ADD_PHONE = #{ADD_PHONE}
-		WHERE ADD_NO = #{ADD_NO};
+		WHERE ADD_NO = #{ADD_NO}
 	</update>
 	
 	<!--회원 배송지 삭제  -->

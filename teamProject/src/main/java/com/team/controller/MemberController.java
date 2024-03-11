@@ -81,7 +81,7 @@ public class MemberController{
 		System.out.println("check : " + check);
 		if(check != null) {
 			session.setAttribute("MEM_ID", map.get("MEM_ID"));
-			session.setAttribute("MEM_NICK", map.get("MEM_NICK"));
+			session.setAttribute("MEM_NICK", check.get("MEM_NICK"));
 			return "redirect:../";
 		}
 		return "member/msg";
@@ -244,14 +244,27 @@ public class MemberController{
 		return "member/memberEdit";
 	}// memberEdit()
 //	-----------------------------------------------------------------------------	
+//	@PostMapping("/memberEditPro")
+//	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
+//		System.out.println("#@%^%#@!^%#^ : " + map);
+//		System.out.println("map.get(\"MEM_IMAGE\") : " + map.get("MEM_IMAGE"));
+//		System.out.println("MemberController memberEditPro()");
+//		String MEM_ID = (String)session.getAttribute("MEM_ID");
+//		Map<String, String> param = memberService.getMember(MEM_ID, map);
+//			memberService.memberEdit(map);
+//			return "redirect:/member/mypage";
+//	}//memberEditPro()
+	
 	@PostMapping("/memberEditPro")
-	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
+	@ResponseBody
+	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController memberEditPro()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		map.put("MEM_ID", MEM_ID);
 		Map<String, String> param = memberService.getMember(MEM_ID, map);
-			memberService.memberEdit(map);
-			return "redirect:/member/mypage";
-	}//memberEditPro()
+		int memberEdit = memberService.memberEdit(map);
+		return ResponseEntity.ok().body(memberEdit);
+	}// memberEditPro()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")
 	public String myList(Model model, HttpSession session) {
@@ -342,19 +355,19 @@ public class MemberController{
 		
 	}
 //	-----------------------------------------------------------------------------
-	@PostMapping("/resetImage")
+	@GetMapping("/resetImage")
 	public String resetImage(@RequestParam Map<String, String> map, HttpSession session) {
 		System.out.println("MemberController resetImage()");
-		String MEM_IMAGE = (String)session.getAttribute("MEM_IMAGE");
-		session.setAttribute("MEM_IMAGE", MEM_IMAGE);
-		String MEM_NO = (String)session.getAttribute("MEM_NO");
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		memberService.resetImage(MEM_ID);
 		return "redirect:/member/memberEdit";
+		
 	}// memberDelete()
-//	if(sPath.equals("/resetImage.cu")) {
-//	String CUS_NO = (String) session.getAttribute("CUS_NO");
-//	customerService.resetImage(CUS_NO);
-//	res.sendRedirect("cus_edit.cu");
-//}
+
+	
+	
+	
+	
 	
 //  ===============================================메일 전송 관련===============================================	
 		// 인증메일

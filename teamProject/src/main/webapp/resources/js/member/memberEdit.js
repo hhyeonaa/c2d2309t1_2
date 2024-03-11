@@ -13,11 +13,52 @@ $(function(){
 //		reader.readAsDataURL(event.target.files[0]);
 //	}
 	
-	function resetImage() {
+	
+	$('#defaultBtn').on('click', function(){
 		debugger;
-		// document.getElementById("newImage").src = "upload/profile.png";
 		if(confirm("현재 프로필이미지를 삭제하고 기본으로 변경하시겠습니까?")) document.location = 'resetImage';
+	})
+	
+	$('#image').change(function(event) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            $('#img').attr('src', event.target.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+	
+	$('#inputBtn').on('click', function(){
+		$('#image').click();
+	})
+	
+	$('#updateBtn').on('click', function(){
+		
+		$.ajax({
+			type: "post"
+			, url: "memberEditPro"
+			, data: { MEM_ID: $('#MEM_ID').val()
+					 ,MEM_NAME: $('#MEM_NAME').val()
+//				     ,MEM_EMAIL: $('#MEM_EMAIL').val()
+					 ,MEM_NICK: $('#MEM_NICK').val()
+					 ,MEM_PW: $('#MEM_PW').val()
+					 ,MEM_TEL: $('#MEM_TEL').val()
+//					 ,MEM_BIRTH: $('#MEM_BIRTH').val()
+					 ,MEM_IMAGE: $('#image').val().split('\\').pop() }
+		})
+		.done(function(data){
+			console.log($('#image').val().split('\\').pop());
+			debugger;
+			location.href='mypage';
+		})
+	})
+	
+	
+	function extractFileName(input){
+		var fileName = $('#image').val().split('\\').pop();
+		var editForm = new FormData();
+		editForm.append("MEM_IMAGE", fileName);
 	}
+	
 	
 	// ~~~~~~~~~~~~~~~~~~~비밀번호 유효성 검사~~~~~~~~~~~~~~~~~~~
 	$('#MEM_PW').blur(function(){

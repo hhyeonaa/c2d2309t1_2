@@ -34,7 +34,8 @@
 				, MEM_TEL
 				, MEM_EMAIL
 				, MEM_DATE
-				, MEM_CAT )
+				, MEM_CAT
+				, MEM_IMAGE )
 		values ( concat("ME", IFNULL((select MAX(cast(replace(MEM_NO, "ME", "") AS unsigned))+1 FROM MEMBERS A), 1))
 				,#{MEM_ID}
 				,#{MEM_PW}
@@ -45,7 +46,8 @@
 				,#{MEM_TEL}
 				,#{MEM_EMAIL}
 				,DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-				,'0' ) 
+				,'0'
+				,'profile.png' ) 
 	</insert>
 	
 	<select id="login" resultType="map">
@@ -122,6 +124,7 @@
 			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
 			 , S.SCO_SCORE
 			 , M.MEM_CAT
+			 , M.MEM_IMAGE
 		from MEMBERS M
 		left outer join SCORE S
 		on M.MEM_NO = S.MEM_NO
@@ -135,8 +138,6 @@
 		  , MEM_NICK = #{MEM_NICK}
 		  , MEM_PW = #{MEM_PW}
 		  , MEM_TEL = #{MEM_TEL}
-		  , MEM_EMAIL = #{MEM_EMAIL}
-		  , MEM_BIRTH = replace(cast(#{MEM_BIRTH} as char), "-", "")
 		  , MEM_IMAGE = #{MEM_IMAGE}
 		  , MEM_REDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 		where 1 = 1
@@ -241,6 +242,6 @@
 	<update  id="resetImage" parameterType="String">
 		update 	MEMBERS
 		set 	MEM_IMAGE = default
-		where 	MEM_NO = #{MEM_NO};
+		where 	MEM_ID = #{MEM_ID}
 	</update>
 </mapper>

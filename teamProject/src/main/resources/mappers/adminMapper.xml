@@ -14,28 +14,25 @@
 			, AD_NAME
 			, AD_DATE
 			, AD_ACTIVE
-			, AD_ROLE)
+			, ROL_NO)
 		values (CONCAT("AD", IFNULL((SELECT MAX(CAST(replace(AD_NO, "AD", "") AS unsigned))+1
 									 FROM ADMIN A), 1))
 			, #{AD_ID}
 			, #{AD_PW}
 			, #{AD_NAME}
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-			, '1'
+			, 'RO2'
 			, '0')
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
 		select
-			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
-			, AD_ID 
-			, CASE AD_ROLE WHEN '1' THEN '총괄'
-						   WHEN '2' THEN '운영'
-						   WHEN '3' THEN '시스템'
-						   ELSE '기본'
-			   END AS "AD_ROLE"
-			, AD_ACTIVE
-		from ADMIN
+			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
+			, a.AD_ID
+			, r.ROL_NAME
+			, a.AD_ACTIVE
+		from ADMIN a join ROLE r
+		on a.ROL_NO = r.ROL_NO
 		ORDER BY AD_NO
 	</select>
 	
@@ -57,19 +54,19 @@
 		where AD_NO = #{AD_NO}
 	</update>
 	
-	<select id="getBoardList" resultType="map">
-		select CODE
-				, ACTIVE
-				, SEQ
-				, CASE CO_DETAIL WHEN '0' THEN '글'
-						   WHEN '1' THEN '글+사진'
-						   WHEN '2' THEN '글+사진+날짜'
-						   ELSE '없음'
-			   END AS "CO_DETAIL"
-		from CODE
-			where  CO_TYPE = 'MM'
-		ORDER BY SEQ
-	</select>
+<!-- 	<select id="getBoardList" resultType="map"> -->
+<!-- 		select CODE -->
+<!-- 				, ACTIVE -->
+<!-- 				, SEQ -->
+<!-- 				, CASE CO_DETAIL WHEN '0' THEN '글' -->
+<!-- 						   WHEN '1' THEN '글+사진' -->
+<!-- 						   WHEN '2' THEN '글+사진+날짜' -->
+<!-- 						   ELSE '없음' -->
+<!-- 			   END AS "CO_DETAIL" -->
+<!-- 		from CODE -->
+<!-- 			where  CO_TYPE = 'MM' -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select> -->
 	
 	<update id="displayUpdate">
 		update CODE
@@ -79,14 +76,14 @@
 		and	   CODE = #{CODE}
 	</update>
 	
-	<select id="getCategoryList" resultType="map">
-		select SEQ
-				, CODE
-				, ACTIVE
-		from CODE
-		where CO_TYPE = 'CA'
-		ORDER BY SEQ
-	</select>	
+<!-- 	<select id="getCategoryList" resultType="map"> -->
+<!-- 		select SEQ -->
+<!-- 				, CODE -->
+<!-- 				, ACTIVE -->
+<!-- 		from CODE -->
+<!-- 		where CO_TYPE = 'CM' -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select>	 -->
 	
 	<insert id="inputForm">
 		insert into PRODUCT
@@ -97,6 +94,8 @@
 			, PRO_CONTENT
 			, PRO_CATE
 			, PRO_STATUS
+			, PRO_TC
+			, PRO_TSC
 			, PRO_DATE
 			)
 		values (CONCAT('PR', IFNULL((SELECT MAX(CAST(replace(PRO_NO, 'PR', '') AS unsigned))+1
@@ -107,6 +106,8 @@
 			, #{PRO_CONTENT}
 			, #{PRO_CATE}
 			, #{PRO_STATUS}
+			, #{PRO_TC}
+			, 'TM1'
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
 	</insert>
 	
@@ -117,9 +118,11 @@
 				, CODE
 				, CO_DETAIL
 				, SEQ
+				, ACTIVE
 			from CODE
 			where CO_TYPE = 'FO'
-			and ACTIVE = '1'
+			and CO_NO != '7'
+			ORDER BY SEQ
 	</select>
 	
 	
@@ -130,8 +133,109 @@
 
 <!-- 	===== 무창 시작 ===== -->
 
-	
+	<select id="codeSelect" parameterType="java.util.List" resultType="map">
+		<foreach collection="list" item="code" open="" close="" separator=";">
+		select ACTIVE
+		  from CODE
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE} 
+		   and CO_NO = #{code.CO_NO}
+		</foreach>		   
+	</select>
 
+	<insert id="codeInsert" parameterType="java.util.List">
+		insert 
+			into CODE
+				(
+				  CO_TYPE
+				, CO_NO
+				, CODE
+				, HIDE
+				, ACTIVE
+				)
+			values
+		<foreach collection="list" item="code" open="" close="" separator=",">
+				(
+				  #{code.CO_TYPE}
+				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
+					 from CODE
+					where 1 = 1
+					  and CO_TYPE = #{code.CO_TYPE})
+    			, #{code.CODE}
+    			, '0'
+    			, '0'
+				)	
+		</foreach>
+	</insert>
+
+	<update id="codeUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="code" open="" close="" separator=";">
+		update CODE
+		   set CODE = #{code.CODE}
+		   <if test='code.HIDE == "1"'>
+		   	 , ACTIVE = '0'
+		   	 , HIDE = #{code.HIDE}
+		   </if>
+		   <if test='code.HIDE == "0"'>
+		   	 , ACTIVE = #{code.ACTIVE}
+		   	 , HIDE = #{code.HIDE}
+		   </if>
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE}
+		   and CO_NO = #{code.CO_NO} 
+		</foreach>	
+	</update>
+
+	<delete id="codeDelete" parameterType="java.util.List">
+		delete from CODE
+		 where
+		<foreach collection="list" item="code" open="" close="" separator="or">
+			(CO_TYPE = #{code.CO_TYPE} and CO_NO = #{code.CO_NO})		
+		</foreach>
+	</delete>
+	
+	<insert id="messageInsert" parameterType="java.util.List">
+		insert 
+			into MESSAGE
+				(
+				  CO_TYPE
+				, CO_NO
+				, CODE
+				, HIDE
+				)
+			values
+		<foreach collection="list" item="code" open="" close="" separator=",">
+				(
+				  #{code.CO_TYPE}
+				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
+					 from CODE
+					where 1 = 1
+					  and CO_TYPE = #{code.CO_TYPE})
+    			, #{code.CODE}
+    			, '0'
+				)	
+		</foreach>
+	</insert>
+
+	<update id="messageUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="code" open="" close="" separator=";">
+		update MESSAGE
+		   set CODE = #{code.CODE}
+		   	 , HIDE = #{code.HIDE}
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE}
+		   and CO_NO = #{code.CO_NO} 
+		</foreach>	
+	</update>
+
+	<delete id="messageDelete" parameterType="java.util.List">
+		delete from MESSAGE
+		 where
+		<foreach collection="list" item="code" open="" close="" separator="or">
+			(CO_TYPE = #{code.CO_TYPE} and CO_NO = #{code.CO_NO})		
+		</foreach>
+	</delete>
+	
 <!-- 	===== 무창 끝 ===== -->
 
 
@@ -139,14 +243,18 @@
 <!-- 	===== 성엽 시작 ===== -->
 
 	<select id="getMemberList" resultType="map">
-		select MEM_NO
-			 , MEM_ID
-			 , MEM_NICK
-			 , MEM_NAME
-			 , MEM_EMAIL
-			 , MEM_DATE
-		from MEMBERS
-		ORDER BY MEM_NO DESC
+		 select MEM_NO
+			  , MEM_ID
+			  , MEM_NICK
+			  , MEM_NAME
+			  , MEM_EMAIL
+			  , MEM_DATE
+			  , (select COUNT(*)
+				  from REPORT
+				 where RPT_USER_IDX = MEM_ID) as COUNT
+			  , MEM_CAT
+		  from MEMBERS
+		 ORDER BY MEM_NO;
 	</select>
 	
 	<select id="getContentboardList" resultType="map">
@@ -181,15 +289,48 @@
 		ORDER BY PRO_NO DESC
 	</select>
 	
-	<delete id="memberDelete">
-		delete from MEMBERS
-		where MEM_NO = #{MEM_NO}
-	</delete>
+	<update id="memberStop" parameterType="map">
+		update MEMBERS
+		   set MEM_CAT = #{newState}
+		 WHERE 1 = 1  
+		   and MEM_CAT = #{oldState}
+		   and MEM_NO = #{memNo}
+	</update>
 	
 	<delete id="contentDelete">
 		delete from PRODUCT
 		where PRO_NO = #{PRO_NO}
 	</delete>
+	
+	<delete id="cateContentDelete">
+		delete from PRODUCT
+		where PRO_NO = #{PRO_NO}
+	</delete>
+	
+<!-- 	<select id="getReportList" resultType="map"> -->
+<!-- 		select  -->
+<!-- 			   RPT_IDX -->
+<!-- 			 , USER_IDX -->
+<!-- 			 , RPT_USER_IDX -->
+<!-- 			 , RPT_SELECT -->
+<!-- 			 , RPT_TIME -->
+<!-- 		from REPORT -->
+<!-- 		ORDER BY RPT_IDX DESC -->
+<!-- 	</select> -->
+
+	<select id="getReportList" resultType="map">
+		select 
+			   RPT_IDX
+			 , USER_IDX
+			 , RPT_USER_IDX
+			 , RPT_SELECT
+			 , RPT_TIME
+		from REPORT
+		ORDER BY RPT_IDX DESC
+	</select>
+	
+
+
 
 <!-- 	===== 성엽 끝 ===== -->
 	

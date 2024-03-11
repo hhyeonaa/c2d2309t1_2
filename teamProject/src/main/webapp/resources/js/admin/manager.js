@@ -19,9 +19,7 @@ $(function(){
 			name:"AD_NO",
 			header:"번호",
 			filter:"number",
-		    sortable: true,
-		    editor: "text"
-		    
+		    sortable: true
 		}, 
 		{
 			name:"AD_ID",
@@ -32,7 +30,7 @@ $(function(){
 		    editor: "text"
 		},
 		{
-			name:"AD_ROLE",
+			name:"ROL_NAME",
 			header:"권한",
 			filter:"text",
 		    sortable: true,
@@ -45,19 +43,15 @@ $(function(){
 			filter:"select",
 		    sortable: true,
 			sortingType: 'asc',
-			renderer: {
-                type: ToggleButton
-            }
+			renderer: { type: ToggleButton }
 		},
 		{
-			name:"",
+			name:"DELETE",
 			header:"삭제",
-			renderer: {
-                type: DeleteButton
-            }
+			renderer: { type: DeleteButton }
 		}
 	]
-	grid("managerList", 5, columns, false);
+	grid("managerPro", 5, columns, false);
 	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 	
@@ -87,26 +81,30 @@ $(function(){
 
 	// 저장 버튼
 	$(document).on("click", "#saveBtn", function () {
+		var arr = [];
 		for (let i = 1; i < adminList.rows.length; i++) {
-//			console.log(adminList.rows[i].cells[2].options[selectedIndex].value);
-			debugger;
-			$.ajax({
-				type: "post"
-				, url: "updatePro"
-				, data: {AD_NO: "AD" + adminList.rows[i].cells[0].innerText,
-						 AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value,
-						 AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0 }
-			});
-		}
-		$('#adminDiv').load(location.href+' #adminDiv');
-//		location.reload();
+			arr.push(
+				{AD_NO: "AD" + adminList.rows[i].cells[0].innerText
+				 , AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value
+				 , AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
+				}
+			)
+		};
+		$.ajax({
+			type: "post"
+			, contentType: 'application/json'
+			, url: "updatePro"
+			, data: JSON.stringify(arr)
+		});
+//		$('#adminDiv').load(location.href+' #adminDiv');
+		location.reload();
 	});
 	
 		
 	// 모달창 관련	
 	var modal = $('#addModal');
 	
-	$('#btnAdd').on('click', function(){
+	$('#appendBtn').on('click', function(){
 		modal.css('display', 'block');
 	});
 	
@@ -118,27 +116,34 @@ $(function(){
 	// 엔터키 & 버튼 연결	
 	$('#AD_ID, #AD_PW, #AD_NAME').on('keydown', function(key){
         if (key.keyCode == 13) {
-            $('#insertBtn').click();
+            $('#checkBtn').click();
         }
 	});	
 	
 	
 	// 생성버튼 이벤트 
-	$(document).on("click", "#insertBtn", function () {
+	$(document).on("click", "#checkBtn", function () {
+		var check = 1;
 		if($('#AD_ID').val() == ""){
 			alertMsg("AM6", ["아이디"]);
 			$('#AD_ID').focus();
-			return;
+			check = 0;
+			return check;
 		}
 		if($('#AD_PW').val() == ""){
 			alertMsg("AM6", ["비밀번호"]);
 			$('#AD_PW').focus();
-			return;
+			check = 0;
+			return check;
 		}
 		if($('#AD_NAME').val() == ""){
 			alertMsg("AM6", ["이름"]);
 			$('#AD_NAME').focus();
-			return;
+			check = 0;
+			return check;
+		}
+		if(check) {
+			$('#insertBtn').click();
 		}
 		$.ajax({
 			type: "post"
@@ -146,17 +151,23 @@ $(function(){
 			, data: {AD_ID: $('#AD_ID').val(),
 					 AD_PW: $('#AD_PW').val(),
 					 AD_NAME: $('#AD_NAME').val() }
+			, async: false
 		})
 		.done(function(data) {
+			debugger;
 			if(data == "") {
 				alertMsg('AM5', ["입력 정보"]);
 				return false;
 			}
+			debugger;
 			alertMsg('AM3', ["새로운 관리자 계정 생성"]);
+			debugger;
 			modal.css('display', 'none');
 			$('#adminDiv').load(location.href+' #adminDiv');
 //			location.reload();
 		 })
 	});
+	
+	
 	
 });

@@ -2,37 +2,50 @@ package com.team.controller;
 
 
 import java.io.Console;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.formula.functions.Address;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.protobuf.Message;
 import com.mysql.cj.Session;
 import com.team.service.MemberService;
@@ -40,11 +53,16 @@ import com.team.service.TeamCodeService;
 
 @Controller
 @RequestMapping("/member/*")
+
 public class MemberController{
 	@Inject
 	private MemberService memberService;
 	@Inject
 	private TeamCodeService codeService;
+	
+	// servlet-context.xml 에서 id="uploadPath" 객체생성 => name = "uploadPath"
+	@Resource
+	private String uploadPath;
 	//	-----------------------------------------------------------------------------	
 	@GetMapping("/join")
 	public String join() {
@@ -81,7 +99,7 @@ public class MemberController{
 		System.out.println("check : " + check);
 		if(check != null) {
 			session.setAttribute("MEM_ID", map.get("MEM_ID"));
-			session.setAttribute("MEM_NICK", map.get("MEM_NICK"));
+			session.setAttribute("MEM_NICK", check.get("MEM_NICK"));
 			return "redirect:../";
 		}
 		return "member/msg";
@@ -95,11 +113,14 @@ public class MemberController{
 		if(searchId == null || searchId.isEmpty()) {
 			System.out.println("첫 회원가입 고객");
 			memberService.insertMemeber(map);
-		} 
+		} else if (searchId != null && searchId.get("MEM_CAT").equals("2")) {
+			System.err.println("탈퇴 고객");
+			return "redirect:/member/msg";
+		} else {
 		System.out.println("이미 가입한 고객");
 		session.setAttribute("MEM_ID", map.get("MEM_ID"));
 		memberService.socialLogin(map);
-			
+		}	
 		return "redirect:../";
 	}// socialLoginPro() 
 //	-----------------------------------------------------------------------------	
@@ -217,6 +238,7 @@ public class MemberController{
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
 			session.setAttribute("AD_ID", check.get("AD_ROLE"));
+			session.setAttribute("ROL_NO", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		}
 		return "member/msg";
@@ -228,6 +250,7 @@ public class MemberController{
 		System.out.println("MemberController mypage()");
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
 		Map<String, String> profile = memberService.mypage(MEM_ID);
+		System.out.println("!@#@!# : " + profile);
 		model.addAttribute("profile", profile);
 		return "member/mypage";
 	}// mypage()
@@ -235,20 +258,93 @@ public class MemberController{
 	@GetMapping("/memberEdit")
 	public String memberEdit(Model model, HttpSession session) {
 		System.out.println("MemberController memberEdit()");
-		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> profile = memberService.mypage(MEM_ID);
+		System.out.println("%%%%%%%%%%%%%%%%% : " + profile);
 		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
 //	-----------------------------------------------------------------------------	
+//	@PostMapping("/memberEditPro")
+//	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
+//		System.out.println("#@%^%#@!^%#^ : " + map);
+//		System.out.println("map.get(\"MEM_IMAGE\") : " + map.get("MEM_IMAGE"));
+//		System.out.println("MemberController memberEditPro()");
+//		String MEM_ID = (String)session.getAttribute("MEM_ID");
+//		Map<String, String> param = memberService.getMember(MEM_ID, map);
+//			memberService.memberEdit(map);
+//			return "redirect:/member/mypage";
+//	}//memberEditPro()
+	
+//	@PostMapping("/memberEditPro")
+//	@ResponseBody
+//	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, 
+//										   HttpServletRequest request, @RequestParam MultipartFile image) throws Exception {
+//		System.out.println("MemberController memberEditPro()");
+//		String MEM_ID = (String)session.getAttribute("MEM_ID");
+//		map.put("MEM_ID", MEM_ID);
+//		System.out.println("map : " + map);
+//		String[] mapArr = map.get("map").replace("{", "").replace("}", "").split(",");
+//		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+//		for(String arr : mapArr) {
+//			Map<String, String> dataFormat = new HashMap<String, String>();
+//			dataFormat.put(arr.split(":")[0].trim(),arr.split(":")[1].trim());
+//			list.add(dataFormat);
+//			
+//		}
+//		System.out.println("%%%%%%%%%% : " + list);
+//		int memberEdit = memberService.memberEdit(map);
+//		ServletContext context = request.getSession().getServletContext();
+//	    
+//	 // 첨부파일 업로드 => pom.xml 프로그램 설치
+// 		// servlet-context.xml에 설정
+// 		// 파일이름 중복 방지 => 랜덤문자_파일이름
+// 		UUID uuid = UUID.randomUUID();
+// 		String filename = uuid.toString() + "_" + image.getOriginalFilename();
+//// 		// 원본파일 => 위치/파일이름으로 복사(업로드)
+// 		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
+//	    
+//		return ResponseEntity.ok().body(memberEdit);
+//	}// memberEditPro()
+//	-----------------------------------------------------------------------------
 	@PostMapping("/memberEditPro")
-	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
-		System.out.println("MemberController memberEditPro()");
-		String MEM_ID = (String)session.getAttribute("MEM_ID");
-		Map<String, String> param = memberService.getMember(MEM_ID, map);
-			memberService.memberEdit(map);
-			return "redirect:/member/mypage";
-	}//memberEditPro()
+	@ResponseBody
+	public ResponseEntity<?> memberEditPro(@RequestParam("jsonData") String jsonData, 
+	                                       @RequestParam("image") MultipartFile image,
+	                                       HttpSession session) throws Exception {
+	    System.out.println("MemberController memberEditPro()");
+	    // JSON 데이터를 Map으로 변환
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    Map<String, String> map = objectMapper.readValue(jsonData, new TypeReference<Map<String,String>>() {});
+	    String MEM_ID = (String) session.getAttribute("MEM_ID");
+	    map.put("MEM_ID", MEM_ID);
+	    System.out.println("map : " + map);
+	    
+	    // 이미지 파일 업로드 및 DB에 경로 저장
+	    if (!image.isEmpty()) {
+	        // 파일 업로드 로직
+	    	String filename = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+	    	String uploadPath = "/resources/img/uploads"; // 상대 경로 설정
+	    	System.out.println("상대경로 : " + uploadPath);
+	    	String realPath = session.getServletContext().getRealPath(uploadPath); // 실제 경로 가져오기
+	    	System.out.println("실제 경로 : " + realPath);
+	    	FileCopyUtils.copy(image.getBytes(), new File(realPath, filename));
+	        // DB에 파일 경로 업데이트
+	        map.put("FILE_PATH", filename); // 파일 경로를 맵에 추가
+	       System.out.println(" map.get(\"FILE_PATH\") : " +  map.get("FILE_PATH"));
+	       
+	        if(map.containsKey("FILE_PATH")) {
+	            String filePath = map.get("FILE_PATH");
+	            memberService.updateProfileImagePath(MEM_ID, filePath);
+	        }
+	    }
+	    
+	    // 회원 정보 업데이트
+	    int memberEdit = memberService.memberEdit(map);
+	    
+	    return ResponseEntity.ok().body(memberEdit);
+	}
+
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")
 	public String myList(Model model, HttpSession session) {
@@ -300,15 +396,14 @@ public class MemberController{
 	}// memberDelete()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/memberDeletePro")
-	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session) {
+	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) {
 		System.out.println("MemberController memberDeletePro()");
 		session.setAttribute("MEM_EMAIL", map.get("MEM_EMAIL"));
 		String MEM_EMAIL = (String)session.getAttribute("MEM_EMAIL");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> profile = memberService.mypage(MEM_ID);
+		System.out.println(profile + "@#^$%@#^%$^#@%");
 		profile.get("MEM_EMAIL");
-		profile.get("MEM_PW");
-		System.out.println("profile.get(\"MEM_PW\")" + profile.get("MEM_PW"));
 		if (profile.get("MEM_EMAIL") != null) {
 			if (MEM_EMAIL.equals(profile.get("MEM_EMAIL"))) {
 				memberService.memberDelete(profile);
@@ -323,9 +418,21 @@ public class MemberController{
 			System.err.println("이메일 미입력");
 			return "member/msg";
 		}
+	}// memberDeletePro()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/resetImage")
+	public String resetImage(@RequestParam Map<String, String> map, HttpSession session) {
+		System.out.println("MemberController resetImage()");
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		memberService.resetImage(MEM_ID);
+		return "redirect:/member/memberEdit";
 		
-	}
+	}// memberDelete()
 
+	
+	
+	
+	
 	
 //  ===============================================메일 전송 관련===============================================	
 		// 인증메일

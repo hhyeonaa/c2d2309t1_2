@@ -19,8 +19,7 @@
   		<button type="button" class="btn btn-light rounded-0 fw-bold" style="width:100%; height:100%;">TOP</button>
   	</div>
   	
-  	<div  class="mt-auto" style="margin-bottom: 100px;">
-  		<a class="dropdown-item" href="${pageContext.request.contextPath}/chat/chatting">
+  	<div id="chatBtn"  class="mt-auto" style="margin-bottom: 100px;">
   		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;"></a>
   	</div>
 </div>
@@ -56,5 +55,84 @@
       </div>
     </div>
   </footer>
-
+<!-- 채팅 모달 -->
+<div id="chatModal">
+	<div id="chatContainer">
+		<div id="exit">X</div>
+		<div id="chatListContainer">
+			<div id="chatListTit">
+				<span id="yourPostChat" class="on">내가 건 채팅</span> / 
+				<span id="myPostChat">내 게시물 채팅</span>
+			</div>
+			<div id="chatList">
+				<div class="chatRoom myPost" id="PR23">
+					<div>이미지</div>
+					<div class="chatRoomContents">
+						<div class="userNick">[닉네임]</div>
+						<div class="postTit">내 게시물 제목</div>
+						<div class="lastChat">마지막 채팅 내용</div>
+					</div>
+				</div>
+				<div class="chatRoom notMyPost" id="PR25">
+					<div>이미지</div>
+					<div class="chatRoomContents">
+						<div class="userNick">[jaewon]</div>
+						<div class="postTit">노트북</div>
+<!-- 						<div class="lastChat">마지막 채팅 내용</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="chatContentsContainer">
+			<div id="chatHead">
+<!-- 				<div>이미지</div> -->
+<!-- 				<div class="chatRoomContents"> -->
+<!-- 					<div class="userNick">[닉네임]</div> -->
+<!-- 					<div class="postTit">다른 게시물 제목</div> -->
+<!-- 				</div> -->
+<!-- 				<div id="systemContainer"> -->
+<!-- 					<div class="reportBtn"> -->
+<!-- 						<span class="material-symbols-outlined reportIcon">notifications_active</span> -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<select class="form-select"> -->
+<!-- 							<option>거래가능</option> -->
+<!-- 							<option>거래중</option> -->
+<!-- 							<option>거래완료</option> -->
+<!-- 						</select> -->
+<!-- 					</div> -->
+<!-- 					<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span> -->
+<!-- 				</div> -->
+			</div>
+			<div id="chatBody">
+				<span id="chatChoicePlease">채팅을 선택해주세요</span>
+<!-- 				<div class="my Chat"> -->
+<!-- 					<div class="flexBox"> -->
+<!-- 						<div class="chatTime">오후 6:48</div> -->
+<!-- 						<div class="chatContent">안녕하세요. 아직 판매하나요?</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="your Chat"> -->
+<!-- 					<div>[닉네임]</div> -->
+<!-- 					<div class="flexBox"> -->
+<!-- 						<div class="chatContent">안녕하세요</div> -->
+<!-- 						<div class="chatTime">오후 6:50</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="your Chat"> -->
+<!-- 					<div>[닉네임]</div> -->
+<!-- 					<div class="flexBox"> -->
+<!-- 						<div class="chatContent">아직 판매중이에요!</div> -->
+<!-- 						<div class="chatTime">오후 6:51</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div id="chatBar"> -->
+<!-- 					<input id="sendText" class="form-control" type="text" placeholder="메시지를 입력해주세요."> -->
+<!-- 					<button id="sendBtn" class="btn">전송</button> -->
+<!-- 				</div> -->
+			</div>
+		</div>
+	</div>
+</div>
 <!--   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->

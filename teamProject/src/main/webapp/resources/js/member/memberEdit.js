@@ -1,5 +1,78 @@
 $(function(){
-	debugger
+
+//	function editImage() {
+//		let CUS_IMAGE = document.getElementById("CUS_IMAGE");
+//		CUS_IMAGE.click();
+//	}
+//	
+//	function setThumbnail(event){
+//		var reader = new FileReader();
+//		reader.onload = function(event){
+//			document.getElementById("newImage").src = event.target.result;
+//		};
+//		reader.readAsDataURL(event.target.files[0]);
+//	}
+	
+	
+	$('#defaultBtn').on('click', function(){
+		debugger;
+		if(confirm("현재 프로필이미지를 삭제하고 기본으로 변경하시겠습니까?")) document.location = 'resetImage';
+	})
+	
+	$('#image').change(function(event) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            $('#img').attr('src', event.target.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+	
+	$('#inputBtn').on('click', function(){
+		$('#image').click();
+	})
+	
+	
+	$('#updateBtn').on('click', function(){
+	    var data = { 
+	        MEM_ID: $('#MEM_ID').val(),
+	        MEM_NAME: $('#MEM_NAME').val(),
+	        MEM_NICK: $('#MEM_NICK').val(),
+	        MEM_PW: $('#MEM_PW').val(),
+	        MEM_TEL: $('#MEM_TEL').val() 
+	    };
+	    
+	    let jsonData = JSON.stringify(data); // 데이터를 JSON 형식으로 변환
+	
+	    let formdata = new FormData();
+	    formdata.append("jsonData", jsonData); // JSON 데이터를 FormData에 추가
+	    
+	    // 이미지 파일 추가
+	    let imageFile = $('#image')[0].files[0]; // 파일 input에서 파일 가져오기
+	    if (imageFile) {
+	        formdata.append("image", imageFile);
+	    }
+	
+	    $.ajax({
+	        type: "POST",
+	        url: "memberEditPro",
+	        data: formdata,
+	        processData: false, // 데이터 처리 방식을 지정하지 않음
+	        contentType: false, // 컨텐츠 타입을 false로 지정하여 기본값을 사용함
+	    })
+	    .done(function(data){
+	        location.href='mypage';
+	    })
+	    .fail(function(xhr, textStatus, errorThrown) {
+	        console.error("Request failed: " + textStatus);
+	        console.error(xhr.responseText); // 서버에서 반환한 오류 메시지 출력
+	    });
+	});
+	
+	
+	
+	
+	
+	
 	// ~~~~~~~~~~~~~~~~~~~비밀번호 유효성 검사~~~~~~~~~~~~~~~~~~~
 	$('#MEM_PW').blur(function(){
 		// 비밀번호 확인 비어있는 경우 제어
@@ -69,6 +142,8 @@ $(function(){
 			$('#MEM_BIRTH').focus();	
 			return false;
 		}
+		
+		
 //		
 //		$.ajax({
 //			type: "post"

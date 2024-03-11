@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,9 +83,12 @@
 												alt="random" width="80" height="80"
 												style="margin-left: 20px; margin-right: 30px;">
 												<div class="content">
-													<h4>거래자 닉네임</h4>
+												<c:forEach var="member" items="${memList}">
+													<h4>${member.MEM_NO}</h4>
 													<span class="preview">메시지 미리보기</span> <span class="meta"
 														style="margin-left: 300px;"> 2024-02-06 12:32 </span>
+													<input type="hidden" class="${member.MEM_NO}" value="${member.MEM_NO}">
+												</c:forEach>
 												</div>
 											</li>
 											<li class="li_1">
@@ -179,25 +183,16 @@
 								<aside>
 									<header>
 										<p class="fs-5">
-									     <label> <input type="radio" name="rd01" checked>욕설 및 도배 </label> <br>
-									     <label> <input type="radio" name="rd01">도배 </label> <br>
-									     <label> <input type="radio" name="rd01">도난물품 </label> <br>
-									     <label> <input type="radio" name="rd01">불법정보 </label> <br>
-									     <input type="radio" name="rd01" id="cs_channel_etc" value="" class="radio" />
-									     <span class="ml_10">기타</span>
+											<c:forEach var="dcm" items="${dcm}" varStatus="v">
+												 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br>
+										    </c:forEach>
 									    </p>
 									</header>
 								</aside>
-								<div id="etc_view" style="display:none;">
-											 
-								  <textarea class="form-control" placeholder="신고할 내용을 입력해주세요." id="floatingTextarea"
-								  style="width:765px; height: 100px;"></textarea>
-								  
-								</div>
 							</div>
 						</div>
 
-						<button type="button" class="btn btn-primary">신고하기</button>
+						<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>
 					</div>
 				</div>
 			</div>
@@ -226,6 +221,26 @@
     	$(".openModal2").on("click", function(){
     		$("#chat").modal("show");
     	})
+    	
+    	
+    	
+    	$("#reportBtn").on("click", function(){
+    		debugger;
+    		$.ajax({
+    			url: "chartReport",
+    			type: "POST",
+    			data: {
+    				rptUserIdx: $(this).closest("div").find("input[type=hidden]").val(),
+    				rptCode: $('input[name="rd01"]:checked').val()
+    			}
+    		})
+    		.done(function(data){
+    			debugger;
+    		})
+    		.fail(function(){
+    			debugger;
+    		})
+    	});
     });
     
     // 기타 선택시 텍스트박스

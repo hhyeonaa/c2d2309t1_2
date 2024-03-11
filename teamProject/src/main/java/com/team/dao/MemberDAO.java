@@ -67,6 +67,7 @@ public class MemberDAO {
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> socialLogin(Map<String, String> map) {
 		System.out.println("MemberDAO socialLogin()");
+		System.out.println("MemberDAO socialLogin()" + map);
 		return sqlSession.selectOne(namespace + "socialLogin", map);
 	}// socialLogin()
 //	-----------------------------------------------------------------------------	
@@ -80,9 +81,9 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "mypage", MEM_ID);
 	}// mypage()
 //	-----------------------------------------------------------------------------
-	public void memberEdit(Map<String, String> map) {
+	public int memberEdit(Map<String, String> map) {
 		System.out.println("MemberDAO memberEdit()");
-		sqlSession.update(namespace + "memberEdit", map);
+		return sqlSession.update(namespace + "memberEdit", map);
 	}// memberEdit()
 //	-----------------------------------------------------------------------------
 	public List<Map<String, String>> myListSell(String MEM_ID) {
@@ -113,7 +114,12 @@ public class MemberDAO {
 	public void memberDelete(Map<String, String> map) {
 		System.out.println("MemberDAO memberDelete()");
 		System.out.println(map + "  !@#$%");
-		sqlSession.delete(namespace + "memberDelete", map);
+		sqlSession.update(namespace + "memberDelete", map);
 	}// memberDelete()
+//	-----------------------------------------------------------------------------
+	public void resetImage(String MEM_ID) {
+		System.out.println("MemberDAO resetImage()");
+		sqlSession.update(namespace + "resetImage", MEM_ID);
+	}// resetImage()	
 	
 }// MemberDAO 클래스

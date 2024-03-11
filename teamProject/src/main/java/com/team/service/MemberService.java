@@ -80,10 +80,14 @@ public class MemberService {
 		return memberDAO.mypage(MEM_ID); 
 	}// mypage()
 //	-----------------------------------------------------------------------------	
-	public void memberEdit(Map<String, String> map) {
+	public int memberEdit(Map<String, String> map) {
 		System.out.println("MemberService memberEdit()");
-		memberDAO.memberEdit(map);
+		return memberDAO.memberEdit(map);
 	}// insertMemeber()
+	
+	public void updateProfileImagePath(String memberId, String filePath) {
+        // 회원의 프로필 이미지 경로를 업데이트하는 로직
+    }
 //	-----------------------------------------------------------------------------	
 	public List<Map<String, String>> myListSell(String MEM_ID) {
 		System.out.println("MemberService myListSell()");
@@ -115,5 +119,9 @@ public class MemberService {
 		System.out.println(map + " ~~~~~~~~~~map~~~~~~~~~~~~~");
 		memberDAO.memberDelete(map);
 	}// memberDelete()
-	
+//	-----------------------------------------------------------------------------	
+	public void resetImage(String MEM_ID) {
+		System.out.println("MemberService resetImage()");
+		memberDAO.resetImage(MEM_ID);
+	}// insertMemeber()
 }// MemberService 클래스

@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -27,9 +29,24 @@
 		<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 	
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="D:\workspace_sts4\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\teamProject\resources\img\uploads"></beans:constructor-arg>
+	</beans:bean>
+	
+	<!-- websocket -->
+	<beans:bean id="WebSocketHandler" class="com.team.chat.WebSocketHandler" />        
+	<websocket:handlers>
+	    <websocket:mapping handler="WebSocketHandler" path="/chat"/>
+	    <websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	    <websocket:sockjs />
+	</websocket:handlers>
+	
 	<context:component-scan base-package="com.mycompany.myapp" />
 	<context:component-scan base-package="com.team.controller" />
 	<context:component-scan base-package="com.team.service" />
 	<context:component-scan base-package="com.team.dao" />
 	
 </beans:beans>
+

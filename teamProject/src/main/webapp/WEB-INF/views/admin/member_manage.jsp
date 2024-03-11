@@ -14,7 +14,7 @@
 	
 	<div class="container">
     <div class="row align-items-center">
-        <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
+        <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>회원 목록</b></h4></div>
     </div>
 	
 	
@@ -31,8 +31,8 @@
                                 <th scope="col">이름</th>
                                 <th scope="col">이메일</th>
                                 <th scope="col">가입일</th>
-                                <th scope="col">정지일</th>
-                                <th scope="col">탈퇴</th>
+                                <th scope="col">누적신고</th>
+                                <th scope="col">회원상태</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
@@ -45,11 +45,15 @@
                                 <td>${member.MEM_NAME}</td>
                                 <td>${member.MEM_EMAIL}</td>
                                 <td><fmt:formatDate var="memDate" value="${data}" pattern="yyyy-MM-dd"/>${memDate}</td>
-                                <td>정지일</td>
+                                <td>${member.COUNT}</td>
                                 <th scope="row">
                                 	<div>
-										<button type="button" class="btn-close"
-                                			onclick="location.href='${pageContext.request.contextPath}/admin/memberDelete?MEM_NO=${member.MEM_NO}'"></button>
+										<select class="state">
+											<option value="0">정상</option>
+											<option value="1">정지</option>
+											<option value="2">탈퇴</option>
+										</select>
+										<input type="hidden" class="${member.MEM_NO}" value="${member.MEM_CAT}">
 									</div>
                                 </th>
                             </tr>

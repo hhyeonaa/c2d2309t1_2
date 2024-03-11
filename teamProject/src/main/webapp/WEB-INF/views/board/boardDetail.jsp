@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,6 +76,8 @@
 		 	<div style="width: 60%; height: 400px;">
 		 	<input type="hidden" id="proNo" value="${resultMap.PRO_NO}">
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
+		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
+		 	<input type="hidden" id="proDate" value="${resultMap.PRO_DATE}">
 		 		<table>
 		 			<tr><th>${resultMap.PRO_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
@@ -94,13 +97,19 @@
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
-		 				<td>${resultMap.PRO_STATUS}</td>
-		 				<td></td>
-		 				<td></td>
+		 				<c:set var="statusValue" value="${resultMap.PRO_STATUS_CODE}" />
+		 				<c:choose>
+						    <c:when test="${fn:contains(statusValue, '(')}">
+						        <td>${fn:substringBefore(statusValue, '(')}</td>
+						    </c:when>
+						    <c:otherwise>
+						        <td>${statusValue}</td>
+						    </c:otherwise>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>카테고리:</td>
-		 				<td><a href="#">자켓/점퍼</a></td>
+		 				<td><a href="#">${resultMap.PRO_CATE_CODE}</a></td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>
@@ -112,15 +121,15 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td><i class="bi bi-building-check"></i>부산광역시 사하구 하단제2동</td>
+		 				<td><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
 		 					<button class="btn btn-danger btn-lg">찜</button>
-		 					<button class="btn btn-warning btn-lg">채팅</button>
-		 					<button class="btn btn-success btn-lg">바로구매</button>
+		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
+		 					<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
 <!-- 			 			<td><button class="btn btn-warning btn-lg">채팅</button></td> -->
@@ -220,12 +229,6 @@
 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
 		 			</tr>
 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
-		 			<tr>
-		 				<td colspan="2">
-		 					<button class="btn btn-warning" style="width: 30%;">채팅</button>
-		 					<button class="btn btn-success" style="width: 30%;">바로구매</button>
-		 				</td>
-		 			</tr>		 					
 		 		</table>
 		 	</div>
 		</div>
@@ -234,6 +237,7 @@
 </div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/startChat.js"></script>
 <script type="text/javascript">
 
 </script>

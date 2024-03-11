@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,13 +82,19 @@
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
-		 				<td>사용감 적음</td>
-		 				<td></td>
-		 				<td></td>
+		 				<c:set var="statusValue" value="${resultMap.PRO_STATUS_CODE}" />
+		 				<c:choose>
+						    <c:when test="${fn:contains(statusValue, '(')}">
+						        <td>${fn:substringBefore(statusValue, '(')}</td>
+						    </c:when>
+						    <c:otherwise>
+						        <td>${statusValue}</td>
+						    </c:otherwise>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>카테고리:</td>
-		 				<td><a href="#">자켓/점퍼</a></td>
+		 				<td><a href="#">${resultMap.PRO_CATE_CODE}</a></td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>
@@ -99,7 +106,7 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td><i class="bi bi-building-check"></i>부산광역시 사하구 하단제2동</td>
+		 				<td><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>	

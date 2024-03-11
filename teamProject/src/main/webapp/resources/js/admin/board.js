@@ -5,7 +5,7 @@ document.write('<script type="text/javascript"' +
 
 $(() => {
 	targetColor($('#board_manage'));
-	paging('#tbody tr', 5, 0);
+//	paging('#tbody tr', 5, 0);
 
 	var columns = [
 		{
@@ -42,11 +42,12 @@ $(() => {
 		}
 	]
 
-	grid("boardList", 5, columns, true);
+	grid("boardPro", 5, columns, true);
 	excel('download');
 })
 $(function(){
 	let boardList = document.getElementById('boardList');
+	let inputList = document.getElementById('inputList');
 	var currentRow, preRow;
 	var modal = $('#inputModal');
 
@@ -63,7 +64,7 @@ $(function(){
 
 	
 	
-//	// 저장 버튼
+	// 저장 버튼
 	$('#saveBtn').on('click', function () {
 		var arr = [];
 		for (let i = 1; i < boardList.rows.length; i++) {
@@ -91,12 +92,33 @@ $(function(){
 
 	// 모달창	
 	$('#insertForm').on('click', function(){
-		modal.css('display', 'block');
-		$()
-	})
+	    modal.css('display', 'block');
+	});
+	
+	// 모달 안 저장 버튼
+	$('#formSaveBtn').on('click', function () {
+		var formArr = [];
+		for (let i = 1; i < inputList.rows.length; i++) {
+			formArr.push(
+				{CO_TYPE: 'FO'
+				 , SEQ: i
+				 , CODE: inputList.rows[i].cells[0].innerText
+				 , ACTIVE: inputList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
+				}
+			)
+			debugger;
+		};
+		$.ajax({
+			type: "post"
+			, contentType: 'application/json'
+			, url: "displayUpdate"
+			, data: JSON.stringify(formArr)
+		})
+		location.reload();
+	});
 
 	$('#close, #cancelBtn').on('click', function(){
 		modal.css('display', 'none');
-	})
+	});
 	
 });

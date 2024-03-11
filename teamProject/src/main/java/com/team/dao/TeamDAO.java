@@ -27,7 +27,7 @@ public class TeamDAO {
 		return sqlSession.selectOne(namespace + "selectMessage", code);
 	}
 	
-	public Map<String, String> selectMessageList(Map<String, String> code) {
-		return sqlSession.selectOne(namespace + "selectMessageList", code);
+	public List<Map<String, String>> selectMessageList(Map<String, String> code) {
+		return sqlSession.selectList(namespace + "selectMessageList", code);
 	}
 }

@@ -7,14 +7,12 @@ $(() => {
 	paging("#tbody tr", 10, 0);
 	
 	for(var i = 0; i < $("#tbody select").length; i++){
-		debugger;
 		$($("#tbody select")[i]).find("option")
 								.eq(stringToInt($($("#tbody input[type=hidden]")[i]).val()))
 								.prop("selected", true)	
 	}
 	
 	$(".state").on("change", function(){
-		debugger;
 		$.ajax({
 			type:"post",
 			url: 'memberStop',

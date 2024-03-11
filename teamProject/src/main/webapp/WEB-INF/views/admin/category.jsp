@@ -12,10 +12,24 @@
 <link href="${pageContext.request.contextPath}/resources/css/admin/category.css" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
+
+<script type="text/javascript">
+var a = '${typeList}';
+
+</script>
+
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container">
+
+	<div style="display: flex; justify-content: flex-start; padding-bottom: 50px;" id="selectCodeBtn">
+		<c:forEach var="item" items="${typeList}">
+			<button type="button" class="btn btn-outline-primary">${item.key}</button><br><br>
+		</c:forEach>
+	</div>
+
+
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>현재 저장된 카테고리</b></h4></div>
     </div>

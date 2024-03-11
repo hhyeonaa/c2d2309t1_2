@@ -131,10 +131,15 @@ span {
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin/inputForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+$(() => {
+	var state = '${state}';
+	getData(state);	
+})
+</script>
 <script>
 	var menu = '${menu}';
 	var trade = '${trade}';
-	var productStatus = '${productStatus}';
 	var category = '${category}';
 	
 	customElements.define('text-input', TextInput);
@@ -144,7 +149,7 @@ span {
 	customElements.define('address-input', AddressInput);
 	customElements.define('checkbox-input', CheckboxInput);
 
-	
+
 	
 $(function(){
 	$.ajax({
@@ -155,9 +160,23 @@ $(function(){
 	.done(function(data){
 		console.log(data);
 		for(i = 0; i < data.length; i++){
-			$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' />');
+			console.log(data[i]);
+// 			if(data[i].CO_DETAIL=='radio'){
+// 				console.log(trade);
+// 				$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' radio-data=' + state + ' />');
+// 				debugger;
+// 			} else if(data[i].CO_DETAIL=='select') {
+// 				debugger;
+// 			} else {
+				$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' />');
+				debugger;
+// 			}
+				
+				
 		}
 	});
+// 	<RadioInput radio-data="상세설명">
+// 	<RadioInput radio-data="~~~">	
 	
 	$('#insertBtn').on('click', function() {
 		console.log($("#content").attr("id-data"));

@@ -151,7 +151,7 @@ public class PayController {
 		return ResponseEntity.ok().body(payService.addDeliveryDelete(param));
 	}
 	
-	//결제자 Info select ajax
+	//판매,결제자 Info select ajax
 	@GetMapping("/payInfo")
 	@ResponseBody
 	public Map<String, String> payInfo(@RequestParam Map<String, String> param,  Model model){

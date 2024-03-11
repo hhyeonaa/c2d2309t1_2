@@ -81,11 +81,11 @@ let timerInterval;
 	
 	
 	function startTimer() {
-		// 기존 타이머 클리어
-		clearInterval(timerInterval);
-		
-		// 새로운 타이머 시작
-		timerInterval = setInterval(updateTimer, 1000);
+	  // 기존 타이머 클리어
+	  clearInterval(timerInterval);
+	
+	  // 새로운 타이머 시작
+	  timerInterval = setInterval(updateTimer, 1000);
 	}
 
 	function updateTimer() {
@@ -98,31 +98,34 @@ let timerInterval;
 		const hour = parseInt(aucDateStr.slice(8, 10));
 		const minute = parseInt(aucDateStr.slice(10, 12));
 		const second = parseInt(aucDateStr.slice(12, 14));
-	
-	    const targetDate = new Date(year, month, day, hour, minute, second);
-	    const now = new Date();
-	    const timer = targetDate - now; // 남은 밀리초
-	
-	    if (timer > 0) {
-			// 밀리초를 "일 시 분 초"로 변환
-			const days = Math.floor(timer / (1000 * 60 * 60 * 24));
-			const hours = Math.floor((timer % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			const minutes = Math.floor((timer % (1000 * 60 * 60)) / (1000 * 60));
-			const seconds = Math.floor((timer % (1000 * 60)) / 1000);
-			
-			// 화면에 표시
-			$("#timer").text(days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초");
-	    } else {
-			// 시간이 만료되었을 경우
-			clearInterval(timerInterval);
-			$("#timer").text("시간이 만료되었습니다!");
-	    }
-	  } else {
-		// aucDate 값이 없을 경우 처리
-		clearInterval(timerInterval);
-		$("#timer").text("유효한 날짜가 아닙니다.");
-	  }
+		
+		const targetDate = new Date(year, month, day, hour, minute, second);
+		targetDate.setDate(targetDate.getDate() + 1);
+		
+		const now = new Date();
+		const timer = targetDate - now; // 남은 밀리초
+		
+		    if (timer > 0) {
+		      // 밀리초를 "일 시 분 초"로 변환
+		      const days = Math.floor(timer / (1000 * 60 * 60 * 24));
+		      const hours = Math.floor((timer % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		      const minutes = Math.floor((timer % (1000 * 60 * 60)) / (1000 * 60));
+		      const seconds = Math.floor((timer % (1000 * 60)) / 1000);
+		
+		      // 화면에 표시
+		      $("#timer").text(days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초 (종료 " + targetDate.toLocaleString() + ")");
+		    } else {
+		      // 시간이 만료되었을 경우
+		      clearInterval(timerInterval);
+		      $("#timer").text("시간이 만료되었습니다!");
+		    }
+		  } else {
+		    // aucDate 값이 없을 경우 처리
+		    clearInterval(timerInterval);
+		    $("#timer").text("유효한 날짜가 아닙니다.");
+		  }
 	}
+	
 	// 타이머 시작
 	startTimer();
 	
@@ -135,6 +138,15 @@ let timerInterval;
 			return;
 		}
 		alertMsg("AM2",["삭제"]);
+	})
+	
+	$('#updateAuction').on('click',function(){
+		// 데이터를 다 들고 가야 하니까
+		const aucSeller = $('#aucSeller').val();
+		const aucDate = $('#aucDate').val();
+		alert(aucSeller + ' ' + aucDate);
+		location.href="/" + window.location.pathname.split("/")[1] +"/board/writeBoard?aucSeller="+aucSeller+"&aucDate="+aucDate;
+		return;
 	})
 	 
  })

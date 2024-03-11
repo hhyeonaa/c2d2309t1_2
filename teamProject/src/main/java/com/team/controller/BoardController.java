@@ -114,6 +114,12 @@ public class BoardController {
 		System.out.println("BoardController writeBoard()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
+		
+		// 임시
+		String aucSeller = request.getParameter("aucSeller");
+		String aucDate = request.getParameter("aucDate");
+		// 임시
+		
 		String id = (String)session.getAttribute("MEM_ID");
 		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
 		System.out.println("주소왔니? " + selectAddress);
@@ -134,7 +140,24 @@ public class BoardController {
 			System.out.println(imgList);
 			model.addAttribute("resultMap", resultMap);
 			model.addAttribute("imgList", imgList);
+		} else if (aucSeller != null || aucDate != null) {
+			Map<String, String> map = new HashMap<>();
+			map.put("aucSeller", aucSeller);
+			map.put("aucDate", aucDate);
+			Map<String,String> resultMap = boardService.selectAuctionDetail(map);
+			System.out.println("resultMap: "+ resultMap);
+			String ImgNames = resultMap.get("IMG_NAMES");
+			String[] ImgNameSplit = ImgNames.split("\\|");
+			ArrayList<String> imgList = new ArrayList<>();
+			for (String e : ImgNameSplit) {
+				imgList.add(e);
+			}
+			System.out.println("=====");
+			System.out.println(imgList);
+			model.addAttribute("resultMap", resultMap);
+			model.addAttribute("imgList", imgList);
 		}
+		
 		//codeService.selectCode("MM1");
 		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
@@ -309,6 +332,76 @@ public class BoardController {
 	    //boardService.insertBoard(parsedMap, imageFilenames);
 	    parsedMap.put("proNo", proNo);
 	    boardService.updateBoard(parsedMap, imageFilenames);
+
+	    return ResponseEntity.ok("Data and files received successfully");
+	}
+	@PostMapping("/updateAuction")
+	public ResponseEntity<?> updateAuction(
+	        @RequestParam Map<String, String> textData,
+	        @RequestParam("imgs") List<MultipartFile> imgs,
+	        HttpServletRequest request) throws IOException {
+		System.out.println("BoardController updateAuction()");
+//		업데이트할 때...
+//		글 번호를 찾아온다.(아이디와 date로)
+//		delete로 그 글번호를 사용하여 이미지테이블에서 이미지 파일 삭제
+//		그리고 구해놓은 글번호를 사용하여 그 글에 접근하여
+//		기존 정보들에 update를 한다...
+	    // 텍스트 데이터 처리
+		System.out.println("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+        // 파싱된 Map의 내용 출력
+        System.out.println("parsedMap: " + parsedMap);
+        // 글번호 구해오기
+        Map<String, String> getNumMap = new HashMap<>();
+        getNumMap.put("aucSeller", parsedMap.get("aucSeller"));
+        getNumMap.put("aucDate", parsedMap.get("aucDate"));
+        String aucNo = boardService.getAucNo(getNumMap);
+        System.out.println("글번호 확인용: " + aucNo);
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(실제 이미지도 삭제)
+        String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("aucNo", aucNo);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+		System.out.println("oldImgList: " + oldImgList);
+		//int successDelete = boardService.deleteBoard(delMap);
+		//System.out.println("삭제후 숫자: " + successDelete);
+		//if(successDelete == 1) {
+		//	System.out.println("삭제 성공@@@");
+		oldImgList.forEach(t -> {
+			new File(path + "\\" + t).delete();
+			System.out.println(t);
+		});
+		//} else {
+		//	System.out.println("삭제 실패@@@");
+		//}
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(끝부분)
+	    ServletContext context = request.getSession().getServletContext();
+	    String realPath = context.getRealPath("/resources/img/uploads");
+	    System.out.println("realPath: " + realPath);
+	    List<String> imageFilenames = new ArrayList<>();
+	    for (MultipartFile img : imgs) {
+	        String originalFileName = img.getOriginalFilename();
+	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
+	        imageFilenames.add(fileName);
+	        File destFile = new File(realPath + "\\" + fileName);
+	        img.transferTo(destFile); // 파일 저장
+	        System.out.println("Saved file: " + fileName + " to " + realPath);
+	    }
+	    //boardService.insertBoard(parsedMap, imageFilenames);
+	    parsedMap.put("aucNo", aucNo);
+	    boardService.updateAuction(parsedMap, imageFilenames);
 
 	    return ResponseEntity.ok("Data and files received successfully");
 	}

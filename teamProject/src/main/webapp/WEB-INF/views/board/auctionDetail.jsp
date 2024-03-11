@@ -119,6 +119,7 @@ td{
 		 	<input type="hidden" id="aucTc" value="${resultMap.AUC_TC}">
 		 	<input type="hidden" id="aucSeller" value="${resultMap.AUC_SELLER}">
 		 	<input type="hidden" id="aucDate" value="${resultMap.AUC_DATE}">
+		 	<input type="hidden" id="aucEtime" value="${resultMap.AUC_ETIME}">
 		 		<table>
 		 			<tr><th>${resultMap.AUC_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.AUC_SELLER}">
@@ -135,10 +136,11 @@ td{
 			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
 			 			<td><i class="bi bi-eye"></i>${resultMap.AUC_HITS}</td>
 			 			<fmt:parseDate var="parsedDate" value="${resultMap.AUC_DATE}" pattern="yyyyMMddHHmmss"/>
-			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
+			 			<fmt:parseDate var="parsedDate2" value="${resultMap.AUC_ETIME}" pattern="yyyyMMddHHmmss"/>
+			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
 			 			<td><img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</td>
 		 			</tr>
-		 			<tr><td colspan="4"><i class="bi bi-stopwatch"></i><span id="timer">타이머 로딩 중...</span> (종료 <fmt:formatDate var="formattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${formattedDateString })</td></tr>
+		 			<tr><td colspan="4"><i class="bi bi-stopwatch"></i><span id="timer">타이머 로딩 중...</span></td></tr>
 		 			<tr>
 		 				<td>상품상태:</td>
 		 				<c:set var="statusValue" value="${resultMap.AUC_STATUS_CODE}" />
@@ -253,7 +255,7 @@ td{
 		 			</tr>
 		 		</table>
 				 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button">글 수정</button>
+				  <button class="btn btn-secondary" type="button" id="updateAuction">글 수정</button>
 				</div>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">

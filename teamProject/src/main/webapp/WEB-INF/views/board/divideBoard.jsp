@@ -13,7 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
 
 <div style="display: flex; justify-content: center; align-items: center;">
-
+<div>
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 <!-- 		<div style="border: 1px solid black; width: 100%; height: 1000px;"> -->
 		<div class="status-check" style="margin-bottom: 20px; text-align: center; width: 100%;">
@@ -61,8 +61,18 @@
 		</c:forEach>
 
 	</div>
+		<div class="demo">
+		    <nav class="pagination-outer"  aria-label="Page navigation">
+		        <ul class="pagination" id="pagination"></ul>
+		    </nav>
+		</div>
+	</div>		
 </div>
 </body>
-
+<script type="text/javascript">
+	$(() => {
+		paging("#main .boardlist", 12, 0);
+	})
+</script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

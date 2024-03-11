@@ -32,8 +32,7 @@
                                 <th scope="col">이메일</th>
                                 <th scope="col">가입일</th>
                                 <th scope="col">누적신고</th>
-                                <th scope="col">정지</th>
-                                <th scope="col">탈퇴</th>
+                                <th scope="col">회원상태</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
@@ -47,18 +46,14 @@
                                 <td>${member.MEM_EMAIL}</td>
                                 <td><fmt:formatDate var="memDate" value="${data}" pattern="yyyy-MM-dd"/>${memDate}</td>
                                 <td>${member.COUNT}</td>
-	                            <th scope="row">
-	                                <c:if test="${ 3 < member.COUNT}">
-	                                	<div>
-											<button type="button" class="btn-close"
-											onclick="location.href='${pageContext.request.contextPath}/admin/memberStop?MEM_NO=${member.MEM_NO}'"></button>
-										</div>
-									</c:if>
-	                            </th>
                                 <th scope="row">
                                 	<div>
-										<button type="button" class="btn-close"
-                                			onclick="location.href='${pageContext.request.contextPath}/admin/memberDelete?MEM_NO=${member.MEM_NO}'"></button>
+										<select class="state">
+											<option value="0">정상</option>
+											<option value="1">정지</option>
+											<option value="2">탈퇴</option>
+										</select>
+										<input type="hidden" class="${member.MEM_NO}" value="${member.MEM_CAT}">
 									</div>
                                 </th>
                             </tr>

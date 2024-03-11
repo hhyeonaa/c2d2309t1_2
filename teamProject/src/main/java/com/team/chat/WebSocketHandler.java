@@ -14,6 +14,13 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+/*
+ * WebSocket Handler 작성
+ * 소켓 통신은 서버와 클라이언트가 1:n으로 관계를 맺는다. 따라서 한 서버에 여러 클라이언트 접속 가능
+ * 서버에는 여러 클라이언트가 발송한 메세지를 받아 처리해줄 핸들러가 필요
+ * TextWebSocketHandler를 상속받아 핸들러 작성
+ * 클라이언트로 받은 메세지를 log로 출력하고 클라이언트 환영 메세지를 보여줌
+ * */
 
 @Controller
 public class WebSocketHandler extends TextWebSocketHandler {
@@ -22,19 +29,19 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	// WebSoketSession 클라이언트 당 하나씩 생성, 해당 클라이언트와 연결된 웹소켓을 이용할 수 있는 객체
 	// 해당 객체를 통해 메시지를 주고받음
 	
-	private List<WebSocketSession> users;
-	private Map<String, Object> userMap;
+	private Map<String, Map<String, WebSocketSession>> roomMap;
+	
+	// 채팅 방 [ 아이디[ 세션 ] , 아이디[ 세션 ] ]
 	
 	public WebSocketHandler() {
-		users = new ArrayList<WebSocketSession>();
-		userMap = new HashMap<String, Object>();
+		roomMap = new HashMap<String, Map<String, WebSocketSession>>();
 	}
-
+	
 	@Override
 		// 소켓 연결 생성 후 실행 메서드
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("TextWebSocketHandler : 연결 생성!");
-		users.add(session);
+		// users.add(session);
 	}
 
 	@Override
@@ -48,21 +55,34 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		if(type != null && type.equals("register")) {
 			// 등록 요청 메시지
-			String user = object.getString("userid");
-			// 아이디랑 Session이랑 매핑 >> Map
-			userMap.put(user, session);
+			String roomNo = object.getString("roomNo");
+			String memId = object.getString("memId");
+			
+			Map<String, WebSocketSession> currentRoom = roomMap.get(roomNo);
+			
+			// 방이 없을 경우
+			if(currentRoom == null) {
+				currentRoom = new HashMap<String, WebSocketSession>();
+			}
+			
+			currentRoom.put(memId, session);
+			roomMap.put(roomNo, currentRoom);
+			
+			System.out.println("roomMap : " + roomMap);
+			System.out.println("currentRoom : " + currentRoom);
+			
+			
 		} 
 		else if (type != null && type.equals("chat")) {
-			// 채팅 메시지 : 상대방 아이디를 포함해서 메시지를 보낼것이기 때문에
-			// Map에서 상대방 아이디에 해당하는 WebSocket 꺼내와서 메시지 전송
+			String roomNo = object.getString("roomNo");
+			String msg =  "{\"nickName\":\""+object.getString("nickName")+
+						   "\",\"message\":\""+object.getString("message")+
+						   "\",\"time\":\""+object.getString("time")+"\"}";
 			String target = object.getString("target");
-			WebSocketSession ws = (WebSocketSession)userMap.get(target);
-			String msg = object.getString("message");
-			
-			System.out.println("msg : " + msg);
-			
-			System.out.println(ws);
-			if(ws != null) {
+
+			// 상대한테 보내기
+			WebSocketSession ws = roomMap.get(roomNo).get(target);
+			if(ws != null && ws != session) {
 				ws.sendMessage(new TextMessage(msg));
 			}
 		}
@@ -72,7 +92,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 연결 해제 후 실행 메서드
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("TextWebSocket : 연결 종료!");
-		users.remove(session);
+		// users.remove(session);
 	}
 	
 	

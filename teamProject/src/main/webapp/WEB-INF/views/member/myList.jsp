@@ -37,7 +37,7 @@
 		<c:forEach var="myListSell" items="${myListSell}">
 		  <div class="col">
 		    <div class="card h-100">
-		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="${myListSell.IMG_NAME}">
+		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListSell.IMG_NAME}" class="card-img-top" alt="${myListSell.IMG_NAME}">
 <%-- 		      ${pageContext.request.contextPath}/resources/img/uploads/${myListSell.IMG_NAME} --%>
 		      <div class="card-body">
 			      <span class="state1">판매</span>
@@ -62,7 +62,7 @@
 	  <c:forEach var="myListBuy" items="${myListBuy}">
 		  <div class="col">
 		    <div class="card h-100">
-		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListBuy.IMG_NAME}" class="card-img-top" alt="${myListBuy.IMG_NAME}">
 		      <div class="card-body">
 			      <span class="state1">구매</span>
 			      <span class="state2">${myListBuy.PRO_TSC}</span>
@@ -85,7 +85,7 @@
 	  <c:forEach var="myListShare" items="${myListShare}">
 		  <div class="col">
 		    <div class="card h-100">
-		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListShare.IMG_NAME}" class="card-img-top" alt="${myListShare.IMG_NAME}">
 		      <div class="card-body">
 			      <span class="state1">나눔</span>
 			      <span class="state2">${myListShare.PRO_TSC}</span>
@@ -109,7 +109,7 @@
 	  <c:forEach var="myListAuction" items="${myListAuction}">
 		  <div class="col">
 		   <div class="card h-100">
-		     <a href="${pageContext.request.contextPath}/board/auctionDetail"><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."></a>
+		     <a href="${pageContext.request.contextPath}/board/auctionDetail"><img src="${pageContext.request.contextPath}/resources/img/uploads/${myListAuction.IMG_NAME}" class="card-img-top" alt="${myListAuction.IMG_NAME}"></a>
 		     <div class="card-body" style="padding-top: 10px; height: 130px;" >
 		      <span class="state1">경매</span>
 		      <span class="state2">${myListAuction.AUC_TSC}</span>

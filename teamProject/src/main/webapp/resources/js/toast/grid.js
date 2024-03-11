@@ -60,6 +60,7 @@ var fn_grid = (url, perPage, columns, draggable, parameter) => {
 		grid.resetData(grid.getData());
 	});
 	
+	
 	// 추가
 	$(document).on("click", "#insertBtn", function () {
 		debugger;

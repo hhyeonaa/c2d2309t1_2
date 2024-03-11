@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -114,6 +115,11 @@ public class AdminService {
 	public List<Map<String, String>> getReportList() {
 		return adminDAO.getReportList();
 	}//
+
+	// 신고리스트 불러오기
+	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
+		return adminDAO.getReportList(map, session);
+	}
 
 //	----- 성엽 끝 -----
 

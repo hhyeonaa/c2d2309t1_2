@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -111,6 +112,11 @@ public class AdminDAO {
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
 	}//
+	
+	// 신고리스트 불러오기
+	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
+		return sqlSession.selectList(namesqace + "getReportList", map);
+	}
 	
 //	----- 성엽 끝 -----	
 	

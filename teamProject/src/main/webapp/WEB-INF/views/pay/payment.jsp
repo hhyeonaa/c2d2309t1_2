@@ -30,6 +30,9 @@
                 </div>
                 <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
+                    <input type="hidden" name="PRO_NO" id="PRO_NO" value="${payProList.PRO_NO }">
+                    <input type="hidden" name="PRO_WR" id="PRO_WR" value="${payProList.PRO_WR }">
+                    <input type="hidden" name="PRO_DATE" id="PRO_DATE" value="${payProList.PRO_DATE }">
 					<span class="productPostTitle" id="payProName">${payProList.PRO_NAME}</span><br>
 					<span class="productPrice">${payProList.PRO_PRICE }원</span>
                 </div>

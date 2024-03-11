@@ -15,16 +15,31 @@ function selectMethod(){
 	})
 }
 
-//// 2-1 배송지 저장하기
-//function payAddSubmit(){
-//	
-//}
-
 // 4. 결제 api
 var IMP = window.IMP;
 var requestPay = (pgId, paypayMethod) => {
 	IMP.init("imp34662564"); //가맹점 식별코드
-//        
+//       
+ 		//판매자 구매자 정보 가져오기 ajax
+ 		debugger;
+ 		$.ajax({
+			 url:"payInfo",
+			 data:{
+				 MEM_NO : $('#MEM_NO').val(), //결제자 고유번호
+				 ADD_NO : $('#ADD_NO').val(), //배송지 고유번호
+				 PRO_NO : $('#PRO_NO').val(), //상품 고유번호
+				 PRO_WR : $('#PRO_WR').val(), //판매자 고유번호
+				 PRO_DATE : $('#PRO_DATE').val() //상품 작성날짜
+				 },
+			 async: false,
+			 success:function(data){
+				
+				
+			},
+			fail:function(){
+			}
+		})//ajax
+		
         var today = new Date();   
         var hours = today.getHours(); // 시
         var minutes = today.getMinutes();  // 분
@@ -34,6 +49,7 @@ var requestPay = (pgId, paypayMethod) => {
         
 		var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
         var productname = $("#payProName").text().trim();//제품name
+//        var buyer_name = $
         
         debugger;
        	IMP.request_pay({
@@ -41,12 +57,12 @@ var requestPay = (pgId, paypayMethod) => {
 			pay_method: paypayMethod, // 생략가능
   			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
   			name: productname, //상품명
-	 		amount: 100, // 결제금액
+	 		amount: 100, // 결제금액 price
 	 		//buyer_email: "test@portone.io",
-  			buyer_name: "구매자이름",
-  			buyer_tel: "010-1234-5678",
-  			buyer_addr: "서울특별시 강남구 삼성동",
-  			buyer_postcode: "123-456"
+  			buyer_name: "구매자이름", //결제자 이름
+  			buyer_tel: "010-1234-5678", //결제자 연락처
+  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소
+  			buyer_postcode: $("#addPost").text() // 배송우편번호
 		}, function (rsp) { // callback 로직
   			if(rsp.success){
 				  
@@ -81,7 +97,7 @@ function addList(result){
 										'<div class="useraddressinfo">'+
 											'<div id="useraddressinfo">'+
 												'<div class="boxdeliveryaddressContent">'+
-													'<span>(<span class="addPost">'+item.ADD_POST +'</span>) ' 
+													'<span>(<span id="addPost" class="addPost">'+item.ADD_POST +'</span>) ' 
 															+ '<span class="addName">' +item.ADD_NAME +'</span> ' 
 															+ '<span class="addDetail">' +item.ADD_DETAIL +'</span></span>'+
 												'</div>'+
@@ -261,6 +277,8 @@ selectMethod();
 			alert('배송주소를 등록해주세요');
 			return false;
 		}
+		//
+		
 	})
 // 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){
@@ -325,38 +343,6 @@ selectMethod();
 					
 					$("#payAddbtn").attr("id", "payUpdateBtn");
 					$("#payUpdateBtn").text("수정");
-					
-					////////////
-//			//6-2 배송지 수정작업
-//			$("#payUpdateBtn").on('click', function(){
-//				$.ajax({
-//					url: "addDeliveryUpdate1",
-//					type:'post',
-//					data:{
-//						ADD_NICK : $("#address-title").val(),
-//						ADD_RECEIVER : $("#address-name").val(),
-//						ADD_PHONE : $("#address-tel").val(),
-//						ADD_POST : $("#address-zipcode").val(),
-//						ADD_NAME : $("#address-front").val(),
-//						ADD_DETAIL : $("#address-detail").val(),
-//						MEM_NO : $('#MEM_NO').val()
-//					},
-//					async: false,
-//					success:function(result){
-//						debugger;
-//						if(result == 1){
-//							$("#staticBackdrop1").modal("hide");
-//						}			
-//					},
-//					fail:function(){
-//						alert("주소수정실패!");
-//						$("#staticBackdrop1").modal("hide");
-//					}
-//				})//ajax
-//				$("#staticBackdrop1").find("input").val("");
-//				$("#staticBackdrop").modal("show");
-//			})
-					//////////////
 				}
 			})
 			.fail(function(){

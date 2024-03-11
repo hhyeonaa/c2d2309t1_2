@@ -66,7 +66,7 @@ public class PayController {
 		map.put("proDate", proDate);
 		
 		Map<String, String> payProList = payService.getPayProList(map);
-		
+		System.out.println("payProList" + payProList);
 		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
 		model.addAttribute("payPrice",payPrice);
 		model.addAttribute("payProList",payProList);
@@ -150,6 +150,16 @@ public class PayController {
 		System.err.println(param);
 		return ResponseEntity.ok().body(payService.addDeliveryDelete(param));
 	}
+	
+	//결제자 Info select ajax
+	@GetMapping("/payInfo")
+	@ResponseBody
+	public Map<String, String> payInfo(@RequestParam Map<String, String> param,  Model model){
+		System.out.println("PayController addDeliveryUpdate");
+		System.out.println("payInfo" + param);
+		
+		return param; 
+	}//
 	
 	
 	@GetMapping("/completepay")

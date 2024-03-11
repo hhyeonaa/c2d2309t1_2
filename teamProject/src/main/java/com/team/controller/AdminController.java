@@ -134,6 +134,12 @@ public class AdminController {
 	
 	@GetMapping("/category")
 	public String category(Model model, HttpSession session) {
+		Map<String, String> existingData = new HashMap<String, String>();
+		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
+		
+		model.addAllAttributes(existingData);
+		model.addAttribute("typeList", EnumCodeType.전체코드타입.getCodeKeyList());
+		
 		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
 		return "admin/category";
 	}
@@ -155,44 +161,44 @@ public class AdminController {
  	
 	@GetMapping("/inputForm")
 	public String inputForm(HttpServletRequest request, Model model, HttpSession session) {
-		BoardService boardService = new BoardService();
-		String proWr = request.getParameter("proWr");
-		String proDate = request.getParameter("proDate");
-		String id = (String)session.getAttribute("MEM_ID");
-//		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
-//		System.out.println("주소왔니? " + selectAddress);
-//		model.addAttribute("selectAddress", selectAddress);
-		if(proWr != null || proDate != null) {
-			Map<String, String> map = new HashMap<>();
-			map.put("proWr", proWr);
-			map.put("proDate", proDate);
-			Map<String,String> resultMap = boardService.selectBoardDetail(map);
-			System.out.println("resultMap: "+ resultMap);
-			String ImgNames = resultMap.get("IMG_NAMES");
-			String[] ImgNameSplit = ImgNames.split("\\|");
-			ArrayList<String> imgList = new ArrayList<>();
-			for (String e : ImgNameSplit) {
-				imgList.add(e);
-			}
-			System.out.println("=====");
-			System.out.println(imgList);
-			model.addAttribute("resultMap", resultMap);
-			model.addAttribute("imgList", imgList);
-		}
+//		BoardService boardService = new BoardService();
+//		String proWr = request.getParameter("proWr");
+//		String proDate = request.getParameter("proDate");
+//		String id = (String)session.getAttribute("MEM_ID");
+////		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
+////		System.out.println("주소왔니? " + selectAddress);
+////		model.addAttribute("selectAddress", selectAddress);
+//		if(proWr != null || proDate != null) {
+//			Map<String, String> map = new HashMap<>();
+//			map.put("proWr", proWr);
+//			map.put("proDate", proDate);
+//			Map<String,String> resultMap = boardService.selectBoardDetail(map);
+//			System.out.println("resultMap: "+ resultMap);
+//			String ImgNames = resultMap.get("IMG_NAMES");
+//			String[] ImgNameSplit = ImgNames.split("\\|");
+//			ArrayList<String> imgList = new ArrayList<>();
+//			for (String e : ImgNameSplit) {
+//				imgList.add(e);
+//			}
+//			System.out.println("=====");
+//			System.out.println(imgList);
+//			model.addAttribute("resultMap", resultMap);
+//			model.addAttribute("imgList", imgList);
+//		}
 		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
-		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
+		model.addAttribute("state",codeService.selectCodeList(EnumCodeType.상품상태, session));
 		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
 		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
-		List<Map<String, String>> placeHolder =  codeService.selectCodeList(EnumCodeType.상세설명, session);
-		Map<String, String> detailTxt = new HashMap<>();
-		int i = 0;
-		for (Map<String, String> map : placeHolder) {
-			i++;
-		    String value = map.get("CODE"); // 특정 키에 대한 값 조회
-		    detailTxt.put("dTxt"+i, value);
-		}
-		model.addAttribute("detailTxt", detailTxt);
+//		List<Map<String, String>> placeHolder =  codeService.selectCodeList(EnumCodeType.상세설명, session);
+//		Map<String, String> detailTxt = new HashMap<>();
+//		int i = 0;
+//		for (Map<String, String> map : placeHolder) {
+//			i++;
+//		    String value = map.get("CODE"); // 특정 키에 대한 값 조회
+//		    detailTxt.put("dTxt"+i, value);
+//		}
+//		model.addAttribute("detailTxt", detailTxt);
 		return "admin/inputForm";
 	}
 	
@@ -272,7 +278,6 @@ public class AdminController {
 	public String code_manage(Model model) {
 		Map<String, String> existingData = new HashMap<String, String>();
 		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
-		
 		model.addAllAttributes(existingData);
 		model.addAttribute("keyList", EnumCodeType.전체코드타입.getKeyList());
 		model.addAttribute("valueList", EnumCodeType.전체코드타입.getValueList());

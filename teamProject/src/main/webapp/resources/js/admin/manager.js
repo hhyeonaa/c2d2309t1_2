@@ -116,28 +116,34 @@ $(function(){
 	// 엔터키 & 버튼 연결	
 	$('#AD_ID, #AD_PW, #AD_NAME').on('keydown', function(key){
         if (key.keyCode == 13) {
-            $('#insertBtn').click();
+            $('#checkBtn').click();
         }
 	});	
 	
 	
 	// 생성버튼 이벤트 
-	$(document).on("click", "#insertBtnnnnn", function () {
-		debugger;
+	$(document).on("click", "#checkBtn", function () {
+		var check = 1;
 		if($('#AD_ID').val() == ""){
 			alertMsg("AM6", ["아이디"]);
 			$('#AD_ID').focus();
-			return;
+			check = 0;
+			return check;
 		}
 		if($('#AD_PW').val() == ""){
 			alertMsg("AM6", ["비밀번호"]);
 			$('#AD_PW').focus();
-			return;
+			check = 0;
+			return check;
 		}
 		if($('#AD_NAME').val() == ""){
 			alertMsg("AM6", ["이름"]);
 			$('#AD_NAME').focus();
-			return;
+			check = 0;
+			return check;
+		}
+		if(check) {
+			$('#insertBtn').click();
 		}
 		$.ajax({
 			type: "post"

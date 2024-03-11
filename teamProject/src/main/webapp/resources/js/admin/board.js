@@ -42,7 +42,7 @@ $(() => {
 		}
 	]
 
-	grid("boardPro", 5, columns, true);
+	fn_grid("boardPro", 0, columns, true);
 	excel('download');
 })
 $(function(){

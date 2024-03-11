@@ -59,7 +59,7 @@ $(() => {
 		
 		$("#excel").remove();
 		$("#grid").empty();
-		grid("codePro", 5, columns, false, param);
+		fn_grid("codePro", 5, columns, false, param);
 		excel('updownload', 'CODE'); 
 	})
 

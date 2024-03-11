@@ -19,7 +19,7 @@
 var appendRows = [];
 var defaultPerPage;
 var variablePerPage;
-var grid = (url, perPage, columns, draggable, parameter) => {
+var fn_grid = (url, perPage, columns, draggable, parameter) => {
 	defaultPerPage = perPage;
 	variablePerPage = perPage;
 	var pageOptions = {
@@ -40,8 +40,7 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		},
   		contentType: "application/json"
 	};
-	const Grid = tui.Grid;
-	const grid = new Grid({
+	const grid = new tui.Grid({
 		rowHeight: 60,
 		draggable: draggable,
 		el: document.getElementById("grid"),
@@ -49,6 +48,16 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		data: dataSource,
 		rowHeaders: ["rowNum", "checkbox"],
 		pageOptions: pageOptions
+	});
+//	grid.hideColumn("SEQ");
+
+	// 순서 변경
+	grid.on("drop", () => {
+		for(var i = 0; i < grid.getRowCount(); i++)
+			grid.setValue(grid.getRowAt(i).rowKey, "SEQ", i+1);
+		
+		grid.request("updateData");
+		grid.resetData(grid.getData());
 	});
 	
 	// 추가
@@ -69,7 +78,7 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 			$('#AD_NAME').focus();
 			return;
 		}
-		
+		debugger;
 		var row = {
 			AD_ID: $('#AD_ID').val(),
 			AD_PW: $('#AD_PW').val(),
@@ -85,6 +94,8 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 	
 	// 수정
 	grid.on("afterChange", (e) => {
+		if(e.changes[0].columnName == "SEQ") return;
+
 		grid.request("updateData");
 		grid.resetData(grid.getData(), {
 			pageState: {

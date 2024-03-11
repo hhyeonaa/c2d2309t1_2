@@ -50,37 +50,30 @@ public class AdminController {
 		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
-	@PostMapping("/managerPro")
+	@PostMapping("/managerPro") // CREATE
  	@ResponseBody
  	public ResponseEntity<?> createManager(@RequestBody String createdRows) {
- 		System.out.println(createdRows);
  		List<Map<String, String>> result = ToastUI.getRealData(createdRows);
- 		
- 		System.out.println(result);
  		return null;
  	}
 	
- 	@GetMapping("/managerPro")
+ 	@GetMapping("/managerPro") // READ
  	@ResponseBody
  	public ResponseEntity<?> readManager(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getAdminList();
  		return ToastUI.resourceData(req, mapList);
  	}
  	
- 	@PutMapping("/managerPro")
+ 	@PutMapping("/managerPro") // UPDATE
  	@ResponseBody
  	public ResponseEntity<?> updateManager(@RequestBody String updatedRows) {
- 		
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
- 		
- 		System.out.println(result);
  		return null;
  	}
- 	@DeleteMapping("/managerPro")
+ 	@DeleteMapping("/managerPro") // DELETE
  	@ResponseBody
  	public ResponseEntity<?> deleteManager(@RequestParam Map<String, String> deletedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
- 		System.out.println(result);
  		return null;
  	}
 	
@@ -235,7 +228,7 @@ public class AdminController {
 	
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
-		
+		model.addAttribute("CODE_TYPE", EnumCodeType.메세지.getType());
 		return "admin/message_manage";
 	}
 	
@@ -250,6 +243,7 @@ public class AdminController {
 	public ResponseEntity<?> insertMessage(@RequestBody String insertedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
  		System.out.println(result);
+ 		adminService.messageInsert(result);
  		return null;
 	}
 	
@@ -258,6 +252,8 @@ public class AdminController {
 	public ResponseEntity<?> updateMessage(@RequestBody String insertedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
  		System.out.println(result);
+ 		boolean a = adminService.messageUpdate(result);
+ 		System.out.println(a);
  		return null;
 	}
 	
@@ -266,6 +262,7 @@ public class AdminController {
 	public ResponseEntity<?> deleteMessage(@RequestBody String insertedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
  		System.out.println(result);
+ 		adminService.messageDelete(result);
  		return null;
 	}
 	
@@ -279,7 +276,7 @@ public class AdminController {
 		model.addAllAttributes(existingData);
 		model.addAttribute("keyList", EnumCodeType.전체코드타입.getKeyList());
 		model.addAttribute("valueList", EnumCodeType.전체코드타입.getValueList());
-		System.out.println(EnumCodeType.전체코드타입.getValueList());
+
 		return "admin/code_manage";
 	}
 	
@@ -309,8 +306,8 @@ public class AdminController {
  		
  		result.forEach(t -> {
  			Map<String, String> currentData = new HashMap<String, String>();
- 			currentData.put("CO_NO", t.get("CO_NO"));
- 			currentData.put("CO_TYPE", t.get("CO_TYPE"));
+ 			currentData.put(EnumCodeType.코드번호.getType(), t.get(EnumCodeType.코드번호.getType()));
+ 			currentData.put(EnumCodeType.코드타입.getType(), t.get(EnumCodeType.코드타입.getType()));
  			newData.add(currentData);
  		});
  		

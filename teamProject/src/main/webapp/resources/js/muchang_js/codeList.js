@@ -65,7 +65,7 @@ $(() => {
 		let param = keys.includes(str) ? codeName[str] : alertMsg("AM12", ["해당 항목", "현재 사용"]);
 		
 		$("#excel").remove();
-		$("#grid").empty();
+		 $("#grid").empty();
 		grid("codePro", 5, columns, false, param);
 		excel('updownload', 'CODE'); 
 	})

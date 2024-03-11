@@ -93,6 +93,18 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "codeSelect", newData);
 	}
 	
+	public boolean messageUpdate(List<Map<String, String>> result) {
+		return sqlSession.update(namesqace + "messageUpdate", result) == 1 ? true : false;
+	}
+	
+	public boolean messageDelete(List<Map<String, String>> result) {
+		return sqlSession.delete(namesqace + "messageDelete", result) == 1 ? true : false;
+	}
+	
+	public boolean messageInsert(List<Map<String, String>> result) {
+		return sqlSession.insert(namesqace + "messageInsert", result) == 1 ? true : false;
+	}
+	
 //	----- 무창 끝 -----
 	
 	
@@ -130,6 +142,7 @@ public class AdminDAO {
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
 	}//
+
 
 //	----- 성엽 끝 -----	
 	

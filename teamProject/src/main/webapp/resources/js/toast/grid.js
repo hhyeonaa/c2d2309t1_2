@@ -18,9 +18,10 @@
 
 var appendRows = [];
 var defaultPerPage;
-
+var variablePerPage;
 var grid = (url, perPage, columns, draggable, parameter) => {
 	defaultPerPage = perPage;
+	variablePerPage = perPage;
 	var pageOptions = {
 		useClient: true,
 		perPage: perPage
@@ -32,23 +33,25 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 	
 	const dataSource = {
 		api: {
-			createData: { url: url, method: 'POST',   initParams: { param: parameter }},
-			readData:   { url: url, method: 'GET',    initParams: { param: parameter }},
-			updateData: { url: url, method: 'PUT',    initParams: { param: parameter }},
-		    deleteData: { url: url, method: 'DELETE', initParams: { param: parameter }}
+			createData: { url: url, method: "POST",   initParams: { param: parameter }},
+			readData:   { url: url, method: "GET",    initParams: { param: parameter }},
+			updateData: { url: url, method: "PUT",    initParams: { param: parameter }},
+		    deleteData: { url: url, method: "DELETE", initParams: { param: parameter }}
 		},
-  		contentType: 'application/json'
+  		contentType: "application/json"
 	};
 	const Grid = tui.Grid;
 	const grid = new Grid({
 		rowHeight: 60,
 		draggable: draggable,
-		el: document.getElementById('grid'),
+		el: document.getElementById("grid"),
 		columns: columns,
 		data: dataSource,
-		rowHeaders: ['rowNum', 'checkbox'],
+		rowHeaders: ["rowNum", "checkbox"],
 		pageOptions: pageOptions
 	});
+	
+	debugger;
 	
 	grid.on('afterChange', ev => {
 		debugger;
@@ -109,6 +112,7 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		grid.reloadData();
 	})
 	
+	// 추가
 	$(document).on("click", "#insertBtn", function () {
 		debugger;
 		if($('#AD_ID').val() == ""){
@@ -138,27 +142,37 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		grid.appendRow(row);
 		grid.request("createData");
 		$("#addModal").modal("hide");
-		
 	});
 	
+	// 수정
+	grid.on("afterChange", (e) => {
+		grid.request("updateData");
+		grid.resetData(grid.getData(), {
+			pageState: {
+				page: parseInt(e.changes[0].rowKey / variablePerPage + 1),
+				totalCount: grid.getPaginationTotalCount(),
+				perPage: variablePerPage
+			}
+		});
+	});
 	
-//	const updateBtn = document.getElementById('updateBtn');
-//	debugger;
-//	updateBtn.addEventListener('click', function(){
-//		debugger;
-//		grid.request('updateData');
-//	});
+	// 삭제
+	$(document).on("click", "#ckDeleteBtn", function(e){
+		grid.removeCheckedRows(true);
+		grid.request("deleteData");
+		grid.reloadData();
+	});
 	
-	
-	const setPerpage = document.getElementById('setPerpage');
-	setPerpage.addEventListener('change', function(e){
+	// 새로고침 $(document)
+    $(document).on("click", "#resetBtn", function(){ grid.reloadData(); });
+
+	// 페이징 selectbox	
+	$(document).on("change", "#setPerpage", function(e){
 		var _perPage = Number(e.target.value);
 		if(_perPage === 0) _perPage = grid.getRowCount();
-		if(e.target.value === "-1") {
-			debugger;
+		if(e.target.value === "-1")
 			_perPage = defaultPerPage;
-		}
+		variablePerPage = _perPage;
 		grid.setPerPage(_perPage, dataSource);
 	});
-	
 }

@@ -57,7 +57,7 @@
 			<button id="saveBtn">저장</button>
 			<button id="updateBtn">수정</button>
 		</div>
-		<div id="grid"></div>
+		<div id="grid" style="width: 1280px;"></div>
 		
 		<!-- 관리자추가 모달창 -->
 		<div id="addModal" class="modal">

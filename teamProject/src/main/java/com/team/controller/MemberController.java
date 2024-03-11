@@ -2,6 +2,7 @@ package com.team.controller;
 
 
 import java.io.Console;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Authenticator;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -31,6 +33,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -269,16 +272,23 @@ public class MemberController{
 	
 	@PostMapping("/memberEditPro")
 	@ResponseBody
-	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletRequest request, MultipartFile file) {
+	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletRequest request, MultipartFile image) throws Exception {
 		System.out.println("MemberController memberEditPro()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		map.put("MEM_ID", MEM_ID);
 		Map<String, String> param = memberService.getMember(MEM_ID, map);
-		System.out.println("에디트프로 : " + map);
 		int memberEdit = memberService.memberEdit(map);
 		ServletContext context = request.getSession().getServletContext();
-	    String realPath = context.getRealPath("/resources/img/uploads");
-	    System.out.println("realPath : " + realPath);
+//	    String realPath = context.getRealPath("/resources/img/uploads");
+//	    System.out.println("realPath : " + realPath);
+	    
+	 // 첨부파일 업로드 => pom.xml 프로그램 설치
+ 		// servlet-context.xml에 설정
+ 		// 파일이름 중복 방지 => 랜덤문자_파일이름
+ 		UUID uuid = UUID.randomUUID();
+ 		String filename = uuid.toString() + "_" + image.getOriginalFilename();
+ 		// 원본파일 => 위치/파일이름으로 복사(업로드)
+ 		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
 	    
 		return ResponseEntity.ok().body(memberEdit);
 	}// memberEditPro()

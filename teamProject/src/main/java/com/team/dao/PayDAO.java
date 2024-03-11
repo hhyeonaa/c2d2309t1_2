@@ -32,8 +32,8 @@ public class PayDAO {
 	}
 	
 	//회원 배송지리스트 select
-	public List<Map<String, String>> getAddList(Map<String, String> param) {
-		return sqlSession.selectList(namespace + ".getAddList", param);
+	public List<Map<String, String>> getAddList(String sId) {
+		return sqlSession.selectList(namespace + ".getAddList", sId);
 	}
 	
 	//회원 배송지등록 insert

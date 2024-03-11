@@ -71,7 +71,7 @@ function addList(result){
 	for (let item of result) {
 		$("#divAddress").append('<li class="addressInfo mb-4" id="addListNo' + i + '">'+
 									'<div class="boxdeliveryaddress">'+
-									'<input id="ADD_NO" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO">' +
+									'<input id="ADD_NO' + i + '" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO">' +
 									'<input id="MEM_NO1" type="hidden" value="'+item.MEM_NO+'" name="MEM_NO">' +
 										'<div class="boxdeliveryaddressTitle">'+
 											'<span>'+item.ADD_NICK +'</span>'+
@@ -90,8 +90,8 @@ function addList(result){
 												'</div>'+
 											'</div>'+
 											'<div class="deliverybtn">'+
-												'<button type="button" class="deliUpdate">수정</button>'+
-												'<button type="button" class="deliDelete">삭제</button>'+
+												'<button type="button" class="deliUpdate' + i + '">수정</button>'+
+												'<button type="button" class="deliDelete' + i + '">삭제</button>'+
 											'</div>'+	
 										'</div>'+
 									'</div>'+
@@ -104,6 +104,29 @@ function addList(result){
 
 // 스크립트 시작
 $(()=>{
+	debugger;
+	$.ajax({
+		url: "paymentPro"
+	})
+	.done(function(data){
+		debugger;
+		if(data.length == 0){
+			debugger;
+			$("#hideOrShow").hide();
+			return;
+		}
+		debugger;
+		$("#delUpdateBtn").text("배송지 수정");
+		$("#MEM_NO").val(data[0].MEM_NO);
+		$("#addReceiver").text(data[0].ADD_RECEIVER);
+		$("#addSpan").prepend('(<span id="addPost"></span>)');
+		$("#addPost").text(data[0].ADD_POST);
+		$("#addName").text(data[0].ADD_NAME);
+		$("#addDetail").text(data[0].ADD_DETAIL);
+		$("#addTel").text(data[0].ADD_PHONE);
+	})
+	
+	
 // 결제할(선택된) 페이 css변경(4)
 var payCheck = $('.nonCheck')
 // 결제할(선택된) 페이(4)
@@ -245,7 +268,6 @@ selectMethod();
 		
 		$.ajax({
 			url:"addList",
-			data:{MEM_NO : $('#MEM_NO').val() },
 			async: false,
 			success:function(result){
 				$("#divAddress").empty();
@@ -254,14 +276,14 @@ selectMethod();
 			fail:function(){
 			}
 		})//ajax
-		//7.배송지 수정버튼 > select,update
-		//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출
-		$(".deliUpdate").on('click', function(){
+		//6.배송지 수정버튼 > select,update
+		//6-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출 
+		$("[class^='deliUpdate']").on('click', function(e){
 			$("#staticBackdrop").modal("hide");
 			debugger;
 			$.ajax({
 				url: "addDeliveryUpdate",
-				data: {ADD_NO : $('#ADD_NO').val()
+				data: {ADD_NO : $('#ADD_NO' + $(e.target).attr("class").match(/\d+/)[0]).val()
 					  ,MEM_NO : $('#MEM_NO1').val()},
 				async: false
 			})//ajax
@@ -285,16 +307,37 @@ selectMethod();
 				debugger;
 			})
 			$("#staticBackdrop1").modal("show");
-		}) // 7끝	
+		}) // 6끝	
 		
+		//7.배송지 삭제
+		$("[class^='deliDelete']").on('click', function(e){
+			$("#staticBackdrop").modal("hide");
+			debugger;
+			$.ajax({
+				url: "addDeliveryDelete",
+				data: {ADD_NO : $('#ADD_NO' + $(e.target).attr("class").match(/\d+/)[0]).val()
+					  ,MEM_NO : $('#MEM_NO1').val()},
+				async: false
+			})//ajax
+			.done(function(data){
+				if(data != null){
+					debugger;
+					alert("delete여기까지")
+				}
+			})
+			.fail(function(){
+				debugger;
+			})
+			
+		})// 7끝
 		
-		$(".button__delivery-choice").on("click", function(e){
+		$(".button__delivery-choice").on("click", function(){
 			debugger;
 			
 			var idNum = $(this).attr("id").replace("choiceBtn", "");
 			var list = $("#addListNo" + idNum);
 			debugger;
-			
+			$("#delUpdateBtn").text("배송지 수정");
 			$("#addReceiver").text(list.find(".addReceiver").text());
 			$("#addPost").text(list.find(".addPost").text());
 			$("#addName").text(list.find(".addName").text());
@@ -302,12 +345,15 @@ selectMethod();
 			$("#addTel").text(list.find(".addTel").text());
 			debugger;
 			$("#staticBackdrop").modal("hide");
+			$("#hideOrShow").show();
+			
+			$("#sOrH").hide();
 		})
 		
 	})
 
-// 6.새 배송지 추가 저장 취소 관련
-	// 새 배송지 추가저장 
+// 8.새 배송지 추가 저장 취소 관련
+	// 새 배송지 추가(입력)저장 
 	$("#payAddbtn").on('click', function(){
 		$("#staticBackdrop").modal("hide");
 		debugger;
@@ -353,15 +399,10 @@ selectMethod();
 	
 	// 수정 버튼
 	$(".payUpdateBtn").on("click",function(){
-		
-		
 		$("#staticBackdrop1").modal("hide");
 		$("#staticBackdrop").modal("show");
 	});
-	
-	
-//	8. 
-	
+
 	
 	
 	

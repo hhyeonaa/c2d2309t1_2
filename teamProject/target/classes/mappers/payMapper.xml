@@ -51,8 +51,8 @@
 		SELECT * 
 			FROM MEMBERS M
 			JOIN ADDRESS A
-				ON M.MEM_NO = A.MEM_NO
-			WHERE M.MEM_NO = #{MEM_NO}	
+			  ON M.MEM_NO = A.MEM_NO
+			WHERE M.MEM_ID = #{sId}	
 	</select>
 	
 	<!--회원 배송지 insert  -->

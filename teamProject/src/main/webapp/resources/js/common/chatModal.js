@@ -286,6 +286,10 @@ var showChatList = function(chatList){
 		$("#chatList").append(notMyPostChatRoom(chatRoom));
 	}
 	
+	if(chatList.length == 0){
+		$("#chatList").append("<span>아직 채팅이 없습니다</span>")
+	}
+	
 	$(".chatRoom").on("click", function(){
 		var target = $(this).find(".target").attr("id");
 		var nickName = $(this).find(".userNick").text();
@@ -310,10 +314,30 @@ var sendMsgBtn = function(roomNo, target){
 		sendMessage(roomNo, $(".nick_session").val(), target, sendMsg, time);
 
 		// db 담기
+		// CR_NO, PRO_NO, MSG_CONTENT, MSG_IMG, MSG_TIME, MSG_CLOSE
+		$.ajax({
+			url: "",
+			type: "post",
+			data:{
+				CR_NO: roomNo,
+				PRO_NO: "",
+				MSG_CONTENT: "",
+				MSG_TIME: ""
+			}
+		})
 		
 		$("#sendText").val("");
 }
 
 // *****************************************
 
-
+/*create table CHATTING
+(
+ CR_NO VARCHAR(30),
+PRO_NO VARCHAR(30),
+MEM_ID VARCHAR(30),
+MSG_CONTENT VARCHAR(100),
+MSG_IMG VARCHAR(30),
+MSG_SENDTIME VARCHAR(30),
+MSG_CLOSE VARCHAR(10)
+); */

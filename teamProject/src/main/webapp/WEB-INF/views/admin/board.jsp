@@ -25,10 +25,10 @@
 				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
 					<img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<c:forEach var="board" items="${mapList}">
-							<c:if test="${board.ACTIVE eq '1'}">
+						<c:forEach var="menu" items="${menu}">
+							<c:if test="${menu.ACTIVE eq '1'}">
 								<li class="menu">
-							 		<a class="nav-link" href="#">${board.CODE }</a>
+							 		<a class="nav-link" href="#">${menu.CODE }</a>
 								</li>
 							</c:if>
 						</c:forEach>
@@ -36,9 +36,9 @@
 					<form class="d-flex">
 						<div class="input-group" style="flex-wrap: nowrap;">
 					      <select class="form-select" aria-label="boardSelect">
-					      	<c:forEach var="board" items="${mapList}">
-					      		<c:if test="${board.ACTIVE eq '1'}">
-					      			<option value="${board.CO_NO }">${board.CODE }</option>
+					      	<c:forEach var="menu" items="${menu}">
+					      		<c:if test="${menu.ACTIVE eq '1'}">
+					      			<option value="${menu.CO_NO }">${menu.CODE }</option>
 					      		</c:if>
 				          	</c:forEach>
 				          </select>
@@ -91,19 +91,19 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="board" items="${mapList}">
+						<c:forEach var="menu" items="${menu}">
 							<tr>
-								<th>${board.SEQ }</th>
-								<td>${board.CODE }</td>
-								<td>${board.CO_DETAIL }</td>
+								<th>${menu.SEQ }</th>
+								<td>${menu.CODE }</td>
+								<td>${menu.CO_DETAIL}</td>
 								<td><a href="#" id="insertForm">설정하기</a></td>
 								<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
 								<th scope="row">
 								<div class="form-check form-switch justify-content-center">
-									<c:if test="${board.ACTIVE eq '1'}">
+									<c:if test="${menu.ACTIVE eq '1'}">
 										<input class="form-check-input" type="checkbox" id="active" checked>
 									</c:if>
-									<c:if test="${board.ACTIVE eq '0'}">
+									<c:if test="${menu.ACTIVE eq '0'}">
 										<input class="form-check-input" type="checkbox" id="active">
 									</c:if>
 								</div>
@@ -118,39 +118,41 @@
     
     
     <!-- 게시판 입력폼 모달창 -->
+    <c:forEach var="menu" items="${menu}">
 	<div id="inputModal" class="modal">
 	  <div class="modal-content mt-5" id="modal-content">
 	     <div class="modal-header" id="modal-header">
-		     <h3 class="modal-title" id="modal-title"><b>${board.CODE }게시판 입력폼</b></h3>
+		     <h3 class="modal-title" id="modal-title"><b>${menu.CODE }게시판 입력폼</b></h3>
 		     <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
 		     	&times;</button>
 	     </div>
 	     <div class="modal-body" id="modal-body">
 		    <div class="boardEdit">
-				<table id="inputList" class="table text-center mb-4">
-					<thead class="tableHr align-middle ">
+				<table id="inputList" class="table text-center align-middle mb-4">
+					<thead class="tableHr align-middle">
 						<tr>
 							<th scope="col" >라벨명/ID</th>
 							<th scope="col">타입</th>
 							<th scope="col">순서</th>
-							<th scope="col">숨김 여부</th>
+							<th scope="col">사용 여부</th>
 						</tr>
 					</thead>
 					<tbody class="tableHr" id="tbody">
-						<c:forEach var="form" items="${formList}">
+						<c:forEach var="form" items="${form}">
 						<tr>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" id="${form.CODE}" class="form-control text-center" value="${form.CODE}"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" id="${form.CO_DETAIL}" class="form-control text-center" value="${form.CO_DETAIL}"/>
-								</div>
-							</td>
+							<td>${form.CODE}</td>
+							<td>${form.CO_DETAIL}</td>
 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
+							<td>
+								<div class="form-check form-switch justify-content-center">
+									<c:if test="${form.ACTIVE eq '1'}">
+										<input class="form-check-input" type="checkbox" id="active" checked>
+									</c:if>
+									<c:if test="${form.ACTIVE eq '0'}">
+										<input class="form-check-input" type="checkbox" id="active">
+									</c:if>
+								</div>
+							</td>
 						</tr>
 <!-- 							<td> -->
 <!-- 								<div class="form-outline align-top text-start"> -->
@@ -174,6 +176,7 @@
 	     </div>
 	  </div>
 	</div>
+	</c:forEach>
     
     
     <div class="row g-0 pb-4">
@@ -181,13 +184,31 @@
 			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
 			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
 		</div>
-		<div class="demo">
-		    <nav class="pagination-outer"  aria-label="Page navigation">
-		        <ul class="pagination" id="pagination"></ul>
-		    </nav>
-		</div> 
+<!-- 		<div class="demo"> -->
+<!-- 		    <nav class="pagination-outer"  aria-label="Page navigation"> -->
+<!-- 		        <ul class="pagination" id="pagination"></ul> -->
+<!-- 		    </nav> -->
+<!-- 		</div>  -->
     </div>
-    <div id="excel"></div>
+    
+   	<div class="btn-wrapper">
+		<select name="perPage" id="setPerpage">
+			<option selected disabled hidden>선택</option>
+			<option value="-1">기본값</option>
+			<option value="0">한 페이지에 보기</option>
+			<option value="1">1개 씩 보기</option>
+			<option value="5">5개 씩 보기</option>
+			<option value="10">10개 씩 보기</option>
+			<option value="20">20개 씩 보기</option>
+			<option value="30">30개 씩 보기</option>
+			<option value="50">50개 씩 보기</option>
+			<option value="100">100개 씩 보기</option>
+		</select>
+		<button id="resetBtn">취소</button>
+		<button id="saveBtn">저장</button>
+	</div>
+	
+    <div id="excel"></div>	
     <div id="grid"></div>
 </div>
 

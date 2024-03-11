@@ -19,7 +19,8 @@ public enum EnumCodeType {
 	코드번호("CO_NO"),
 	코드타입("CO_TYPE"),
 	코드내용("CODE"),
-	전체코드타입("CODE_LIST")
+	전체코드타입("CODE_LIST"),
+	입력폼항목("FO")
 //	메세지테이블("MESSAGE"),
 //	코드테이블("CODE"),
 //	전체보기("\"1\", \"0\""), 
@@ -35,12 +36,19 @@ public enum EnumCodeType {
 		return type_;
 	}
 	
-	public List<Map<String, String>> getCodeKeyList() {
-		return EnumTotalCodeList.전체코드타입.getArr_();
+	public List<Map<String, String>> getKeyList() {
+		return EnumTotalCodeList.전체코드타입
+								.getKeys();
+	}
+	
+	public List<Map<String, String>> getValueList() {
+		return EnumTotalCodeList.전체코드타입
+								.getValues();
 	}
 	
 	public EnumCodeType stringToEnumType(String type) {
-		return EnumTotalCodeList.전체코드타입.stringToEnumType(type);
+		return EnumTotalCodeList.전체코드타입
+								.stringToEnumType(type);
 	}
 	
 }
@@ -56,26 +64,34 @@ enum EnumTotalCodeList{
 		this.arr_ = arr;
 	}
 	
-	public String getStr_() {
+	protected String getStr_() {
 		return str_;
 	}
-	
-	public List<Map<String, String>> getArr_() {
-	    return Arrays.stream(arr_)
-	            .filter(f -> !f.toString().contains("코드") && !f.toString().equals("메세지"))
-	            .map(m -> {
-	                Map<String, String> data = new HashMap<>();
-	                data.put("key", m.toString());
-	                return data;
-	            })
-	            .collect(Collectors.toList());
-	}
-	
-	public EnumCodeType stringToEnumType(String str) {
+
+	protected EnumCodeType stringToEnumType(String str) {
 	    return Arrays.stream(arr_)
 	    		.filter(f -> f.getType().equals(str))
 	            .findFirst()
 	            .orElse(null);
+	}
+	
+	protected List<Map<String, String>> getKeys() {
+	    return getList(arr_, true);
+	}
+	
+	protected List<Map<String, String>> getValues() {
+		return getList(arr_, false);
+	}
+	
+	private List<Map<String, String>> getList(EnumCodeType[] list, boolean isKeyOrValue){
+		return Arrays.stream(list)
+	            .filter(f -> !f.toString().contains("코드") && !f.toString().equals("메세지"))
+	            .map(m -> {
+	                String key = isKeyOrValue ? "key" : "value";
+	                String value = isKeyOrValue ? m.toString().trim() : m.getType().trim();
+	                return Map.of(key, value);
+	            })
+	            .collect(Collectors.toList());
 	}
 	
 }

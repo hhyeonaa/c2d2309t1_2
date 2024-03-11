@@ -13,11 +13,50 @@ $(function(){
 //		reader.readAsDataURL(event.target.files[0]);
 //	}
 	
-	function resetImage() {
+	
+	$('#defaultBtn').on('click', function(){
 		debugger;
-		// document.getElementById("newImage").src = "upload/profile.png";
 		if(confirm("현재 프로필이미지를 삭제하고 기본으로 변경하시겠습니까?")) document.location = 'resetImage';
-	}
+	})
+	
+	$('#image').change(function(event) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            $('#img').attr('src', event.target.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+	
+	$('#inputBtn').on('click', function(){
+		$('#image').click();
+	})
+	
+	
+	
+	$('#updateBtn').on('click', function(){
+		var image = ($('#image').val().split('\\').pop() == '') ? null:$('#image').val().split('\\').pop();
+		var date = { MEM_ID: $('#MEM_ID').val()
+					 ,MEM_NAME: $('#MEM_NAME').val()
+					 ,MEM_NICK: $('#MEM_NICK').val()
+					 ,MEM_PW: $('#MEM_PW').val()
+					 ,MEM_TEL: $('#MEM_TEL').val()
+					 ,MEM_IMAGE: image }
+		console.log(date);
+		debugger;
+		$.ajax({
+			type: "post"
+			, url: "memberEditPro"
+			, data: date
+		})
+		.done(function(data){
+			console.log($('#image').val().split('\\').pop());
+			debugger;
+			location.href='mypage';
+		})
+	})
+	
+	
+	
 	
 	// ~~~~~~~~~~~~~~~~~~~비밀번호 유효성 검사~~~~~~~~~~~~~~~~~~~
 	$('#MEM_PW').blur(function(){

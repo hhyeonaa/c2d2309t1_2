@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -41,17 +42,18 @@ public class AdminDAO {
 		sqlSession.update(namesqace + "adminUpdate", map);
 	}
 
-	public List<Map<String, String>> getBoardList() {
-		return sqlSession.selectList(namesqace + "getBoardList");
-	}
+//	public List<Map<String, String>> getBoardList() {
+//		return sqlSession.selectList(namesqace + "getBoardList");
+//	}
 
 	public void displayUpdate(Map<String, String> map) {
+		System.out.println("실행되나?: " + sqlSession.update(namesqace + "displayUpdate", map));
 		sqlSession.update(namesqace + "displayUpdate", map);
 	}
 	
-	public List<Map<String, String>> getCategoryList() {
-		return sqlSession.selectList(namesqace + "getCategoryList");
-	}
+//	public List<Map<String, String>> getCategoryList() {
+//		return sqlSession.selectList(namesqace + "getCategoryList");
+//	}
 
 	public void inputForm(Map<String, String> map) {
 		sqlSession.insert(namesqace + "inputForm", map);
@@ -76,6 +78,33 @@ public class AdminDAO {
 	
 //	----- 무창 시작 -----
 	
+	public boolean codeInsert(List<Map<String, String>> result) {
+		return sqlSession.insert(namesqace + "codeInsert", result) == 1 ? true : false;
+	}
+	
+	public boolean codeUpdate(List<Map<String, String>> result) {
+		return sqlSession.update(namesqace + "codeUpdate", result) == 1 ? true : false;
+	}
+	
+	public boolean codeDelete(List<Map<String, String>> result) {
+		return sqlSession.delete(namesqace + "codeDelete", result) == 1 ? true : false;
+	}
+
+	public List<Map<String, String>> codeSelect(List<Map<String, String>> newData) {
+		return sqlSession.selectList(namesqace + "codeSelect", newData);
+	}
+	
+	public boolean messageUpdate(List<Map<String, String>> result) {
+		return sqlSession.update(namesqace + "messageUpdate", result) == 1 ? true : false;
+	}
+	
+	public boolean messageDelete(List<Map<String, String>> result) {
+		return sqlSession.delete(namesqace + "messageDelete", result) == 1 ? true : false;
+	}
+	
+	public boolean messageInsert(List<Map<String, String>> result) {
+		return sqlSession.insert(namesqace + "messageInsert", result) == 1 ? true : false;
+	}
 	
 //	----- 무창 끝 -----
 	
@@ -91,12 +120,8 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getContentboardList");
 	}//
 
-	public void memberStop(String MEM_NO) {
-		sqlSession.update(namesqace + "memberStop", MEM_NO);
-	}//
-	
-	public void memberDelete(String MEM_NO) {
-		sqlSession.update(namesqace + "memberDelete", MEM_NO);
+	public boolean memberStop(Map<String, String> dto) {
+		return sqlSession.update(namesqace + "memberStop", dto) == 1 ? true : false;
 	}//
 	
 	public int contentDelete(String PRO_NO) {
@@ -111,9 +136,14 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
 	}//
 
+	// 신고리스트 불러오기
+	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
+		return sqlSession.selectList(namesqace + "getReportList", map);
+	}
+	
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
-	}//
+	}
 	
 //	----- 성엽 끝 -----	
 	

@@ -41,7 +41,7 @@ span {
 
 </style>
 </head>
-<jsp:include page="../template/header.jsp"/>s
+<jsp:include page="../template/header.jsp"/>
 	
 <body class="d-flex flex-column min-vh-100">
 
@@ -53,7 +53,7 @@ span {
 			<div class="container">
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
-				<select id="proTc" name="proTc" style="width: 100px;">
+				<select id="proTc" class="form-select" name="proTc" style="width: 100px;">
 				    <c:forEach var="menu" items="${menu}">
 				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
 				        <c:choose>
@@ -83,7 +83,25 @@ span {
 			  </div>
 			  
 			 <hr>
-
+			  <div class="row">
+			    <div class="col-12 d-flex justify-content-center">
+			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button"><img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png"></label>
+			      <input type='file' id='btnAtt' multiple style="display: none;"/>
+			      <button id="resetImg"><i class="bi bi-trash"></i></button>
+			    </div>
+			  </div>
+			  <div class="row">
+			    <div class="col-12 d-flex justify-content-center">
+			      <div id='att_zone' class="mt-3" data-placeholder="파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지"></div>
+			    </div>
+			  </div>
+			  <div class="row">
+			    <div class="col-12 d-flex justify-content-center pt-3">
+			      <p></p>
+			    </div>
+			  </div>
+			  
+			  
 			 <!-- -----------------test용 ------------------------- --> 
 			<div id='formDiv'>
 			</div>  
@@ -105,23 +123,33 @@ span {
 	</div>
 <!-- 	</form> -->
 </div>
+
+<div id="tradeData" data-trade="${trade}"></div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/admin/inputForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+$(() => {
+	var state = '${state}';
+	getData(state);	
+})
+</script>
 <script>
-// 	let formDiv = document.createElement('div');
-
+	var menu = '${menu}';
+	var trade = '${trade}';
+	var category = '${category}';
 	
 	customElements.define('text-input', TextInput);
 	customElements.define('textarea-input', TextareaInput);
 	customElements.define('radio-input', RadioInput);
 	customElements.define('select-input', SelectInput);
 	customElements.define('address-input', AddressInput);
-	customElements.define('image-input', ImageInput);
+	customElements.define('checkbox-input', CheckboxInput);
 
-	
+
 	
 $(function(){
 	$.ajax({
@@ -132,9 +160,23 @@ $(function(){
 	.done(function(data){
 		console.log(data);
 		for(i = 0; i < data.length; i++){
-			$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' />');
+			console.log(data[i]);
+// 			if(data[i].CO_DETAIL=='radio'){
+// 				console.log(trade);
+// 				$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' radio-data=' + state + ' />');
+// 				debugger;
+// 			} else if(data[i].CO_DETAIL=='select') {
+// 				debugger;
+// 			} else {
+				$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' />');
+				debugger;
+// 			}
+				
+				
 		}
 	});
+// 	<RadioInput radio-data="상세설명">
+// 	<RadioInput radio-data="~~~">	
 	
 	$('#insertBtn').on('click', function() {
 		console.log($("#content").attr("id-data"));
@@ -156,8 +198,9 @@ $(function(){
 		});
 	});
 });
-	
 </script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/writeBoard.js"></script>
 </body>
 
 <jsp:include page="../template/Footer.jsp"/>

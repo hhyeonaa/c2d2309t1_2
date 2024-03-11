@@ -21,6 +21,9 @@
 
 <!-- footer -->
 <link href="${pageContext.request.contextPath}/resources/css/common/variables.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/common/variable.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/js/common/variableCode.js"></script> 
+<script src="${pageContext.request.contextPath}/resources/js/common/jquery.twbsPagination.min.js" type="text/javascript"></script>
 <link href="${pageContext.request.contextPath}/resources/css/common/main.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/common/bootstrap-icons.css" rel="stylesheet">
 
@@ -32,6 +35,14 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 
+<!-- chatModal -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<link href="${pageContext.request.contextPath}/resources/css/common/chatModal.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/js/common/chatModal.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Dongle&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
 <div class="wrapper222">
@@ -41,6 +52,8 @@
 <c:set var="uriParts" value="${fn:split(currentUri, '/')}" />
 <c:set var="fileNameWithExtension" value="${uriParts[fn:length(uriParts) - 1]}" />
 <c:set var="fileName" value="${fn:replace(fileNameWithExtension, '.jsp', '')}" />
+<input type="hidden" class="id_session" value="${sessionScope.MEM_ID}">
+<input type="hidden" class="nick_session" value="${sessionScope.MEM_NICK}">
 
 		<div class="row">
 			<nav class="navbar navbar-expand-lg navbar-light">

@@ -15,23 +15,22 @@
 <jsp:include page="../template/header.jsp"/>
 	
 <body class="d-flex flex-column min-vh-100">
-<!-- <form action="cus_editPro.cu" method="post" name="cus_edit" enctype="multipart/form-data"> -->
  <div style="display: flex; justify-content: center; align-items: center;">
 
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; align-items: center;">
-			<!--  -->
         	<div class="container rounded-5 shadow" style="height: 100%; width: 700px; padding: 0, 20%, 0, 20%;">
-                <form action="memberEditPro" method="post">
+<!--                 <form method="post" enctype="multipart/form-data" id="editForm"> -->
                 <section class="css-1dk9sr2" style="height: 100%;">
                     <div class="css-312egs">
                         <section class="css-2fvz7x">
                         <h4 style="padding-bottom: 6%; font-family: sans-serif;">프로필 수정</h4>
                         <div>
                         	<!-- 기본사진(프로필 삭제)버튼 -->
-                        	<div style="padding-left: 80%;" class="close" onclick="resetImage()">&times;</div>
+                        	<div style="padding-left: 80%;" class="close" id="defaultBtn" onclick="resetImage()">&times;</div>
                             <div>
-                            <img alt="유저 프로필" name="MEM_IMAGE" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/profile.png"/>
+                            <img alt="유저 프로필" name="img" id="img" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/uploads/${profile.MEM_IMAGE}"/>
+                             <input type="file" name="image" id="image" style="display: none;">
                             <br>
                        		<button type="button" id="inputBtn" class="btn btn-outline-secondary border px-3 p-1 add-experience shadow" style="font-size: 12px;" onclick="editImage()">
 							<i class="fa fa-plus"></i>사진 변경</button>
@@ -53,10 +52,10 @@
                				</c:choose>
 							
                             <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>이름</b></label>
-               					<input type="text" id="MEM_NAME" name="MEM_NAME" class="form-control" value="${profile.MEM_NAME}" value=""></div>
+               					<input type="text" id="MEM_NAME" name="MEM_NAME" class="form-control" value="${profile.MEM_NAME}"></div>
 						
                             <div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="nick_ed"><b>닉네임</b></label><small id="nickCheck" style="text-align: right; float: right;"></small>
-               					<input type="text" id="MEM_NICK" name="MEM_NICK" class="form-control" value="${profile.MEM_NICK}" value=""></div>
+               					<input type="text" id="MEM_NICK" name="MEM_NICK" class="form-control" value="${profile.MEM_NICK}"></div>
                				
                				<c:choose>
                					<c:when test="${profile.MEM_PW == null || profile.MEM_PW == ''}">
@@ -73,7 +72,7 @@
                					<input type="text" id="MEM_TEL" name="MEM_TEL" class="form-control" value="${profile.MEM_TEL}"></div>
                				
                				<div class="col-md-12 mb-4" style="text-align: left; font-size: 13px;"><label for="phone_ed"><b>생년월일</b></label>
-               					<input type="date" id="MEM_BIRTH" name="MEM_BIRTH" class="form-control" value="${profile.MEM_BIRTH}"></div>
+               					<input type="date" id="MEM_BIRTH" name="MEM_BIRTH" class="form-control" value="${profile.MEM_BIRTH}" readonly="readonly" style="color: gray;"></div>
                				
                				
                				
@@ -91,12 +90,12 @@
                            
                     </div>
                     <div class="container" style="padding-left: 6%; padding-right: 6%;">
-                    <button type="submit" id="updateBtn" style="font-family: sans-serif;">수정하기</button> 
+                    <button type="button" id="updateBtn" style="font-family: sans-serif;">수정하기</button> 
                     </div>
                     <br>
                     
                 </section>
-                </form>
+<!--                 </form> -->
 			<!--  -->
 		</div>
 		</div>
@@ -118,6 +117,8 @@
 //  }).open();
 // });
 // });
+var test = '${profile.MEM_IMAGE}';
+console.log(test);
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/member/memberEdit.js"></script>
 <jsp:include page="../template/Footer.jsp"/>

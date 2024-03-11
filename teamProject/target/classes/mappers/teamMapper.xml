@@ -5,7 +5,6 @@
 <mapper namespace="com.team.mappers.teamMapper">
 
 	<select id="selectCodeList" parameterType="map" resultType="map">
-	
 		select  CO_TYPE
 			  , CO_NO
 			  , CODE
@@ -31,11 +30,9 @@
 		</otherwise>
 	  </choose>  
 		 order by cast(SEQ as signed)	   
-		    
 	</select>
 	
 	<select id="selectCode" parameterType="map" resultType="map">
-	
 		select CODE
 		  from CODE			
 		 where 1 = 1
@@ -55,11 +52,9 @@
 		   and ACTIVE = '1'
 		</otherwise>
 	  </choose>
-	     
 	</select>
 	
 	<select id="selectMessage" parameterType="map" resultType="map">
-	
 		select CODE
 		  from MESSAGE			
 		 where 1 = 1
@@ -71,11 +66,9 @@
 		<if test='ROL_NO != "RO1"'>
 		   and HIDE = '0'
 		</if>
-	     
 	</select>
 
 	<select id="selectMessageList" parameterType="map" resultType="map">
-		
 		select  CO_TYPE
 			  , CO_NO
 			  , CODE
@@ -90,7 +83,6 @@
 		   and HIDE = '0'
 		</if>  
 		 order by cast(CO_NO as signed)
-		
 	</select>
 
 </mapper>

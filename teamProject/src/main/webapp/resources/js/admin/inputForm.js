@@ -1,12 +1,12 @@
 document.write('<script src="/' + window.location.pathname.split("/")[1] + '/resources/js/board/writeBoard.js');
 
-// 외부 js파일 호출(erlangc.js)
-//document.write('<script src="/com/js/erlangc.js"></script>'); 
-// 외부 js파일에 있는 함수 호출(Agents)
-// function Agents() --> erlangc.js 파일 내에 정의된 함수 
-
-// 사용 예시
-//var Agents_t = Agents(SLA, SERVICE_TIME, tempVal ,AHT);
+let stateData = "";
+function getData(state){
+	stateData = state;
+//	let stateDataString = state.replace(/=/g, ":");
+//	// 객체 배열로 변환
+//	let stateData = JSON.parse(stateDataString);
+}
 
 class TextInput extends HTMLElement {
 	connectedCallback(){
@@ -75,37 +75,24 @@ class RadioInput extends HTMLElement {
         let span = document.createElement('span');
         span.innerHTML = this.getAttribute('name');
         
-        // Radio
-//      var tradeDataElement = document.getElementById("tradeData");
-//		var tradeList = JSON.parse(tradeDataElement.getAttribute("data-trade"));
-//		
-//		// tradeList를 이용한 원하는 작업 수행
-//		console.log(tradeList);
-//    	debugger;
-		
-        let radioData = [
-            { raData: '1', value: '새상품(사용하지 않은 상품)' },
-            { raData: '2', value: '사용감 없음(사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음)' },
-            { raData: '3', value: '사용감 적음(눈에 띄는 흔적이나 얼룩이 약간 있음)' },
-            { raData: '4', value: '사용감 많음(눈에 띄는 흔적이나 얼룩이 많이 있음)' },
-            { raData: '5', value: '고장/파손 상품(기능 이상이나 외관 손상 등으로 수리/수선 필요)' }
-   		];
 
-        radioData.forEach(data => {
+        stateData.forEach(data => {
+			console.log(data);
+			debugger;
             let radioDiv = document.createElement('div');
             let radioInput = document.createElement('input');
             radioInput.type = 'radio';
             radioInput.name = this.getAttribute('name');
             radioInput.id = this.getAttribute('id-data');
-            radioInput.value = data.raData;
+            radioInput.value = data.CO_NO;
 
             let radioLabel = document.createElement('label');
-            radioLabel.innerHTML = data.value;
+            radioLabel.innerHTML = data.CODE;
 
             radioDiv.append(radioInput, radioLabel);
             textDiv.appendChild(radioDiv);
         });
-
+		debugger;
         textDiv.prepend(span);
         row.appendChild(textDiv);
         this.prepend(row, hr);

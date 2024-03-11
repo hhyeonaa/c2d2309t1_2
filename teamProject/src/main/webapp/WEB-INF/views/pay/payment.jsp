@@ -56,30 +56,33 @@
 	            	<div class="DeliveryInfo">
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
-            				<c:if test="${!empty memAddBasic }">
-            				<c:forEach var="memAddBasic" items="${memAddBasic}">
-            				<input id="MEM_NO" type="hidden" value="${memAddBasic.MEM_NO}" name="MEM_NO">
+<%--             				<c:if test="${!empty memAddBasic }"> --%>
+<%--             				<c:forEach var="memAddBasic" items="${memAddBasic}"> --%>
+							<div id="hideOrShow">
+            					<input id="MEM_NO" type="hidden" value="" name="MEM_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver">${memAddBasic.ADD_RECEIVER}</p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver"></p>
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn"></span>
             					</div>
-            					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
-            						(<span id="addPost">${memAddBasic.ADD_POST}</span>)
-            						<span id="addName">${memAddBasic.ADD_NAME}</span>
-            						<span id="addDetail">${memAddBasic.ADD_DETAIL}</span>
+            					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg" id="addSpan"> 
+            						<span id="addName"></span>
+            						<span id="addDetail"></span>
             					</p>	
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
-									<span id="addTel">${memAddBasic.ADD_PHONE}</span>            						
+									<span id="addTel"></span>            						
             					</p>
-            				</c:forEach>	
-            				</c:if>	
+<%--             				</c:forEach>	 --%>
+<%--             				</c:if>	 --%>
+							</div>
             				<c:if test="${empty memAddBasic }">
-            					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delInsertBtn">배송지 등록</span>
-            						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
-            							등록된 배송정보가 없습니다 
-            						</p>
+            					<div id="sOrH">
+	            					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
+	            						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
+	            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delInsertBtn">배송지 등록</span>
+	            						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
+	            							등록된 배송정보가 없습니다 
+	            						</p>
+	            					</div>
             					</div>
             				</c:if>
             				</section>

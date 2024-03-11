@@ -141,6 +141,50 @@ public class BoardDAO {
 		sqlSession.insert(NAMESPACE+".insertImgs", allMap);//	이미지 테이블에 다시 이미지 넣기
 	    sqlSession.update(NAMESPACE+".updateBoard", parsedMap);
 	}// updateBoard()
+
+	public List<Map<String, String>> selectAuction(Map<String, String> map) {
+		System.out.println("BoardDAO selectAuction()");
+		return sqlSession.selectList(NAMESPACE + ".selectAuction", map);
+	}// selectAuction()
+
+	public void aucHits(Map<String, String> map) {
+		System.out.println("BoardDAO aucHits()");
+		sqlSession.update(NAMESPACE + ".aucHits", map);
+	}// aucHits()
+
+	public Map<String, String> selectAuctionDetail(Map<String, String> map) {
+		System.out.println("BoardDAO selectAuctionDetail()");
+		return sqlSession.selectOne(NAMESPACE+".selectAuctionDetail",map);
+	}// selectAuctionDetail()
+
+	public String getAucNo(Map<String, String> getNumMap) {
+		System.out.println("BoardDAO getAucNo()");
+		return sqlSession.selectOne(NAMESPACE+".getAucNo",getNumMap);
+	}// getAucNo()
+
+	public void updateAuction(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardDAO updateAuction()");
+		System.out.println("dao : " + parsedMap);
+		System.out.println("dao : " + imageFilenames);
+	    // 새로운 Map 객체 생성
+	    Map<String, Object> allMap = new HashMap<>();
+	    // parsedMap의 모든 항목을 allMap으로 복사
+	    allMap.putAll(parsedMap);
+	    // imageFilenames 리스트를 allMap에 추가
+	    allMap.put("imageFilenames", imageFilenames);
+	    List<Map<String, Object>> imagesWithNumbers = new ArrayList<>();
+	    int imgNo = 1;
+	    for (String filename : imageFilenames) {
+	        Map<String, Object> imageMap = new HashMap<>();
+	        imageMap.put("filename", filename);
+	        imageMap.put("imgNo", imgNo++);
+	        imagesWithNumbers.add(imageMap);
+	    }
+	    allMap.put("imagesWithNumbers", imagesWithNumbers);
+		sqlSession.delete(NAMESPACE+".deleteImgs", parsedMap); // 이미지 테이블에서 이미지들 삭제 가능
+		sqlSession.insert(NAMESPACE+".insertImgs", allMap);//	이미지 테이블에 다시 이미지 넣기
+	    sqlSession.update(NAMESPACE+".updateAuction", parsedMap);
+	}// updateAuction()
 	
 	
 

@@ -13021,9 +13021,9 @@ var Grid = /** @class */ (function () {
     /**
      * Request 'readData' with last requested data.
      */
+//	[ToastUI] reloadData() 표시 03.10
     Grid.prototype.reloadData = function () {
         this.dataProvider.reloadData();
-        alert('gd');
     };
     /**
      * Restore the data to the original data.
@@ -13166,11 +13166,14 @@ var Grid = /** @class */ (function () {
         var checkedRowInfoList = data_1.getCheckedRowInfoList(this.store);
         var deletedCount = checkedRowInfoList.rows.length;
         var confirmMessage = message_1.getConfirmMessage('DELETE', deletedCount);
-        if (deletedCount > 0 && (!showConfirm || confirm(confirmMessage))) {
-            this.dispatch('removeRows', checkedRowInfoList);
-            return true;
-        }
-        return false;
+//      [Toast UI] removeCheckedRows 수정 (confirm창 안 띄우기) 03.11   
+//        if (deletedCount > 0 && (!showConfirm || confirm(confirmMessage))) {
+//            this.dispatch('removeRows', checkedRowInfoList);
+//            return true;
+//        }
+//        return false;
+		this.dispatch('removeRows', checkedRowInfoList);
+        return true;
     };
     /**
      * Refresh the layout view. Use this method when the view was rendered while hidden.

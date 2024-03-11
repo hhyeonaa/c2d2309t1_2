@@ -19,10 +19,15 @@ $(() => {
 		    sortable: true
 		},
 		{
+			name: columnTitle.타입,
+			header:"코드타입"
+		},
+		{
 			name: columnTitle.내용,
 			header:"코드내용",
 			filter:"text",
-		    sortable: true
+		    sortable: true,
+		    editor: "text"
 		},  
 		{
 			name: columnTitle.활성여부_관리자,
@@ -41,12 +46,14 @@ $(() => {
 	        }
 		}
 	]
-
+	
 	targetColor($("#code_manage"));
 	customSelect2($("#selectCodeList"));
 
-	$(document).on("click", "#insertBtn", function(){
-		validCheck($("#selectCodeList").val());
+	$(document).on("click", "#beforeInsertBtn", function(){
+		let isInValid = validCheck($("#selectCodeList").val());
+		isInValid ? $("#insertBtn").trigger("click") 
+				  : alertMsg("AM5", ["내용 및 금액란"]);
 	})
 
 	$(document).on("click", "#selectCodeBtn button", function(){
@@ -58,7 +65,7 @@ $(() => {
 		let param = keys.includes(str) ? codeName[str] : alertMsg("AM12", ["해당 항목", "현재 사용"]);
 		
 		$("#excel").remove();
-		$("#grid").empty();
+		 $("#grid").empty();
 		grid("codePro", 5, columns, false, param);
 		excel('updownload', 'CODE'); 
 	})
@@ -148,29 +155,14 @@ function changeModalBody(isTypePM){
 }
 
 const validCheck = function(selectList){
-	
 	let data = {};
-    const isPM = selectList === "PM";
-    
-    const isHide = $("#activeCheck").prop("checked") ? "1" : "0";
-    
-    const codeList = isPM
-        ? $("#priceTag input")
-            .map((index, input) => `${formatPrice($(input).val())} ${index === 0 ? "이상 ~ " : "이하"}`)
-            .get()
-            .join(' ')
-        : $("#modal-body textarea").val();
-	
-	if(codeList === '' || codeList === undefined || codeList === null){
-		alertMsg("AM5", ["내용 또는 금액란 "]);
-		return;
-	}
-	
-	data.HIDE = isHide;
-	data.CODE = codeList;
-	data.CO_TYPE = selectList;
-	
-	return data;
+	const isHide = $("#activeCheck").prop("checked") ? "1" : "0";
+	const isPM = selectList === "PM";
+  	const codeList = isPM
+    	? $("#priceTag input").map((index, input) => `${formatPrice($(input).val())} ${index ? "이상 ~ " : "이하"}`).get().join(' ')
+    	: $("#modal-body textarea").val();
+
+  	return typeof codeList === 'string' && codeList.trim() !== '';
 }		
 
 function formatPrice(price) {

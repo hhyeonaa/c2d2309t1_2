@@ -19,6 +19,10 @@ $(() => {
 		    sortable: true
 		},
 		{
+			name: columnTitle.타입,
+			header:"코드타입"
+		},
+		{
 			name: columnTitle.내용,
 			header:"코드내용",
 			filter:"text",
@@ -43,16 +47,13 @@ $(() => {
 		}
 	]
 	
-	debugger;
-	const msg = "해당 이름은 사용이 불가능합니다. 다른 이름을 사용 해주세요.";
-	msgFormatting(msg);
-	
 	targetColor($("#code_manage"));
 	customSelect2($("#selectCodeList"));
 
 	$(document).on("click", "#beforeInsertBtn", function(){
-		validCheck($("#selectCodeList").val()) === 'true' ? $("#insertBtn").trigger("click") 
-														  : alertMsg("AM5", ["내용 및 금액란"]);
+		let isInValid = validCheck($("#selectCodeList").val());
+		isInValid ? $("#insertBtn").trigger("click") 
+				  : alertMsg("AM5", ["내용 및 금액란"]);
 	})
 
 	$(document).on("click", "#selectCodeBtn button", function(){
@@ -171,19 +172,6 @@ function formatPrice(price) {
     // 최종적으로 "원" 기호 추가
     return formattedPrice + '원';
 }		
-
-function msgFormatting(msg){
-	const particles = ['은(는)', '이(가)', '을(를)', '의', '와(과)', '까지'];
-
-	const result = msg.split(" ").map((word, index) => {
-	  	const lastChar = word.slice(-1);
-	  	const foundParticle = particles.find(p => lastChar === p[1] && lastChar === (p[3] || p[2]));
-	  	return foundParticle ? `{${index}}${foundParticle.slice(2)}` : word;
-	}).join(" ");
-	
-	console.log(result);
-	return result;
-}
 
 var customSelect2 = function(tag){
 	tag.select2({

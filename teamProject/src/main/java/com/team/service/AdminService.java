@@ -69,7 +69,21 @@ public class AdminService {
 	
 //	----- 무창 시작 -----
 	
+	public boolean codeInsert(List<Map<String, String>> result) {
+		return adminDAO.codeInsert(result);
+	}
 	
+	public boolean codeUpdate(List<Map<String, String>> result) {
+		return adminDAO.codeUpdate(result);
+	}
+	
+	public boolean codeDelete(List<Map<String, String>> result) {
+		return adminDAO.codeDelete(result);
+	}
+	
+	public List<Map<String, String>> codeSelect(List<Map<String, String>> newData) {
+		return adminDAO.codeSelect(newData);
+	}
 	
 //	----- 무창 끝 -----
 	

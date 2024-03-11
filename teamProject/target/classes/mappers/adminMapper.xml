@@ -133,8 +133,109 @@
 
 <!-- 	===== 무창 시작 ===== -->
 
-	
+	<select id="codeSelect" parameterType="java.util.List" resultType="map">
+		<foreach collection="list" item="code" open="" close="" separator=";">
+		select ACTIVE
+		  from CODE
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE} 
+		   and CO_NO = #{code.CO_NO}
+		</foreach>		   
+	</select>
 
+	<insert id="codeInsert" parameterType="java.util.List">
+		insert 
+			into CODE
+				(
+				  CO_TYPE
+				, CO_NO
+				, CODE
+				, HIDE
+				, ACTIVE
+				)
+			values
+		<foreach collection="list" item="code" open="" close="" separator=",">
+				(
+				  #{code.CO_TYPE}
+				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
+					 from CODE
+					where 1 = 1
+					  and CO_TYPE = #{code.CO_TYPE})
+    			, #{code.CODE}
+    			, '0'
+    			, '0'
+				)	
+		</foreach>
+	</insert>
+
+	<update id="codeUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="code" open="" close="" separator=";">
+		update CODE
+		   set CODE = #{code.CODE}
+		   <if test='code.HIDE == "1"'>
+		   	 , ACTIVE = '0'
+		   	 , HIDE = #{code.HIDE}
+		   </if>
+		   <if test='code.HIDE == "0"'>
+		   	 , ACTIVE = #{code.ACTIVE}
+		   	 , HIDE = #{code.HIDE}
+		   </if>
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE}
+		   and CO_NO = #{code.CO_NO} 
+		</foreach>	
+	</update>
+
+	<delete id="codeDelete" parameterType="java.util.List">
+		delete from CODE
+		 where
+		<foreach collection="list" item="code" open="" close="" separator="or">
+			(CO_TYPE = #{code.CO_TYPE} and CO_NO = #{code.CO_NO})		
+		</foreach>
+	</delete>
+	
+	<insert id="messageInsert" parameterType="java.util.List">
+		insert 
+			into CODE
+				(
+				  CO_TYPE
+				, CO_NO
+				, CODE
+				, HIDE
+				)
+			values
+		<foreach collection="list" item="code" open="" close="" separator=",">
+				(
+				  #{code.CO_TYPE}
+				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
+					 from CODE
+					where 1 = 1
+					  and CO_TYPE = #{code.CO_TYPE})
+    			, #{code.CODE}
+    			, '0'
+				)	
+		</foreach>
+	</insert>
+
+	<update id="messageUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="code" open="" close="" separator=";">
+		update CODE
+		   set CODE = #{code.CODE}
+		   	 , HIDE = #{code.HIDE}
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE}
+		   and CO_NO = #{code.CO_NO} 
+		</foreach>	
+	</update>
+
+	<delete id="messageDelete" parameterType="java.util.List">
+		delete from CODE
+		 where
+		<foreach collection="list" item="code" open="" close="" separator="or">
+			(CO_TYPE = #{code.CO_TYPE} and CO_NO = #{code.CO_NO})		
+		</foreach>
+	</delete>
+	
 <!-- 	===== 무창 끝 ===== -->
 
 

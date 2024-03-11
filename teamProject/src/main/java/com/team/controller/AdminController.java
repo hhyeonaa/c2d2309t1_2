@@ -230,6 +230,9 @@ public class AdminController {
 	/* 현아 작업공간 */
 	
 	/* 무창 작업공간 */
+	
+//	----- 메세지 페이지 -----
+	
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
 		
@@ -238,9 +241,35 @@ public class AdminController {
 	
 	@GetMapping("/message_managePro")
 	@ResponseBody
-	public ResponseEntity<?> message_managePro(@RequestParam Map<String, String> param, HttpSession session) {
+	public ResponseEntity<?> selectMessage(@RequestParam Map<String, String> param, HttpSession session) {
 		return ToastUI.resourceData(param, codeService.selectMessageList(EnumCodeType.메세지, session));
 	}
+	
+	@PostMapping("/message_managePro")
+	@ResponseBody
+	public ResponseEntity<?> insertMessage(@RequestBody String insertedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
+ 		System.out.println(result);
+ 		return null;
+	}
+	
+	@PutMapping("/message_managePro")
+	@ResponseBody
+	public ResponseEntity<?> updateMessage(@RequestBody String insertedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
+ 		System.out.println(result);
+ 		return null;
+	}
+	
+	@DeleteMapping("/message_managePro")
+	@ResponseBody
+	public ResponseEntity<?> deleteMessage(@RequestBody String insertedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
+ 		System.out.println(result);
+ 		return null;
+	}
+	
+//	----- 공동코드 페이지 -----
 	
 	@GetMapping("/code_manage")
 	public String code_manage(Model model) {
@@ -265,36 +294,53 @@ public class AdminController {
 	
 	@PostMapping("/codePro")//	post
  	@ResponseBody
- 	public ResponseEntity<?> insertCodePro(@RequestParam Map<String, String> param, HttpSession session){
-		List<Map<String, String>> data = codeService.selectCodeList(
-				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
-		
- 		return ToastUI.resourceData(param, data);
+ 	public ResponseEntity<?> insertCodePro(@RequestBody String insertedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
+ 		System.out.println(result);
+ 		adminService.codeInsert(result);
+ 		return null;
  	}
 	
 	@PutMapping("/codePro")	//	put
  	@ResponseBody
- 	public ResponseEntity<?> updateCodePro(@RequestParam Map<String, String> param, HttpSession session){
-		List<Map<String, String>> data = codeService.selectCodeList(
-				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
-		
- 		return ToastUI.resourceData(param, data);
+ 	public ResponseEntity<?> updateCodePro(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		List<Map<String, String>> newData = new ArrayList<Map<String, String>>();
+ 		
+ 		result.forEach(t -> {
+ 			Map<String, String> currentData = new HashMap<String, String>();
+ 			currentData.put("CO_NO", t.get("CO_NO"));
+ 			currentData.put("CO_TYPE", t.get("CO_TYPE"));
+ 			newData.add(currentData);
+ 		});
+ 		
+ 		List<Map<String, String>> datas = adminService.codeSelect(newData);
+ 		for(int i = 0; i < result.size(); i++) {
+ 			result.get(i).put("ACTIVE", datas.get(i).get("ACTIVE"));
+ 		}
+ 		adminService.codeUpdate(result);
+ 		
+ 		return null;
  	}
 	
 	@DeleteMapping("/codePro")	//	delete
  	@ResponseBody
- 	public ResponseEntity<?> deleteCodePro(@RequestParam Map<String, String> param, HttpSession session){
-		List<Map<String, String>> data = codeService.selectCodeList(
-				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
-		
- 		return ToastUI.resourceData(param, data);
+ 	public ResponseEntity<?> deleteCodePro(@RequestBody String deletedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
+ 		System.out.println(result);
+		adminService.codeDelete(result);
+ 		return null;
  	}
+	
+//	----- 로그아웃 -----
 	
 	@GetMapping("/logout")
 	public void logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		session.invalidate();
 		codeService.submitForAlert(response, "AM3", new Object[]{"로그아웃"}, request.getContextPath());
 	}
+	
+//	----- 테스트 페이지 -----
 	
 	@GetMapping("/drawing")
 	public String drawing() {

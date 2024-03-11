@@ -77,6 +77,21 @@ public class AdminDAO {
 	
 //	----- 무창 시작 -----
 	
+	public boolean codeInsert(List<Map<String, String>> result) {
+		return sqlSession.insert(namesqace + "codeInsert", result) == 1 ? true : false;
+	}
+	
+	public boolean codeUpdate(List<Map<String, String>> result) {
+		return sqlSession.update(namesqace + "codeUpdate", result) == 1 ? true : false;
+	}
+	
+	public boolean codeDelete(List<Map<String, String>> result) {
+		return sqlSession.delete(namesqace + "codeDelete", result) == 1 ? true : false;
+	}
+
+	public List<Map<String, String>> codeSelect(List<Map<String, String>> newData) {
+		return sqlSession.selectList(namesqace + "codeSelect", newData);
+	}
 	
 //	----- 무창 끝 -----
 	
@@ -115,7 +130,7 @@ public class AdminDAO {
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
 	}//
-	
+
 //	----- 성엽 끝 -----	
 	
 	

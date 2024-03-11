@@ -31,19 +31,22 @@ $(function(){
 		$('#image').click();
 	})
 	
+	
+	
 	$('#updateBtn').on('click', function(){
-		
-		$.ajax({
-			type: "post"
-			, url: "memberEditPro"
-			, data: { MEM_ID: $('#MEM_ID').val()
+		var image = ($('#image').val().split('\\').pop() == '') ? null:$('#image').val().split('\\').pop();
+		var date = { MEM_ID: $('#MEM_ID').val()
 					 ,MEM_NAME: $('#MEM_NAME').val()
-//				     ,MEM_EMAIL: $('#MEM_EMAIL').val()
 					 ,MEM_NICK: $('#MEM_NICK').val()
 					 ,MEM_PW: $('#MEM_PW').val()
 					 ,MEM_TEL: $('#MEM_TEL').val()
-//					 ,MEM_BIRTH: $('#MEM_BIRTH').val()
-					 ,MEM_IMAGE: $('#image').val().split('\\').pop() }
+					 ,MEM_IMAGE: image }
+		console.log(date);
+		debugger;
+		$.ajax({
+			type: "post"
+			, url: "memberEditPro"
+			, data: date
 		})
 		.done(function(data){
 			console.log($('#image').val().split('\\').pop());
@@ -53,11 +56,6 @@ $(function(){
 	})
 	
 	
-	function extractFileName(input){
-		var fileName = $('#image').val().split('\\').pop();
-		var editForm = new FormData();
-		editForm.append("MEM_IMAGE", fileName);
-	}
 	
 	
 	// ~~~~~~~~~~~~~~~~~~~비밀번호 유효성 검사~~~~~~~~~~~~~~~~~~~

@@ -13,17 +13,21 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.formula.functions.Address;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +36,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.protobuf.Message;
 import com.mysql.cj.Session;
@@ -40,11 +45,16 @@ import com.team.service.TeamCodeService;
 
 @Controller
 @RequestMapping("/member/*")
+
 public class MemberController{
 	@Inject
 	private MemberService memberService;
 	@Inject
 	private TeamCodeService codeService;
+	
+	// servlet-context.xml 에서 id="uploadPath" 객체생성 => name = "uploadPath"
+	@Resource
+	private String uploadPath;
 	//	-----------------------------------------------------------------------------	
 	@GetMapping("/join")
 	public String join() {
@@ -231,6 +241,7 @@ public class MemberController{
 		System.out.println("MemberController mypage()");
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
 		Map<String, String> profile = memberService.mypage(MEM_ID);
+		System.out.println("!@#@!# : " + profile);
 		model.addAttribute("profile", profile);
 		return "member/mypage";
 	}// mypage()
@@ -240,6 +251,7 @@ public class MemberController{
 		System.out.println("MemberController memberEdit()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> profile = memberService.mypage(MEM_ID);
+		System.out.println("%%%%%%%%%%%%%%%%% : " + profile);
 		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
@@ -257,12 +269,17 @@ public class MemberController{
 	
 	@PostMapping("/memberEditPro")
 	@ResponseBody
-	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
+	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletRequest request, MultipartFile file) {
 		System.out.println("MemberController memberEditPro()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		map.put("MEM_ID", MEM_ID);
 		Map<String, String> param = memberService.getMember(MEM_ID, map);
+		System.out.println("에디트프로 : " + map);
 		int memberEdit = memberService.memberEdit(map);
+		ServletContext context = request.getSession().getServletContext();
+	    String realPath = context.getRealPath("/resources/img/uploads");
+	    System.out.println("realPath : " + realPath);
+	    
 		return ResponseEntity.ok().body(memberEdit);
 	}// memberEditPro()
 //	-----------------------------------------------------------------------------
@@ -338,22 +355,7 @@ public class MemberController{
 			System.err.println("이메일 미입력");
 			return "member/msg";
 		}
-//		Object[] msg = {"이메일"};
-//		if(map.get("MEM_EMAIL") != null) {
-//			System.out.println("map.get(\"MEM_EMAIL\")" + map.get("MEM_EMAIL"));
-//			if(map.get("MEM_EMAIL").equals(profile.get("MEM_EMAIL"))) {
-//				memberService.memberDelete(map);
-//				System.out.println("이메일 일치");
-////				session.invalidate();
-//				return "redirect:../";
-//			} else {
-//				System.err.println("이메일 불일치");
-//			}
-//		}
-//		return "redirect:/member/memberDelete";
-		
-		
-	}
+	}// memberDeletePro()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/resetImage")
 	public String resetImage(@RequestParam Map<String, String> map, HttpSession session) {

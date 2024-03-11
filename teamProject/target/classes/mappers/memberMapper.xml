@@ -138,7 +138,7 @@
 		  , MEM_NICK = #{MEM_NICK}
 		  , MEM_PW = #{MEM_PW}
 		  , MEM_TEL = #{MEM_TEL}
-		  , MEM_IMAGE = #{MEM_IMAGE}
+		  , MEM_IMAGE = if(#{MEM_IMAGE} = '', MEM_IMAGE, #{MEM_IMAGE})
 		  , MEM_REDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 		where 1 = 1
 		and MEM_ID = #{MEM_ID}

@@ -26,7 +26,7 @@
                     <div class="css-312egs">
                         
                         <section class="css-2fvz7x">
-                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/uploads/${profile.MEM_IMAGE}"/>
+                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/uploads/${profile.MEM_IMAGE	}"/>
                             
                             <c:if test="${profile.MEM_PW == null || profile.MEM_PW == ''}">
                             	<c:choose>

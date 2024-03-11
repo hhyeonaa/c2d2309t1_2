@@ -359,9 +359,9 @@ public class AdminController {
 	}//
 	
 	@GetMapping("/member_report")
-	public String member_report(Model model) {
+	public String member_report(Model model, HttpSession session, @RequestParam Map<String, String> param) {
 		
-		List<Map<String, String>> reportList = adminService.getReportList();
+		List<Map<String, String>> reportList = adminService.getReportList(param, session);
 		
 		model.addAttribute("reportList", reportList);
 		
@@ -370,9 +370,9 @@ public class AdminController {
 	
 	// 채팅만들어지고 이동
 	@GetMapping("/member_report_test")
-	public String member_report_test(Model model) {
+	public String member_report_test(Model model, HttpSession session, @RequestParam Map<String, String> param) {
 		
-		List<Map<String, String>> reportList = adminService.getReportList();
+		List<Map<String, String>> reportList = adminService.getReportList(param, session);
 		
 		model.addAttribute("reportList", reportList);
 		
@@ -389,20 +389,18 @@ public class AdminController {
 		return "admin/member_manage";
 	}//
 	
-	@GetMapping("/memberStop")
-	public String stop(@RequestParam String MEM_NO) {
+	@PostMapping("/memberStop")
+	@ResponseBody
+	public ResponseEntity<?> stop(@RequestParam Map<String, String> dto) {
 		
-		adminService.memberStop(MEM_NO);
+		boolean isUpdate = adminService.memberStop(dto);
+//		isUpdate = isUpdate ? adminService.memberDelete(dto.get("state")) : false;
+		Map<String, Boolean> param = new HashMap<String, Boolean>();
+		param.put("isSuccess", isUpdate);
 		
-		return "redirect:/admin/member_manage";
-	}//
-	
-	@GetMapping("/memberDelete")
-	public String delete(@RequestParam String MEM_NO) {
+		System.out.println(param);
 		
-		adminService.memberDelete(MEM_NO);
-		
-		return "redirect:/admin/member_manage";
+		return ResponseEntity.ok().body(param);
 	}//
 	
 	@GetMapping("/contentDelete")

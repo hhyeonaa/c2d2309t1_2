@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -113,12 +114,8 @@ public class AdminService {
 		return adminDAO.getContentboardList();
 	}//
 
-	public void memberStop(String MEM_NO) {
-		adminDAO.memberStop(MEM_NO);
-	}//
-	
-	public void memberDelete(String MEM_NO) {
-		adminDAO.memberDelete(MEM_NO);
+	public boolean memberStop(Map<String, String> dto) {
+		return adminDAO.memberStop(dto);
 	}//
 	
 	public int contentDelete(String PRO_NO) {
@@ -141,9 +138,10 @@ public class AdminService {
 		return adminDAO.getForm(map);
 	}
 	
-	public List<Map<String, String>> getReportList() {
-		return adminDAO.getReportList();
-	}//
+	// 신고리스트 불러오기
+	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
+		return adminDAO.getReportList(map, session);
+	}
 
 //	----- 성엽 끝 -----
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -119,12 +120,8 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getContentboardList");
 	}//
 
-	public void memberStop(String MEM_NO) {
-		sqlSession.update(namesqace + "memberStop", MEM_NO);
-	}//
-	
-	public void memberDelete(String MEM_NO) {
-		sqlSession.update(namesqace + "memberDelete", MEM_NO);
+	public boolean memberStop(Map<String, String> dto) {
+		return sqlSession.update(namesqace + "memberStop", dto) == 1 ? true : false;
 	}//
 	
 	public int contentDelete(String PRO_NO) {
@@ -139,11 +136,11 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
 	}//
 
-	public List<Map<String, String>> getReportList() {
-		return sqlSession.selectList(namesqace + "getReportList");
-	}//
-
-
+	// 신고리스트 불러오기
+	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
+		return sqlSession.selectList(namesqace + "getReportList", map);
+	}
+	
 //	----- 성엽 끝 -----	
 	
 	

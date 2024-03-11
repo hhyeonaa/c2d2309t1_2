@@ -252,8 +252,9 @@
 			  , (select COUNT(*)
 				  from REPORT
 				 where RPT_USER_IDX = MEM_ID) as COUNT
+			  , MEM_CAT
 		  from MEMBERS
-		 ORDER BY MEM_NO DESC;
+		 ORDER BY MEM_NO;
 	</select>
 	
 	<select id="getContentboardList" resultType="map">
@@ -288,16 +289,12 @@
 		ORDER BY PRO_NO DESC
 	</select>
 	
-	<update id="memberStop">
+	<update id="memberStop" parameterType="map">
 		update MEMBERS
-		   set MEM_CAT = '1'
-		 WHERE MEM_CAT = '0'
-	</update>
-	
-	<update id="memberDelete">
-		update MEMBERS
-		   set MEM_CAT = '2'
-		 WHERE MEM_CAT = '0'
+		   set MEM_CAT = #{newState}
+		 WHERE 1 = 1  
+		   and MEM_CAT = #{oldState}
+		   and MEM_NO = #{memNo}
 	</update>
 	
 	<delete id="contentDelete">
@@ -310,6 +307,17 @@
 		where PRO_NO = #{PRO_NO}
 	</delete>
 	
+<!-- 	<select id="getReportList" resultType="map"> -->
+<!-- 		select  -->
+<!-- 			   RPT_IDX -->
+<!-- 			 , USER_IDX -->
+<!-- 			 , RPT_USER_IDX -->
+<!-- 			 , RPT_SELECT -->
+<!-- 			 , RPT_TIME -->
+<!-- 		from REPORT -->
+<!-- 		ORDER BY RPT_IDX DESC -->
+<!-- 	</select> -->
+
 	<select id="getReportList" resultType="map">
 		select 
 			   RPT_IDX
@@ -320,7 +328,6 @@
 		from REPORT
 		ORDER BY RPT_IDX DESC
 	</select>
-
 	
 
 

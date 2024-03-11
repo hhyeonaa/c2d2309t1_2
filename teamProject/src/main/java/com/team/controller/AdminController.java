@@ -359,9 +359,9 @@ public class AdminController {
 	}//
 	
 	@GetMapping("/member_report")
-	public String member_report(Model model, HttpSession session, @RequestParam Map<String, String> param) {
+	public String member_report(Model model) {
 		
-		List<Map<String, String>> reportList = adminService.getReportList(param, session);
+		List<Map<String, String>> reportList = adminService.getReportList();
 		
 		model.addAttribute("reportList", reportList);
 		
@@ -370,9 +370,9 @@ public class AdminController {
 	
 	// 채팅만들어지고 이동
 	@GetMapping("/member_report_test")
-	public String member_report_test(Model model, HttpSession session, @RequestParam Map<String, String> param) {
+	public String member_report_test(Model model) {
 		
-		List<Map<String, String>> reportList = adminService.getReportList(param, session);
+		List<Map<String, String>> reportList = adminService.getReportList();
 		
 		model.addAttribute("reportList", reportList);
 		

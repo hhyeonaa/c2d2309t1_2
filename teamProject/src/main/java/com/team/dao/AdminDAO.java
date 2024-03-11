@@ -141,6 +141,10 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getReportList", map);
 	}
 	
+	public List<Map<String, String>> getReportList() {
+		return sqlSession.selectList(namesqace + "getReportList");
+	}
+	
 //	----- 성엽 끝 -----	
 	
 	

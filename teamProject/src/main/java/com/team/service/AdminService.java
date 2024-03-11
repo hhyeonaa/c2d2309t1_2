@@ -142,6 +142,10 @@ public class AdminService {
 	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
 		return adminDAO.getReportList(map, session);
 	}
+	
+	public List<Map<String, String>> getReportList() {
+		return adminDAO.getReportList();
+	}
 
 //	----- 성엽 끝 -----
 

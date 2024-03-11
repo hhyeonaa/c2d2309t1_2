@@ -138,7 +138,7 @@ public class AdminController {
 		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
 		
 		model.addAllAttributes(existingData);
-		model.addAttribute("typeList", EnumCodeType.전체코드타입.getCodeKeyList());
+		model.addAttribute("typeList", EnumCodeType.전체코드타입.getKeyList());
 		
 		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
 		return "admin/category";

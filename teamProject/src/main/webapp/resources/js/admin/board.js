@@ -32,7 +32,7 @@ $(() => {
 		}, 
 		{
 			name:"ACTIVE",
-			header:"활성 상태",
+			header:"사용 여부",
 			filter:"select",
 		    sortable: true,
 			sortingType: 'asc',

@@ -69,11 +69,14 @@
 <!-- 	</select> -->
 	
 	<update id="displayUpdate">
+		<foreach collection="list" item="code" open="" close="" separator=";">
 		update CODE
-		set    ACTIVE = #{ACTIVE}
-		      , SEQ = #{SEQ}
-		where  CO_TYPE = #{CO_TYPE}
-		and	   CODE = #{CODE}
+		   set CODE = #{code.CODE}
+		   	 , ACTIVE = #{code.ACTIVE}
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE}
+		   and CO_NO = #{code.CO_NO} 
+		</foreach>	
 	</update>
 	
 <!-- 	<select id="getCategoryList" resultType="map"> -->

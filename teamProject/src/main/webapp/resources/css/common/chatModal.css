@@ -157,8 +157,12 @@
 }
 
 #chatBody{
-	height: auto;
-	
+	height: 75%;
+	overflow-y: auto;
+}
+
+#chatBody::-webkit-scrollbar {
+  display: none;
 }
 
 #chatBody:has(#chatChoicePlease){

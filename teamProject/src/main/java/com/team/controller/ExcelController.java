@@ -36,7 +36,7 @@ public class ExcelController {
 	public void formExcelDL (@RequestParam Map<String,String> param, HttpServletResponse response) throws IOException {
 		System.out.println(param);
 		
-		excel.edl(excel.createSheet(param), response);
+		excel.edl(excel.createSheet(excelService.getfieldName(param)), response);
 	} // formExcelDL
 	
 	@PostMapping("excelUpload")
@@ -44,13 +44,16 @@ public class ExcelController {
 			@RequestParam(value="fileInput") MultipartFile file,
 			@RequestParam(value="tableName") String tableName) {
 		
-		Map<String, Object> uploadData = excel.eul(file);
+		List<Map<String, String>> uploadData = excel.eul(file);
 		
-		uploadData.put("tableName", tableName);
-		System.out.println(uploadData);
-
-		// int result = excelService.insertData(uploadData);
-		// System.out.println(result);
+		Map<String, Object> insertData = new HashMap<String, Object>();
+		insertData.put("tableName", tableName);
+		insertData.put("uploadData", uploadData);
+		
+		System.out.println(insertData);
+		
+		int result = excelService.insertData(insertData);
+		System.out.println(result);
 		
 		return null;
 	}

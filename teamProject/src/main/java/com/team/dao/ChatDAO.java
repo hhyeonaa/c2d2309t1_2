@@ -24,8 +24,16 @@ public class ChatDAO {
 	}
 
 	public List<Map<String, String>> chatRoomData(Map<String, String> param) {
-		System.out.println(param);
 		return sqlSession.selectList(namespace + "chatRoomData", param);
+	}
+
+	public int insertChat(Map<String, String> param) {
+		return sqlSession.insert(namespace + "insertChat", param);
+	}
+
+	public List<Map<String, String>> getChatting(Map<String, String> param) {
+		System.out.println(param);
+		return sqlSession.selectList(namespace + "getChatting", param);
 	}
 
 }

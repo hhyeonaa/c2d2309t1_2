@@ -61,26 +61,26 @@ var excel = (state, tableName) => {
 		
 		// 양식 다운로드
 		$(".excelDLBtn").on("click", function(){
-			var startNum = 2;
-			var endNum = undefined;
+//			var startNum = 2;
+//			var endNum = undefined;
+//			
+//			if ($("#grid").find("th").eq(2).text() == '번호'){
+//				startNum = 3;
+//			}
+//			if ($("#grid").find("th").eq(-1).text() == '삭제'){
+//				endNum = -1;
+//			}
+//			
+//			var th = $("#grid").find("th").slice(startNum, endNum)
+//			var title = [];
+//			var colName = [];
+//			
+//			for(var i=0; i<th.length; i++){
+//				colName.push(th.eq(i).attr('data-column-name'));
+//				title.push(th.eq(i).text());
+//			}
 			
-			if ($("#grid").find("th").eq(2).text() == '번호'){
-				startNum = 3;
-			}
-			if ($("#grid").find("th").eq(-1).text() == '삭제'){
-				endNum = -1;
-			}
-			
-			var th = $("#grid").find("th").slice(startNum, endNum)
-			var title = [];
-			var colName = [];
-			
-			for(var i=0; i<th.length; i++){
-				colName.push(th.eq(i).attr('data-column-name'));
-				title.push(th.eq(i).text());
-			}
-			
-			location.href=encodeURI('/' + window.location.pathname.split("/")[1] + "/excel/formExcelDL?head="+title+"&colName="+colName);
+			location.href=encodeURI('/' + window.location.pathname.split("/")[1] + "/excel/formExcelDL?tableName="+tableName);
 		})
 		
 		// 엑셀 업로드 버튼

@@ -14,7 +14,6 @@ document.write('<script type="text/javascript"' +
 
 $(()=>{
 	var id = $(".id_session").val();
-	var nick = $(".nick_session").val();
 	
 	$("#chatBtn").on("click", function(){
 		openModal(id);
@@ -56,7 +55,7 @@ var yourChat = (chat) => {
 					'<div class="chatTime">'+chat.time+'</div>' +
 				'</div>' +
 			'</div>'
-}
+} 
 // *****************************************
 
 
@@ -176,9 +175,9 @@ var roomCheck = function(proNo, memId){
 			openModal(memId);				
 		}
 		else { // 채팅이 없을 경우
-			//if(alertMsg("AM1", ["채팅을 시작하시겠습니까?"], true)){
+			if(alertMsg("AM1", ["채팅을 시작하시겠습니까?"], true)){
 				createChat(proNo, memId);
-			//}
+			}
 		}
 	})
 }
@@ -210,14 +209,18 @@ var createChat = function(proNo, memId){
 };
 
 // 채팅방 입장
-var enterChat = function(roomNo, target, nickName, title){
+var enterChat = function(proNo, roomNo, target, nickName, title, post){
+	var disabled;
+	if(post == "yourPost") disabled = "disabled";
 	
 	// 소켓 방 생성
 	register(roomNo);
 	
 	// chatHead
+	var chatHead = $("#chatHead");
+	
 	var chatRoomContents = '<div>이미지</div>'+
-							'<div class="chatRoomContents">'+
+							'<div class="chatRoomContents" id='+proNo+'>'+
 								'<input type="hidden" class="target" id='+target+'>' +
 								'<div class="userNick">'+nickName+'</div>'+
 								'<div class="postTit">'+title+'</div>'+
@@ -228,7 +231,7 @@ var enterChat = function(roomNo, target, nickName, title){
 									'<span class="material-symbols-outlined reportIcon">notifications_active</span>' +
 								'</div>' +
 								'<div>' +
-									'<select class="form-select">' +
+									'<select class="form-select" '+disabled+'>' +
 										'<option>거래가능</option>' +
 										'<option>거래중</option>' +
 										'<option>거래완료</option>' +
@@ -236,15 +239,47 @@ var enterChat = function(roomNo, target, nickName, title){
 								'</div>' +
 								'<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span>' +
 							'</div>';
-	$("#chatHead").empty();						
-	$("#chatHead").append(chatRoomContents);
-	$("#chatHead").append(systemContainer);
+	chatHead.empty();						
+	chatHead.append(chatRoomContents);
+	chatHead.append(systemContainer);
 	
 	// --------------------------------------------
 	// chatBody
-	$("#chatBody").empty();
+	var chatBody = $("#chatBody");
+	// 채팅 내용 가져오기
+	chatBody.empty();
+	$("#chatBar").remove();
 	
-	$("#chatBody").append('<div id="chatBar">' +
+	$.ajax({
+		url: '/' + window.location.pathname.split("/")[1] + '/chat/getChatting',
+		type:"get",
+		data:{
+			roomNo: roomNo
+		}
+	})
+	.done(function(chatting){
+		console.log(chatting);
+		for(chat of chatting){
+			var chatContent;
+			if(chat.MEM_ID == $(".id_session").val()){
+				chatContent = myChat(chat.MSG_CONTENT, chat.MSG_TIME);
+			}
+			else{
+				chatContent = yourChat({
+					nickName: chat.MEM_NICK,
+					message: chat.MSG_CONTENT,
+					time: chat.MSG_TIME
+				});
+			}
+			
+			chatBody.prepend(chatContent);
+		}
+		chatBody.scrollTop(999999);
+	})
+	
+	
+	
+	chatBody.after('<div id="chatBar">' +
 								'<input id="sendText" class="form-control" type="text" placeholder="메시지를 입력해주세요.">' +
 								'<button id="sendBtn" class="btn">전송</button>' +
 							'</div>')
@@ -274,14 +309,12 @@ var getChat = function(id, post){
 		}
 	})
 	.done(function(chatList){
-		showChatList(chatList);
+		showChatList(chatList, post);
 	})
 }
 
 // 가져온 게시물 데이터 그려주기
-var showChatList = function(chatList){
-	// 상대 이미지, 상대 닉네임, 게시물 제목, 마지막 채팅 여부
-	console.log(chatList);
+var showChatList = function(chatList, post){
 	for(chatRoom of chatList){
 		$("#chatList").append(notMyPostChatRoom(chatRoom));
 	}
@@ -291,53 +324,47 @@ var showChatList = function(chatList){
 	}
 	
 	$(".chatRoom").on("click", function(){
+		var proNo = $(this).attr("id"); 
 		var target = $(this).find(".target").attr("id");
 		var nickName = $(this).find(".userNick").text();
 		var title = $(this).find(".postTit").text();
 		var roomNo = $(this).find(".roomNo").attr("id");
-		enterChat(roomNo, target, nickName, title);
+		enterChat(proNo, roomNo, target, nickName, title, post);
 	})
 }
 
 var sendMsgBtn = function(roomNo, target){
 	var sendMsg = $("#sendText").val();
-		let time = new Date().toLocaleTimeString();
-		// 내용 없으면 안보내기
-		if(sendMsg.trim() == ""){
-			return;
+	let time = new Date().toLocaleTimeString();
+	// 내용 없으면 안보내기
+	if(sendMsg.trim() == ""){
+		return;
+	}
+	
+	// 화면 그리기
+	$("#chatBody").append(myChat(sendMsg, time));
+	$("#chatBody").scrollTop(999999);
+	
+	
+	// 메세지 전송
+	sendMessage(roomNo, $(".nick_session").val(), target, sendMsg, time);
+	
+	// db 담기
+	$.ajax({
+		url: '/' + window.location.pathname.split("/")[1] + '/chat/insertChat',
+		type: "post",
+		data:{
+			CR_NO: roomNo,
+			PRO_NO: $("#chatHead > .chatRoomContents").attr("id"),
+			MEM_ID: $(".id_session").val(),
+			MSG_IMG: "",
+			MSG_CONTENT: sendMsg,
+			MSG_TIME: time
 		}
-		
-		// 화면 그리기
-		$("#chatBody").append(myChat(sendMsg, time));
-		
-		// 메세지 전송
-		sendMessage(roomNo, $(".nick_session").val(), target, sendMsg, time);
-
-		// db 담기
-		// CR_NO, PRO_NO, MSG_CONTENT, MSG_IMG, MSG_TIME, MSG_CLOSE
-		$.ajax({
-			url: "",
-			type: "post",
-			data:{
-				CR_NO: roomNo,
-				PRO_NO: "",
-				MSG_CONTENT: "",
-				MSG_TIME: ""
-			}
-		})
-		
-		$("#sendText").val("");
+	})
+	
+	$("#sendText").val("");
 }
 
 // *****************************************
 
-/*create table CHATTING
-(
- CR_NO VARCHAR(30),
-PRO_NO VARCHAR(30),
-MEM_ID VARCHAR(30),
-MSG_CONTENT VARCHAR(100),
-MSG_IMG VARCHAR(30),
-MSG_SENDTIME VARCHAR(30),
-MSG_CLOSE VARCHAR(10)
-); */

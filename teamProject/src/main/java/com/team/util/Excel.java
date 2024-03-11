@@ -61,7 +61,11 @@ public class Excel {
 		}
 	}
 	
-	public XSSFWorkbook createSheet(Map<String, String> param) {
+	public XSSFWorkbook createSheet(Map<String, String> COLUMN_NAME) {
+		System.out.println(COLUMN_NAME);
+		
+		List<String> colNames = Arrays.asList(COLUMN_NAME.get("COLUMN_NAME").split(","));
+		
 		wb = new XSSFWorkbook();
 		sheet = wb.createSheet();
 		
@@ -72,61 +76,55 @@ public class Excel {
 		CellStyle headStyle = excelHeadStyle(wb);
 		CellStyle fontRed = fontRed(wb);
 		
-		List<String> head = Arrays.asList(param.get("head").split(",")); 
-		List<String> colNames = Arrays.asList(param.get("colName").split(","));
-		
 		// 시트 크기 조절
-		for(int i=0; i < head.size(); i++) {
-			sheet.setColumnWidth(i, 8800);
+		for(int i=0; i < colNames.size(); i++) {
+			sheet.setColumnWidth(i, 6000);
 		}
 		
 		
 		// 내용 넣기
-		sheet.addMergedRegion(new CellRangeAddress( 0, 0, 0, head.size()-1 ));
+		sheet.addMergedRegion(new CellRangeAddress( 0, 0, 0, colNames.size()-1 ));
 		row = sheet.createRow(0);
 		cell = row.createCell(0);
 		cell.setCellStyle(fontRed);
 		cell.setCellValue("예시 삭제 후 사용해 주세요.");
 		
 		row = sheet.createRow(1);
-		for(int i=0; i < head.size(); i++) {
+		for(int i=0; i < colNames.size(); i++) {
 			cell = row.createCell(i);
 			
 			// 스타일 적용
 			cell.setCellStyle(headStyle);
 			
-			String value = head.get(i);
 			String colName = colNames.get(i);
-			if(value.contains("상태") || value.contains("여부")) {
-				value += "(0 / 1)";
-			}
-			value += " ["+colName+"]";
-			cell.setCellValue(value);
+			cell.setCellValue(colName);
 		}
 		
 		row = sheet.createRow(2);
-		for(int i=0; i < head.size(); i++) {
+		for(int i=0; i < colNames.size(); i++) {
 			cell = row.createCell(i);
 
-			String value = head.get(i);
+			String value = colNames.get(i);
 			if(value.contains("상태") || value.contains("여부")) {
-				cell.setCellValue("0 = 'NO' / 1 = 'Yes'");
+				cell.setCellValue("ex) 0 = 'NO' / 1 = 'Yes'");
 			}
-			else if(value.contains("이름") || value.charAt(value.length()-1) == '명')  {
+			else if(value.contains("_NAME"))  {
 				cell.setCellValue("ex) 홍길동");
 			}
-			else if(value.contains("ID"))  {
-				cell.setCellValue("ex) abc321 (영문 소문자, 숫자 조합)");
+			else if(value.contains("_DATE") || value.contains("_TIME") || value.contains("_UPDATE"))  {
+				cell.setCellValue("ex) 20240311232846 : 년월일시분초");
 			}
-			
+			else if(value.contains("ACTIVE") || value.contains("HIDE"))  {
+				cell.setCellValue("ex) 0(No) OR 1(Yes)");
+			}
 		}
 		
 		return wb;
 	}
 	
 	// 업로드 (Excel Upload)
-	public Map<String, Object> eul(MultipartFile file) {
-		Map<String, Object> uploadData = new HashMap<String, Object>();
+	public List<Map<String, String>> eul(MultipartFile file) {
+		List<Map<String, String>> uploadData = new ArrayList<Map<String, String>>();
 		
 		try {
 			OPCPackage opcPackage = OPCPackage.open(file.getInputStream()); // 파일 열기
@@ -137,7 +135,6 @@ public class Excel {
 			int rows = sheet.getPhysicalNumberOfRows(); // 시트 row 가져오기
 			
 			List<String> colNames = new ArrayList<String>();
-			List<List<String>> datas = new ArrayList<List<String>>();
 			for(int i=1; i < rows; i++) {
 				row = sheet.getRow(i);
 				if(row != null) {
@@ -145,30 +142,24 @@ public class Excel {
 					if(i == 1) {
 						for(int j=0; j < cells; j++) {
 							String cellVal = row.getCell(j).toString();
-							String colName = cellVal.substring(cellVal.indexOf("[")+1, cellVal.indexOf("]"));
-							colNames.add(colName);
+							colNames.add(cellVal);
 						}
-						uploadData.put("colNames", colNames);
 					}
 					else if (cells != 0) {
-						// Map<String, String> data = new HashMap<String, String>();
-						List<String> data = new ArrayList<String>();
+						Map<String, String> datas = new HashMap<String, String>();
 						String value;
 						for(int j=0; j < cells; j++) {
 							cell = row.getCell(j);
 							if(cell == null) continue;
 							else {
 								value = cellReader(cell);
-								data.add(value);
-								// data.put(colNames.get(j), value);
+								datas.put(colNames.get(j) ,value);
 							}
 						}
-						datas.add(data);
+						uploadData.add(datas);
 					}
 				}
 			}
-			uploadData.put("datas", datas);
-			
 		} catch (InvalidFormatException | IOException e) {
 			e.printStackTrace();
 		}

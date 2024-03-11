@@ -17,7 +17,17 @@ public class ExcelDAO {
 	
 	private static final String NAMESPACE = "com.team.mappers.excel";
 	
-	public int insertData(Map<String, Object> uploadData) {
-		return session.insert(NAMESPACE+".insertData", uploadData);
+	public int insertData(Map<String, Object> insertData) {
+		System.out.println(session.selectList(NAMESPACE+".insertData", insertData));
+		return 1;
+	}
+	
+//	public int insertData(Map<String, Object> insertData) {
+//		return session.insert(NAMESPACE+".insertData", insertData);
+//	}
+
+	public Map<String, String> getfieldName(Map<String, String> param) {
+		return session.selectOne(NAMESPACE+".getfieldName", param);
+		
 	}
 }

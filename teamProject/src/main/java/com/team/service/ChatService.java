@@ -27,5 +27,13 @@ public class ChatService {
 		return chatDAO.chatRoomData(param);
 		
 	}
+
+	public int insertChat(Map<String, String> param) {
+		return chatDAO.insertChat(param);
+	}
+
+	public List<Map<String, String>> getChatting(Map<String, String> param) {
+		return chatDAO.getChatting(param);
+	}
 	
 }

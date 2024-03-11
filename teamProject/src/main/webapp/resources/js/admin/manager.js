@@ -52,7 +52,7 @@ $(function(){
 		}
 	]
 	grid("managerPro", 5, columns, false);
-	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
+	excel('updownload', 'ADMIN_COPY'); // 업다운 선택, 테이블 이름 
 	
 	
 	

@@ -32,8 +32,8 @@ public class PayDAO {
 	}
 	
 	//회원 배송지리스트 select
-	public List<Map<String, String>> getAddList(Map<String, String> param) {
-		return sqlSession.selectList(namespace + ".getAddList", param);
+	public List<Map<String, String>> getAddList(String sId) {
+		return sqlSession.selectList(namespace + ".getAddList", sId);
 	}
 	
 	//회원 배송지등록 insert
@@ -45,6 +45,18 @@ public class PayDAO {
 	public Map<String, String> getaddDelivery(Map<String, String> param){
 		System.out.println(param);
 		return sqlSession.selectOne(namespace + ".getaddDelivery", param);
+	}
+
+	//회원 배송지 수정 update
+	public int addDeliveryUpdate1(Map<String, String> param) {
+		System.out.println(param);
+		return sqlSession.update(namespace + ".addDeliveryUpdate1",param);
+	}
+
+	//회원 배송지 삭제 delete
+	public int addDeliveryDelete(Map<String, String> param) {
+		System.out.println(param);
+		return sqlSession.delete(namespace + ".addDeliveryDelete", param);
 	}
 	
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -32,8 +33,8 @@ public class PayService {
 		return payDAO.getMemAddBasic(map2);
 	}
 	//회원 배송지리스트 select
-	public List<Map<String, String>> getAddList(Map<String, String> param) {
-		return payDAO.getAddList(param);
+	public List<Map<String, String>> getAddList(HttpSession session) {
+		return payDAO.getAddList((String)session.getAttribute("MEM_ID"));
 	}
 	
 	//회원 배송지등록 insert
@@ -44,6 +45,16 @@ public class PayService {
 	//회원 수정할 배송지 select
 	public Map<String, String> getaddDelivery(Map<String, String> param) {
 		return payDAO.getaddDelivery(param);
+	}
+
+	//회원 배송지 수정 update
+	public int addDeliveryUpdate1(Map<String, String> param) {
+		return payDAO.addDeliveryUpdate1(param);
+	}
+
+	//회원 배송지 삭제 delete
+	public int addDeliveryDelete(Map<String, String> param) {
+		return payDAO.addDeliveryDelete(param);
 	}
 
 

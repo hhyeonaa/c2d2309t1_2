@@ -124,7 +124,7 @@ public class PayController {
 		System.out.println(param);
 		Map<String, String> addUpList = payService.getaddDelivery(param);
 		model.addAttribute("addUpList", addUpList);
-		System.out.println(addUpList);
+		System.out.println("업리스트 : " + addUpList);
 		return addUpList;
 	}//addDeliveryUpdate()
 	
@@ -136,6 +136,7 @@ public class PayController {
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		param.put("MEM_ID", MEM_ID);
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
+		System.out.println("asda" + param2);
 		param.put("MEM_NO", param2.get("MEM_NO"));
 		System.out.println(param);
 		return  ResponseEntity.ok().body(payService.addDeliveryUpdate1(param));

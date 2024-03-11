@@ -60,6 +60,7 @@
 <%--             				<c:forEach var="memAddBasic" items="${memAddBasic}"> --%>
 							<div id="hideOrShow">
             					<input id="MEM_NO" type="hidden" value="" name="MEM_NO">
+            					<input id="ADD_NO" type="hidden" value="" name="ADD_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver"></p>
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn"></span>
@@ -271,6 +272,8 @@
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
 <%-- 						<c:if test="${!empty addUpList }"> --%>
+							<input type="hidden" id="address-no" value="${addUpList.ADD_NO}">
+							
 							<div class="new-address new-address__title" id="newaddress">
 								<div class="box__label">
 									<label for="address-title" class="text__label">배송지명</label>

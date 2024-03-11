@@ -69,6 +69,7 @@ var requestPay = (pgId, paypayMethod) => {
 function addList(result){
 	var i = 0;    
 	for (let item of result) {
+		debugger;
 		$("#divAddress").append('<li class="addressInfo mb-4" id="addListNo' + i + '">'+
 									'<div class="boxdeliveryaddress">'+
 									'<input id="ADD_NO' + i + '" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO">' +
@@ -118,6 +119,7 @@ $(()=>{
 		debugger;
 		$("#delUpdateBtn").text("배송지 수정");
 		$("#MEM_NO").val(data[0].MEM_NO);
+		$("#ADD_NO").val(data[0].ADD_NO);
 		$("#addReceiver").text(data[0].ADD_RECEIVER);
 		$("#addSpan").prepend('(<span id="addPost"></span>)');
 		$("#addPost").text(data[0].ADD_POST);
@@ -311,6 +313,7 @@ selectMethod();
 			.done(function(data){
 				if(data != null){
 					alert("여기까지")
+					$("#address-no").val(data.ADD_NO);
 					$("#address-title").val(data.ADD_NICK);
 					$("#address-name").val(data.ADD_RECEIVER);
 					$("#address-tel").val(data.ADD_PHONE);
@@ -392,6 +395,7 @@ selectMethod();
 			url: "addDeliveryUpdate1",
 			type:'post',
 			data:{
+				ADD_NO : $("#address-no").val(),
 				ADD_NICK : $("#address-title").val(),
 				ADD_RECEIVER : $("#address-name").val(),
 				ADD_PHONE : $("#address-tel").val(),
@@ -429,6 +433,7 @@ selectMethod();
 			url:"addDelivery",
 			type:'post',
 			data:{
+				ADD_NO : $("#address-no").val(),
 				ADD_NICK : $("#address-title").val(),
 				ADD_RECEIVER : $("#address-name").val(),
 				ADD_PHONE : $("#address-tel").val(),

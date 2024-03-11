@@ -108,7 +108,7 @@
 		</div>		
 		
 		
-				<div style="border: 1px solid black; width: 100%; height: 100%;">
+		<div style="border: 1px solid black; width: 100%; height: 100%;">
 			<article>
 				<div class="css-f96hxp">
 					<h3>경매중</h3>

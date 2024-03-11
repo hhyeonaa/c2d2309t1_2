@@ -17,7 +17,7 @@
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container">
     <div class="row align-items-center mb-4">
-        <div><h4 class="card-title"><b>적용 미리 보기</b></h4></div>
+        <div><h4 class="card-title"><b>현재 저장된 카테고리</b></h4></div>
     </div>
     <div class="preview mb-5 ps-3">
 		<div class="navbar navbar-expand-lg">
@@ -27,8 +27,8 @@
 					<path d="M4.167 5.417h11.666M4.167 10h11.666M4.167 14.584h11.666" stroke="#000" stroke-linecap="round"></path>
 					</svg>
 				</li>
-				<c:forEach var="category" items="${mapList}">
-					<c:if test="${category.HIDE eq '0'}">
+				<c:forEach var="category" items="${category}">
+					<c:if test="${category.ACTIVE eq '1'}">
 						<li id="category-li">
 							<a class="nav-link" href="#">${category.CODE }</a>
 						</li>
@@ -47,24 +47,23 @@
 				<tr>
 					<th scope="col" >카테고리명</th>
 					<th scope="col">순서</th>
-					<th scope="col">숨김 여부</th>
+					<th scope="col">사용 여부</th>
 				</tr>
 			</thead>
 			<tbody class="tableHr">
-				<c:forEach var="category" items="${mapList}">
+				<c:forEach var="category" items="${category}">
 					<tr>
 						<td>${category.CODE }</td>
 						<td>
 							<button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button>
 						</td>
 						<td>
-							<c:if test="${category.HIDE eq '1'}">
+							<c:if test="${category.ACTIVE eq '1'}">
 								<input class="form-check-input" type="checkbox" id="active" checked>
-                            </c:if>
-                       		<c:if test="${category.HIDE eq '0'}">
+                           	</c:if>
+                      		<c:if test="${category.ACTIVE eq '0'}">
 								<input class="form-check-input" type="checkbox" id="active">
-                            </c:if>
-							
+                           	</c:if>
 						</td>
 					</tr>
 				</c:forEach>
@@ -76,6 +75,24 @@
 	    </div>
     </div>
     
+    <div class="btn-wrapper">
+		<select name="perPage" id="setPerpage">
+			<option selected disabled hidden>선택</option>
+			<option value="-1">기본값</option>
+			<option value="0">한 페이지에 보기</option>
+			<option value="1">1개 씩 보기</option>
+			<option value="5">5개 씩 보기</option>
+			<option value="10">10개 씩 보기</option>
+			<option value="20">20개 씩 보기</option>
+			<option value="30">30개 씩 보기</option>
+			<option value="50">50개 씩 보기</option>
+			<option value="100">100개 씩 보기</option>
+		</select>
+		<button id="resetBtn">취소</button>
+		<button id="saveBtn">저장</button>
+	</div>
+    
+    <div id="excel"></div>
     <div id="grid"></div>
 </div>
 </body>

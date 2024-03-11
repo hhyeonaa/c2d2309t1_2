@@ -41,22 +41,26 @@ public class AdminDAO {
 		sqlSession.update(namesqace + "adminUpdate", map);
 	}
 
-	public List<Map<String, String>> getBoardList() {
-		return sqlSession.selectList(namesqace + "getBoardList");
-	}
+//	public List<Map<String, String>> getBoardList() {
+//		return sqlSession.selectList(namesqace + "getBoardList");
+//	}
 
 	public void displayUpdate(Map<String, String> map) {
+		System.out.println("실행되나?: " + sqlSession.update(namesqace + "displayUpdate", map));
 		sqlSession.update(namesqace + "displayUpdate", map);
 	}
 	
-	public List<Map<String, String>> getCategoryList() {
-		return sqlSession.selectList(namesqace + "getCategoryList");
-	}
+//	public List<Map<String, String>> getCategoryList() {
+//		return sqlSession.selectList(namesqace + "getCategoryList");
+//	}
 
+	public void inputForm(Map<String, String> map) {
+		sqlSession.insert(namesqace + "inputForm", map);
+	}
 	
-	
-	
-	
+	public List<Map<String, String>> getForm(Map<String, String> map) {
+		return sqlSession.selectList(namesqace + "getForm", map);
+	}
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,94 +26,22 @@
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
+					<!--  -->
+					<c:forEach var="sale" items="${saleList}">
 						<div class="col" id="product">
-						  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail'">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+						  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail?proWr=${sale.PRO_WR}&proDate=${sale.PRO_DATE}'">
+						    <img src="${pageContext.request.contextPath}/resources/img/uploads/${sale.IMG_NAME}" class="card-img-top" alt="${sale.IMG_NAME}" alt="..."
+						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
+						     <span class="state2">${sale.PRO_TSC}</span><br>
+						     <p>${sale.PRO_NAME}</p>
+						  <h5><b>${sale.PRO_PRICE}원</b></h5>
 						    </div>
 						  </div>
 						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">판매</span>
-						     <span class="state2">판매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
+					</c:forEach>	
+					<!--  -->		
 					</div>	
 				</div>			  
 			</article>
@@ -127,94 +56,22 @@
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
+					<!--  -->
+					<c:forEach var="divList" items="${divList}">
 						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+						  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail?proWr=${divList.PRO_WR}&proDate=${divList.PRO_DATE}'">
+						    <img src="${pageContext.request.contextPath}/resources/img/uploads/${divList.IMG_NAME}" class="card-img-top" alt="${divList.IMG_NAME}" alt="..."
+						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
+						     <span class="state3">${divList.PRO_TSC}</span><br>
+						     <p>${divList.PRO_NAME}</p>
+						  <h5><b>${divList.PRO_PRICE}원</b></h5>
 						    </div>
 						  </div>
 						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">나눔</span>
-						     <span class="state3">나눔중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
+					</c:forEach>
+					<!--  -->
 					</div>	
 				</div>			  
 			</article>
@@ -229,94 +86,22 @@
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
+					<!--  -->
+					<c:forEach var="buy" items="${buyList}">
 						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+						  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail?proWr=${buy.PRO_WR}&proDate=${buy.PRO_DATE}'">
+						    <img src="${pageContext.request.contextPath}/resources/img/uploads/${buy.IMG_NAME}" class="card-img-top" alt="${buy.IMG_NAME}" alt="..."
+						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
+						     <span class="state4">${buy.PRO_TSC}</span><br>
+						     <p>${buy.PRO_NAME}</p>
+						  <h5><b>${buy.PRO_PRICE}원</b></h5>
 						    </div>
 						  </div>
 						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">구매</span>
-						     <span class="state4">구매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
+					</c:forEach>
+					<!--  -->
 					</div>	
 				</div>			  
 			</article>
@@ -331,94 +116,22 @@
 				</div>	
 				<div class="css=1qeni0p">
 					<div class="css-1afg07s">
+					<!--  -->
+					<c:forEach var="auc" items="${aucList}">
 						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+						  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail?proWr=${auc.AUC_SELLER}&proDate=${auc.AUC_DATE}'">
+						    <img src="${pageContext.request.contextPath}/resources/img/uploads/${auc.IMG_NAME}" class="card-img-top" alt="${auc.IMG_NAME}" alt="..."
+						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
+						     <span class="state5">${auc.AUC_TSC}</span><br>
+						     <p>${auc.AUC_NAME}</p>
+						  <h5><b>${auc.AUC_SP}원</b></h5>
 						    </div>
 						  </div>
 						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
-						<div class="col" id="product">
-						  <div class="card h-100">
-						    <img src="resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
-						    <div class="card-body">
-						     <span class="state1">경매</span>
-						     <span class="state5">경매중</span><br>
-						     <p>제목명</p>
-						  <h5><b>10,000원</b></h5>
-						    </div>
-						  </div>
-						</div>							
+					</c:forEach>
+					<!--  -->
 					</div>	
 				</div>			  
 			</article>

@@ -1,5 +1,6 @@
 package com.team.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class BoardService {
 
 	public Map<String, String> selectBoardDetail(Map<String, String> map) {
 		System.out.println("BoardService selectBoardDetail()");
-		return boardDAO.selectBoardDetail(map);
+		return boardDAO.selectBoardDetail(map); 
 	}// selectBoardDetail();
 	
 	// 성엽 작업 시작 //
@@ -68,5 +69,40 @@ public class BoardService {
 		System.out.println("BoardService selectDivideBoard()");
 		return boardDAO.selectDivideBoard();
 	}// selectDivideBoard()
+
+	public List<Map<String, String>> selectBoard(Map<String, String> map) {
+		System.out.println("BoardService selectBoard()");
+		return boardDAO.selectBoard(map);
+	}// selectBoard()
+
+	public List<Map<String, String>> getImgMap(Map<String, String> delMap) {
+		System.out.println("BoardService getImgMap()");
+		return boardDAO.getImgMap(delMap);
+	}// getImgMap()
+
+	public int deleteBoard(Map<String, String> delMap) {
+		System.out.println("BoardService deleteBoard()");
+		return boardDAO.deleteBoard(delMap);
+	}// deleteBoard()
+
+	public List<Map<String, String>> selectAddress(String id) {
+		System.out.println("BoardService selectAddress()");
+		return boardDAO.selectAddress(id);
+	}// selectAddress()
+
+	public String getProNo(Map<String, String> getNumMap) {
+		System.out.println("BoardService getProNo()");
+		return boardDAO.getProNo(getNumMap);
+	}// getProNo()
+
+	public void updateBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardService updateBoard()");
+		// 리스트의 크기가 6보다 작은 동안 'empty'를 추가
+//        while (imageFilenames.size() < 6) {
+//            imageFilenames.add("empty");
+//        }
+		boardDAO.updateBoard(parsedMap,imageFilenames);
+	}// updateBoard()
+
 
 }// BoardService 끝

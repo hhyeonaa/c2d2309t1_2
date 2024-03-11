@@ -22,7 +22,7 @@ function alertMsg(msg = "AM0", arr = ["error"], type = false){
 	}
 	
 	var msgReturn = "";
- 
+
 	$.ajax({
 		type: "get",
 		url: "alert",
@@ -41,6 +41,31 @@ function alertMsg(msg = "AM0", arr = ["error"], type = false){
 		}
 	})
 	
-	return msgReturn;	
+	return msgReturn;
 }
+
+const codeName = {
+	메세지: "AM",
+	카테고리항목: "CM", 
+	신고항목: "DCM", 
+	가격범위: "PM", 
+	거래상태: "TM", 
+	배송안내문구: "DLM",
+	메뉴항목: "MM",
+	상품상태: "PS",
+	상세설명: "DD"
+}
+Object.freeze(codeName);
+
+const columnTitle = {
+	타입 : "CO_TYPE",
+	번호 : "CO_NO",
+	내용 : "CODE",
+	순서 : "SEQ",
+	속성 : "CO_DETAIL",
+	권한 : "AD_ROLE",
+	활성여부_관리자 : "HIDE",
+	활성여부_사용자 : "ACTIVE",
+}
+Object.freeze(columnTitle);
 

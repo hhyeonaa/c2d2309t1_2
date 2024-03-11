@@ -1,5 +1,6 @@
 package com.team.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -24,10 +25,40 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "adminLogin", map);
 	}// adminLogin()
 //	-----------------------------------------------------------------------------	
-	public Map<String, String> getMember(String MEM_ID) {
+	public Map<String, String> getMember(String MEM_ID, Map<String, String> map) {
 		System.out.println("MemberDAO getMember()");
 		return sqlSession.selectOne(namespace + "getMember", MEM_ID);
 	}// getMember()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> memCheck(String MEM_EMAIL, Map<String, String> map) {
+		System.out.println("MemberDAO memCheck()");
+		return sqlSession.selectOne(namespace + "memCheck", MEM_EMAIL);
+	}// memCheck()
+//	-----------------------------------------------------------------------------		
+	public int idCheck(String MEM_ID) {
+		System.out.println("MemberDAO idCheck()");
+		return sqlSession.selectOne(namespace + "idCheck", MEM_ID);
+	}// idCheck()
+//	-----------------------------------------------------------------------------		
+	public int nickCheck(String MEM_NICK) {
+		System.out.println("MemberDAO nickCheck()");
+		return sqlSession.selectOne(namespace + "nickCheck", MEM_NICK);
+	}// nickCheck()
+//	-----------------------------------------------------------------------------		
+	public int emailCheck(String MEM_EMAIL) {
+		System.out.println("MemberDAO emailCheck()");
+		return sqlSession.selectOne(namespace + "emailCheck", MEM_EMAIL);
+	}// emailCheck()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> findId(Map<String, String> map){
+		System.out.println("MemberDAO findId()");
+		return sqlSession.selectOne(namespace + "findId", map);
+	}// findId()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> findPw(Map<String, String> map){
+		System.out.println("MemberDAO findPw()");
+		return sqlSession.selectOne(namespace + "findId", map);
+	}// findPw()
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> login(Map<String, String> map) {
 		System.out.println("MemberDAO login()");
@@ -39,9 +70,13 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "socialLogin", map);
 	}// socialLogin()
 //	-----------------------------------------------------------------------------	
+	public int pwUpdate(Map<String, String> findPw) {
+		System.out.println("MemberDAO pwUpdate()");
+		return sqlSession.update(namespace + "pwUpdate", findPw);
+	}// pwUpdate()
+//	-----------------------------------------------------------------------------	
 	public Map<String, String> mypage(String MEM_ID) {
 		System.out.println("MemberDAO mypage()");
-		System.out.println("" + sqlSession.selectOne(namespace + "mypage", MEM_ID));
 		return sqlSession.selectOne(namespace + "mypage", MEM_ID);
 	}// mypage()
 //	-----------------------------------------------------------------------------
@@ -49,6 +84,41 @@ public class MemberDAO {
 		System.out.println("MemberDAO memberEdit()");
 		sqlSession.update(namespace + "memberEdit", map);
 	}// memberEdit()
-	
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListSell(String MEM_ID) {
+		System.out.println("MemberDAO myListSell()");
+		return sqlSession.selectList(namespace + "myListSell", MEM_ID);
+	}// myListSell()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListBuy(String MEM_ID) {
+		System.out.println("MemberDAO myListBuy()");
+		return sqlSession.selectList(namespace + "myListBuy", MEM_ID);
+	}// myListBuy()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListShare(String MEM_ID) {
+		System.out.println("MemberDAO myListShare()");
+		return sqlSession.selectList(namespace + "myListShare", MEM_ID);
+	}// myListShare()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myListAuction(String MEM_ID) {
+		System.out.println("MemberDAO myListAuction()");
+		return sqlSession.selectList(namespace + "myListAuction", MEM_ID);
+	}// myListAuction()
+//	-----------------------------------------------------------------------------	
+	public Map<String, String> deleteCheck(Map<String, String> map) {
+		System.out.println("MemberDAO deleteCheck()");
+		return sqlSession.selectOne(namespace + "deleteCheck", map);
+	}// deleteCheck()
+//	-----------------------------------------------------------------------------	
+	public void memberDelete(Map<String, String> map) {
+		System.out.println("MemberDAO memberDelete()");
+		System.out.println(map + "  !@#$%");
+		sqlSession.update(namespace + "memberDelete", map);
+	}// memberDelete()
+//	-----------------------------------------------------------------------------
+	public void resetImage(String MEM_NO) {
+		System.out.println("MemberDAO resetImage()");
+		sqlSession.update(namespace + "resetImage", MEM_NO);
+	}// resetImage()	
 	
 }// MemberDAO 클래스

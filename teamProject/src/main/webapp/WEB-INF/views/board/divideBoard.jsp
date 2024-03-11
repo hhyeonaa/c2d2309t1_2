@@ -49,12 +49,12 @@
 		<c:forEach var="map" items="${resultList}">
 	        <div class="col">
 	            <div class="card h-100">
-	                <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
+	                <a href="${pageContext.request.contextPath}/board/divideDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
 	                <div class="card-body">
-	                    <span class="state1">${map['PRO_TC']}</span>
-	                    <span class="state2">${map['PRO_TSC']}</span><br>
-	                    <p>${map['PRO_NAME']}</p>
-	                    <h5><b>${map['PRO_PRICE']}</b></h5>
+	                    <span class="state1">${map.PRO_TC_CODE}</span>
+	                    <span class="state2">${map.PRO_TSC_CODE}</span><br>
+	                    <p>${map.PRO_NAME}</p>
+	                    <h5><b>${map.PRO_PRICE}</b></h5>
 	                </div>
 	            </div>
 	        </div>

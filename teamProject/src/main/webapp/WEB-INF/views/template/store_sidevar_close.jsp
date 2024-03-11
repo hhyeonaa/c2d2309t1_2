@@ -13,10 +13,18 @@
     <!-- JS -->
     
     <!-- Toast UI Grid -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
-	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
-	<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+<!-- 	<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" /> -->
+<!-- 	<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" /> -->
+<!-- 	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script> -->
+<!-- 	<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script> -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ToastUI/css/tui-grid.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ToastUI/css/tui-pagination.css" />
+	<script src="${pageContext.request.contextPath}/resources/ToastUI/js/tui-pagination.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/ToastUI/js/tui-grid.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/toast/editor.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/toast/renderer.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/toast/grid.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/js/excel/commonExcel.js"></script>
     </body>
 </html> 

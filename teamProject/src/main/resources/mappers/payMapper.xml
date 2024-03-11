@@ -88,4 +88,23 @@
 			WHERE M.MEM_NO = #{MEM_NO}
 			AND A.ADD_NO = #{ADD_NO}
 	</select>
+	
+	<!--회원 배송지 수정 update -->
+	<update id="addDeliveryUpdate1">
+		UPDATE ADDRESS
+		SET ADD_POST = #{ADD_POST}, 
+			ADD_NAME = #{ADD_NAME}, 
+		    ADD_DETAIL = #{ADD_DETAIL}, 
+		    ADD_NICK = #{ADD_NICK}, 
+		    ADD_RECEIVER = #{ADD_RECEIVER}, 
+		    ADD_PHONE = #{ADD_PHONE}
+		WHERE ADD_NO = #{ADD_NO};
+	</update>
+	
+	<!--회원 배송지 삭제  -->
+	<delete id="addDeliveryDelete">
+		DELETE
+		FROM ADDRESS
+		WHERE ADD_NO = #{ADD_NO}
+	</delete>
 </mapper>

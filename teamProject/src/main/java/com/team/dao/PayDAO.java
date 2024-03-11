@@ -46,6 +46,18 @@ public class PayDAO {
 		System.out.println(param);
 		return sqlSession.selectOne(namespace + ".getaddDelivery", param);
 	}
+
+	//회원 배송지 수정 update
+	public int addDeliveryUpdate1(Map<String, String> param) {
+		System.out.println(param);
+		return sqlSession.update(namespace + ".addDeliveryUpdate1",param);
+	}
+
+	//회원 배송지 삭제 delete
+	public int addDeliveryDelete(Map<String, String> param) {
+		System.out.println(param);
+		return sqlSession.delete(namespace + ".addDeliveryDelete", param);
+	}
 	
 
 }

@@ -260,11 +260,10 @@ selectMethod();
 			return false;
 		}
 	})
-// 5.배송지리스트 모달관련
+// 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){
 		$("#payUpdateBtn").attr("id", "payAddbtn");
 		$("#payAddbtn").text("저장");
-		
 		
 		$.ajax({
 			url:"addList",
@@ -276,8 +275,30 @@ selectMethod();
 			fail:function(){
 			}
 		})//ajax
-		//6.배송지 수정버튼 > select,update
-		//6-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출 
+		
+		// 6.배송지 삭제
+		$("[class^='deliDelete']").on('click', function(e){
+			$("#staticBackdrop").modal("hide");
+			debugger;
+			$.ajax({
+				url: "addDeliveryDelete",
+				data: {ADD_NO : $('#ADD_NO' + $(e.target).attr("class").match(/\d+/)[0]).val()
+					  ,MEM_NO : $('#MEM_NO1').val()},
+				async: false
+			})//ajax
+			.done(function(data){
+				if(data == 1){
+					debugger;
+					alert("delete여기까지")
+				}
+			})
+			.fail(function(){
+				debugger;
+			})
+		})// 6끝
+		
+		//7.배송지 수정버튼 > select,update
+		//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출 
 		$("[class^='deliUpdate']").on('click', function(e){
 			$("#staticBackdrop").modal("hide");
 			debugger;
@@ -301,35 +322,47 @@ selectMethod();
 					
 					$("#payAddbtn").attr("id", "payUpdateBtn");
 					$("#payUpdateBtn").text("수정");
+					
+					////////////
+//			//6-2 배송지 수정작업
+//			$("#payUpdateBtn").on('click', function(){
+//				$.ajax({
+//					url: "addDeliveryUpdate1",
+//					type:'post',
+//					data:{
+//						ADD_NICK : $("#address-title").val(),
+//						ADD_RECEIVER : $("#address-name").val(),
+//						ADD_PHONE : $("#address-tel").val(),
+//						ADD_POST : $("#address-zipcode").val(),
+//						ADD_NAME : $("#address-front").val(),
+//						ADD_DETAIL : $("#address-detail").val(),
+//						MEM_NO : $('#MEM_NO').val()
+//					},
+//					async: false,
+//					success:function(result){
+//						debugger;
+//						if(result == 1){
+//							$("#staticBackdrop1").modal("hide");
+//						}			
+//					},
+//					fail:function(){
+//						alert("주소수정실패!");
+//						$("#staticBackdrop1").modal("hide");
+//					}
+//				})//ajax
+//				$("#staticBackdrop1").find("input").val("");
+//				$("#staticBackdrop").modal("show");
+//			})
+					//////////////
 				}
 			})
 			.fail(function(){
 				debugger;
 			})
 			$("#staticBackdrop1").modal("show");
-		}) // 6끝	
+		}) // 7끝	
 		
-		//7.배송지 삭제
-		$("[class^='deliDelete']").on('click', function(e){
-			$("#staticBackdrop").modal("hide");
-			debugger;
-			$.ajax({
-				url: "addDeliveryDelete",
-				data: {ADD_NO : $('#ADD_NO' + $(e.target).attr("class").match(/\d+/)[0]).val()
-					  ,MEM_NO : $('#MEM_NO1').val()},
-				async: false
-			})//ajax
-			.done(function(data){
-				if(data != null){
-					debugger;
-					alert("delete여기까지")
-				}
-			})
-			.fail(function(){
-				debugger;
-			})
-			
-		})// 7끝
+
 		
 		$(".button__delivery-choice").on("click", function(){
 			debugger;
@@ -351,10 +384,45 @@ selectMethod();
 		})
 		
 	})
+	
+	//6-2 배송지 수정작업
+	$(document).on('click', '#payUpdateBtn', function(){
+		debugger;
+		$.ajax({
+			url: "addDeliveryUpdate1",
+			type:'post',
+			data:{
+				ADD_NICK : $("#address-title").val(),
+				ADD_RECEIVER : $("#address-name").val(),
+				ADD_PHONE : $("#address-tel").val(),
+				ADD_POST : $("#address-zipcode").val(),
+				ADD_NAME : $("#address-front").val(),
+				ADD_DETAIL : $("#address-detail").val(),
+				MEM_NO : $('#MEM_NO').val()
+			},
+			async: false,
+			success:function(result){
+				debugger;
+				if(result == 1){
+					$("#staticBackdrop1").modal("hide");
+				}			
+			},
+			fail:function(){
+				debugger;
+				alert("주소수정실패!");
+				$("#staticBackdrop1").modal("hide");
+			}
+		})//ajax
+		debugger;
+		$("#staticBackdrop1").modal("hide");
+		$("#staticBackdrop1").find("input").val("");
+		$("#staticBackdrop").modal("show");
+	})
+	
 
 // 8.새 배송지 추가 저장 취소 관련
 	// 새 배송지 추가(입력)저장 
-	$("#payAddbtn").on('click', function(){
+	$(document).on('click', '#payAddbtn', function(){
 		$("#staticBackdrop").modal("hide");
 		debugger;
 		$.ajax({
@@ -378,6 +446,7 @@ selectMethod();
 				}			
 			},
 			fail:function(){
+				debugger;
 				alert("주소추가실패!");
 				$("#staticBackdrop1").modal("hide");
 			}	
@@ -385,6 +454,7 @@ selectMethod();
 		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
 	})
+	
 	//  모달 취소 > 배송리스트 모달
 	$("#payCancelbtn").on('click', function(){
 		debugger;

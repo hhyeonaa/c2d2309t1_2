@@ -47,6 +47,16 @@ public class PayService {
 		return payDAO.getaddDelivery(param);
 	}
 
+	//회원 배송지 수정 update
+	public int addDeliveryUpdate1(Map<String, String> param) {
+		return payDAO.addDeliveryUpdate1(param);
+	}
+
+	//회원 배송지 삭제 delete
+	public int addDeliveryDelete(Map<String, String> param) {
+		return payDAO.addDeliveryDelete(param);
+	}
+
 
 //	// 배송지 저장
 //	public void insertAddress(Map<String, String> map) {

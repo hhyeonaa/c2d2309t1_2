@@ -128,14 +128,26 @@ public class PayController {
 		return addUpList;
 	}//addDeliveryUpdate()
 	
+	//회원 배송지 수정 update ajax
+	@PostMapping("/addDeliveryUpdate1")
+	@ResponseBody
+	public ResponseEntity<?> addDeliveryUpdate1(@RequestParam Map<String, String> param, HttpSession session){
+		System.out.println("ajax addDelivery");
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		param.put("MEM_ID", MEM_ID);
+		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
+		param.put("MEM_NO", param2.get("MEM_NO"));
+		System.out.println(param);
+		return  ResponseEntity.ok().body(payService.addDeliveryUpdate1(param));
+	}//addDeliveryUpdate1()	
+	
 	//회원배송지 삭제 delete ajax
-	@PostMapping("/addDeliveryDelete")
+	@GetMapping("/addDeliveryDelete")
 	@ResponseBody
 	public ResponseEntity<?> addDeliveryDelete(@RequestParam Map<String, String> param, HttpSession session){
 		System.out.println("ajax addDeliveryDelete");
 		System.err.println(param);
-		
-		return ResponseEntity.ok().body(payService.addDelivery(param));
+		return ResponseEntity.ok().body(payService.addDeliveryDelete(param));
 	}
 	
 	

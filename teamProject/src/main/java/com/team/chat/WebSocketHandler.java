@@ -70,6 +70,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			
 			System.out.println("roomMap : " + roomMap);
 			System.out.println("currentRoom : " + currentRoom);
+			
+			
 		} 
 		else if (type != null && type.equals("chat")) {
 			String roomNo = object.getString("roomNo");

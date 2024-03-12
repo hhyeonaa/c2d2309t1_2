@@ -166,6 +166,7 @@
 		 			<tr><td colspan="1">신청자 정보</td><td colspan="2">신청 이유</td><td colspan="3"></tr><tr>
 		 			<tr>
 		 				<c:forEach var="applicant" items="${selectDivList}">
+		 				<input type="hidden" value="${applicant.DIV_APPLICANT}">
 			 			<td colspan="1">${applicant.MEM_NICK}</td>
 			 			<td colspan="3">${applicant.DIV_REASON}</td>
 			 			<td colspan="1"><button class="chat-button btn btn-warning mx-4">채팅하기</button></td>

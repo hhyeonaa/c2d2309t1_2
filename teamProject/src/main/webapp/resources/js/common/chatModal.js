@@ -64,7 +64,7 @@ var yourChat = (chat) => {
 // ****************** 함수 ****************** 
 // =========== 소켓 함수 ===========
 // 소켓 연결
-let sock = new SockJS("http://localhost:8080/myapp/chat");
+let sock = new SockJS(location.origin+"/myapp/chat");
 sock.onopen = onOpen;
 sock.onmessage = onMessage;
 sock.onclose = onClose;

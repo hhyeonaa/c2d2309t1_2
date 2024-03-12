@@ -314,7 +314,7 @@
 		select 
 			   RPT_NO
 			 , USER_NO
-			 , (select MEM_ID from MEMBERS WHERE MEM_NO = RPT_USER_NO) RPT_USER_NO
+			 , RPT_USER_NO
 			 , CODE
 			 , date_format(RPT_TIME, '%Y-%m-%d %H:%I:%S') as RPT_TIME
 		from REPORT
@@ -335,13 +335,11 @@
 				 FROM (SELECT IFNULL(MAX(CAST(RPT_NO as unsigned)), 0) + 1
 						 FROM REPORT) A)
 			, #{MEM_ID}
-			, #{rptUserIdx}
+			, #{reportTarget}
 			, #{rptCode}
 			, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'))
 	</insert>
 	<!-- {rptUserIdx=MEM1, rptCode=DCM1, MEM_ID=chat01} -->
-
-
 
 <!-- 	===== 성엽 끝 ===== -->
 	

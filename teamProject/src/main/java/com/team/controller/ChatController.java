@@ -34,11 +34,14 @@ public class ChatController {
 	@Inject
 	private ChatService chatService;
 	
-	@GetMapping("/chatting")
-	public String chatting(Model model, HttpSession session) {
+	@GetMapping("/selectRepert")
+	public ResponseEntity<?> chatting(@RequestParam Map<String, String> param, Model model, HttpSession session) {
+		
 		model.addAttribute("dcm", codeService.selectCodeList(EnumCodeType.신고항목, session));
 		System.out.println(codeService.selectCodeList(EnumCodeType.신고항목, session));
-		return "/chat/chatting";
+		List<Map<String, String>> reportList = codeService.selectCodeList(EnumCodeType.신고항목, session);
+		
+		return ResponseEntity.ok().body(reportList);
 	}// chatting()
 	
 	@PostMapping("/insertReport")
@@ -50,7 +53,7 @@ public class ChatController {
 		System.out.println(map);
 		
 		return ResponseEntity.ok().body(adminService.insertReport(map));
-	}// chartReport()
+	}// insertReport()
 
 	// -------- 준우 시작 -------------------
 	@GetMapping("/roomCheck")

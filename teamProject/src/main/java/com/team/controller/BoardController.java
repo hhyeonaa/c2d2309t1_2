@@ -66,7 +66,6 @@ public class BoardController {
 		return "board/saleBoard";
 	}// saleBoard()
 	
-	
 	// 성엽 작업 시작 //
 	
 	@GetMapping("/buyBoard")
@@ -80,6 +79,18 @@ public class BoardController {
 		model.addAttribute("resultList",resultList);
 		return "board/buyBoard";
 	}// buyBoard()
+	
+	// 신고하기
+	@PostMapping("/insertBoardReport")
+	@ResponseBody
+	public ResponseEntity<?> insertReport(@RequestParam Map<String, String> map, HttpSession session) {
+		
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
+		map.put("MEM_ID", (String)session.getAttribute("MEM_ID"));
+		System.out.println(map);
+		
+		return ResponseEntity.ok().body(adminService.insertReport(map));
+	}// insertReport()
 	
 	// 성엽 작업 끝 //
 	

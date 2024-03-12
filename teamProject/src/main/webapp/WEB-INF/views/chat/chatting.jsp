@@ -86,8 +86,8 @@
 										<div class="content">
 											<h4>닉네임</h4>
 											<span class="preview">메시지 미리보기</span> <span class="meta"
-												style="margin-left: 300px;"> 2024-02-06 12:32 </span> <input
-												type="hidden" class="memNo" value="ME1">
+												style="margin-left: 300px;"> 2024-02-06 12:32 </span>
+											<input type="hidden" class="memNo" value="jaewon">
 										</div></li>
 									<li class="li_1"><img
 										src="https://source.unsplash.com/random/?car" alt="random"
@@ -226,8 +226,8 @@
     			}
     		})
     		.done(function(data){
-    			console.log(data);
     			alert('신고가완료되었습니다.')
+    			$('#exampleModalReport').modal('hide')
     		})
     		.fail(function(){
     			alert('신고 내용을 선택해주세요.')

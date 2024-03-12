@@ -54,7 +54,7 @@ public class PayController {
 		map2.put("MEM_NO", param2.get("MEM_NO"));
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
 		model.addAttribute("memAddList", memAddList);
-//		
+		
 		//payment 배송지 1개 orderby select
 		List<Map<String, String>> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
@@ -64,12 +64,16 @@ public class PayController {
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
-		
+		//상품정보
 		Map<String, String> payProList = payService.getPayProList(map);
 		System.out.println("payProList" + payProList);
 		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
 		model.addAttribute("payPrice",payPrice);
 		model.addAttribute("payProList",payProList);
+		
+		//배송요청사항 SELECT (공통코드)
+		List<Map<String, String>> requestDel = payService.getRequestDel();
+		model.addAttribute("requestDel",requestDel);
 		
 		return "/pay/payment";
 	}// payment()
@@ -156,7 +160,7 @@ public class PayController {
 	@ResponseBody
 	public Map<String, String> payInfo(@RequestParam Map<String, String> param,  Model model){
 		System.out.println("ajax payInfo");
-//		System.out.println("payInfo" + param);
+		System.out.println("payInfo" + param);
 		Map<String, String> payInfo = payService.getPayInfo(param);
 		model.addAttribute("payInfo", payInfo);
 		System.out.println(payInfo);
@@ -173,8 +177,9 @@ public class PayController {
 		return  ResponseEntity.ok().body(payService.paySuccess(param));
 	}//paySuccess()
 	
+	//결제완료 페이지
 	@GetMapping("/completepay")
-	public String completepay() {
+	public String completepay(@RequestParam Map<String, String> param,  Model model, HttpSession session) {
 		System.out.println("PayController completepay()");
 		return "/pay/completepay";
 	}// completepayment

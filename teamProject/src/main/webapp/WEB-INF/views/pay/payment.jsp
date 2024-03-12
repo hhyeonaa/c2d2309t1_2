@@ -93,13 +93,9 @@
             			</div>
             			<div class="Delivery Request mt-3">
 	            			<select class="form-select form-select-lg mb-3" aria-label="Large select example" id="selectDel">
-								<option value="0" selected>배송시 요청사항을 선택해 주세요.</option>
-								<option value="1">직접 수령하겠습니다.</option>
-								<option value="2">배송 전 연락바랍니다.</option>
-								<option value="3">부재 시 경비실에 맡겨주세요.</option>
-								<option value="4">부재 시 문 앞에 놓아주세요.</option>
-								<option value="5">부재 시 택배함에 넣어주세요.</option>
-								<option value="6">직접 입력</option>
+								<c:forEach var="requestDel" items="${requestDel}">
+									<option id="${requestDel.CO_TYPE}" value="${requestDel.CO_TYPE}">${requestDel.CODE}</option>
+								</c:forEach>
 							</select>
             			</div>
 							<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
@@ -166,26 +162,26 @@
             		<div>
             			<div class="Table-sc-178gola-2 PricingTablePanel__Table-sc-1e9itak-4 hKJwfL iwgmOh">
             			
-								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL">
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
-									상품금액
-									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice">
-									<!--PRO_PRICE  -->
-										${payProList.PRO_PRICE }원
-									</div>
-								</div>
+<!-- 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL"> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
+<!-- 									상품금액 -->
+<!-- 									</div> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice"> -->
+<!-- 									PRO_PRICE  -->
+<%-- 										${payProList.PRO_PRICE }원 --%>
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
-								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn NBdoU">
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
-										배송비
-									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
-										<span class="PricingTablePanel__Fee-sc-1e9itak-3 kzWuNm">
-											+3000원
-										</span>
-									</div>
-								</div>
+<!-- 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn NBdoU"> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
+<!-- 										배송비 -->
+<!-- 									</div> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
+<!-- 										<span class="PricingTablePanel__Fee-sc-1e9itak-3 kzWuNm"> -->
+<!-- 											+3000원 -->
+<!-- 										</span> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 
 <!-- 								<div class="Table__Row-sc-178gola-1 FeeRows__Row-sc-zf2uot-4 kxBvfn UYDMx"> -->
 <!-- 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu"> -->
@@ -202,7 +198,7 @@
 									총 결제금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
-									<span id="allPrice">${payProList.PRO_PRICE + 3000}</span><div> 원</div>
+									<span id="allPrice">${payProList.PRO_PRICE}</span><div> 원</div>
 									</div>
 								</div>
 							</div>	            			

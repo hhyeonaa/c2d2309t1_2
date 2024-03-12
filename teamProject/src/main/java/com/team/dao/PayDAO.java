@@ -69,6 +69,14 @@ public class PayDAO {
 		System.out.println(param);
 		return sqlSession.insert(namespace + ".paySuccess", param);
 	}
+
+	//배송요청사항 SELECT (공통코드)
+	public List<Map<String, String>> getRequestDel() {
+		return sqlSession.selectList(namespace + ".getRequestDel");
+	}
+
+	
+
 	
 
 }

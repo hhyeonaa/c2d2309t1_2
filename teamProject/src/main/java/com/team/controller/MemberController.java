@@ -310,9 +310,19 @@ public class MemberController{
 	}// tradeList()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/likeList")
-	public String likeList() {
-		System.out.println("MemberController likeList()");
+	public String likeList(Model model, HttpSession session) {
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		List<Map<String,String>> likeList = memberService.likeList(MEM_ID);
+		model.addAttribute("likeList", likeList);
 		return "member/likeList";
+	}// likeList()
+//	-----------------------------------------------------------------------------
+	@PostMapping("/deleteLike")
+	@ResponseBody
+	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO, HttpSession session) {
+		System.out.println("MemberController deleteLike()");
+		boolean result = memberService.deleteLike(LIK_NO);
+		return ResponseEntity.ok().body(result);
 	}// likeList()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/salesList")

@@ -121,5 +121,15 @@ public class MemberDAO {
 		System.out.println("MemberDAO resetImage()");
 		sqlSession.update(namespace + "resetImage", MEM_ID);
 	}// resetImage()	
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> likeList(String MEM_ID) {
+		return sqlSession.selectList(namespace + "likeList", MEM_ID);
+	}// likeList()	
+//	-----------------------------------------------------------------------------
+	public boolean deleteLike(String LIK_NO) {
+		boolean result = sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1 ? true : false;
+		System.out.println("result: " + result);
+		return result;
+	}
 	
 }// MemberDAO 클래스

@@ -107,6 +107,7 @@
 		FROM ADDRESS
 		WHERE ADD_NO = #{ADD_NO}
 	</delete>
+<<<<<<< HEAD
 	
 	<!--판매,결제자 Info select  -->
 	<select id="getPayInfo" resultType="map">
@@ -118,4 +119,6 @@
 		FROM PRODUCT
 		WHERE PRO_NO = #{PRO_NO}
 	</select>
+=======
+>>>>>>> branch 'jaewon' of https://github.com/hhyeonaa/c2d2309t1_2.git
 </mapper>

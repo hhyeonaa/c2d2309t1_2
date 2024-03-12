@@ -124,7 +124,7 @@
 			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
 			 , S.SCO_SCORE
 			 , M.MEM_CAT
-			 , M.MEM_IMAGE
+			 , M.MEM_REDATE
 		from MEMBERS M
 		left outer join SCORE S
 		on M.MEM_NO = S.MEM_NO
@@ -132,7 +132,7 @@
 		and M.MEM_ID = #{MEM_ID}
 	</select>
 	
-	<update id="memberEdit">
+	<update id="memberEdit" parameterType="map">
 		update MEMBERS
 		set MEM_NAME = #{MEM_NAME}
 		  , MEM_NICK = #{MEM_NICK}

@@ -32,28 +32,39 @@ $(function(){
 	})
 	
 	
-	
 	$('#updateBtn').on('click', function(){
-		var image = ($('#image').val().split('\\').pop() == '') ? null:$('#image').val().split('\\').pop();
-		var date = { MEM_ID: $('#MEM_ID').val()
+		debugger;
+
+		var data = {  
+					  MEM_ID: $('#MEM_ID').val()
+					 ,MEM_EMAIL: $('#MEM_EMAIL').val()
 					 ,MEM_NAME: $('#MEM_NAME').val()
 					 ,MEM_NICK: $('#MEM_NICK').val()
 					 ,MEM_PW: $('#MEM_PW').val()
 					 ,MEM_TEL: $('#MEM_TEL').val()
-					 ,MEM_IMAGE: image }
-		console.log(date);
+					 ,MEM_BIRTH: $('#MEM_BIRTH').val() }
+		console.log(data);
+		const formdata = new FormData();
+		formdata.append("map", JSON.stringify(data));
+		formdata.append("image", $('#image')[0].files[0]);
+		
 		debugger;
 		$.ajax({
 			type: "post"
 			, url: "memberEditPro"
-			, data: date
+			, data: formdata
+			, contentType: false
+        	, processData: false    
+			, enctype: "multipart/form-data"
 		})
 		.done(function(data){
-			console.log($('#image').val().split('\\').pop());
-			debugger;
+//			console.log($('#image').val().split('\\').pop());
+//			debugger;
 			location.href='mypage';
 		})
 	})
+	
+	
 	
 	
 	

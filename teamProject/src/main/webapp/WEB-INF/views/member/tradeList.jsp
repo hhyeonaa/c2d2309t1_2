@@ -20,17 +20,42 @@
 	<h3 class="title">거래 신청 내역</h3>
 	<hr>
 	<div class="tab_wrap" style="padding-top: 1%;">
-		<label for="tab1" class="on">구매신청</label>
-		<label for="tab2">나눔신청</label>
-		<label for="tab3">경매신청</label>
+		<label for="tab1" class="on">판매신청</label>
+		<label for="tab2">구매신청</label>
+		<label for="tab3">나눔신청</label>
+		<label for="tab4">경매신청</label>
 	  
 		<input type="radio" name="tab" id="tab1">
 		<input type="radio" name="tab" id="tab2">  
-		<input type="radio" name="tab" id="tab3">  
+		<input type="radio" name="tab" id="tab3">
+		<input type="radio" name="tab" id="tab4">
 	</div><!--tab_wrap-->
 	
-	<!-- -----------------------------------구매 목록----------------------------------- -->
+	<!-- -----------------------------------판매 목록----------------------------------- -->
 	<div class="tab_content tab_content1">
+	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
+	  <c:forEach var="myListBuy" items="${myListBuy}">
+		  <div class="col">
+		    <div class="card h-100">
+		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+		      <div class="card-body">
+			      <span class="state1">판매</span>
+			      <span class="state2">${myListBuy.PRO_TSC}</span>
+			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
+<!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
+			      <p>${myListBuy.PRO_NAME}</p>
+				  <h5><b>${myListBuy.PRO_PRICE}원</b></h5>
+		      </div>
+		    </div>
+		  </div>
+		 </c:forEach>
+		 <c:if test="${empty myListBuy}">
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyBuy">등록된 상품이 없습니다.</div>
+		 </c:if>
+		</div>
+	</div><!--tab_content1-->
+	<!-- -----------------------------------구매 목록----------------------------------- -->
+	<div class="tab_content tab_content2">
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
 	  <c:forEach var="myListBuy" items="${myListBuy}">
 		  <div class="col">
@@ -53,7 +78,7 @@
 		</div>
 	</div><!--tab_content2-->
 	<!-- -----------------------------------나눔 목록----------------------------------- -->
-	<div class="tab_content tab_content2">
+	<div class="tab_content tab_content3">
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
 	  <c:forEach var="myListShare" items="${myListShare}">
 		  <div class="col">
@@ -77,7 +102,7 @@
 	</div><!--tab_content3-->
 	
 	<!-- -----------------------------------경매 목록----------------------------------- -->
-	<div class="tab_content tab_content3">
+	<div class="tab_content tab_content4">
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%; height: 100%;">
 	  <c:forEach var="myListAuction" items="${myListAuction}">
 		  <div class="col">

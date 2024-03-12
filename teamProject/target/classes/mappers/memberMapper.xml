@@ -243,6 +243,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
@@ -278,4 +279,6 @@
 >>>>>>> branch 'jkw' of https://github.com/hhyeonaa/c2d2309t1_2.git
 =======
 >>>>>>> branch 'jaewon' of https://github.com/hhyeonaa/c2d2309t1_2.git
+=======
+>>>>>>> branch 'hjwhome' of https://github.com/hhyeonaa/c2d2309t1_2.git
 </mapper>

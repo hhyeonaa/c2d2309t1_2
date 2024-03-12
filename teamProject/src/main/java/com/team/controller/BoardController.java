@@ -515,14 +515,22 @@ public class BoardController {
 		System.out.println("BoardController boardDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
-		logger.info("proWr: "+proWr);
-		logger.info("proDate: "+proDate);
+		System.out.println("proWr: "+proWr);
+		System.out.println("proDate: "+proDate);
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
+		String proCate = resultMap.get("PRO_CATE");
+		String proNo = resultMap.get("PRO_NO");
+		String proTc = resultMap.get("PRO_TC");
+		map.put("proCate", proCate);
+		map.put("proNo", proNo);
+		map.put("proTc", proTc);
+		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		System.out.println("relatedImg : " + relatedImg);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -538,6 +546,7 @@ public class BoardController {
 		model.addAttribute("dcm", codeService.selectCodeList(EnumCodeType.신고항목, session));
 		System.out.println(codeService.selectCodeList(EnumCodeType.신고항목, session));
 		
+		model.addAttribute("relatedImg", relatedImg);
 		return "board/boardDetail";
 	}// boardDetail()
 	
@@ -552,6 +561,14 @@ public class BoardController {
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
+		String proCate = resultMap.get("PRO_CATE");
+		String proNo = resultMap.get("PRO_NO");
+		String proTc = resultMap.get("PRO_TC");
+		map.put("proCate", proCate);
+		map.put("proNo", proNo);
+		map.put("proTc", proTc);
+		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		System.out.println("relatedImg : " + relatedImg);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -562,6 +579,7 @@ public class BoardController {
 		System.out.println(imgList);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
+		model.addAttribute("relatedImg", relatedImg);
 		return "board/divideDetail";
 	}// divideDetail()
 	

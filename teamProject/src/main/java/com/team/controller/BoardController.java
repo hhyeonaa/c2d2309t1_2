@@ -47,7 +47,8 @@ public class BoardController {
 	private TeamCodeService codeService;
 	
 	@GetMapping("/saleBoard")
-	public String saleBoard(Model model) {
+	public String saleBoard(Model model, HttpServletRequest request) {
+		System.out.println((String)request.getParameter("sMenu"));
 		System.out.println("BoardController saleBoard()");
 		String proTc = "MM1";
 		Map<String, String> map = new HashMap<>();
@@ -670,7 +671,17 @@ public class BoardController {
 		return goBoard;
 	}// deleteBoard()
 	
+//	----- 검색 bar -----
 	
+	@GetMapping("/searchPro")
+	public String searchPro(@RequestParam Map<String, String> param, HttpSession session) {
+
+//		/board/saleBoard판매/board/buyBoard구매/board/divideBoard나눔/board/auctionBoard경매
+		
+		return null;
+	}
+	
+//	----- 검색 bar -----
 	
 	@GetMapping("/inputForm")
 	public String inputForm(Model model, HttpSession session) {

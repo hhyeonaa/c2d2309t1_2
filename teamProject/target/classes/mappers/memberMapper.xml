@@ -241,6 +241,7 @@
 		where 	MEM_ID = #{MEM_ID}
 	</update>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
@@ -272,4 +273,6 @@
 	
 =======
 >>>>>>> branch 'ksy' of https://github.com/hhyeonaa/c2d2309t1_2.git
+=======
+>>>>>>> branch 'jkw' of https://github.com/hhyeonaa/c2d2309t1_2.git
 </mapper>

@@ -30,6 +30,9 @@
                 </div>
                 <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
+                    <input type="hidden" name="PRO_NO" id="PRO_NO" value="${payProList.PRO_NO }">
+                    <input type="hidden" name="PRO_WR" id="PRO_WR" value="${payProList.PRO_WR }">
+                    <input type="hidden" name="PRO_DATE" id="PRO_DATE" value="${payProList.PRO_DATE }">
 					<span class="productPostTitle" id="payProName">${payProList.PRO_NAME}</span><br>
 					<span class="productPrice">${payProList.PRO_PRICE }원</span>
                 </div>
@@ -60,6 +63,7 @@
 <%--             				<c:forEach var="memAddBasic" items="${memAddBasic}"> --%>
 							<div id="hideOrShow">
             					<input id="MEM_NO" type="hidden" value="" name="MEM_NO">
+            					<input id="ADD_NO" type="hidden" value="" name="ADD_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
             						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver"></p>
             						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn"></span>
@@ -88,20 +92,20 @@
             				</section>
             			</div>
             			<div class="Delivery Request mt-3">
-            			<select class="form-select form-select-lg mb-3" aria-label="Large select example">
-							<option value="0" selected>배송시 요청사항을 선택해 주세요.</option>
-							<option value="1">직접 수령하겠습니다.</option>
-							<option value="2">배송 전 연락바랍니다.</option>
-							<option value="3">부재 시 경비실에 맡겨주세요.</option>
-							<option value="4">부재 시 문 앞에 놓아주세요.</option>
-							<option value="5">부재 시 택배함에 넣어주세요.</option>
-							<option value="6">직접 입력</option>
-						</select>
+	            			<select class="form-select form-select-lg mb-3" aria-label="Large select example" id="selectDel">
+								<option value="0" selected>배송시 요청사항을 선택해 주세요.</option>
+								<option value="1">직접 수령하겠습니다.</option>
+								<option value="2">배송 전 연락바랍니다.</option>
+								<option value="3">부재 시 경비실에 맡겨주세요.</option>
+								<option value="4">부재 시 문 앞에 놓아주세요.</option>
+								<option value="5">부재 시 택배함에 넣어주세요.</option>
+								<option value="6">직접 입력</option>
+							</select>
             			</div>
-						<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
-							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
-							class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ"></textarea>
-						</div>
+							<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
+								<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
+								class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ"></textarea>
+							</div>
 					</div>		
 	            </div>
 			</div>
@@ -271,6 +275,8 @@
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
 <%-- 						<c:if test="${!empty addUpList }"> --%>
+							<input type="hidden" id="address-no" value="${addUpList.ADD_NO}">
+							
 							<div class="new-address new-address__title" id="newaddress">
 								<div class="box__label">
 									<label for="address-title" class="text__label">배송지명</label>

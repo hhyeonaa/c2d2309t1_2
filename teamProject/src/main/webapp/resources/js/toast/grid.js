@@ -60,41 +60,10 @@ var fn_grid = (url, perPage, columns, draggable, parameter) => {
 		grid.resetData(grid.getData());
 	});
 	
-	
-	// 추가
-	$(document).on("click", "#insertBtn", function () {
-		debugger;
-		if($('#AD_ID').val() == ""){
-			alertMsg("AM6", ["아이디"]);
-			$('#AD_ID').focus();
-			return;
-		}
-		if($('#AD_PW').val() == ""){
-			alertMsg("AM6", ["비밀번호"]);
-			$('#AD_PW').focus();
-			return;
-		}
-		if($('#AD_NAME').val() == ""){
-			alertMsg("AM6", ["이름"]);
-			$('#AD_NAME').focus();
-			return;
-		}
-		debugger;
-		var row = {
-			AD_ID: $('#AD_ID').val(),
-			AD_PW: $('#AD_PW').val(),
-			AD_NAME: $('#AD_NAME').val(),
-			AD_ACTIVE: "0",
-			AD_NO: grid.getRowCount() + 1,
-			AD_ROLE: "RO1" 
-		};
-		grid.appendRow(row);
-		grid.request("createData");
-		$("#addModal").modal("hide");
-	});
-	
 	// 수정
 	grid.on("afterChange", (e) => {
+		debugger;
+		
 		if(e.changes[0].columnName == "SEQ") return;
 
 		grid.request("updateData");

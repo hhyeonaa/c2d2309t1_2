@@ -49,12 +49,14 @@ var requestPay = (pgId, paypayMethod) => {
 					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
 			        var productname = $("#payProName").text().trim();//제품name
 			 		var sellerNo = data.SELLER // 판매자 MEM_NO
+			 		var buyerNO = $('#MEM_NO').val(); //결제자 MEM_NO
+			 		var proNo =  $('#PRO_NO').val();
 //			        var msg = 
 			        
 			        debugger;
 			       	IMP.request_pay({
 						pg: pgId, 
-						pay_method: paypayMethod, // "card"
+						//pay_method: paypayMethod, // "card"
 			  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
@@ -66,19 +68,22 @@ var requestPay = (pgId, paypayMethod) => {
 					}, function (rsp) { // callback 로직
 			  			if(rsp.success){ //결제 성공
 							debugger;
-							rep["SELLER_NO"] = sellerNO
+							rsp["SELLER_NO"] = sellerNO;
+							rsp["BUYER_NO"] = buyerNO;
+							rsp["PRO_NO"] = proNo;
+							debugger;
 							console.log(rsp);
 			//				  $.ajax({
 			//					  type: "post",
 			//					  url: "paySuccess",
-			//					  data: JSON.stringify(rsp)   
+			//					  data: {JSON.stringify(rsp)}   
 			//				  })//ajax
 							  
-					  	}else{
-							  debugger;
-							  console.log(res);
-						  }
-					});
+						  	}else{
+								  debugger;
+								  console.log(res);
+							  }
+						});
 				//data값
 				}
 				
@@ -204,12 +209,12 @@ var paypayMethod="";
 
 $('#tossPay').on("click", () =>{
 	pgId="tosspay.tosstest";
-	paypayMethod="card";
+	//paypayMethod="card";
 });
 
 $('#kakaoPay').on("click", () =>{
 	pgId="kakaopay.TC0ONETIME";
-	paypayMethod="card";
+	//paypayMethod="card";
 })
 	
 	

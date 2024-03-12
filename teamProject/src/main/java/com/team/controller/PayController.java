@@ -163,6 +163,15 @@ public class PayController {
 		return payInfo; 
 	}//
 	
+	//결제 성공 후 PAY테이블 insert
+//	@PostMapping("/paySuccess")
+//	@ResponseBody
+//	public ResponseEntity<?> paySuccess(@RequestParam Map<String, String> param){
+//		System.out.println("ajax paySuccess");
+//		System.out.println(param);
+//		
+//		return  ResponseEntity.ok().body(payService.paySuccess(param));
+//	}//paySuccess()
 	
 	@GetMapping("/completepay")
 	public String completepay() {

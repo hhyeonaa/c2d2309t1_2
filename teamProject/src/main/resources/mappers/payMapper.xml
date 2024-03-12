@@ -118,4 +118,42 @@
 		FROM PRODUCT
 		WHERE PRO_NO = #{PRO_NO}
 	</select>
+	
+	<!--결제 성공 후 PAY테이블 insert  -->
+	<insert id="paySuccess">
+		INSERT INTO PAY
+			( PAY_NO  
+			 ,BUYER_NO
+			 ,SELLER_NO
+			 ,PRO_NO
+<!-- 			 ,AUC_NO   -->
+			 ,PAY_METHOD 
+			 ,CARD_NAME  
+			 ,PAY_MSG  
+			 ,BUYER_ADDR 
+			 ,BUYER_NAME 
+			 ,BUYER_POSTCODE  
+			 ,BUYER_TEL  
+			 ,MERCHANT_UID
+			 ,NAME  
+			 ,PAID_AMOUNT  
+			 ,SUCCESS 
+			 ,TRANSACTION_METHOD)
+		VALUES
+			((CONCAT("PAY", IFNULL( (SELECT MAX(CAST(REPLACE(PAY_NO,"PAY", "") AS UNSIGNED)) + 1 FROM PAY A) , 1)))
+			 ,#{BUYER_NO}
+			 ,#{SELLER_NO}
+			 ,#{PRO_NO}
+<!-- 			 ,#{AUC_NO}  -->
+			 ,#{}
+			
+			);
+	
+	</insert>
+	
+	
+	
+	
+	
+	
 </mapper>

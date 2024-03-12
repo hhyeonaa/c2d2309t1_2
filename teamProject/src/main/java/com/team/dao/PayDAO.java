@@ -63,6 +63,11 @@ public class PayDAO {
 	public Map<String, String> getPayInfo(Map<String, String> param) {
 		return sqlSession.selectOne(namespace + ".getPayInfo", param);
 	}
+
+	//결제 성공 후 PAY테이블 insert
+	public int paySuccess(Map<String, String> param) {
+		return sqlSession.insert(namespace + ".paySuccess", param);
+	}
 	
 
 }

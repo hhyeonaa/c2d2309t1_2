@@ -348,6 +348,12 @@ public class MemberController{
 		return "member/buyList";
 	}// buyList()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/chatList")
+	public String chatList() {
+		System.out.println("MemberController chatList()");
+		return "member/chatList";
+	}// chatList()
+//	-----------------------------------------------------------------------------
 	@GetMapping("/memberDelete")
 	public String memberDelete() {
 		System.out.println("MemberController memberDelete()");

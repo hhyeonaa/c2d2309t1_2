@@ -240,10 +240,6 @@
 		set 	MEM_IMAGE = default
 		where 	MEM_ID = #{MEM_ID}
 	</update>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
@@ -273,12 +269,4 @@
 		WHERE LIK_NO = #{LIK_NO}
 	</delete>
 	
-=======
->>>>>>> branch 'ksy' of https://github.com/hhyeonaa/c2d2309t1_2.git
-=======
->>>>>>> branch 'jkw' of https://github.com/hhyeonaa/c2d2309t1_2.git
-=======
->>>>>>> branch 'jaewon' of https://github.com/hhyeonaa/c2d2309t1_2.git
-=======
->>>>>>> branch 'hjwhome' of https://github.com/hhyeonaa/c2d2309t1_2.git
 </mapper>

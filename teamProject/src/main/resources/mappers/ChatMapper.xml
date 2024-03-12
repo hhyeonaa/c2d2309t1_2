@@ -52,8 +52,25 @@
 		    ON C.MEM_NO = M.MEM_NO
 	 	 WHERE C.PRO_NO IN ((SELECT PRO_NO FROM PRODUCT WHERE PRO_WR = #{memId}))
 		  </if>
-		  
-		  
+	</select>
+	
+	<insert id="insertChat" parameterType="map">
+		  insert into CHATTING(CR_NO, PRO_NO, MEM_ID, MSG_CONTENT, MSG_IMG, MSG_TIME, REAL_TIME)
+  		  VALUES (#{CR_NO}, #{PRO_NO}, #{MEM_ID}, #{MSG_CONTENT},  #{MSG_IMG}, #{MSG_TIME}, date_format(NOW(), "%Y%m%d%H%i%s"));
+	</insert>
+	
+	<select id="getChatting" parameterType="map" resultType="map">
+		SELECT CR_NO
+			 , PRO_NO
+		     , MEM_ID
+		     , (SELECT MEM_NICK FROM MEMBERS WHERE MEM_ID = C.MEM_ID) MEM_NICK
+		     , MSG_CONTENT
+		     , MSG_IMG
+		     , MSG_TIME
+		     , REAL_TIME
+		  FROM CHATTING C
+		 WHERE CR_NO = #{roomNo}
+		 ORDER BY REAL_TIME DESC;
 	</select>
 	
 </mapper>

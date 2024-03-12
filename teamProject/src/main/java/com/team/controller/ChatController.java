@@ -52,6 +52,7 @@ public class ChatController {
 		return ResponseEntity.ok().body(adminService.insertReport(map));
 	}// chartReport()
 
+	// -------- 준우 시작 -------------------
 	@GetMapping("/roomCheck")
 	public ResponseEntity<?> roomCheck(@RequestParam Map<String, String> param) {
 		Map<String, String> result = chatService.roomCheck(param);
@@ -68,5 +69,18 @@ public class ChatController {
 		return ResponseEntity.ok().body(chatService.chatRoomData(param));
 	}
 	
+	@PostMapping("/insertChat")
+	public ResponseEntity<?> insertChat(@RequestParam Map<String, String> param) {
+		return ResponseEntity.ok().body(chatService.insertChat(param));
+	}
+	
+	@GetMapping("/getChatting")
+	public ResponseEntity<?> getChatting(@RequestParam Map<String, String> param) {
+		System.out.println("enter : getChatting");
+		return ResponseEntity.ok().body(chatService.getChatting(param));
+	}
+	
+	
+	// -------- 준우 끝 -------------------
 	
 }// 클래스 끝

@@ -46,7 +46,8 @@ public class PayController {
 		//로그인 회원 정보 select
 		param.put("MEM_ID", MEM_ID);
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
-		System.out.println(param2);
+		System.out.println("!@#!@#!@#"+param2);
+		System.out.println(param2.get("MEM_NO"));
 		model.addAttribute("buyerInfo", param2);
 		
 		//로그인한 회원 정보 및 배송지리스트 select(ajax?), >> 모달창 ajax
@@ -72,8 +73,8 @@ public class PayController {
 		model.addAttribute("payProList",payProList);
 		
 		//배송요청사항 SELECT (공통코드)
-		List<Map<String, String>> requestDel = payService.getRequestDel();
-		model.addAttribute("requestDel",requestDel);
+//		List<Map<String, String>> requestDel = payService.getRequestDel();
+		model.addAttribute("requestDel", codeService.selectCodeList(EnumCodeType.배송안내문구, session));
 		
 		return "/pay/payment";
 	}// payment()

@@ -68,9 +68,9 @@ public class PayService {
 	}
 
 	//배송요청사항 SELECT (공통코드)
-	public List<Map<String, String>> getRequestDel() {
-		return payDAO.getRequestDel();
-	}
+//	public List<Map<String, String>> getRequestDel() {
+//		return payDAO.getRequestDel();
+//	}
 
 
 

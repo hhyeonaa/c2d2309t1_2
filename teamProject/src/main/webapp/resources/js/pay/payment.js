@@ -61,7 +61,7 @@ var requestPay = (pgId) => {
 			  			if(rsp.success){ //결제 성공
 							debugger;
 							rsp["SELLER_NO"] = data.SELLER;
-							rsp["BUYER_NO"] = $('#MEM_NO').val();
+							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
 							rsp["PRO_NO"] = $('#PRO_NO').val();
 							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
 							//**
@@ -273,13 +273,13 @@ selectMethod();
 			alert('결제 수단을 선택해주세요');
 			return false;
 		}
-		requestPay(pgId);
 		if($('.kGbUWb').text()==""){
 			alert('배송주소를 등록해주세요');
 			return false;
 		}
-		//
-		
+		requestPay(pgId);
+		// "/completepay"페이지이동
+		//window.location.href = "/completepay?PRO_NO=${payProList.PRO_NO }";
 	})
 // 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){

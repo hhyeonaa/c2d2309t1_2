@@ -62,6 +62,7 @@
 <%--             				<c:if test="${!empty memAddBasic }"> --%>
 <%--             				<c:forEach var="memAddBasic" items="${memAddBasic}"> --%>
 							<div id="hideOrShow">
+								<input id="MEM_NOreal" type="hidden" value="${buyerInfo.MEM_NO}">
             					<input id="MEM_NO" type="hidden" value="" name="MEM_NO">
             					<input id="ADD_NO" type="hidden" value="" name="ADD_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">

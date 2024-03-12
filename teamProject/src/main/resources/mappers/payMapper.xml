@@ -164,13 +164,13 @@
 	</insert>
 	
 	<!--배송요청사항 SELECT (공통코드)  -->
-	<select id="getRequestDel" resultType="map">
-		SELECT concat(CO_TYPE,CO_NO) CO_TYPE, CODE
-		FROM CODE
-		WHERE HIDE = '0'
-		AND CO_TYPE = "DLM"
-		ORDER BY SEQ
-	</select>
+<!-- 	<select id="getRequestDel" resultType="map"> -->
+<!-- 		SELECT concat(CO_TYPE,CO_NO) CO_TYPE, CODE -->
+<!-- 		FROM CODE -->
+<!-- 		WHERE HIDE = '0' -->
+<!-- 		AND CO_TYPE = "DLM" -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select> -->
 	
 	
 	

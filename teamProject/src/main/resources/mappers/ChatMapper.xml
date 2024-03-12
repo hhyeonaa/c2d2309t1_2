@@ -38,6 +38,8 @@
 		     , M.MEM_NICK
 		     , IFNULL(M.MEM_IMAGE, "따봉도치.jpg") MEM_IMAGE
 		     , P.PRO_NAME
+		     , P.PRO_TSC
+		     , (SELECT CODE FROM CODE WHERE CONCAT(CO_TYPE, CO_NO) = P.PRO_TSC) PRO_TSC_CODE
 		  FROM CHAT_ROOM C
 		  JOIN PRODUCT P
 		    ON C.PRO_NO = P.PRO_NO
@@ -72,5 +74,11 @@
 		 WHERE CR_NO = #{roomNo}
 		 ORDER BY REAL_TIME DESC;
 	</select>
+	
+	<update id="changePostState" parameterType="map">
+		UPDATE PRODUCT
+		   SET PRO_TSC = #{state}
+		 WHERE PRO_NO = #{proNo}; 
+	</update>
 	
 </mapper>

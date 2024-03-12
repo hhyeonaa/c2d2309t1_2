@@ -32,8 +32,12 @@ public class ChatDAO {
 	}
 
 	public List<Map<String, String>> getChatting(Map<String, String> param) {
-		System.out.println(param);
 		return sqlSession.selectList(namespace + "getChatting", param);
+	}
+
+	public int changePostState(Map<String, String> param) {
+		System.out.println(param);
+		return sqlSession.update(namespace + "changePostState", param);
 	}
 
 }

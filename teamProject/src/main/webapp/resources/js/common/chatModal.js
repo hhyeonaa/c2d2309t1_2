@@ -1,17 +1,6 @@
 document.write('<script type="text/javascript"' + 
 			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
 			   '</script>');
-
-/*
- 해야할 거 
-  소켓 함수 만들기
-  - 방 연결할 때 
- 
-  채팅방 선택하면 소켓 연결
-  
-  채팅한 거 디비 담기
- */
-
 $(()=>{
 	var id = $(".id_session").val();
 	
@@ -50,7 +39,8 @@ var notMyPostChatRoom = (chatRoom) => {
 					'</div>' +
 					'<div class="chatRoomContents">' +
 						'<div class="userNick">['+chatRoom.MEM_NICK+']</div>' +
-						'<div class="postTit">'+chatRoom.PRO_NAME+'</div>' +
+						'<div class="postTit">' + chatRoom.PRO_NAME + '</div>' +
+						'<span class="'+chatRoom.PRO_TSC+'">('+chatRoom.PRO_TSC_CODE+')</span>' + 
 					'</div>' +
 				'</div>'
 }
@@ -79,7 +69,9 @@ var yourChat = (chat) => {
 // ****************** 함수 ****************** 
 // =========== 소켓 함수 ===========
 // 소켓 연결
-let sock = new SockJS(location.origin+"/myapp/chat");
+// console.log(location.origin+"/"+location.pathname.split("/")[1]+"chat");
+// http://localhost:8080/myapp/chat
+let sock = new SockJS(location.origin+"/"+location.pathname.split("/")[1]+"/"+"chat");
 sock.onopen = onOpen;
 sock.onmessage = onMessage;
 sock.onclose = onClose;
@@ -112,18 +104,44 @@ function onClose(evt) {
 
 }
 
-function register (roomNo){ // 메시지 수신을 위한 서버에 id 등록하기
+function register(roomNo){ // 방 등록
 	var msg = {
-		type: "register", //메시지를 구분하는 구분자 - 상대방 아이디와 메시지를 포함해서 보냄
+		type: "register", //메시지를 구분하는 구분자
 		memId: $(".id_session").val(), 
 		roomNo: roomNo
 	};
-	console.log(msg);
 	sock.send(JSON.stringify(msg));
 }
 
-function addMsg(chat){ // 원래 채팅 메세지에 방금 받은 메세지 더해서 설정하기
-	$("#chatBody").append(yourChat(chat))
+function changeState(state, target, roomNo){ // 상태 값 변경
+	var msg = {
+		type: "changeState", //메시지를 구분하는 구분자
+		target: target, 
+		roomNo: roomNo,
+		state: state
+	};
+	sock.send(JSON.stringify(msg));
+}
+
+function addMsg(msg){ // 원래 채팅 메세지에 방금 받은 메세지 더해서 설정하기
+	if(msg.type == "chat"){
+		var chatBody = $("#chatBody");
+		chatBody.append(yourChat(msg));
+		chatBody.scrollTop(999999);
+	}
+	else if(msg.type == "changeState"){
+		$("#pro_tsc").val(msg.state);
+		
+		var changedPost = $("#chatHead").find(".chatRoomContents").attr("id");
+		$("#chatList").find("#"+changedPost+" > .chatRoomContents > span").text("("+$("#pro_tsc option[value="+msg.state+"]").text()+")");
+		
+		// 거래 완료면 평점 버튼 생성 (후추)
+		if(msg.state == "TM3"){
+			console.log("거래완료")
+		}
+	}
+	
+	
 }
 // =========== 소켓 함수 끝 ===========
 
@@ -214,7 +232,7 @@ var createChat = function(proNo, memId){
 };
 
 // 채팅방 입장
-var enterChat = function(proNo, roomNo, target, nickName, title, post){
+var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
 	var disabled;
 	if(post == "yourPost") disabled = "disabled";
 	
@@ -235,10 +253,10 @@ var enterChat = function(proNo, roomNo, target, nickName, title, post){
 									'<span class="material-symbols-outlined reportIcon">notifications_active</span>' +
 								'</div>' +
 								'<div>' +
-									'<select class="form-select" '+disabled+'>' +
-										'<option>거래가능</option>' +
-										'<option>거래중</option>' +
-										'<option>거래완료</option>' +
+									'<select name="pro_tsc" id="pro_tsc" class="form-select" '+disabled+'>' +
+										'<option value="TM1">거래가능</option>' +
+										'<option value="TM2">거래중</option>' +
+										'<option value="TM3">거래완료</option>' +
 									'</select>' +
 								'</div>' +
 								'<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span>' +
@@ -246,6 +264,54 @@ var enterChat = function(proNo, roomNo, target, nickName, title, post){
 	chatHead.empty();						
 	chatHead.append(chatRoomContents);
 	chatHead.append(systemContainer);
+	
+	// 상태 값
+	$("#pro_tsc option[value="+pro_tsc.code+"]").prop("selected", "true");
+	
+	var preState;
+	// 상태 값 변경
+	$("#pro_tsc").on(
+		{focus: function(){
+			preState = $("#pro_tsc option:selected").val();
+		},
+		change: function(){
+			var changedStateTag = $("#pro_tsc option:selected");
+			
+			if(changedStateTag.val() == "TM3"){
+				// 거래 완료를 선택하면 한번 더 확인하기
+				if(!confirm("거래를 완료 후 변경이 불가능 합니다. 그래도 변경하시겠습니까?")){
+					$("#pro_tsc").val(preState)
+					return;
+				}
+			}
+			
+			$.ajax({
+				url: '/' + window.location.pathname.split("/")[1] + '/chat/changePostState',
+				type:"post",
+				data: {
+					proNo: proNo,
+					state: changedStateTag.val()
+				} 
+			})
+			.done(function(result){
+				if(Boolean(result)){
+					if(changedStateTag.val() == "TM3"){
+						$("#pro_tsc").prop("disabled", true);
+						
+						// 상대 평가 버튼 생성
+					}
+					
+					// 내 채팅 리스트에도 상태값 변경
+					var changeTarget = $("#chatList").find("#"+proNo+" > .chatRoomContents span");
+					changeTarget.attr("class", changedStateTag.val());
+					changeTarget.text("("+changedStateTag.text()+")");
+					
+					// 상대방한테도 변경시키기
+					changeState(changedStateTag.val(), target, roomNo)
+				}
+			})
+		}
+	})
 	
 	// --------------------------------------------
 	// chatBody
@@ -333,7 +399,11 @@ var showChatList = function(chatList, post){
 		var nickName = $(this).find(".userNick").text();
 		var title = $(this).find(".postTit").text();
 		var roomNo = $(this).find(".roomNo").attr("id");
-		enterChat(proNo, roomNo, target, nickName, title, post);
+		var pro_tsc = {
+			code:$(this).find(".chatRoomContents > span").attr("class"),
+			code_content:$(this).find(".chatRoomContents > span").text().slice(1,-1),
+		};
+		enterChat(proNo, roomNo, target, nickName, title, pro_tsc, post);
 	})
 }
 

@@ -46,9 +46,8 @@ public class AdminDAO {
 //		return sqlSession.selectList(namesqace + "getBoardList");
 //	}
 
-	public void displayUpdate(Map<String, String> map) {
-		System.out.println("실행되나?: " + sqlSession.update(namesqace + "displayUpdate", map));
-		sqlSession.update(namesqace + "displayUpdate", map);
+	public boolean displayUpdate(List<Map<String, String>> result) {
+		return sqlSession.update(namesqace + "displayUpdate", result) == 1 ? true : false;
 	}
 	
 //	public List<Map<String, String>> getCategoryList() {
@@ -137,13 +136,13 @@ public class AdminDAO {
 	}//
 
 	// 신고리스트 불러오기
-	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
-		return sqlSession.selectList(namesqace + "getReportList", map);
-	}
+	public int insertReport(Map<String, String> map) {
+		return sqlSession.insert(namesqace + "insertReport", map);
+	}//
 	
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
-	}
+	}//
 	
 //	----- 성엽 끝 -----	
 	

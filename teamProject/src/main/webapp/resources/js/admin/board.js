@@ -7,13 +7,7 @@ $(() => {
 	targetColor($('#board_manage'));
 //	paging('#tbody tr', 5, 0);
 
-	var columns = [
-		{
-			name:"SEQ",
-			header:"번호",
-			filter:"number",
-		    sortable: true
-		}, 
+	var columns = [ 
 		{
 			name:"CODE",
 			header:"게시판명",
@@ -26,13 +20,13 @@ $(() => {
 			filter:"text",
 		    sortable: true
 		}, 
-		{
-			name:"",
-			header:"게시판 입력폼"
-		}, 
+//		{
+//			name:"",
+//			header:"게시판 입력폼"
+//		}, 
 		{
 			name:"ACTIVE",
-			header:"활성 상태",
+			header:"사용 여부",
 			filter:"select",
 		    sortable: true,
 			sortingType: 'asc',

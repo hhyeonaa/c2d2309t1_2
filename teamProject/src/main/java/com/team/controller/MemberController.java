@@ -2,16 +2,19 @@ package com.team.controller;
 
 
 import java.io.Console;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -31,6 +34,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +42,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.protobuf.Message;
 import com.mysql.cj.Session;
 import com.team.service.MemberService;
@@ -270,16 +276,31 @@ public class MemberController{
 	
 	@PostMapping("/memberEditPro")
 	@ResponseBody
-	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletRequest request, MultipartFile file) {
+	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, 
+										   HttpServletRequest request, @RequestParam MultipartFile image) throws Exception {
 		System.out.println("MemberController memberEditPro()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		map.put("MEM_ID", MEM_ID);
-		Map<String, String> param = memberService.getMember(MEM_ID, map);
-		System.out.println("에디트프로 : " + map);
+		System.out.println("map : " + map);
+		String[] mapArr = map.get("map").replace("{", "").replace("}", "").split(",");
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		for(String arr : mapArr) {
+			Map<String, String> dataFormat = new HashMap<String, String>();
+			dataFormat.put(arr.split(":")[0].trim(),arr.split(":")[1].trim());
+			list.add(dataFormat);
+			
+		}
+		System.out.println("%%%%%%%%%% : " + list);
 		int memberEdit = memberService.memberEdit(map);
 		ServletContext context = request.getSession().getServletContext();
-	    String realPath = context.getRealPath("/resources/img/uploads");
-	    System.out.println("realPath : " + realPath);
+	    
+	 // 첨부파일 업로드 => pom.xml 프로그램 설치
+ 		// servlet-context.xml에 설정
+ 		// 파일이름 중복 방지 => 랜덤문자_파일이름
+ 		UUID uuid = UUID.randomUUID();
+ 		String filename = uuid.toString() + "_" + image.getOriginalFilename();
+// 		// 원본파일 => 위치/파일이름으로 복사(업로드)
+ 		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
 	    
 		return ResponseEntity.ok().body(memberEdit);
 	}// memberEditPro()
@@ -310,9 +331,19 @@ public class MemberController{
 	}// tradeList()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/likeList")
-	public String likeList() {
-		System.out.println("MemberController likeList()");
+	public String likeList(Model model, HttpSession session) {
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		List<Map<String,String>> likeList = memberService.likeList(MEM_ID);
+		model.addAttribute("likeList", likeList);
 		return "member/likeList";
+	}// likeList()
+//	-----------------------------------------------------------------------------
+	@PostMapping("/deleteLike")
+	@ResponseBody
+	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO, HttpSession session) {
+		System.out.println("MemberController deleteLike()");
+		boolean result = memberService.deleteLike(LIK_NO);
+		return ResponseEntity.ok().body(result);
 	}// likeList()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/salesList")
@@ -326,6 +357,12 @@ public class MemberController{
 		System.out.println("MemberController buyList()");
 		return "member/buyList";
 	}// buyList()
+//	-----------------------------------------------------------------------------
+	@GetMapping("/chatList")
+	public String chatList() {
+		System.out.println("MemberController chatList()");
+		return "member/chatList";
+	}// chatList()
 //	-----------------------------------------------------------------------------
 	@GetMapping("/memberDelete")
 	public String memberDelete() {

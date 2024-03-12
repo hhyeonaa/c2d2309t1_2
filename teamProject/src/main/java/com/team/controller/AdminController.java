@@ -122,24 +122,24 @@ public class AdminController {
  		return null;
  	}
 	
-	@PostMapping("/displayUpdate")
-	@ResponseBody
-	public ResponseEntity<?> displayUpdate(@RequestBody List<Map<String, String>> requestBody) {
-		List<Map<String, String>> arrList = requestBody;
-	    for (Map<String, String> entry : arrList) {
-	        adminService.displayUpdate(entry);
-	        System.out.println(entry);
-	    }
-		return ResponseEntity.ok().body(arrList);
-	}
-	
+//	@PostMapping("/displayUpdate")
+//	@ResponseBody
+//	public ResponseEntity<?> displayUpdate(@RequestBody List<Map<String, String>> requestBody) {
+//		List<Map<String, String>> arrList = requestBody;
+//	    for (Map<String, String> entry : arrList) {
+//	        adminService.displayUpdate(entry);
+//	        System.out.println(entry);
+//	    }
+//		return ResponseEntity.ok().body(arrList);
+//	}
+
 	@GetMapping("/category")
 	public String category(Model model, HttpSession session) {
 		Map<String, String> existingData = new HashMap<String, String>();
 		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
-		
 		model.addAllAttributes(existingData);
-		model.addAttribute("typeList", EnumCodeType.전체코드타입.getKeyList());
+		model.addAttribute("keyList", EnumCodeType.전체코드타입.getKeyList());
+		model.addAttribute("valueList", EnumCodeType.전체코드타입.getValueList());
 		
 		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
 		return "admin/category";
@@ -147,9 +147,10 @@ public class AdminController {
 	
  	@GetMapping("/categoryPro")
  	@ResponseBody
- 	public ResponseEntity<?> readCategory(@RequestParam Map<String, String> req, HttpSession session){
- 		List<Map<String, String>> mapList = codeService.selectCodeList(EnumCodeType.카테고리항목, session);
- 		return ToastUI.resourceData(req, mapList);
+ 	public ResponseEntity<?> readCategory(@RequestParam Map<String, String> param, HttpSession session){
+		List<Map<String, String>> mapList = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+ 		return ToastUI.resourceData(param, mapList);
  	}
  	
  	@PutMapping("/categoryPro")
@@ -157,6 +158,15 @@ public class AdminController {
  	public ResponseEntity<?> updateCategory(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
  		System.out.println(result);
+ 		List<Map<String, String>> newData = new ArrayList<Map<String, String>>();
+ 		result.forEach(t -> {
+			Map<String, String> currentData = new HashMap<String, String>();
+			currentData.put(EnumCodeType.코드번호.getType(), t.get(EnumCodeType.코드번호.getType()));
+			currentData.put(EnumCodeType.코드타입.getType(), t.get(EnumCodeType.코드타입.getType()));
+			newData.add(currentData);
+		});
+
+		adminService.displayUpdate(result);
  		return null;
  	}
  	

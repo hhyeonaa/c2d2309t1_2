@@ -120,4 +120,12 @@ public class MemberService {
 		System.out.println("MemberService resetImage()");
 		memberDAO.resetImage(MEM_ID);
 	}// insertMemeber()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> likeList(String MEM_ID) {
+		return memberDAO.likeList(MEM_ID);
+	}// likeList()
+//	-----------------------------------------------------------------------------	
+	public boolean deleteLike(String LIK_NO) {
+		return memberDAO.deleteLike(LIK_NO);
+	} // deleteLike()
 }// MemberService 클래스

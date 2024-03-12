@@ -1,0 +1,229 @@
+@charset "UTF-8";
+
+.css-pq603g {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    margin-bottom: 16px;
+/*     padding: 17%; */
+}
+
+.css-cpnos0 {
+	min-height: calc(100vh - 52px);
+}
+
+.css-1dk9sr2 {
+    position: relative;
+    width: 100%;
+    min-height: 520px;
+    margin: 0 auto;
+    padding: 0;
+    min-height: calc(100vh - 52px);
+}
+
+@media (min-width: 900px) {
+    .css-1dk9sr2 {
+        padding:0;
+        max-width: calc(100% - 11.25%);
+    }
+}
+
+@media (min-width: 2000px) {
+    .css-1dk9sr2 {
+        max-width:1920px;
+    }
+}
+
+.css-312egs {
+    width: 100%;
+    background-color: #fafafa;
+}
+
+@media (min-width: 900px) {
+    .css-312egs {
+        max-width:520px;
+        margin: 0 auto;
+    }
+}
+
+.css-2fvz7x {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    padding: 24px;
+    padding-top: 10%;
+    background-color: #fff;
+    border-bottom: 1px solid #efefef;
+}
+
+.css-2fvz7x >span:first-of-type {
+    font-size: 18px;
+    font-family: Spoqa Han Sans Neo;
+    font-weight: 500;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.css-2fvz7x >div,.css-2fvz7x >span {
+    font-size: 16px;
+    font-family: Spoqa Han Sans Neo;
+    font-weight: 400;
+    line-height: 21px;
+    text-align: center;
+    margin-bottom: 16px;
+    color: #374456;
+}
+
+.css-2fvz7x >div>pre,.css-2fvz7x >span>pre {
+    margin-top: 8px;
+}
+
+.css-2fvz7x >button {
+    font-size: 12px;
+    font-family: Spoqa Han Sans Neo;
+    font-weight: 700;
+    line-height: 18px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+}
+
+.my_gradient_4 {    background-image: linear-gradient(to left, #f17575, #f8f8ba, #C0F5FB, #b8ceef);    height: 20px;}
+
+.css-pq603g {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 16px;
+}
+
+.css-oyp86 {
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+    border-bottom: 1px solid #efefef;
+}
+
+.css-12ons46 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 24px;
+    height: 40px;
+    background-color: #ffffff;
+}
+
+.css-12ons46>span {
+    font-size: 14px;
+    font-family: Spoqa Han Sans Neo;
+    font-weight: 500;
+}
+
+.css-12ons46>svg {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.css-vqah3m {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 24px;
+    height: 140px;
+    background-color: #ffffff;
+}
+
+.css-vqah3m>span {
+    font-size: 14px;
+    font-family: Spoqa Han Sans Neo;
+    font-weight: 500;
+}
+
+.css-vqah3m>svg {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.chart {
+      width: 400px;
+      height: 20px;
+      background-color: #ededed;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+.bar {
+  height: 100%;
+  background-color: #EAB2A1;
+  transition: width 0.5s;
+  border-radius: 25px;
+}
+
+.label {
+  text-align: center;
+  margin-left: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}
+
+#span01, #span02, #span03, #span04, #span05 {
+	cursor: pointer;
+}
+
+#svg01, #svg02, #svg03, #svg04, #svg05 {
+	cursor: pointer;
+} 

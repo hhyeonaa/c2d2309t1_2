@@ -138,7 +138,9 @@
 		  , MEM_NICK = #{MEM_NICK}
 		  , MEM_PW = #{MEM_PW}
 		  , MEM_TEL = #{MEM_TEL}
-		  , MEM_IMAGE = if(#{MEM_IMAGE} = '', MEM_IMAGE, #{MEM_IMAGE})
+		  <if test="MEM_IMAGE != null">
+		  , MEM_IMAGE = #{MEM_IMAGE}
+		  </if>
 		  , MEM_REDATE = DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 		where 1 = 1
 		and MEM_ID = #{MEM_ID}
@@ -151,7 +153,8 @@
 	</update>
 	
 	<select id="myListSell" parameterType="map" resultType="map">
-		select P.PRO_TSC
+		select P.PRO_TC
+			 , P.PRO_TSC
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
              , C.CODE
@@ -165,6 +168,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM1'
         and M.MEM_ID = #{MEM_ID}
+        and P.PRO_TSC != 'TM3'
         order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
@@ -183,6 +187,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM2'
         and M.MEM_ID = #{MEM_ID}
+        and P.PRO_TSC != 'TM3'
         order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
@@ -201,6 +206,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM3'
         and M.MEM_ID = #{MEM_ID}
+        and P.PRO_TSC != 'TM3'
         order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
@@ -222,6 +228,7 @@
         on A.AUC_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM4'
         and M.MEM_ID = #{MEM_ID}
+        and A.AUC_TSC != 'TM3'
         order by cast(trim(leading 'AU' from AUC_NO) as unsigned) desc;
 	</select>
 	
@@ -272,5 +279,24 @@
 		DELETE FROM LIKES
 		WHERE LIK_NO = #{LIK_NO}
 	</delete>
+	
+	<select id="myTrade" parameterType="map" resultType="map">
+		select P.PRO_TC
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where M.MEM_ID = #{MEM_ID}
+        and P.PRO_TSC = 'TM3'
+        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+	</select>
 	
 </mapper>

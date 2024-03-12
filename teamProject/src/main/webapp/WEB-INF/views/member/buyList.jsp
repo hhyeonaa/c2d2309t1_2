@@ -17,6 +17,17 @@
 	<div class="rounded-5 shadow">
 	<h3 class="title">구매 내역</h3>
 	<hr>
+	<div class="tab_wrap" style="padding-top: 1%;">
+		<label for="tab1" class="on">판매목록</label>
+		<label for="tab2">구매목록</label>
+		<label for="tab3">나눔목록</label>
+		<label for="tab4">경매목록</label>
+	  
+	  	<input type="radio" name="tab" id="tab1">
+		<input type="radio" name="tab" id="tab2">
+		<input type="radio" name="tab" id="tab3">  
+		<input type="radio" name="tab" id="tab4">  
+	</div><!--tab_wrap-->
 	<div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain">
 	  <div class="col">
 	    <div class="card h-100">
@@ -78,6 +89,7 @@
 	    </div>
 	</div>
 	</div>
+</div>
 </div>
 </body>
 

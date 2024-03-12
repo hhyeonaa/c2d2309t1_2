@@ -29,7 +29,7 @@ div{margin:0;}
 
 .tab_wrap{
   overflow:hidden;
-  width: 700px;
+  width: 400px;
   margin:0 auto;
   border-bottom:1px solid #cdcdcd;
 }
@@ -37,7 +37,7 @@ div{margin:0;}
   display:none;
 }
 .tab_wrap label{
-  display:block; float:left; width:25%; height:35px;
+  display:block; float:left; width:50%; height:35px;
   text-align:center;  line-height:35px;
   border-right:1px dotted #cdcdcd;
   cursor:pointer;

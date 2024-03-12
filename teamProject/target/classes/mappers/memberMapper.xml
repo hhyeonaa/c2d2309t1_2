@@ -167,6 +167,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM1'
         and M.MEM_ID = #{MEM_ID}
+        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
 	<select id="myListBuy" parameterType="map" resultType="map">
@@ -185,6 +186,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM2'
         and M.MEM_ID = #{MEM_ID}
+        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
 	<select id="myListShare" parameterType="map" resultType="map">
@@ -203,6 +205,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM3'
         and M.MEM_ID = #{MEM_ID}
+        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
 	<select id="myListAuction" parameterType="map" resultType="map">
@@ -224,6 +227,7 @@
         on A.AUC_NO = I.IMG_PRONO
         where concat(C.CO_TYPE, C.CO_NO) = 'MM4'
         and M.MEM_ID = #{MEM_ID}
+        order by cast(trim(leading 'AU' from AUC_NO) as unsigned) desc;
 	</select>
 	
 	<select id="deleteCheck" resultType="map">

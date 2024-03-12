@@ -112,7 +112,6 @@
 			<if test="MEM_ID != null">AND MEM_ID = #{MEM_ID} </if>
 	</select>
 	
-	
 	<select id="mypage" parameterType="map" resultType="map">
 		select M.MEM_NO
 			 , M.MEM_ID
@@ -152,8 +151,7 @@
 	</update>
 	
 	<select id="myListSell" parameterType="map" resultType="map">
-		select M.MEM_ID
-			 , P.PRO_TSC
+		select P.PRO_TSC
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
              , C.CODE
@@ -170,8 +168,7 @@
 	</select>
 	
 	<select id="myListBuy" parameterType="map" resultType="map">
-		select M.MEM_ID
-			 , P.PRO_TSC
+		select P.PRO_TSC
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
              , C.CODE
@@ -188,8 +185,7 @@
 	</select>
 	
 	<select id="myListShare" parameterType="map" resultType="map">
-		select M.MEM_ID
-			 , P.PRO_TSC
+		select P.PRO_TSC
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
              , C.CODE
@@ -206,8 +202,7 @@
 	</select>
 	
 	<select id="myListAuction" parameterType="map" resultType="map">
-		select M.MEM_ID
-			 , A.AUC_TSC
+		select A.AUC_TSC
 			 , A.AUC_NAME
 			 , A.AUC_SELLER
 			 , format(A.AUC_BP, 0) as "AUC_BP"
@@ -245,4 +240,33 @@
 		set 	MEM_IMAGE = default
 		where 	MEM_ID = #{MEM_ID}
 	</update>
+	
+	<select id="likeList" parameterType="String" resultType="map">
+		SELECT L.LIK_NO
+				, CASE P.PRO_TC WHEN 'MM1' THEN '판매'
+				  			    WHEN 'MM2' THEN '구매'
+				  			    WHEN 'MM3' THEN '나눔'
+				  			    WHEN 'MM4' THEN '경매'
+				  END AS "PRO_TC"
+				, P.PRO_TSC
+				, CASE P.PRO_TSC WHEN 'TM1' THEN '거래가능'
+				  			     WHEN 'TM2' THEN '거래중'
+				  			     WHEN 'TM3' THEN '거래완료'
+				  END AS "PRO_STATE"
+				, P.PRO_NAME
+				, FORMAT(P.PRO_PRICE, 0) AS "PRO_PRICE"
+		        , I.IMG_NAME
+		FROM LIKES L JOIN PRODUCT P
+		ON L.LIK_PRONO = P.PRO_NO
+		JOIN IMAGE I
+		ON L.LIK_PRONO = I.IMG_PRONO
+		WHERE L.MEM_ID = #{MEM_ID}
+		AND I.IMG_NO = '1'
+	</select>
+	
+	<delete id="deleteLike">
+		DELETE FROM LIKES
+		WHERE LIK_NO = #{LIK_NO}
+	</delete>
+	
 </mapper>

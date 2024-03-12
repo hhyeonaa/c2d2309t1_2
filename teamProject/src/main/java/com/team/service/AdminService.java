@@ -42,8 +42,8 @@ public class AdminService {
 //		return adminDAO.getBoardList();
 //	}
 	
-	public void displayUpdate(Map<String, String> map) {
-		adminDAO.displayUpdate(map);
+	public boolean displayUpdate(List<Map<String, String>> result) {
+		return adminDAO.displayUpdate(result);
 	}
 
 //	public List<Map<String, String>> getCategoryList() {

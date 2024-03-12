@@ -511,7 +511,7 @@ public class BoardController {
 	}// insertPreAuction()	
 	
 	@GetMapping("/boardDetail")
-	public String boardDetail(HttpServletRequest request,Model model) {
+	public String boardDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController boardDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
@@ -533,6 +533,11 @@ public class BoardController {
 		System.out.println(imgList);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
+		
+		// 신고하기
+		model.addAttribute("dcm", codeService.selectCodeList(EnumCodeType.신고항목, session));
+		System.out.println(codeService.selectCodeList(EnumCodeType.신고항목, session));
+		
 		return "board/boardDetail";
 	}// boardDetail()
 	

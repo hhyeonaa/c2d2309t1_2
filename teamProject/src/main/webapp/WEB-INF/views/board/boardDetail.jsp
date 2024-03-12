@@ -60,7 +60,7 @@
 <%-- 			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="..."> --%>
 <!-- 			    </div> -->
 			  </div>
-			  	<div class="modal">
+			  	<div class="imgModal">
 				    <div class="modalBox"></div>
 				</div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -93,7 +93,8 @@
 			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
 			 			<td><i class="bi bi-eye"></i> ${resultMap.PRO_HITS}</td>
 			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</td>
+			 			<td><a style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">
+			 			<img src="${pageContext.request.contextPath}/resources/img/board/report.png" >신고하기</a></td>
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
@@ -232,6 +233,36 @@
 		 		</table>
 		 	</div>
 		</div>
+		
+		<!-- 신고하기 모달 -->
+		<div class="modal fade" id="exampleModalReport" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>신고목록</h2>
+					<div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div id="container">
+						<aside>
+							<header>
+								<p class="fs-5">
+									<c:forEach var="dcm" items="${dcm}" varStatus="v">
+										 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br>
+								    </c:forEach>
+							    </p>
+							</header>
+						</aside>
+					</div>
+				</div>
+				<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>
+			</div>
+		</div>
+	</div>
 
 	</div>
 </div>

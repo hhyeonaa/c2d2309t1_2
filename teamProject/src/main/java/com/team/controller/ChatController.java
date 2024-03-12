@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.util.EnumCodeType;
+import com.team.util.ToastUI;
 import com.team.service.AdminService;
 import com.team.service.ChatService;
 import com.team.service.TeamCodeService;
@@ -40,15 +41,15 @@ public class ChatController {
 		return "/chat/chatting";
 	}// chatting()
 	
-	@PostMapping("/chartReport")
+	@PostMapping("/insertReport")
 	@ResponseBody
-	public ResponseEntity<?> chartReport(@RequestParam Map<String, String> map, HttpSession session) {
-		List<Map<String, String>> reportList = adminService.getReportList(map, session);
+	public ResponseEntity<?> insertReport(@RequestParam Map<String, String> map, HttpSession session) {
 		
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
+		map.put("MEM_ID", (String)session.getAttribute("MEM_ID"));
 		System.out.println(map);
-		System.out.println(map.get("rptCode"));
 		
-		return ResponseEntity.ok().body(reportList);
+		return ResponseEntity.ok().body(adminService.insertReport(map));
 	}// chartReport()
 
 	@GetMapping("/roomCheck")

@@ -105,12 +105,10 @@ public class AdminService {
 //	----- 성엽 시작 -----
 	
 	public List<Map<String, String>> getMemberList() {
-		
 		return adminDAO.getMemberList();
 	}//
 
 	public List<Map<String, String>> getContentboardList() {
-		
 		return adminDAO.getContentboardList();
 	}//
 
@@ -139,13 +137,14 @@ public class AdminService {
 	}
 	
 	// 신고리스트 불러오기
-	public List<Map<String, String>> getReportList(Map<String, String> map, HttpSession session) {
-		return adminDAO.getReportList(map, session);
-	}
+	public int insertReport(Map<String, String> map) {
+		return adminDAO.insertReport(map);
+	}//
 	
 	public List<Map<String, String>> getReportList() {
 		return adminDAO.getReportList();
-	}
+	}//
+
 
 //	----- 성엽 끝 -----
 

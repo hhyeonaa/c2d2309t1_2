@@ -6,7 +6,7 @@ td{
 	font-size: 15px;
 }
 /* image modal */
-.modal {
+.imgModal {
     display: none;
     z-index: 500;
     width: 100%;

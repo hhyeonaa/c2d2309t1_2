@@ -58,6 +58,11 @@ public class PayDAO {
 		System.out.println(param);
 		return sqlSession.delete(namespace + ".addDeliveryDelete", param);
 	}
+
+	//판매,결제자 Info select ajax
+	public Map<String, String> getPayInfo(Map<String, String> param) {
+		return sqlSession.selectOne(namespace + ".getPayInfo", param);
+	}
 	
 
 }

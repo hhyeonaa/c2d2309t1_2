@@ -147,7 +147,7 @@ public class PayController {
 	@ResponseBody
 	public ResponseEntity<?> addDeliveryDelete(@RequestParam Map<String, String> param, HttpSession session){
 		System.out.println("ajax addDeliveryDelete");
-		System.err.println(param);
+		System.out.println(param);
 		return ResponseEntity.ok().body(payService.addDeliveryDelete(param));
 	}
 	
@@ -155,10 +155,12 @@ public class PayController {
 	@GetMapping("/payInfo")
 	@ResponseBody
 	public Map<String, String> payInfo(@RequestParam Map<String, String> param,  Model model){
-		System.out.println("PayController addDeliveryUpdate");
-		System.out.println("payInfo" + param);
-		
-		return param; 
+		System.out.println("ajax payInfo");
+//		System.out.println("payInfo" + param);
+		Map<String, String> payInfo = payService.getPayInfo(param);
+		model.addAttribute("payInfo", payInfo);
+		System.out.println(payInfo);
+		return payInfo; 
 	}//
 	
 	

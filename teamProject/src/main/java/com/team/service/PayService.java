@@ -56,6 +56,11 @@ public class PayService {
 	public int addDeliveryDelete(Map<String, String> param) {
 		return payDAO.addDeliveryDelete(param);
 	}
+	
+	//판매,결제자 Info select ajax
+	public Map<String, String> getPayInfo(Map<String, String> param) {
+		return payDAO.getPayInfo(param);
+	}
 
 
 //	// 배송지 저장

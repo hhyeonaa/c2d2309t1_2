@@ -1,3 +1,7 @@
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+			   '</script>');
+
 var excel = (state, tableName) => {
 	$("#grid").before('<div id="excel"></div>');
 	if(state == 'download' || state == 'updownload'){
@@ -98,10 +102,10 @@ var excel = (state, tableName) => {
 				data: formData,
 			})
 			.done(function(data){
-				
+				if(Boolean(data)){
+					alertMsg("AM14", ["데이터"]);
+				}
 			})
-			
-			debugger;
 			
 		})
 	}

@@ -50,12 +50,7 @@ public class ExcelController {
 		insertData.put("tableName", tableName);
 		insertData.put("uploadData", uploadData);
 		
-		System.out.println(insertData);
-		
-		int result = excelService.insertData(insertData);
-		System.out.println(result);
-		
-		return null;
+		return  ResponseEntity.ok().body(excelService.insertData(insertData));
 	}
 	
 	

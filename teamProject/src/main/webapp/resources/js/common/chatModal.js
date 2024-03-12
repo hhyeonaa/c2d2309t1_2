@@ -30,7 +30,9 @@ var notMyPostChatRoom = (chatRoom) => {
 	return '<div class="chatRoom notMyPost" id="'+chatRoom.PRO_NO+'">' +
 					'<input type="hidden" class="roomNo" id='+chatRoom.CR_NO+'>' +
 					'<input type="hidden" class="target" id='+chatRoom.MEM_ID+'>' +
-					'<div style="font-size: 10px;">'+chatRoom.MEM_IMAGE+'</div>' +
+					'<div class="profileImgBox" style="font-size: 10px;">' +
+						'<img class="profileImg" alt="프로필 사진" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/uploads/'+chatRoom.MEM_IMAGE+'">'+
+					'</div>' +
 					'<div class="chatRoomContents">' +
 						'<div class="userNick">['+chatRoom.MEM_NICK+']</div>' +
 						'<div class="postTit">'+chatRoom.PRO_NAME+'</div>' +
@@ -49,7 +51,7 @@ var myChat = (sendMsg, time) => {
 
 var yourChat = (chat) => {
 	return '<div class="your Chat">' +
-				'<div>['+chat.nickName+']</div>' +
+				'<div class="nick">['+chat.nickName+']</div>' +
 				'<div class="flexBox">' +
 					'<div class="chatContent">'+chat.message+'</div>' +
 					'<div class="chatTime">'+chat.time+'</div>' +
@@ -114,6 +116,10 @@ function addMsg(chat){ // 원래 채팅 메세지에 방금 받은 메세지 더
 // 모달 열기
 var modalToggle = 0;
 var openModal = function(id){
+	if(sock == null){
+		alertMsg("AM16", ["연결"]);
+		return;
+	}
 	
 	// 토글 on
 	if(!modalToggle){
@@ -175,7 +181,7 @@ var roomCheck = function(proNo, memId){
 			openModal(memId);				
 		}
 		else { // 채팅이 없을 경우
-			if(alertMsg("AM1", ["채팅을 시작하시겠습니까?"], true)){
+			if(alertMsg("AM15", ["채팅"], true)){
 				createChat(proNo, memId);
 			}
 		}
@@ -219,8 +225,7 @@ var enterChat = function(proNo, roomNo, target, nickName, title, post){
 	// chatHead
 	var chatHead = $("#chatHead");
 	
-	var chatRoomContents = '<div>이미지</div>'+
-							'<div class="chatRoomContents" id='+proNo+'>'+
+	var chatRoomContents = '<div class="chatRoomContents" id='+proNo+'>'+
 								'<input type="hidden" class="target" id='+target+'>' +
 								'<div class="userNick">'+nickName+'</div>'+
 								'<div class="postTit">'+title+'</div>'+

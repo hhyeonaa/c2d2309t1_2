@@ -99,6 +99,17 @@
 	background: #e7f5ff;
 }
 
+.profileImgBox{
+	margin-left: 10px;
+	display: flex;
+    align-items: center; 
+}
+
+.profileImg{
+	width: 35px;
+	height: 35px;
+}
+
 .chatRoomContents{
 	display: flex;
     flex-direction: column;
@@ -137,6 +148,16 @@
 	box-shadow: 0px 1px #d8d8d8;
 	display: flex;
 	justify-content: flex-end
+}
+
+#chatHead > .chatRoomContents > .userNick{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#chatHead > .chatRoomContents > .postTit{
+	font-size: 30px;
+	font-weight: bold;
 }
 
 #systemContainer{
@@ -206,6 +227,10 @@
 
 .Chat + .Chat {
 	padding: 10px 20px 10px 20px;
+}
+
+.nick{
+	font-weight: bold;
 }
 
 .chatTime{

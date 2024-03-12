@@ -23,6 +23,21 @@ $(()=>{
 		closeModal();
 	})
 	
+	// 내가 건 채팅 불러오기
+	$("#yourPostChat").on("click", function(){
+		$("#myPostChat").removeClass("on");
+		$("#yourPostChat").addClass("on");
+		
+		getChat(id, "yourPost");
+	})
+	
+	// 내 게시물 채팅 불러오기
+	$("#myPostChat").on("click", function(){
+		$("#yourPostChat").removeClass("on");
+		$("#myPostChat").addClass("on");
+		
+		getChat(id, "myPost");
+	})
 })
 
 // ****************** 변수 ****************** 
@@ -129,22 +144,6 @@ var openModal = function(id){
 		getChat(id, "yourPost");
 		
 		$("#chatModal").css("display", "block");
-		
-		// 내가 건 채팅 불러오기
-		$("#yourPostChat").on("click", function(){
-			$("#myPostChat").removeClass("on");
-			$("#yourPostChat").addClass("on");
-			
-			getChat(id, "yourPost");
-		})
-		
-		// 내 게시물 채팅 불러오기
-		$("#myPostChat").on("click", function(){
-			$("#yourPostChat").removeClass("on");
-			$("#myPostChat").addClass("on");
-			
-			getChat(id, "myPost");
-		})
 		
 		// 토글 off
 		modalToggle--;

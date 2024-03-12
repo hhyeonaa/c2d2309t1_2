@@ -66,7 +66,9 @@
 			</div>
 			<div id="chatList">
 				<div class="chatRoom myPost" id="PR23">
-					<div>이미지</div>
+					<div>
+						<img alt="프로필 사진" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg">
+					</div>
 					<div class="chatRoomContents">
 						<div class="userNick">[닉네임]</div>
 						<div class="postTit">내 게시물 제목</div>

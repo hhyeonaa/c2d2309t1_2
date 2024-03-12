@@ -1,3 +1,7 @@
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+			   '</script>');
+
 var excel = (state, tableName) => {
 	$("#grid").before('<div id="excel"></div>');
 	if(state == 'download' || state == 'updownload'){
@@ -8,7 +12,7 @@ var excel = (state, tableName) => {
 									    	+'<span class="font_blod_13px">※필터 나중에 생기면 추가</span>'
 								    	+'</div>'
 								    	+'<div class="btnBox">'
-									    	+'<button class="btn btn-primary uLBtn btnSize">다운로드</button>'
+									    	+'<button class="btn btn-primary dLBtn btnSize">다운로드</button>'
 								    	+'</div>'
 								    +'</div>'
 							    +'</div>';
@@ -24,6 +28,30 @@ var excel = (state, tableName) => {
 			else {
 				$(".excelDownloadModalBox").css("display", "none");
 			}
+		})
+		
+		$(".dLBtn").on("click", function(){
+			var startNum = 2;
+			var endNum = undefined;
+			
+//			if ($("#grid").find("th").eq(2).text() == '번호'){
+//				startNum = 3;
+//			}
+			if ($("#grid").find("th").eq(-1).text() == '삭제'){
+				endNum = -1;
+			}
+			
+			var th = $("#grid").find("th").slice(startNum, endNum)
+			var title = [];
+			var colName = [];
+			
+			for(var i=0; i<th.length; i++){
+				colName.push(th.eq(i).attr('data-column-name'));
+				title.push(th.eq(i).text());
+			}
+			
+			console.log(title);
+			console.log(colName);
 		})							    
 	}
 	
@@ -61,26 +89,7 @@ var excel = (state, tableName) => {
 		
 		// 양식 다운로드
 		$(".excelDLBtn").on("click", function(){
-			var startNum = 2;
-			var endNum = undefined;
-			
-			if ($("#grid").find("th").eq(2).text() == '번호'){
-				startNum = 3;
-			}
-			if ($("#grid").find("th").eq(-1).text() == '삭제'){
-				endNum = -1;
-			}
-			
-			var th = $("#grid").find("th").slice(startNum, endNum)
-			var title = [];
-			var colName = [];
-			
-			for(var i=0; i<th.length; i++){
-				colName.push(th.eq(i).attr('data-column-name'));
-				title.push(th.eq(i).text());
-			}
-			
-			location.href=encodeURI('/' + window.location.pathname.split("/")[1] + "/excel/formExcelDL?head="+title+"&colName="+colName);
+			location.href=encodeURI('/' + window.location.pathname.split("/")[1] + "/excel/formExcelDL?tableName="+tableName);
 		})
 		
 		// 엑셀 업로드 버튼
@@ -98,11 +107,10 @@ var excel = (state, tableName) => {
 				data: formData,
 			})
 			.done(function(data){
-				
+				if(Boolean(data)){
+					alertMsg("AM14", ["데이터"]);
+				}
 			})
-			
-			debugger;
-			
 		})
 	}
 	

@@ -176,15 +176,16 @@
 		WHERE PRO_NO = #{proNo}	
 	</update>
 	<select id="selectAuction" parameterType="map" resultType="map">
-		SELECT AUC_NO,AUC_SELLER,AUC_NAME,AUC_BP,AUC_DATE,IMG_NAME
-			  ,CODE_TC.CODE AS AUC_TC_CODE, CODE_TSC.CODE AS AUC_TSC_CODE
+		SELECT AUC_NO, AUC_SELLER, AUC_NAME, AUC_BP, AUC_DATE, IMG_NAME, AUC_ETIME,
+		       CODE_TC.CODE AS AUC_TC_CODE, CODE_TSC.CODE AS AUC_TSC_CODE
 		  FROM AUCTION
 		  JOIN IMAGE ON AUC_NO = IMG_PRONO
 		  JOIN CODE AS CODE_TC ON AUC_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
 		  JOIN CODE AS CODE_TSC ON AUC_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
-	       AND AUC_TC = #{aucTc}
-	     WHERE IMG_NO = 1
-		 ORDER BY AUC_DATE DESC				
+		  WHERE AUC_TC = #{aucTc}
+			AND IMG_NO = '1'
+			AND STR_TO_DATE(LEFT(AUC_ETIME, 8), '%Y%m%d') >= now()
+		  ORDER BY AUC_DATE DESC				
 	</select>
 	<update id="aucHits" parameterType="map">
 		UPDATE AUCTION
@@ -221,5 +222,14 @@
 			  ,AUC_STATUS = #{aucStatus}
 		 WHERE AUC_NO = #{aucNo}
 	</update>
+	
+	<select id="getRelatedCateImg" parameterType="map" resultType="map">
+		SELECT IMG_CATE, PRO_NO, IMG_NAME, PRO_TC, PRO_WR, PRO_DATE
+		  FROM IMAGE JOIN PRODUCT
+			ON IMG_PRONO = PRO_NO
+		 WHERE IMG_CATE = #{proCate} AND IMG_NO = '1' AND PRO_TC = #{proTc} AND PRO_NO != #{proNo}
+		 ORDER BY PRODUCT.PRO_DATE DESC
+		 LIMIT 0, 7
+	</select>
 	
 </mapper>

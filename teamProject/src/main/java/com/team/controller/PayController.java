@@ -66,7 +66,7 @@ public class PayController {
 		map.put("proDate", proDate);
 		
 		Map<String, String> payProList = payService.getPayProList(map);
-		
+		System.out.println("payProList" + payProList);
 		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
 		model.addAttribute("payPrice",payPrice);
 		model.addAttribute("payProList",payProList);
@@ -124,7 +124,7 @@ public class PayController {
 		System.out.println(param);
 		Map<String, String> addUpList = payService.getaddDelivery(param);
 		model.addAttribute("addUpList", addUpList);
-		System.out.println(addUpList);
+		System.out.println("업리스트 : " + addUpList);
 		return addUpList;
 	}//addDeliveryUpdate()
 	
@@ -136,6 +136,7 @@ public class PayController {
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		param.put("MEM_ID", MEM_ID);
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
+		System.out.println("asda" + param2);
 		param.put("MEM_NO", param2.get("MEM_NO"));
 		System.out.println(param);
 		return  ResponseEntity.ok().body(payService.addDeliveryUpdate1(param));
@@ -146,9 +147,21 @@ public class PayController {
 	@ResponseBody
 	public ResponseEntity<?> addDeliveryDelete(@RequestParam Map<String, String> param, HttpSession session){
 		System.out.println("ajax addDeliveryDelete");
-		System.err.println(param);
+		System.out.println(param);
 		return ResponseEntity.ok().body(payService.addDeliveryDelete(param));
 	}
+	
+	//판매,결제자 Info select ajax
+	@GetMapping("/payInfo")
+	@ResponseBody
+	public Map<String, String> payInfo(@RequestParam Map<String, String> param,  Model model){
+		System.out.println("ajax payInfo");
+//		System.out.println("payInfo" + param);
+		Map<String, String> payInfo = payService.getPayInfo(param);
+		model.addAttribute("payInfo", payInfo);
+		System.out.println(payInfo);
+		return payInfo; 
+	}//
 	
 	
 	@GetMapping("/completepay")

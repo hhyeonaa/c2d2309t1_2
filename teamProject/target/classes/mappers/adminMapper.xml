@@ -69,11 +69,14 @@
 <!-- 	</select> -->
 	
 	<update id="displayUpdate">
+		<foreach collection="list" item="code" open="" close="" separator=";">
 		update CODE
-		set    ACTIVE = #{ACTIVE}
-		      , SEQ = #{SEQ}
-		where  CO_TYPE = #{CO_TYPE}
-		and	   CODE = #{CODE}
+		   set CODE = #{code.CODE}
+		   	 , ACTIVE = #{code.ACTIVE}
+		 where 1 = 1
+		   and CO_TYPE = #{code.CO_TYPE}
+		   and CO_NO = #{code.CO_NO} 
+		</foreach>	
 	</update>
 	
 <!-- 	<select id="getCategoryList" resultType="map"> -->
@@ -251,7 +254,7 @@
 			  , MEM_DATE
 			  , (select COUNT(*)
 				  from REPORT
-				 where RPT_USER_IDX = MEM_ID) as COUNT
+				 where RPT_USER_NO = MEM_NO) as COUNT
 			  , MEM_CAT
 		  from MEMBERS
 		 ORDER BY MEM_NO;
@@ -307,28 +310,36 @@
 		where PRO_NO = #{PRO_NO}
 	</delete>
 	
-<!-- 	<select id="getReportList" resultType="map"> -->
-<!-- 		select  -->
-<!-- 			   RPT_IDX -->
-<!-- 			 , USER_IDX -->
-<!-- 			 , RPT_USER_IDX -->
-<!-- 			 , RPT_SELECT -->
-<!-- 			 , RPT_TIME -->
-<!-- 		from REPORT -->
-<!-- 		ORDER BY RPT_IDX DESC -->
-<!-- 	</select> -->
-
 	<select id="getReportList" resultType="map">
 		select 
-			   RPT_IDX
-			 , USER_IDX
-			 , RPT_USER_IDX
-			 , RPT_SELECT
-			 , RPT_TIME
+			   RPT_NO
+			 , USER_NO
+			 , (select MEM_ID from MEMBERS WHERE MEM_NO = RPT_USER_NO) RPT_USER_NO
+			 , CODE
+			 , date_format(RPT_TIME, '%Y-%m-%d %H:%I:%S') as RPT_TIME
 		from REPORT
-		ORDER BY RPT_IDX DESC
+		join CODE
+		  on RPT_SELECT = concat(CO_TYPE, CO_NO)
+		ORDER BY RPT_NO DESC
 	</select>
 	
+	<insert id="insertReport" parameterType="map">
+		insert INTO REPORT
+			 ( RPT_NO
+			 , USER_NO
+			 , RPT_USER_NO
+			 , RPT_SELECT
+			 , RPT_TIME)
+		values(
+			  (SELECT *
+				 FROM (SELECT IFNULL(MAX(CAST(RPT_NO as unsigned)), 0) + 1
+						 FROM REPORT) A)
+			, #{MEM_ID}
+			, #{rptUserIdx}
+			, #{rptCode}
+			, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'))
+	</insert>
+	<!-- {rptUserIdx=MEM1, rptCode=DCM1, MEM_ID=chat01} -->
 
 
 

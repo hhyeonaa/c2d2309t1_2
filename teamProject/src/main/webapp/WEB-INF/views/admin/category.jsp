@@ -12,82 +12,82 @@
 <link href="${pageContext.request.contextPath}/resources/css/admin/category.css" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
-
-<script type="text/javascript">
-var a = '${typeList}';
-
-</script>
-
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container">
 
+
+	<input type="hidden" value="${CODE}" id="selectListItem">
 	<div style="display: flex; justify-content: flex-start; padding-bottom: 50px;" id="selectCodeBtn">
-		<c:forEach var="item" items="${typeList}">
-			<button type="button" class="btn btn-outline-primary">${item.key}</button><br><br>
+		<c:forEach var="items" items="${keyList}">
+			<c:if test="${items.key != '메뉴항목'}">
+				<button type="button" class="btn btn-outline-primary">${items.key}</button>
+			</c:if>
 		</c:forEach>
 	</div>
 
 
-    <div class="row align-items-center mb-4">
-        <div><h4 class="card-title"><b>현재 저장된 카테고리</b></h4></div>
-    </div>
-    <div class="preview mb-5 ps-3">
-		<div class="navbar navbar-expand-lg">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-justified" id="category-ul">
-				<li class="nav-item mt-2">
-					<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M4.167 5.417h11.666M4.167 10h11.666M4.167 14.584h11.666" stroke="#000" stroke-linecap="round"></path>
-					</svg>
-				</li>
-				<c:forEach var="category" items="${category}">
-					<c:if test="${category.ACTIVE eq '1'}">
-						<li id="category-li">
-							<a class="nav-link" href="#">${category.CODE }</a>
-						</li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</div>
-   </div> 
+<!--     <div class="row align-items-center mb-4"> -->
+<!--         <div><h4 class="card-title"><b>현재 저장된 카테고리</b></h4></div> -->
+<!--     </div> -->
+<!--     <div class="preview mb-5 ps-3"> -->
+<!-- 		<div class="navbar navbar-expand-lg"> -->
+				
+<!-- 		    <select class="form-select" aria-label="boardSelect"> -->
+<%-- 		      	<c:forEach var="category" items="${category}"> --%>
+<%-- 		      		<c:if test="${category.ACTIVE eq '1'}"> --%>
+<%-- 		      			<option value="${category.CO_NO }">${category.CODE }</option> --%>
+<%-- 		      		</c:if> --%>
+<%-- 	          	</c:forEach> --%>
+<!-- 	        </select> -->
+				
+<%-- <%-- 				<c:forEach var="category" items="${category}"> --%>
+<%-- <%-- 					<c:if test="${category.ACTIVE eq '1'}"> --%>
+<!-- <!-- 						<li id="category-li"> -->
+<%-- <%-- 							<a class="nav-link" href="#">${category.CODE }</a> --%>
+<!-- <!-- 						</li> -->
+<%-- <%-- 					</c:if> --%>
+<%-- <%-- 				</c:forEach> --%>
+<!-- 		</div> -->
+<!--    </div>  -->
    
-    <div class="row align-items-center mt-5 mb-4">
-        <div><h4 class="card-title"><b>카테고리 설정</b></h4></div>
-    </div>
-    <div class="cateEdit mb-4">
-		<table id="categoryList" class="table align-middle text-center mb-4">
-			<thead class="tableHr">
-				<tr>
-					<th scope="col" >카테고리명</th>
-					<th scope="col">순서</th>
-					<th scope="col">사용 여부</th>
-				</tr>
-			</thead>
-			<tbody class="tableHr">
-				<c:forEach var="category" items="${category}">
-					<tr>
-						<td>${category.CODE }</td>
-						<td>
-							<button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button>
-						</td>
-						<td>
-							<c:if test="${category.ACTIVE eq '1'}">
-								<input class="form-check-input" type="checkbox" id="active" checked>
-                           	</c:if>
-                      		<c:if test="${category.ACTIVE eq '0'}">
-								<input class="form-check-input" type="checkbox" id="active">
-                           	</c:if>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div align="center">
-			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
-			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
-	    </div>
-    </div>
+<!--     <div class="row align-items-center mt-5 mb-4"> -->
+<!--         <div><h4 class="card-title"><b>카테고리 설정</b></h4></div> -->
+<!--     </div> -->
+<!--     <div class="cateEdit mb-4"> -->
+<!-- 		<table id="categoryList" class="table align-middle text-center mb-4"> -->
+<!-- 			<thead class="tableHr"> -->
+<!-- 				<tr> -->
+<!-- 					<th scope="col" >카테고리명</th> -->
+<!-- 					<th scope="col">순서</th> -->
+<!-- 					<th scope="col">사용 여부</th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+<!-- 			<tbody class="tableHr"> -->
+<%-- 				<c:forEach var="category" items="${category}"> --%>
+<!-- 					<tr> -->
+<%-- 						<td>${category.CODE }</td> --%>
+<!-- 						<td> -->
+<!-- 							<button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button> -->
+<!-- 						</td> -->
+<!-- 						<td> -->
+<%-- 							<c:if test="${category.ACTIVE eq '1'}"> --%>
+<!-- 								<input class="form-check-input" type="checkbox" id="active" checked> -->
+<%--                            	</c:if> --%>
+<%--                       		<c:if test="${category.ACTIVE eq '0'}"> --%>
+<!-- 								<input class="form-check-input" type="checkbox" id="active"> -->
+<%--                            	</c:if> --%>
+<!-- 						</td> -->
+<!-- 					</tr> -->
+<%-- 				</c:forEach> --%>
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+<!-- 		<div align="center"> -->
+<!-- 			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button> -->
+<!-- 			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button> -->
+<!-- 	    </div> -->
+<!--     </div> -->
     
     <div class="btn-wrapper">
 		<select name="perPage" id="setPerpage">

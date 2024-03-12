@@ -39,7 +39,7 @@
             </select>
         </div>
         <!-- 각 카드를 이 위치에 반복 배치 -->
-        <div class="col">
+        <div class="col boardlist">
             <div class="card h-100">
                 <a href="${pageContext.request.contextPath}/board/boardDetail"><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."></a>
                 <div class="card-body">
@@ -53,7 +53,7 @@
 
         <!-- 여기까지 반복 -->
 		<c:forEach var="map" items="${resultList}">
-	        <div class="col">
+	        <div class="col boardlist">
 	            <div class="card h-100">
 	                <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
 	                <div class="card-body">

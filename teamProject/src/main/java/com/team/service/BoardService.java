@@ -129,5 +129,11 @@ public class BoardService {
 		boardDAO.updateAuction(parsedMap,imageFilenames);
 	}// updateAuction()
 
+	public List<Map<String, String>> getRelatedCateImg(Map<String, String> map) {
+		System.out.println("BoardService getRelatedCateImg()");
+		return boardDAO.getRelatedCateImg(map);
+	}// getRelatedCateImg()
+
+
 
 }// BoardService 끝

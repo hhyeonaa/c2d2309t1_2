@@ -1,13 +1,9 @@
 package com.team.chat;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -47,8 +43,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	@Override
 		// 메세지 수신 후 실행 메서드
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		System.out.println();
 		System.out.println("TextWebSocketHandler : 메시지 수신");
-		System.out.println("메시지 : " + message.getPayload());
+		// System.out.println("메시지 : " + message.getPayload());
 		
 		JSONObject object = new JSONObject(message.getPayload());
 		String type = object.getString("type");
@@ -68,9 +65,32 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			currentRoom.put(memId, session);
 			roomMap.put(roomNo, currentRoom);
 			
-			System.out.println("roomMap : " + roomMap);
-			System.out.println("currentRoom : " + currentRoom);
+			// System.out.println("@@@@@@@@@@" + roomNo + "번 방 입장@@@@@@@@@@");
+			// System.out.println("roomMap : " + roomMap);
+			// System.out.println("currentRoom : " + currentRoom);
+			// System.out.println("현재 생성된 방들 : " + roomMap.keySet());
 			
+			for(String rooms : roomMap.keySet()) {
+				// System.out.println("rooms : " + rooms + " for문 시작");
+				if(rooms.equals(roomNo)) {
+					// System.out.println("현재 방 [" + rooms + "]번은 생략");
+					continue;
+				}
+				
+				Map<String, WebSocketSession> currentMap = roomMap.get(rooms);
+				System.out.println(rooms + "번 방에 있는 멤버 : " + currentMap.keySet());
+				for(String id : currentMap.keySet()) {
+					// System.out.println(id + " 검사함");
+					if(currentMap.get(id) == session) {
+						// System.out.println("["+ rooms + "]번 방 : " + roomMap.get(rooms));
+						roomMap.get(rooms).remove(id, session);
+						// System.out.println("["+ rooms + "]번 방의 {" + id+ "}를 지움");
+						break;
+					}
+				};
+			};
+			
+			// System.out.println("for문 이후 "+roomNo+"번 방 : " + currentRoom);
 			
 		} 
 		else if (type != null && type.equals("chat")) {
@@ -79,7 +99,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 						   "\",\"message\":\""+object.getString("message")+
 						   "\",\"time\":\""+object.getString("time")+"\"}";
 			String target = object.getString("target");
-
+			
+			System.out.println("현재 방 상태 : " + roomMap.get(roomNo));
+			
 			// 상대한테 보내기
 			WebSocketSession ws = roomMap.get(roomNo).get(target);
 			if(ws != null && ws != session) {
@@ -92,6 +114,16 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 연결 해제 후 실행 메서드
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("TextWebSocket : 연결 종료!");
+		
+		for(String roomNo : roomMap.keySet()) {
+			Map<String, WebSocketSession> currentMap = roomMap.get(roomNo);
+			for(String memId : currentMap.keySet()) {
+				if(currentMap.get(memId) == session) {
+					roomMap.get(roomNo).remove(memId);
+				}
+			};
+		};
+		
 		// users.remove(session);
 	}
 	

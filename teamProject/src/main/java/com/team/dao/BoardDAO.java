@@ -185,7 +185,12 @@ public class BoardDAO {
 		sqlSession.insert(NAMESPACE+".insertImgs", allMap);//	이미지 테이블에 다시 이미지 넣기
 	    sqlSession.update(NAMESPACE+".updateAuction", parsedMap);
 	}// updateAuction()
-	
+
+	public List<Map<String, String>> getRelatedCateImg(Map<String, String> map) {
+		System.out.println("BoardDAO getRelatedCateImg()");
+		return sqlSession.selectList(NAMESPACE + ".getRelatedCateImg", map);
+	}
+
 	
 
 }// BoardDAO 끝

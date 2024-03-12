@@ -99,6 +99,17 @@
 	background: #e7f5ff;
 }
 
+.profileImgBox{
+	margin-left: 10px;
+	display: flex;
+    align-items: center; 
+}
+
+.profileImg{
+	width: 35px;
+	height: 35px;
+}
+
 .chatRoomContents{
 	display: flex;
     flex-direction: column;
@@ -139,6 +150,16 @@
 	justify-content: flex-end
 }
 
+#chatHead > .chatRoomContents > .userNick{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#chatHead > .chatRoomContents > .postTit{
+	font-size: 30px;
+	font-weight: bold;
+}
+
 #systemContainer{
 	display: flex;
     flex-direction: column;
@@ -157,8 +178,12 @@
 }
 
 #chatBody{
-	height: auto;
-	
+	height: 75%;
+	overflow-y: auto;
+}
+
+#chatBody::-webkit-scrollbar {
+  display: none;
 }
 
 #chatBody:has(#chatChoicePlease){
@@ -202,6 +227,10 @@
 
 .Chat + .Chat {
 	padding: 10px 20px 10px 20px;
+}
+
+.nick{
+	font-weight: bold;
 }
 
 .chatTime{

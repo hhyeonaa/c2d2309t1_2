@@ -155,7 +155,7 @@
 			 ,#{buyer_tel}
 			 ,#{merchant_uid}
 			 ,#{name}
-			 ,#{amount}
+			 ,#{paid_amount}
 			 ,#{success}
 <!-- 			 ,#{TRANSACTION_METHOD} -->
 			 )

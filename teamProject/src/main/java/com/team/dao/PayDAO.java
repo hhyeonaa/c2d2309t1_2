@@ -66,6 +66,7 @@ public class PayDAO {
 
 	//결제 성공 후 PAY테이블 insert
 	public int paySuccess(Map<String, String> param) {
+		System.out.println(param);
 		return sqlSession.insert(namespace + ".paySuccess", param);
 	}
 	

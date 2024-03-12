@@ -70,12 +70,15 @@ var requestPay = (pgId) => {
 							rsp["SELLER_NO"] = data.SELLER;
 							rsp["BUYER_NO"] = $('#MEM_NO').val();;
 							rsp["PRO_NO"] = $('#PRO_NO').val();
+							
+							//var newData = {};
+							//newData.imp_uid = rsp.imp_uid
 							debugger;
 							console.log(rsp);
 							 $.ajax({
 								 type: "post",
 								 url: "paySuccess",
-								 data: {rsp : JSON.stringify(rsp)}   
+								 data: rsp
 							 })//ajax
 							  
 						  	}else{
@@ -204,7 +207,7 @@ var payCheck = $('.nonCheck')
 //var payMethod1 = $('.check').attr('value');	
 
 var pgId = "";
-var paypayMethod="";
+//var paypayMethod="";
 
 $('#tossPay').on("click", () =>{
 	pgId="tosspay.tosstest";

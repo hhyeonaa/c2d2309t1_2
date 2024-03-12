@@ -126,10 +126,10 @@
 			 ,BUYER_NO
 			 ,SELLER_NO
 			 ,PRO_NO
-<!-- 			 ,AUC_NO   -->
+<!--  			 ,AUC_NO    -->
 			 ,PAY_METHOD 
 			 ,CARD_NAME  
-			 ,PAY_MSG  
+<!-- 			 ,PAY_MSG   -->
 			 ,BUYER_ADDR 
 			 ,BUYER_NAME 
 			 ,BUYER_POSTCODE  
@@ -138,17 +138,27 @@
 			 ,NAME  
 			 ,PAID_AMOUNT  
 			 ,SUCCESS 
-			 ,TRANSACTION_METHOD)
+<!-- 			 ,TRANSACTION_METHOD -->
+			 )
 		VALUES
 			((CONCAT("PAY", IFNULL( (SELECT MAX(CAST(REPLACE(PAY_NO,"PAY", "") AS UNSIGNED)) + 1 FROM PAY A) , 1)))
 			 ,#{BUYER_NO}
 			 ,#{SELLER_NO}
 			 ,#{PRO_NO}
-<!-- 			 ,#{AUC_NO}  -->
-			 ,#{}
-			
-			);
-	
+<!--  			 ,#{AUC_NO}   -->
+			 ,#{pay_method}
+			 ,#{card_name}
+<!-- 			 ,#{PAY_MSG} -->
+			 ,#{buyer_addr}
+			 ,#{buyer_name}
+			 ,#{buyer_postcode}
+			 ,#{buyer_tel}
+			 ,#{merchant_uid}
+			 ,#{name}
+			 ,#{amount}
+			 ,#{success}
+<!-- 			 ,#{TRANSACTION_METHOD} -->
+			 )
 	</insert>
 	
 	

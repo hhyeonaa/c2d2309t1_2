@@ -21,7 +21,7 @@ function selectMethod(){
 
 // 4. 결제 api
 var IMP = window.IMP;
-var requestPay = (pgId, paypayMethod) => {
+var requestPay = (pgId) => {
 	IMP.init("imp34662564"); //가맹점 식별코드
 //       
  		//판매자 구매자 정보 가져오기 ajax
@@ -48,10 +48,10 @@ var requestPay = (pgId, paypayMethod) => {
 			        
 					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
 			        var productname = $("#payProName").text().trim();//제품name
-			 		var sellerNo = data.SELLER // 판매자 MEM_NO
-			 		var buyerNO = $('#MEM_NO').val(); //결제자 MEM_NO
-			 		var proNo =  $('#PRO_NO').val();
-//			        var msg = 
+			 		//var sellerNo = data.SELLER // 판매자 MEM_NO
+			 		//var buyerNO = $('#MEM_NO').val(); //결제자 MEM_NO
+			 		//var proNo =  $('#PRO_NO').val();
+			        //var msg = ??
 			        
 			        debugger;
 			       	IMP.request_pay({
@@ -60,7 +60,6 @@ var requestPay = (pgId, paypayMethod) => {
 			  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
-				 		//buyer_email: "test@portone.io",
 			  			buyer_name: data.BUYNAME, //결제자 이름 
 			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
 			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
@@ -68,16 +67,16 @@ var requestPay = (pgId, paypayMethod) => {
 					}, function (rsp) { // callback 로직
 			  			if(rsp.success){ //결제 성공
 							debugger;
-							rsp["SELLER_NO"] = sellerNO;
-							rsp["BUYER_NO"] = buyerNO;
-							rsp["PRO_NO"] = proNo;
+							rsp["SELLER_NO"] = data.SELLER;
+							rsp["BUYER_NO"] = $('#MEM_NO').val();;
+							rsp["PRO_NO"] = $('#PRO_NO').val();
 							debugger;
 							console.log(rsp);
-			//				  $.ajax({
-			//					  type: "post",
-			//					  url: "paySuccess",
-			//					  data: {JSON.stringify(rsp)}   
-			//				  })//ajax
+							 $.ajax({
+								 type: "post",
+								 url: "paySuccess",
+								 data: {rsp : JSON.stringify(rsp)}   
+							 })//ajax
 							  
 						  	}else{
 								  debugger;
@@ -87,7 +86,7 @@ var requestPay = (pgId, paypayMethod) => {
 				//data값
 				}
 				
-			},
+			},//success:function(data)
 			fail:function(){
 			}
 		})//ajax
@@ -325,7 +324,7 @@ selectMethod();
 			alert('결제 수단을 선택해주세요');
 			return false;
 		}
-		requestPay(pgId, paypayMethod);
+		requestPay(pgId);
 		if($('.kGbUWb').text()==""){
 			alert('배송주소를 등록해주세요');
 			return false;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.service.BoardService;
 import com.team.service.HomeService;
+import com.team.service.TeamCodeService;
 
 /**
  * Handles requests for the application home page.
@@ -24,8 +25,8 @@ import com.team.service.HomeService;
 public class HomeController {
 	@Inject
 	HomeService homeService;
-//	@Inject
-//	private HomeService homeService; 
+	@Inject
+	private TeamCodeService codeService;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**

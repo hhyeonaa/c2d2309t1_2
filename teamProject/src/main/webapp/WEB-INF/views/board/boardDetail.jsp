@@ -139,7 +139,7 @@
 		 			</tr>	 			
 		 		</table>
 		 	</div>
-		 	<div>
+		 	<div style="width: 70%; height: auto;">
 		 		<table class="table">
 					<tr><td colspan="7">연관상품</td><tr><!-- GET_RELATED_PRODUCTS -->
 					<tr>
@@ -167,7 +167,7 @@
 		 		</table>
 		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button">글 수정</button>
+				  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
 				</div>
 				</c:if>
 		 	</div>
@@ -221,18 +221,18 @@
 		 			<tr>
 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2">게시자 후기</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2">게시자 후기</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr> -->
 		 		</table>
 		 	</div>
 		</div>

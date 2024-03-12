@@ -111,4 +111,56 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		location.href="/" + window.location.pathname.split("/")[1] +"/board/writeBoard?proWr="+proWr+"&proDate="+proDate;
 		return;
 	})
+	
+	$('#shareApplication').on('click',function(){
+		$('#shareList').css('display', 'block');
+	})
+	$('#apply').on('click', function(e){
+		const divApplicant = $('#divApplicant').val();
+		const divPostNo = $('#proNo').val();
+		const divReason = $('#appTxt').val();
+		alert('divApplicant: ' + divApplicant + 'divPostNo: ' + divPostNo + 'divReason: ' + divReason);
+		$.ajax({
+			url: 'insertDivide', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: {
+				divApplicant : divApplicant,
+				divPostNo	: divPostNo,
+				divReason	: divReason
+			},
+		}).done(function(response) {
+			response ? alertMsg("AM3",["신청"]) : alertMsg("AM16",["신청"]);
+			// 파일 업로드 성공 시 처리
+			console.log('Upload success:', response);
+		});
+	})
+	$('#deleteDivReason').on('click',function(){
+		const divPostNo = $('#proNo').val();
+		// 클릭된 버튼이 속한 행(<tr>) 찾기
+        var row = $(this).closest('tr');
+        
+        // 행에서 값 가져오기
+        var divApplicant = row.find('td:eq(0)').text(); // 신청자 정보
+        var divReason = row.find('td:eq(1)').text(); // 신청 이유
+        if(alertMsg("AM4",["신청글"],true)){
+			$.ajax({
+			url: 'deleteDivide', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: {
+				divApplicant : divApplicant,
+				divPostNo	: divPostNo,
+				divReason	: divReason
+			},
+			}).done(function(response) {
+				response ? alertMsg("AM3",["삭제"]) : alertMsg("AM16",["삭제"]);
+				// 파일 업로드 성공 시 처리
+				console.log('Upload success:', response);
+			});
+		} else {
+			alertMsg("AM2",["삭제"]);
+			return;
+		}
+		
+	})
+	
 })

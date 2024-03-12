@@ -191,6 +191,21 @@ public class BoardDAO {
 		return sqlSession.selectList(NAMESPACE + ".getRelatedCateImg", map);
 	}
 
+	public boolean insertDivide(Map<String, String> param) {
+		System.out.println("BoardDAO insertDivide()");
+		return sqlSession.insert(NAMESPACE + ".insertDivide", param) == 1 ? true : false;
+	}// insertDivide()
+
+	public List<Map<String, String>> getDivList(Map<String, String> map) {
+		System.out.println("BoardDAO getDivList()");
+		return sqlSession.selectList(NAMESPACE + ".getDivList", map);
+	}
+
+	public boolean deleteDivide(Map<String, String> param) {
+		System.out.println("BoardDAO deleteDivide()");
+		return sqlSession.delete(NAMESPACE + ".deleteDivide", param) == 1 ? true : false;
+	}// deleteDivide()
+
 	
 
 }// BoardDAO 끝

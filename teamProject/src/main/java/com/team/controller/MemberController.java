@@ -367,6 +367,8 @@ public class MemberController{
 		// 내가 등록한
 		List<Map<String,String>> myTrade = memberService.myTrade(MEM_ID);
 		model.addAttribute("myTrade", myTrade);
+		List<Map<String,String>> otherTrade = memberService.otherTrade(MEM_ID);
+		model.addAttribute("otherTrade", otherTrade);
 		return "member/tradeList";
 	}// tradeList()
 //	-----------------------------------------------------------------------------

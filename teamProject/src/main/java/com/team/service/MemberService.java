@@ -138,4 +138,9 @@ public class MemberService {
 		return memberDAO.myTrade(MEM_ID); 
 	}// myTrade()
 //	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> otherTrade(String MEM_ID) {
+		System.out.println("MemberService otherTrade()");
+		return memberDAO.otherTrade(MEM_ID); 
+	}// otherTrade()
+//	-----------------------------------------------------------------------------	
 }// MemberService 클래스

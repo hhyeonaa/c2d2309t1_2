@@ -39,11 +39,15 @@
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
 	  <c:forEach var="myTrade" items="${myTrade}">
 		  <div class="col pro">
+		  
 		  	<input type="hidden" class="proType" value="${myTrade.PRO_TC}">
 		    <div class="card h-100">
 		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 		      <div class="card-body">
-			      <span class="state1">판매</span>
+		      	  <c:if test="${myTrade.PRO_TC == 'MM1'}"><span class="state1">판매</span></c:if>
+			      <c:if test="${myTrade.PRO_TC == 'MM2'}"><span class="state1">구매</span></c:if>
+			      <c:if test="${myTrade.PRO_TC == 'MM3'}"><span class="state1">나눔</span></c:if>
+			      <c:if test="${myTrade.PRO_TC == 'MM4'}"><span class="state1">경매</span></c:if>
 				  <c:if test="${myTrade.PRO_TSC == 'TM3'}"><span class="state2">거래완료</span></c:if>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
@@ -57,25 +61,34 @@
 	</div><!--tab_content1-->
 	<!-- -----------------------------------남이 등록한----------------------------------- -->
 	<div class="tab_content tab_content2">
+	  <select class="form-select" name="selectMenu2" id="selectMenu2" style="width: 100px;">
+	  	 <option value="MM0">전체</option>
+	  	 <option value="MM1">판매</option>
+	  	 <option value="MM2">구매</option>
+	  	 <option value="MM3">나눔</option>
+	  	 <option value="MM4">경매</option>
+	  </select>
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
-	  <c:forEach var="myListBuy" items="${myListBuy}">
-		  <div class="col">
+	  <c:forEach var="otherTrade" items="${otherTrade}">
+		  <div class="col pro2">
+		  
+		  	<input type="hidden" class="proType2" value="${otherTrade.PRO_TC}">
 		    <div class="card h-100">
 		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
 		      <div class="card-body">
-			      <span class="state1">구매</span>
-			      <span class="state2">${myListBuy.PRO_TSC}</span>
-			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
-<!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
-			      <p>${myListBuy.PRO_NAME}</p>
-				  <h5><b>${myListBuy.PRO_PRICE}원</b></h5>
+		      	  <c:if test="${otherTrade.PRO_TC == 'MM1'}"><span class="state1">판매</span></c:if>
+			      <c:if test="${otherTrade.PRO_TC == 'MM2'}"><span class="state1">구매</span></c:if>
+			      <c:if test="${otherTrade.PRO_TC == 'MM3'}"><span class="state1">나눔</span></c:if>
+			      <c:if test="${otherTrade.PRO_TC == 'MM4'}"><span class="state1">경매</span></c:if>
+				  <c:if test="${otherTrade.PRO_TSC == 'TM3'}"><span class="state2">거래완료</span></c:if>
+			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span>
+<!-- <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
+			      <p>${otherTrade.PRO_NAME}</p>
+				  <h5><b>${otherTrade.PRO_PRICE}원</b></h5>
 		      </div>
 		    </div>
 		  </div>
 		 </c:forEach>
-		 <c:if test="${empty myListBuy}">
-		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyBuy">등록된 상품이 없습니다.</div>
-		 </c:if>
 		</div>
 	</div><!--tab_content2-->
 	

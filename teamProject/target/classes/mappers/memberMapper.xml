@@ -299,4 +299,23 @@
         order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
+	<select id="otherTrade" parameterType="map" resultType="map">
+		select P.PRO_TC
+			 , P.PRO_TSC
+			 , P.PRO_NAME
+			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+             , C.CODE
+             , I.IMG_NAME
+		from MEMBERS M
+		join PRODUCT P
+		on M.MEM_ID = P.PRO_WR
+        left outer join CODE C
+        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        left outer join IMAGE I
+        on P.PRO_NO = I.IMG_PRONO
+        where M.MEM_ID != #{MEM_ID}
+        and P.PRO_TSC = 'TM3'
+        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+	</select>
+	
 </mapper>

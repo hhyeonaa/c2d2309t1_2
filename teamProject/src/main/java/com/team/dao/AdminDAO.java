@@ -34,8 +34,8 @@ public class AdminDAO {
 		return true;
 	}
 
-	public void adminDelete(String AD_NO) {
-		sqlSession.delete(namesqace + "adminDelete", AD_NO);
+	public void adminDelete(Map<String, String> map) {
+		sqlSession.delete(namesqace + "adminDelete", map);
 	}
 	
 	public void adminUpdate(Map<String, String> map) {

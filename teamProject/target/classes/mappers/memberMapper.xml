@@ -243,6 +243,7 @@
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
+				, SUBSTR(P.PRO_TC, 3, 1) AS "PRO_NUM"
 				, CASE P.PRO_TC WHEN 'MM1' THEN '판매'
 				  			    WHEN 'MM2' THEN '구매'
 				  			    WHEN 'MM3' THEN '나눔'
@@ -254,6 +255,8 @@
 				  			     WHEN 'TM3' THEN '거래완료'
 				  END AS "PRO_STATE"
 				, P.PRO_NAME
+				, P.PRO_WR
+				, P.PRO_DATE
 				, FORMAT(P.PRO_PRICE, 0) AS "PRO_PRICE"
 		        , I.IMG_NAME
 		FROM LIKES L JOIN PRODUCT P
@@ -262,6 +265,7 @@
 		ON L.LIK_PRONO = I.IMG_PRONO
 		WHERE L.MEM_ID = #{MEM_ID}
 		AND I.IMG_NO = '1'
+		AND PRO_TC = 'MM1'
 	</select>
 	
 	<delete id="deleteLike">

@@ -73,122 +73,12 @@
 		</div>
     </div>
     
+    
+    
+    
+   	<input type="hidden" value="${CODE}" id="selectListItem">
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>게시판 목록</b></h4></div>
-    </div>
-    <div class="row">
-		<div class="col-lg-12">
-			<div class="table-responsive">
-				<table id="boardList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
-					<thead>
-						<tr>
-							<th scope="col">번호</th>
-							<th scope="col">게시판명</th>
-							<th scope="col">게시판 유형</th>
-<!-- 							<th scope="col">글쓰기 입력폼</th> -->
-							<th scope="col">순서</th>
-							<th scope="col">사용 여부</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="menu" items="${menu}">
-							<tr>
-								<th>${menu.SEQ }</th>
-								<td>${menu.CODE }</td>
-								<td>${menu.CO_DETAIL}</td>
-<!-- 								<td><a href="#" id="insertForm">설정하기</a></td> -->
-								<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-								<th scope="row">
-								<div class="form-check form-switch justify-content-center">
-									<c:if test="${menu.ACTIVE eq '1'}">
-										<input class="form-check-input" type="checkbox" id="active" checked>
-									</c:if>
-									<c:if test="${menu.ACTIVE eq '0'}">
-										<input class="form-check-input" type="checkbox" id="active">
-									</c:if>
-								</div>
-								</th>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-        </div>
-    </div>
-    
-    
-<!--     게시판 입력폼 모달창 -->
-<%--     <c:forEach var="menu" items="${menu}"> --%>
-<!-- 	<div id="inputModal" class="modal"> -->
-<!-- 	  <div class="modal-content mt-5" id="modal-content"> -->
-<!-- 	     <div class="modal-header" id="modal-header"> -->
-<%-- 		     <h3 class="modal-title" id="modal-title"><b>${menu.CODE }게시판 입력폼</b></h3> --%>
-<!-- 		     <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 		     	&times;</button> -->
-<!-- 	     </div> -->
-<!-- 	     <div class="modal-body" id="modal-body"> -->
-<!-- 		    <div class="boardEdit"> -->
-<!-- 				<table id="inputList" class="table text-center align-middle mb-4"> -->
-<!-- 					<thead class="tableHr align-middle"> -->
-<!-- 						<tr> -->
-<!-- 							<th scope="col" >라벨명/ID</th> -->
-<!-- 							<th scope="col">타입</th> -->
-<!-- 							<th scope="col">순서</th> -->
-<!-- 							<th scope="col">사용 여부</th> -->
-<!-- 						</tr> -->
-<!-- 					</thead> -->
-<!-- 					<tbody class="tableHr" id="tbody"> -->
-<%-- 						<c:forEach var="form" items="${form}"> --%>
-<!-- 						<tr> -->
-<%-- 							<td>${form.CODE}</td> --%>
-<%-- 							<td>${form.CO_DETAIL}</td> --%>
-<!-- 							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td> -->
-<!-- 							<td> -->
-<!-- 								<div class="form-check form-switch justify-content-center"> -->
-<%-- 									<c:if test="${form.ACTIVE eq '1'}"> --%>
-<!-- 										<input class="form-check-input" type="checkbox" id="active" checked> -->
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${form.ACTIVE eq '0'}"> --%>
-<!-- 										<input class="form-check-input" type="checkbox" id="active"> -->
-<%-- 									</c:if> --%>
-<!-- 								</div> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<!-- 							<td> -->
-<!-- 								<div class="form-outline align-top text-start"> -->
-<!-- 								  	<input type="text" name="" class="form-control" value="상품 종류"/> -->
-<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="식품"/> -->
-<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="의류"/> -->
-<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="전자제품"/> -->
-<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="잡화"/> -->
-<!-- 								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="기타"/> -->
-<!-- 								</div> -->
-<!-- 							</td> -->
-<%-- 						</c:forEach> --%>
-<!-- 					</tbody> -->
-<!-- 				</table> -->
-<!-- 		    </div>		 -->
-<!-- 	     </div> -->
-	     
-<!-- 	     <div class="modal-footer" id="modal-footer"> -->
-<!--    			<button type="button" class="btn btn-dark" id="cancelBtn">취소</button> -->
-<!--     		<button type="button" class="btn btn-light" id="formSaveBtn">저장</button> -->
-<!-- 	     </div> -->
-<!-- 	  </div> -->
-<!-- 	</div> -->
-<%-- 	</c:forEach> --%>
-    
-    
-    <div class="row g-0 pb-4">
-    	<div class="mb-4" align="right">
-			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
-			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
-		</div>
-<!-- 		<div class="demo"> -->
-<!-- 		    <nav class="pagination-outer"  aria-label="Page navigation"> -->
-<!-- 		        <ul class="pagination" id="pagination"></ul> -->
-<!-- 		    </nav> -->
-<!-- 		</div>  -->
     </div>
     
    	<div class="btn-wrapper">
@@ -204,8 +94,8 @@
 			<option value="50">50개 씩 보기</option>
 			<option value="100">100개 씩 보기</option>
 		</select>
-		<button id="resetBtn">취소</button>
-		<button id="saveBtn">저장</button>
+		<button id="saveBtn" class="btn btn-outline-danger">저장</button>
+		<button id="resetBtn" class="btn btn-outline-danger">새로고침</button>
 	</div>
 	
     <div id="excel"></div>	

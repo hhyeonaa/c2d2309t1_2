@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.mappers.homeMapper">
 
-<select id="getSaleProductList" resultType="Map">
+<select id="getProductList" resultType="Map">
 	<!-- 판매 최신순 8개 -->  
 		SELECT PRO_WR,PRO_NAME, format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME
 			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
@@ -12,53 +12,54 @@
 		  JOIN IMAGE ON PRO_NO = IMG_PRONO
 		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
-	       AND PRO_TC = "MM1"
-	     WHERE IMG_NO = 1
-		 AND CODE_TSC.CODE IN ('거래가능','거래중')
+	       AND PRO_TC = #{str}
+	     WHERE 1 = 1 
+	       AND IMG_NO = 1
+		   AND CODE_TSC.CODE IN ('거래가능','거래중')
 		 ORDER BY PRO_DATE DESC
          LIMIT 8;		
 </select>
-<select id="getBuyProductList" resultType="Map">
+<!-- <select id="getBuyProductList" resultType="Map"> -->
 	<!-- 구매 최신순 8개 -->  
-		SELECT PRO_WR,PRO_NAME,format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME
-			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
-		  FROM PRODUCT
-		  JOIN IMAGE ON PRO_NO = IMG_PRONO
-		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
-		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
-	       AND PRO_TC = "MM2"
-	     WHERE IMG_NO = 1
-		 AND CODE_TSC.CODE IN ('거래가능','거래중')
-		 ORDER BY PRO_DATE DESC
-         LIMIT 8;	
-</select>
-<select id="getDivProductList" resultType="Map">
+<!-- 		SELECT PRO_WR,PRO_NAME,format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME -->
+<!-- 			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE -->
+<!-- 		  FROM PRODUCT -->
+<!-- 		  JOIN IMAGE ON PRO_NO = IMG_PRONO -->
+<!-- 		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO) -->
+<!-- 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO) -->
+<!-- 	       AND PRO_TC = "MM2" -->
+<!-- 	     WHERE IMG_NO = 1 -->
+<!-- 		 AND CODE_TSC.CODE IN ('거래가능','거래중') -->
+<!-- 		 ORDER BY PRO_DATE DESC -->
+<!--          LIMIT 8;	 -->
+<!-- </select> -->
+<!-- <select id="getDivProductList" resultType="Map"> -->
 	<!-- 나눔 최신순 8개 -->  
-		SELECT PRO_WR,PRO_NAME,format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME
-			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
-		  FROM PRODUCT
-		  JOIN IMAGE ON PRO_NO = IMG_PRONO
-		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
-		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
-	       AND PRO_TC = "MM3"
-	     WHERE IMG_NO = 1
-		 AND CODE_TSC.CODE IN ('거래가능','거래중')
-		 ORDER BY PRO_DATE DESC
-         LIMIT 8;	
-</select>
-<select id="getAucProductList" resultType="Map">
+<!-- 		SELECT PRO_WR,PRO_NAME,format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME -->
+<!-- 			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE -->
+<!-- 		  FROM PRODUCT -->
+<!-- 		  JOIN IMAGE ON PRO_NO = IMG_PRONO -->
+<!-- 		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO) -->
+<!-- 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO) -->
+<!-- 	       AND PRO_TC = "MM3" -->
+<!-- 	     WHERE IMG_NO = 1 -->
+<!-- 		 AND CODE_TSC.CODE IN ('거래가능','거래중') -->
+<!-- 		 ORDER BY PRO_DATE DESC -->
+<!--          LIMIT 8;	 -->
+<!-- </select> -->
+<!-- <select id="getAucProductList" resultType="Map"> -->
 	<!-- 경매 최신순 8개 -->  
-		SELECT PRO_WR,PRO_NAME,format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME
-			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
-		  FROM PRODUCT
-		  JOIN IMAGE ON PRO_NO = IMG_PRONO
-		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
-		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
-	       AND PRO_TC = "MM4"
-	     WHERE IMG_NO = 1
-		 AND CODE_TSC.CODE IN ('거래가능','거래중')
-		 ORDER BY PRO_DATE DESC
-         LIMIT 8;	
-</select>
+<!-- 		SELECT PRO_WR,PRO_NAME,format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME -->
+<!-- 			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE -->
+<!-- 		  FROM PRODUCT -->
+<!-- 		  JOIN IMAGE ON PRO_NO = IMG_PRONO -->
+<!-- 		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO) -->
+<!-- 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO) -->
+<!-- 	       AND PRO_TC = "MM4" -->
+<!-- 	     WHERE IMG_NO = 1 -->
+<!-- 		 AND CODE_TSC.CODE IN ('거래가능','거래중') -->
+<!-- 		 ORDER BY PRO_DATE DESC -->
+<!--          LIMIT 8;	 -->
+<!-- </select> -->
 
 </mapper>

@@ -296,6 +296,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where M.MEM_ID = #{MEM_ID}
         and P.PRO_TSC = 'TM3'
+        and I.IMG_NO = '1'
         order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
@@ -315,6 +316,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where M.MEM_ID != #{MEM_ID}
         and P.PRO_TSC = 'TM3'
+        and I.IMG_NO = '1'
         order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	

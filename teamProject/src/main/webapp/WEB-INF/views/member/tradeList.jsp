@@ -57,6 +57,9 @@
 		    </div>
 		  </div>
 		 </c:forEach>
+		 <c:if test="${empty myTrade}">
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="myTrade">거래한 내역이 없습니다.</div>
+		 </c:if>
 		</div>
 	</div><!--tab_content1-->
 	<!-- -----------------------------------남이 등록한----------------------------------- -->
@@ -74,7 +77,8 @@
 		  
 		  	<input type="hidden" class="proType2" value="${otherTrade.PRO_TC}">
 		    <div class="card h-100">
-		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${otherTrade.IMG_NAME}" class="card-img-top" 
+		      	   alt="${otherTrade.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 		      <div class="card-body">
 		      	  <c:if test="${otherTrade.PRO_TC == 'MM1'}"><span class="state1">판매</span></c:if>
 			      <c:if test="${otherTrade.PRO_TC == 'MM2'}"><span class="state1">구매</span></c:if>
@@ -89,6 +93,9 @@
 		    </div>
 		  </div>
 		 </c:forEach>
+		 <c:if test="${empty otherTrade}">
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="otherTrade">거래한 내역이 없습니다.</div>
+		 </c:if>
 		</div>
 	</div><!--tab_content2-->
 	

@@ -265,48 +265,6 @@ public class MemberController{
 		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
-//	-----------------------------------------------------------------------------	
-//	@PostMapping("/memberEditPro")
-//	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
-//		System.out.println("#@%^%#@!^%#^ : " + map);
-//		System.out.println("map.get(\"MEM_IMAGE\") : " + map.get("MEM_IMAGE"));
-//		System.out.println("MemberController memberEditPro()");
-//		String MEM_ID = (String)session.getAttribute("MEM_ID");
-//		Map<String, String> param = memberService.getMember(MEM_ID, map);
-//			memberService.memberEdit(map);
-//			return "redirect:/member/mypage";
-//	}//memberEditPro()
-	
-//	@PostMapping("/memberEditPro")
-//	@ResponseBody
-//	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, 
-//										   HttpServletRequest request, @RequestParam MultipartFile image) throws Exception {
-//		System.out.println("MemberController memberEditPro()");
-//		String MEM_ID = (String)session.getAttribute("MEM_ID");
-//		map.put("MEM_ID", MEM_ID);
-//		System.out.println("map : " + map);
-//		String[] mapArr = map.get("map").replace("{", "").replace("}", "").split(",");
-//		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-//		for(String arr : mapArr) {
-//			Map<String, String> dataFormat = new HashMap<String, String>();
-//			dataFormat.put(arr.split(":")[0].trim(),arr.split(":")[1].trim());
-//			list.add(dataFormat);
-//			
-//		}
-//		System.out.println("%%%%%%%%%% : " + list);
-//		int memberEdit = memberService.memberEdit(map);
-//		ServletContext context = request.getSession().getServletContext();
-//	    
-//	 // 첨부파일 업로드 => pom.xml 프로그램 설치
-// 		// servlet-context.xml에 설정
-// 		// 파일이름 중복 방지 => 랜덤문자_파일이름
-// 		UUID uuid = UUID.randomUUID();
-// 		String filename = uuid.toString() + "_" + image.getOriginalFilename();
-//// 		// 원본파일 => 위치/파일이름으로 복사(업로드)
-// 		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
-//	    
-//		return ResponseEntity.ok().body(memberEdit);
-//	}// memberEditPro()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/memberEditPro")
 	@ResponseBody
@@ -338,8 +296,6 @@ public class MemberController{
 		return ResponseEntity.ok().body(memberEdit);
 		
 	}// memberEditPro()
-	
-
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")
 	public String myList(Model model, HttpSession session) {

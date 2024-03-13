@@ -70,6 +70,11 @@ public class PayDAO {
 		return sqlSession.insert(namespace + ".paySuccess", param);
 	}
 
+	//결제완료 select
+	public Map<String, String> getCompletePay(Map<String, String> param) {
+		return sqlSession.selectOne(namespace + ".getCompletePay", param);
+	}
+
 //	//배송요청사항 SELECT (공통코드)
 //	public List<Map<String, String>> getRequestDel() {
 //		return sqlSession.selectList(namespace + ".getRequestDel");

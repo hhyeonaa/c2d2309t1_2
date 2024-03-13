@@ -35,12 +35,18 @@ var requestPay = (pgId) => {
 			 success:function(data){
 				if(data != null){
 				//data값
-					var today = new Date();   
-			        var hours = today.getHours(); // 시
-			        var minutes = today.getMinutes();  // 분
-			        var seconds = today.getSeconds();  // 초
-			        var milliseconds = today.getMilliseconds();
-			        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+					//주문번호 만들기
+					const make_merchant_uid = () => {
+				        const current_time = new Date();
+				        const hour = current_time.getHours().toString();
+				        const minute = current_time.getMinutes().toString();
+				        const second = current_time.getSeconds().toString();
+						const milliseconds = String(current_time.getMilliseconds()).slice(0, 1);
+				        var merchant_uid = "" + hour + minute + second + milliseconds;
+				        merchant_uid = merchant_uid.length != 7 ? merchant_uid.padEnd(7, "L") : merchant_uid;
+				        return merchant_uid;
+				    };
+				    const merchant_uid = make_merchant_uid()
 			        
 					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
 			        var productname = $("#payProName").text().trim();//제품name
@@ -50,7 +56,7 @@ var requestPay = (pgId) => {
 			        debugger;
 			       	IMP.request_pay({
 						pg: pgId, 
-			  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
+			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
 			  			buyer_name: data.BUYNAME, //결제자 이름 
@@ -77,7 +83,17 @@ var requestPay = (pgId) => {
 								 url: "paySuccess",
 								 data: rsp
 							 })//ajax
-							 
+							 .done(function(data){
+								 if(data){
+									var PRO_NO = $('#PRO_NO').val();
+									var MEM_NO = $('#MEM_NOreal').val();
+									var url = 'completepay?PRO_NO=' + PRO_NO + '&MEM_NO=' + MEM_NO 
+									window.location.href = url;
+								 } else{
+									 console.log("paySuccess insert 실패");
+								 } 
+								 
+							 })
 						  	}else{
 								  debugger;
 								  console.log(res);
@@ -85,7 +101,6 @@ var requestPay = (pgId) => {
 						});
 				//data값
 				}
-				
 			},//success:function(data)
 			fail:function(){
 			}
@@ -285,11 +300,9 @@ selectMethod();
 			return false;
 		}
 		requestPay(pgId);
-		// "/completepay"페이지이동
-		var PRO_NO = $('#PRO_NO').val();
-		var url = '${pageContext.request.contextPath}/board/boardDetail?PRO_NO=' + PRO_NO;
-		window.location.href = url;
 	})
+	
+	
 // 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){
 		$("#payUpdateBtn").attr("id", "payAddbtn");
@@ -480,8 +493,6 @@ selectMethod();
         //var selectedOptionText = $("#selectDel option:selected").text();
         var textarea = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4');
         var selectedOptionIndex =$("#selectDel  option").index($("#selectDel  option:selected"));
-        //$("#selectDel  option").index($("#selectDel  option:selected"));
-		//$("#selectDel option:selected").text();
 		textarea.prop('disabled', true);
 		textarea.val('');
 		if(selectedOptionIndex == 6 ){

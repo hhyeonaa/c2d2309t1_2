@@ -66,6 +66,11 @@ public class PayService {
 	public int paySuccess(Map<String, String> param) {
 		return payDAO.paySuccess(param);
 	}
+	
+	//결제완료 select
+	public Map<String, String> getCompletePay(Map<String, String> param) {
+		return payDAO.getCompletePay(param);
+	}
 
 	//배송요청사항 SELECT (공통코드)
 //	public List<Map<String, String>> getRequestDel() {

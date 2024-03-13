@@ -26,7 +26,8 @@
             <div class="productInfo">
 <!--                 <div class="productImg" style="flex: 1; border:  1px solid black; height: 100%; display: flex; justify-content: center; align-items: center;"> -->
                 <div class="productImg">
-					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill">
+					<img src="${pageContext.request.contextPath}/resources/img/uploads/${payProList.IMG_NAME}" alt="${payProList.IMG_NAME}" class="flex-fill"
+						 onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
                 </div>
                 <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>

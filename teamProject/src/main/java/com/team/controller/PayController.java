@@ -159,13 +159,13 @@ public class PayController {
 	//판매,결제자 Info select ajax
 	@GetMapping("/payInfo")
 	@ResponseBody
-	public Map<String, String> payInfo(@RequestParam Map<String, String> param,  Model model){
+	public ResponseEntity<?> payInfo(@RequestParam Map<String, String> param,  Model model){
 		System.out.println("ajax payInfo");
 		System.out.println("payInfo" + param);
 		Map<String, String> payInfo = payService.getPayInfo(param);
 		model.addAttribute("payInfo", payInfo);
 		System.out.println(payInfo);
-		return payInfo; 
+		return ResponseEntity.ok().body(payInfo); 
 	}//
 	
 	//결제 성공 후 PAY테이블 insert
@@ -180,8 +180,19 @@ public class PayController {
 	
 	//결제완료 페이지
 	@GetMapping("/completepay")
-	public String completepay(@RequestParam Map<String, String> param,  Model model, HttpSession session) {
+	public String completepay(@RequestParam Map<String, String> param,  Model model, HttpSession session,HttpServletRequest request) {
 		System.out.println("PayController completepay()");
+		String MEM_ID = (String)session.getAttribute("MEM_ID");
+		String PRO_NO = request.getParameter("PRO_NO");
+		String MEM_NO = request.getParameter("MEM_NO");
+		param.put("MEM_ID", MEM_ID);
+		param.put("PRO_NO", PRO_NO);
+		param.put("MEM_NO", MEM_NO);
+		System.out.println(param);
+		
+		Map<String, String> completePay = payService.getCompletePay(param);
+		System.out.println(completePay);
+		model.addAttribute("completePay", completePay);
 		return "/pay/completepay";
 	}// completepayment
 	

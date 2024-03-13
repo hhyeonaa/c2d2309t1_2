@@ -30,7 +30,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.formula.functions.Address;
+import org.json.JSONObject;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +44,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.google.protobuf.Message;
 import com.mysql.cj.Session;
@@ -59,9 +64,6 @@ public class MemberController{
 	@Inject
 	private TeamCodeService codeService;
 	
-	// servlet-context.xml 에서 id="uploadPath" 객체생성 => name = "uploadPath"
-	@Resource
-	private String uploadPath;
 	//	-----------------------------------------------------------------------------	
 	@GetMapping("/join")
 	public String join() {
@@ -164,6 +166,7 @@ public class MemberController{
 		try {
 			System.out.println("MemberController findIdPro()");
 			System.out.println("map : " + map);
+			System.out.println("~~~~~~~~~~ : " + map.get("MEM_NAME"));
 			Object[] msg = {"이메일"};
 			Map<String, String> findId = memberService.findId(map);
 			System.out.println("findId" + findId);
@@ -273,36 +276,69 @@ public class MemberController{
 //			return "redirect:/member/mypage";
 //	}//memberEditPro()
 	
+//	@PostMapping("/memberEditPro")
+//	@ResponseBody
+//	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, 
+//										   HttpServletRequest request, @RequestParam MultipartFile image) throws Exception {
+//		System.out.println("MemberController memberEditPro()");
+//		String MEM_ID = (String)session.getAttribute("MEM_ID");
+//		map.put("MEM_ID", MEM_ID);
+//		System.out.println("map : " + map);
+//		String[] mapArr = map.get("map").replace("{", "").replace("}", "").split(",");
+//		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+//		for(String arr : mapArr) {
+//			Map<String, String> dataFormat = new HashMap<String, String>();
+//			dataFormat.put(arr.split(":")[0].trim(),arr.split(":")[1].trim());
+//			list.add(dataFormat);
+//			
+//		}
+//		System.out.println("%%%%%%%%%% : " + list);
+//		int memberEdit = memberService.memberEdit(map);
+//		ServletContext context = request.getSession().getServletContext();
+//	    
+//	 // 첨부파일 업로드 => pom.xml 프로그램 설치
+// 		// servlet-context.xml에 설정
+// 		// 파일이름 중복 방지 => 랜덤문자_파일이름
+// 		UUID uuid = UUID.randomUUID();
+// 		String filename = uuid.toString() + "_" + image.getOriginalFilename();
+//// 		// 원본파일 => 위치/파일이름으로 복사(업로드)
+// 		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
+//	    
+//		return ResponseEntity.ok().body(memberEdit);
+//	}// memberEditPro()
+//	-----------------------------------------------------------------------------
 	@PostMapping("/memberEditPro")
 	@ResponseBody
 	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, 
-										   HttpServletRequest request, @RequestParam MultipartFile image) throws Exception {
+										   HttpServletRequest request, @RequestParam(value = "image", required =false) MultipartFile image) throws Exception {
 		System.out.println("MemberController memberEditPro()");
-		String MEM_ID = (String)session.getAttribute("MEM_ID");
-		map.put("MEM_ID", MEM_ID);
-		System.out.println("map : " + map);
-		String[] mapArr = map.get("map").replace("{", "").replace("}", "").split(",");
-		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-		for(String arr : mapArr) {
-			Map<String, String> dataFormat = new HashMap<String, String>();
-			dataFormat.put(arr.split(":")[0].trim(),arr.split(":")[1].trim());
-			list.add(dataFormat);
+		
+		Map<String, String> param = new Gson().fromJson(map.get("map"), new TypeToken<Map<String, String>>(){}.getType());
+		
+		
+		if(image != null) {
+			ServletContext context = request.getSession().getServletContext();
+			String realPath = context.getRealPath("/resources/img/uploads");
 			
+			// 첨부파일 업로드 => pom.xml 프로그램 설치
+			// servlet-context.xml에 설정
+			// 파일이름 중복 방지 => 랜덤문자_파일이름
+			UUID uuid = UUID.randomUUID();
+			String filename = uuid.toString() + "_" + image.getOriginalFilename();
+			
+			param.put("MEM_IMAGE", filename);
+			
+			File newfile = new File(realPath, filename);
+			image.transferTo(newfile);
 		}
-		System.out.println("%%%%%%%%%% : " + list);
-		int memberEdit = memberService.memberEdit(map);
-		ServletContext context = request.getSession().getServletContext();
-	    
-	 // 첨부파일 업로드 => pom.xml 프로그램 설치
- 		// servlet-context.xml에 설정
- 		// 파일이름 중복 방지 => 랜덤문자_파일이름
- 		UUID uuid = UUID.randomUUID();
- 		String filename = uuid.toString() + "_" + image.getOriginalFilename();
-// 		// 원본파일 => 위치/파일이름으로 복사(업로드)
- 		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
-	    
+		
+		
+		int memberEdit = memberService.memberEdit(param);
 		return ResponseEntity.ok().body(memberEdit);
+		
 	}// memberEditPro()
+	
+
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")
 	public String myList(Model model, HttpSession session) {
@@ -317,7 +353,7 @@ public class MemberController{
 		// 내 나눔 목록
 		List<Map<String,String>> myListShare = memberService.myListShare(MEM_ID);
 		model.addAttribute("myListShare", myListShare);
-		// 내 나눔 목록
+		// 내 경매 목록
 		List<Map<String,String>> myListAuction = memberService.myListAuction(MEM_ID);
 		model.addAttribute("myListAuction", myListAuction);
 		return "member/myList";
@@ -326,6 +362,12 @@ public class MemberController{
 	@GetMapping("/tradeList")
 	public String tradeList(Model model, HttpSession session) {
 		System.out.println("MemberController tradeList()");
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		// 내가 등록한
+		List<Map<String,String>> myTrade = memberService.myTrade(MEM_ID);
+		model.addAttribute("myTrade", myTrade);
+		List<Map<String,String>> otherTrade = memberService.otherTrade(MEM_ID);
+		model.addAttribute("otherTrade", otherTrade);
 		return "member/tradeList";
 	}// tradeList()
 //	-----------------------------------------------------------------------------
@@ -368,12 +410,6 @@ public class MemberController{
 		return "member/buyList";
 	}// buyList()
 //	-----------------------------------------------------------------------------
-	@GetMapping("/chatList")
-	public String chatList() {
-		System.out.println("MemberController chatList()");
-		return "member/chatList";
-	}// chatList()
-//	-----------------------------------------------------------------------------
 	@GetMapping("/memberDelete")
 	public String memberDelete() {
 		System.out.println("MemberController memberDelete()");
@@ -413,8 +449,7 @@ public class MemberController{
 		return "redirect:/member/memberEdit";
 		
 	}// memberDelete()
-
-	
+//	-----------------------------------------------------------------------------
 	
 	
 	

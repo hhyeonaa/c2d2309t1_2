@@ -1,5 +1,4 @@
 $(function(){
-
 //	function editImage() {
 //		let CUS_IMAGE = document.getElementById("CUS_IMAGE");
 //		CUS_IMAGE.click();
@@ -33,8 +32,6 @@ $(function(){
 	
 	
 	$('#updateBtn').on('click', function(){
-		debugger;
-
 		var data = {  
 					  MEM_ID: $('#MEM_ID').val()
 					 ,MEM_EMAIL: $('#MEM_EMAIL').val()
@@ -51,13 +48,14 @@ $(function(){
 		debugger;
 		$.ajax({
 			type: "post"
-			, url: "memberEditPro"
+			, url: '/' + window.location.pathname.split("/")[1] + "/member/memberEditPro"
 			, data: formdata
 			, contentType: false
         	, processData: false    
 			, enctype: "multipart/form-data"
 		})
 		.done(function(data){
+			console.log(data);
 //			console.log($('#image').val().split('\\').pop());
 //			debugger;
 			location.href='mypage';
@@ -112,32 +110,38 @@ $(function(){
 		});
 	});	
 });	
-	// 버튼 클릭 시 update
-	$('#updateBtn').on('click', function(){
-		
-		if($('#MEM_PW').val() == "" || $('#MEM_PW').val() == null){
-			alert("변경할 비밀번호를 입력해 주세요.");
-			$('#MEM_PW').focus();	
-			return false;
-		}
-		
-		if($('#MEM_NAME').val() == "" || $('#MEM_NAME').val() == null){
-			alert("변경할 이름을 입력해 주세요.");
-			$('#MEM_NAME').focus();	
-			return false;
-		}
-		
-		if($('#MEM_NICK').val() == "" || $('#MEM_NICK').val() == null){
-			alert("변경할 닉네임을 입력해 주세요.");
-			$('#MEM_NICK').focus();	
-			return false;
-		}
-		
-		if($('#MEM_BIRTH').val() == "" || $('#MEM_BIRTH').val() == null){
-			alert("변경할 생년월일을 입력해 주세요.");
-			$('#MEM_BIRTH').focus();	
-			return false;
-		}
+//	// 버튼 클릭 시 update
+//	$('#updateBtn').on('click', function(){
+//		debugger;
+//
+//		var data = {  
+//					  MEM_ID: $('#MEM_ID').val()
+//					 ,MEM_EMAIL: $('#MEM_EMAIL').val()
+//					 ,MEM_NAME: $('#MEM_NAME').val()
+//					 ,MEM_NICK: $('#MEM_NICK').val()
+//					 ,MEM_PW: $('#MEM_PW').val()
+//					 ,MEM_TEL: $('#MEM_TEL').val()
+//					 ,MEM_BIRTH: $('#MEM_BIRTH').val() }
+//		console.log(data);
+//		const formdata = new FormData();
+//		formdata.append("map", JSON.stringify(data));
+//		formdata.append("image", $('#image')[0].files[0]);
+//		
+//		debugger;
+//		$.ajax({
+//			type: "post"
+//			, url: "memberEditPro"
+//			, data: formdata
+//			, contentType: false
+//        	, processData: false    
+//			, enctype: "multipart/form-data"
+//		})
+//		.done(function(data){
+////			console.log($('#image').val().split('\\').pop());
+////			debugger;
+//			location.href='mypage';
+//		})
+//	})
 		
 		
 //		
@@ -152,4 +156,4 @@ $(function(){
 //					 ,MEM_IMAGE: $('#MEM_IMAGE').val() }
 //		});
 //		
-	})
+	

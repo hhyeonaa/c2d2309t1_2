@@ -30,9 +30,9 @@
                         	<div style="padding-left: 80%;" class="close" id="defaultBtn" onclick="resetImage()">&times;</div>
                             <div>
                             <img alt="유저 프로필" name="img" id="img" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/uploads/${profile.MEM_IMAGE}"/>
-                             <input type="file" name="image" id="image" style="display: none;">
+                             <input type="file" name="MEM_IMAGE" id="image" style="display: none;">
                             <br>
-                       		<button type="button" id="inputBtn" class="btn btn-outline-secondary border px-3 p-1 add-experience shadow" style="font-size: 12px;" onclick="editImage()">
+                       		<button type="button" id="inputBtn" class="btn btn-outline-secondary border px-3 p-1 add-experience shadow" style="font-size: 12px;">
 							<i class="fa fa-plus"></i>사진 변경</button>
 							</div>
 						</div>

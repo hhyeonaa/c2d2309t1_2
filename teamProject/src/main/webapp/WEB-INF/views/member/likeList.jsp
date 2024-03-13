@@ -56,7 +56,8 @@
 		
 		<!-- -----------------------------------판매 목록----------------------------------- -->
 		<div class="tab_content" id="listDiv">
-			<div class="row row-cols-1 row-cols-md-4 g-4">
+			<div class="row row-cols-1 row-cols-md-4 g-4" id="listData">
+			
 			<c:forEach var="list" items="${likeList}">
 			  <div class="col">
 			    <div class="card h-100">
@@ -79,6 +80,7 @@
 				<div class="row row-cols-1 row-cols-md-1 g-1" id="emptySell">등록된 상품이 없습니다.</div>
 			</c:if>
 			</c:forEach>
+			
 			</div>
 		</div>
 		

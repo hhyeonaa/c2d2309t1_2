@@ -239,7 +239,7 @@ public class MemberController{
 		System.out.println("MemberController adminLoginPro()");
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
-			session.setAttribute("ROL_NO", check.get("ROL_NO"));
+			session.setAttribute("MEM_ID", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		}
 		return "member/msg";
@@ -385,7 +385,6 @@ public class MemberController{
 	@GetMapping("/likeListSelect")	// ajax
 	@ResponseBody
 	public List<Map<String,String>> likeListSelect(@RequestParam Map<String,String> map, HttpSession session, Model model){
-		System.out.println("컨트롤러 들어옴@");
 		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
 		System.out.println("map" + map);
 		List<Map<String,String>> likeListSelect = memberService.likeListSelect(map);

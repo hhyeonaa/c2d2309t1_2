@@ -48,7 +48,7 @@ public class AdminController {
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
 	public String manager(Model model) {
-		model.addAttribute("mapList", adminService.getAdminList());
+//		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
 	
@@ -61,8 +61,10 @@ public class AdminController {
 	
  	@GetMapping("/managerPro") // READ
  	@ResponseBody
- 	public ResponseEntity<?> readManager(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> mapList = adminService.getAdminList();
+ 	public ResponseEntity<?> readManager(@RequestParam Map<String, String> req, HttpSession session){
+ 		req.put("RO_NUM", session.getAttribute("MEM_ID").toString());
+ 		System.out.println("!@#!@# " + req);
+ 		List<Map<String, String>> mapList = adminService.getAdminList(req);
  		return ToastUI.resourceData(req, mapList);
  	}
  	

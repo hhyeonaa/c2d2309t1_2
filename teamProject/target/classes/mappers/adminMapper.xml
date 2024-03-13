@@ -39,6 +39,10 @@
 			, ROL_NO
 			, AD_ACTIVE
 		FROM ADMIN
+		WHERE 1=1
+	    <if test='!"RO1".equals(RO_NUM)'>
+	        AND ROL_NO != 'RO1'
+	    </if>
 		ORDER BY AD_NO
 	</select>
 	

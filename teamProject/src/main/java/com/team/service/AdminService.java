@@ -26,8 +26,8 @@ public class AdminService {
 		adminDAO.adminInsert(map);
 	}
 
-	public List<Map<String, String>> getAdminList() {
-		return adminDAO.getAdminList();
+	public List<Map<String, String>> getAdminList(Map<String, String> map) {
+		return adminDAO.getAdminList(map);
 	}
 
 	public void adminDelete(Map<String, String> map) {

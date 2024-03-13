@@ -22,8 +22,8 @@ public class AdminDAO {
 		sqlSession.insert(namesqace + "adminInsert", map);
 	}
 
-	public List<Map<String, String>> getAdminList() {
-		return sqlSession.selectList(namesqace + "getAdminList");
+	public List<Map<String, String>> getAdminList(Map<String, String> map) {
+		return sqlSession.selectList(namesqace + "getAdminList", map);
 	}
 
 	public boolean idCheck(Map<String, String> map) {

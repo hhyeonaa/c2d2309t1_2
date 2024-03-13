@@ -147,7 +147,7 @@
 		</foreach>		   
 	</select>
 
-	<insert id="codeInsert" parameterType="java.util.List">
+	<insert id="codeInsert" parameterType="map">
 		insert 
 			into CODE
 				(
@@ -158,18 +158,16 @@
 				, ACTIVE
 				)
 			values
-		<foreach collection="list" item="code" open="" close="" separator=",">
 				(
 				  #{code.CO_TYPE}
-				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
-					 from CODE
+				, (select cast(ifnull(max(cast(CO_NO AS UNSIGNED)), 0) + 1 AS CHAR)
+					 from CODE C
 					where 1 = 1
 					  and CO_TYPE = #{code.CO_TYPE})
     			, #{code.CODE}
     			, '0'
     			, '0'
 				)	
-		</foreach>
 	</insert>
 
 	<update id="codeUpdate" parameterType="java.util.List">
@@ -198,7 +196,7 @@
 		</foreach>
 	</delete>
 	
-	<insert id="messageInsert" parameterType="java.util.List">
+	<insert id="messageInsert" parameterType="map">
 		insert 
 			into MESSAGE
 				(
@@ -208,17 +206,15 @@
 				, HIDE
 				)
 			values
-		<foreach collection="list" item="code" open="" close="" separator=",">
-				(
-				  #{code.CO_TYPE}
-				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
-					 from CODE
+				(	
+				  #{CO_TYPE}
+				, (select cast(ifnull(max(cast(CO_NO AS UNSIGNED)), 0) + 1 AS CHAR)
+					 from MESSAGE M
 					where 1 = 1
-					  and CO_TYPE = #{code.CO_TYPE})
-    			, #{code.CODE}
-    			, '0'
+					  and CO_TYPE = #{CO_TYPE})
+    			, #{CODE}
+    			, #{HIDE}
 				)	
-		</foreach>
 	</insert>
 
 	<update id="messageUpdate" parameterType="java.util.List">

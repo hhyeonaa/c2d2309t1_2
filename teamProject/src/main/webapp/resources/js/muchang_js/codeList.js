@@ -39,7 +39,7 @@ $(() => {
 	        }
 		},
 		{
-			name:"",
+			name:"DELETE",
 			header:"삭제",
 			renderer: {
 	            type: DeleteButton

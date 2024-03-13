@@ -38,7 +38,7 @@ $(() => {
 	        }
 		},
 		{
-			name:"",
+			name:"DELETE",
 			header:"삭제",
 			renderer: {
 	            type: DeleteButton
@@ -46,20 +46,41 @@ $(() => {
 		}
 	]
 	
-	let msg = "해당 이름은 사용이 불가능합니다. 다른 이름을 사용 해주세요.";
-	msgFormatting(msg);
-	$("#CODE_TYPE").val();
-
-	$("#excel").remove();
 	$("#grid").empty();
+	
 	fn_grid("message_managePro", 5, columns, false);
 	excel('updownload', 'MESSAGE'); 
  	
  	$(document).on("click", "#beforeInsertBtn", function(){
-		debugger;
+
 		let isInValid = $("#selectMessage").val().trim() != '';
-		isInValid ? $("#insertBtn").trigger("click") 
-				  : alertMsg("AM5", ["내용 및 금액란"]);
+		if(!isInValid){
+			alertMsg("AM5", ["내용 및 금액란"]);
+			return;
+		}
+
+		let message = msgFormatting($("#selectMessage").val())		
+		let isHide = $("#activeCheck").prop("checked") ? '1' : '0';
+		let data_ = {
+			HIDE: isHide,
+			CO_TYPE: codeName.메세지,
+			CODE: message
+		}		  
+				  	
+		$.ajax({
+			type: "post",
+			url: "codeInsertPro",
+			data: data_
+		})	
+		.done(function(data){
+			if(data){
+//				alertMsg("", []);
+				console.log("성공");
+				$("#resetBtn").trigger("click");
+			} else {
+				console.log("실패");
+			}
+		})	  
 	})
  	
 })
@@ -82,15 +103,21 @@ $(() => {
 })
 
 function msgFormatting(msg){
-	const particles = ['은(는)', '이(가)', '을(를)', '의', '와(과)', '까지'];
-
-	let result = msg.split(" ").map((word, index) => {
-	  	let lastChar = word.slice(-1);
-	  	let foundParticle = particles.find(p => lastChar === p[1] && lastChar === (p[3] || p[2]));
-	  	return foundParticle ? `{${index}}${foundParticle.slice(2)}` : word;
-	}).join(" ");
+	const particles = ['까지', '에서', '에게', '은', '는', '이', '가', '의', '와', '과', '후', '을', '를'];
+	let sliceText = msg.trim().split(" ");
+	let index = 0;
 	
-	return result;
+	for(var i = 0; i < sliceText.length; i++){
+		let particleText = particles.find(particle => sliceText[i].slice(-2).includes(particle));
+		if(particleText === undefined) {
+			continue;
+		}
+			
+		sliceText[i] = "{" + index + "}" + particleText;
+		index++;	
+	}
+	
+	return sliceText.join(" ").trim();
 }
 
 function insertTag(){

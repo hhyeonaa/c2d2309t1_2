@@ -101,7 +101,7 @@ public class AdminDAO {
 		return sqlSession.delete(namesqace + "messageDelete", result) == 1 ? true : false;
 	}
 	
-	public boolean messageInsert(List<Map<String, String>> result) {
+	public boolean messageInsert(Map<String, String> result) {
 		return sqlSession.insert(namesqace + "messageInsert", result) == 1 ? true : false;
 	}
 	

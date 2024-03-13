@@ -86,7 +86,7 @@ public class AdminService {
 		return adminDAO.codeSelect(newData);
 	}
 	
-	public boolean messageInsert(List<Map<String, String>> result) {
+	public boolean messageInsert(Map<String, String> result) {
 		return adminDAO.messageInsert(result);
 	}
 	

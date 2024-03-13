@@ -259,31 +259,28 @@ public class AdminController {
 		return ToastUI.resourceData(param, codeService.selectMessageList(EnumCodeType.메세지, session));
 	}
 	
-	@PostMapping("/message_managePro")
+	@PostMapping("/codeInsertPro")
 	@ResponseBody
-	public ResponseEntity<?> insertMessage(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
- 		adminService.messageInsert(result);
- 		return null;
+	public ResponseEntity<?> codeInsertPro(@RequestParam Map<String, String> param) {
+		System.out.println(param);
+ 		boolean isInsert = adminService.messageInsert(param);
+ 		return ResponseEntity.ok().body(isInsert);
 	}
 	
 	@PutMapping("/message_managePro")
 	@ResponseBody
-	public ResponseEntity<?> updateMessage(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
- 		boolean a = adminService.messageUpdate(result);
- 		System.out.println(a);
+	public ResponseEntity<?> updateMessage(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		adminService.messageUpdate(result);
  		return null;
 	}
 	
 	@DeleteMapping("/message_managePro")
 	@ResponseBody
-	public ResponseEntity<?> deleteMessage(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
- 		adminService.messageDelete(result);
+	public ResponseEntity<?> deleteMessage(@RequestParam Map<String, String> deletedRows) {
+		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
+ 		boolean a = adminService.messageDelete(result);
+ 		System.out.println(a);
  		return null;
 	}
 	

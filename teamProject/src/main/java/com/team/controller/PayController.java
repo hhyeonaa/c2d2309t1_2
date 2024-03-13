@@ -46,7 +46,8 @@ public class PayController {
 		//로그인 회원 정보 select
 		param.put("MEM_ID", MEM_ID);
 		Map<String, String> param2 = memberService.getMember(MEM_ID, param);
-		System.out.println(param2);
+		System.out.println("!@#!@#!@#"+param2);
+		System.out.println(param2.get("MEM_NO"));
 		model.addAttribute("buyerInfo", param2);
 		
 		//로그인한 회원 정보 및 배송지리스트 select(ajax?), >> 모달창 ajax
@@ -54,7 +55,7 @@ public class PayController {
 		map2.put("MEM_NO", param2.get("MEM_NO"));
 		List<Map<String, String>> memAddList = payService.getMemAdd(map2);
 		model.addAttribute("memAddList", memAddList);
-//		
+		
 		//payment 배송지 1개 orderby select
 		List<Map<String, String>> memAddBasic = payService.getMemAddBasic(map2);
 		model.addAttribute("memAddBasic",memAddBasic);
@@ -64,12 +65,16 @@ public class PayController {
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
-		
+		//상품정보
 		Map<String, String> payProList = payService.getPayProList(map);
 		System.out.println("payProList" + payProList);
 		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
 		model.addAttribute("payPrice",payPrice);
 		model.addAttribute("payProList",payProList);
+		
+		//배송요청사항 SELECT (공통코드)
+//		List<Map<String, String>> requestDel = payService.getRequestDel();
+		model.addAttribute("requestDel", codeService.selectCodeList(EnumCodeType.배송안내문구, session));
 		
 		return "/pay/payment";
 	}// payment()
@@ -156,16 +161,26 @@ public class PayController {
 	@ResponseBody
 	public Map<String, String> payInfo(@RequestParam Map<String, String> param,  Model model){
 		System.out.println("ajax payInfo");
-//		System.out.println("payInfo" + param);
+		System.out.println("payInfo" + param);
 		Map<String, String> payInfo = payService.getPayInfo(param);
 		model.addAttribute("payInfo", payInfo);
 		System.out.println(payInfo);
 		return payInfo; 
 	}//
 	
+	//결제 성공 후 PAY테이블 insert
+	@PostMapping("/paySuccess")
+	@ResponseBody
+	public ResponseEntity<?> paySuccess(@RequestParam Map<String, String> param){
+		System.out.println("ajax paySuccess");
+		System.out.println(param);
+		
+		return  ResponseEntity.ok().body(payService.paySuccess(param));
+	}//paySuccess()
 	
+	//결제완료 페이지
 	@GetMapping("/completepay")
-	public String completepay() {
+	public String completepay(@RequestParam Map<String, String> param,  Model model, HttpSession session) {
 		System.out.println("PayController completepay()");
 		return "/pay/completepay";
 	}// completepayment

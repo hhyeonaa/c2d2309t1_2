@@ -14,14 +14,10 @@ function selectMethod(){
 		$('.NBdoU').show();
 	})
 }
-// 4-1 결제관련 info
-//function payInfo(payinfo){
-//	
-//}
 
 // 4. 결제 api
 var IMP = window.IMP;
-var requestPay = (pgId, paypayMethod) => {
+var requestPay = (pgId) => {
 	IMP.init("imp34662564"); //가맹점 식별코드
 //       
  		//판매자 구매자 정보 가져오기 ajax
@@ -48,17 +44,15 @@ var requestPay = (pgId, paypayMethod) => {
 			        
 					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
 			        var productname = $("#payProName").text().trim();//제품name
-			 		var sellerNo = data.SELLER // 판매자 MEM_NO
-//			        var msg = 
+
+			        //var msg = $('#selectDel option:selected').text();
 			        
 			        debugger;
 			       	IMP.request_pay({
 						pg: pgId, 
-						pay_method: paypayMethod, // "card"
 			  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
-				 		//buyer_email: "test@portone.io",
 			  			buyer_name: data.BUYNAME, //결제자 이름 
 			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
 			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
@@ -66,69 +60,34 @@ var requestPay = (pgId, paypayMethod) => {
 					}, function (rsp) { // callback 로직
 			  			if(rsp.success){ //결제 성공
 							debugger;
-							rep["SELLER_NO"] = sellerNO
+							rsp["SELLER_NO"] = data.SELLER;
+							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
+							rsp["PRO_NO"] = $('#PRO_NO').val();
+							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
+							//**
+							//var newData = {};
+							//newData.imp_uid = rsp.imp_uid
+							debugger;
 							console.log(rsp);
-			//				  $.ajax({
-			//					  type: "post",
-			//					  url: "paySuccess",
-			//					  data: JSON.stringify(rsp)   
-			//				  })//ajax
-							  
-					  	}else{
-							  debugger;
-							  console.log(res);
-						  }
-					});
+							 $.ajax({
+								 type: "post",
+								 url: "paySuccess",
+								 data: rsp
+							 })//ajax
+							 
+						  	}else{
+								  debugger;
+								  console.log(res);
+							  }
+						});
 				//data값
 				}
 				
-			},
+			},//success:function(data)
 			fail:function(){
 			}
 		})//ajax
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-//        var today = new Date();   
-//        var hours = today.getHours(); // 시
-//        var minutes = today.getMinutes();  // 분
-//        var seconds = today.getSeconds();  // 초
-//        var milliseconds = today.getMilliseconds();
-//        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-//        
-//		var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
-//        var productname = $("#payProName").text().trim();//제품name
-////        var buyer_name = $
-//        
-//        debugger;
-//       	IMP.request_pay({
-//			pg: pgId, 
-//			pay_method: paypayMethod, // 생략가능
-//  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
-//  			name: productname, //상품명 // PRO_NAME
-//	 		amount: 100, // 결제금액 price //PAID_AMOUNT
-//	 		//buyer_email: "test@portone.io",
-//  			buyer_name: "구매자이름", //결제자 이름 //BUYER_NAME
-//  			buyer_tel: "010-1234-5678", //결제자 연락처 //BUYER_TEL
-//  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
-//  			buyer_postcode: $("#addPost").text() // 배송우편번호 //BUYER_POSTCODE
-//		}, function (rsp) { // callback 로직
-//  			if(rsp.success){
-//				  
-//				  debugger;
-//				  console.log(rsp);
-////				  $.ajax({
-////					  type: "post",
-////					  url: "paySuccess",
-////					  data: JSON.stringify(rsp)   
-////				  })//ajax
-//				  
-//		  	}else{
-//				  debugger;
-//				  console.log(res);
-//			  }
-//		});
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 }
-
 //5-1 배송지리스트
 function addList(result){
 	var i = 0;    
@@ -195,21 +154,15 @@ $(()=>{
 	
 // 결제할(선택된) 페이 css변경(4)
 var payCheck = $('.nonCheck')
-// 결제할(선택된) 페이(4)
-//var payMethod = $('.check').find('span').text().trim();
-//var payMethod1 = $('.check').attr('value');	
 
 var pgId = "";
-var paypayMethod="";
 
 $('#tossPay').on("click", () =>{
 	pgId="tosspay.tosstest";
-	paypayMethod="card";
 });
 
 $('#kakaoPay').on("click", () =>{
 	pgId="kakaopay.TC0ONETIME";
-	paypayMethod="card";
 })
 	
 	
@@ -320,13 +273,15 @@ selectMethod();
 			alert('결제 수단을 선택해주세요');
 			return false;
 		}
-		requestPay(pgId, paypayMethod);
 		if($('.kGbUWb').text()==""){
 			alert('배송주소를 등록해주세요');
 			return false;
 		}
-		//
-		
+		requestPay(pgId);
+		// "/completepay"페이지이동
+		var PRO_NO = $('#PRO_NO').val();
+		var url = '${pageContext.request.contextPath}/board/boardDetail?PRO_NO=' + PRO_NO;
+		window.location.href = url;
 	})
 // 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){
@@ -378,7 +333,7 @@ selectMethod();
 			})//ajax
 			.done(function(data){
 				if(data != null){
-					alert("여기까지")
+					//alert("여기까지")
 					$("#address-no").val(data.ADD_NO);
 					$("#address-title").val(data.ADD_NICK);
 					$("#address-name").val(data.ADD_RECEIVER);
@@ -448,7 +403,7 @@ selectMethod();
 			},
 			fail:function(){
 				debugger;
-				alert("주소수정실패!");
+				//alert("주소수정실패!");
 				$("#staticBackdrop1").modal("hide");
 			}
 		})//ajax
@@ -487,7 +442,7 @@ selectMethod();
 			},
 			fail:function(){
 				debugger;
-				alert("주소추가실패!");
+				//alert("주소추가실패!");
 				$("#staticBackdrop1").modal("hide");
 			}	
 		})//ajax
@@ -513,7 +468,22 @@ selectMethod();
 		$("#staticBackdrop").modal("show");
 	});
 
-	
+	//9.배송 요청사항 이벤트
+	$('#selectDel').change(function() {
+        var selectedOptionText = $("#selectDel option:selected").text();
+        var textarea = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4');
+        
+        //$("#selectDel  option").index($("#selectDel  option:selected"));
+		//$("#selectDel option:selected").text();
+
+        
+        // 선택된 옵션에 따라 textarea를 활성화 또는 비활성화
+        if (selectedOptionText === '직접 입력') {
+            textarea.prop('disabled', false); // textarea 활성화
+        } else {
+            textarea.prop('disabled', true); // textarea 비활성화
+        }
+    });
 	
 	
 	

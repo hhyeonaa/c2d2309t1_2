@@ -650,8 +650,9 @@ svg:not(:root) {
 }
 
 .iwgmOh > div:nth-last-child(1) {
-    padding-top: 20px;
-    border-top: 1px solid rgb(242, 242, 242);
+    /* 24.03.12 수정 */
+    padding-top: 0px; 
+/*     border-top: 1px solid rgb(242, 242, 242); */
 }
 
 .epdsLL {

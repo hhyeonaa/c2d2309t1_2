@@ -29,7 +29,8 @@
 		select
 			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
 			, a.AD_ID
-			, r.ROL_NAME
+			, a.ROL_NO
+<!-- 			, r.ROL_NAME   이부분 필요 없어져서 join 안써도 될듯?           -->  
 			, a.AD_ACTIVE
 		from ADMIN a join ROLE r
 		on a.ROL_NO = r.ROL_NO

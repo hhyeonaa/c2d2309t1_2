@@ -279,7 +279,9 @@ selectMethod();
 		}
 		requestPay(pgId);
 		// "/completepay"페이지이동
-		//window.location.href = "/completepay?PRO_NO=${payProList.PRO_NO }";
+		var PRO_NO = $('#PRO_NO').val();
+		var url = '${pageContext.request.contextPath}/board/boardDetail?PRO_NO=' + PRO_NO;
+		window.location.href = url;
 	})
 // 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){
@@ -466,7 +468,22 @@ selectMethod();
 		$("#staticBackdrop").modal("show");
 	});
 
-	
+	//9.배송 요청사항 이벤트
+	$('#selectDel').change(function() {
+        var selectedOptionText = $("#selectDel option:selected").text();
+        var textarea = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4');
+        
+        //$("#selectDel  option").index($("#selectDel  option:selected"));
+		//$("#selectDel option:selected").text();
+
+        
+        // 선택된 옵션에 따라 textarea를 활성화 또는 비활성화
+        if (selectedOptionText === '직접 입력') {
+            textarea.prop('disabled', false); // textarea 활성화
+        } else {
+            textarea.prop('disabled', true); // textarea 비활성화
+        }
+    });
 	
 	
 	

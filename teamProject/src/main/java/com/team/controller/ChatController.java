@@ -76,11 +76,15 @@ public class ChatController {
 	
 	@GetMapping("/getChatting")
 	public ResponseEntity<?> getChatting(@RequestParam Map<String, String> param) {
-		System.out.println("enter : getChatting");
 		return ResponseEntity.ok().body(chatService.getChatting(param));
 	}
 	
+	@PostMapping("/changePostState")
+	public ResponseEntity<?> changePostState(@RequestParam Map<String, String> param) {
+		System.out.println("enter : changePostState");
+		return ResponseEntity.ok().body(chatService.changePostState(param));
+	}
 	
 	// -------- 준우 끝 -------------------
 	
-}// 클래스 끝
+}

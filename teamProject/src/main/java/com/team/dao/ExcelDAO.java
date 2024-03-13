@@ -1,11 +1,9 @@
 package com.team.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

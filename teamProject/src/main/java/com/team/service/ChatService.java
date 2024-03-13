@@ -35,5 +35,9 @@ public class ChatService {
 	public List<Map<String, String>> getChatting(Map<String, String> param) {
 		return chatDAO.getChatting(param);
 	}
+
+	public int changePostState(Map<String, String> param) {
+		return chatDAO.changePostState(param);
+	}
 	
 }

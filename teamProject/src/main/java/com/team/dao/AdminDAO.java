@@ -135,7 +135,6 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
 	}//
 
-	// 신고리스트 불러오기
 	public int insertReport(Map<String, String> map) {
 		return sqlSession.insert(namesqace + "insertReport", map);
 	}//
@@ -143,7 +142,7 @@ public class AdminDAO {
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
 	}//
-	
+
 //	----- 성엽 끝 -----	
 	
 	

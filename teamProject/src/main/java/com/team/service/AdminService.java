@@ -136,7 +136,7 @@ public class AdminService {
 		return adminDAO.getForm(map);
 	}
 	
-	// 신고리스트 불러오기
+	// 채팅 신고하기
 	public int insertReport(Map<String, String> map) {
 		return adminDAO.insertReport(map);
 	}//
@@ -144,7 +144,6 @@ public class AdminService {
 	public List<Map<String, String>> getReportList() {
 		return adminDAO.getReportList();
 	}//
-
 
 //	----- 성엽 끝 -----
 

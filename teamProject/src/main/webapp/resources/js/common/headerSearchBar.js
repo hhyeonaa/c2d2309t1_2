@@ -46,9 +46,11 @@ $(() => {
 		$("#price").val(price).trigger('change');
 		$("#search").val(title);
 	} 
-
+	
+	$(document).on("keydown", "#search", function(e){
+		if(e.code === 'Enter') $('#searchButton').trigger("click");
+	});
 	$(document).on("click", "#searchButton", function(){
-//		debugger;
 		let selectText = $("#menu option:selected").text();
 		let aTagText = $("#hearderMenu a");
 		for(var i = 0; i < aTagText.length; i++){
@@ -60,17 +62,6 @@ $(() => {
 		
 		$("#submitBtn").trigger("click");
 	})
-	
-//	$.ajax({
-//		url:"search/bar"
-//	})
-//	.done(function(data){
-//		alert(data);
-//	})
-//	fail(function(fail){
-//		alert(fail);
-//	})
-	
 })
 
 function header(data, url){

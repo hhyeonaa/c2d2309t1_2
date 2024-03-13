@@ -39,7 +39,7 @@ public class HeaderController {
 	@ResponseBody
 	public ResponseEntity<?> searchBar(HttpSession session) {
 		
-	return ResponseEntity.ok().body(null);
+		return ResponseEntity.ok().body(null);
 	}
 	
 	private Map<String, List<Map<String, String>>> menuListReturn(HttpSession session) {

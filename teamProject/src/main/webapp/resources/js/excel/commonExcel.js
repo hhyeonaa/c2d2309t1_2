@@ -34,13 +34,12 @@ var excel = (state, tableName) => {
 			var startNum = 2;
 			var endNum = undefined;
 			
-//			if ($("#grid").find("th").eq(2).text() == '번호'){
-//				startNum = 3;
-//			}
+			 
 			if ($("#grid").find("th").eq(-1).text() == '삭제'){
 				endNum = -1;
 			}
 			
+			// 헤더
 			var th = $("#grid").find("th").slice(startNum, endNum)
 			var title = [];
 			var colName = [];
@@ -49,9 +48,43 @@ var excel = (state, tableName) => {
 				colName.push(th.eq(i).attr('data-column-name'));
 				title.push(th.eq(i).text());
 			}
+			var header = {
+				title: title,
+				colName: colName
+			};
 			
-			console.log(title);
-			console.log(colName);
+			// 바디
+			var bodyContents = $(".tui-grid-body-area").eq(1).find(".tui-grid-row-odd, .tui-grid-row-even");
+			
+			var body = {};
+			for(var i = 0 ; i < bodyContents.length ; i++){
+				
+				var cellContent = bodyContents.eq(i).find("td");	
+				var cellDatas =[];
+				for(var j = 0 ; j < cellContent.length ; j++){
+					var cell = cellContent.eq(j);
+					var data;
+					if(cell.find("input").length){
+						data = cell.find("input").val();
+					}
+					else if (cellContent.eq(j).attr("data-column-name") == "DELETE") {
+						continue;
+					}
+					else{
+						data = cell.children("div").text();
+					}
+					cellDatas.push(data);
+				}
+				body["row" + i] = cellDatas;
+			}
+			
+			dlData = {
+				header: header,
+				body: body
+			};
+			
+			location.href=encodeURI('/' + window.location.pathname.split("/")[1] + "/excel/formExcelDL?dlData="+JSON.stringify(dlData));
+			
 		})							    
 	}
 	

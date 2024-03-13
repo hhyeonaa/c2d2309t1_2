@@ -1,6 +1,10 @@
 document.write('<script type="text/javascript"' + 
 			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
 			   '</script>');
+			   
+// ********************************************************************************************************************************************
+// *************** 페이지 로드 후 ****************************************************************************************************************
+// ********************************************************************************************************************************************			   
 $(()=>{
 	var id = $(".id_session").val();
 	
@@ -29,11 +33,15 @@ $(()=>{
 	})
 })
 
-// ****************** 변수 ****************** 
+// ********************************************************************************************************************************************
+// *************** 변수 ************************************************************************************************************************
+// ********************************************************************************************************************************************
+ 
 var notMyPostChatRoom = (chatRoom) => {
 	return '<div class="chatRoom notMyPost" id="'+chatRoom.PRO_NO+'">' +
 					'<input type="hidden" class="roomNo" id='+chatRoom.CR_NO+'>' +
 					'<input type="hidden" class="target" id='+chatRoom.MEM_ID+'>' +
+					'<input type="hidden" class="payState" id='+chatRoom.PAY_STATE+'>' +
 					'<div class="profileImgBox" style="font-size: 10px;">' +
 						'<img class="profileImg" alt="프로필 사진" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/uploads/'+chatRoom.MEM_IMAGE+'">'+
 					'</div>' +
@@ -66,8 +74,11 @@ var yourChat = (chat) => {
 // *****************************************
 
 
-// ****************** 함수 ****************** 
-// =========== 소켓 함수 ===========
+
+// ********************************************************************************************************************************************
+// *************** 함수 ************************************************************************************************************************
+// ********************************************************************************************************************************************
+// ########### 소켓 함수 #############
 // 소켓 연결
 // console.log(location.origin+"/"+location.pathname.split("/")[1]+"chat");
 // http://localhost:8080/myapp/chat
@@ -143,9 +154,9 @@ function addMsg(msg){ // 원래 채팅 메세지에 방금 받은 메세지 더�
 	
 	
 }
-// =========== 소켓 함수 끝 ===========
+// ########### 소켓 함수 끝 ##########
 
-
+// ########### 모달 함수 #############
 // 모달 열기
 var modalToggle = 0;
 var openModal = function(id){
@@ -232,9 +243,11 @@ var createChat = function(proNo, memId){
 };
 
 // 채팅방 입장
-var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
-	var disabled;
-	if(post == "yourPost") disabled = "disabled";
+var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, payState, post){
+	var selectDisabled;
+	var tm1Disabled;
+	if(post == "yourPost" || pro_tsc.code == "TM3") selectDisabled = "disabled";
+	if(payState == "1") tm1Disabled ="disabled";
 	
 	// 소켓 방 생성
 	register(roomNo);
@@ -249,14 +262,15 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
 							'</div>';
 	
 	var systemContainer = '<div id="systemContainer">' +
-								'<div class="reportBtn">' +
+								'<div class="btnBox">' +
 									'<a id="report" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">' +
-										'<span class="material-symbols-outlined reportIcon">notifications_active</span>' +
+										'<span class="material-symbols-outlined report icons">notifications_active</span>' +
 									'</a>' +
+									'<span class="material-symbols-outlined out icons">logout</span>'+
 								'</div>' +
 								'<div>' +
-									'<select name="pro_tsc" id="pro_tsc" class="form-select" '+disabled+'>' +
-										'<option value="TM1">거래가능</option>' +
+									'<select name="pro_tsc" id="pro_tsc" class="form-select" '+selectDisabled+'>' +
+										'<option value="TM1" '+tm1Disabled+'>거래가능</option>' +
 										'<option value="TM2">거래중</option>' +
 										'<option value="TM3">거래완료</option>' +
 									'</select>' +
@@ -360,6 +374,25 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
 	
 	// **************** 신고하기 끝 *********************
 	
+	// 채팅방 나가기
+	$(".out").on("click", function(){
+		if(confirm("채팅방을 나가면 채팅 기록	이 사라집니다. 그래도 나가시겠습니까?")){
+			$.ajax({
+				url: '/' + window.location.pathname.split("/")[1] + '/chat/outChat',
+				type:'post',
+				data:{
+					roomNo: roomNo
+				}
+			})
+			.done(function(result){
+				if(Boolean(result)){
+					$(".")
+				}
+			})
+		}
+		debugger;
+	})
+	
 	// --------------------------------------------
 	// chatBody
 	var chatBody = $("#chatBody");
@@ -450,7 +483,8 @@ var showChatList = function(chatList, post){
 			code:$(this).find(".chatRoomContents > span").attr("class"),
 			code_content:$(this).find(".chatRoomContents > span").text().slice(1,-1),
 		};
-		enterChat(proNo, roomNo, target, nickName, title, pro_tsc, post);
+		var payState = $(this).find(".payState").attr("id");
+		enterChat(proNo, roomNo, target, nickName, title, pro_tsc, payState, post);
 	})
 }
 
@@ -487,5 +521,5 @@ var sendMsgBtn = function(roomNo, target){
 	$("#sendText").val("");
 }
 
-// *****************************************
+// ################################
 

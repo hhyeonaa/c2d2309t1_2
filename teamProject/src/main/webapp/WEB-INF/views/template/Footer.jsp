@@ -88,7 +88,6 @@
 		
 		<div id="chatContentsContainer">
 			<div id="chatHead">
-<!-- 				<div>이미지</div> -->
 <!-- 				<div class="chatRoomContents"> -->
 <!-- 					<div class="userNick">[닉네임]</div> -->
 <!-- 					<div class="postTit">다른 게시물 제목</div> -->

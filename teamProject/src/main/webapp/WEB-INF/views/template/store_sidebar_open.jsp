@@ -180,6 +180,7 @@ ul{
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100" style="padding: 0 0 0 240px; background:#f0f0f3;">
+<%-- 	<c:set /> --%>
     <div class="l-navbar expander" id="navbar">
         <nav class="nav">
             <div>

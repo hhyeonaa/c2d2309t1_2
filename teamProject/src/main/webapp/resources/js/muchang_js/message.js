@@ -103,18 +103,28 @@ $(() => {
 })
 
 function msgFormatting(msg){
-	const particles = ['까지', '에서', '에게', '은', '는', '이', '가', '의', '와', '과', '후', '을', '를'];
+	const particles = ['부터','까지', '에서', '께서', '에게', '은', '는', '이', '가', '의', '와', '과', '후', '을', '를'];
+	const multiParticles = ['은(는)', '이(가)', '을(를)', '와(과)'];
 	let sliceText = msg.trim().split(" ");
 	let index = 0;
 	
-	for(var i = 0; i < sliceText.length; i++){
-		let particleText = particles.find(particle => sliceText[i].slice(-2).includes(particle));
-		if(particleText === undefined) {
-			continue;
-		}
-			
-		sliceText[i] = "{" + index + "}" + particleText;
-		index++;	
+	for (let i = 0; i < sliceText.length; i++) {
+	    const lastTwoChars = sliceText[i].slice(-2);
+	    const lastChar = sliceText[i].slice(-1);
+	
+	    let particleIndex = particles.indexOf(lastTwoChars);
+	    if (particleIndex !== -1) {
+	        sliceText[i] = "{" + index + "}" + particles[particleIndex];
+	        index++;
+	        continue;
+	    }
+	
+	    particleIndex = particles.indexOf(lastChar);
+	    if (particleIndex !== -1) {
+	        const particle = multiParticles.find(p => p.includes(particles[particleIndex]));
+	        sliceText[i] = "{" + index + "}" + (particle ? particle : particles[particleIndex]);
+	        index++;
+	    }
 	}
 	
 	return sliceText.join(" ").trim();
@@ -134,3 +144,25 @@ function insertTag(){
 	
 }
 
+//	for(var i = 0; i < sliceText.length; i++){
+//		for(var j = 0; j < particles.length; j++){
+//			if(particles[j].length === 2 && sliceText[i].slice(-2) === particles[j]){
+//				sliceText[i] = "{" + index + "}" + particles[j];
+//				index++;
+//				continue;				
+//			} 
+//			
+//			if(particles[j].length === 1 && sliceText[i].slice(-1) === particles[j]){
+//				for(var k = 0; k < multiParticles.length; k++){
+//					if(multiParticles[k].includes(particles[j])){
+//						sliceText[i] = "{" + index + "}" + multiParticles[k];
+//						break;
+//					} else {
+//						sliceText[i] = "{" + index + "}" + particles[j];
+//					}
+//				}
+//				index++;
+//				continue;
+//			}
+//		}
+//	}

@@ -172,6 +172,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C1.CO_TYPE, C1.CO_NO) = 'MM1'
         and M.MEM_ID = #{MEM_ID}
+        and I.IMG_NO = '1'
         order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
@@ -196,6 +197,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C1.CO_TYPE, C1.CO_NO) = 'MM2'
         and M.MEM_ID = #{MEM_ID}
+        and I.IMG_NO = '1'
         order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
@@ -220,6 +222,7 @@
         on P.PRO_NO = I.IMG_PRONO
         where concat(C1.CO_TYPE, C1.CO_NO) = 'MM3'
         and M.MEM_ID = #{MEM_ID}
+        and I.IMG_NO = '1'
         order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
@@ -246,6 +249,7 @@
         where concat(C1.CO_TYPE, C1.CO_NO) = 'MM4'
         and M.MEM_ID = #{MEM_ID}
         and A.AUC_TSC != 'TM3'
+        and I.IMG_NO = '1'
         order by A.AUC_TSC, cast(trim(leading 'AU' from AUC_NO) as unsigned) desc;
 	</select>
 	
@@ -357,6 +361,7 @@
 			 , P.PRO_TSC
 			 , P.PRO_WR
 			 , P.PRO_DATE
+			 , P.PRO_NO
              , A.NAME
              , A.MERCHANT_UID
              , DATE_FORMAT(A.PAY_TIME, '%Y.%m.%d %H:%i:%s') as "PAY_TIME"
@@ -382,5 +387,11 @@
         and I.IMG_NO = '1'
         order by cast(trim(leading 'PR' from P.PRO_NO) as unsigned) desc
 	</select>
+	
+	<update id="changeState" parameterType="map">
+		update PRODUCT
+		set PRO_TSC = 'TM3'
+		where PRO_NO = #{PRO_NO}
+	</update>
 	
 </mapper>

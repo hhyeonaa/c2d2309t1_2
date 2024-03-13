@@ -152,4 +152,10 @@ public class MemberService {
 		return memberDAO.trading(MEM_ID); 
 	}// trading()
 //	-----------------------------------------------------------------------------	
+	public void changeState(Map<String, String> map) {
+		System.out.println("MemberService changeState()");
+		System.out.println(map + " changeState");
+		memberDAO.changeState(map);
+	}// memberDelete()
+//	-----------------------------------------------------------------------------	
 }// MemberService 클래스

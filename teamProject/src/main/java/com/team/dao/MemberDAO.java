@@ -135,7 +135,7 @@ public class MemberDAO {
 		boolean result = sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1 ? true : false;
 		System.out.println("result: " + result);
 		return result;
-	}
+	}// deleteLike()
 //	-----------------------------------------------------------------------------
 	public List<Map<String, String>> myTrade(String MEM_ID) {
 		System.out.println("MemberDAO myTrade()");
@@ -151,6 +151,12 @@ public class MemberDAO {
 		System.out.println("MemberDAO trading()");
 		return sqlSession.selectList(namespace + "trading", MEM_ID);
 	}// trading()
+//	-----------------------------------------------------------------------------	
+	public void changeState(Map<String, String> map) {
+		System.out.println("MemberDAO changeState()");
+		System.out.println(map + "  changeState");
+		sqlSession.update(namespace + "changeState", map);
+	}// changeState()
 //	-----------------------------------------------------------------------------
 	
 	

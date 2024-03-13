@@ -55,6 +55,8 @@
 		    ON C.MEM_NO = M.MEM_NO
 	 	 WHERE C.PRO_NO IN ((SELECT PRO_NO FROM PRODUCT WHERE PRO_WR = #{memId}))
 		  </if>
+		   AND (C.CHAT_CLOSE IS NULcL
+		   OR C.CHAT_CLOSE NOT LIKE CONCAT('%', #{memId} ,'%'));
 	</select>
 	
 	<insert id="insertChat" parameterType="map">
@@ -84,9 +86,8 @@
 	
 	<update id="outChat" parameterType="map">
 		UPDATE CHAT_ROOM
-		   SET CHAT_CLOSE = "Y"
+		   SET CHAT_CLOSE = CONCAT(IFNULL((SELECT * FROM (SELECT CHAT_CLOSE FROM CHAT_ROOM WHERE CR_NO = #{roomNo}) A), ""), #{memId})
 		 WHERE CR_NO = #{roomNo};
-		
 	</update>
 	
 </mapper>

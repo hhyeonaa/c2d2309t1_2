@@ -376,21 +376,25 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, paySta
 	
 	// 채팅방 나가기
 	$(".out").on("click", function(){
-		if(confirm("채팅방을 나가면 채팅 기록	이 사라집니다. 그래도 나가시겠습니까?")){
+		if(confirm("채팅방을 나가면 채팅 기록이 사라집니다. 그래도 나가시겠습니까?")){
 			$.ajax({
 				url: '/' + window.location.pathname.split("/")[1] + '/chat/outChat',
 				type:'post',
 				data:{
-					roomNo: roomNo
+					roomNo: roomNo,
+					memId: $(".id_session").val()
 				}
 			})
 			.done(function(result){
 				if(Boolean(result)){
-					$(".")
+					debugger;
+					getChat($(".session_id").val(), $(".on").attr("id").slice(0,-4));
+					$("#chatBody").empty();
+					$("#chatHead").empty();
+					$("#chatBody").append('<span id="chatChoicePlease">채팅을 선택해주세요</span>');
 				}
 			})
 		}
-		debugger;
 	})
 	
 	// --------------------------------------------

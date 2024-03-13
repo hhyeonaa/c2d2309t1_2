@@ -111,22 +111,22 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	})
 	
 	// 신고하기 버튼 클릭 시
-    	$("#reportBtn").on("click", function(){
-    		$.ajax({
-    			url: "insertBoardReport",
-    			type: "POST",
-    			data: {
-    				reportTarget: $(".memNo").val(),
-    				rptCode: $('input[name="rd01"]:checked').val()
-    			}
-    		})
-    		.done(function(data){
-    			alert('신고가완료되었습니다.')
-    			$('#exampleModalReport').modal('hide')
-    		})
-    		.fail(function(){
-    			alert('신고 내용을 선택해주세요.')
-    		})
-    	});
+	$("#rptBtn").on("click", function(){
+		$.ajax({
+			url: "insertBoardReport",
+			type: "POST",
+			data: {
+				reportTarget: $(".memNo").val(),
+				rptCode: $('input[name="rd01"]:checked').val()
+			}
+		})
+		.done(function(data){
+			alert('신고가완료되었습니다.')
+			$('#exampleModal').modal('hide')
+		})
+		.fail(function(){
+			alert('신고 내용을 선택해주세요.');
+		})
+	});
 	
 })

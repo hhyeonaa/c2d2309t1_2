@@ -4,6 +4,20 @@ document.write('<script type="text/javascript"' +
 
 // 페이징 처리
 $(() => {
+	
+//	var columns = [
+//		{name:"MEM_NO", header:"번호"},
+//		{name:"MEM_ID", header:"아이디"},
+//		{name:"MEM_NICK", header:"닉네임"},
+//		{name:"MEM_NAME", header:"이름"},
+//		{name:"MEM_EMAIL", header:"이메일"},
+//		{name:"MEM_DATE", header:"가입일"},
+//		{name:"RPT_USER_NO", header:"누적신고"},
+//		{name:"MEM_CAT", header:"회원상태"}
+//	]
+//	grid("", 10, columns);
+	
+	
 	paging("#tbody tr", 10, 0);
 	
 	for(var i = 0; i < $("#tbody select").length; i++){

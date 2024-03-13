@@ -255,7 +255,7 @@
 			  , MEM_DATE
 			  , (select COUNT(*)
 				  from REPORT
-				 where RPT_USER_NO = MEM_NO) as COUNT
+				 where RPT_USER_NO = MEM_ID) as COUNT
 			  , MEM_CAT
 		  from MEMBERS
 		 ORDER BY MEM_NO;
@@ -342,6 +342,71 @@
 	</insert>
 	<!-- {rptUserIdx=MEM1, rptCode=DCM1, MEM_ID=chat01} -->
 
+	<select id="getMemberCntList" resultType="map">
+		<![CDATA[
+		WITH RECURSIVE TMP 
+		AS ( 
+		    SELECT MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) AS N
+		    UNION ALL
+		    SELECT N + 1 AS NUM 
+		    FROM TMP
+		    WHERE N < (MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) + 4)
+		)
+		SELECT CONCAT(T.MONTH, '월') AS MONTH
+			 , IFNULL(C.CNT, 0) AS CNT
+		  FROM (SELECT CASE WHEN N % 12 = 0 THEN 12
+					        ELSE N % 12 END AS MONTH
+				  FROM TMP) T
+		  LEFT JOIN (SELECT MONTH(MEM_DATE) AS MONTH
+						  , COUNT(*) AS CNT
+					   FROM MEMBERS
+					  GROUP BY MONTH(MEM_DATE))	C
+		    ON T.MONTH = C.MONTH
+	    ]]>
+	</select>
+	
+	<select id="getCategoryCntList" resultType="map">
+		SELECT C.CODE
+		     , IFNULL(P.CNT, 0) AS CNT
+		  FROM (SELECT CONCAT(CO_TYPE, CO_NO) AS PRO_CATE
+					 , CODE
+				  FROM CODE
+				 WHERE CO_TYPE = 'CM'
+		 ) C
+		 LEFT JOIN (SELECT PRO_CATE
+						 , COUNT(*) AS CNT
+					  FROM PRODUCT
+					 WHERE PRO_TSC = 'TM3' 
+					 GROUP BY PRO_CATE) P
+		   ON C.PRO_CATE = P.PRO_CATE     
+		  ORDER BY P.CNT DESC 
+		  LIMIT 5
+	</select>
+	
+	<select id="getTotalTradeList" resultType="map">
+		<![CDATA[
+		WITH RECURSIVE TMP 
+		AS ( 
+		    SELECT MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) AS N
+		    UNION ALL
+		    SELECT N + 1 AS NUM 
+		    FROM TMP
+		    WHERE N < (MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) + 4)
+		)
+	    SELECT CONCAT(T.MONTH, '월') AS MONTH
+			 , IFNULL(P.CNT, 0) AS CNT
+	      FROM (SELECT CASE WHEN N % 12 = 0 THEN 12
+					        ELSE N % 12 END AS MONTH
+				  FROM TMP) T
+	      LEFT JOIN (SELECT MONTH(PRO_DATE) AS MONTH
+						  , COUNT(*) AS CNT
+					   FROM PRODUCT
+					  WHERE PRO_TSC = 'TM3' 
+					  GROUP BY MONTH(PRO_DATE)) P
+	        ON T.MONTH = P.MONTH
+	    ]]>
+	</select>
+	
 <!-- 	===== 성엽 끝 ===== -->
 	
 	

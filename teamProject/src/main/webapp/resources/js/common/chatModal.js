@@ -353,6 +353,7 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
     			$('#exampleModalReport').modal('hide');
     		})
     		.fail(function(){
+				debugger;
     			alert('신고 내용을 선택해주세요.')
     		})
     	});

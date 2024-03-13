@@ -106,27 +106,27 @@ public class AdminService {
 	
 	public List<Map<String, String>> getMemberList() {
 		return adminDAO.getMemberList();
-	}//
+	}
 
 	public List<Map<String, String>> getContentboardList() {
 		return adminDAO.getContentboardList();
-	}//
+	}
 
 	public boolean memberStop(Map<String, String> dto) {
 		return adminDAO.memberStop(dto);
-	}//
+	}
 	
 	public int contentDelete(String PRO_NO) {
 		return adminDAO.contentDelete(PRO_NO);
-	}//
+	}
 	
 	public int cateContentDelete(String PRO_NO) {
 		return adminDAO.cateContentDelete(PRO_NO);
-	}//
+	}
 
 	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
 		return adminDAO.getBoardCategoryList(param);
-	}//
+	}
 
 	public void inputForm(Map<String, String> map) {
 		adminDAO.inputForm(map);
@@ -139,12 +139,25 @@ public class AdminService {
 	// 채팅 신고하기
 	public int insertReport(Map<String, String> map) {
 		return adminDAO.insertReport(map);
-	}//
+	}
 	
 	public List<Map<String, String>> getReportList() {
 		return adminDAO.getReportList();
-	}//
+	}
 
+	// ---- chart 시작 -----
+	public List<Map<String, String>> getMemberCntList(Map<String, String> param) {
+		return adminDAO.getMemberCntList();
+	}
+	
+	public List<Map<String, String>> getCategoryCntList(Map<String, String> param) {
+		return adminDAO.getCategoryCntList();
+	}
+	
+	public List<Map<String, String>> getTotalTradeList(Map<String, String> param) {
+		return adminDAO.getTotalTradeList();
+	}
+	
 //	----- 성엽 끝 -----
 
 }

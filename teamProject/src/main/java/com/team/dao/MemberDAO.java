@@ -147,6 +147,11 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace + "otherTrade", MEM_ID);
 	}// otherTrade()
 //	-----------------------------------------------------------------------------
+	public List<Map<String, String>> trading(String MEM_ID) {
+		System.out.println("MemberDAO trading()");
+		return sqlSession.selectList(namespace + "trading", MEM_ID);
+	}// trading()
+//	-----------------------------------------------------------------------------
 	
 	
 }// MemberDAO 클래스

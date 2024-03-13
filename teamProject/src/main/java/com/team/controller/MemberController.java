@@ -406,6 +406,17 @@ public class MemberController{
 		
 	}// memberDelete()
 //	-----------------------------------------------------------------------------
+	@GetMapping("/trading")
+	public String trading(Model model, HttpSession session) {
+		System.out.println("MemberController tradeList()");
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		// 진행 중인 거래
+		List<Map<String,String>> trading = memberService.trading(MEM_ID);
+		model.addAttribute("trading", trading);
+		return "member/trading";
+	}// trading()
+//	-----------------------------------------------------------------------------
+	
 	
 	
 	

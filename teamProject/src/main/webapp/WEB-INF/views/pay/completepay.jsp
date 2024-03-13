@@ -53,7 +53,7 @@
 						
 						<div class="btnBox">
 							<button class="btn goMypage" onclick="location.href ='mypage.cu'">결제 확인</button>
-							<button class="btn goMain" style="margin-left: 20px;" onclick="location.href ='main.ma'">메인 페이지로</button>
+							<button class="btn goMain" style="margin-left: 20px;" onclick="location.href ='../'">메인 페이지로</button>
 						</div>
 					</div>
 				</div>

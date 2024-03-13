@@ -79,8 +79,22 @@
                             </svg>
                         </a>
                         
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='trading'">
+                            <span id="span01">진행 중인 거래</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg01">
+                                <g clip-path="url(#ic_arrow_mini_svg__a)">
+                                    <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="ic_arrow_mini_svg__a">
+                                        <path fill="#fff" transform="translate(6.667 4.167)" d="M0 0h6.617v11.492H0z"></path>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </a>
+                        
                         <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
-                            <span id="span01">내 거래 내역</span>
+                            <span id="span01">거래 완료 내역</span>
                             <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg01">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>

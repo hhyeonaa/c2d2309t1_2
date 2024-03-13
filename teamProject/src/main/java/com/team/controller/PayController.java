@@ -194,6 +194,15 @@ public class PayController {
 		System.out.println(completePay);
 		model.addAttribute("completePay", completePay);
 		return "/pay/completepay";
-	}// completepayment
+	}// completepay
+	
+	//결제 완료시 상품 거래상태 update  TM1 > TM2 update ajax
+	@PostMapping("/payProUpdate")
+	@ResponseBody
+	public ResponseEntity<?> payProUpdate(@RequestParam Map<String, String> param){
+		System.out.println("ajax payProUpdate");
+		System.out.println("ajax payProUpdate" + param);
+		return  ResponseEntity.ok().body(payService.payProUpdate(param));
+	}//payProUpdate()	
 	
 }

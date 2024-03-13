@@ -72,6 +72,11 @@ public class PayService {
 		return payDAO.getCompletePay(param);
 	}
 
+	//결제 완료시 상품 거래상태 update  TM1 > TM2 update ajax
+	public int payProUpdate(Map<String, String> param) {
+		return payDAO.payProUpdate(param);
+	}
+
 	//배송요청사항 SELECT (공통코드)
 //	public List<Map<String, String>> getRequestDel() {
 //		return payDAO.getRequestDel();

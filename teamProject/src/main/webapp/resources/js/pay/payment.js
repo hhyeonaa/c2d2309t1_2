@@ -14,6 +14,24 @@ function selectMethod(){
 		$('.NBdoU').show();
 	})
 }
+// 10 결제완료 후 상품상태 TM1 > TM2 update
+function payProUpdate(a){
+	debugger;
+	$.ajax({
+		url : "payProUpdate",
+		type:"post",
+		data:{PRO_NO : a}
+	})//ajax
+	.done(function(data){
+		debugger;
+		if(data == 1){
+			alert('거래상태 update 성공');			
+		}	
+	})
+	.fail(function(){
+		debugger;
+	})
+}
 
 // 4. 결제 api
 var IMP = window.IMP;
@@ -87,6 +105,7 @@ var requestPay = (pgId) => {
 								 if(data){
 									var PRO_NO = $('#PRO_NO').val();
 									var MEM_NO = $('#MEM_NOreal').val();
+									payProUpdate(PRO_NO);
 									var url = 'completepay?PRO_NO=' + PRO_NO + '&MEM_NO=' + MEM_NO 
 									window.location.href = url;
 								 } else{

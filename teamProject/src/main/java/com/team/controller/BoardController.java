@@ -574,7 +574,9 @@ public class BoardController {
 		map.put("proNo", proNo);
 		map.put("proTc", proTc);
 		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		List<Map<String, String>> selectDivList = boardService.getDivList(map);
 		System.out.println("relatedImg : " + relatedImg);
+		System.out.println("selectDivList : " + selectDivList);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -586,8 +588,19 @@ public class BoardController {
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
 		model.addAttribute("relatedImg", relatedImg);
+		model.addAttribute("selectDivList", selectDivList);
 		return "board/divideDetail";
 	}// divideDetail()
+	@PostMapping("/insertDivide")
+	@ResponseBody
+	public ResponseEntity<?> insertDivide(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.insertDivide(param));
+	}
+	@PostMapping("/deleteDivide")
+	@ResponseBody
+	public ResponseEntity<?> deleteDivide(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.deleteDivide(param));
+	}
 	
 	@GetMapping("/auctionDetail")
 	public String auctionDetail(HttpServletRequest request,Model model) {
@@ -600,6 +613,15 @@ public class BoardController {
 		boardService.aucHits(map);
 		Map<String,String> resultMap = boardService.selectAuctionDetail(map);
 		System.out.println("resultMap: "+ resultMap);
+		String aucCate = resultMap.get("AUC_CATE");
+		String aucNo = resultMap.get("AUC_NO");
+		String aucTc = resultMap.get("AUC_TC");
+		System.out.println("aucNo@@@@@@@@@ " + aucNo);
+		map.put("aucCate", aucCate);
+		map.put("aucNo", aucNo);
+		map.put("aucTc", aucTc);
+		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		System.out.println("relatedImg : " + relatedImg);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -610,6 +632,7 @@ public class BoardController {
 		System.out.println(imgList);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
+		model.addAttribute("relatedImg", relatedImg);
 		return "board/auctionDetail";
 	}// auctionDetail()
 	

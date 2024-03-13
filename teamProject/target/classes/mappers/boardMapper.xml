@@ -237,12 +237,58 @@
 	</update>
 	
 	<select id="getRelatedCateImg" parameterType="map" resultType="map">
-		SELECT IMG_CATE, PRO_NO, IMG_NAME, PRO_TC, PRO_WR, PRO_DATE
-		  FROM IMAGE JOIN PRODUCT
-			ON IMG_PRONO = PRO_NO
-		 WHERE IMG_CATE = #{proCate} AND IMG_NO = '1' AND PRO_TC = #{proTc} AND PRO_NO != #{proNo}
-		 ORDER BY PRODUCT.PRO_DATE DESC
-		 LIMIT 0, 7
+		<choose>
+			<when test="aucNo!=null">
+			SELECT IMG_CATE, AUC_NO, IMG_NAME, AUC_TC, AUC_SELLER, AUC_DATE
+			  FROM IMAGE JOIN AUCTION
+			    ON IMG_PRONO = AUC_NO
+			 WHERE IMG_CATE = #{aucCate} 
+			   AND IMG_NO = '1' 
+			   AND AUC_TC = #{aucTc} 
+			   AND AUC_NO != #{aucNo}
+			   AND STR_TO_DATE(LEFT(AUC_ETIME, 8), '%Y%m%d') >= now()
+			 ORDER BY AUCTION.AUC_DATE DESC
+			 LIMIT 0, 7
+			</when>
+			<otherwise>
+			SELECT IMG_CATE, PRO_NO, IMG_NAME, PRO_TC, PRO_WR, PRO_DATE
+			  FROM IMAGE JOIN PRODUCT
+				ON IMG_PRONO = PRO_NO
+			 WHERE IMG_CATE = #{proCate} AND IMG_NO = '1' AND PRO_TC = #{proTc} AND PRO_NO != #{proNo}
+			 ORDER BY PRODUCT.PRO_DATE DESC
+			 LIMIT 0, 7
+			</otherwise>
+		</choose>
+		
 	</select>
+	<insert id="insertDivide" parameterType="map">
+		insert 
+		  into DIVIDE
+		(
+          DIV_NO
+		, DIV_POSTNO
+        , DIV_APPLICANT
+		, DIV_REASON
+        )
+	values
+		(
+          CAST((SELECT IFNULL(MAX(CAST(DIV_NO as unsigned)), 0) + 1
+						   FROM DIVIDE R) AS CHAR)
+		, #{divPostNo}
+        , #{divApplicant}
+        , #{divReason}
+		)
+	</insert>
+	<select id="getDivList" parameterType="map" resultType="map">
+		SELECT DIV_POSTNO,DIV_APPLICANT,DIV_REASON,MEM_NICK
+		  FROM DIVIDE JOIN MEMBERS
+		    ON DIV_APPLICANT = MEM_ID
+		 WHERE DIV_POSTNO = #{proNo}
+	</select>
+	<delete id="deleteDivide" parameterType="map">
+		DELETE FROM DIVIDE
+		 WHERE DIV_POSTNO = #{divPostNo}
+		   AND DIV_APPLICANT = (SELECT MEM_ID FROM MEMBERS WHERE MEM_NICK = #{divApplicant})
+	</delete>
 	
 </mapper>

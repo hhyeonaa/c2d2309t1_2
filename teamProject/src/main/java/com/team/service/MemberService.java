@@ -84,6 +84,10 @@ public class MemberService {
 		System.out.println("MemberService memberEdit()");
 		return memberDAO.memberEdit(map);
 	}// insertMemeber()
+	
+	public void updateProfileImagePath(String memberId, String filePath) {
+        // 회원의 프로필 이미지 경로를 업데이트하는 로직
+    }
 //	-----------------------------------------------------------------------------	
 	public List<Map<String, String>> myListSell(String MEM_ID) {
 		System.out.println("MemberService myListSell()");
@@ -120,4 +124,27 @@ public class MemberService {
 		System.out.println("MemberService resetImage()");
 		memberDAO.resetImage(MEM_ID);
 	}// insertMemeber()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> likeList(String MEM_ID) {
+		return memberDAO.likeList(MEM_ID);
+	}// likeList()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
+		return memberDAO.likeListSelect(map);
+	} // likeListSelect()
+//	-----------------------------------------------------------------------------	
+	public boolean deleteLike(String LIK_NO) {
+		return memberDAO.deleteLike(LIK_NO);
+	} // deleteLike()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> myTrade(String MEM_ID) {
+		System.out.println("MemberService myTrade()");
+		return memberDAO.myTrade(MEM_ID); 
+	}// myTrade()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> otherTrade(String MEM_ID) {
+		System.out.println("MemberService otherTrade()");
+		return memberDAO.otherTrade(MEM_ID); 
+	}// otherTrade()
+//	-----------------------------------------------------------------------------	
 }// MemberService 클래스

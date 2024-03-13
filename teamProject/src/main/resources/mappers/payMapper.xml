@@ -92,13 +92,13 @@
 	<!--회원 배송지 수정 update -->
 	<update id="addDeliveryUpdate1">
 		UPDATE ADDRESS
-		SET ADD_POST = #{ADD_POST}, 
-			ADD_NAME = #{ADD_NAME}, 
-		    ADD_DETAIL = #{ADD_DETAIL}, 
-		    ADD_NICK = #{ADD_NICK}, 
-		    ADD_RECEIVER = #{ADD_RECEIVER}, 
-		    ADD_PHONE = #{ADD_PHONE}
-		WHERE ADD_NO = #{ADD_NO};
+		   SET ADD_POST = #{ADD_POST}, 
+			   ADD_NAME = #{ADD_NAME}, 
+		       ADD_DETAIL = #{ADD_DETAIL}, 
+		       ADD_NICK = #{ADD_NICK}, 
+		       ADD_RECEIVER = #{ADD_RECEIVER}, 
+		       ADD_PHONE = #{ADD_PHONE}
+		 WHERE ADD_NO = #{ADD_NO}
 	</update>
 	
 	<!--회원 배송지 삭제  -->
@@ -107,4 +107,72 @@
 		FROM ADDRESS
 		WHERE ADD_NO = #{ADD_NO}
 	</delete>
+	
+	<!--판매,결제자 Info select  -->
+	<select id="getPayInfo" resultType="map">
+		 SELECT 
+    		(SELECT MEM_NAME FROM MEMBERS WHERE MEM_NO = #{MEM_NO}) AS BUYNAME,
+    		(SELECT MEM_TEL FROM MEMBERS WHERE MEM_NO = #{MEM_NO}) AS BUYTEL,
+    		(SELECT MEM_NO FROM MEMBERS WHERE MEM_ID = #{PRO_WR}) AS SELLER,
+    		PRO_NAME
+		FROM PRODUCT
+		WHERE PRO_NO = #{PRO_NO}
+	</select>
+	
+	<!--결제 성공 후 PAY테이블 insert  -->
+	<insert id="paySuccess">
+		INSERT INTO PAY
+			( PAY_NO  
+			 ,BUYER_NO
+			 ,SELLER_NO
+			 ,PRO_NO
+<!--  			 ,AUC_NO    -->
+			 ,PAY_METHOD 
+			 ,CARD_NAME  
+			 ,PAY_MSG  
+			 ,BUYER_ADDR 
+			 ,BUYER_NAME 
+			 ,BUYER_POSTCODE  
+			 ,BUYER_TEL  
+			 ,MERCHANT_UID
+			 ,NAME  
+			 ,PAID_AMOUNT  
+			 ,SUCCESS
+			 ,PAY_TIME 
+<!-- 			 ,TRANSACTION_METHOD -->
+			 )
+		VALUES
+			((CONCAT("PAY", IFNULL( (SELECT MAX(CAST(REPLACE(PAY_NO,"PAY", "") AS UNSIGNED)) + 1 FROM PAY A) , 1)))
+			 ,#{BUYER_NO}
+			 ,#{SELLER_NO}
+			 ,#{PRO_NO}
+<!--  			 ,#{AUC_NO}   -->
+			 ,#{pay_method}
+			 ,#{card_name}
+			 ,#{PAY_MSG}
+			 ,#{buyer_addr}
+			 ,#{buyer_name}
+			 ,#{buyer_postcode}
+			 ,#{buyer_tel}
+			 ,#{merchant_uid}
+			 ,#{name}
+			 ,#{paid_amount}
+			 ,#{success}
+			 ,DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+<!-- 			 ,#{TRANSACTION_METHOD} -->
+			 )
+	</insert>
+	
+	<!--배송요청사항 SELECT (공통코드)  -->
+<!-- 	<select id="getRequestDel" resultType="map"> -->
+<!-- 		SELECT concat(CO_TYPE,CO_NO) CO_TYPE, CODE -->
+<!-- 		FROM CODE -->
+<!-- 		WHERE HIDE = '0' -->
+<!-- 		AND CO_TYPE = "DLM" -->
+<!-- 		ORDER BY SEQ -->
+<!-- 	</select> -->
+	
+	
+	
+	
 </mapper>

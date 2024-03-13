@@ -60,7 +60,7 @@
 <%-- 			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="..."> --%>
 <!-- 			    </div> -->
 			  </div>
-			  	<div class="modal">
+			  	<div class="imgModal">
 				    <div class="modalBox"></div>
 				</div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -93,7 +93,8 @@
 			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
 			 			<td><i class="bi bi-eye"></i> ${resultMap.PRO_HITS}</td>
 			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</td>
+			 			<td><a style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">
+			 			<img src="${pageContext.request.contextPath}/resources/img/board/report.png" >신고하기</a></td>
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
@@ -138,17 +139,20 @@
 		 			</tr>	 			
 		 		</table>
 		 	</div>
-		 	<div>
+		 	<div style="width: 70%; height: auto;">
 		 		<table class="table">
-					<tr><td colspan="7">연관상품</td><tr>
+					<tr><td colspan="7">연관상품</td><tr><!-- GET_RELATED_PRODUCTS -->
 					<tr>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
+						<c:forEach var="img" items="${relatedImg}">
+							<td><a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${img.PRO_WR}&proDate=${img.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/no-pictures.png'"></a></td>
+						</c:forEach>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
 					<tr>									 		
 		 		</table>
 		 	</div>
@@ -163,7 +167,7 @@
 		 		</table>
 		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button">글 수정</button>
+				  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
 				</div>
 				</c:if>
 		 	</div>
@@ -173,6 +177,7 @@
 		 			<tr>
 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 60px; height: 60px;"></td>
 		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)<br>(<small>신뢰도 9.9</small>)</td>
+		 				<input type="hidden" class="memNo" value="${resultMap.PRO_WR}">
 		 			</tr>
 		 			<tr>
 		 				<td class="center-align">
@@ -217,21 +222,51 @@
 		 			<tr>
 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2">게시자 후기</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2">게시자 후기</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr> -->
 		 		</table>
 		 	</div>
 		</div>
+		
+		<!-- 신고하기 모달 -->
+		<div class="modal fade" id="exampleModalReport" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>신고목록</h2>
+					<div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div id="container">
+						<aside>
+							<header>
+								<p class="fs-5">
+									<c:forEach var="dcm" items="${dcm}" varStatus="v">
+										 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br>
+								    </c:forEach>
+							    </p>
+							</header>
+						</aside>
+					</div>
+				</div>
+				<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>
+			</div>
+		</div>
+	</div>
 
 	</div>
 </div>

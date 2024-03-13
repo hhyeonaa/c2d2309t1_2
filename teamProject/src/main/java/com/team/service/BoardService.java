@@ -129,5 +129,26 @@ public class BoardService {
 		boardDAO.updateAuction(parsedMap,imageFilenames);
 	}// updateAuction()
 
+	public List<Map<String, String>> getRelatedCateImg(Map<String, String> map) {
+		System.out.println("BoardService getRelatedCateImg()");
+		return boardDAO.getRelatedCateImg(map);
+	}// getRelatedCateImg()
+
+	public boolean insertDivide(Map<String, String> param) {
+		System.out.println("BoardService insertDivide()");
+		return boardDAO.insertDivide(param);
+	}// insertDivide()
+
+	public List<Map<String, String>> getDivList(Map<String, String> map) {
+		System.out.println("BoardService getDivList()");
+		return boardDAO.getDivList(map);
+	}// getDivList()
+
+	public boolean deleteDivide(Map<String, String> param) {
+		System.out.println("BoardService deleteDivide()");
+		return boardDAO.deleteDivide(param);
+	}// deleteDivide()
+
+
 
 }// BoardService 끝

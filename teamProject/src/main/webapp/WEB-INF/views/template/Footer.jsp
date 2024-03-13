@@ -87,14 +87,16 @@
 		</div>
 		
 		<div id="chatContentsContainer">
-<!-- 			<div id="chatHead"> -->
+			<div id="chatHead">
 <!-- 				<div class="chatRoomContents"> -->
 <!-- 					<div class="userNick">[닉네임]</div> -->
 <!-- 					<div class="postTit">다른 게시물 제목</div> -->
 <!-- 				</div> -->
 <!-- 				<div id="systemContainer"> -->
 <!-- 					<div class="reportBtn"> -->
-<!-- 						<span class="material-symbols-outlined reportIcon">notifications_active</span> -->
+<!-- 							<a style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport"> -->
+<!-- 								<span class="material-symbols-outlined reportIcon">notifications_active</span> -->
+<!-- 							</a> -->
 <!-- 					</div> -->
 <!-- 					<div> -->
 <!-- 						<select class="form-select"> -->
@@ -105,7 +107,7 @@
 <!-- 					</div> -->
 <!-- 					<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span> -->
 <!-- 				</div> -->
-<!-- 			</div> -->
+			</div>
 			<div id="chatBody">
 				<span id="chatChoicePlease">채팅을 선택해주세요</span>
 <!-- 				<div class="my Chat"> -->
@@ -132,8 +134,40 @@
 <!-- 					<input id="sendText" class="form-control" type="text" placeholder="메시지를 입력해주세요."> -->
 <!-- 					<button id="sendBtn" class="btn">전송</button> -->
 <!-- 				</div> -->
+
 			</div>
 		</div>
 	</div>
 </div>
+<!-- 신고하기 모달 -->
+		<div class="modal fade" id="exampleModalReport" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>신고목록</h2>
+					<div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div id="container">
+						<aside>
+							<header>
+								<p class="radioBox fs-5">
+<%-- 									<c:forEach var="dcm" items="${dcm}" varStatus="v"> --%>
+<%-- 										 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br> --%>
+<!-- 								    </c:forEach> -->
+							    </p>
+							</header>
+						</aside>
+					</div>
+				</div>
+<!-- 				<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button> -->
+			</div>
+		</div>
+	</div>
+
+<script src="${pageContext.request.contextPath}/resources/js/chat/chatting.js"></script>
 <!--   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->

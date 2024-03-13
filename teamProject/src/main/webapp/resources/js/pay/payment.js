@@ -15,63 +15,87 @@ function selectMethod(){
 	})
 }
 
-//// 2-1 배송지 저장하기
-//function payAddSubmit(){
-//	
-//}
-
 // 4. 결제 api
 var IMP = window.IMP;
-var requestPay = (pgId, paypayMethod) => {
+var requestPay = (pgId) => {
 	IMP.init("imp34662564"); //가맹점 식별코드
-//        
-        var today = new Date();   
-        var hours = today.getHours(); // 시
-        var minutes = today.getMinutes();  // 분
-        var seconds = today.getSeconds();  // 초
-        var milliseconds = today.getMilliseconds();
-        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-        
-		var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
-        var productname = $("#payProName").text().trim();//제품name
-        
-        debugger;
-       	IMP.request_pay({
-			pg: pgId,
-			pay_method: paypayMethod, // 생략가능
-  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호
-  			name: productname, //상품명
-	 		amount: 100, // 결제금액
-	 		//buyer_email: "test@portone.io",
-  			buyer_name: "구매자이름",
-  			buyer_tel: "010-1234-5678",
-  			buyer_addr: "서울특별시 강남구 삼성동",
-  			buyer_postcode: "123-456"
-		}, function (rsp) { // callback 로직
-  			if(rsp.success){
-				  
-				  debugger;
-				  console.log(rsp);
-//				  $.ajax({
-//					  type: "post",
-//					  url: "paySuccess",
-//					  data: JSON.stringify(rsp)   
-//				  })//ajax
-				  
-		  	}else{
-				  debugger;
-				  console.log(res);
-			  }
-		});
-}
+//       
+ 		//판매자 구매자 정보 가져오기 ajax
+ 		debugger;
+ 		$.ajax({
+			 url:"payInfo",
+			 data:{
+				 MEM_NO : $('#MEM_NO').val(), //결제자 고유번호
+				 ADD_NO : $('#ADD_NO').val(), //배송지 고유번호
+				 PRO_NO : $('#PRO_NO').val(), //상품 고유번호
+				 PRO_WR : $('#PRO_WR').val(), //판매자 아이디
+				 PRO_DATE : $('#PRO_DATE').val() //상품 작성날짜
+				 },
+			 async: false,
+			 success:function(data){
+				if(data != null){
+				//data값
+					var today = new Date();   
+			        var hours = today.getHours(); // 시
+			        var minutes = today.getMinutes();  // 분
+			        var seconds = today.getSeconds();  // 초
+			        var milliseconds = today.getMilliseconds();
+			        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+			        
+					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
+			        var productname = $("#payProName").text().trim();//제품name
 
+			        //var msg = $('#selectDel option:selected').text();
+			        
+			        debugger;
+			       	IMP.request_pay({
+						pg: pgId, 
+			  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
+			  			name: productname, //상품명 // PRO_NAME
+				 		amount: 100, // 결제금액 price //PAID_AMOUNT
+			  			buyer_name: data.BUYNAME, //결제자 이름 
+			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
+			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
+			  			buyer_postcode: $("#addPost").text() // 배송우편번호 //BUYER_POSTCODE
+					}, function (rsp) { // callback 로직
+			  			if(rsp.success){ //결제 성공
+							debugger;
+							rsp["SELLER_NO"] = data.SELLER;
+							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
+							rsp["PRO_NO"] = $('#PRO_NO').val();
+							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
+							//**
+							//var newData = {};
+							//newData.imp_uid = rsp.imp_uid
+							debugger;
+							console.log(rsp);
+							 $.ajax({
+								 type: "post",
+								 url: "paySuccess",
+								 data: rsp
+							 })//ajax
+							 
+						  	}else{
+								  debugger;
+								  console.log(res);
+							  }
+						});
+				//data값
+				}
+				
+			},//success:function(data)
+			fail:function(){
+			}
+		})//ajax
+}
 //5-1 배송지리스트
 function addList(result){
 	var i = 0;    
 	for (let item of result) {
+		debugger;
 		$("#divAddress").append('<li class="addressInfo mb-4" id="addListNo' + i + '">'+
 									'<div class="boxdeliveryaddress">'+
-									'<input id="ADD_NO' + i + '" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO">' +
+									'<input id="ADD_NO' + i + '" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO" class="addno">' +
 									'<input id="MEM_NO1" type="hidden" value="'+item.MEM_NO+'" name="MEM_NO">' +
 										'<div class="boxdeliveryaddressTitle">'+
 											'<span>'+item.ADD_NICK +'</span>'+
@@ -80,7 +104,7 @@ function addList(result){
 										'<div class="useraddressinfo">'+
 											'<div id="useraddressinfo">'+
 												'<div class="boxdeliveryaddressContent">'+
-													'<span>(<span class="addPost">'+item.ADD_POST +'</span>) ' 
+													'<span>(<span id="addPost" class="addPost">'+item.ADD_POST +'</span>) ' 
 															+ '<span class="addName">' +item.ADD_NAME +'</span> ' 
 															+ '<span class="addDetail">' +item.ADD_DETAIL +'</span></span>'+
 												'</div>'+
@@ -118,6 +142,7 @@ $(()=>{
 		debugger;
 		$("#delUpdateBtn").text("배송지 수정");
 		$("#MEM_NO").val(data[0].MEM_NO);
+		$("#ADD_NO").val(data[0].ADD_NO);
 		$("#addReceiver").text(data[0].ADD_RECEIVER);
 		$("#addSpan").prepend('(<span id="addPost"></span>)');
 		$("#addPost").text(data[0].ADD_POST);
@@ -129,21 +154,15 @@ $(()=>{
 	
 // 결제할(선택된) 페이 css변경(4)
 var payCheck = $('.nonCheck')
-// 결제할(선택된) 페이(4)
-//var payMethod = $('.check').find('span').text().trim();
-//var payMethod1 = $('.check').attr('value');	
 
 var pgId = "";
-var paypayMethod="";
 
 $('#tossPay').on("click", () =>{
 	pgId="tosspay.tosstest";
-	paypayMethod="card";
 });
 
 $('#kakaoPay').on("click", () =>{
 	pgId="kakaopay.TC0ONETIME";
-	paypayMethod="card";
 })
 	
 	
@@ -254,11 +273,15 @@ selectMethod();
 			alert('결제 수단을 선택해주세요');
 			return false;
 		}
-		requestPay(pgId, paypayMethod);
 		if($('.kGbUWb').text()==""){
 			alert('배송주소를 등록해주세요');
 			return false;
 		}
+		requestPay(pgId);
+		// "/completepay"페이지이동
+		var PRO_NO = $('#PRO_NO').val();
+		var url = '${pageContext.request.contextPath}/board/boardDetail?PRO_NO=' + PRO_NO;
+		window.location.href = url;
 	})
 // 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){
@@ -310,7 +333,8 @@ selectMethod();
 			})//ajax
 			.done(function(data){
 				if(data != null){
-					alert("여기까지")
+					//alert("여기까지")
+					$("#address-no").val(data.ADD_NO);
 					$("#address-title").val(data.ADD_NICK);
 					$("#address-name").val(data.ADD_RECEIVER);
 					$("#address-tel").val(data.ADD_PHONE);
@@ -322,38 +346,6 @@ selectMethod();
 					
 					$("#payAddbtn").attr("id", "payUpdateBtn");
 					$("#payUpdateBtn").text("수정");
-					
-					////////////
-//			//6-2 배송지 수정작업
-//			$("#payUpdateBtn").on('click', function(){
-//				$.ajax({
-//					url: "addDeliveryUpdate1",
-//					type:'post',
-//					data:{
-//						ADD_NICK : $("#address-title").val(),
-//						ADD_RECEIVER : $("#address-name").val(),
-//						ADD_PHONE : $("#address-tel").val(),
-//						ADD_POST : $("#address-zipcode").val(),
-//						ADD_NAME : $("#address-front").val(),
-//						ADD_DETAIL : $("#address-detail").val(),
-//						MEM_NO : $('#MEM_NO').val()
-//					},
-//					async: false,
-//					success:function(result){
-//						debugger;
-//						if(result == 1){
-//							$("#staticBackdrop1").modal("hide");
-//						}			
-//					},
-//					fail:function(){
-//						alert("주소수정실패!");
-//						$("#staticBackdrop1").modal("hide");
-//					}
-//				})//ajax
-//				$("#staticBackdrop1").find("input").val("");
-//				$("#staticBackdrop").modal("show");
-//			})
-					//////////////
 				}
 			})
 			.fail(function(){
@@ -363,7 +355,7 @@ selectMethod();
 		}) // 7끝	
 		
 
-		
+		//선택
 		$(".button__delivery-choice").on("click", function(){
 			debugger;
 			
@@ -376,6 +368,7 @@ selectMethod();
 			$("#addName").text(list.find(".addName").text());
 			$("#addDetail").text(list.find(".addDetail").text());
 			$("#addTel").text(list.find(".addTel").text());
+			$("#ADD_NO").val(list.find(".addno").val());
 			debugger;
 			$("#staticBackdrop").modal("hide");
 			$("#hideOrShow").show();
@@ -392,6 +385,7 @@ selectMethod();
 			url: "addDeliveryUpdate1",
 			type:'post',
 			data:{
+				ADD_NO : $("#address-no").val(),
 				ADD_NICK : $("#address-title").val(),
 				ADD_RECEIVER : $("#address-name").val(),
 				ADD_PHONE : $("#address-tel").val(),
@@ -409,7 +403,7 @@ selectMethod();
 			},
 			fail:function(){
 				debugger;
-				alert("주소수정실패!");
+				//alert("주소수정실패!");
 				$("#staticBackdrop1").modal("hide");
 			}
 		})//ajax
@@ -429,6 +423,7 @@ selectMethod();
 			url:"addDelivery",
 			type:'post',
 			data:{
+				ADD_NO : $("#address-no").val(),
 				ADD_NICK : $("#address-title").val(),
 				ADD_RECEIVER : $("#address-name").val(),
 				ADD_PHONE : $("#address-tel").val(),
@@ -447,7 +442,7 @@ selectMethod();
 			},
 			fail:function(){
 				debugger;
-				alert("주소추가실패!");
+				//alert("주소추가실패!");
 				$("#staticBackdrop1").modal("hide");
 			}	
 		})//ajax
@@ -473,7 +468,22 @@ selectMethod();
 		$("#staticBackdrop").modal("show");
 	});
 
-	
+	//9.배송 요청사항 이벤트
+	$('#selectDel').change(function() {
+        var selectedOptionText = $("#selectDel option:selected").text();
+        var textarea = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4');
+        
+        //$("#selectDel  option").index($("#selectDel  option:selected"));
+		//$("#selectDel option:selected").text();
+
+        
+        // 선택된 옵션에 따라 textarea를 활성화 또는 비활성화
+        if (selectedOptionText === '직접 입력') {
+            textarea.prop('disabled', false); // textarea 활성화
+        } else {
+            textarea.prop('disabled', true); // textarea 비활성화
+        }
+    });
 	
 	
 	

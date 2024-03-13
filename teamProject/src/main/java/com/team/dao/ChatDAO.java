@@ -36,8 +36,12 @@ public class ChatDAO {
 	}
 
 	public int changePostState(Map<String, String> param) {
-		System.out.println(param);
 		return sqlSession.update(namespace + "changePostState", param);
+	}
+
+	public int outChat(Map<String, String> param) {
+		System.out.println(param);
+		return sqlSession.update(namespace + "outChat", param);
 	}
 
 }

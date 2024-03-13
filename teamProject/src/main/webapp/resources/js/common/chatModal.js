@@ -41,6 +41,7 @@ var notMyPostChatRoom = (chatRoom) => {
 	return '<div class="chatRoom notMyPost" id="'+chatRoom.PRO_NO+'">' +
 					'<input type="hidden" class="roomNo" id='+chatRoom.CR_NO+'>' +
 					'<input type="hidden" class="target" id='+chatRoom.MEM_ID+'>' +
+					'<input type="hidden" class="payState" id='+chatRoom.PAY_STATE+'>' +
 					'<div class="profileImgBox" style="font-size: 10px;">' +
 						'<img class="profileImg" alt="프로필 사진" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/uploads/'+chatRoom.MEM_IMAGE+'">'+
 					'</div>' +
@@ -242,9 +243,11 @@ var createChat = function(proNo, memId){
 };
 
 // 채팅방 입장
-var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
-	var disabled;
-	if(post == "yourPost" || pro_tsc.code == "TM3") disabled = "disabled";
+var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, payState, post){
+	var selectDisabled;
+	var tm1Disabled;
+	if(post == "yourPost" || pro_tsc.code == "TM3") selectDisabled = "disabled";
+	if(payState == "1") tm1Disabled ="disabled";
 	
 	// 소켓 방 생성
 	register(roomNo);
@@ -259,12 +262,15 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
 							'</div>';
 	
 	var systemContainer = '<div id="systemContainer">' +
-								'<div class="reportBtn">' +
-									'<span class="material-symbols-outlined reportIcon">notifications_active</span>' +
+								'<div class="btnBox">' +
+									'<a id="report" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">' +
+										'<span class="material-symbols-outlined report icons">notifications_active</span>' +
+									'</a>' +
+									'<span class="material-symbols-outlined out icons">logout</span>'+
 								'</div>' +
 								'<div>' +
-									'<select name="pro_tsc" id="pro_tsc" class="form-select" '+disabled+'>' +
-										'<option value="TM1">거래가능</option>' +
+									'<select name="pro_tsc" id="pro_tsc" class="form-select" '+selectDisabled+'>' +
+										'<option value="TM1" '+tm1Disabled+'>거래가능</option>' +
 										'<option value="TM2">거래중</option>' +
 										'<option value="TM3">거래완료</option>' +
 									'</select>' +
@@ -321,6 +327,70 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, post){
 				}
 			})
 		}
+	})
+	
+	// **************** 신고하기 ********************* 
+	
+	$("#report").on("click", function(){
+		$(".radioBox").empty();
+		$("#reportBtn").remove();
+		$.ajax({
+		  type: "get",
+		  url: '/' + window.location.pathname.split("/")[1] + "/chat/selectRepert",
+		  async: false
+		})
+		.done(function(datas){
+			var radio = (CO_NO, CODE, CO_TYPE) =>{
+				return '<input type="radio" class="reportRadio" name="rd" id="'+CO_TYPE+CO_NO
+						+ '" value="'+CO_TYPE+CO_NO+'"><label for="'+CO_TYPE+CO_NO+'">'
+						+ CODE+'</label> <br>'
+			}
+			for(data of datas){
+				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
+			}
+			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>')
+		})
+		;
+		
+//		// 신고하기 버튼 클릭 시
+    	$("#reportBtn").on("click", function(){
+    		$.ajax({
+    			url: '/' + window.location.pathname.split("/")[1] + "/chat/insertReport",
+    			type: "POST",
+    			data: {
+    				reportTarget: $(".target").attr("id"),
+    				rptCode: $('input[name="rd"]:checked').val()
+    			}
+    		})
+    		.done(function(data){
+    			alert('신고가완료되었습니다.')
+    			$('#exampleModalReport').modal('hide');
+    		})
+    		.fail(function(){
+    			alert('신고 내용을 선택해주세요.')
+    		})
+    	});
+	})
+	
+	// **************** 신고하기 끝 *********************
+	
+	// 채팅방 나가기
+	$(".out").on("click", function(){
+		if(confirm("채팅방을 나가면 채팅 기록	이 사라집니다. 그래도 나가시겠습니까?")){
+			$.ajax({
+				url: '/' + window.location.pathname.split("/")[1] + '/chat/outChat',
+				type:'post',
+				data:{
+					roomNo: roomNo
+				}
+			})
+			.done(function(result){
+				if(Boolean(result)){
+					$(".")
+				}
+			})
+		}
+		debugger;
 	})
 	
 	// --------------------------------------------
@@ -413,7 +483,8 @@ var showChatList = function(chatList, post){
 			code:$(this).find(".chatRoomContents > span").attr("class"),
 			code_content:$(this).find(".chatRoomContents > span").text().slice(1,-1),
 		};
-		enterChat(proNo, roomNo, target, nickName, title, pro_tsc, post);
+		var payState = $(this).find(".payState").attr("id");
+		enterChat(proNo, roomNo, target, nickName, title, pro_tsc, payState, post);
 	})
 }
 

@@ -55,7 +55,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
                             </div>`;
         // 모달 내용 업데이트 및 표시
         $('.modalBox').html(modalContent);
-        $(".modal").show();
+        $(".imgModal").show();
 		$('#selectImg').attr('src', clickedImgSrc);
 		// 모달 컨텐츠 추가 후 이벤트 핸들러 재설정
 		$('#modalCarousel .carousel-control-prev').off('click').on('click', function(event) {
@@ -81,11 +81,11 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
     });
 
 	// 모달 클릭할때 이미지 닫음
-	$(".modal").click(function (e) {
+	$(".imgModal").click(function (e) {
 		e.preventDefault();
     	$('.modalBox').html('');
     	additionalImages = [];
-		$(".modal").toggle();
+		$(".imgModal").toggle();
 	});
 	
 	// 글 삭제 버튼
@@ -99,4 +99,34 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		alertMsg("AM2",["삭제"]);
 	})
+	
+	// 글 수정 버튼
+	$('#updateBtn').on('click',function(){
+		// 데이터를 다 들고 가야 하니까
+		const proWr = $('#proWr').val();
+		const proDate = $('#proDate').val();
+		alert(proWr + ' ' + proDate);
+		location.href="/" + window.location.pathname.split("/")[1] +"/board/writeBoard?proWr="+proWr+"&proDate="+proDate;
+		return;
+	})
+	
+	// 신고하기 버튼 클릭 시
+    	$("#reportBtn").on("click", function(){
+    		$.ajax({
+    			url: "insertBoardReport",
+    			type: "POST",
+    			data: {
+    				reportTarget: $(".memNo").val(),
+    				rptCode: $('input[name="rd01"]:checked').val()
+    			}
+    		})
+    		.done(function(data){
+    			alert('신고가완료되었습니다.')
+    			$('#exampleModalReport').modal('hide')
+    		})
+    		.fail(function(){
+    			alert('신고 내용을 선택해주세요.')
+    		})
+    	});
+	
 })

@@ -185,7 +185,27 @@ public class BoardDAO {
 		sqlSession.insert(NAMESPACE+".insertImgs", allMap);//	이미지 테이블에 다시 이미지 넣기
 	    sqlSession.update(NAMESPACE+".updateAuction", parsedMap);
 	}// updateAuction()
-	
+
+	public List<Map<String, String>> getRelatedCateImg(Map<String, String> map) {
+		System.out.println("BoardDAO getRelatedCateImg()");
+		return sqlSession.selectList(NAMESPACE + ".getRelatedCateImg", map);
+	}
+
+	public boolean insertDivide(Map<String, String> param) {
+		System.out.println("BoardDAO insertDivide()");
+		return sqlSession.insert(NAMESPACE + ".insertDivide", param) == 1 ? true : false;
+	}// insertDivide()
+
+	public List<Map<String, String>> getDivList(Map<String, String> map) {
+		System.out.println("BoardDAO getDivList()");
+		return sqlSession.selectList(NAMESPACE + ".getDivList", map);
+	}
+
+	public boolean deleteDivide(Map<String, String> param) {
+		System.out.println("BoardDAO deleteDivide()");
+		return sqlSession.delete(NAMESPACE + ".deleteDivide", param) == 1 ? true : false;
+	}// deleteDivide()
+
 	
 
 }// BoardDAO 끝

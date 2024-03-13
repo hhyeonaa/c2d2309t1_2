@@ -12,102 +12,44 @@
 <link href="${pageContext.request.contextPath}/resources/css/admin/category.css" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
-
-<script type="text/javascript">
-var a = '${typeList}';
-
-</script>
-
 <body>
 <jsp:include page="../template/store_sidebar_open.jsp"/>
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container">
 
-	<div style="display: flex; justify-content: flex-start; padding-bottom: 50px;" id="selectCodeBtn">
-		<c:forEach var="item" items="${typeList}">
-			<button type="button" class="btn btn-outline-primary">${item.key}</button><br><br>
+
+	<input type="hidden" value="${CODE}" id="selectListItem">
+    <div class="row align-items-center mb-4">
+        <div><h4 class="card-title"><b>카테고리 목록 리스트</b></h4></div>
+    </div>
+	<div style="display: flex; justify-content: flex-start; padding-bottom: 80px;" id="selectCodeBtn">
+		<c:forEach var="items" items="${keyList}">
+			<c:if test="${items.key != '메뉴항목'}">
+				<button type="button" class="btn btn-outline-primary">${items.key}</button>
+			</c:if>
 		</c:forEach>
 	</div>
 
-
-    <div class="row align-items-center mb-4">
-        <div><h4 class="card-title"><b>현재 저장된 카테고리</b></h4></div>
-    </div>
-    <div class="preview mb-5 ps-3">
-		<div class="navbar navbar-expand-lg">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-justified" id="category-ul">
-				<li class="nav-item mt-2">
-					<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M4.167 5.417h11.666M4.167 10h11.666M4.167 14.584h11.666" stroke="#000" stroke-linecap="round"></path>
-					</svg>
-				</li>
-				<c:forEach var="category" items="${category}">
-					<c:if test="${category.ACTIVE eq '1'}">
-						<li id="category-li">
-							<a class="nav-link" href="#">${category.CODE }</a>
-						</li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</div>
-   </div> 
-   
-    <div class="row align-items-center mt-5 mb-4">
-        <div><h4 class="card-title"><b>카테고리 설정</b></h4></div>
-    </div>
-    <div class="cateEdit mb-4">
-		<table id="categoryList" class="table align-middle text-center mb-4">
-			<thead class="tableHr">
-				<tr>
-					<th scope="col" >카테고리명</th>
-					<th scope="col">순서</th>
-					<th scope="col">사용 여부</th>
-				</tr>
-			</thead>
-			<tbody class="tableHr">
-				<c:forEach var="category" items="${category}">
-					<tr>
-						<td>${category.CODE }</td>
-						<td>
-							<button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button>
-						</td>
-						<td>
-							<c:if test="${category.ACTIVE eq '1'}">
-								<input class="form-check-input" type="checkbox" id="active" checked>
-                           	</c:if>
-                      		<c:if test="${category.ACTIVE eq '0'}">
-								<input class="form-check-input" type="checkbox" id="active">
-                           	</c:if>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div align="center">
-			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
-			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
-	    </div>
-    </div>
-    
-    <div class="btn-wrapper">
-		<select name="perPage" id="setPerpage">
-			<option selected disabled hidden>선택</option>
-			<option value="-1">기본값</option>
-			<option value="0">한 페이지에 보기</option>
-			<option value="1">1개 씩 보기</option>
-			<option value="5">5개 씩 보기</option>
-			<option value="10">10개 씩 보기</option>
-			<option value="20">20개 씩 보기</option>
-			<option value="30">30개 씩 보기</option>
-			<option value="50">50개 씩 보기</option>
-			<option value="100">100개 씩 보기</option>
-		</select>
-		<button id="resetBtn">취소</button>
-		<button id="saveBtn">저장</button>
+   	<div class="btn-wrapper">
+<!-- 		<select name="perPage" id="setPerpage"> -->
+<!-- 			<option selected disabled hidden="">선택</option> -->
+<!-- 			<option value="-1">기본값</option> -->
+<!-- 			<option value="0">한 페이지에 보기</option> -->
+<!-- 			<option value="1">1개 씩 보기</option> -->
+<!-- 			<option value="5">5개 씩 보기</option> -->
+<!-- 			<option value="10">10개 씩 보기</option> -->
+<!-- 			<option value="20">20개 씩 보기</option> -->
+<!-- 			<option value="30">30개 씩 보기</option> -->
+<!-- 			<option value="50">50개 씩 보기</option> -->
+<!-- 			<option value="100">100개 씩 보기</option> -->
+<!-- 		</select> -->
+		<button id="saveBtn" class="btn btn-outline-danger">저장</button>
+		<button id="resetBtn" class="btn btn-outline-danger">새로고침</button>
+	    <div id="excel"></div>
+    	<div id="grid"></div>
 	</div>
     
-    <div id="excel"></div>
-    <div id="grid"></div>
+
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/admin/category.js"></script>

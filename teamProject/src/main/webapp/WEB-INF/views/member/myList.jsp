@@ -37,15 +37,17 @@
 		<c:forEach var="myListSell" items="${myListSell}">
 		  <div class="col">
 		    <div class="card h-100">
-		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListSell.IMG_NAME}" class="card-img-top" alt="${myListSell.IMG_NAME}">
-<%-- 		      ${pageContext.request.contextPath}/resources/img/uploads/${myListSell.IMG_NAME} --%>
+		      
+		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListSell.IMG_NAME}" class="card-img-top" alt="${myListSell.IMG_NAME}" style="width: 250px; height: 250px;">
 		      <div class="card-body">
-			      <span class="state1">판매</span>
-			      <span class="state2">${myListSell.PRO_TSC}</span>
+		      	<a href="${pageContext.request.contextPath}/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}">
+			      	<span class="state1">${myListSell.PRO_TC}</span>
+			      	<span class="state2">${myListSell.PRO_TSC}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p>${myListSell.PRO_NAME}</p>
 				  <h5><b>${myListSell.PRO_PRICE}원</b></h5>
+				</a>
 		      </div>
 		    </div>
 		  </div>
@@ -62,7 +64,7 @@
 	  <c:forEach var="myListBuy" items="${myListBuy}">
 		  <div class="col">
 		    <div class="card h-100">
-		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListBuy.IMG_NAME}" class="card-img-top" alt="${myListBuy.IMG_NAME}">
+		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListBuy.IMG_NAME}" class="card-img-top" alt="${myListBuy.IMG_NAME}" style="width: 250px; height: 250px;">
 		      <div class="card-body">
 			      <span class="state1">구매</span>
 			      <span class="state2">${myListBuy.PRO_TSC}</span>
@@ -109,7 +111,7 @@
 	  <c:forEach var="myListAuction" items="${myListAuction}">
 		  <div class="col">
 		   <div class="card h-100">
-		     <a href="${pageContext.request.contextPath}/board/auctionDetail"><img src="${pageContext.request.contextPath}/resources/img/uploads/${myListAuction.IMG_NAME}" class="card-img-top" alt="${myListAuction.IMG_NAME}"></a>
+		     <a href="${pageContext.request.contextPath}/board/auctionDetail"  style="width: 250px; height: 250px;"><img src="${pageContext.request.contextPath}/resources/img/uploads/${myListAuction.IMG_NAME}" class="card-img-top" alt="${myListAuction.IMG_NAME}"  style="width: 250px; height: 250px;"></a>
 		     <div class="card-body" style="padding-top: 10px; height: 130px;" >
 		      <span class="state1">경매</span>
 		      <span class="state2">${myListAuction.AUC_TSC}</span>
@@ -133,6 +135,6 @@
 </div>
 </body>
 
-<script src="${pageContext.request.contextPath}/resources/js/member/myList.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/member/tradeList.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

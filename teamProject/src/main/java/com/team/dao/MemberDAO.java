@@ -121,5 +121,32 @@ public class MemberDAO {
 		System.out.println("MemberDAO resetImage()");
 		sqlSession.update(namespace + "resetImage", MEM_ID);
 	}// resetImage()	
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> likeList(String MEM_ID) {
+		return sqlSession.selectList(namespace + "likeList", MEM_ID);
+	}// likeList()	
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
+		System.out.println("likeListSelect" + sqlSession.selectList(namespace + "likeListSelect", map));
+		return sqlSession.selectList(namespace + "likeListSelect", map);
+	}// likeListSelect()	
+//	-----------------------------------------------------------------------------
+	public boolean deleteLike(String LIK_NO) {
+		boolean result = sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1 ? true : false;
+		System.out.println("result: " + result);
+		return result;
+	}
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myTrade(String MEM_ID) {
+		System.out.println("MemberDAO myTrade()");
+		return sqlSession.selectList(namespace + "myTrade", MEM_ID);
+	}// myTrade()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> otherTrade(String MEM_ID) {
+		System.out.println("MemberDAO otherTrade()");
+		return sqlSession.selectList(namespace + "otherTrade", MEM_ID);
+	}// otherTrade()
+//	-----------------------------------------------------------------------------
+	
 	
 }// MemberDAO 클래스

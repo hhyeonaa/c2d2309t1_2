@@ -47,53 +47,70 @@ public class BoardController {
 	private TeamCodeService codeService;
 	
 	@GetMapping("/saleBoard")
-	public String saleBoard(Model model, HttpServletRequest request) {
-		System.out.println((String)request.getParameter("sMenu"));
+	public String saleBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
 		System.out.println("BoardController saleBoard()");
-		String proTc = "MM1";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
+		
+//		String proTc = "MM1";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
 		/*테스트용 select start*/
 //		Map<String, String> map = new HashMap<String, String>();
 //		map.put("proNo", "PR4");
 //		System.out.println(boardService.select(map));
 		/*테스트용 select end*/
 //		List<Map<String,String>> resultList = boardService.selectSaleBoard();
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "1"));
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
 		return "board/saleBoard";
 	}// saleBoard()
-	
 	
 	// 성엽 작업 시작 //
 	
 	@GetMapping("/buyBoard")
-	public String buyBoard(Model model) {
-		String proTc = "MM2";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
+	public String buyBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
+//		String proTc = "MM2";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "2"));
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
+		System.out.println(param);
 		return "board/buyBoard";
 	}// buyBoard()
+	
+	// 신고하기
+	@PostMapping("/insertBoardReport")
+	@ResponseBody
+	public ResponseEntity<?> insertReport(@RequestParam Map<String, String> map, HttpSession session) {
+		
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
+		map.put("MEM_ID", (String)session.getAttribute("MEM_ID"));
+		System.out.println(map);
+		
+		return ResponseEntity.ok().body(adminService.insertReport(map));
+	}// insertReport()
 	
 	// 성엽 작업 끝 //
 	
 	@GetMapping("/divideBoard")
-	public String divideBoard(Model model) {
+	public String divideBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
 		System.out.println("BoardController divideBoard()");
-		String proTc = "MM3";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
+//		String proTc = "MM3";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
 //		List<Map<String,String>> resultList = boardService.selectDivideBoard();
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "3"));
 		System.out.println("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
+		System.out.println(param);
 		return "board/divideBoard";
 	}// divideBoard()
 	
@@ -568,7 +585,9 @@ public class BoardController {
 		map.put("proNo", proNo);
 		map.put("proTc", proTc);
 		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		List<Map<String, String>> selectDivList = boardService.getDivList(map);
 		System.out.println("relatedImg : " + relatedImg);
+		System.out.println("selectDivList : " + selectDivList);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -580,8 +599,19 @@ public class BoardController {
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
 		model.addAttribute("relatedImg", relatedImg);
+		model.addAttribute("selectDivList", selectDivList);
 		return "board/divideDetail";
 	}// divideDetail()
+	@PostMapping("/insertDivide")
+	@ResponseBody
+	public ResponseEntity<?> insertDivide(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.insertDivide(param));
+	}
+	@PostMapping("/deleteDivide")
+	@ResponseBody
+	public ResponseEntity<?> deleteDivide(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.deleteDivide(param));
+	}
 	
 	@GetMapping("/auctionDetail")
 	public String auctionDetail(HttpServletRequest request,Model model) {
@@ -594,6 +624,15 @@ public class BoardController {
 		boardService.aucHits(map);
 		Map<String,String> resultMap = boardService.selectAuctionDetail(map);
 		System.out.println("resultMap: "+ resultMap);
+		String aucCate = resultMap.get("AUC_CATE");
+		String aucNo = resultMap.get("AUC_NO");
+		String aucTc = resultMap.get("AUC_TC");
+		System.out.println("aucNo@@@@@@@@@ " + aucNo);
+		map.put("aucCate", aucCate);
+		map.put("aucNo", aucNo);
+		map.put("aucTc", aucTc);
+		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		System.out.println("relatedImg : " + relatedImg);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -604,6 +643,7 @@ public class BoardController {
 		System.out.println(imgList);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
+		model.addAttribute("relatedImg", relatedImg);
 		return "board/auctionDetail";
 	}// auctionDetail()
 	
@@ -695,6 +735,33 @@ public class BoardController {
 	}// deleteBoard()
 	
 //	----- 검색 bar -----
+	
+	private Map<String, String> money(Map<String, String> param, HttpSession session){
+		
+		Map<String, String> price = codeService.selectCode(param.get("price"), session);
+		String[] priceArr = price.get("CODE").split("이상");
+		price = param;
+		price.put("min", priceArr[0].replaceAll("[^0-9]", "").trim());
+		price.put("max", priceArr[1].replaceAll("[^0-9]", "").trim());
+		
+		System.out.println(price);
+		return price;
+	}
+	
+	private Map<String, String> dataList(Map<String, String> param, HttpSession session, String code){
+		Map<String, String> data = new HashMap<String, String>();
+		if(param.size() == 0) {
+			System.out.println("빈 map 들어왔다");
+			data = codeService.selectCode(code, session);
+			data.put("menu", data.get("CO_TYPE") + data.get("CO_NO"));
+		} else if(param.get("price").equals("all")) {
+			data = param;
+		} else {
+			data = money(param, session);
+		}
+		
+		return data;
+	}
 	
 	@GetMapping("/searchPro")
 	public String searchPro(@RequestParam Map<String, String> param, HttpSession session) {

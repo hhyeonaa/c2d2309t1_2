@@ -9,13 +9,9 @@ $(() => {
 	headerSelect2($("#trade"));
 	headerSelect2($("#price"));
 	
-//	$("#menu")
-//	$("#category")
-//	$("#trade")
-//	$("#price")
-	
 	$.ajax({
-		url:"search"
+		url:"search",
+		async: false
 	})
 	.done(function(data){
 		for(var i = 0; i < data.MENU.length; i++){
@@ -34,16 +30,33 @@ $(() => {
 		alert(fail)
 	})
 
-	$(document).on("click", "#searchButton", function(){
+	let slist = $("#selectedCodeList input");
+
+	if(slist.length > 0){
 		debugger;
+		let menu = $(".menu").val();
+		let category = $(".category").val();
+		let trade = $(".trade").val();
+		let price = $(".price").val();
+		
+		$("#menu").val(menu).trigger('change');
+		$("#category").val(category).trigger('change');
+		$("#trade").val(trade).trigger('change');
+		$("#price").val(price).trigger('change');
+	} 
+
+	$(document).on("click", "#searchButton", function(){
+//		debugger;
 		let selectText = $("#menu option:selected").text();
 		let aTagText = $("#hearderMenu a");
 		for(var i = 0; i < aTagText.length; i++){
-			$(aTagText[i]).text() === selectText ? "" : ""; 	
+			if($(aTagText[i]).text() === selectText){
+				$("#searchSubmit").attr("action", $(aTagText[i]).attr("href"));
+				break;
+			} 	
 		}
 		
-//		let urlFormat = "/"+ window.location.pathname.split("/")[1] + "/board/saleboard"; 
-//		$("#serchSubmit").attr("action",)
+		$("#submitBtn").trigger("click");
 	})
 	
 //	$.ajax({
@@ -69,7 +82,7 @@ function selectBarData(data){
 }
 
 function appendOptions(selector, dataArray) {
-  	$(selector).append('<option value="">전체보기</option>');
+  	$(selector).append('<option value="all">전체보기</option>');
   	dataArray.forEach(item => $(selector).append(selectBarData(item)));
 }
 //dataArray[0].CO_TYPE

@@ -129,6 +129,10 @@ public class MemberService {
 		return memberDAO.likeList(MEM_ID);
 	}// likeList()
 //	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
+		return memberDAO.likeListSelect(map);
+	} // likeListSelect()
+//	-----------------------------------------------------------------------------	
 	public boolean deleteLike(String LIK_NO) {
 		return memberDAO.deleteLike(LIK_NO);
 	} // deleteLike()

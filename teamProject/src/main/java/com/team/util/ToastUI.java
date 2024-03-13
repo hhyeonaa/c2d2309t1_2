@@ -34,6 +34,7 @@ public class ToastUI {
 		result.put("data", dataMap);
 		result.put("result", data.size() > 0 ? true : false);
 		
+		System.out.println(result);
 		return ResponseEntity.ok().body(result);
 	}
 	// @RequestBody에 넘어온 String 타입의 createdRows, updatedRows

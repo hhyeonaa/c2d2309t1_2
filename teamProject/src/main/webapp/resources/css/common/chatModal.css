@@ -79,7 +79,12 @@
 
 #chatList{
 	width: 100%;
-	height: 100%;
+	height: 92%;
+	overflow-y: auto;
+}
+
+#chatList::-webkit-scrollbar {
+  display: none;
 }
 
 .chatRoom{
@@ -127,6 +132,13 @@
 .postTit{
 	font-size: 18px;
 	font-weight: bold;
+}
+
+.chatRoomContents > span {
+	font-size: 12px;
+   	font-weight: bold;
+   	text-align: right;
+   	margin-right: 10px;
 }
 
 .lastChat{

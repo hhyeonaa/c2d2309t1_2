@@ -21,15 +21,16 @@
 			, #{AD_PW}
 			, #{AD_NAME}
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-			, 'RO2'
-			, '0')
+			, '1'
+			, 'RO3')
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
 		select
 			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
 			, a.AD_ID
-			, r.ROL_NAME
+			, a.ROL_NO
+<!-- 			, r.ROL_NAME   이부분 필요 없어져서 join 안써도 될듯?           -->  
 			, a.AD_ACTIVE
 		from ADMIN a join ROLE r
 		on a.ROL_NO = r.ROL_NO
@@ -45,7 +46,7 @@
 	
 	<delete id="adminDelete">
 		delete from ADMIN
-		where AD_NO = #{AD_NO}
+		where AD_ID = #{AD_ID}
 	</delete>
 	
 	<update id="adminUpdate">
@@ -314,7 +315,7 @@
 		select 
 			   RPT_NO
 			 , USER_NO
-			 , (select MEM_ID from MEMBERS WHERE MEM_NO = RPT_USER_NO) RPT_USER_NO
+			 , RPT_USER_NO
 			 , CODE
 			 , date_format(RPT_TIME, '%Y-%m-%d %H:%I:%S') as RPT_TIME
 		from REPORT
@@ -335,13 +336,11 @@
 				 FROM (SELECT IFNULL(MAX(CAST(RPT_NO as unsigned)), 0) + 1
 						 FROM REPORT) A)
 			, #{MEM_ID}
-			, #{rptUserIdx}
+			, #{reportTarget}
 			, #{rptCode}
 			, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'))
 	</insert>
 	<!-- {rptUserIdx=MEM1, rptCode=DCM1, MEM_ID=chat01} -->
-
-
 
 <!-- 	===== 성엽 끝 ===== -->
 	

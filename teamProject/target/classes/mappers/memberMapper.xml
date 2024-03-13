@@ -66,8 +66,7 @@
 	</select>	
 	
 	<select id="adminLogin" resultType="map">
-		select AD_ROLE
-			, ROL_NO
+		select ROL_NO
 		from ADMIN
 		where AD_ID = #{AD_ID} 
 		and AD_PW = #{AD_PW}
@@ -155,81 +154,99 @@
 	<select id="myListSell" parameterType="map" resultType="map">
 		select P.PRO_TC
 			 , P.PRO_TSC
+			 , P.PRO_WR
+			 , P.PRO_DATE
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
-             , C.CODE
+             , C1.CODE as "TC_NAME"
+             , C2.CODE as "TSC_NAME"
              , I.IMG_NAME
 		from MEMBERS M
 		join PRODUCT P
 		on M.MEM_ID = P.PRO_WR
-        left outer join CODE C
-        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        join CODE C1
+        on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
+        join CODE C2
+        on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
         left outer join IMAGE I
         on P.PRO_NO = I.IMG_PRONO
-        where concat(C.CO_TYPE, C.CO_NO) = 'MM1'
+        where concat(C1.CO_TYPE, C1.CO_NO) = 'MM1'
         and M.MEM_ID = #{MEM_ID}
-        and P.PRO_TSC != 'TM3'
-        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+        order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
 	<select id="myListBuy" parameterType="map" resultType="map">
-		select P.PRO_TSC
+		select P.PRO_TC
+			 , P.PRO_TSC
+			 , P.PRO_WR
+			 , P.PRO_DATE
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
-             , C.CODE
+             , C1.CODE as "TC_NAME"
+             , C2.CODE as "TSC_NAME"
              , I.IMG_NAME
 		from MEMBERS M
 		join PRODUCT P
 		on M.MEM_ID = P.PRO_WR
-        left outer join CODE C
-        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        join CODE C1
+        on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
+        join CODE C2
+        on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
         left outer join IMAGE I
         on P.PRO_NO = I.IMG_PRONO
-        where concat(C.CO_TYPE, C.CO_NO) = 'MM2'
+        where concat(C1.CO_TYPE, C1.CO_NO) = 'MM2'
         and M.MEM_ID = #{MEM_ID}
-        and P.PRO_TSC != 'TM3'
-        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+        order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
 	<select id="myListShare" parameterType="map" resultType="map">
-		select P.PRO_TSC
+		select P.PRO_TC
+			 , P.PRO_WR
+			 , P.PRO_DATE
+			 , P.PRO_TSC
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
-             , C.CODE
+             , C1.CODE as "TC_NAME"
+             , C2.CODE as "TSC_NAME"
              , I.IMG_NAME
 		from MEMBERS M
 		join PRODUCT P
 		on M.MEM_ID = P.PRO_WR
-        left outer join CODE C
-        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        join CODE C1
+        on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
+        join CODE C2
+        on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
         left outer join IMAGE I
         on P.PRO_NO = I.IMG_PRONO
-        where concat(C.CO_TYPE, C.CO_NO) = 'MM3'
+        where concat(C1.CO_TYPE, C1.CO_NO) = 'MM3'
         and M.MEM_ID = #{MEM_ID}
-        and P.PRO_TSC != 'TM3'
-        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+        order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
 	<select id="myListAuction" parameterType="map" resultType="map">
 		select A.AUC_TSC
 			 , A.AUC_NAME
 			 , A.AUC_SELLER
+			 , A.AUC_DATE
 			 , format(A.AUC_BP, 0) as "AUC_BP"
 			 , DATE_FORMAT(A.AUC_ETIME, '%m/%d %H%:%i') as "AUC_ETIME"
 			 , format(A.AUC_INP, 0) as "AUC_INP"
-             , C.CODE
+             , C1.CODE as "TC_NAME"
+             , C2.CODE as "TSC_NAME"
              , I.IMG_NAME
 		from MEMBERS M
 		join AUCTION A
 		on M.MEM_ID = A.AUC_SELLER
-        left outer join CODE C
-        on A.AUC_TC = concat(C.CO_TYPE, C.CO_NO)
+        join CODE C1
+        on A.AUC_TC = concat(C1.CO_TYPE, C1.CO_NO)
+        join CODE C2
+        on A.AUC_TSC = concat(C2.CO_TYPE, C2.CO_NO)
         left outer join IMAGE I
         on A.AUC_NO = I.IMG_PRONO
-        where concat(C.CO_TYPE, C.CO_NO) = 'MM4'
+        where concat(C1.CO_TYPE, C1.CO_NO) = 'MM4'
         and M.MEM_ID = #{MEM_ID}
         and A.AUC_TSC != 'TM3'
-        order by cast(trim(leading 'AU' from AUC_NO) as unsigned) desc;
+        order by A.AUC_TSC, cast(trim(leading 'AU' from AUC_NO) as unsigned) desc;
 	</select>
 	
 	<select id="deleteCheck" resultType="map">
@@ -254,6 +271,7 @@
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
+				, SUBSTR(P.PRO_TC, 3, 1) AS "PRO_NUM"
 				, CASE P.PRO_TC WHEN 'MM1' THEN '판매'
 				  			    WHEN 'MM2' THEN '구매'
 				  			    WHEN 'MM3' THEN '나눔'
@@ -265,6 +283,8 @@
 				  			     WHEN 'TM3' THEN '거래완료'
 				  END AS "PRO_STATE"
 				, P.PRO_NAME
+				, P.PRO_WR
+				, P.PRO_DATE
 				, FORMAT(P.PRO_PRICE, 0) AS "PRO_PRICE"
 		        , I.IMG_NAME
 		FROM LIKES L JOIN PRODUCT P
@@ -273,6 +293,7 @@
 		ON L.LIK_PRONO = I.IMG_PRONO
 		WHERE L.MEM_ID = #{MEM_ID}
 		AND I.IMG_NO = '1'
+		AND PRO_TC = 'MM1'
 	</select>
 	
 	<delete id="deleteLike">
@@ -283,38 +304,49 @@
 	<select id="myTrade" parameterType="map" resultType="map">
 		select P.PRO_TC
 			 , P.PRO_TSC
+			 , P.PRO_WR
+			 , P.PRO_DATE
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
-             , C.CODE
+             , C1.CODE as "TC_NAME"
+             , C2.CODE as "TSC_NAME"
              , I.IMG_NAME
 		from MEMBERS M
 		join PRODUCT P
 		on M.MEM_ID = P.PRO_WR
-        left outer join CODE C
-        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        join CODE C1
+        on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
+        join CODE C2
+        on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
         left outer join IMAGE I
         on P.PRO_NO = I.IMG_PRONO
         where M.MEM_ID = #{MEM_ID}
         and P.PRO_TSC = 'TM3'
         and I.IMG_NO = '1'
-        order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+		order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
 	</select>
 	
 	<select id="otherTrade" parameterType="map" resultType="map">
 		select P.PRO_TC
 			 , P.PRO_TSC
+			 , P.PRO_WR
+			 , P.PRO_DATE
 			 , P.PRO_NAME
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
-             , C.CODE
+             , C1.CODE as "TC_NAME"
+             , C2.CODE as "TSC_NAME"
              , I.IMG_NAME
 		from MEMBERS M
 		join PRODUCT P
 		on M.MEM_ID = P.PRO_WR
-        left outer join CODE C
-        on P.PRO_TC = concat(C.CO_TYPE, C.CO_NO)
+        join CODE C1
+        on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
+        join CODE C2
+        on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
         left outer join IMAGE I
         on P.PRO_NO = I.IMG_PRONO
-        where M.MEM_ID != #{MEM_ID}
+        where P.PRO_OT = #{MEM_ID}
+        and P.PRO_WR != #{MEM_ID}
         and P.PRO_TSC = 'TM3'
         and I.IMG_NO = '1'
         order by cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;

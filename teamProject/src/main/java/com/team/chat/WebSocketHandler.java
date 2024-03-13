@@ -89,15 +89,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					}
 				};
 			};
-			
 			// System.out.println("for문 이후 "+roomNo+"번 방 : " + currentRoom);
-			
 		} 
 		else if (type != null && type.equals("chat")) {
 			String roomNo = object.getString("roomNo");
-			String msg =  "{\"nickName\":\""+object.getString("nickName")+
-						   "\",\"message\":\""+object.getString("message")+
-						   "\",\"time\":\""+object.getString("time")+"\"}";
+			String msg =  "{\"nickName\":\""+object.getString("nickName")+"\","
+						   + "\"message\":\""+object.getString("message")+"\","
+						   + "\"time\":\""+object.getString("time")+"\","
+						   + "\"type\":\"chat\"}";
 			String target = object.getString("target");
 			
 			System.out.println("현재 방 상태 : " + roomMap.get(roomNo));
@@ -106,6 +105,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			WebSocketSession ws = roomMap.get(roomNo).get(target);
 			if(ws != null && ws != session) {
 				ws.sendMessage(new TextMessage(msg));
+			}
+		}
+		else if (type != null && type.equals("changeState")) {
+			String roomNo = object.getString("roomNo");
+			String state = "{\"state\":\""+object.getString("state")+"\","
+							+ "\"type\":\"changeState\"}";
+			String target = object.getString("target");
+			
+			System.out.println("현재 방 상태 : " + roomMap.get(roomNo));
+			
+			// 상대한테 보내기
+			WebSocketSession ws = roomMap.get(roomNo).get(target);
+			if(ws != null && ws != session) {
+				ws.sendMessage(new TextMessage(state));
 			}
 		}
 	}

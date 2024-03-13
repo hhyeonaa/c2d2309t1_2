@@ -62,6 +62,18 @@ public class PayService {
 		return payDAO.getPayInfo(param);
 	}
 
+	//결제 성공 후 PAY테이블 insert
+	public int paySuccess(Map<String, String> param) {
+		return payDAO.paySuccess(param);
+	}
+
+	//배송요청사항 SELECT (공통코드)
+//	public List<Map<String, String>> getRequestDel() {
+//		return payDAO.getRequestDel();
+//	}
+
+
+
 
 //	// 배송지 저장
 //	public void insertAddress(Map<String, String> map) {

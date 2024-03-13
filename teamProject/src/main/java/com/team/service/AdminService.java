@@ -30,8 +30,8 @@ public class AdminService {
 		return adminDAO.idCheck(map);
 	}
 
-	public void adminDelete(String AD_NO) {
-		adminDAO.adminDelete(AD_NO);
+	public void adminDelete(Map<String, String> map) {
+		adminDAO.adminDelete(map);
 	}
 	
 	public void adminUpdate(Map<String, String> map) {
@@ -136,7 +136,7 @@ public class AdminService {
 		return adminDAO.getForm(map);
 	}
 	
-	// 신고리스트 불러오기
+	// 채팅 신고하기
 	public int insertReport(Map<String, String> map) {
 		return adminDAO.insertReport(map);
 	}//
@@ -144,7 +144,6 @@ public class AdminService {
 	public List<Map<String, String>> getReportList() {
 		return adminDAO.getReportList();
 	}//
-
 
 //	----- 성엽 끝 -----
 

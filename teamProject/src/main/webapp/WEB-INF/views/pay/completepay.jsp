@@ -15,23 +15,6 @@
 	<form>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 			<div style="border: 1px solid black; width: 100%; height: 1000px;">
-<!-- 			    <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0"> -->
-<!-- 			        <h1 class="sech1">결제완료</h1> -->
-<!-- 			        <hr> -->
-<!-- 			            <div class="productInfo"> -->
-<!-- 			                <div class="productImg"> -->
-<!-- 								<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill"> -->
-<!-- 			                </div> -->
-<!-- 			                <div class="productPost"> -->
-<!-- 			                    <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4> -->
-<!-- 								<span class="productPostTitle">따봉도치 팜ㅍㅍㅍ</span><br> -->
-<!-- 								<span class="productPrice">100,000원</span> -->
-<!-- 			                </div> -->
-<!-- 			            </div> -->
-<!-- 			    	<div> -->
-									    	
-<!-- 			    	</div>         -->
-<!-- 				</section>		 -->
 
 				<div class="mainContainer">
 					<div class="paddingBox">
@@ -39,8 +22,6 @@
 							<h1 class="completepaytitle">결제 완료</h1>
 							<div class="textBox_box">
 								<p class="textStyle1">결제 상품 정보</p>
-<!-- 								<p style="margin: 5px">고객님의 예약이 확정되었어요.</p> -->
-<!-- 								<p style="margin: 0">아래의 예약 정보를 확인해 주세요.</p> -->
 							</div>
 							<div class="productImg">
 								<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지">

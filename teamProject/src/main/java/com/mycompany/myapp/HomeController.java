@@ -30,11 +30,8 @@ import com.team.util.EnumCodeType;
 public class HomeController {
 	@Inject
 	HomeService homeService;
-	
 	@Inject
-	TeamCodeService codeService;
-//	@Inject
-//	private HomeService homeService; 
+	private TeamCodeService codeService;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**

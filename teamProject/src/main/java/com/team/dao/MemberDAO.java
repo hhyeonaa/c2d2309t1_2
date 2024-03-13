@@ -126,6 +126,11 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace + "likeList", MEM_ID);
 	}// likeList()	
 //	-----------------------------------------------------------------------------
+	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
+		System.out.println("likeListSelect" + sqlSession.selectList(namespace + "likeListSelect", map));
+		return sqlSession.selectList(namespace + "likeListSelect", map);
+	}// likeListSelect()	
+//	-----------------------------------------------------------------------------
 	public boolean deleteLike(String LIK_NO) {
 		boolean result = sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1 ? true : false;
 		System.out.println("result: " + result);

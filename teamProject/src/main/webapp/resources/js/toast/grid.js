@@ -19,7 +19,7 @@
 var appendRows = [];
 var defaultPerPage;
 var variablePerPage;
-var grid = (url, perPage, columns, draggable, parameter) => {
+var fn_grid = (url, perPage, columns, draggable, parameter) => {
 	defaultPerPage = perPage;
 	variablePerPage = perPage;
 	var pageOptions = {
@@ -40,8 +40,7 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		},
   		contentType: "application/json"
 	};
-	const Grid = tui.Grid;
-	const grid = new Grid({
+	const grid = new tui.Grid({
 		rowHeight: 60,
 		draggable: draggable,
 		el: document.getElementById("grid"),
@@ -50,102 +49,23 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 		rowHeaders: ["rowNum", "checkbox"],
 		pageOptions: pageOptions
 	});
-	
-	debugger;
-	
-	grid.on('afterChange', ev => {
-		debugger;
-		var a = grid.request('updateData');
-	})
-	
-//	const appendBtn = document.getElementById('appendBtn');
-//	const appendedData = {};
-//    columns.forEach(item => appendedData[item.name] = '')
-//	appendBtn.addEventListener('click', () => {
-//		var rowCount = grid.getRowCount();
-//		appendRows.push(rowCount);
-//		if($("#setPerpage").val() == '0') grid.setPerPage(rowCount + 1, dataSource);
-//		grid.appendRow(appendedData);
-//    });
-//    
-//    const removeBtn = document.getElementById('removeBtn');
-//	removeBtn.addEventListener('click', () => {
-//		debugger;
-//		grid.removeRows(appendRows);
-//		appendRows = [];
-//    });
+//	grid.hideColumn("SEQ");
 
-// 누가 한거지?
-//	$(document).on("click", "#insertBtn", function () {
-//		debugger;
-//		$.ajax({
-//			type: "post"
-//			, url: "insertPro"
-//			, data: {AD_ID: $('#AD_ID').val(),
-//					 AD_PW: $('#AD_PW').val(),
-//					 AD_NAME: $('#AD_NAME').val() }
-//		})
-//		.done(function(data) {
-//			debugger;
-//			if(data == "") {
-//				return false;
-//			}
-//			debugger;
-//			debugger;
-//			modal.css('display', 'none');
-//			$('#adminDiv').load(location.href+' #adminDiv');
-////			location.reload();
-//		 })
-//	});
-    
-    const resetBtn = document.getElementById('resetBtn');
-    resetBtn.addEventListener('click', () =>{
-		debugger;
-		grid.reloadData();
-		debugger;	
-	});
-	
-	
-	$("#ckDeleteBtn").on("click", function(){
-		grid.removeCheckedRows(true);
-		grid.request("deleteData");
-		grid.reloadData();
-	})
-	
-	// 추가
-	$(document).on("click", "#insertBtn", function () {
-		debugger;
-		if($('#AD_ID').val() == ""){
-			alertMsg("AM6", ["아이디"]);
-			$('#AD_ID').focus();
-			return;
-		}
-		if($('#AD_PW').val() == ""){
-			alertMsg("AM6", ["비밀번호"]);
-			$('#AD_PW').focus();
-			return;
-		}
-		if($('#AD_NAME').val() == ""){
-			alertMsg("AM6", ["이름"]);
-			$('#AD_NAME').focus();
-			return;
-		}
+	// 순서 변경
+	grid.on("drop", () => {
+		for(var i = 0; i < grid.getRowCount(); i++)
+			grid.setValue(grid.getRowAt(i).rowKey, "SEQ", i+1);
 		
-		var row = {
-			AD_ID: $('#AD_ID').val(),
-			AD_PW: $('#AD_PW').val(),
-			AD_NAME: $('#AD_NAME').val(),
-			AD_ACTIVE: "0",
-			AD_NO: grid.getRowCount() + 1,
-			AD_ROLE: "RO1" 
-		};
-		grid.appendRow(row);
-		grid.request("createData");
-		$("#addModal").modal("hide");
+		grid.request("updateData");
+		grid.resetData(grid.getData());
 	});
 	
 	// 수정
 	grid.on("afterChange", (e) => {
+		debugger;
+		
+		if(e.changes[0].columnName == "SEQ") return;
+
 		grid.request("updateData");
 		grid.resetData(grid.getData(), {
 			pageState: {

@@ -16,12 +16,6 @@ document.write('<script type="text/javascript"' +
 $(function(){
 	var columns = [
 		{
-			name:"AD_NO",
-			header:"번호",
-			filter:"number",
-		    sortable: true
-		}, 
-		{
 			name:"AD_ID",
 			header:"ID",
 			filter:"text",
@@ -30,12 +24,26 @@ $(function(){
 		    editor: "text"
 		},
 		{
-			name:"ROL_NAME",
+			// 셀렉트 박스 설명!!!!!!!!!!!!!!!!!!!!!  (숫자 순서대로 볼 것)
+			name:"ROL_NO", // 5. (중요!!) 이 부분 name 원래 JOIN 해서 들고온 데이터에 맞춰서 ROL_NAME 컬럼이었는데 
+						   //    , 3번 설명처럼 text 속성에 join으로 들고 올 데이터("총괄", "운영", ..) 하드 코딩했으므로 걍 fk인 ROL_NO 컬럼 사용 
+						   //    (adminMapper.xml id=getAdminList 주석 봐바)
 			header:"권한",
 			filter:"text",
 		    sortable: true,
 			sortingType: 'asc',
-		    editor: "text"
+			formatter: "listItemText", // 4. 이거 없이 하면 셀렉트 박스로 값 변경할 때, 그리드에 text 속성들이 표시되는게 아니라 value 속성들이 표시됨.
+		    editor: { // 1. 셀렉트 박스 쓰려면 editor 속성을 아래와 같은 형식으로.
+				type: "select", // 2. type: "select" 이것도 고정.
+				options: {
+					listItems: [ // 3. 이 배열 안에 하드코딩으로 적으면 됨. (text: 그리드에 보여줄 부분, value: 실제 admin 테이블에서 변경될 값) 
+						{text: "총괄", value: "RO1"},
+						{text: "운영", value: "RO2"},
+						{text: "운영 및 사이트", value: "RO3"}
+					]
+				}
+			}
+			// 셀렉트 박스 설명!!!!!!!!!!!!!!!!!!!!!
 		},
 		{
 			name:"AD_ACTIVE",
@@ -51,54 +59,51 @@ $(function(){
 			renderer: { type: DeleteButton }
 		}
 	]
-	grid("managerPro", 5, columns, false);
+	fn_grid("managerPro", 5, columns, false);
 	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 	
-	
-	let adminList = document.getElementById('adminList');
-	
-	// 삭제 버튼
-	$(document).on("click", "#deleteBtn", function () {
-		var rowIndex = $(this).closest('tr').index();
-		let AD_NO= "AD" + adminList.rows[rowIndex+1].cells[0].innerText;
-		let AD_ID = adminList.rows[rowIndex+1].cells[1].innerText;
-		var result =
-			alertMsg("AM4", [AD_ID], true);
-		if(result){
-			$.ajax({
-				type: "post"
-				, url: "deletePro"
-				, data: {AD_NO: AD_NO }
-			})
- 			alertMsg("AM1", [AD_ID]);
-			$('#adminDiv').load(location.href+' #adminDiv');
-//			location.reload();
-		} else {
- 			alertMsg("AM2", ["삭제"]);
-		}
-	});
-
-	// 저장 버튼
-	$(document).on("click", "#saveBtn", function () {
-		var arr = [];
-		for (let i = 1; i < adminList.rows.length; i++) {
-			arr.push(
-				{AD_NO: "AD" + adminList.rows[i].cells[0].innerText
-				 , AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value
-				 , AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
-				}
-			)
-		};
-		$.ajax({
-			type: "post"
-			, contentType: 'application/json'
-			, url: "updatePro"
-			, data: JSON.stringify(arr)
-		});
-//		$('#adminDiv').load(location.href+' #adminDiv');
-		location.reload();
-	});
+//	// 삭제 버튼
+//	$(document).on("click", "#deleteBtn", function () {
+//		var rowIndex = $(this).closest('tr').index();
+//		let AD_NO= "AD" + adminList.rows[rowIndex+1].cells[0].innerText;
+//		let AD_ID = adminList.rows[rowIndex+1].cells[1].innerText;
+//		var result =
+//			alertMsg("AM4", [AD_ID], true);
+//		if(result){
+//			$.ajax({
+//				type: "post"
+//				, url: "deletePro"
+//				, data: {AD_NO: AD_NO }
+//			})
+// 			alertMsg("AM1", [AD_ID]);
+//			$('#adminDiv').load(location.href+' #adminDiv');
+////			location.reload();
+//		} else {
+// 			alertMsg("AM2", ["삭제"]);
+//		}
+//	});
+//
+//	// 저장 버튼
+//	$(document).on("click", "#saveBtn", function () {
+//		var arr = [];
+//		for (let i = 1; i < adminList.rows.length; i++) {
+//			arr.push(
+//				{AD_NO: "AD" + adminList.rows[i].cells[0].innerText
+//				 , AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value
+//				 , AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
+//				}
+//			)
+//		};
+//		$.ajax({
+//			type: "post"
+//			, contentType: 'application/json'
+//			, url: "updatePro"
+//			, data: JSON.stringify(arr)
+//		});
+////		$('#adminDiv').load(location.href+' #adminDiv');
+//		location.reload();
+//	});
 	
 		
 	// 모달창 관련	
@@ -154,17 +159,17 @@ $(function(){
 			, async: false
 		})
 		.done(function(data) {
-			debugger;
 			if(data == "") {
 				alertMsg('AM5', ["입력 정보"]);
 				return false;
 			}
 			debugger;
 			alertMsg('AM3', ["새로운 관리자 계정 생성"]);
-			debugger;
 			modal.css('display', 'none');
-			$('#adminDiv').load(location.href+' #adminDiv');
-//			location.reload();
+			$('#grid').empty();
+			grid("managerPro", 10, columns, false);
+			$('#excel').remove();
+			excel('updownload', 'ADMIN');
 		 })
 	});
 	

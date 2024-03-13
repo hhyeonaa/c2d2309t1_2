@@ -114,7 +114,7 @@
 		 				<td colspan="4">
 		 					<button class="btn btn-danger btn-lg">찜</button>
 		 					<button class="btn btn-warning btn-lg">신청자 확인</button>
-		 					<button class="btn btn-success btn-lg">나눔신청</button>
+		 					<button class="btn btn-success btn-lg" id="shareApplication">나눔신청</button>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
 <!-- 			 			<td><button class="btn btn-warning btn-lg">채팅</button></td> -->
@@ -122,6 +122,18 @@
 <!-- 			 			<td></td> -->
 		 			</tr>	 			
 		 		</table>
+		 	</div>
+		 	<div id="shareList" style="width: 70%; height: auto; display: none;">
+		 	<div class="input-group mb-3" style="width: 320px;">
+				<input type="text" class="form-control" id="divApplicant" placeholder="" aria-label="" aria-describedby="apply" value="${sessionScope.MEM_ID}" readonly>
+				<button class="btn btn-primary" type="button" id="apply">신청</button>
+			</div>
+<!-- 		 		<div> -->
+<%-- 		 			<input type="text" value="${sessionScope.MEM_ID}" readonly><button id="apply">신청</button> --%>
+<!-- 		 		</div> -->
+		 		<div>
+		 			<textarea id="appTxt" style="resize: none; " cols="40" rows="3" placeholder="나눔 신청 사유 또는 이유를 적어주세요."></textarea>
+		 		</div>
 		 	</div>
 		 	<div>
 		 		<table class="table">
@@ -149,31 +161,20 @@
 <!-- 		 				<td colspan="3"></td> -->
 <!-- 		 			</tr> -->
 		 		</table>
+		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<table class="table">
-		 			<tr><td colspan="6">신청자 정보</td><tr>
-		 			<tr><td colspan="6">
-	 					<div style="border: 1px solid;">
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치1<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다1</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치2<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다2</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치3<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다3</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치4<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다4</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치5<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다5</span>
-							 </div>
-							 <!-- 나머지 항목에 대해서도 같은 스타일을 적용 -->
-						</div>
-
-		 			</td></tr>
-
+		 			<tr><td colspan="1">신청자 정보</td><td colspan="2">신청 이유</td><td colspan="3"></tr><tr>
+		 			<tr>
+		 				<c:forEach var="applicant" items="${selectDivList}">
+		 				<input type="hidden" value="${applicant.DIV_APPLICANT}"> 
+			 			<td colspan="1">${applicant.MEM_NICK}</td>
+			 			<td colspan="3">${applicant.DIV_REASON}</td>
+			 			<td colspan="1"><button class="chat-button btn btn-warning mx-4">채팅하기</button></td>
+			 			<td colspan="1"><button class="btn" id="deleteDivReason">x</button></td>
+			 			</c:forEach>
+		 			</tr>
 		 		</table>
+		 		</c:if>
 		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<div class="d-grid gap-2">
 				  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
@@ -230,24 +231,24 @@
 		 			<tr>
 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2">게시자 후기</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
-		 			<tr>
-		 				<td colspan="2">
-		 					<button class="btn btn-warning" style="width: 40%;">신청자 확인</button>
-		 					<button class="btn btn-success" style="width: 40%;">나눔신청</button>
-		 				</td>
-		 			</tr>		 					
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2">게시자 후기</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr> -->
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2"> -->
+<!-- 		 					<button class="btn btn-warning" style="width: 40%;">신청자 확인</button> -->
+<!-- 		 					<button class="btn btn-success" style="width: 40%;">나눔신청</button> -->
+<!-- 		 				</td> -->
+<!-- 		 			</tr>		 					 -->
 		 		</table>
 		 	</div>
 		</div>

@@ -33,4 +33,8 @@ public class HomeService {
 	
 		return homeDAO.getAucProductList();
 	}
+
+	public List<Map<String, String>> getProductList(String str) {
+		return homeDAO.getProductList(str);
+	}
 }

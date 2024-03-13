@@ -65,7 +65,7 @@ public class HeaderController {
 		            url.put("url", "/board/auctionBoard");
 		            break;
 		        default:
-		            url.put("url", "나눔경로");
+		            url.put("url", "기부경로");
 		    }
 		    
 		    urlList.add(url);

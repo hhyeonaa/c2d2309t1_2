@@ -372,8 +372,9 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 // 		$('#att_zone').find($("input[type=hidden]")).remove();
 // 	})
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기
-	$('#submitBtn').on('click', function(e) { 
+	$('#insertBtn').on('click', function(e) { 
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지합니다.
+		debugger;
 		var contextPath = getContextPath();
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		var resultList = []; // 결과를 저장할 배열입니다.
@@ -420,6 +421,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		// 파일 리스트 추가
 		for (var i = 0; i < resultList.length; i++) {
+			debugger;
 			// 각 파일을 'imgs'라는 이름으로 개별적으로 추가합니다.
 			// 서버 측에서는 'imgs'라는 이름으로 파일 리스트를 받을 수 있습니다.
 			formData.append('imgs', resultList[i]);
@@ -454,6 +456,10 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 			  console.log('Upload error:', textStatus, errorThrown);
 			}
 		}); */
+		var writer = '';
+		var date = '';
+		var tableName = '';
+		var trade = '';
 		$.ajax({
 			url: contextPath+'/board/writeBoardPro', // 서버 엔드포인트 URL
 			type: 'POST',
@@ -463,9 +469,38 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}).done(function(response) {
 			// 파일 업로드 성공 시 처리
 			console.log('Upload success:', response);
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			// 파일 업로드 실패 시 처리
-			console.log('Upload error:', textStatus, errorThrown);
+			/*임시이동*/
+//			location.href = "/myapp/";
+			$.ajax({
+				url: 'selectMyBoard', // 서버 엔드포인트 URL
+				type: 'GET',
+				data: {
+					writer : $('#proWr').val()
+				},
+			}).done(function(response) {
+//				location.href = "/myapp/";
+				// 배열을 순회하면서 각 객체의 값에 접근
+				response.forEach(function(item) {
+				writer = item.WRITER;
+				date = item.POSTING_DATE;
+				tableName = item.TABLENAME;
+				trade = item.TRADE;
+
+				console.log("writer: " + writer + ", date: " + date + ", tablename: " + tableName + ", trade: " + trade);
+				//writer: jaewon, date: 20240313130011, tablename: PRODUCT, trade: MM3
+				
+				});
+				if(tableName === 'AUCTION'){
+					location.href = "auctionDetail?aucSeller=" + writer + "&aucDate=" + date;
+					return;
+				}
+				if(trade === 'MM3') {
+					location.href = "divideDetail?proWr=" + writer + "&proDate=" + date;
+					return;
+				}
+				location.href = "boardDetail?proWr=" + writer + "&proDate=" + date;
+			/*임시이동*/
+			})
 		});
 	});
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기 끝
@@ -556,7 +591,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 //			$('#aTempSave').attr('id','tempSave');
 //		} 
 //	});
-	$('input[name="deliveryCharge"]').on('change', function() {
+	$('input[name="deliveryCharge"]').on('change', function(e) {
+		e.preventDefault(); // 폼의 기본 제출 동작을 방지
 	    var checkedRadioId = $('input[name="deliveryCharge"]:checked').attr('id');
 //	    alert(checkedRadioId);
 	
@@ -642,7 +678,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 	})
 	
-	$('#selectAddress').on('change',function(){
+	$('#selectAddress').on('change',function(e){
+		e.preventDefault(); // 폼의 기본 제출 동작을 방지
 		var fullAdd = $('#selectAddress').val();
 		var addList = fullAdd.split(',');
 		console.log(addList);

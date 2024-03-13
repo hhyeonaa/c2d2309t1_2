@@ -122,15 +122,16 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
-		 				<td></td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
 		 					<button class="btn btn-danger btn-lg">찜</button>
 		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
+		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
 		 					<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
+		 					</c:if>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
 <!-- 			 			<td><button class="btn btn-warning btn-lg">채팅</button></td> -->
@@ -166,9 +167,12 @@
 		 			</tr>
 		 		</table>
 		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
-		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
-				</div>
+			 		<!-- 거래 완료면 수정이 불가능하다. -->
+			 		<c:if test="${resultMap.PRO_TSC ne 'TM3'}">
+				 		<div class="d-grid gap-2">
+						  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
+						</div>
+					</c:if>
 				</c:if>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
@@ -189,26 +193,6 @@
 		 					<div class="img-innertext"><span>10000원</span></div>
 		 				</td>
 		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>		 	
 		 			<tr>
 		 				<td class="center-align">
 		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">

@@ -149,6 +149,11 @@ public class BoardService {
 		return boardDAO.deleteDivide(param);
 	}// deleteDivide()
 
+	public List<Map<String,String>> selectMyBoard(Map<String, String> param) {
+		System.out.println("BoardService selectMyBoard()");
+		return boardDAO.selectMyBoard(param);
+	}// selectMyBoard()
+
 
 
 }// BoardService 끝

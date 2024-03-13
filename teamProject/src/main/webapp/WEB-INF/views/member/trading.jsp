@@ -17,7 +17,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center; padding-top: 5%;">
 	<div class="rounded-5 shadow">
-	<h3 class="title">진행 중인 거래</h3>
+	<h3 class="title">진행 중인 거래<small> (결제 완료)</small></h3>
 	<hr>
 	<div class="tab_content tab_content1">
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
@@ -29,21 +29,20 @@
 		      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${trading.PRO_WR}&proDate=${trading.PRO_DATE}">
 		      	<img src="${pageContext.request.contextPath}/resources/img/uploads/${trading.IMG_NAME}" class="card-img-top" 
 		      	     alt="${trading.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'" style="width: 250px; height: 250px;">
-		      </a>	  
 		      <div class="card-body">
-		          <span class="state1" style="font-size: 14px !important;">결제 번호 : ${trading.MERCHANT_UID}</span>
+		          <span class="state1" style="font-size: 14px !important;">결제번호 : <b>${trading.MERCHANT_UID}</b></span>
 		          <span class="state2" style="float: right;">${trading.TSC_NAME}</span>
-				  
 				  <hr>
 				  <p style="text-align: left; padding-bottom: 2%;"><b>${trading.NAME}</b></p>
-				  <span class="state3">결제 금액 : ${trading.PAID_AMOUNT}원</span> <br>
-			      <span class="state3">결제 날짜 : ${trading.PAY_TIME}</span><br>
+				  <span class="state3">결제금액 : ${trading.PAID_AMOUNT}원</span> <br>
+			      <span class="state3">결제날짜 : ${trading.PAY_TIME}</span><br>
 		      </div>
+		      </a>	 
 		    </div>
 		  </div>
 		 </c:forEach>
 		 <c:if test="${empty trading}">
-		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="myTrade">거래한 내역이 없습니다.</div>
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="empTrading">진행 중인 거래가 없습니다.</div>
 		 </c:if>
 		</div>
 	</div><!--tab_content1-->

@@ -58,9 +58,9 @@ div{margin:0;}
   display:block;
 }
 
-#emptySell, #emptyBuy, #emptyShare, #emptyAuction {
+#empTrading {
 	padding-top: 120px;
-	padding-left: 42%;
+	padding-left: 40%;
 	height: 300px;
 	text-align: center;
 	font-size: 20px;

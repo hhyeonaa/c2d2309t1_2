@@ -58,7 +58,7 @@
 		  </div>
 		 </c:forEach>
 		 <c:if test="${empty myTrade}">
-		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="myTrade">거래한 내역이 없습니다.</div>
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="empMy">거래한 내역이 없습니다.</div>
 		 </c:if>
 		</div>
 	</div><!--tab_content1-->
@@ -93,7 +93,7 @@
 		  </div>
 		 </c:forEach>
 		 <c:if test="${empty otherTrade}">
-		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="otherTrade">거래한 내역이 없습니다.</div>
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="empOther">거래한 내역이 없습니다.</div>
 		 </c:if>
 		</div>
 	</div><!--tab_content2-->

@@ -101,7 +101,7 @@
             			</div>
 							<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
 								<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
-								class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ"></textarea>
+								class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" disabled></textarea>
 							</div>
 					</div>		
 	            </div>

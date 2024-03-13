@@ -64,6 +64,9 @@ var requestPay = (pgId) => {
 							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
 							rsp["PRO_NO"] = $('#PRO_NO').val();
 							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
+								if( $("#selectDel  option").index($("#selectDel  option:selected"))== 6 ){
+									rep["PAY_MSG"] = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4').val();
+								}
 							//**
 							//var newData = {};
 							//newData.imp_uid = rsp.imp_uid
@@ -78,7 +81,7 @@ var requestPay = (pgId) => {
 						  	}else{
 								  debugger;
 								  console.log(res);
-							  }
+							 }
 						});
 				//data값
 				}
@@ -277,6 +280,10 @@ selectMethod();
 			alert('배송주소를 등록해주세요');
 			return false;
 		}
+		if($("#selectDel  option").index($("#selectDel  option:selected")) == 0){
+			alert('배송요청사항 입력해주세요');
+			return false;
+		}
 		requestPay(pgId);
 		// "/completepay"페이지이동
 		var PRO_NO = $('#PRO_NO').val();
@@ -470,20 +477,18 @@ selectMethod();
 
 	//9.배송 요청사항 이벤트
 	$('#selectDel').change(function() {
-        var selectedOptionText = $("#selectDel option:selected").text();
+        //var selectedOptionText = $("#selectDel option:selected").text();
         var textarea = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4');
-        
+        var selectedOptionIndex =$("#selectDel  option").index($("#selectDel  option:selected"));
         //$("#selectDel  option").index($("#selectDel  option:selected"));
 		//$("#selectDel option:selected").text();
-
-        
-        // 선택된 옵션에 따라 textarea를 활성화 또는 비활성화
-        if (selectedOptionText === '직접 입력') {
-            textarea.prop('disabled', false); // textarea 활성화
-        } else {
-            textarea.prop('disabled', true); // textarea 비활성화
-        }
-    });
+		textarea.prop('disabled', true);
+		textarea.val('');
+		if(selectedOptionIndex == 6 ){
+			textarea.prop('disabled', false); // textarea 활성화
+		}
+		
+	    });
 	
 	
 	

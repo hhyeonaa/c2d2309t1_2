@@ -1,3 +1,6 @@
+document.write('<script type="text/javascript"' + 
+                    'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+               '</script>'); 
 // 1-1 거래방식 선택 +  배송료 , 최종금액 관련함수
 function selectMethod(){
 	$("input[name='optradio']").change(function () {
@@ -14,7 +17,7 @@ function selectMethod(){
 		$('.NBdoU').show();
 	})
 }
-// 10 결제완료 후 상품상태 TM1 > TM2 update
+// 10 결제완료 후 상품상태 TM1 > TM2 update (확인O)
 function payProUpdate(a){
 	debugger;
 	$.ajax({
@@ -25,7 +28,7 @@ function payProUpdate(a){
 	.done(function(data){
 		debugger;
 		if(data == 1){
-			alert('거래상태 update 성공');			
+			//alert('거래상태 update 성공');			
 		}	
 	})
 	.fail(function(){
@@ -86,11 +89,12 @@ var requestPay = (pgId) => {
 							debugger;
 							rsp["SELLER_NO"] = data.SELLER;
 							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
+							debugger;
 							rsp["PRO_NO"] = $('#PRO_NO').val();
 							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
-								if( $("#selectDel  option").index($("#selectDel  option:selected"))== 6 ){
-									rep["PAY_MSG"] = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4').val();
-								}
+							if($("#selectDel  option").index($("#selectDel  option:selected")) == 6 ){
+								rsp["PAY_MSG"] = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4').val();
+							}
 							//**
 							//var newData = {};
 							//newData.imp_uid = rsp.imp_uid
@@ -252,46 +256,46 @@ selectMethod();
 	    }).open();
 	});
 
-// 2-1 배송지목록 등록 저장
-	$('#payAddbtn').on('click', function(){
-		// 배송지목록 등록 정보 유효성
-		var addnick = $('input[name=ADD_NICK]').val(); 
-		var receiver = $('input[name=ADD_RECEIBER]').val();
-		var phone = $('input[name=ADD_PHONE]').val();
-		var post = $('input[name=ADD_POST]').val();
-		var addname = $('input[name=ADD_NAME]').val();
-		var adddetail = $('input[name=ADD_DETAIL]').val();
-		if(addnick == ''){
-			alert("배송지명을 입력하세요.")
-			addnick.focus();
-			return false;
-		}
-		if(receiver == ''){
-			alert("수령인을 입력하세요.")
-			receiver.focus();
-			return false;
-		}
-		if(phone == ''){
-			alert("연락처을 입력하세요.")
-			phone.focus();
-			return false;
-		}
-		if(post == ''){
-			alert("주소 입력하세요.")
-			post.focus();
-			return false;
-		}
-		if(addname == ''){
-			alert("주소 입력하세요.")
-			addname.focus();
-			return false;
-		}
-		if(adddetail == ''){
-			alert("상세주소를 입력하세요.")
-			adddetail.focus();
-			return false;
-		}
-	})
+//// 2-1 배송지목록 등록 저장
+//	$('#payAddbtn').on('click', function(){
+//		// 배송지목록 등록 정보 유효성
+//		var addnick = $('input[name=ADD_NICK]').val(); 
+//		var receiver = $('input[name=ADD_RECEIBER]').val();
+//		var phone = $('input[name=ADD_PHONE]').val();
+//		var post = $('input[name=ADD_POST]').val();
+//		var addname = $('input[name=ADD_NAME]').val();
+//		var adddetail = $('input[name=ADD_DETAIL]').val();
+//		if(addnick == ''){
+//			alert("배송지명을 입력하세요.")
+//			addnick.focus();
+//			return false;
+//		}
+//		if(receiver == ''){
+//			alert("수령인을 입력하세요.")
+//			receiver.focus();
+//			return false;
+//		}
+//		if(phone == ''){
+//			alert("연락처을 입력하세요.")
+//			phone.focus();
+//			return false;
+//		}
+//		if(post == ''){
+//			alert("주소 입력하세요.")
+//			post.focus();
+//			return false;
+//		}
+//		if(addname == ''){
+//			alert("주소 입력하세요.")
+//			addname.focus();
+//			return false;
+//		}
+//		if(adddetail == ''){
+//			alert("상세주소를 입력하세요.")
+//			adddetail.focus();
+//			return false;
+//		}
+//	})
 	
 	
 // 3. 결제수단 클릭 이벤트(css)
@@ -364,6 +368,7 @@ selectMethod();
 		$("[class^='deliUpdate']").on('click', function(e){
 			$("#staticBackdrop").modal("hide");
 			debugger;
+			
 			$.ajax({
 				url: "addDeliveryUpdate",
 				data: {ADD_NO : $('#ADD_NO' + $(e.target).attr("class").match(/\d+/)[0]).val()
@@ -420,18 +425,55 @@ selectMethod();
 	//6-2 배송지 수정작업
 	$(document).on('click', '#payUpdateBtn', function(){
 		debugger;
+		var addnick = $('input[name=ADD_NICK]').val(); 
+		var receiver = $('input[name=ADD_RECEIVER]').val();
+		var phone = $('input[name=ADD_PHONE]').val();
+		var post = $('input[name=ADD_POST]').val();
+		var addname = $('input[name=ADD_NAME]').val();
+		var adddetail = $('input[name=ADD_DETAIL]').val();
+		debugger;
+		if(addnick == ''){
+			alert("배송지명을 입력하세요.")
+			addnick.focus();
+			return false;
+		}
+		if(receiver == ''){
+			alert("수령인을 입력하세요.")
+			receiver.focus();
+			return false;
+		}
+		if(phone == ''){
+			alert("연락처를 입력하세요.")
+			phone.focus();
+			return false;
+		}
+		if(post == ''){
+			alert("주소 입력하세요.")
+			post.focus();
+			return false;
+		}
+		if(addname == ''){
+			alert("주소 입력하세요.")
+			addname.focus();
+			return false;
+		}
+		if(adddetail == ''){
+			alert("상세주소를 입력하세요.")
+			adddetail.focus();
+			return false;
+		}
 		$.ajax({
 			url: "addDeliveryUpdate1",
 			type:'post',
 			data:{
 				ADD_NO : $("#address-no").val(),
-				ADD_NICK : $("#address-title").val(),
-				ADD_RECEIVER : $("#address-name").val(),
-				ADD_PHONE : $("#address-tel").val(),
-				ADD_POST : $("#address-zipcode").val(),
-				ADD_NAME : $("#address-front").val(),
-				ADD_DETAIL : $("#address-detail").val(),
-				MEM_NO : $('#MEM_NO').val()
+				MEM_NO : $('#MEM_NO').val(),
+				ADD_NICK : addnick,
+				ADD_RECEIVER : receiver,
+				ADD_PHONE : phone,
+				ADD_POST : post,
+				ADD_NAME : addname,
+				ADD_DETAIL : adddetail
 			},
 			async: false,
 			success:function(result){
@@ -457,19 +499,56 @@ selectMethod();
 	// 새 배송지 추가(입력)저장 
 	$(document).on('click', '#payAddbtn', function(){
 		$("#staticBackdrop").modal("hide");
+		var addnick = $('input[name=ADD_NICK]').val(); 
+		var receiver = $('input[name=ADD_RECEIVER]').val();
+		var phone = $('input[name=ADD_PHONE]').val();
+		var post = $('input[name=ADD_POST]').val();
+		var addname = $('input[name=ADD_NAME]').val();
+		var adddetail = $('input[name=ADD_DETAIL]').val();
+		debugger;
+		if(addnick == ''){
+			alert("배송지명을 입력하세요.")
+			addnick.focus();
+			return false;
+		}
+		if(receiver == ''){
+			alert("수령인을 입력하세요.")
+			receiver.focus();
+			return false;
+		}
+		if(phone == ''){
+			alert("연락처를 입력하세요.")
+			phone.focus();
+			return false;
+		}
+		if(post == ''){
+			alert("주소 입력하세요.")
+			post.focus();
+			return false;
+		}
+		if(addname == ''){
+			alert("주소 입력하세요.")
+			addname.focus();
+			return false;
+		}
+		if(adddetail == ''){
+			alert("상세주소를 입력하세요.")
+			adddetail.focus();
+			return false;
+		}
 		debugger;
 		$.ajax({
 			url:"addDelivery",
 			type:'post',
 			data:{
 				ADD_NO : $("#address-no").val(),
-				ADD_NICK : $("#address-title").val(),
-				ADD_RECEIVER : $("#address-name").val(),
-				ADD_PHONE : $("#address-tel").val(),
-				ADD_POST : $("#address-zipcode").val(),
-				ADD_NAME : $("#address-front").val(),
-				ADD_DETAIL : $("#address-detail").val(),
-				MEM_NO : $('#MEM_NO').val()
+				MEM_NO : $('#MEM_NO').val(),
+				ADD_NICK : addnick,
+				ADD_RECEIVER : receiver,
+				ADD_PHONE : phone,
+				ADD_POST : post,
+				ADD_NAME : addname,
+				ADD_DETAIL : adddetail
 			},
 			async: false,	
 			success:function(result){

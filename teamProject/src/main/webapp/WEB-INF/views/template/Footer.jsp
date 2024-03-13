@@ -87,8 +87,7 @@
 		</div>
 		
 		<div id="chatContentsContainer">
-			<div id="chatHead">
-<!-- 				<div>이미지</div> -->
+<!-- 			<div id="chatHead"> -->
 <!-- 				<div class="chatRoomContents"> -->
 <!-- 					<div class="userNick">[닉네임]</div> -->
 <!-- 					<div class="postTit">다른 게시물 제목</div> -->
@@ -106,7 +105,7 @@
 <!-- 					</div> -->
 <!-- 					<span style="margin-bottom: 5px; font-size: 12px;">게시판 작성자만 사용 가능합니다</span> -->
 <!-- 				</div> -->
-			</div>
+<!-- 			</div> -->
 			<div id="chatBody">
 				<span id="chatChoicePlease">채팅을 선택해주세요</span>
 <!-- 				<div class="my Chat"> -->

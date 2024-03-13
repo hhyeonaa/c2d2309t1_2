@@ -49,14 +49,27 @@
 		  JOIN IMAGE ON PRO_NO = IMG_PRONO
 		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
-	    <if test="proTc != null">
-	       AND PRO_TC = #{proTc}
-	    </if>
-	     WHERE IMG_NO = 1
+	     WHERE 1 = 1
+	    <if test="menu != null">
+	       AND PRO_TC = #{menu}
+	    </if> 
+		<if test='category != null and category != "all"'>
+			and PRO_CATE = #{category}
+		</if>
+		<if test='trade != null and trade != "all"'>
+			and PRO_TSC = #{trade}
+		</if>
+		<if test='price != null and price != "all"'>
+			and cast(PRO_PRICE as signed) between cast(#{min} as signed) and cast(#{max} as signed) 
+		</if>
+		<if test='title != null and title != "all"'>
+			and PRO_NAME like CONCAT('%', #{title}, '%')
+		</if>	    
+	       and IMG_NO = 1
 		 ORDER BY PRO_DATE DESC
 	</select>
 	
-	
+<!-- 	menu=MM1, category=all, trade=all, price=all, title= -->
 	<!-- 성엽 작업 시작 -->
 	
 	<select id="selectBuyBoard" resultType="map">

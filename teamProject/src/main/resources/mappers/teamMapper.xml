@@ -33,7 +33,7 @@
 	</select>
 	
 	<select id="selectCode" parameterType="map" resultType="map">
-		select CODE
+		select CODE, CO_TYPE, CO_NO
 		  from CODE			
 		 where 1 = 1
 		   and CO_NO = #{CO_NO}

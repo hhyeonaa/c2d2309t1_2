@@ -64,7 +64,12 @@
 					<a class="navbar-brand" href="${pageContext.request.contextPath}" style="font-size: 30px;"><img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 125px; height: 55px;"></a>
 					<ul class="navbar-nav mb-2 mb-lg-0" id="hearderMenu" style="width: 230px;"> 
 					</ul>
-					<form class="d-flex" method="get" id="serchSubmit" action="" style="margin-left: 30px;">
+					<div id="selectedCodeList">
+					<c:forEach var="entry" items="${selectCode}" varStatus="status">
+						<input class="${entry.key}" type="hidden" value="${entry.value}">
+					</c:forEach>
+					</div>
+					<form class="d-flex" method="get" id="searchSubmit" action="" style="margin-left: 30px;">
 						<div>
 							<div style="display: flex;">
 								<select class="form-select" name="menu" id="menu" style="width: 70px;"></select>
@@ -82,6 +87,7 @@
 							        name="title"
 							    />
 						    	<button class="btn" type="button" id="searchButton"><ion-icon name="search-outline"></ion-icon></button>
+						    	<input type="submit" id="submitBtn" style="display: none;">
 						    </div>
 						</div>
 					</form>

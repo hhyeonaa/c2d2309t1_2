@@ -47,22 +47,24 @@ public class BoardController {
 	private TeamCodeService codeService;
 	
 	@GetMapping("/saleBoard")
-	public String saleBoard(Model model, HttpServletRequest request) {
-		System.out.println((String)request.getParameter("sMenu"));
+	public String saleBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
 		System.out.println("BoardController saleBoard()");
-		String proTc = "MM1";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
+		
+//		String proTc = "MM1";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
 		/*테스트용 select start*/
 //		Map<String, String> map = new HashMap<String, String>();
 //		map.put("proNo", "PR4");
 //		System.out.println(boardService.select(map));
 		/*테스트용 select end*/
 //		List<Map<String,String>> resultList = boardService.selectSaleBoard();
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "1"));
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
 		return "board/saleBoard";
 	}// saleBoard()
 	
@@ -70,30 +72,34 @@ public class BoardController {
 	// 성엽 작업 시작 //
 	
 	@GetMapping("/buyBoard")
-	public String buyBoard(Model model) {
-		String proTc = "MM2";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
+	public String buyBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
+//		String proTc = "MM2";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "2"));
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
+		System.out.println(param);
 		return "board/buyBoard";
 	}// buyBoard()
 	
 	// 성엽 작업 끝 //
 	
 	@GetMapping("/divideBoard")
-	public String divideBoard(Model model) {
+	public String divideBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
 		System.out.println("BoardController divideBoard()");
-		String proTc = "MM3";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
+//		String proTc = "MM3";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
 //		List<Map<String,String>> resultList = boardService.selectDivideBoard();
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "3"));
 		System.out.println("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
+		System.out.println(param);
 		return "board/divideBoard";
 	}// divideBoard()
 	
@@ -695,6 +701,33 @@ public class BoardController {
 	}// deleteBoard()
 	
 //	----- 검색 bar -----
+	
+	private Map<String, String> money(Map<String, String> param, HttpSession session){
+		
+		Map<String, String> price = codeService.selectCode(param.get("price"), session);
+		String[] priceArr = price.get("CODE").split("이상");
+		price = param;
+		price.put("min", priceArr[0].replaceAll("[^0-9]", "").trim());
+		price.put("max", priceArr[1].replaceAll("[^0-9]", "").trim());
+		
+		System.out.println(price);
+		return price;
+	}
+	
+	private Map<String, String> dataList(Map<String, String> param, HttpSession session, String code){
+		Map<String, String> data = new HashMap<String, String>();
+		if(param.size() == 0) {
+			System.out.println("빈 map 들어왔다");
+			data = codeService.selectCode(code, session);
+			data.put("menu", data.get("CO_TYPE") + data.get("CO_NO"));
+		} else if(param.get("price").equals("all")) {
+			data = param;
+		} else {
+			data = money(param, session);
+		}
+		
+		return data;
+	}
 	
 	@GetMapping("/searchPro")
 	public String searchPro(@RequestParam Map<String, String> param, HttpSession session) {

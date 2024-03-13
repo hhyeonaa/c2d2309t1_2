@@ -5,9 +5,16 @@
 <mapper namespace="com.team.mappers.adminMapper">
 	
 <!-- 	===== 현아 시작 ===== -->
-
+	
+	<select id="idCheck" resultType="String">
+		SELECT
+			AD_ID 
+		FROM ADMIN
+		WHERE AD_ID = #{AD_ID}
+	</select>
+	
 	<insert id="adminInsert">
-		insert into ADMIN
+		INSERT INTO ADMIN
 			(AD_NO
 			, AD_ID 
 			, AD_PW
@@ -15,7 +22,7 @@
 			, AD_DATE
 			, AD_ACTIVE
 			, ROL_NO)
-		values (CONCAT("AD", IFNULL((SELECT MAX(CAST(replace(AD_NO, "AD", "") AS unsigned))+1
+		VALUES (CONCAT("AD", IFNULL((SELECT MAX(CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED)) + 1
 									 FROM ADMIN A), 1))
 			, #{AD_ID}
 			, #{AD_PW}
@@ -26,110 +33,37 @@
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
-		select
-			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
-			, a.AD_ID
-			, a.ROL_NO
-<!-- 			, r.ROL_NAME   이부분 필요 없어져서 join 안써도 될듯?           -->  
-			, a.AD_ACTIVE
-		from ADMIN a join ROLE r
-		on a.ROL_NO = r.ROL_NO
+		SELECT
+			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
+			, AD_ID
+			, ROL_NO
+			, AD_ACTIVE
+		FROM ADMIN
 		ORDER BY AD_NO
 	</select>
 	
-	<select id="idCheck" resultType="String">
-		select
-			AD_ID 
-		from ADMIN
-		where AD_ID = #{AD_ID}
-	</select>
-	
 	<delete id="adminDelete">
-		delete from ADMIN
-		where AD_ID = #{AD_ID}
+		DELETE FROM ADMIN
+		WHERE AD_ID = #{AD_ID}
 	</delete>
 	
 	<update id="adminUpdate">
-		update ADMIN
-		set AD_ACTIVE = #{AD_ACTIVE}
-		where AD_NO = #{AD_NO}
+		UPDATE ADMIN
+		SET AD_ACTIVE = #{AD_ACTIVE}
+			, ROL_NO = #{ROL_NO}
+		WHERE AD_ID = #{AD_ID}
 	</update>
-	
-<!-- 	<select id="getBoardList" resultType="map"> -->
-<!-- 		select CODE -->
-<!-- 				, ACTIVE -->
-<!-- 				, SEQ -->
-<!-- 				, CASE CO_DETAIL WHEN '0' THEN '글' -->
-<!-- 						   WHEN '1' THEN '글+사진' -->
-<!-- 						   WHEN '2' THEN '글+사진+날짜' -->
-<!-- 						   ELSE '없음' -->
-<!-- 			   END AS "CO_DETAIL" -->
-<!-- 		from CODE -->
-<!-- 			where  CO_TYPE = 'MM' -->
-<!-- 		ORDER BY SEQ -->
-<!-- 	</select> -->
 	
 	<update id="displayUpdate">
 		<foreach collection="list" item="code" open="" close="" separator=";">
-		update CODE
-		   set CODE = #{code.CODE}
+		UPDATE CODE
+		   SET CODE = #{code.CODE}
 		   	 , ACTIVE = #{code.ACTIVE}
-		 where 1 = 1
-		   and CO_TYPE = #{code.CO_TYPE}
-		   and CO_NO = #{code.CO_NO} 
+		 WHERE 1 = 1
+		   AND CO_TYPE = #{code.CO_TYPE}
+		   AND CO_NO = #{code.CO_NO} 
 		</foreach>	
 	</update>
-	
-<!-- 	<select id="getCategoryList" resultType="map"> -->
-<!-- 		select SEQ -->
-<!-- 				, CODE -->
-<!-- 				, ACTIVE -->
-<!-- 		from CODE -->
-<!-- 		where CO_TYPE = 'CM' -->
-<!-- 		ORDER BY SEQ -->
-<!-- 	</select>	 -->
-	
-	<insert id="inputForm">
-		insert into PRODUCT
-			(PRO_NO
-			, PRO_WR
-			, PRO_NAME
-			, PRO_PRICE
-			, PRO_CONTENT
-			, PRO_CATE
-			, PRO_STATUS
-			, PRO_TC
-			, PRO_TSC
-			, PRO_DATE
-			)
-		values (CONCAT('PR', IFNULL((SELECT MAX(CAST(replace(PRO_NO, 'PR', '') AS unsigned))+1
-									 FROM PRODUCT A), 1))
-			, #{MEM_ID}
-			, #{PRO_NAME}
-			, #{PRO_PRICE}
-			, #{PRO_CONTENT}
-			, #{PRO_CATE}
-			, #{PRO_STATUS}
-			, #{PRO_TC}
-			, 'TM1'
-			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
-	</insert>
-	
-	<select id="getForm" resultType="map">
-			select 
-				CO_TYPE
-				, CO_NO
-				, CODE
-				, CO_DETAIL
-				, SEQ
-				, ACTIVE
-			from CODE
-			where CO_TYPE = 'FO'
-			and CO_NO != '7'
-			ORDER BY SEQ
-	</select>
-	
-	
 	
 <!-- 	===== 현아 끝 ===== -->
 

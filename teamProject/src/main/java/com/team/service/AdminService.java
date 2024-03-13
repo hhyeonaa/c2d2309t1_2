@@ -17,6 +17,10 @@ public class AdminService {
 	private AdminDAO adminDAO;
 
 //	----- 현아 시작 -----
+
+	public boolean idCheck(Map<String, String> map) {
+		return adminDAO.idCheck(map);
+	}
 	
 	public void adminInsert(Map<String, String> map) {
 		adminDAO.adminInsert(map);
@@ -24,10 +28,6 @@ public class AdminService {
 
 	public List<Map<String, String>> getAdminList() {
 		return adminDAO.getAdminList();
-	}
-
-	public boolean idCheck(Map<String, String> map) {
-		return adminDAO.idCheck(map);
 	}
 
 	public void adminDelete(Map<String, String> map) {
@@ -38,32 +38,10 @@ public class AdminService {
 		adminDAO.adminUpdate(map);
 	}
 
-//	public List<Map<String, String>> getBoardList() {
-//		return adminDAO.getBoardList();
-//	}
-	
 	public boolean displayUpdate(List<Map<String, String>> result) {
 		return adminDAO.displayUpdate(result);
 	}
 
-//	public List<Map<String, String>> getCategoryList() {
-//		return adminDAO.getCategoryList();
-//	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 //	----- 현아 끝 -----
 	
 	
@@ -128,14 +106,6 @@ public class AdminService {
 		return adminDAO.getBoardCategoryList(param);
 	}//
 
-	public void inputForm(Map<String, String> map) {
-		adminDAO.inputForm(map);
-	}
-
-	public List<Map<String, String>> getForm(Map<String, String> map) {
-		return adminDAO.getForm(map);
-	}
-	
 	// 채팅 신고하기
 	public int insertReport(Map<String, String> map) {
 		return adminDAO.insertReport(map);

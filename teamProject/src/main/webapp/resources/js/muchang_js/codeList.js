@@ -72,7 +72,6 @@ $(() => {
 
 	$("#selectCodeBtn :first").trigger("click");
 	 
-	 
 })
 
 // 모달 이벤트

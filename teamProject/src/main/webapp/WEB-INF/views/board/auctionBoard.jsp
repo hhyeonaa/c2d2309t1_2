@@ -23,24 +23,6 @@
 <div style="display: flex; justify-content: center; align-items: center;">
 <div>
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div class="status-check" style="margin-bottom: 20px; text-align: center; width: 100%;">
-            <select>
-            	<option>1</option>
-            	<option>2</option>
-            	<option>3</option>
-            </select>
-            <select>
-            	<option>1</option>
-            	<option>2</option>
-            	<option>3</option>
-            </select>
-            <select>
-            	<option>1</option>
-            	<option>2</option>
-            	<option>3</option>
-            </select>
-        </div>
-<!-- 		<div style="border: 1px solid black; width: 100%; height: 1000px;"> -->
         <!-- 각 카드를 이 위치에 반복 배치 -->
         <c:forEach var="map" items="${resultList}">
 	   <div class="col boardlist">
@@ -50,7 +32,13 @@
 					<span class="state1">${map.AUC_TC_CODE}</span>
 					<span class="state2">${map.AUC_TSC_CODE}</span>
 					<span style="font-size: 12px;font-style: oblique;">게시자: </span>
-					<a href="#" style="font-size: 12px;">${map.AUC_SELLER}</a><br>
+					<a href="#" style="font-size: 12px;">${map.AUC_SELLER}</a>
+                    <span style="float: right; font-size: 23px;">
+				      <a id=likeBtn class="profile_btn">
+		 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon> 
+				      </a>
+                    </span>
+					<br>
 					   <p>${map.AUC_NAME}</p>
 					<h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">현재가</small><b>${map.AUC_BP}원</b></h6>
 					<span style="font-size: 12px;">입찰자: 10</span> 

@@ -34,7 +34,13 @@
 						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">판매</span>
-						     <span class="state2">${sale.PRO_TSC}</span><br>
+						     <span class="state2">${sale.PRO_TSC}</span>
+     	                     <span style="float: right; font-size: 23px;">
+						       <a id=likeBtn class="profile_btn">
+				 		     	 <ion-icon id="noLike" name="heart-outline"></ion-icon> 
+						       </a>
+		                     </span>
+						     <br>
 						     <p>${sale.PRO_NAME}</p>
 						  <h5><b>${sale.PRO_PRICE}원</b></h5>
 						    </div>
@@ -64,7 +70,13 @@
 						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">나눔</span>
-						     <span class="state3">${divList.PRO_TSC}</span><br>
+						     <span class="state3">${divList.PRO_TSC}</span>
+     	                     <span style="float: right; font-size: 23px;">
+						       <a id=likeBtn class="profile_btn">
+				 		     	 <ion-icon id="noLike" name="heart-outline"></ion-icon> 
+						       </a>
+		                     </span>
+		                     <br>
 						     <p>${divList.PRO_NAME}</p>
 						  <h5><b>${divList.PRO_PRICE}원</b></h5>
 						    </div>
@@ -94,7 +106,13 @@
 						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">구매</span>
-						     <span class="state4">${buy.PRO_TSC}</span><br>
+						     <span class="state4">${buy.PRO_TSC}</span>
+     	                     <span style="float: right; font-size: 23px;">
+						       <a id=likeBtn class="profile_btn">
+				 		     	 <ion-icon id="noLike" name="heart-outline"></ion-icon> 
+						       </a>
+		                     </span>
+						     <br>
 						     <p>${buy.PRO_NAME}</p>
 						  <h5><b>${buy.PRO_PRICE}원</b></h5>
 						    </div>
@@ -124,7 +142,13 @@
 						    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 						    <div class="card-body">
 						     <span class="state1">경매</span>
-						     <span class="state5">${auc.AUC_TSC}</span><br>
+						     <span class="state5">${auc.AUC_TSC}</span>
+     	                     <span style="float: right; font-size: 23px;">
+						       <a id=likeBtn class="profile_btn">
+				 		     	 <ion-icon id="noLike" name="heart-outline"></ion-icon> 
+						       </a>
+		                     </span>
+						     <br>
 						     <p>${auc.AUC_NAME}</p>
 						  <h5><b>${auc.AUC_SP}원</b></h5>
 						    </div>

@@ -21,8 +21,8 @@
 			, #{AD_PW}
 			, #{AD_NAME}
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-			, 'RO2'
-			, '0')
+			, '1'
+			, 'RO3')
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
@@ -46,7 +46,7 @@
 	
 	<delete id="adminDelete">
 		delete from ADMIN
-		where AD_NO = #{AD_NO}
+		where AD_ID = #{AD_ID}
 	</delete>
 	
 	<update id="adminUpdate">

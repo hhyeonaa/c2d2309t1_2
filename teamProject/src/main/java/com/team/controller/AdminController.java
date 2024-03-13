@@ -55,6 +55,7 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> createManager(@RequestBody String createdRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(createdRows);
+ 		System.out.println(result);
  		return null;
  	}
 	
@@ -75,7 +76,10 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> deleteManager(@RequestParam Map<String, String> deletedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
- 		return null;
+ 	    result.forEach(row -> {
+ 	        adminService.adminDelete(row);
+ 	    });
+ 	    return ResponseEntity.ok().build();
  	}
 	
 	@PostMapping("/insertPro")
@@ -89,16 +93,16 @@ public class AdminController {
 		}
 	}
 	
-	@PostMapping("/deletePro")
-	public String deletePro(@RequestParam String AD_NO) {
-		adminService.adminDelete(AD_NO);
-		return "1";
-	}
+//	@PostMapping("/deletePro")
+//	public String deletePro(@RequestParam String AD_NO) {
+//		adminService.adminDelete(AD_NO);
+//		return "1";
+//	}
 	
-	@PostMapping("/updatePro")
-	public void updatePro(@RequestParam Map<String, String> map) {
-		adminService.adminUpdate(map);
-	}
+//	@PostMapping("/updatePro")
+//	public void updatePro(@RequestParam Map<String, String> map) {
+//		adminService.adminUpdate(map);
+//	}
 	
 	@GetMapping("/board")
 	public String board(@RequestParam Map<String, String> map, Model model, HttpSession session) {
@@ -119,6 +123,7 @@ public class AdminController {
  	public ResponseEntity<?> updateBoard(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
  		System.out.println(result);
+        adminService.displayUpdate(result);
  		return null;
  	}
 	
@@ -165,7 +170,6 @@ public class AdminController {
 			currentData.put(EnumCodeType.코드타입.getType(), t.get(EnumCodeType.코드타입.getType()));
 			newData.add(currentData);
 		});
-
 		adminService.displayUpdate(result);
  		return null;
  	}

@@ -16,12 +16,6 @@ document.write('<script type="text/javascript"' +
 $(function(){
 	var columns = [
 		{
-			name:"AD_NO",
-			header:"번호",
-			filter:"number",
-		    sortable: true
-		}, 
-		{
 			name:"AD_ID",
 			header:"ID",
 			filter:"text",
@@ -69,50 +63,47 @@ $(function(){
 	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 	
-	
-	let adminList = document.getElementById('adminList');
-	
-	// 삭제 버튼
-	$(document).on("click", "#deleteBtn", function () {
-		var rowIndex = $(this).closest('tr').index();
-		let AD_NO= "AD" + adminList.rows[rowIndex+1].cells[0].innerText;
-		let AD_ID = adminList.rows[rowIndex+1].cells[1].innerText;
-		var result =
-			alertMsg("AM4", [AD_ID], true);
-		if(result){
-			$.ajax({
-				type: "post"
-				, url: "deletePro"
-				, data: {AD_NO: AD_NO }
-			})
- 			alertMsg("AM1", [AD_ID]);
-			$('#adminDiv').load(location.href+' #adminDiv');
-//			location.reload();
-		} else {
- 			alertMsg("AM2", ["삭제"]);
-		}
-	});
-
-	// 저장 버튼
-	$(document).on("click", "#saveBtn", function () {
-		var arr = [];
-		for (let i = 1; i < adminList.rows.length; i++) {
-			arr.push(
-				{AD_NO: "AD" + adminList.rows[i].cells[0].innerText
-				 , AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value
-				 , AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
-				}
-			)
-		};
-		$.ajax({
-			type: "post"
-			, contentType: 'application/json'
-			, url: "updatePro"
-			, data: JSON.stringify(arr)
-		});
-//		$('#adminDiv').load(location.href+' #adminDiv');
-		location.reload();
-	});
+//	// 삭제 버튼
+//	$(document).on("click", "#deleteBtn", function () {
+//		var rowIndex = $(this).closest('tr').index();
+//		let AD_NO= "AD" + adminList.rows[rowIndex+1].cells[0].innerText;
+//		let AD_ID = adminList.rows[rowIndex+1].cells[1].innerText;
+//		var result =
+//			alertMsg("AM4", [AD_ID], true);
+//		if(result){
+//			$.ajax({
+//				type: "post"
+//				, url: "deletePro"
+//				, data: {AD_NO: AD_NO }
+//			})
+// 			alertMsg("AM1", [AD_ID]);
+//			$('#adminDiv').load(location.href+' #adminDiv');
+////			location.reload();
+//		} else {
+// 			alertMsg("AM2", ["삭제"]);
+//		}
+//	});
+//
+//	// 저장 버튼
+//	$(document).on("click", "#saveBtn", function () {
+//		var arr = [];
+//		for (let i = 1; i < adminList.rows.length; i++) {
+//			arr.push(
+//				{AD_NO: "AD" + adminList.rows[i].cells[0].innerText
+//				 , AD_ROLE: adminList.rows[i].cells[2].querySelector('#role option:checked').value
+//				 , AD_ACTIVE: adminList.rows[i].cells[3].querySelector('input[type="checkbox"]').checked ? 1 : 0
+//				}
+//			)
+//		};
+//		$.ajax({
+//			type: "post"
+//			, contentType: 'application/json'
+//			, url: "updatePro"
+//			, data: JSON.stringify(arr)
+//		});
+////		$('#adminDiv').load(location.href+' #adminDiv');
+//		location.reload();
+//	});
 	
 		
 	// 모달창 관련	
@@ -168,17 +159,17 @@ $(function(){
 			, async: false
 		})
 		.done(function(data) {
-			debugger;
 			if(data == "") {
 				alertMsg('AM5', ["입력 정보"]);
 				return false;
 			}
 			debugger;
 			alertMsg('AM3', ["새로운 관리자 계정 생성"]);
-			debugger;
 			modal.css('display', 'none');
-			$('#adminDiv').load(location.href+' #adminDiv');
-//			location.reload();
+			$('#grid').empty();
+			grid("managerPro", 10, columns, false);
+			$('#excel').remove();
+			excel('updownload', 'ADMIN');
 		 })
 	});
 	

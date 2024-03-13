@@ -54,7 +54,7 @@
 			<c:forEach var="list" items="${likeList}">
 			  <div class="col">
 			    <div class="card h-100">
-			      <img src="${pageContext.request.contextPath}/resources/img/uploads/${list.IMG_NAME}" class="card-img-top" alt="${list.IMG_NAME}">
+			      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${list.PRO_WR}&proDate=${list.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${list.IMG_NAME}" class="card-img-top" alt="${list.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
 	<%-- 		      ${pageContext.request.contextPath}/resources/img/uploads/${myListSell.IMG_NAME} --%>
 			      <div class="card-body">
 				      <span class="state1">${list.PRO_TC}</span>
@@ -80,24 +80,24 @@
 		<!-- -----------------------------------구매 목록----------------------------------- -->
 		<div class="tab_content tab_content2">
 		  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
-		  <c:forEach var="myListBuy" items="${myListBuy}">
-			  <div class="col">
-			    <div class="card h-100">
-			      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListBuy.IMG_NAME}" class="card-img-top" alt="${myListBuy.IMG_NAME}">
-			      <div class="card-body">
-				      <span class="state1">구매</span>
-				      <span class="state2">${myListBuy.PRO_TSC}</span>
-				      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> 빈 하트
-		 		      <ion-icon id='yesLike' name="heart-sharp"></ion-icon> 
-				      <p>${myListBuy.PRO_NAME}</p>
-					  <h5><b>${myListBuy.PRO_PRICE}원</b></h5>
-			      </div>
-			    </div>
-			  </div>
-			 </c:forEach>
-			 <c:if test="${empty myListBuy}">
-			 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyBuy">등록된 상품이 없습니다.</div>
-			 </c:if>
+<%-- 		  <c:forEach var="myListBuy" items="${myListBuy}"> --%>
+<!-- 			  <div class="col"> -->
+<!-- 			    <div class="card h-100"> -->
+<%-- 			      <img src="${pageContext.request.contextPath}/resources/img/uploads/${myListBuy.IMG_NAME}" class="card-img-top" alt="${myListBuy.IMG_NAME}"> --%>
+<!-- 			      <div class="card-body"> -->
+<!-- 				      <span class="state1">구매</span> -->
+<%-- 				      <span class="state2">${myListBuy.PRO_TSC}</span> --%>
+<!-- 				      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> 빈 하트 -->
+<!-- 		 		      <ion-icon id='yesLike' name="heart-sharp"></ion-icon>  -->
+<%-- 				      <p>${myListBuy.PRO_NAME}</p> --%>
+<%-- 					  <h5><b>${myListBuy.PRO_PRICE}원</b></h5> --%>
+<!-- 			      </div> -->
+<!-- 			    </div> -->
+<!-- 			  </div> -->
+<%-- 			 </c:forEach> --%>
+<%-- 			 <c:if test="${empty myListBuy}"> --%>
+<!-- 			 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyBuy">등록된 상품이 없습니다.</div> -->
+<%-- 			 </c:if> --%>
 			</div>
 		</div>
 		<!-- -----------------------------------나눔 목록----------------------------------- -->
@@ -111,7 +111,7 @@
 	<!-- 			      <span class="state1">나눔</span> -->
 	<%-- 			      <span class="state2">${myListShare.PRO_TSC}</span> --%>
 	<!-- 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> 빈 하트 -->
-	<!-- <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  --> -->
+	<!-- <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 	<%-- 			      <p>${myListShare.PRO_NAME}</p> --%>
 	<%-- 				  <h5><b>${myListShare.PRO_PRICE}원</b></h5> --%>
 	<!-- 		      </div> -->

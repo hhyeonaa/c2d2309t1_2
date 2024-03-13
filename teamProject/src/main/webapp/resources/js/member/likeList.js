@@ -1,4 +1,10 @@
 $(()=>{
+	// 1. 처음 페이지 로드 시, ajax -> data: 'MM1' => mapper: <select id='likeList'> 판매 게시판 찜글 조회하여 가져오기
+	// 2. 탭 변경 시, ajax -> 'MM' + 탭의 인덱스 값을 통해 해당 게시판의 찜글 조회하여 가져오기
+	// 3. PRO_TC 값에 따라 조회하는 Mapper 
+	
+	
+	
 //	$.ajax({
 //		type: 'get'
 //		, uri: 'likeListSelect' 
@@ -26,9 +32,7 @@ $(()=>{
 		// <div class="tab_content tab_content1"> => 해당되는 숫자의 데이터만 보여주기
 		// idx PRO_NUM
 		
-		// 1. 처음 페이지 로드 시, ajax -> data: 'MM1' => mapper: <select id='likeList'> 판매 게시판 찜글 조회하여 가져오기
-		// 2. 탭 변경 시, ajax -> 'MM' + 탭의 인덱스 값을 통해 해당 게시판의 찜글 조회하여 가져오기
-		// 3. PRO_TC 값에 따라 
+
 		
 		$.ajax({
 			type: 'get'

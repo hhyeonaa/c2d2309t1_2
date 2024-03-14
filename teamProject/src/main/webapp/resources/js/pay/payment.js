@@ -81,7 +81,7 @@ var requestPay = (pgId) => {
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
 			  			buyer_name: data.BUYNAME, //결제자 이름 
-			  			buyer_tel: data.BUYER_TEL, //결제자 연락처 //BUYER_TEL
+			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
 			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
 			  			buyer_postcode: $("#addPost").text() // 배송우편번호 //BUYER_POSTCODE
 					}, function (rsp) { // callback 로직

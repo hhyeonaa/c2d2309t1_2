@@ -183,9 +183,7 @@
 						<aside>
 							<header>
 								<p class="radioBox fs-5">
-<%-- 									<c:forEach var="dcm" items="${dcm}" varStatus="v"> --%>
-<%-- 										 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br> --%>
-<!-- 								    </c:forEach> -->
+								
 							    </p>
 							</header>
 						</aside>

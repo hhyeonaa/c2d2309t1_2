@@ -45,7 +45,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
                             </div>`;
         // 모달 내용 업데이트 및 표시
         $('.modalBox').html(modalContent);
-        $(".modal").show();
+        $(".imgModal").show();
 		$('#selectImg').attr('src', clickedImgSrc);
 		// 모달 컨텐츠 추가 후 이벤트 핸들러 재설정
 		$('#modalCarousel .carousel-control-prev').off('click').on('click', function(event) {
@@ -71,7 +71,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
     });
 
 	// 모달 클릭할때 이미지 닫음
-	$(".modal").click(function (e) {
+	$(".imgModal").click(function (e) {
 		e.preventDefault();
     	$('.modalBox').html('');
     	additionalImages = [];
@@ -177,5 +177,53 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		
 	})
+	
+	// 신고 내용 모달 불러오기
+	$("#pageReport").on("click", function(){
+		$(".radioBox").empty();
+		$("#reportBtn").remove();
+		$.ajax({
+		  type: "get",
+		  url: '/' + window.location.pathname.split("/")[1] + "/chat/selectRepert",
+		  async: false
+		})
+		.done(function(datas){
+			var radio = (CO_NO, CODE, CO_TYPE) =>{
+				return '<input type="radio" class="reportRadio" name="rd" id="'+CO_TYPE+CO_NO
+						+ '" value="'+CO_TYPE+CO_NO+'"><label for="'+CO_TYPE+CO_NO+'">'
+						+ CODE+'</label> <br>'
+			}
+			for(data of datas){
+				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
+			}
+			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>')
+		})
+		;
+	})
+	
+	// 신고하기 버튼 클릭 시
+	$(document).on("click", "#reportBtn", function(){
+		let isCheck = $('input[name="rd"]:checked').val();
+		let reportTarget = $("#proWr").val();
+		
+		if(isCheck === undefined){
+			alertMsg('AM9', ["신고 내용"]);
+			return;
+		}
+		$.ajax({
+			url: '/' + window.location.pathname.split("/")[1] + "/chat/insertReport",
+			type: "POST",
+			data: {
+				reportTarget: reportTarget,
+				rptCode: isCheck
+			}
+		})
+		.done(function(data){
+			if(Boolean(data)){
+				alertMsg('AM3', ["신고"]);
+				$('#exampleModalReport').modal('hide');
+			}
+		})
+	});
 	
 })

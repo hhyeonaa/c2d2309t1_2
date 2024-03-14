@@ -110,6 +110,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		return;
 	})
 	
+	
+	// 신고 내용 모달 불러오기
 	$("#pageReport").on("click", function(){
 		$(".radioBox").empty();
 		$("#reportBtn").remove();

@@ -95,10 +95,6 @@ public class AdminDAO {
 		return sqlSession.update(namesqace + "memberStop", dto) == 1 ? true : false;
 	}
 
-	public int contentDelete(String PRO_NO) {
-		return sqlSession.delete(namesqace + "contentDelete", PRO_NO);
-	}
-	
 	public int cateContentDelete(String PRO_NO) {
 		return sqlSession.delete(namesqace + "cateContentDelete", PRO_NO);
 	}
@@ -125,6 +121,10 @@ public class AdminDAO {
 	
 	public List<Map<String, String>> getTotalTradeList() {
 		return sqlSession.selectList(namesqace + "getTotalTradeList");
+	}
+
+	public void boardUpdate(List<Map<String, String>> result) {
+		sqlSession.update(namesqace + "boardUpdate", result);
 	}
 
 //	----- 성엽 끝 -----	

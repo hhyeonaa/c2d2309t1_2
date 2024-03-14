@@ -370,8 +370,7 @@ var enterChat = function(chatData){
 				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
 			}
 			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>');
-		})
-		;
+		});
 		
 		// 신고하기 버튼 클릭 시
     	$(document).on("click", "#reportBtn", function(){

@@ -91,7 +91,7 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getContentboardList");
 	}
 
-	public boolean memberStop(Map<String, String> dto) {
+	public boolean memberStop(List<Map<String, String>> dto) {
 		return sqlSession.update(namesqace + "memberStop", dto) == 1 ? true : false;
 	}
 

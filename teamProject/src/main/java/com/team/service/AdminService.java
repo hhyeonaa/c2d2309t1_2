@@ -90,7 +90,7 @@ public class AdminService {
 		return adminDAO.getContentboardList();
 	}
 
-	public boolean memberStop(Map<String, String> dto) {
+	public boolean memberStop(List<Map<String, String>> dto) {
 		return adminDAO.memberStop(dto);
 	}
 	

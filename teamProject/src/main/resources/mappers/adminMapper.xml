@@ -189,50 +189,42 @@
 			  , MEM_DATE
 			  , (select COUNT(*)
 				  from REPORT
-				 where RPT_USER_NO = MEM_ID) as COUNT
+				 where RPT_USER_NO = MEM_ID) as RPT_USER_NO
 			  , MEM_CAT
 		  from MEMBERS
-		 ORDER BY MEM_NO;
+		 ORDER BY cast(replace(MEM_NO, "ME", "") AS UNSIGNED);
 	</select>
 	
 	<select id="getContentboardList" resultType="map">
 		select PRO_NO
 			 , PRO_NAME
 			 , PRO_WR
-			 , date_format(str_to_date(PRO_DATE, '%Y%m%d%H%i%s'), '%Y%m%d %H:%i:%s')  AS PRO_DATE
-		from PRODUCT
-		where PRO_TC = 'MM1'
-		ORDER BY PRO_NO DESC
-	</select>
-	
-	<select id="getBoardCategoryList" parameterType="map" resultType="map">
-		select PRO_NO
-			 , PRO_NAME
-			 , PRO_WR
+			 , (select CODE 
+			      FROM CODE 
+			     WHERE CONCAT(CO_TYPE, CO_NO) = PRO_TC) AS "PRO_TC"
 			 , date_format(str_to_date(PRO_DATE, '%Y%m%d%H%i%s'), '%Y%m%d %H:%i:%s')  AS PRO_DATE
 		from PRODUCT
 		where 1 = 1
-		<if test="category == 'MM1'">
-		  AND PRO_TC = 'MM1'
-		</if>
-		<if test="category == 'MM2'">
-		  AND PRO_TC = 'MM2'
-		</if>
-		<if test="category == 'MM3'">
-		  AND PRO_TC = 'MM3'
-		</if>
-		<if test="category == 'MM4'">
-		  AND PRO_TC = 'MM4'
-		</if>
-		ORDER BY PRO_NO DESC
+		ORDER BY cast(replace(PRO_NO, "PR", "") AS UNSIGNED)DESC
 	</select>
 	
-	<update id="memberStop" parameterType="map">
+<!-- 	<select id="getBoardCategoryList" parameterType="map" resultType="map"> -->
+<!-- 		select PRO_NO -->
+<!-- 			 , PRO_NAME -->
+<!-- 			 , PRO_WR -->
+<!-- 			 , date_format(str_to_date(PRO_DATE, '%Y%m%d%H%i%s'), '%Y%m%d %H:%i:%s')  AS PRO_DATE -->
+<!-- 		from PRODUCT -->
+<!-- 		where 1 = 1 -->
+<!-- 		ORDER BY PRO_NO DESC -->
+<!-- 	</select> -->
+	
+	<update id="memberStop" parameterType="java.util.List">
+		<foreach collection="list" item="member" open="" close="" separator=";">
 		update MEMBERS
-		   set MEM_CAT = #{newState}
+		   set MEM_CAT = #{member.MEM_CAT}
 		 WHERE 1 = 1  
-		   and MEM_CAT = #{oldState}
-		   and MEM_NO = #{memNo}
+		   and MEM_NO = #{member.MEM_NO}
+		</foreach>
 	</update>
 	
 	<delete id="contentDelete">

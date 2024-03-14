@@ -69,7 +69,7 @@
 			  <div class="col">
 			    <div class="card h-100">
 			      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${list.PRO_WR}&proDate=${list.PRO_DATE}">
-			      	<img src="${pageContext.request.contextPath}/resources/img/uploads/${list.IMG_NAME}" class="card-img-top" alt="${list.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+			      	<img src="${pageContext.request.contextPath}/resources/img/uploads/${list.IMG_NAME}" class="card-img-top" alt="${list.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 			      </a>
 			      <div class="card-body">
 				      <span class="state1">${list.TC_NAME}</span>

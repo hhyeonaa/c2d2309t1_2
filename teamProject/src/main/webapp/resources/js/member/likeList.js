@@ -35,7 +35,7 @@ $(()=>{
 				    $('#listData').append('<div class="col">'
 				        + '<div class="card h-100">'
 				        + '<a href="' + item.PATH + '/board/divideDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
+				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
 				        + '</a>'
 				        + '<div class="card-body">'
 				        + '<span class="state1">' + item.TC_NAME + '</span>'
@@ -56,7 +56,7 @@ $(()=>{
 			    $('#listData').append('<div class="col">'
 			        + '<div class="card h-100">'
 			        + '<a href="' + item.PATH + '/board/boardDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-			        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
+			        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
 			        + '</a>'
 			        + '<div class="card-body">'
 			        + '<span class="state1">' + item.TC_NAME + '</span>'
@@ -99,7 +99,7 @@ $(()=>{
 				    $('#listData').append('<div class="col">'
 				        + '<div class="card h-100">'
 				        + '<a href="' + item.PATH + '/board/divideDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
+				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
 				        + '</a>'
 				        + '<div class="card-body">'
 				        + '<span class="state1">' + item.TC_NAME + '</span>'
@@ -120,7 +120,7 @@ $(()=>{
 			    $('#listData').append('<div class="col">'
 			        + '<div class="card h-100">'
 			        + '<a href="' + item.PATH + '/board/boardDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-			        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
+			        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
 			        + '</a>'
 			        + '<div class="card-body">'
 			        + '<span class="state1">' + item.TC_NAME + '</span>'
@@ -147,7 +147,6 @@ $(()=>{
 		var LIK_NUM = parseInt(this.id.split('_')[1]);
 		// 찜 삭제 기능
 		if ($('#noLike_' + LIK_NUM).is(':hidden')) {
-			debugger;
 			if(alertMsg('AM0', ["찜"], true)) {
 				$.ajax({
 					type: 'post'

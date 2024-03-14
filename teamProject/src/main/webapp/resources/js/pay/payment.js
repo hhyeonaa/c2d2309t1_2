@@ -78,11 +78,10 @@ var requestPay = (pgId) => {
 			       	IMP.request_pay({
 						pg: pgId, 
 			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
-			  			customer_uid : 'bbbbb',
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
 			  			buyer_name: data.BUYNAME, //결제자 이름 
-			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
+			  			buyer_tel: data.BUYER_TEL, //결제자 연락처 //BUYER_TEL
 			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
 			  			buyer_postcode: $("#addPost").text() // 배송우편번호 //BUYER_POSTCODE
 					}, function (rsp) { // callback 로직
@@ -214,7 +213,7 @@ $('#paycoPay').on("click", () => {
 
 //9810030929
 $('#phonePay').on("click", () => {
-	pgId="danal_tpay.A010002002";
+	pgId="danal";
 })
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	

@@ -15,7 +15,9 @@ $(() => {
 //		{name:"RPT_USER_NO", header:"누적신고"},
 //		{name:"MEM_CAT", header:"회원상태"}
 //	]
-//	grid("", 10, columns);
+//	grid("getMemberList", 10, columns);
+
+
 	
 	
 	paging("#tbody tr", 10, 0);

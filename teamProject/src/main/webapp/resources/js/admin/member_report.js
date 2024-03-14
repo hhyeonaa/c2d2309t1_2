@@ -4,5 +4,7 @@ document.write('<script type="text/javascript"' +
 
 // 페이징 처리
 $(() => {
-	paging("#tbody tr", 10, 0);
+
+	targetColor($("#member_report"));
+	
 })

@@ -4,10 +4,10 @@ document.write('<script type="text/javascript"' +
 
 // 페이징 처리
 $(() => {
-	paging("#tbody tr", 10, 0);
-})
-
-// 셀렉트 박스 체인지 이벤트	
+	
+	targetColor($("#board_content"));
+	
+	// 셀렉트 박스 체인지 이벤트	
 $("#boardCategory").on("change", function(){
 	$.ajax({
 		url: 'getBoardCategoryList',
@@ -52,5 +52,6 @@ $("#boardCategory").on("change", function(){
 		})
 	})
 	
-})
+})	
 	
+})

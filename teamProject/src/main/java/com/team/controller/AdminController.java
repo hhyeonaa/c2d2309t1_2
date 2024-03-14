@@ -394,6 +394,19 @@ public class AdminController {
 		return "admin/member_manage";
 	}
 	
+	// 그리드
+	
+//	@GetMapping("/member_manage")
+//	@ResponseBody
+//	public ResponseEntity<?> getMemberList(@RequestParam Map<String, String> req) {
+//		
+//		List<Map<String, String>> result = adminService.getMemberList();
+//		System.out.println(result);
+//		return ToastUI.resourceData(req, result);
+//	}
+	
+	// 그리드
+	
 	@PostMapping("/memberStop")
 	@ResponseBody
 	public ResponseEntity<?> stop(@RequestParam Map<String, String> dto) {

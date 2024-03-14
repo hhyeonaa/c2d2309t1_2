@@ -19,10 +19,10 @@
 <div style="display: flex; justify-content: center; align-items: center;">
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<c:forEach begin="0" end="${fn:length(productList) - 1}" step="1" var="i">
-			<div style="border: 0px solid black; width: 100%; height: 100%; border-radius: 30px;" class="shadow">
+			<div style="border: 0px solid black; width: 100%; height: 100%; border-radius: 30px;" class="shadow p-3" >
 					<article>
 						<div class="css-f96hxp">
-							<h3>${menues[i]}</h3>
+							<h3><b>${menues[i]}</b></h3>
 							<button  class="custom-btn btn-7" aria-label="전체 판매 매물 보기 버턴" onclick="location.href ='${pageContext.request.contextPath}${urlList[i].url}'">더보기</button>
 						</div>
 						<div class="css=1qeni0p">
@@ -35,7 +35,7 @@
 								    <div class="card-body">
 								     <span class="state1">${prItem.PRO_TC_CODE}</span>
 								     <span class="state2">${prItem.PRO_TSC_CODE}</span><br>
-								     <p>${prItem.PRO_NAME}</p>
+								     <p class="titleText">${prItem.PRO_NAME}</p>
 								  <h5><b>${prItem.PRO_PRICE}원</b></h5>
 								    </div>
 								  </div>
@@ -50,6 +50,16 @@
 	</div>
 </div>
 </body>
-
+<script>
+$(()=>{
+    $('.titleText').each(function() {
+        var text = $(this).text();
+        if (text.length > 13) {
+            var truncatedText = text.substring(0, 13) + '...';
+            $(this).text(truncatedText);
+        }
+    });
+})
+</script>
 <jsp:include page="template/Footer.jsp"/>
 </html>

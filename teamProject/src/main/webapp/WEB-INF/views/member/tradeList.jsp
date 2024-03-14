@@ -42,13 +42,13 @@
 		  
 		  	<input type="hidden" class="proType" value="${myTrade.PRO_TC}">
 		    <div class="card h-100">
-		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+		      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${myTrade.PRO_WR}&proDate=${myTrade.PRO_DATE}">
+		      	<img src="${pageContext.request.contextPath}/resources/img/uploads/${myTrade.IMG_NAME}" class="card-img-top" 
+		      	     alt="${myTrade.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'" style="width: 250px; height: 250px;">
+		      </a>	  
 		      <div class="card-body">
-		      	  <c:if test="${myTrade.PRO_TC == 'MM1'}"><span class="state1">판매</span></c:if>
-			      <c:if test="${myTrade.PRO_TC == 'MM2'}"><span class="state1">구매</span></c:if>
-			      <c:if test="${myTrade.PRO_TC == 'MM3'}"><span class="state1">나눔</span></c:if>
-			      <c:if test="${myTrade.PRO_TC == 'MM4'}"><span class="state1">경매</span></c:if>
-				  <c:if test="${myTrade.PRO_TSC == 'TM3'}"><span class="state2">거래완료</span></c:if>
+		      	  <span class="state1">${myTrade.TC_NAME}</span>
+				  <span class="state2">${myTrade.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p>${myTrade.PRO_NAME}</p>
@@ -57,6 +57,9 @@
 		    </div>
 		  </div>
 		 </c:forEach>
+		 <c:if test="${empty myTrade}">
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="empMy">거래한 내역이 없습니다.</div>
+		 </c:if>
 		</div>
 	</div><!--tab_content1-->
 	<!-- -----------------------------------남이 등록한----------------------------------- -->
@@ -74,13 +77,13 @@
 		  
 		  	<input type="hidden" class="proType2" value="${otherTrade.PRO_TC}">
 		    <div class="card h-100">
-		      <img src="../resources/img/common/따봉도치.jpg" class="card-img-top" alt="...">
+		      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${otherTrade.PRO_WR}&proDate=${otherTrade.PRO_DATE}">
+		      <img src="${pageContext.request.contextPath}/resources/img/uploads/${otherTrade.IMG_NAME}" class="card-img-top" 
+		      	   alt="${otherTrade.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
+		      </a>
 		      <div class="card-body">
-		      	  <c:if test="${otherTrade.PRO_TC == 'MM1'}"><span class="state1">판매</span></c:if>
-			      <c:if test="${otherTrade.PRO_TC == 'MM2'}"><span class="state1">구매</span></c:if>
-			      <c:if test="${otherTrade.PRO_TC == 'MM3'}"><span class="state1">나눔</span></c:if>
-			      <c:if test="${otherTrade.PRO_TC == 'MM4'}"><span class="state1">경매</span></c:if>
-				  <c:if test="${otherTrade.PRO_TSC == 'TM3'}"><span class="state2">거래완료</span></c:if>
+		      	 <span class="state1">${otherTrade.TC_NAME}</span>
+				  <span class="state2">${otherTrade.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span>
 <!-- <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p>${otherTrade.PRO_NAME}</p>
@@ -89,6 +92,9 @@
 		    </div>
 		  </div>
 		 </c:forEach>
+		 <c:if test="${empty otherTrade}">
+		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="empOther">거래한 내역이 없습니다.</div>
+		 </c:if>
 		</div>
 	</div><!--tab_content2-->
 	

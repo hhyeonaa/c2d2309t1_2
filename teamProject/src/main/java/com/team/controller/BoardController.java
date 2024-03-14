@@ -203,6 +203,7 @@ public class BoardController {
 	    // Gson 인스턴스 생성
 //	    Gson gson = new Gson();
 
+		
 	    // textData를 Map으로 변환
 //	    Type type = new TypeToken<Map<String, Object>>() {}.getType();
 //	    Map<String, Object> textDataMap = gson.fromJson(textData, type);

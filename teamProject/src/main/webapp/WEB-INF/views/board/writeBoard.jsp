@@ -159,6 +159,7 @@
 						<input type="hidden" id="proTsc" value="${tsc.CO_TYPE}${tsc.CO_NO}">
 <%-- 						<input type="text" value="${tsc.CODE}" readonly> --%>
 					</c:if>
+					
 					<c:if test="${!empty resultMap.PRO_TSC}">
 						<input type="hidden" id="proTsc" value="${resultMap.PRO_TSC}">
 					</c:if>

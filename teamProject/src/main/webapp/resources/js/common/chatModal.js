@@ -329,8 +329,9 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, paySta
 		}
 	})
 	
-	// **************** 신고하기 ********************* 
+	// **************** 신고하기 *********************
 	
+	// 신고 모달내용 그리기
 	$("#report").on("click", function(){
 		$(".radioBox").empty();
 		$("#reportBtn").remove();
@@ -348,28 +349,33 @@ var enterChat = function(proNo, roomNo, target, nickName, title, pro_tsc, paySta
 			for(data of datas){
 				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
 			}
-			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>')
+			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>');
 		})
 		;
 		
-//		// 신고하기 버튼 클릭 시
-    	$("#reportBtn").on("click", function(){
+		// 신고하기 버튼 클릭 시
+    	$(document).on("click", "#reportBtn", function(){
+			let isCheck = $('input[name="rd"]:checked').val();
+			let reportTarget = $(".target").attr("id");
+			
+			if(isCheck === undefined){
+				alertMsg('AM9', ["신고 내용"]);
+				return;
+			}
     		$.ajax({
     			url: '/' + window.location.pathname.split("/")[1] + "/chat/insertReport",
     			type: "POST",
     			data: {
-    				reportTarget: $(".target").attr("id"),
-    				rptCode: $('input[name="rd"]:checked').val()
+    				reportTarget: reportTarget,
+    				rptCode: isCheck
     			}
     		})
     		.done(function(data){
-    			alert('신고가완료되었습니다.')
-    			$('#exampleModalReport').modal('hide');
-    		})
-    		.fail(function(){
-				debugger;
-    			alert('신고 내용을 선택해주세요.')
-    		})
+				if(Boolean(data)){
+					alertMsg('AM3', ["신고"]);
+					$('#exampleModalReport').modal('hide');
+				}
+			})
     	});
 	})
 	

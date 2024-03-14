@@ -197,7 +197,7 @@
 		  JOIN CODE AS CODE_TSC ON AUC_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
 		  WHERE AUC_TC = #{aucTc}
 			AND IMG_NO = '1'
-			AND STR_TO_DATE(LEFT(AUC_ETIME, 8), '%Y%m%d') >= now()
+			AND STR_TO_DATE(AUC_ETIME, '%Y%m%d%H%i%s') >= now()
 		  ORDER BY AUC_DATE DESC				
 	</select>
 	<update id="aucHits" parameterType="map">
@@ -214,7 +214,7 @@
 		  FROM AUCTION auc
 		  JOIN (select IMG_PRONO, group_concat(IMG_NAME order by IMG_NO separator '|') IMG_NAMES from IMAGE group by IMG_PRONO) i
 		    ON auc.AUC_NO = i.IMG_PRONO
-		  JOIN ADDRESS a ON auc.AUC_ADDRESS = a.ADD_NO
+		  LEFT JOIN ADDRESS a ON auc.AUC_ADDRESS = a.ADD_NO
 		  JOIN CODE AS CODE_TC ON AUC_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
 		  JOIN CODE AS CODE_TSC ON AUC_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
 		  JOIN CODE AS CODE_CATE ON AUC_CATE = CONCAT(CODE_CATE.CO_TYPE, CODE_CATE.CO_NO)
@@ -290,5 +290,21 @@
 		 WHERE DIV_POSTNO = #{divPostNo}
 		   AND DIV_APPLICANT = (SELECT MEM_ID FROM MEMBERS WHERE MEM_NICK = #{divApplicant})
 	</delete>
+	
+	<select id="selectMyBoard" parameterType="map" resultType="map">
+		(
+		    SELECT 'PRODUCT' AS TABLENAME, PRO_WR AS WRITER, PRO_DATE AS POSTING_DATE, PRO_TC AS TRADE
+		    FROM PRODUCT
+		    WHERE PRO_WR = #{writer}
+		)
+		UNION ALL
+		(
+		    SELECT 'AUCTION' AS TABLENAME, AUC_SELLER AS WRITER, AUC_DATE AS POSTING_DATE, AUC_TC AS TRADE
+		    FROM AUCTION
+		    WHERE AUC_SELLER = #{writer}
+		)
+		ORDER BY STR_TO_DATE(POSTING_DATE, '%Y%m%d%H%i%s') DESC
+		LIMIT 1		
+	</select>
 	
 </mapper>

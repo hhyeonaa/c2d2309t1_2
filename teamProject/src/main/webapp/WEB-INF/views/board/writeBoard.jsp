@@ -41,7 +41,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 
-	<form action="${pageContext.request.contextPath}/board/writeBoardPro" method="post" enctype="multipart/form-data">
+	<form>
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="width: 100%;">
 			<div class="container">
@@ -134,21 +134,38 @@
 		  	</div>
 		  	<hr>
 		  	<div class="row justify-content-center">
-			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>거래상태<br>선택<th></tr></table></div>
-			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
-					<select name="proTsc" id="proTsc" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-						<c:forEach var="tsc" items="${trade}">
-						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/>
-							<c:choose>
-								<c:when test="${tradeCode eq resultMap.PRO_TSC || tradeCode eq resultMap.AUC_TSC}">
-									<option value="${tsc.CO_TYPE}${tsc.CO_NO}" selected>${tsc.CODE}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${tsc.CO_TYPE}${tsc.CO_NO}">${tsc.CODE}</option>  
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select>
+<!-- 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>거래상태<th></tr></table></div> -->
+<!-- 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;"> -->
+<!-- 					<select name="proTsc" id="proTsc" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;"> -->
+<%-- 						<c:forEach var="tsc" items="${trade}"> --%>
+<%-- 						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/> --%>
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${tradeCode eq resultMap.PRO_TSC || tradeCode eq resultMap.AUC_TSC}"> --%>
+<%-- 									<option value="${tsc.CO_TYPE}${tsc.CO_NO}" selected>${tsc.CODE}</option> --%>
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> --%>
+<%-- 									<option value="${tsc.CO_TYPE}${tsc.CO_NO}">${tsc.CODE}</option>   --%>
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
+<%-- 						</c:forEach> --%>
+<%-- 						<c:if test="${not empty trade}"> --%>
+<%-- 						    <c:set var="tsc" value="${trade[0]}"/> --%>
+<%-- 						    <c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/> --%>
+<%-- 						     <option value="${tsc.CO_TYPE}${tsc.CO_NO}">${tsc.CODE}</option> --%>
+<%-- 						</c:if> --%>
+<!-- 					</select> -->
+					<c:if test="${empty resultMap.PRO_TSC && empty resultMap.AUC_TSC}">
+						<c:set var="tsc" value="${trade[0]}"/>
+						<input type="hidden" id="proTsc" value="${tsc.CO_TYPE}${tsc.CO_NO}">
+<%-- 						<input type="text" value="${tsc.CODE}" readonly> --%>
+					</c:if>
+					
+					<c:if test="${!empty resultMap.PRO_TSC}">
+						<input type="hidden" id="proTsc" value="${resultMap.PRO_TSC}">
+					</c:if>
+					<c:if test="${!empty resultMap.AUC_TSC}">
+						<input type="hidden" id="proTsc" value="${resultMap.AUC_TSC}">
+					</c:if>
 				</div>
 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>카테고리<br>선택<th></tr></table></div>
 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
@@ -392,7 +409,7 @@
 			    <div class="d-flex justify-content-evenly">
 			    	<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 						<button class="btn btn-light" id="tempSave">임시저장</button>
-						<button class="btn btn-warning" id="submitBtn">등록하기</button>
+						<button class="btn btn-warning" id="insertBtn">등록하기</button>
 		    		</c:if>
 		    		<c:if test="${!empty resultMap.PRO_DATE}">
 						<button class="btn btn-light" id="cancelBtn">취소</button>

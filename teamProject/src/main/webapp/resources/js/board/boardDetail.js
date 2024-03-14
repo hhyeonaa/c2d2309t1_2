@@ -110,22 +110,50 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		return;
 	})
 	
-	// 신고하기 버튼 클릭 시
-	$("#rptBtn").on("click", function(){
+	$("#pageReport").on("click", function(){
+		$(".radioBox").empty();
+		$("#reportBtn").remove();
 		$.ajax({
-			url: "insertBoardReport",
+		  type: "get",
+		  url: '/' + window.location.pathname.split("/")[1] + "/chat/selectRepert",
+		  async: false
+		})
+		.done(function(datas){
+			var radio = (CO_NO, CODE, CO_TYPE) =>{
+				return '<input type="radio" class="reportRadio" name="rd" id="'+CO_TYPE+CO_NO
+						+ '" value="'+CO_TYPE+CO_NO+'"><label for="'+CO_TYPE+CO_NO+'">'
+						+ CODE+'</label> <br>'
+			}
+			for(data of datas){
+				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
+			}
+			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>')
+		})
+		;
+	})
+	
+	// 신고하기 버튼 클릭 시
+	$(document).on("click", "#reportBtn", function(){
+		let isCheck = $('input[name="rd"]:checked').val();
+		let reportTarget = $("#proWr").val();
+		
+		if(isCheck === undefined){
+			alertMsg('AM9', ["신고 내용"]);
+			return;
+		}
+		$.ajax({
+			url: '/' + window.location.pathname.split("/")[1] + "/chat/insertReport",
 			type: "POST",
 			data: {
-				reportTarget: $(".memNo").val(),
-				rptCode: $('input[name="rd01"]:checked').val()
+				reportTarget: reportTarget,
+				rptCode: isCheck
 			}
 		})
 		.done(function(data){
-			alert('신고가완료되었습니다.')
-			$('#exampleModal').modal('hide')
-		})
-		.fail(function(){
-			alert('신고 내용을 선택해주세요.');
+			if(Boolean(data)){
+				alertMsg('AM3', ["신고"]);
+				$('#exampleModalReport').modal('hide');
+			}
 		})
 	});
 	

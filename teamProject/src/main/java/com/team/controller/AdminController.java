@@ -298,28 +298,32 @@ public class AdminController {
 		return "admin/member_report";
 	}
 	
+	@GetMapping("/member_reportPro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> member_reportPro(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> reportList = adminService.getReportList();
+ 		return ToastUI.resourceData(req, reportList);
+ 	}
+	
 	@GetMapping("/member_manage")
-	public String member_manage(Model model) {
-		
-		List<Map<String, String>> memList = adminService.getMemberList();
-		
-		model.addAttribute("memList", memList);
+	public String member_manage() {
 		
 		return "admin/member_manage";
 	}
 	
-	@PostMapping("/memberStop")
-	@ResponseBody
-	public ResponseEntity<?> stop(@RequestParam Map<String, String> dto) {
-		
-		boolean isUpdate = adminService.memberStop(dto);
-//		isUpdate = isUpdate ? adminService.memberDelete(dto.get("state")) : false;
-		Map<String, Boolean> param = new HashMap<String, Boolean>();
-		param.put("isSuccess", isUpdate);
-		
-		System.out.println(param);
-		
-		return ResponseEntity.ok().body(param);
+	@GetMapping("/member_managePro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> select_member_managePro(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> mapList = adminService.getMemberList();
+ 		return ToastUI.resourceData(req, mapList);
+ 	}
+	
+	@PutMapping("/member_managePro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> update_member_managePro(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		adminService.memberStop(result);
+ 		return null;
 	}
 	
 	@GetMapping("/contentDelete")
@@ -350,14 +354,29 @@ public class AdminController {
 		return "admin/board_content";
 	}
 	
-	@GetMapping("/getBoardCategoryList")
+	@GetMapping("/board_contentPro") // READ
  	@ResponseBody
- 	public ResponseEntity<?> getBoardCategoryList(@RequestParam Map<String, String> param){
-		
- 		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
- 		
- 		return ResponseEntity.ok().body(cateList);
+ 	public ResponseEntity<?> select_board_contentPro(@RequestParam Map<String, String> req, HttpSession session){
+ 		List<Map<String, String>> contentList = adminService.getContentboardList();
+ 		return ToastUI.resourceData(req, contentList);
  	}
+	
+	@DeleteMapping("/board_contentPro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> delete_board_contentPro(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+// 		adminService.memberStop(result);
+ 		return null;
+ 	}
+	
+//	@GetMapping("/getBoardCategoryList")
+// 	@ResponseBody
+// 	public ResponseEntity<?> getBoardCategoryList(@RequestParam Map<String, String> param, HttpSession session){
+//		
+// 		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
+// 		
+// 		return ResponseEntity.ok().body(cateList);
+// 	}
 	
 	// chart
 	@GetMapping("/getChartData")

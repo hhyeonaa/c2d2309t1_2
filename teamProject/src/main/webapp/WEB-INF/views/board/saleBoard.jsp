@@ -21,17 +21,17 @@
 <div>
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
         <!-- 각 카드를 이 위치에 반복 배치 -->
-        <div class="col boardlist">
-            <div class="card h-100">
-                <a href="${pageContext.request.contextPath}/board/boardDetail"><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                    <span class="state1">판매</span>
-                    <span class="state2">판매중</span><br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
+<!--         <div class="col boardlist"> -->
+<!--             <div class="card h-100"> -->
+<%--                 <a href="${pageContext.request.contextPath}/board/boardDetail"><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."></a> --%>
+<!--                 <div class="card-body"> -->
+<!--                     <span class="state1">판매</span> -->
+<!--                     <span class="state2">판매중</span><br> -->
+<!--                     <p>제목명</p> -->
+<!--                     <h5><b>10,000원</b></h5> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
 
         <!-- 여기까지 반복 -->
 		<c:forEach var="map" items="${resultList}">

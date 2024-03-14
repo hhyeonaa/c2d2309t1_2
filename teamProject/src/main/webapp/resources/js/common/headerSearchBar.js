@@ -33,7 +33,7 @@ $(() => {
 	let slist = $("#selectedCodeList input");
 
 	if(slist.length > 0){
-//		$("#search").val('');
+
 		let menu = $("#selectedCodeList .menu").val();
 		let category = $("#selectedCodeList .category").val();
 		let trade = $("#selectedCodeList .trade").val();
@@ -53,6 +53,7 @@ $(() => {
 	$(document).on("click", "#searchButton", function(){
 		let selectText = $("#menu option:selected").text();
 		let aTagText = $("#hearderMenu a");
+		
 		for(var i = 0; i < aTagText.length; i++){
 			if($(aTagText[i]).text() === selectText){
 				$("#searchSubmit").attr("action", $(aTagText[i]).attr("href"));

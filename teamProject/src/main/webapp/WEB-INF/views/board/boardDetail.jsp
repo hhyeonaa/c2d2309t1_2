@@ -93,8 +93,17 @@
 			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
 			 			<td><i class="bi bi-eye"></i> ${resultMap.PRO_HITS}</td>
 			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
-			 			<td><a style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">
-			 			<img src="${pageContext.request.contextPath}/resources/img/board/report.png" >신고하기</a></td>
+			 			<!-- 로그인 후 신고하기 버튼 보이기 -->
+						<c:choose> 
+						    <c:when test="${empty sessionScope.MEM_ID}">
+						        <!-- 사용자가 로그인하지 않은 경우 -->
+						    </c:when>
+						    <c:when test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
+						        <!-- 사용자가 로그인했지만, 게시물 작성자와 다른 경우 -->
+						        <td><a style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						            <img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</a></td>
+						    </c:when>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
@@ -239,7 +248,7 @@
 		</div>
 		
 		<!-- 신고하기 모달 -->
-		<div class="modal fade" id="exampleModalReport" tabindex="-1"
+		<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
@@ -263,7 +272,7 @@
 						</aside>
 					</div>
 				</div>
-				<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>
+				<button type="button" class="btn btn-primary" id="rptBtn">신고하기</button>
 			</div>
 		</div>
 	</div>

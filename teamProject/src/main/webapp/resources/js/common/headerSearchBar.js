@@ -33,20 +33,24 @@ $(() => {
 	let slist = $("#selectedCodeList input");
 
 	if(slist.length > 0){
-		debugger;
-		let menu = $(".menu").val();
-		let category = $(".category").val();
-		let trade = $(".trade").val();
-		let price = $(".price").val();
+//		$("#search").val('');
+		let menu = $("#selectedCodeList .menu").val();
+		let category = $("#selectedCodeList .category").val();
+		let trade = $("#selectedCodeList .trade").val();
+		let price = $("#selectedCodeList .price").val();
+		let title = $("#selectedCodeList .title").val();
 		
 		$("#menu").val(menu).trigger('change');
 		$("#category").val(category).trigger('change');
 		$("#trade").val(trade).trigger('change');
 		$("#price").val(price).trigger('change');
+		$("#search").val(title);
 	} 
-
+	
+	$(document).on("keydown", "#search", function(e){
+		if(e.code === 'Enter') $('#searchButton').trigger("click");
+	});
 	$(document).on("click", "#searchButton", function(){
-//		debugger;
 		let selectText = $("#menu option:selected").text();
 		let aTagText = $("#hearderMenu a");
 		for(var i = 0; i < aTagText.length; i++){
@@ -58,17 +62,6 @@ $(() => {
 		
 		$("#submitBtn").trigger("click");
 	})
-	
-//	$.ajax({
-//		url:"search/bar"
-//	})
-//	.done(function(data){
-//		alert(data);
-//	})
-//	fail(function(fail){
-//		alert(fail);
-//	})
-	
 })
 
 function header(data, url){

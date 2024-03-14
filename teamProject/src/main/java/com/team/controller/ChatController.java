@@ -84,9 +84,14 @@ public class ChatController {
 	
 	@PostMapping("/changePostState")
 	public ResponseEntity<?> changePostState(@RequestParam Map<String, String> param) {
-		System.out.println("enter : changePostState");
 		return ResponseEntity.ok().body(chatService.changePostState(param));
 	}
+	
+	@PostMapping("/outChat")
+	public ResponseEntity<?> outChat(@RequestParam Map<String, String> param) {
+		System.out.println("enter : outChat");
+		return ResponseEntity.ok().body(chatService.outChat(param));
+	} 
 	
 	// -------- 준우 끝 -------------------
 	

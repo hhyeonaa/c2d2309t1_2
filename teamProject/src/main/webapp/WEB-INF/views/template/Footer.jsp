@@ -88,7 +88,6 @@
 		
 		<div id="chatContentsContainer">
 			<div id="chatHead">
-<!-- 				<div>이미지</div> -->
 <!-- 				<div class="chatRoomContents"> -->
 <!-- 					<div class="userNick">[닉네임]</div> -->
 <!-- 					<div class="postTit">다른 게시물 제목</div> -->
@@ -170,5 +169,4 @@
 		</div>
 	</div>
 
-<script src="${pageContext.request.contextPath}/resources/js/chat/chatting.js"></script>
 <!--   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->

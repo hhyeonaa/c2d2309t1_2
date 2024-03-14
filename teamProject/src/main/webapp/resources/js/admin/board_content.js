@@ -10,7 +10,7 @@ $(() => {
 // 셀렉트 박스 체인지 이벤트	
 $("#boardCategory").on("change", function(){
 	$.ajax({
-		url: 'board_category',
+		url: 'getBoardCategoryList',
 		data:{
 			category: $(this).val()
 		}
@@ -39,7 +39,7 @@ $("#boardCategory").on("change", function(){
 	$(".delBtn").on("click", function(){
 			var curTr = $(this).parents("tr");
 			$.ajax({
-				url: 'content_Delete',
+				url: 'cateContentDelete',
 				data:{
 					PRO_NO: $(this).parents(".btnBox").siblings(".proNo").text()
 				}

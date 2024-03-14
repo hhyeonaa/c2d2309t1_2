@@ -176,31 +176,28 @@ public class AdminController {
 		return ToastUI.resourceData(param, codeService.selectMessageList(EnumCodeType.메세지, session));
 	}
 	
-	@PostMapping("/message_managePro")
+	@PostMapping("/codeInsertPro")
 	@ResponseBody
-	public ResponseEntity<?> insertMessage(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
- 		adminService.messageInsert(result);
- 		return null;
+	public ResponseEntity<?> codeInsertPro(@RequestParam Map<String, String> param) {
+		System.out.println(param);
+ 		boolean isInsert = adminService.messageInsert(param);
+ 		return ResponseEntity.ok().body(isInsert);
 	}
 	
 	@PutMapping("/message_managePro")
 	@ResponseBody
-	public ResponseEntity<?> updateMessage(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
- 		boolean a = adminService.messageUpdate(result);
- 		System.out.println(a);
+	public ResponseEntity<?> updateMessage(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		adminService.messageUpdate(result);
  		return null;
 	}
 	
 	@DeleteMapping("/message_managePro")
 	@ResponseBody
-	public ResponseEntity<?> deleteMessage(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
- 		adminService.messageDelete(result);
+	public ResponseEntity<?> deleteMessage(@RequestParam Map<String, String> deletedRows) {
+		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
+ 		boolean a = adminService.messageDelete(result);
+ 		System.out.println(a);
  		return null;
 	}
 	
@@ -285,10 +282,11 @@ public class AdminController {
 	
 	/* 성엽 작업공간 */
 	
+	// 차트 이동
 	@GetMapping("/chart")
 	public String chart() {
 		return "admin/chart";
-	}//
+	}
 	
 	@GetMapping("/member_report")
 	public String member_report(Model model) {
@@ -298,18 +296,7 @@ public class AdminController {
 		model.addAttribute("reportList", reportList);
 		
 		return "admin/member_report";
-	}//
-	
-	// 채팅만들어지고 이동
-	@GetMapping("/member_report_test")
-	public String member_report_test(Model model) {
-		
-		List<Map<String, String>> reportList = adminService.getReportList();
-		
-		model.addAttribute("reportList", reportList);
-		
-		return "redirect:admin/member_report";
-	}//
+	}
 	
 	@GetMapping("/member_manage")
 	public String member_manage(Model model) {
@@ -319,7 +306,7 @@ public class AdminController {
 		model.addAttribute("memList", memList);
 		
 		return "admin/member_manage";
-	}//
+	}
 	
 	@PostMapping("/memberStop")
 	@ResponseBody
@@ -333,7 +320,7 @@ public class AdminController {
 		System.out.println(param);
 		
 		return ResponseEntity.ok().body(param);
-	}//
+	}
 	
 	@GetMapping("/contentDelete")
 	public String contentDelete(@RequestParam String PRO_NO) {
@@ -341,17 +328,17 @@ public class AdminController {
 		adminService.contentDelete(PRO_NO);
 		
 		return "redirect:/admin/board_content";
-	}//
+	}
 	
-	@GetMapping("/content_Delete")
+	@GetMapping("/cateContentDelete")
 	@ResponseBody
-	public ResponseEntity<?> content_Delete(@RequestParam String PRO_NO) {
+	public ResponseEntity<?> cateContentDelete(@RequestParam String PRO_NO) {
 		
 		Map<String, String> result = new HashMap<String, String>();
 		result.put("result", Integer.toString(adminService.cateContentDelete(PRO_NO)));
 		
 		return ResponseEntity.ok().body(result);
-	}//
+	}
 	
 	@GetMapping("/board_content")
 	public String board_content(Model model) {
@@ -361,19 +348,35 @@ public class AdminController {
 		model.addAttribute("contentList", contentList);
 		
 		return "admin/board_content";
-	}//
+	}
 	
-	@GetMapping("/board_category")
+	@GetMapping("/getBoardCategoryList")
  	@ResponseBody
- 	public ResponseEntity<?> board_category(@RequestParam Map<String, String> param){
+ 	public ResponseEntity<?> getBoardCategoryList(@RequestParam Map<String, String> param){
 		
  		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
  		
  		return ResponseEntity.ok().body(cateList);
- 	}//
+ 	}
+	
+	// chart
+	@GetMapping("/getChartData")
+ 	@ResponseBody
+ 	public ResponseEntity<?> getChartData(@RequestParam Map<String, String> param){
+		
+		Map<String, List> map = new HashMap<String, List>();
+ 		List<Map<String, String>> memList = adminService.getMemberCntList(param);
+ 		List<Map<String, String>> cateList = adminService.getCategoryCntList(param);
+ 		List<Map<String, String>> tradeList = adminService.getTotalTradeList(param);
+ 		
+ 		map.put("memList", memList);
+ 		map.put("cateList", cateList);
+ 		map.put("tradeList", tradeList);
+ 		
+ 		return ResponseEntity.ok().body(map);
+ 	}
 	
 	/* 성엽 작업공간 */	
-
 
 
 }

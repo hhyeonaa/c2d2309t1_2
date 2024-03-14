@@ -17,7 +17,7 @@
         <div><h4 class="card-title mb-5" style="padding-top: 100px;"><b>회원 목록</b></h4></div>
     </div>
 	
-	
+	<div id="grid"></div>
 	<div class="row">
         <div class="col-lg-12">
             <div class="">

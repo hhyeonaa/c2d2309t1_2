@@ -40,6 +40,7 @@
 		     , P.PRO_NAME
 		     , P.PRO_TSC
 		     , (SELECT CODE FROM CODE WHERE CONCAT(CO_TYPE, CO_NO) = P.PRO_TSC) PRO_TSC_CODE
+		     , (SELECT COUNT(PAY_NO) FROM PAY WHERE PRO_NO = C.PRO_NO) PAY_STATE
 		  FROM CHAT_ROOM C
 		  JOIN PRODUCT P
 		    ON C.PRO_NO = P.PRO_NO
@@ -54,6 +55,8 @@
 		    ON C.MEM_NO = M.MEM_NO
 	 	 WHERE C.PRO_NO IN ((SELECT PRO_NO FROM PRODUCT WHERE PRO_WR = #{memId}))
 		  </if>
+		   AND (C.CHAT_CLOSE IS NULcL
+		   OR C.CHAT_CLOSE NOT LIKE CONCAT('%', #{memId} ,'%'));
 	</select>
 	
 	<insert id="insertChat" parameterType="map">
@@ -79,6 +82,12 @@
 		UPDATE PRODUCT
 		   SET PRO_TSC = #{state}
 		 WHERE PRO_NO = #{proNo}; 
+	</update>
+	
+	<update id="outChat" parameterType="map">
+		UPDATE CHAT_ROOM
+		   SET CHAT_CLOSE = CONCAT(IFNULL((SELECT * FROM (SELECT CHAT_CLOSE FROM CHAT_ROOM WHERE CR_NO = #{roomNo}) A), ""), #{memId})
+		 WHERE CR_NO = #{roomNo};
 	</update>
 	
 </mapper>

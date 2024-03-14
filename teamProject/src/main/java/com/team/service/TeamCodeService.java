@@ -89,7 +89,7 @@ public class TeamCodeService implements TeamCodeInterface{
 	private List<Map<String, String>> selectCodes(EnumCodeType codeType, HttpSession session) {
 		
 		String codeTypeName = codeType.getType().trim();
-		String ses = (String)session.getAttribute("ROL_NO");
+		String ses = (String)session.getAttribute("MEM_ID");
 		Map<String, String> code = new HashMap<String, String>();
 		
 		if (ses instanceof String && !ses.equals("RO1") && !ses.equals("RO2") && !ses.equals("RO3")) {
@@ -101,7 +101,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		}
 		
 		code.put("codeType", codeTypeName);
-		code.put("ROL_NO", ses);
+		code.put("MEM_ID", ses);
 		
 		List<Map<String, String>> selectCodeList = codeTypeName.equals("AM") ? dao.selectMessageList(code) 
 																		 	 : dao.selectCodeList(code);
@@ -141,7 +141,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		
     	codes.put(EnumCodeType.코드타입.getType().trim(), codeType);
     	codes.put(EnumCodeType.코드번호.getType().trim(), code.replaceAll("[^0-9]", ""));
-    	codes.put("ROL_NO", session == null ? "" : (String)session.getAttribute("MEM_ID"));
+    	codes.put("MEM_ID", session == null ? "" : (String)session.getAttribute("MEM_ID"));
 
     	return codes;
 	}

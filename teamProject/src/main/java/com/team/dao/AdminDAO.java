@@ -22,16 +22,13 @@ public class AdminDAO {
 		sqlSession.insert(namesqace + "adminInsert", map);
 	}
 
-	public List<Map<String, String>> getAdminList() {
-		return sqlSession.selectList(namesqace + "getAdminList");
+	public List<Map<String, String>> getAdminList(Map<String, String> map) {
+		return sqlSession.selectList(namesqace + "getAdminList", map);
 	}
 
 	public boolean idCheck(Map<String, String> map) {
-		String result = sqlSession.selectOne(namesqace + "idCheck", map);
-		if(result == null) {
-			return false;
-		}
-		return true;
+		boolean result = (sqlSession.selectOne(namesqace + "idCheck", map) == null) ? false : true;
+		return result;
 	}
 
 	public void adminDelete(Map<String, String> map) {
@@ -42,34 +39,9 @@ public class AdminDAO {
 		sqlSession.update(namesqace + "adminUpdate", map);
 	}
 
-//	public List<Map<String, String>> getBoardList() {
-//		return sqlSession.selectList(namesqace + "getBoardList");
-//	}
-
 	public boolean displayUpdate(List<Map<String, String>> result) {
 		return sqlSession.update(namesqace + "displayUpdate", result) == 1 ? true : false;
 	}
-	
-//	public List<Map<String, String>> getCategoryList() {
-//		return sqlSession.selectList(namesqace + "getCategoryList");
-//	}
-
-	public void inputForm(Map<String, String> map) {
-		sqlSession.insert(namesqace + "inputForm", map);
-	}
-	
-	public List<Map<String, String>> getForm(Map<String, String> map) {
-		return sqlSession.selectList(namesqace + "getForm", map);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 //	----- 현아 끝 -----
 	

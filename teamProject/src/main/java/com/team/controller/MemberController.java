@@ -239,7 +239,7 @@ public class MemberController{
 		System.out.println("MemberController adminLoginPro()");
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
-			session.setAttribute("ROL_NO", check.get("ROL_NO"));
+			session.setAttribute("MEM_ID", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		}
 		return "member/msg";
@@ -373,21 +373,23 @@ public class MemberController{
 //	-----------------------------------------------------------------------------
 	@GetMapping("/likeList")
 	public String likeList(Model model, HttpSession session) {
-		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("menuList", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("tscList", codeService.selectCodeList(EnumCodeType.거래상태, session));
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
 		List<Map<String,String>> likeList = memberService.likeList(MEM_ID);
 		model.addAttribute("likeList", likeList);
+		System.out.println("페이지 첫 로드: " + likeList);
 		return "member/likeList";
 	}// likeList()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/likeListSelect")	// ajax
 	@ResponseBody
 	public List<Map<String,String>> likeListSelect(@RequestParam Map<String,String> map, HttpSession session, Model model){
-		System.out.println("컨트롤러 들어옴@");
 		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
-		List<Map<String,String>> likeList = memberService.likeListSelect(map);
-		System.out.println("likeList : " + likeList);
-		return likeList; 
+		System.out.println("map" + map);
+		List<Map<String,String>> likeListSelect = memberService.likeListSelect(map);
+		System.out.println("바뀐 likeList : " + likeListSelect);
+		return likeListSelect; 
 	}//idCheck()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/deleteLike")	// ajax

@@ -253,29 +253,46 @@
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
-				, SUBSTR(P.PRO_TC, 3, 1) AS "PRO_NUM"
-				, CASE P.PRO_TC WHEN 'MM1' THEN '판매'
-				  			    WHEN 'MM2' THEN '구매'
-				  			    WHEN 'MM3' THEN '나눔'
-				  			    WHEN 'MM4' THEN '경매'
-				  END AS "PRO_TC"
-				, P.PRO_TSC
-				, CASE P.PRO_TSC WHEN 'TM1' THEN '거래가능'
-				  			     WHEN 'TM2' THEN '거래중'
-				  			     WHEN 'TM3' THEN '거래완료'
-				  END AS "PRO_STATE"
 				, P.PRO_NAME
 				, P.PRO_WR
 				, P.PRO_DATE
 				, FORMAT(P.PRO_PRICE, 0) AS "PRO_PRICE"
+				, C1.CO_NO AS "TC_NUM"
+				, P.PRO_TC
+				, C1.CODE AS "TC_NAME"
+				, P.PRO_TSC
+				, C2.CODE AS "TSC_NAME"		
 		        , I.IMG_NAME
-		FROM LIKES L JOIN PRODUCT P
-		ON L.LIK_PRONO = P.PRO_NO
-		JOIN IMAGE I
-		ON L.LIK_PRONO = I.IMG_PRONO
+		FROM LIKES L
+			JOIN PRODUCT P ON L.LIK_PRONO = P.PRO_NO
+			JOIN CODE C1	ON P.PRO_TC = CONCAT(C1.CO_TYPE, C1.CO_NO)
+			JOIN CODE C2	ON P.PRO_TSC = CONCAT(C2.CO_TYPE, C2.CO_NO)
+			JOIN IMAGE I	ON L.LIK_PRONO = I.IMG_PRONO
 		WHERE L.MEM_ID = #{MEM_ID}
 		AND I.IMG_NO = '1'
-		AND PRO_TC = 'MM1'
+        ORDER BY P.PRO_DATE DESC
+	</select>
+	
+		<select id="likeListSelect" parameterType="map" resultType="map">
+		SELECT L.LIK_NO
+				, P.PRO_NAME
+				, P.PRO_WR
+				, P.PRO_DATE
+				, FORMAT(P.PRO_PRICE, 0) AS "PRO_PRICE"
+				, P.PRO_TC
+				, C1.CODE AS "TC_NAME"
+				, P.PRO_TSC
+				, C2.CODE AS "TSC_NAME"		
+		        , I.IMG_NAME
+		FROM LIKES L
+			JOIN PRODUCT P ON L.LIK_PRONO = P.PRO_NO
+			JOIN CODE C1	ON P.PRO_TC = CONCAT(C1.CO_TYPE, C1.CO_NO)
+			JOIN CODE C2	ON P.PRO_TSC = CONCAT(C2.CO_TYPE, C2.CO_NO)
+			JOIN IMAGE I	ON L.LIK_PRONO = I.IMG_PRONO
+		WHERE L.MEM_ID = #{MEM_ID}
+		AND I.IMG_NO = '1'
+		AND P.PRO_TC = #{PRO_TC}
+        ORDER BY P.PRO_DATE DESC
 	</select>
 	
 	<delete id="deleteLike">

@@ -149,4 +149,49 @@ let timerInterval;
 		return;
 	})
 	 
+	
+	
+	
+	// 찜 관련 클릭
+	$(document).on('click', '#likeBtn', function () {
+		// 찜 삭제 기능
+		if ($('#noLike').is(':hidden')) {
+			debugger;
+			if(alertMsg('AM4', ["찜"], true)) {
+				$.ajax({
+					type: 'post'
+					, url: 'deleteLike'
+					, data: {LIK_NO: $('#likNo').text()}
+				})
+				.done(function(data){
+					if(data == '1'){
+						$('#noLike').removeAttr('hidden');
+						$('#yesLike').attr('hidden', 'hidden');
+					}
+				});
+			};
+			
+		// 찜 추가 기능
+		} else {
+			debugger;
+			if(alertMsg('AM8', ["찜"], true)) {
+				$.ajax({
+					type: 'post'
+					, url: 'insertLike'
+					, data: {PRO_NO: $('#aucNo').val()}
+				})
+				.done(function(data){
+					if(data == '1'){
+//						$('#yesLike').removeAttr('hidden');
+//						$('#noLike').attr('hidden', 'hidden');
+						location.reload();
+					}
+				});
+			};
+		};	
+	});
+	
+	$('#noUserBtn').on('click', function() {
+		alertMsg('AM23', ["로그인 후"]); 
+	});	 
  })

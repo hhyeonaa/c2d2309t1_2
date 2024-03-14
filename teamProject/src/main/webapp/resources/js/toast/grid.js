@@ -47,7 +47,9 @@ var fn_grid = (url, perPage, columns, draggable, parameter) => {
 		columns: columns,
 		data: dataSource,
 		rowHeaders: ["rowNum", "checkbox"],
-		pageOptions: pageOptions
+		pageOptions: pageOptions,
+		rowHeight: "auto",
+		minRowHeight: 60
 	});
 //	grid.hideColumn("SEQ");
 

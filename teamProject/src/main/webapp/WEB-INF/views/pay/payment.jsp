@@ -130,8 +130,8 @@
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod naver nonCheck" id="naverPay">
-											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
+										<div class="PaymentGridMethod naver nonCheck" id="paycoPay">
+											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">페이코</span>
 										</div>
 									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">

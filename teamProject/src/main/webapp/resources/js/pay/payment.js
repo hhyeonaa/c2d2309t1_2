@@ -206,7 +206,10 @@ $('#tossPay').on("click", () =>{
 $('#kakaoPay').on("click", () =>{
 	pgId="kakaopay.TC0ONETIME";
 })
-	
+
+$('#paycoPay').on("click", () => {
+	pgId="payco.AUTOPAY";
+})	
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
 selectMethod();
@@ -256,49 +259,7 @@ selectMethod();
 	        }
 	    }).open();
 	});
-
-//// 2-1 배송지목록 등록 저장
-//	$('#payAddbtn').on('click', function(){
-//		// 배송지목록 등록 정보 유효성
-//		var addnick = $('input[name=ADD_NICK]').val(); 
-//		var receiver = $('input[name=ADD_RECEIBER]').val();
-//		var phone = $('input[name=ADD_PHONE]').val();
-//		var post = $('input[name=ADD_POST]').val();
-//		var addname = $('input[name=ADD_NAME]').val();
-//		var adddetail = $('input[name=ADD_DETAIL]').val();
-//		if(addnick == ''){
-//			alert("배송지명을 입력하세요.")
-//			addnick.focus();
-//			return false;
-//		}
-//		if(receiver == ''){
-//			alert("수령인을 입력하세요.")
-//			receiver.focus();
-//			return false;
-//		}
-//		if(phone == ''){
-//			alert("연락처을 입력하세요.")
-//			phone.focus();
-//			return false;
-//		}
-//		if(post == ''){
-//			alert("주소 입력하세요.")
-//			post.focus();
-//			return false;
-//		}
-//		if(addname == ''){
-//			alert("주소 입력하세요.")
-//			addname.focus();
-//			return false;
-//		}
-//		if(adddetail == ''){
-//			alert("상세주소를 입력하세요.")
-//			adddetail.focus();
-//			return false;
-//		}
-//	})
-	
-	
+		
 // 3. 결제수단 클릭 이벤트(css)
 // check(결제수단 클릭), nonCheck(결제수단 미클릭) class
     $('.PaymentGridMethod').on('click', function () {
@@ -312,7 +273,7 @@ selectMethod();
 // 4. 결제하기 버튼 클릭 이벤트(결제 api)
 	$("#paymentBtn").on('click',function(){
 		if(pgId == "") {
-			alert('결제 수단을 선택해주세요');
+			alertMsg("AM9",["결제 수단"]);
 			return false;
 		}
 		if($('.kGbUWb').text()==""){
@@ -320,7 +281,8 @@ selectMethod();
 			return false;
 		}
 		if($("#selectDel  option").index($("#selectDel  option:selected")) == 0){
-			alert('배송요청사항 입력해주세요');
+			alertMsg("AM6",["배송 요청사항"]);
+			
 			return false;
 		}
 		requestPay(pgId);
@@ -356,7 +318,6 @@ selectMethod();
 			.done(function(data){
 				if(data == 1){
 					debugger;
-					alert("delete여기까지")
 				}
 			})
 			.fail(function(){
@@ -434,32 +395,32 @@ selectMethod();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
 		debugger;
 		if(addnick == ''){
-			alert("배송지명을 입력하세요.")
+			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
 			return false;
 		}
 		if(receiver == ''){
-			alert("수령인을 입력하세요.")
+			alertMsg("AM6",["수령인"]);
 			receiver.focus();
 			return false;
 		}
 		if(phone == ''){
-			alert("연락처를 입력하세요.")
+			alertMsg("AM6",["연락처"]);
 			phone.focus();
 			return false;
 		}
 		if(post == ''){
-			alert("주소 입력하세요.")
+			alertMsg("AM6",["주소"]);
 			post.focus();
 			return false;
 		}
 		if(addname == ''){
-			alert("주소 입력하세요.")
+			alertMsg("AM6",["주소"]);
 			addname.focus();
 			return false;
 		}
 		if(adddetail == ''){
-			alert("상세주소를 입력하세요.")
+			alertMsg("AM6",["상세주소"]);
 			adddetail.focus();
 			return false;
 		}
@@ -508,32 +469,32 @@ selectMethod();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
 		debugger;
 		if(addnick == ''){
-			alert("배송지명을 입력하세요.")
+			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
 			return false;
 		}
 		if(receiver == ''){
-			alert("수령인을 입력하세요.")
+			alertMsg("AM6",["수령인"]);
 			receiver.focus();
 			return false;
 		}
 		if(phone == ''){
-			alert("연락처를 입력하세요.")
+			alertMsg("AM6",["연락처"]);
 			phone.focus();
 			return false;
 		}
 		if(post == ''){
-			alert("주소 입력하세요.")
+			alertMsg("AM6",["주소"]);
 			post.focus();
 			return false;
 		}
 		if(addname == ''){
-			alert("주소 입력하세요.")
+			alertMsg("AM6",["주소"]);
 			addname.focus();
 			return false;
 		}
 		if(adddetail == ''){
-			alert("상세주소를 입력하세요.")
+			alertMsg("AM6",["상세주소"]);
 			adddetail.focus();
 			return false;
 		}

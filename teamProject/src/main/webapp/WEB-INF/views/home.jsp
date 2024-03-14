@@ -12,17 +12,18 @@
 <title>여기 다 모여 있다, '다모임'</title>
 </head>
 <jsp:include page="template/header.jsp"/>
-	
+	   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 <body class="d-flex flex-column min-vh-100">
 
 <div style="display: flex; justify-content: center; align-items: center;">
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<c:forEach begin="0" end="${fn:length(productList) - 1}" step="1" var="i">
-			<div style="border: 1px solid black; width: 100%; height: 100%;">
+			<div style="border: 0px solid black; width: 100%; height: 100%; border-radius: 30px;" class="shadow">
 					<article>
 						<div class="css-f96hxp">
 							<h3>${menues[i]}</h3>
-							<button aria-label="전체 판매 매물 보기 버턴" onclick="location.href ='${pageContext.request.contextPath}${urlList[i].url}'">더보기</button>
+							<button  class="custom-btn btn-7" aria-label="전체 판매 매물 보기 버턴" onclick="location.href ='${pageContext.request.contextPath}${urlList[i].url}'">더보기</button>
 						</div>
 						<div class="css=1qeni0p">
 							<div class="css-1afg07s">

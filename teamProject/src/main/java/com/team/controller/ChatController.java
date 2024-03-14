@@ -42,7 +42,7 @@ public class ChatController {
 		List<Map<String, String>> reportList = codeService.selectCodeList(EnumCodeType.신고항목, session);
 		
 		return ResponseEntity.ok().body(reportList);
-	}// chatting()
+	}
 	
 	@PostMapping("/insertReport")
 	@ResponseBody
@@ -53,7 +53,7 @@ public class ChatController {
 		System.out.println(map);
 		
 		return ResponseEntity.ok().body(adminService.insertReport(map));
-	}// insertReport()
+	}
 
 	// -------- 준우 시작 -------------------
 	@GetMapping("/roomCheck")

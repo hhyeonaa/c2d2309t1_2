@@ -59,6 +59,7 @@
 			 </div>
 			</div>
 		 	<div style="width: 60%; height: 400px;">
+		 	<input type="hidden" id="memId" value="${sessionScope.MEM_ID}">
 		 	<input type="hidden" id="proNo" value="${resultMap.PRO_NO}">
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
 		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
@@ -106,15 +107,16 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
-		 				<td></td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
 		 					<button class="btn btn-danger btn-lg">찜</button>
 		 					<button class="btn btn-warning btn-lg">신청자 확인</button>
+		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
 		 					<button class="btn btn-success btn-lg" id="shareApplication">나눔신청</button>
+		 					</c:if>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
 <!-- 			 			<td><button class="btn btn-warning btn-lg">채팅</button></td> -->
@@ -161,24 +163,28 @@
 <!-- 		 				<td colspan="3"></td> -->
 <!-- 		 			</tr> -->
 		 		</table>
+		 		<c:forEach var="applicant" items="${selectDivList}">
+		 			<input type="hidden" class="divApp" value="${applicant.DIV_APPLICANT}">
+		 		</c:forEach>
 		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<table class="table">
 		 			<tr><td colspan="1">신청자 정보</td><td colspan="2">신청 이유</td><td colspan="3"></tr><tr>
-		 			<tr>
-		 				<c:forEach var="applicant" items="${selectDivList}">
-		 				<input type="hidden" value="${applicant.DIV_APPLICANT}"> 
-			 			<td colspan="1">${applicant.MEM_NICK}</td>
-			 			<td colspan="3">${applicant.DIV_REASON}</td>
-			 			<td colspan="1"><button class="chat-button btn btn-warning mx-4">채팅하기</button></td>
-			 			<td colspan="1"><button class="btn" id="deleteDivReason">x</button></td>
-			 			</c:forEach>
-		 			</tr>
+	 				<c:forEach var="applicant" items="${selectDivList}">
+			 			<tr>
+				 			<td colspan="1">${applicant.MEM_NICK}</td>
+				 			<td colspan="3">${applicant.DIV_REASON}</td>
+				 			<td colspan="1"><button class="chat-button btn btn-warning mx-4">채팅하기</button></td>
+				 			<td colspan="1"><button class="btn delBtn">x</button></td>
+			 			</tr>
+		 			</c:forEach>
 		 		</table>
 		 		</c:if>
 		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
-		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
-				</div>
+			 		<c:if test="${resultMap.PRO_TSC ne 'TM3'}">
+				 		<div class="d-grid gap-2">
+						  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
+						</div>
+					</c:if>
 				</c:if>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
@@ -198,26 +204,6 @@
 		 					<div class="img-innertext"><span>10000원</span></div>
 		 				</td>
 		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>		 	
 		 			<tr>
 		 				<td class="center-align">
 		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">

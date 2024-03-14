@@ -51,7 +51,7 @@
 	</insert>
 	
 	<select id="login" resultType="map">
-		select MEM_ID, MEM_PW, MEM_NICK, MEM_CAT
+		select MEM_ID, MEM_PW, MEM_NICK, MEM_CAT, MEM_NO
 		from MEMBERS
 		where MEM_ID = #{MEM_ID}
 		and MEM_PW = #{MEM_PW}
@@ -275,11 +275,11 @@
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
+				, L.LIK_PRONO
 				, P.PRO_NAME
 				, P.PRO_WR
 				, P.PRO_DATE
 				, FORMAT(P.PRO_PRICE, 0) AS "PRO_PRICE"
-				, C1.CO_NO AS "TC_NUM"
 				, P.PRO_TC
 				, C1.CODE AS "TC_NAME"
 				, P.PRO_TSC
@@ -292,11 +292,13 @@
 			JOIN IMAGE I	ON L.LIK_PRONO = I.IMG_PRONO
 		WHERE L.MEM_ID = #{MEM_ID}
 		AND I.IMG_NO = '1'
+		AND P.PRO_TC = 'MM1'
         ORDER BY P.PRO_DATE DESC
 	</select>
 	
 		<select id="likeListSelect" parameterType="map" resultType="map">
 		SELECT L.LIK_NO
+				, L.LIK_PRONO
 				, P.PRO_NAME
 				, P.PRO_WR
 				, P.PRO_DATE
@@ -306,6 +308,7 @@
 				, P.PRO_TSC
 				, C2.CODE AS "TSC_NAME"		
 		        , I.IMG_NAME
+		        , #{PATH} AS "PATH"		
 		FROM LIKES L
 			JOIN PRODUCT P ON L.LIK_PRONO = P.PRO_NO
 			JOIN CODE C1	ON P.PRO_TC = CONCAT(C1.CO_TYPE, C1.CO_NO)
@@ -313,7 +316,10 @@
 			JOIN IMAGE I	ON L.LIK_PRONO = I.IMG_PRONO
 		WHERE L.MEM_ID = #{MEM_ID}
 		AND I.IMG_NO = '1'
-		AND P.PRO_TC = #{PRO_TC}
+		AND P.PRO_TC = #{TC_DATA}
+		<if test='!"0".equals(TSC_DATA)'>
+		AND P.PRO_TSC = #{TSC_DATA}
+		</if>
         ORDER BY P.PRO_DATE DESC
 	</select>
 	
@@ -321,6 +327,14 @@
 		DELETE FROM LIKES
 		WHERE LIK_NO = #{LIK_NO}
 	</delete>
+	
+	<insert id="insertLike">
+		INSERT INTO LIKES
+		VALUES (CONCAT("LI", IFNULL((SELECT MAX(CAST(REPLACE(LIK_NO, "LI", "") AS UNSIGNED)) + 1
+									FROM LIKES A), 1))
+				, #{PRO_NO}
+				, #{MEM_ID})
+	</insert>
 	
 	<select id="myTrade" parameterType="map" resultType="map">
 		select P.PRO_TC
@@ -379,30 +393,33 @@
 			 , P.PRO_WR
 			 , P.PRO_DATE
 			 , P.PRO_NO
-             , A.NAME
-             , A.MERCHANT_UID
-             , DATE_FORMAT(A.PAY_TIME, '%Y.%m.%d %H:%i:%s') as "PAY_TIME"
-             , A.PAY_MSG
-             , format(A.PAID_AMOUNT, 0) as "PAID_AMOUNT"
-             , A.BUYER_NO 
-             , A.SELLER_NO
-			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
-             , C1.CODE as "TC_NAME"
-             , C2.CODE as "TSC_NAME"
-             , I.IMG_NAME
+		     , format(P.PRO_PRICE, 0) as "PRO_PRICE"
+			 , M.MEM_NO
+		     , A.NAME
+		 	 , A.MERCHANT_UID
+		 	 , DATE_FORMAT(A.PAY_TIME, '%Y.%m.%d %H:%i:%s') as "PAY_TIME"
+		 	 , A.PAY_MSG
+		 	 , format(A.PAID_AMOUNT, 0) as "PAID_AMOUNT"
+		 	 , A.BUYER_NO 
+		 	 , A.SELLER_NO
+			 , C1.CODE as "TC_NAME"
+		 	 , C2.CODE as "TSC_NAME"
+		     , I.IMG_NAME
 		from PRODUCT P
-        join PAY A
-        on  P.PRO_NO = A.PRO_NO
-        join CODE C1
-        on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
-        join CODE C2
-        on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
-        left outer join IMAGE I
-        on P.PRO_NO = I.IMG_PRONO
-        where P.PRO_WR = #{PRO_WR}
-        and P.PRO_TSC = 'TM2'
-        and I.IMG_NO = '1'
-        order by cast(trim(leading 'PR' from P.PRO_NO) as unsigned) desc
+		join MEMBERS M
+		on P.PRO_WR = M.MEM_ID
+		join PAY A
+		on P.PRO_NO = A.PRO_NO
+		join CODE C1
+		on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
+		join CODE C2
+		on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
+		left outer join IMAGE I
+		on P.PRO_NO = I.IMG_PRONO
+		where A.BUYER_NO = (SELECT MEM_NO FROM MEMBERS WHERE MEM_ID = #{MEM_ID}) 
+		and P.PRO_TSC = 'TM2'
+		and I.IMG_NO = '1'
+		order by cast(trim(leading 'PR' from P.PRO_NO) as unsigned) desc
 	</select>
 	
 	<update id="changeState" parameterType="map">

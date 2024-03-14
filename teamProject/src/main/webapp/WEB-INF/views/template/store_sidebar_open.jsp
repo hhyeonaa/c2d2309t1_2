@@ -199,16 +199,16 @@ ul{
 		                        <span class="nav_name">운영 관리</span>
 		                    </a>       
                     	</li>
-						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_manage" style="width: 155px;">
+						<li><a class="nav__link" id="member_manage" href="${pageContext.request.contextPath}/admin/member_manage" style="width: 155px;">
 			            	<small>● 회원 관리</small></a>
 			            </li>
-						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_report" style="width: 155px;">
+						<li><a class="nav__link" id="member_report" href="${pageContext.request.contextPath}/admin/member_report" style="width: 155px;">
 			            	<small>● 신고 관리</small></a>
 			            </li>
-			            <li><a class="nav__link" href="${pageContext.request.contextPath}/admin/chart" style="width: 155px;">
+			            <li><a class="nav__link" id="chart" href="${pageContext.request.contextPath}/admin/chart" style="width: 155px;">
 			            	<small>● 통계</small></a>
 			            </li>
-			            <li><a class="nav__link mb-5" href="${pageContext.request.contextPath}/admin/board_content" style="width: 155px;">
+			            <li><a class="nav__link mb-5" id="board_content" href="${pageContext.request.contextPath}/admin/board_content" style="width: 155px;">
 			            	<small>● 게시판 글 관리</small></a>
 			            </li>
 					</ul>                
@@ -256,13 +256,13 @@ ul{
 <%-- 	                    <li><a class="nav__link" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;"> --%>
 <!-- 	                    	<small>● 검색 가격 관리</small></a> -->
 <!-- 	                    </li> -->
-	                    <li><a class="nav__link mb-5" id="data_upload" href="${pageContext.request.contextPath}/eul" style="width: 155px;">
-	                    	<small>● 데이터 업로드</small></a>
-	                    </li>
+<%-- 	                    <li><a class="nav__link" id="data_upload" href="${pageContext.request.contextPath}/eul" style="width: 155px;"> --%>
+<!-- 	                    	<small>● 데이터 업로드</small></a> -->
+<!-- 	                    </li> -->
                     </ul>
 				</div>
                 <ul>
-                   	<li>
+                   	<li class="mt-5">
 		                <a href="#;" class="nav__link">
 		                    <ion-icon name="person-outline"></ion-icon>
 		                    <span class="nav_name">계정</span>

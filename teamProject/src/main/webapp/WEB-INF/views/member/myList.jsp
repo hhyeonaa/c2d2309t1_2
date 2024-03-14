@@ -43,9 +43,9 @@
 		      </a>
 		      <div class="card-body">
 		      	<a href="${pageContext.request.contextPath}/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}">
-			      	<span class="state1">${myListSell.TC_NAME}</span>
+			      	<span class="state1" >${myListSell.TC_NAME}</span>
 			      	<span class="state2">${myListSell.TSC_NAME}</span>
-			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
+			      	<span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p>${myListSell.PRO_NAME}</p>
 				  <h5><b>${myListSell.PRO_PRICE}원</b></h5>

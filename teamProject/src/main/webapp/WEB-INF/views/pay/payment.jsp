@@ -18,7 +18,7 @@
 
 <!--??  -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div style="border: 1px solid black; width: 100%; height: auto;">
+		<div style="border: 0px solid black; width: 100%; height: auto;" class="shadow">
 				
     <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0">
         <h1 class="sech1">결제하기</h1>
@@ -130,8 +130,8 @@
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod naver nonCheck" id="naverPay">
-											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
+										<div class="PaymentGridMethod naver nonCheck" id="paycoPay">
+											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">페이코</span>
 										</div>
 									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">

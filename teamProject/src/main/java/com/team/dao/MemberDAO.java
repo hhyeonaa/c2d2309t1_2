@@ -127,16 +127,19 @@ public class MemberDAO {
 	}// likeList()	
 //	-----------------------------------------------------------------------------
 	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
-		System.out.println("likeListSelect" + sqlSession.selectList(namespace + "likeListSelect", map));
 		return sqlSession.selectList(namespace + "likeListSelect", map);
 	}// likeListSelect()	
 //	-----------------------------------------------------------------------------
 	public boolean deleteLike(String LIK_NO) {
-		boolean result = sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1 ? true : false;
-		System.out.println("result: " + result);
+		boolean result = (sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1) ? true : false;
 		return result;
 	}// deleteLike()
 //	-----------------------------------------------------------------------------
+	public boolean insertLike(Map<String, String> map) {
+		boolean result = (sqlSession.insert(namespace + "insertLike", map) == 1) ? true : false;
+		return result;
+	}// insertLike()
+	//	-----------------------------------------------------------------------------
 	public List<Map<String, String>> myTrade(String MEM_ID) {
 		System.out.println("MemberDAO myTrade()");
 		return sqlSession.selectList(namespace + "myTrade", MEM_ID);
@@ -157,7 +160,6 @@ public class MemberDAO {
 		System.out.println(map + "  changeState");
 		sqlSession.update(namespace + "changeState", map);
 	}// changeState()
-//	-----------------------------------------------------------------------------
 	
 	
 }// MemberDAO 클래스

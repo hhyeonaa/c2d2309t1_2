@@ -205,12 +205,13 @@ public class BoardController {
 	    // Gson 인스턴스 생성
 //	    Gson gson = new Gson();
 
+		
 	    // textData를 Map으로 변환
 //	    Type type = new TypeToken<Map<String, Object>>() {}.getType();
 //	    Map<String, Object> textDataMap = gson.fromJson(textData, type);
 
 	    // 텍스트 데이터 처리
-	    logger.info("textData: " + textData);
+	    System.out.println("textData: " + textData);
 	    // 원본 Map의 textData 값 (JSON 문자열)
         String textDataJson = textData.get("textData");
 
@@ -222,7 +223,7 @@ public class BoardController {
         Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
 
         // 파싱된 Map의 내용 출력
-        logger.info("parsedMap: " + parsedMap);
+        System.out.println("parsedMap: " + parsedMap);
 //        for (Map.Entry<String, String> entry : parsedMap.entrySet()) {
 //            System.out.println(entry.getKey() + ": " + entry.getValue());
 //        }
@@ -283,6 +284,10 @@ public class BoardController {
 	    boardService.insertBoard(parsedMap, imageFilenames);
 
 	    return ResponseEntity.ok("Data and files received successfully");
+	}
+	@GetMapping("/selectMyBoard")
+	public ResponseEntity<?> selectMyBoard(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.selectMyBoard(param));
 	}
 	
 	@PostMapping("/updateBoardPro")
@@ -630,6 +635,7 @@ public class BoardController {
 		String aucNo = resultMap.get("AUC_NO");
 		String aucTc = resultMap.get("AUC_TC");
 		System.out.println("aucNo@@@@@@@@@ " + aucNo);
+		
 		map.put("aucCate", aucCate);
 		map.put("aucNo", aucNo);
 		map.put("aucTc", aucTc);

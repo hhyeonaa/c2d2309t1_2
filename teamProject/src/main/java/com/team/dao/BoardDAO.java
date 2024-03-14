@@ -206,6 +206,11 @@ public class BoardDAO {
 		return sqlSession.delete(NAMESPACE + ".deleteDivide", param) == 1 ? true : false;
 	}// deleteDivide()
 
+	public List<Map<String, String>> selectMyBoard(Map<String, String> param) {
+		System.out.println("BoardDAO selectMyBoard()");
+		return sqlSession.selectList(NAMESPACE + ".selectMyBoard", param);
+	}// selectMyBoard()
+
 	
 
 }// BoardDAO 끝

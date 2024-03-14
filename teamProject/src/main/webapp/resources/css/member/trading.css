@@ -80,3 +80,11 @@ div{margin:0;}
 .card-body {
 	height: 160px !important;
 }
+
+.nameP {
+	text-align: left;
+	padding-bottom: 2%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}

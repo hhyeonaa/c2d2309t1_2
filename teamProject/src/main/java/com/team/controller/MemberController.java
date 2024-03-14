@@ -364,27 +364,32 @@ public class MemberController{
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
 		List<Map<String,String>> likeList = memberService.likeList(MEM_ID);
 		model.addAttribute("likeList", likeList);
-		System.out.println("페이지 첫 로드: " + likeList);
 		return "member/likeList";
 	}// likeList()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/likeListSelect")	// ajax
 	@ResponseBody
-	public List<Map<String,String>> likeListSelect(@RequestParam Map<String,String> map, HttpSession session, Model model){
+	public List<Map<String,String>> likeListSelect(@RequestParam Map<String,String> map, HttpServletRequest request, HttpSession session, Model model){
 		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
-		System.out.println("map" + map);
+		map.put("PATH", request.getContextPath());
 		List<Map<String,String>> likeListSelect = memberService.likeListSelect(map);
-		System.out.println("바뀐 likeList : " + likeListSelect);
 		return likeListSelect; 
-	}//idCheck()
+	}//likeListSelect()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/deleteLike")	// ajax
 	@ResponseBody
-	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO, HttpSession session) {
-		System.out.println("MemberController deleteLike()");
+	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO) {
 		boolean result = memberService.deleteLike(LIK_NO);
 		return ResponseEntity.ok().body(result);
-	}// likeList()
+	}// deleteLike()
+//	-----------------------------------------------------------------------------
+	@PostMapping("/insertLike")	// ajax
+	@ResponseBody
+	public boolean insertLike(@RequestParam Map<String,String> map, HttpSession session) {
+		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
+		boolean result = memberService.insertLike(map);
+		return result;
+	}// insertLike()	
 //	-----------------------------------------------------------------------------
 	@GetMapping("/salesList")
 	public String salesList() {
@@ -460,6 +465,7 @@ public class MemberController{
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
 		// 진행 중인 거래
 		List<Map<String,String>> trading = memberService.trading(MEM_ID);
+		System.out.println(trading);
 		model.addAttribute("trading", trading);
 		return "member/trading";
 	}// trading() 

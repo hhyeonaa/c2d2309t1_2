@@ -146,7 +146,6 @@ function addMsg(msg){ // 메세지를 받은 경우
 		chatBody.scrollTop(999999);
 	}
 	else if(msg.type == "changeState"){
-		console.log("되나")
 		$("#pro_tsc").val(msg.state);
 		
 		var changedPost = $("#chatHead").find(".chatRoomContents").attr("id");
@@ -174,9 +173,14 @@ var openModal = function(id){
 	// 토글 on
 	if(!modalToggle){
 		modalToggle ++;	
-
+		
+		var openPost = "yourPost";
 		// 채팅방 불러오기
-		getChat(id, "yourPost");
+		if(id != $(".id_session").val()){
+			id = $(".id_session").val()
+			openPost = "myPost"
+		}  
+		getChat(id, openPost);
 		
 		$("#chatModal").css("display", "block");
 		
@@ -192,6 +196,7 @@ var closeModal = function(){
 	$("#chatModal").css("display", "none");
 	$("#chatList").empty();
 	$("#chatHead").empty();
+	$("#yourPostChat").trigger("click");
 	if(!$("#chatChoicePlease").length){
 		$("#chatBody").empty();
 		$("#chatBody").append('<span id="chatChoicePlease">채팅을 선택해주세요</span>');
@@ -199,7 +204,7 @@ var closeModal = function(){
 }
 
 // 채팅방 찾기
-var roomCheck = function(proNo, memId){
+var roomCheck = function(proNo, memId, startType){
 	$.ajax({
 		url: '/' + window.location.pathname.split("/")[1] + '/chat/roomCheck',
 		type: "get",
@@ -211,19 +216,23 @@ var roomCheck = function(proNo, memId){
 	.done(function(result){
 		console.log("채팅방이 있는지? : " + result);
 		if(parseInt(result)){ // 채팅이 있을 경우
-			console.log("채팅 있음")
-			openModal(memId);				
+			openModal(memId);
+			if(startType == "divide"){
+				$("#yourPostChat").removeClass("on");
+				$("#myPostChat").addClass("on");
+			}
+							
 		}
 		else { // 채팅이 없을 경우
 			if(alertMsg("AM15", ["채팅"], true)){
-				createChat(proNo, memId);
+				createChat(proNo, memId, startType);
 			}
 		}
 	})
 }
 
 // 채팅방 생성
-var createChat = function(proNo, memId){
+var createChat = function(proNo, memId, startType){
 	$.ajax({
 		url: '/' + window.location.pathname.split("/")[1] + '/chat/createRoom',
 		type: "get",
@@ -239,6 +248,10 @@ var createChat = function(proNo, memId){
 		console.log("채팅방 생성 했는지? : " + result);
 		if(parseInt(result)){ // 생성한 경우
 			openModal(memId);
+			if(startType == "divide") {
+				$("#yourPostChat").removeClass("on");
+				$("#myPostChat").addClass("on");
+			}
 			// enterChat();				
 		}
 		else { // 생성못 한 경우
@@ -336,8 +349,9 @@ var enterChat = function(chatData){
 		}
 	})
 	
-	// **************** 신고하기 ********************* 
+	// **************** 신고하기 *********************
 	
+	// 신고 모달내용 그리기
 	$("#report").on("click", function(){
 		$(".radioBox").empty();
 		$("#reportBtn").remove();
@@ -355,28 +369,33 @@ var enterChat = function(chatData){
 			for(data of datas){
 				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
 			}
-			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>')
+			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>');
 		})
 		;
 		
-//		// 신고하기 버튼 클릭 시
-    	$("#reportBtn").on("click", function(){
+		// 신고하기 버튼 클릭 시
+    	$(document).on("click", "#reportBtn", function(){
+			let isCheck = $('input[name="rd"]:checked').val();
+			let reportTarget = $(".target").attr("id");
+			
+			if(isCheck === undefined){
+				alertMsg('AM9', ["신고 내용"]);
+				return;
+			}
     		$.ajax({
     			url: '/' + window.location.pathname.split("/")[1] + "/chat/insertReport",
     			type: "POST",
     			data: {
-    				reportTarget: $(".target").attr("id"),
-    				rptCode: $('input[name="rd"]:checked').val()
+    				reportTarget: reportTarget,
+    				rptCode: isCheck
     			}
     		})
     		.done(function(data){
-    			alert('신고가완료되었습니다.')
-    			$('#exampleModalReport').modal('hide');
-    		})
-    		.fail(function(){
-				debugger;
-    			alert('신고 내용을 선택해주세요.')
-    		})
+				if(Boolean(data)){
+					alertMsg('AM3', ["신고"]);
+					$('#exampleModalReport').modal('hide');
+				}
+			})
     	});
 	})
 	

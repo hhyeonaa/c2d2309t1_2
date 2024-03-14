@@ -173,7 +173,7 @@
 			 			<tr>
 				 			<td colspan="1">${applicant.MEM_NICK}</td>
 				 			<td colspan="3">${applicant.DIV_REASON}</td>
-				 			<td colspan="1"><button class="chat-button btn btn-warning mx-4">채팅하기</button></td>
+				 			<td colspan="1"><button class="divideChatStartBtn chat-button btn btn-warning mx-4">채팅하기</button></td>
 				 			<td colspan="1"><button class="btn delBtn">x</button></td>
 			 			</tr>
 		 			</c:forEach>
@@ -243,6 +243,7 @@
 </div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/divideDetail.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/startChat.js"></script>
 <script type="text/javascript">
 
 </script>

@@ -634,6 +634,7 @@ public class BoardController {
 		String aucNo = resultMap.get("AUC_NO");
 		String aucTc = resultMap.get("AUC_TC");
 		System.out.println("aucNo@@@@@@@@@ " + aucNo);
+		
 		map.put("aucCate", aucCate);
 		map.put("aucNo", aucNo);
 		map.put("aucTc", aucTc);

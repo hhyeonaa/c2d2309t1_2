@@ -275,11 +275,11 @@
 	
 	<select id="likeList" parameterType="String" resultType="map">
 		SELECT L.LIK_NO
+				, L.LIK_PRONO
 				, P.PRO_NAME
 				, P.PRO_WR
 				, P.PRO_DATE
 				, FORMAT(P.PRO_PRICE, 0) AS "PRO_PRICE"
-				, C1.CO_NO AS "TC_NUM"
 				, P.PRO_TC
 				, C1.CODE AS "TC_NAME"
 				, P.PRO_TSC
@@ -292,11 +292,13 @@
 			JOIN IMAGE I	ON L.LIK_PRONO = I.IMG_PRONO
 		WHERE L.MEM_ID = #{MEM_ID}
 		AND I.IMG_NO = '1'
+		AND P.PRO_TC = 'MM1'
         ORDER BY P.PRO_DATE DESC
 	</select>
 	
 		<select id="likeListSelect" parameterType="map" resultType="map">
 		SELECT L.LIK_NO
+				, L.LIK_PRONO
 				, P.PRO_NAME
 				, P.PRO_WR
 				, P.PRO_DATE
@@ -306,6 +308,7 @@
 				, P.PRO_TSC
 				, C2.CODE AS "TSC_NAME"		
 		        , I.IMG_NAME
+		        , #{PATH} AS "PATH"		
 		FROM LIKES L
 			JOIN PRODUCT P ON L.LIK_PRONO = P.PRO_NO
 			JOIN CODE C1	ON P.PRO_TC = CONCAT(C1.CO_TYPE, C1.CO_NO)
@@ -313,7 +316,10 @@
 			JOIN IMAGE I	ON L.LIK_PRONO = I.IMG_PRONO
 		WHERE L.MEM_ID = #{MEM_ID}
 		AND I.IMG_NO = '1'
-		AND P.PRO_TC = #{PRO_TC}
+		AND P.PRO_TC = #{TC_DATA}
+		<if test='!"0".equals(TSC_DATA)'>
+		AND P.PRO_TSC = #{TSC_DATA}
+		</if>
         ORDER BY P.PRO_DATE DESC
 	</select>
 	
@@ -321,6 +327,14 @@
 		DELETE FROM LIKES
 		WHERE LIK_NO = #{LIK_NO}
 	</delete>
+	
+	<insert id="insertLike">
+		INSERT INTO LIKES
+		VALUES (CONCAT("LI", IFNULL((SELECT MAX(CAST(REPLACE(LIK_NO, "LI", "") AS UNSIGNED)) + 1
+									FROM LIKES A), 1))
+				, #{PRO_NO}
+				, #{MEM_ID})
+	</insert>
 	
 	<select id="myTrade" parameterType="map" resultType="map">
 		select P.PRO_TC

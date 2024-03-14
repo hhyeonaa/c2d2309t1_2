@@ -1,8 +1,29 @@
 var proNo = $("#proNo").val();
-var memId = $(".id_session").val();	
+var iDsession = $(".id_session").val()
+var memId;
 $(()=>{
 	$(".startChatBtn").on("click", function(){
-		var iDsession = $(".id_session").val()
+		memId = iDsession;	
+		
+		
+		//로그인 여부
+		if( iDsession == null || iDsession == undefined || iDsession == "" ){
+			alertMsg("AM23", ["로그인 후"])
+			return;
+		}
+		
+		// 본인 글인지 확인 (후추)
+		if($("#proWr").val() == iDsession){
+			alertMsg("AM12", ["본인 게시물", "채팅"])
+			return;
+		}
+		// 룸 확인하기
+		roomCheck(proNo, memId, "nomal")
+		
+	})
+	
+	$(".divideChatStartBtn").on("click", function(){
+		memId = $(".divApp").eq($(this).index()).val(); 
 		
 		//로그인 여부
 		if( iDsession == null || iDsession == undefined || iDsession == "" ){
@@ -10,13 +31,8 @@ $(()=>{
 			return;
 		}
 		
-		// 본인 글인지 확인 (후추)
-		if($("#proWr").val() == iDsession){
-			alert("니 글임 체팅 ㄴㄴ") // (후추)
-			return;
-		}
 		// 룸 확인하기
-		roomCheck(proNo, memId)
+		roomCheck(proNo, memId, "divide")
 		
 	})
 })

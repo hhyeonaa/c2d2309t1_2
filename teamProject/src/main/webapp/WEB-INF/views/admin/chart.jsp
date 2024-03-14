@@ -16,7 +16,7 @@
 #tab-1:checked ~ .tab label:nth-child(1),
 #tab-2:checked ~ .tab label:nth-child(2),
 #tab-3:checked ~ .tab label:nth-child(3) {
-	background-color: rgba(4, 4, 4, 0.2);
+	background-color: rgb(250,128,114, 0.4);
   box-shadow: none;
 }
 .content > div {
@@ -49,7 +49,7 @@
     -webkit-user-select: none;
 }
 .content {
-  background-color: rgba(4, 4, 4, 0.2);
+  background-color: rgba(0, 0, 0, 0);
   min-height: 250px;
 }
 .content > div{
@@ -70,15 +70,15 @@
     </div>
 	
 	
-	<div style="display: flex; justify-content: center; align-items: center;">
+	<div class="p-3 rounded-4 shadow" style="display: flex; justify-content: center; align-items: center;">
 
-		<div style="border: 1px solid black; width: 1200px; height: 649px;">
+		<div style="width: 1200px; height: 649px;">
 			
 			<div class="main">
 			  <input type="radio" id="tab-1" name="show" checked/>
 			  <input type="radio" id="tab-2" name="show" />
 			  <input type="radio" id="tab-3" name="show" />
-			  <div class="tab">
+			  <div class="tab p-3 rounded-4 shadow">
 			    <label for="tab-1">가입자 수</label>
 			    <label for="tab-2">카테고리별 거래량</label>
 			    <label for="tab-3">총거래량</label>

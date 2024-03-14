@@ -91,6 +91,7 @@ var requestPay = (pgId) => {
 							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
 							debugger;
 							rsp["PRO_NO"] = $('#PRO_NO').val();
+							//배송요청사항
 							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
 							if($("#selectDel  option").index($("#selectDel  option:selected")) == 6 ){
 								rsp["PAY_MSG"] = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4').val();

@@ -90,7 +90,7 @@
 		 	<hr><fmt:parseDate var="parsedDate" value="${resultMap.PRO_DATE}" pattern="yyyyMMddHHmmss"/>
 		 		<table class="table"><!--  table-borderless -->
 		 			<tr>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
+			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> ${resultMap.LIKES_COUNT}</td>
 			 			<td><i class="bi bi-eye"></i> ${resultMap.PRO_HITS}</td>
 			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
 			 			<!-- 로그인 후 신고하기 버튼 보이기 -->
@@ -136,14 +136,24 @@
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
-		 					<button class="btn btn-lg" id="likeBtn">
-		 						<input type="text" id="LIK_NO" value="${resultMap.LIK_NO}" hidden=""/>
-		 						<ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;"/>
-			 		     		<ion-icon id="noLike" name="heart-outline" hidden=""/> 
-		 					</button>
+		 					<c:if test="${empty sessionScope.MEM_ID }">
+		 						<button class="btn btn-lg border" id="noUserBtn">찜
+		 							<ion-icon name="heart-outline"/>
+	 							</button>
+	 						</c:if>	
+	 						<c:if test="${not empty sessionScope.MEM_ID}">
+			 					<button class="btn btn-lg border" id="likeBtn">찜
+			 						<span id="likNo" style="display: none;">${resultMap.LIK_NO}</span>
+			 						
+									    <ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;" 
+									              ${resultMap.LIK_NO ne '0' ? '' : 'hidden="hidden"'}></ion-icon>
+									    <ion-icon id="noLike" name="heart-outline" 
+									              ${resultMap.LIK_NO eq '0' ? '' : 'hidden="hidden"'}></ion-icon> 
+			 					</button>
+		 					</c:if>
 		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
 		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
-		 					<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
+		 						<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
 		 					</c:if>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->

@@ -62,7 +62,6 @@
 			</c:forEach>
 		</select>
 		
-		<!-- -----------------------------------판매 목록----------------------------------- -->
 		<div class="tab_content" id="listDiv">
 			<div class="row row-cols-1 row-cols-md-4 g-4 mb-4" id="listData">
 			

@@ -132,6 +132,7 @@ public class MemberDAO {
 //	-----------------------------------------------------------------------------
 	public boolean deleteLike(String LIK_NO) {
 		boolean result = (sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1) ? true : false;
+		System.out.println(result);
 		return result;
 	}// deleteLike()
 //	-----------------------------------------------------------------------------

@@ -78,6 +78,7 @@ var requestPay = (pgId) => {
 			       	IMP.request_pay({
 						pg: pgId, 
 			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
+			  			customer_uid : 'bbbbb',
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
 			  			buyer_name: data.BUYNAME, //결제자 이름 
@@ -208,8 +209,13 @@ $('#kakaoPay').on("click", () =>{
 })
 
 $('#paycoPay').on("click", () => {
-	pgId="payco.AUTOPAY";
+	pgId="payco.PARTNERTEST";
 })	
+
+//9810030929
+$('#phonePay').on("click", () => {
+	pgId="danal_tpay.A010002002";
+})
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
 selectMethod();
@@ -277,7 +283,7 @@ selectMethod();
 			return false;
 		}
 		if($('.kGbUWb').text()==""){
-			alert('배송주소를 등록해주세요');
+			alertMsg("AM22",["배송 주소"]);
 			return false;
 		}
 		if($("#selectDel  option").index($("#selectDel  option:selected")) == 0){

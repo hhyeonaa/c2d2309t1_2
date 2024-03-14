@@ -15,7 +15,7 @@
 <div style="display: flex; justify-content: center; align-items: center;">
 	<form>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-			<div style="border: 1px solid black; width: 100%; height: 1000px;">
+			<div style="border: 0px solid black; width: 100%; height: 1000px;" class="shadow">
 
 				<div class="mainContainer">
 					<div class="paddingBox">

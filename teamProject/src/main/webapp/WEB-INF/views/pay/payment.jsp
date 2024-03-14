@@ -18,7 +18,7 @@
 
 <!--??  -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div style="border: 1px solid black; width: 100%; height: auto;">
+		<div style="border: 0px solid black; width: 100%; height: auto;" class="shadow">
 				
     <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0">
         <h1 class="sech1">결제하기</h1>

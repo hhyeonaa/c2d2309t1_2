@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -326,14 +327,6 @@ public class AdminController {
  		return null;
 	}
 	
-	@GetMapping("/contentDelete")
-	public String contentDelete(@RequestParam String PRO_NO) {
-		
-		adminService.contentDelete(PRO_NO);
-		
-		return "redirect:/admin/board_content";
-	}
-	
 	@GetMapping("/cateContentDelete")
 	@ResponseBody
 	public ResponseEntity<?> cateContentDelete(@RequestParam String PRO_NO) {
@@ -361,22 +354,14 @@ public class AdminController {
  		return ToastUI.resourceData(req, contentList);
  	}
 	
-	@DeleteMapping("/board_contentPro") // READ
+	@PutMapping("/board_contentPro") // READ
  	@ResponseBody
  	public ResponseEntity<?> delete_board_contentPro(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
-// 		adminService.memberStop(result);
+ 		System.out.println(result);
+ 		adminService.boardUpdate(result);
  		return null;
  	}
-	
-//	@GetMapping("/getBoardCategoryList")
-// 	@ResponseBody
-// 	public ResponseEntity<?> getBoardCategoryList(@RequestParam Map<String, String> param, HttpSession session){
-//		
-// 		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
-// 		
-// 		return ResponseEntity.ok().body(cateList);
-// 	}
 	
 	// chart
 	@GetMapping("/getChartData")

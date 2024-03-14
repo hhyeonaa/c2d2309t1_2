@@ -16,16 +16,10 @@
 	<div class="container">
 	    <div class="row align-items-center">
 	        <div><h4 class="card-title mb-5"  style="padding-top: 100px;"><b>게시판 목록</b></h4></div>
-		    	<div align="center">
-			        <select id="boardCategory" class="form-select">
-						<option value="MM1" selected>판매</option>
-						<option value="MM2">구매</option>
-						<option value="MM3">나눔</option>
-						<option value="MM4">경매</option>
-					</select>
-				</div>
     	</div>
+    	
 		<div id="grid"></div>
+		
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/admin/board_content.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>

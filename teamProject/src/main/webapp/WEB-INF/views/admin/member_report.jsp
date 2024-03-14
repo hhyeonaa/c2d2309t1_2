@@ -18,6 +18,7 @@
     </div>
 	
 		<div id="grid"></div>
+		
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/admin/member_report.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>

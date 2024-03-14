@@ -94,10 +94,6 @@ public class AdminService {
 		return adminDAO.memberStop(dto);
 	}
 	
-	public int contentDelete(String PRO_NO) {
-		return adminDAO.contentDelete(PRO_NO);
-	}
-	
 	public int cateContentDelete(String PRO_NO) {
 		return adminDAO.cateContentDelete(PRO_NO);
 	}
@@ -126,6 +122,12 @@ public class AdminService {
 	
 	public List<Map<String, String>> getTotalTradeList(Map<String, String> param) {
 		return adminDAO.getTotalTradeList();
+	}
+
+	//---- chart 끝 -----
+	
+	public void boardUpdate(List<Map<String, String>> result) {
+		adminDAO.boardUpdate(result);
 	}
 	
 //	----- 성엽 끝 -----

@@ -3,6 +3,9 @@
 *{
 /* 	font-family: Apple SD Gothic Neo,Noto Sans KR,sans-serif; */
 }
+.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
 body{
 	background-color: white !important;
 }

@@ -39,7 +39,7 @@ public class HeaderController {
 	@ResponseBody
 	public ResponseEntity<?> searchBar(HttpSession session) {
 		
-	return ResponseEntity.ok().body(null);
+		return ResponseEntity.ok().body(null);
 	}
 	
 	private Map<String, List<Map<String, String>>> menuListReturn(HttpSession session) {
@@ -65,7 +65,7 @@ public class HeaderController {
 		            url.put("url", "/board/auctionBoard");
 		            break;
 		        default:
-		            url.put("url", "나눔경로");
+		            url.put("url", "기부경로");
 		    }
 		    
 		    urlList.add(url);

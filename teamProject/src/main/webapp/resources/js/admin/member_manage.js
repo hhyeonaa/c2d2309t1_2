@@ -3,24 +3,6 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 // 페이징 처리
 $(() => {
-	
-//	var columns = [
-//		{
-//			name:"MEM_NO", 
-//			header:"번호",
-//			filter:"text",
-//		    sortable: true,
-//			sortingType: 'asc',
-//		    editor: "text"},
-//		{name:"MEM_ID", header:"아이디"},
-//		{name:"MEM_NICK", header:"닉네임"},
-//		{name:"MEM_NAME", header:"이름"},
-//		{name:"MEM_EMAIL", header:"이메일"},
-//		{name:"MEM_DATE", header:"가입일"},
-//		{name:"RPT_USER_NO", header:"누적신고"},
-//		{name:"MEM_CAT", header:"회원상태"}
-//	]
-//	grid("member_manage", 5, columns);
 
 	let columns = [
 		{
@@ -31,7 +13,8 @@ $(() => {
 		{
 			name: "MEM_ID",
 			header:"아이디",
-			filter:"text"
+			filter:"text",
+			sortable: true
 		},
 		{
 			name: "MEM_NICK",
@@ -60,8 +43,8 @@ $(() => {
 		{
 			name: "RPT_USER_NO",
 			header:"누적신고",
-		    sortable: true,
-		    filter:"text"
+		    filter:"text",
+		    sortable: true
 		},
 		{
 			// 셀렉트 박스 설명!!!!!!!!!!!!!!!!!!!!!  (숫자 순서대로 볼 것)
@@ -76,9 +59,9 @@ $(() => {
 				type: "select", // 2. type: "select" 이것도 고정.
 				options: {
 					listItems: [ // 3. 이 배열 안에 하드코딩으로 적으면 됨. (text: 그리드에 보여줄 부분, value: 실제 admin 테이블에서 변경될 값) 
-						{text: "정상", value: "1"},
-						{text: "정지", value: "2"},
-						{text: "탈퇴", value: "3"}
+						{text: "정상", value: "0"},
+						{text: "정지", value: "1"},
+						{text: "탈퇴", value: "2"}
 					]
 				}
 			}
@@ -87,31 +70,32 @@ $(() => {
 	]
 	
 	targetColor($("#member_manage"));
-	
-	for(var i = 0; i < $("#tbody select").length; i++){
-		$($("#tbody select")[i]).find("option")
-								.eq(stringToInt($($("#tbody input[type=hidden]")[i]).val()))
-								.prop("selected", true)	
-	}
-	
-	$(".state").on("change", function(){
-		$.ajax({
-			type:"post",
-			url: 'memberStop',
-			data:{
-				memNo: $(this).closest("div").find("input[type=hidden]").attr("class"),
-				oldState: $(this).closest("div").find("input[type=hidden]").val(),
-				newState: $(this).val()
-			},
-			async: false
-		})
-		.done(function(data){
-			data.isSuccess ? alert("성공") : alert("실패"); 
-		})
-	})
-	
-})	
-
-function stringToInt(str){
-	return parseInt(str.replaceAll("[^0-9]", "")) 
-}
+	fn_grid("member_managePro", 5, columns);
+})
+//	for(var i = 0; i < $("#tbody select").length; i++){
+//		$($("#tbody select")[i]).find("option")
+//								.eq(stringToInt($($("#tbody input[type=hidden]")[i]).val()))
+//								.prop("selected", true)	
+//	}
+//	
+//	$(".state").on("change", function(){
+//		$.ajax({
+//			type:"post",
+//			url: 'memberStop',
+//			data:{
+//				memNo: $(this).closest("div").find("input[type=hidden]").attr("class"),
+//				oldState: $(this).closest("div").find("input[type=hidden]").val(),
+//				newState: $(this).val()
+//			},
+//			async: false
+//		})
+//		.done(function(data){
+//			data.isSuccess ? alert("성공") : alert("실패"); 
+//		})
+//	})
+//	
+//})	
+//
+//function stringToInt(str){
+//	return parseInt(str.replaceAll("[^0-9]", "")) 
+//}

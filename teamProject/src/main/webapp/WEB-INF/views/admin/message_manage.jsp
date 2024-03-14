@@ -46,8 +46,10 @@
 				<button id="saveBtn">저장</button>
 				<button id="updateBtn">수정</button>
 			</div>
-			<div id="grid" style="width: 1280px;"></div>
-			
+			<div>
+				<div id="grid" style="width: 1280px;"></div>
+				<div style="display: flex; justify-content: flex-end;"><button class="btn btn-danger" id="ckDeleteBtn">삭제</button></div>
+			</div>
 			<!-- 관리자추가 모달창 -->
 			<div id="addModal" class="modal">
 			  	<div class="modal-content mt-5" id="modal-content">

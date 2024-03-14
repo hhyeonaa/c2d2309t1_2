@@ -1,5 +1,5 @@
 // ---------------------------------카카오 로그인---------------------------------
-Kakao.init('d494fc385e77a1fec1a8a162bd120af8'); // 사용하려는 앱의 JavaScript 키 입력
+Kakao.init('e44dce7d469ddd0572f9316a1a71d609'); // 사용하려는 앱의 JavaScript 키 입력
 Kakao.isInitialized();
 function loginWithKakao() {
     Kakao.Auth.login({
@@ -81,8 +81,8 @@ function loginWithKakao() {
 
 // ---------------------------------네이버 로그인---------------------------------
 var naverLogin = new naver.LoginWithNaverId({
-	clientId: "UfjkJoYj4eIJvlgpyxp_"
-	, callbackUrl: "http://localhost:8080/myapp/member/login"
+	clientId: "BPAgVjaOdpfSIk0NTLbZ"
+	, callbackUrl: "http://c2d2309t1.itwillbs.com/Damoim/member/login"
 	, isPopup: false
 	, callbackHandle: true
 });

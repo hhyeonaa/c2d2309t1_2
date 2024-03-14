@@ -163,6 +163,24 @@
 			 )
 	</insert>
 	
+	<!--결제완료 select  -->
+	<select id="getCompletePay" resultType="map">
+		SELECT * 
+		 FROM PAY P
+		 JOIN IMAGE I
+	 	 ON P.PRO_NO = I.IMG_PRONO
+		WHERE BUYER_NO = #{MEM_NO}
+		AND P.PRO_NO = #{PRO_NO}
+		AND I.IMG_NO = "1"
+	</select>
+
+	<!--  상품 거래상태 update  TM1 > TM2  -->
+	<update id="payProUpdate">
+		UPDATE PRODUCT
+		 SET PRO_TSC = "TM2"
+		WHERE PRO_NO = #{PRO_NO}
+	</update>
+	
 	<!--배송요청사항 SELECT (공통코드)  -->
 <!-- 	<select id="getRequestDel" resultType="map"> -->
 <!-- 		SELECT concat(CO_TYPE,CO_NO) CO_TYPE, CODE -->

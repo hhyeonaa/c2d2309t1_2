@@ -99,7 +99,7 @@
 				
 				<c:if test="${!empty sessionScope.MEM_ID}">
 					<div class="btn-group">
-				  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button">
+				  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button" >
 						<img src="${pageContext.request.contextPath}/resources/img/member/loginLogo.png" alt="로그인" onclick="" style="width: 40px; height: 40px;">
 					</button>
 					  <ul class="dropdown-menu">

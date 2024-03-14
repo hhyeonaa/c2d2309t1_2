@@ -100,7 +100,7 @@
 						    </c:when>
 						    <c:when test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
 						        <!-- 사용자가 로그인했지만, 게시물 작성자와 다른 경우 -->
-						        <td><a style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						        <td><a id="pageReport" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">
 						            <img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</a></td>
 						    </c:when>
 						</c:choose>
@@ -248,34 +248,34 @@
 		</div>
 		
 		<!-- 신고하기 모달 -->
-		<div class="modal fade" id="exampleModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h2>신고목록</h2>
-					<div>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-				</div>
-				<div class="modal-body">
-					<div id="container">
-						<aside>
-							<header>
-								<p class="fs-5">
-									<c:forEach var="dcm" items="${dcm}" varStatus="v">
-										 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br>
-								    </c:forEach>
-							    </p>
-							</header>
-						</aside>
-					</div>
-				</div>
-				<button type="button" class="btn btn-primary" id="rptBtn">신고하기</button>
-			</div>
-		</div>
-	</div>
+<!-- 		<div class="modal fade" id="exampleModal" tabindex="-1" -->
+<!-- 		aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 		<div class="modal-dialog modal-dialog-centered modal-lg"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<h2>신고목록</h2> -->
+<!-- 					<div> -->
+<!-- 						<button type="button" class="btn-close" data-bs-dismiss="modal" -->
+<!-- 							aria-label="Close"></button> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body"> -->
+<!-- 					<div id="container"> -->
+<!-- 						<aside> -->
+<!-- 							<header> -->
+<!-- 								<p class="fs-5"> -->
+<%-- 									<c:forEach var="dcm" items="${dcm}" varStatus="v"> --%>
+<%-- 										 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br> --%>
+<%-- 								    </c:forEach> --%>
+<!-- 							    </p> -->
+<!-- 							</header> -->
+<!-- 						</aside> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<button type="button" class="btn btn-primary" id="rptBtn">신고하기</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 	</div>
 </div>

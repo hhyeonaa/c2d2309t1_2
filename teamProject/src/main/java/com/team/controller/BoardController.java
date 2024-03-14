@@ -45,6 +45,8 @@ public class BoardController {
 	BoardService boardService;
 	@Inject
 	private TeamCodeService codeService;
+	@Inject
+	private AdminService adminService;
 	
 	@GetMapping("/saleBoard")
 	public String saleBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
@@ -772,31 +774,5 @@ public class BoardController {
 	}
 	
 //	----- 검색 bar -----
-	
-	@GetMapping("/inputForm")
-	public String inputForm(Model model, HttpSession session) {
-		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
-		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
-		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
-		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
-		return "admin/inputForm";
-	}
-	
-	@Inject
-	AdminService adminService = new AdminService();
-	
-	@GetMapping("/getForm")
-	@ResponseBody
-	public ResponseEntity<?> getForm(@RequestParam Map<String, String> map) {
-		List<Map<String, String>> formList = adminService.getForm(map);
-		
-		for (Map<String, String> code : formList) {
-			String codeValue = code.get("CODE");
-			code.put("formName", codeValue.split("/")[0]);
-			code.put("formID", codeValue.split("/")[1]);
-		}
-		System.out.println("리스트: " + formList.toString());
-		return ResponseEntity.ok().body(formList);
-	}
 	
 }// 클래스 끝

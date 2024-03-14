@@ -80,7 +80,7 @@ var fn_grid = (url, perPage, columns, draggable, parameter) => {
 	$(document).on("click", "#ckDeleteBtn", function(e){
 		grid.removeCheckedRows(true);
 		grid.request("deleteData");
-		grid.reloadData();
+		grid.resetData(grid.getData());
 	});
 	
 	// 새로고침 $(document)

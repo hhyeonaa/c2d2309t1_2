@@ -58,7 +58,7 @@
         <div class="row justify-content-between">
           <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
             <div class="copyright">
-              <strong>꿀당근장터</strong>
+              <strong>다모임</strong>
             </div>
             <div class="copyright">
               회사소개&nbsp;|&nbsp;이용약관&nbsp;|&nbsp;개인정보처리방침 <br>

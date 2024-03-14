@@ -14,7 +14,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="${pageContext.request.contextPath}/resources/css/common/header.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/common/header.js"></script>
 
 <!-- sticky menu -->
 <link href="${pageContext.request.contextPath}/resources/css/common/stickyMenu.css" rel="stylesheet"/>

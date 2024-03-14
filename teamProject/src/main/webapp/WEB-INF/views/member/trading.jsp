@@ -32,7 +32,7 @@
                                     <span class="state1" style="font-size: 14px !important;">결제번호 : <b>${trading.MERCHANT_UID}</b></span>
                                     <span class="state2" style="float: right;">${trading.TSC_NAME}</span>
                                     <hr>
-                                    <p style="text-align: left; padding-bottom: 2%;"><b>${trading.NAME}</b></p>
+                                    <p class="nameP"><b>${trading.NAME}</b></p>
                                     <span class="state3">결제금액 : <big>${trading.PAID_AMOUNT}원</big></span> <br>
                                     <span class="state3">결제일자 : ${trading.PAY_TIME}</span><br>
                                 </div>

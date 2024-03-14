@@ -7,14 +7,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>다모임 | 내상품관리</title>
-<link href="${pageContext.request.contextPath}/resources/css/paging.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/paging.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.min.js"></script>
-<script>
-$(()=>{
-	myListAuction("div" , 5, 0);
-})
-</script>
 <link href="${pageContext.request.contextPath}/resources/css/member/list.css" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 </head>
@@ -41,7 +33,7 @@ $(()=>{
 	
 	<!-- -----------------------------------판매 목록----------------------------------- -->
 	<div class="tab_content tab_content1">
-		<div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
+		<div class="row row-cols-1 row-cols-md-4 g-4" id="saleMain" style="padding-top: 2%;">
 		<c:forEach var="myListSell" items="${myListSell}">
 		  <div class="col">
 		    <div class="card h-100">
@@ -51,9 +43,9 @@ $(()=>{
 		      </a>
 		      <div class="card-body">
 		      	<a href="${pageContext.request.contextPath}/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}">
-			      	<span class="state1">${myListSell.TC_NAME}</span>
+			      	<span class="state1" >${myListSell.TC_NAME}</span>
 			      	<span class="state2">${myListSell.TSC_NAME}</span>
-			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
+			      	<span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p>${myListSell.PRO_NAME}</p>
 				  <h5><b>${myListSell.PRO_PRICE}원</b></h5>
@@ -66,11 +58,16 @@ $(()=>{
 		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptySell">등록된 상품이 없습니다.</div>
 		 </c:if>
 		</div>
+		<div class="demo">
+	    <nav class="pagination-outer"  aria-label="Page navigation">
+	        <ul class="pagination" id="pagination"></ul>
+	    </nav>
+		</div> 
 	</div><!--tab_content1-->
 	
 	<!-- -----------------------------------구매 목록----------------------------------- -->
 	<div class="tab_content tab_content2">
-	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
+	  <div class="row row-cols-1 row-cols-md-4 g-4" id="buyMain" style="padding-top: 2%;">
 	  <c:forEach var="myListBuy" items="${myListBuy}">
 		  <div class="col">
 		    <div class="card h-100">
@@ -101,7 +98,7 @@ $(()=>{
 	</div><!--tab_content2-->
 	<!-- -----------------------------------나눔 목록----------------------------------- -->
 	<div class="tab_content tab_content3">
-	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
+	  <div class="row row-cols-1 row-cols-md-4 g-4" id="shareMain" style="padding-top: 2%;">
 	  <c:forEach var="myListShare" items="${myListShare}">
 		  <div class="col">
 		    <div class="card h-100">
@@ -128,7 +125,7 @@ $(()=>{
 	
 	<!-- -----------------------------------경매 목록----------------------------------- -->
 	<div class="tab_content tab_content4">
-	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%; height: 100%;">
+	  <div class="row row-cols-1 row-cols-md-4 g-4" id="auctionMain" style="padding-top: 2%; height: 100%;">
 	  <c:forEach var="myListAuction" items="${myListAuction}">
 		  <div class="col">
 		   <div class="card h-100">
@@ -158,7 +155,11 @@ $(()=>{
 	</div>
 </div>
 </body>
-
-<script src="${pageContext.request.contextPath}/resources/js/member/tradeList.js"></script>
+<script type="text/javascript">
+	$(() => {
+		// paging(".on", 8, 0);
+	})
+</script>
+<script src="${pageContext.request.contextPath}/resources/js/member/myList.js"></script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

@@ -81,8 +81,8 @@ function loginWithKakao() {
 
 // ---------------------------------네이버 로그인---------------------------------
 var naverLogin = new naver.LoginWithNaverId({
-	clientId: "BPAgVjaOdpfSIk0NTLbZ"
-	, callbackUrl: "http://c2d2309t1.itwillbs.com/Damoim/member/login"
+	clientId: "UfjkJoYj4eIJvlgpyxp_"
+	, callbackUrl: "http://localhost:8080/myapp/member/login"
 	, isPopup: false
 	, callbackHandle: true
 });
@@ -124,7 +124,11 @@ $(function(){
 	var pwModal = document.getElementById("pwModal");
 	var pwResultModal = document.getElementById("pwResultModal");
 	
-	
+//	$("#loginBtn").click(function() {
+//        $("#loginForm").submit();
+//        debugger;
+//      alertMsg("AM7", ["아이디, 비밀번호"]);
+//    });
 	
 	// ------------------이메일로 가입하기------------------
 	// 이메일로 가입하기 버튼 클릭 시 모달 열기
@@ -332,9 +336,12 @@ $(function(){
 					 ,MEM_TEL: $('#phone').val()
 					 ,MEM_EMAIL: $('#email').val() }
 		})
+		.done(function(data){
+			alertMsg("AM3", ["회원가입"]);
+			signupModal.style.display = "none";
+			location.replace('login');
+		})
 		
-		signupModal.style.display = "none";
-		location.replace('login');
 	})
 	// x버튼 클릭 시 모달 종료
 	$('.close').on('click', function(){

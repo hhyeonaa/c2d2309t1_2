@@ -34,7 +34,7 @@
 	<div id="container" class="container rounded-5 shadow" style="width: 400px; height: 500px;">
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
-		<form action="loginPro" method="post" id="form">
+		<form action="loginPro" method="post" id="loginForm">
 			<!-- 로그인 페이지 타이틀 -->
 			<div id="loginBoxTitle"><img src="../resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></div>
 			<!-- 아이디, 비번, 버튼 박스 -->
@@ -52,7 +52,7 @@
 <!-- 						style="width: 100%">테스트 계정 로그인</button> -->
 <!-- 				</div> -->
 				<div class="button-login-box">
-					<button type="submit" class="btn btn-secondary btn-xs"
+					<button type="submit" id="loginBtn" class="btn btn-secondary btn-xs"
 						style="width: 100%">로그인</button>
 				</div>
 				<div class="button-login-box">

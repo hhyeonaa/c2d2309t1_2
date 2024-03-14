@@ -20,7 +20,7 @@
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
 			<!--  -->
-        	<div class="container rounded-5 shadow" style="height: 700px; width: 700px; padding: 0, 20%, 0, 20%;">
+        	<div class="container rounded-5 shadow" style="height: 650px; width: 700px; padding: 0, 20%, 0, 20%;">
                 <section class="css-1dk9sr2">
                     
                     <div class="css-312egs">
@@ -54,15 +54,16 @@
                             </c:if>
                             
                             <button type="button" onclick="location.href='memberEdit'">프로필 수정하기</button>
-                            <br><span>내 평점온도</span>
-                            <div class="chart" style="width: 250px;">
+                            <br>
+<!--                             <br><span>내 평점온도</span> -->
+<!--                             <div class="chart" style="width: 250px;"> -->
                             
-	                            <div class="outer_div">
-	                            	<div class="my_gradient_4" style="width: 60%">
-	                            	<p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div>
-	                            </div>
-<!-- 						      <div class="bar" style="width: 40%;">40˚</div> -->
-						    </div>
+<!-- 	                            <div class="outer_div"> -->
+<!-- 	                            	<div class="my_gradient_4" style="width: 60%"> -->
+<!-- 	                            	<p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div> -->
+<!-- 	                            </div> -->
+<!-- <!-- 						      <div class="bar" style="width: 40%;">40˚</div> --> 
+<!-- 						    </div> -->
                         </section>
                         
                         <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='myList'">

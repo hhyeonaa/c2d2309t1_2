@@ -137,6 +137,10 @@ public class MemberService {
 		return memberDAO.deleteLike(LIK_NO);
 	} // deleteLike()
 //	-----------------------------------------------------------------------------	
+	public boolean insertLike(Map<String, String> map) {
+		return memberDAO.insertLike(map);
+	} // insertLike()
+//	-----------------------------------------------------------------------------	
 	public List<Map<String, String>> myTrade(String MEM_ID) {
 		System.out.println("MemberService myTrade()");
 		return memberDAO.myTrade(MEM_ID); 
@@ -157,5 +161,5 @@ public class MemberService {
 		System.out.println(map + " changeState");
 		memberDAO.changeState(map);
 	}// memberDelete()
-//	-----------------------------------------------------------------------------	
+
 }// MemberService 클래스

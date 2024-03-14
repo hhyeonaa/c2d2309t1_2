@@ -25,6 +25,13 @@
 	background-color: #E30000;
 	color: white;
 }
+
+.subject {
+    white-space: nowrap; /* 텍스트가 가로로만 흐르도록 설정 */
+    overflow: hidden; /* 가로 너비를 벗어나는 부분을 숨김 */
+    text-overflow: ellipsis; /* 가로 너비를 벗어나는 부분을 생략 부호(...)로 표시 */
+    display: block; /* 텍스트 컨테이너를 블록 요소로 설정하여 줄 바꿈을 방지 */
+}
 </style>
 
 </head>
@@ -49,6 +56,7 @@
 		  	</c:forEach>
 		</div>
 		<select class="form-select" name="selectMenu" id="selectMenu" style="width: 150px; margin-left: 3%; margin-top: 2%;">
+			<option value="0">전체</option>
 			<c:forEach var="tsc" items="${tscList}">
 				<option value="${tsc.CO_TYPE}${tsc.CO_NO}">${tsc.CODE}</option>
 			</c:forEach>
@@ -56,9 +64,9 @@
 		
 		<!-- -----------------------------------판매 목록----------------------------------- -->
 		<div class="tab_content" id="listDiv">
-			<div class="row row-cols-1 row-cols-md-4 g-4" id="listData">
+			<div class="row row-cols-1 row-cols-md-4 g-4 mb-4" id="listData">
 			
-			<c:forEach var="list" items="${likeList}">
+			<c:forEach var="list" items="${likeList}"  varStatus="loop">
 			  <div class="col">
 			    <div class="card h-100">
 			      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${list.PRO_WR}&proDate=${list.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${list.IMG_NAME}" class="card-img-top" alt="${list.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
@@ -66,12 +74,14 @@
 				      <span class="state1">${list.TC_NAME}</span>
 				      <span class="state2" id="PRO_STATE_${list.PRO_TSC}">${list.TSC_NAME}</span>
 				      <span style="float: right; font-size: 23px;">
-					      <a id=likeBtn class="profile_btn">
-					      	<input type="text" id="LIK_NO" value="${list.LIK_NO}" hidden="">
-			 		     	<ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;"></ion-icon> 
+					      <a id="likeBtn_${loop.index + 1}" class="profile_btn">
+					      	<input type="text" id="LIK_NO_${loop.index + 1}" value="${list.LIK_NO}" hidden="">
+					      	<input type="text" id="PRO_NO_${loop.index + 1}" value="${list.LIK_PRONO}" hidden="">
+			 		     	<ion-icon id="yesLike_${loop.index + 1}" name="heart-sharp" style="color:#E21818;"></ion-icon> 
+			 		     	<ion-icon id="noLike_${loop.index + 1}" name="heart-outline" hidden=""></ion-icon> 
 					      </a>
 				      </span>
-				      <p>${list.PRO_NAME}</p>
+				      <p class="subject">${list.PRO_NAME}</p>
 					  <h5><b>${list.PRO_PRICE}원</b></h5>
 			      </div>
 			    </div>
@@ -88,6 +98,5 @@
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/resources/js/member/likeList.js"></script>
-
 <jsp:include page="../template/Footer.jsp"/>
 </html>

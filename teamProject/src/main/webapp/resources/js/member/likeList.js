@@ -147,7 +147,7 @@ $(()=>{
 		var LIK_NUM = parseInt(this.id.split('_')[1]);
 		// 찜 삭제 기능
 		if ($('#noLike_' + LIK_NUM).is(':hidden')) {
-			if(alertMsg('AM0', ["찜"], true)) {
+			if(alertMsg('AM4', ["찜"], true)) {
 				$.ajax({
 					type: 'post'
 					, url: 'deleteLike'
@@ -163,7 +163,7 @@ $(()=>{
 			
 		// 찜 추가 기능
 		} else {
-			if(alertMsg('AM0', ["찜"], true)) {
+			if(alertMsg('AM8', ["찜"], true)) {
 				$.ajax({
 					type: 'post'
 					, url: 'insertLike'

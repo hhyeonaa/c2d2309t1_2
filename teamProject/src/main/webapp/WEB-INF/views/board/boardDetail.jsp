@@ -2,68 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
-<style type="text/css">
-th {
-	font-size: 25px;
-}
-td{
-	font-size: 15px;
-}
-/* image modal */
-.modal {
-    display: none;
-    z-index: 500;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-}
-.modalBox {
-    position: relative;
-    text-align: center;
-    top : 15%;
-    left : 25%;
-    width: 50%;
-    max-height: 50%;
-    position : sticky;
-}
-.carousel-item > img:hover{
-/*     cursor: -webkit-zoom-in; */
-    cursor: pointer;
-}
-/* image modal end */
-
-.btn-lg {
-	display: inline-block; /* Align buttons in a row */
-	width: 32%; /* Each button takes up one-third of the container's width */
-	box-sizing: border-box; /* Include padding and border in the button's total width */
-	margin: 0; /* Remove default margins */
-	text-align: center; /* Center the text inside buttons */
-	/* Adjust padding as needed, but remember it affects the total width if box-sizing is border-box */
-}
-.center-align {
-    text-align: center;
-    vertical-align: middle;
-    position: relative;
-}
-.img-innertext{
-    position: absolute;
-    left: 50%;
-    bottom: 0%;
-    transform: translate( -50%, -50% );
-    color: white;
-    background-color : rgb(0,0,0,0.5);
-    width: 150px;
-}
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/board/boardDetail.css" rel="stylesheet">
 </head>
 <jsp:include page="../template/header.jsp"/>
 	
@@ -114,7 +60,7 @@ td{
 <%-- 			      <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="d-block w-100" alt="..."> --%>
 <!-- 			    </div> -->
 			  </div>
-			  	<div class="modal">
+			  	<div class="imgModal">
 				    <div class="modalBox"></div>
 				</div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -130,6 +76,8 @@ td{
 		 	<div style="width: 60%; height: 400px;">
 		 	<input type="hidden" id="proNo" value="${resultMap.PRO_NO}">
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
+		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
+		 	<input type="hidden" id="proDate" value="${resultMap.PRO_DATE}">
 		 		<table>
 		 			<tr><th>${resultMap.PRO_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
@@ -142,20 +90,36 @@ td{
 		 	<hr><fmt:parseDate var="parsedDate" value="${resultMap.PRO_DATE}" pattern="yyyyMMddHHmmss"/>
 		 		<table class="table"><!--  table-borderless -->
 		 			<tr>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
+			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> ${resultMap.LIKES_COUNT}</td>
 			 			<td><i class="bi bi-eye"></i> ${resultMap.PRO_HITS}</td>
 			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</td>
+			 			<!-- 로그인 후 신고하기 버튼 보이기 -->
+						<c:choose> 
+						    <c:when test="${empty sessionScope.MEM_ID}">
+						        <!-- 사용자가 로그인하지 않은 경우 -->
+						    </c:when>
+						    <c:when test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
+						        <!-- 사용자가 로그인했지만, 게시물 작성자와 다른 경우 -->
+						        <td><a id="pageReport" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">
+						            <img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</a></td>
+						    </c:when>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
-		 				<td>${resultMap.PRO_STATUS}</td>
-		 				<td></td>
-		 				<td></td>
+		 				<c:set var="statusValue" value="${resultMap.PRO_STATUS_CODE}" />
+		 				<c:choose>
+						    <c:when test="${fn:contains(statusValue, '(')}">
+						        <td>${fn:substringBefore(statusValue, '(')}</td>
+						    </c:when>
+						    <c:otherwise>
+						        <td>${statusValue}</td>
+						    </c:otherwise>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>카테고리:</td>
-		 				<td><a href="#">자켓/점퍼</a></td>
+		 				<td><a href="#">${resultMap.PRO_CATE_CODE}</a></td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>
@@ -167,15 +131,30 @@ td{
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td><i class="bi bi-building-check"></i>부산광역시 사하구 하단제2동</td>
-		 				<td></td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
-		 					<button class="btn btn-danger btn-lg">찜</button>
-		 					<button class="btn btn-warning btn-lg">채팅</button>
-		 					<button class="btn btn-success btn-lg">바로구매</button>
+		 					<c:if test="${empty sessionScope.MEM_ID }">
+		 						<button class="btn btn-lg border" id="noUserBtn">찜
+		 							<ion-icon name="heart-outline"/>
+	 							</button>
+	 						</c:if>	
+	 						<c:if test="${not empty sessionScope.MEM_ID}">
+			 					<button class="btn btn-lg border" id="likeBtn">찜
+			 						<span id="likNo" style="display: none;">${resultMap.LIK_NO}</span>
+			 						
+									    <ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;" 
+									              ${resultMap.LIK_NO ne '0' ? '' : 'hidden="hidden"'}></ion-icon>
+									    <ion-icon id="noLike" name="heart-outline" 
+									              ${resultMap.LIK_NO eq '0' ? '' : 'hidden="hidden"'}></ion-icon> 
+			 					</button>
+		 					</c:if>
+		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
+		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
+		 						<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
+		 					</c:if>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
 <!-- 			 			<td><button class="btn btn-warning btn-lg">채팅</button></td> -->
@@ -184,17 +163,20 @@ td{
 		 			</tr>	 			
 		 		</table>
 		 	</div>
-		 	<div>
+		 	<div class="mt-5" style="width: 70%; height: auto;">
 		 		<table class="table">
-					<tr><td colspan="7">연관상품</td><tr>
+					<tr><td colspan="7">연관상품</td><tr><!-- GET_RELATED_PRODUCTS -->
 					<tr>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
+						<c:forEach var="img" items="${relatedImg}">
+							<td><a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${img.PRO_WR}&proDate=${img.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/no-pictures.png'"></a></td>
+						</c:forEach>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
 					<tr>									 		
 		 		</table>
 		 	</div>
@@ -207,9 +189,14 @@ td{
 		 				<td colspan="3"></td>
 		 			</tr>
 		 		</table>
-		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button">글 수정</button>
-				</div>
+		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
+			 		<!-- 거래 완료면 수정이 불가능하다. -->
+			 		<c:if test="${resultMap.PRO_TSC ne 'TM3'}">
+				 		<div class="d-grid gap-2">
+						  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
+						</div>
+					</c:if>
+				</c:if>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
 		 		<table class="table" style="text-align: center;">
@@ -217,6 +204,7 @@ td{
 		 			<tr>
 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 60px; height: 60px;"></td>
 		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)<br>(<small>신뢰도 9.9</small>)</td>
+		 				<input type="hidden" class="memNo" value="${resultMap.PRO_WR}">
 		 			</tr>
 		 			<tr>
 		 				<td class="center-align">
@@ -228,26 +216,6 @@ td{
 		 					<div class="img-innertext"><span>10000원</span></div>
 		 				</td>
 		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>		 	
 		 			<tr>
 		 				<td class="center-align">
 		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
@@ -261,32 +229,57 @@ td{
 		 			<tr>
 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2">게시자 후기</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
-		 			<tr>
-		 				<td colspan="2">
-		 					<button class="btn btn-warning" style="width: 30%;">채팅</button>
-		 					<button class="btn btn-success" style="width: 30%;">바로구매</button>
-		 				</td>
-		 			</tr>		 					
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2">게시자 후기</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr> -->
 		 		</table>
 		 	</div>
 		</div>
+		
+		<!-- 신고하기 모달 -->
+<!-- 		<div class="modal fade" id="exampleModal" tabindex="-1" -->
+<!-- 		aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 		<div class="modal-dialog modal-dialog-centered modal-lg"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<h2>신고목록</h2> -->
+<!-- 					<div> -->
+<!-- 						<button type="button" class="btn-close" data-bs-dismiss="modal" -->
+<!-- 							aria-label="Close"></button> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body"> -->
+<!-- 					<div id="container"> -->
+<!-- 						<aside> -->
+<!-- 							<header> -->
+<!-- 								<p class="fs-5"> -->
+<%-- 									<c:forEach var="dcm" items="${dcm}" varStatus="v"> --%>
+<%-- 										 <input type="radio" name="rd01" id="rd${v.index}" value="${dcm.CO_TYPE}${dcm.CO_NO}"><label for="rd${v.index}">${dcm.CODE}</label> <br> --%>
+<%-- 								    </c:forEach> --%>
+<!-- 							    </p> -->
+<!-- 							</header> -->
+<!-- 						</aside> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<button type="button" class="btn btn-primary" id="rptBtn">신고하기</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 	</div>
 </div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/startChat.js"></script>
 <script type="text/javascript">
 
 </script>

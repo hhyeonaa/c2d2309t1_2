@@ -1,6 +1,5 @@
 package com.team.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -16,7 +15,17 @@ public class ExcelDAO {
 	
 	private static final String NAMESPACE = "com.team.mappers.excel";
 	
-	public List<Map<String, String>> selectData() {
-		return session.selectList(NAMESPACE+".selectData");
+//	public int insertData(Map<String, Object> insertData) {
+//		System.out.println(session.selectList(NAMESPACE+".insertData", insertData));
+//		return 1;
+//	}
+	
+	public int insertData(Map<String, Object> insertData) {
+		return session.insert(NAMESPACE+".insertData", insertData);
+	}
+
+	public Map<String, String> getfieldName(Map<String, String> param) {
+		return session.selectOne(NAMESPACE+".getfieldName", param);
+		
 	}
 }

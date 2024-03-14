@@ -25,10 +25,10 @@
 				<div class="collapse navbar-collapse mainHeader" id="navbarTogglerDemo01">
 					<img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<c:forEach var="board" items="${mapList}">
-							<c:if test="${board.ACTIVE eq '1'}">
+						<c:forEach var="menu" items="${menu}">
+							<c:if test="${menu.ACTIVE eq '1'}">
 								<li class="menu">
-							 		<a class="nav-link" href="#">${board.CODE }</a>
+							 		<a class="nav-link" href="#">${menu.CODE }</a>
 								</li>
 							</c:if>
 						</c:forEach>
@@ -36,9 +36,9 @@
 					<form class="d-flex">
 						<div class="input-group" style="flex-wrap: nowrap;">
 					      <select class="form-select" aria-label="boardSelect">
-					      	<c:forEach var="board" items="${mapList}">
-					      		<c:if test="${board.ACTIVE eq '1'}">
-					      			<option value="${board.CO_NO }">${board.CODE }</option>
+					      	<c:forEach var="menu" items="${menu}">
+					      		<c:if test="${menu.ACTIVE eq '1'}">
+					      			<option value="${menu.CO_NO }">${menu.CODE }</option>
 					      		</c:if>
 				          	</c:forEach>
 				          </select>
@@ -73,170 +73,32 @@
 		</div>
     </div>
     
+    
+    
+    
+   	<input type="hidden" value="${CODE}" id="selectListItem">
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>게시판 목록</b></h4></div>
     </div>
-    <div class="row">
-		<div class="col-lg-12">
-			<div class="table-responsive">
-				<table id="boardList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
-					<thead>
-						<tr>
-							<th scope="col">번호</th>
-							<th scope="col">게시판명</th>
-							<th scope="col">게시판 유형</th>
-							<th scope="col">글쓰기 입력폼</th>
-							<th scope="col">순서</th>
-							<th scope="col">사용 여부</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="board" items="${mapList}">
-							<tr>
-								<th>${board.SEQ }</th>
-								<td>${board.CODE }</td>
-								<td>${board.CO_DETAIL }</td>
-								<td><a href="#" id="insertForm">설정하기</a></td>
-								<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-								<th scope="row">
-								<div class="form-check form-switch justify-content-center">
-									<c:if test="${board.ACTIVE eq '1'}">
-										<input class="form-check-input" type="checkbox" id="active" checked>
-									</c:if>
-									<c:if test="${board.ACTIVE eq '0'}">
-										<input class="form-check-input" type="checkbox" id="active">
-									</c:if>
-								</div>
-								</th>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-        </div>
-    </div>
     
-    
-    <!-- 게시판 입력폼 모달창 -->
-	<div id="inputModal" class="modal">
-	  <div class="modal-content mt-5" id="modal-content">
-	     <div class="modal-header" id="modal-header">
-		     <h3 class="modal-title" id="modal-title"><b>판매게시판 입력폼</b></h3>
-		     <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
-		     	&times;</button>
-	     </div>
-	     <div class="modal-body" id="modal-body">
-		    <div class="boardEdit">
-				<table class="table text-center mb-4">
-					<thead class="tableHr align-middle ">
-						<tr>
-							<th scope="col" >라벨명</th>
-							<th scope="col">타입</th>
-							<th scope="col">순서</th>
-							<th scope="col">숨김 여부</th>
-						</tr>
-					</thead>
-					<tbody class="tableHr" id="tbody">
-						<tr>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="글제목"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="단답형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="작성일"/>
-								</div>
-							</td>
-					        <td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="날짜/시간형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="form-outline align-top text-start">
-								  	<input type="text" name="" class="form-control" value="상품 종류"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="식품"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="의류"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="전자제품"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="잡화"/>
-								  	<input type="text" name="" class="form-control-plaintext border-bottom ms-1" value="기타"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="목록 선택형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="이미지 등록"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="파일 첨부형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control" value="상세내용"/>
-								</div>
-							</td>
-							<td align="center">
-								<div class="form-outline">
-								  	<input type="text" name="" class="form-control text-center" value="장문형"/>
-								</div>
-							</td>
-							<td><button id="btn"><ion-icon name="caret-up-outline" id="btnTop"></ion-icon></button></td>
-							<td><input type="checkbox" class="form-check-input" id="contacusercheck4" /></td>
-						</tr>
-					</tbody>
-				</table>
-		    </div>		
-	     </div>
-	     
-	     <div class="modal-footer" id="modal-footer">
-   			<button type="button" class="btn btn-dark" id="cancelBtn">취소</button>
-    		<button type="button" class="btn btn-light" id="formSaveBtn">저장</button>
-	     </div>
-	  </div>
+   	<div class="btn-wrapper">
+		<select name="perPage" id="setPerpage">
+			<option selected disabled hidden>선택</option>
+			<option value="-1">기본값</option>
+			<option value="0">한 페이지에 보기</option>
+			<option value="1">1개 씩 보기</option>
+			<option value="5">5개 씩 보기</option>
+			<option value="10">10개 씩 보기</option>
+			<option value="20">20개 씩 보기</option>
+			<option value="30">30개 씩 보기</option>
+			<option value="50">50개 씩 보기</option>
+			<option value="100">100개 씩 보기</option>
+		</select>
+		<button id="saveBtn" class="btn btn-outline-danger">저장</button>
+		<button id="resetBtn" class="btn btn-outline-danger">새로고침</button>
 	</div>
-    
-    
-    <div class="row g-0 pb-4">
-    	<div class="mb-4" align="right">
-			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
-			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
-		</div>
-		<div class="demo">
-		    <nav class="pagination-outer"  aria-label="Page navigation">
-		        <ul class="pagination" id="pagination"></ul>
-		    </nav>
-		</div> 
-    </div>
-    <div id="excel"></div>
+	
+    <div id="excel"></div>	
     <div id="grid"></div>
 </div>
 

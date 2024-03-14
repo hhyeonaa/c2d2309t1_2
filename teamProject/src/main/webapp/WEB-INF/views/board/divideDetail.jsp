@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,8 +59,11 @@
 			 </div>
 			</div>
 		 	<div style="width: 60%; height: 400px;">
+		 	<input type="hidden" id="memId" value="${sessionScope.MEM_ID}">
 		 	<input type="hidden" id="proNo" value="${resultMap.PRO_NO}">
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
+		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
+		 	<input type="hidden" id="proDate" value="${resultMap.PRO_DATE}">
 		 		<table>
 		 			<tr><th>${resultMap.PRO_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
@@ -72,20 +76,36 @@
 		 	<hr><fmt:parseDate var="parsedDate" value="${resultMap.PRO_DATE}" pattern="yyyyMMddHHmmss"/>
 		 		<table class="table"><!--  table-borderless -->
 		 			<tr>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
+			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png">  ${resultMap.LIKES_COUNT}</td>
 			 			<td><i class="bi bi-eye"></i>${resultMap.PRO_HITS}</td>
 			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</td>
+			 			<!-- 로그인 후 신고하기 버튼 보이기 -->
+						<c:choose> 
+						    <c:when test="${empty sessionScope.MEM_ID}">
+						        <!-- 사용자가 로그인하지 않은 경우 -->
+						    </c:when>
+						    <c:when test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
+						        <!-- 사용자가 로그인했지만, 게시물 작성자와 다른 경우 -->
+						        <td><a id="pageReport" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">
+						            <img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</a></td>
+						    </c:when>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>상품상태:</td>
-		 				<td>사용감 적음</td>
-		 				<td></td>
-		 				<td></td>
+		 				<c:set var="statusValue" value="${resultMap.PRO_STATUS_CODE}" />
+		 				<c:choose>
+						    <c:when test="${fn:contains(statusValue, '(')}">
+						        <td>${fn:substringBefore(statusValue, '(')}</td>
+						    </c:when>
+						    <c:otherwise>
+						        <td>${statusValue}</td>
+						    </c:otherwise>
+						</c:choose>
 		 			</tr>
 		 			<tr>
 		 				<td>카테고리:</td>
-		 				<td><a href="#">자켓/점퍼</a></td>
+		 				<td><a href="#">${resultMap.PRO_CATE_CODE}</a></td>
 		 				<td></td>
 		 				<td></td>
 		 			</tr>
@@ -97,15 +117,30 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td><i class="bi bi-building-check"></i>부산광역시 사하구 하단제2동</td>
-		 				<td></td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
-		 					<button class="btn btn-danger btn-lg">찜</button>
+		 					<c:if test="${empty sessionScope.MEM_ID }">
+		 						<button class="btn btn-lg border" id="noUserBtn">찜
+		 							<ion-icon name="heart-outline"/>
+	 							</button>
+	 						</c:if>	
+	 						<c:if test="${not empty sessionScope.MEM_ID}">
+			 					<button class="btn btn-lg border" id="likeBtn">찜
+			 						<span id="likNo" style="display: none;">${resultMap.LIK_NO}</span>
+			 						
+									    <ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;" 
+									              ${resultMap.LIK_NO ne '0' ? '' : 'hidden="hidden"'}></ion-icon>
+									    <ion-icon id="noLike" name="heart-outline" 
+									              ${resultMap.LIK_NO eq '0' ? '' : 'hidden="hidden"'}></ion-icon> 
+			 					</button>
+		 					</c:if>
 		 					<button class="btn btn-warning btn-lg">신청자 확인</button>
-		 					<button class="btn btn-success btn-lg">나눔신청</button>
+		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
+		 					<button class="btn btn-success btn-lg" id="shareApplication">나눔신청</button>
+		 					</c:if>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
 <!-- 			 			<td><button class="btn btn-warning btn-lg">채팅</button></td> -->
@@ -114,17 +149,32 @@
 		 			</tr>	 			
 		 		</table>
 		 	</div>
-		 	<div>
+		 	<div id="shareList" style="width: 70%; height: auto; display: none;">
+		 	<div class="input-group mb-3" style="width: 320px;">
+				<input type="text" class="form-control" id="divApplicant" placeholder="" aria-label="" aria-describedby="apply" value="${sessionScope.MEM_ID}" readonly>
+				<button class="btn btn-primary" type="button" id="apply">신청</button>
+			</div>
+<!-- 		 		<div> -->
+<%-- 		 			<input type="text" value="${sessionScope.MEM_ID}" readonly><button id="apply">신청</button> --%>
+<!-- 		 		</div> -->
+		 		<div>
+		 			<textarea id="appTxt" style="resize: none; " cols="40" rows="3" placeholder="나눔 신청 사유 또는 이유를 적어주세요."></textarea>
+		 		</div>
+		 	</div>
+		 	<div class="mt-5">
 		 		<table class="table">
 					<tr><td colspan="7">연관상품</td><tr>
 					<tr>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
-						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td>
+						<c:forEach var="img" items="${relatedImg}">
+							<td><a href="${pageContext.request.contextPath}/board/divideDetail?proWr=${img.PRO_WR}&proDate=${img.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;"></a></td>
+						</c:forEach>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
+<%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
 					<tr>									 		
 		 		</table>
 		 	</div>
@@ -137,34 +187,29 @@
 <!-- 		 				<td colspan="3"></td> -->
 <!-- 		 			</tr> -->
 		 		</table>
+		 		<c:forEach var="applicant" items="${selectDivList}">
+		 			<input type="hidden" class="divApp" value="${applicant.DIV_APPLICANT}">
+		 		</c:forEach>
+		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
 		 		<table class="table">
-		 			<tr><td colspan="6">신청자 정보</td><tr>
-		 			<tr><td colspan="6">
-	 					<div style="border: 1px solid;">
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치1<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다1</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치2<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다2</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치3<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다3</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치4<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다4</span>
-							 </div>
-							 <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-							 따봉도치5<button class="chat-button btn btn-warning mx-4">채팅하기</button>신청 이유: <span>따봉도치는 나의 것이다5</span>
-							 </div>
-							 <!-- 나머지 항목에 대해서도 같은 스타일을 적용 -->
-						</div>
-
-		 			</td></tr>
-
+		 			<tr><td colspan="1">신청자 정보</td><td colspan="2">신청 이유</td><td colspan="3"></tr><tr>
+	 				<c:forEach var="applicant" items="${selectDivList}">
+			 			<tr>
+				 			<td colspan="1">${applicant.MEM_NICK}</td>
+				 			<td colspan="3">${applicant.DIV_REASON}</td>
+				 			<td colspan="1"><button class="divideChatStartBtn chat-button btn btn-warning mx-4">채팅하기</button></td>
+				 			<td colspan="1"><button class="btn delBtn">x</button></td>
+			 			</tr>
+		 			</c:forEach>
 		 		</table>
-		 		<div class="d-grid gap-2">
-				  <button class="btn btn-secondary" type="button">글 수정</button>
-				</div>
+		 		</c:if>
+		 		<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
+			 		<c:if test="${resultMap.PRO_TSC ne 'TM3'}">
+				 		<div class="d-grid gap-2">
+						  <button class="btn btn-secondary" type="button" id="updateBtn">글 수정</button>
+						</div>
+					</c:if>
+				</c:if>
 		 	</div>
 		 	<div style="width: 30%; height: auto;">
 		 		<table class="table" style="text-align: center;">
@@ -194,46 +239,26 @@
 		 				</td>
 		 			</tr>
 		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>		 	
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>
-		 			<tr>
 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2">게시자 후기</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td>
-		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td>
-		 			</tr>
-		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr>
-		 			<tr>
-		 				<td colspan="2">
-		 					<button class="btn btn-warning" style="width: 40%;">신청자 확인</button>
-		 					<button class="btn btn-success" style="width: 40%;">나눔신청</button>
-		 				</td>
-		 			</tr>		 					
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2">게시자 후기</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr> -->
+<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
+<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
+<!-- 		 			</tr> -->
+<!-- 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr> -->
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2"> -->
+<!-- 		 					<button class="btn btn-warning" style="width: 40%;">신청자 확인</button> -->
+<!-- 		 					<button class="btn btn-success" style="width: 40%;">나눔신청</button> -->
+<!-- 		 				</td> -->
+<!-- 		 			</tr>		 					 -->
 		 		</table>
 		 	</div>
 		</div>
@@ -242,6 +267,7 @@
 </div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/divideDetail.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/board/startChat.js"></script>
 <script type="text/javascript">
 
 </script>

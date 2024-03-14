@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>메세지 관리</title>
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
+<link href="${pageContext.request.contextPath}/resources/css/muchang_css/modal.css" rel="stylesheet">
 <style>
     .insert:hover {
     	background-color: rgb(42, 188, 180, 0.2);
@@ -21,42 +23,49 @@
 <body>
 	<jsp:include page="../template/store_sidebar_open.jsp"/>
 		<main style="background: #f0f0f3; padding: 200px;">
-			<h4 class="mb-5"><b>메세지 문구 관리 (코드타입 : AM)</b></h4>
-			<div>
-				<table class="table table-hover table align-middle table table-sm mt-5">
-					<thead>
-						<tr>
-							<th scope="col" class="text-center" style="width: 220px;">
-								<div class="form-check form-switch" style="display: flex; justify-content: center; align-items: center;">
-								  	<input class="form-check-input" type="checkbox" role="switch" id="totalCheck" style="width: 50px; height: 25px;">&nbsp;
-								  	<label class="form-check-label" for="totalCheck">전체 선택</label>
-								</div>
-							</th>
-							<th scope="col" class="text-center">코드 번호</th>
-							<th scope="col" class="text-center">메세지 문구</th>
-							<th scope="col" class="text-center" colspan="2">
-								<div style="display: flex; justify-content: center;">
-									<span style="font-size: 33px; color:#2ABCB4; border: 1px solid #2ABCB4;" class="insert material-symbols-outlined">add</span>
-								</div>	
-							</th>
-						</tr>
-					</thead>
-					<tbody id="tbody">
-						<tr>
-							<th scope="row" class="text-center"><input type="checkbox" style="width: 25px; height: 25px;"></th>
-							<td class="text-center">AM01</td>
-							<td class="text-center">{0}이(가) 성공하였습니다.</td>
-							<td class="text-center" style="width: 75px;"><span style="font-size: 33px; color: green; border: 1px solid green;" class="save material-symbols-outlined">done</span></td>
-							<td class="text-center" style="width: 75px;"><span style="font-size: 33px; color: red; border: 1px solid red;" class="delete material-symbols-outlined">delete</span></td>
-						</tr>
-					</tbody>
-				</table>
+			<input type="hidden" id="CODE_TYPE" value="${CODE_TYPE}">
+			<div style="display: flex; justify-content: flex-end">
+				<button class="btn btn-warning" id="btnAdd">추가</button>
 			</div>
-			<div class="demo">
-			    <nav class="pagination-outer"  aria-label="Page navigation">
-			        <ul class="pagination" id="pagination"></ul>
-			    </nav>
-			</div> 
+			<div class="btn-wrapper">
+				<select name="perPage" id="setPerpage">
+					<option selected disabled hidden>선택</option>
+					<option value="-1">기본값</option>
+					<option value="0">한 페이지에 보기</option>
+					<option value="1">1개 씩 보기</option>
+					<option value="5">5개 씩 보기</option>
+					<option value="10">10개 씩 보기</option>
+					<option value="20">20개 씩 보기</option>
+					<option value="30">30개 씩 보기</option>
+					<option value="50">50개 씩 보기</option>
+					<option value="100">100개 씩 보기</option>
+				</select>
+				<button id="appendBtn">행 추가</button>
+				<button id="removeBtn">추가 행 삭제</button>
+				<button id="resetBtn">취소</button>
+				<button id="saveBtn">저장</button>
+				<button id="updateBtn">수정</button>
+			</div>
+			<div>
+				<div id="grid" style="width: 1280px;"></div>
+				<div style="display: flex; justify-content: flex-end;"><button class="btn btn-danger" id="ckDeleteBtn">삭제</button></div>
+			</div>
+			<!-- 관리자추가 모달창 -->
+			<div id="addModal" class="modal">
+			  	<div class="modal-content mt-5" id="modal-content">
+			     	<div class="modal-header" id="modal-header">
+				    	<h3 class="modal-title" id="modal-title"><b>메세지 추가</b></h3>
+				     	<button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
+				     	&times;</button>
+			     	</div>
+			     	<div class="modal-body" id="modal-body">
+			     	</div>
+			     	<div class="modal-footer" id="modal-footer">
+			       		<button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
+		    	   		<button type="button" id="beforeInsertBtn" class="btn btn-outline-danger">생성</button>
+			     	</div>
+			  	</div>
+			</div>
 		</main>	
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/muchang_js/message.js"></script>
 	<jsp:include page="../template/store_sidevar_close.jsp"/>

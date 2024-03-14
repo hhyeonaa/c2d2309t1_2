@@ -55,7 +55,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
                             </div>`;
         // 모달 내용 업데이트 및 표시
         $('.modalBox').html(modalContent);
-        $(".modal").show();
+        $(".imgModal").show();
 		$('#selectImg').attr('src', clickedImgSrc);
 		// 모달 컨텐츠 추가 후 이벤트 핸들러 재설정
 		$('#modalCarousel .carousel-control-prev').off('click').on('click', function(event) {
@@ -81,11 +81,11 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
     });
 
 	// 모달 클릭할때 이미지 닫음
-	$(".modal").click(function (e) {
+	$(".imgModal").click(function (e) {
 		e.preventDefault();
     	$('.modalBox').html('');
     	additionalImages = [];
-		$(".modal").toggle();
+		$(".imgModal").toggle();
 	});
 	
 	// 글 삭제 버튼
@@ -99,4 +99,107 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		alertMsg("AM2",["삭제"]);
 	})
+	
+	// 글 수정 버튼
+	$('#updateBtn').on('click',function(){
+		// 데이터를 다 들고 가야 하니까
+		const proWr = $('#proWr').val();
+		const proDate = $('#proDate').val();
+		alert(proWr + ' ' + proDate);
+		location.href="/" + window.location.pathname.split("/")[1] +"/board/writeBoard?proWr="+proWr+"&proDate="+proDate;
+		return;
+	})
+	
+	
+	// 신고 내용 모달 불러오기
+	$("#pageReport").on("click", function(){
+		$(".radioBox").empty();
+		$("#reportBtn").remove();
+		$.ajax({
+		  type: "get",
+		  url: '/' + window.location.pathname.split("/")[1] + "/chat/selectRepert",
+		  async: false
+		})
+		.done(function(datas){
+			var radio = (CO_NO, CODE, CO_TYPE) =>{
+				return '<input type="radio" class="reportRadio" name="rd" id="'+CO_TYPE+CO_NO
+						+ '" value="'+CO_TYPE+CO_NO+'"><label for="'+CO_TYPE+CO_NO+'">'
+						+ CODE+'</label> <br>'
+			}
+			for(data of datas){
+				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
+			}
+			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>')
+		})
+		;
+	})
+	
+	// 신고하기 버튼 클릭 시
+	$(document).on("click", "#reportBtn", function(){
+		let isCheck = $('input[name="rd"]:checked').val();
+		let reportTarget = $("#proWr").val();
+		
+		if(isCheck === undefined){
+			alertMsg('AM9', ["신고 내용"]);
+			return;
+		}
+		$.ajax({
+			url: '/' + window.location.pathname.split("/")[1] + "/chat/insertReport",
+			type: "POST",
+			data: {
+				reportTarget: reportTarget,
+				rptCode: isCheck
+			}
+		})
+		.done(function(data){
+			if(Boolean(data)){
+				alertMsg('AM3', ["신고"]);
+				$('#exampleModalReport').modal('hide');
+			}
+		})
+	});
+	
+	
+	
+	// 찜 관련 클릭
+	$(document).on('click', '#likeBtn', function () {
+		// 찜 삭제 기능
+		if ($('#noLike').is(':hidden')) {
+			if(alertMsg('AM4', ["찜"], true)) {
+				$.ajax({
+					type: 'post'
+					, url: 'deleteLike'
+					, data: {LIK_NO: $('#likNo').text()}
+				})
+				.done(function(data){
+					if(data == '1'){
+						$('#noLike').removeAttr('hidden');
+						$('#yesLike').attr('hidden', 'hidden');
+					}
+				});
+			};
+			
+		// 찜 추가 기능
+		} else {
+			if(alertMsg('AM8', ["찜"], true)) {
+				$.ajax({
+					type: 'post'
+					, url: 'insertLike'
+					, data: {PRO_NO: $('#proNo').val()}
+				})
+				.done(function(data){
+					if(data == '1'){
+//						$('#yesLike').removeAttr('hidden');
+//						$('#noLike').attr('hidden', 'hidden');
+						location.reload();
+					}
+				});
+			};
+		};	
+	});
+	
+	$('#noUserBtn').on('click', function() {
+		alertMsg('AM23', ["로그인 후"]); 
+	});
+	
 })

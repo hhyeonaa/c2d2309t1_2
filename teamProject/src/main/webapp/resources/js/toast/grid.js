@@ -16,26 +16,83 @@
  draggable(boolean) : 순서 바꾸는 기능 필요 시 (ex. 게시판 관리 페이지) (!!! draggable 사용 시 perPage 는 무조건 0)
 **/
 
-var grid = (url, perPage, columns, draggable) => {
+var appendRows = [];
+var defaultPerPage;
+var variablePerPage;
+var fn_grid = (url, perPage, columns, draggable, parameter) => {
+	defaultPerPage = perPage;
+	variablePerPage = perPage;
 	var pageOptions = {
 		useClient: true,
 		perPage: perPage
 	};
-	if(perPage === 0) pageOptions = {};
+	if(perPage === 0) {
+		pageOptions = {};
+		$("#setPerpage").remove();
+	}
 	
 	const dataSource = {
 		api: {
-			readData: { url: url, method: 'GET' }
-		}
+			createData: { url: url, method: "POST",   initParams: { param: parameter }},
+			readData:   { url: url, method: "GET",    initParams: { param: parameter }},
+			updateData: { url: url, method: "PUT",    initParams: { param: parameter }},
+		    deleteData: { url: url, method: "DELETE", initParams: { param: parameter }}
+		},
+  		contentType: "application/json"
 	};
-	const Grid = tui.Grid;
-	const grid = new Grid({
+	const grid = new tui.Grid({
 		rowHeight: 60,
 		draggable: draggable,
-		el: document.getElementById('grid'),
+		el: document.getElementById("grid"),
 		columns: columns,
 		data: dataSource,
-		rowHeaders: ['rowNum', 'checkbox'],
+		rowHeaders: ["rowNum", "checkbox"],
 		pageOptions: pageOptions
+	});
+//	grid.hideColumn("SEQ");
+
+	// 순서 변경
+	grid.on("drop", () => {
+		for(var i = 0; i < grid.getRowCount(); i++)
+			grid.setValue(grid.getRowAt(i).rowKey, "SEQ", i+1);
+		
+		grid.request("updateData");
+		grid.resetData(grid.getData());
+	});
+	
+	// 수정
+	grid.on("afterChange", (e) => {
+		debugger;
+		
+		if(e.changes[0].columnName == "SEQ") return;
+
+		grid.request("updateData");
+		grid.resetData(grid.getData(), {
+			pageState: {
+				page: parseInt(e.changes[0].rowKey / variablePerPage + 1),
+				totalCount: grid.getPaginationTotalCount(),
+				perPage: variablePerPage
+			}
+		});
+	});
+	
+	// 삭제
+	$(document).on("click", "#ckDeleteBtn", function(e){
+		grid.removeCheckedRows(true);
+		grid.request("deleteData");
+		grid.reloadData();
+	});
+	
+	// 새로고침 $(document)
+    $(document).on("click", "#resetBtn", function(){ grid.reloadData(); });
+
+	// 페이징 selectbox	
+	$(document).on("change", "#setPerpage", function(e){
+		var _perPage = Number(e.target.value);
+		if(_perPage === 0) _perPage = grid.getRowCount();
+		if(e.target.value === "-1")
+			_perPage = defaultPerPage;
+		variablePerPage = _perPage;
+		grid.setPerPage(_perPage, dataSource);
 	});
 }

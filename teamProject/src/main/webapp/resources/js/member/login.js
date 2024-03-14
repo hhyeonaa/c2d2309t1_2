@@ -1,5 +1,5 @@
 // ---------------------------------카카오 로그인---------------------------------
-Kakao.init('d494fc385e77a1fec1a8a162bd120af8'); // 사용하려는 앱의 JavaScript 키 입력
+Kakao.init('e44dce7d469ddd0572f9316a1a71d609'); // 사용하려는 앱의 JavaScript 키 입력
 Kakao.isInitialized();
 function loginWithKakao() {
     Kakao.Auth.login({
@@ -124,7 +124,11 @@ $(function(){
 	var pwModal = document.getElementById("pwModal");
 	var pwResultModal = document.getElementById("pwResultModal");
 	
-	
+//	$("#loginBtn").click(function() {
+//        $("#loginForm").submit();
+//        debugger;
+//      alertMsg("AM7", ["아이디, 비밀번호"]);
+//    });
 	
 	// ------------------이메일로 가입하기------------------
 	// 이메일로 가입하기 버튼 클릭 시 모달 열기
@@ -332,9 +336,12 @@ $(function(){
 					 ,MEM_TEL: $('#phone').val()
 					 ,MEM_EMAIL: $('#email').val() }
 		})
+		.done(function(data){
+			alertMsg("AM3", ["회원가입"]);
+			signupModal.style.display = "none";
+			location.replace('login');
+		})
 		
-		signupModal.style.display = "none";
-		location.replace('login');
 	})
 	// x버튼 클릭 시 모달 종료
 	$('.close').on('click', function(){

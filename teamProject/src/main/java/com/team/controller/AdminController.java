@@ -3,7 +3,9 @@ package com.team.controller;
 
 import java.io.Console;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,19 +14,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.service.AdminService;
+import com.team.service.BoardService;
 import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
+import com.team.util.JsonUtils;
 import com.team.util.ToastUI;
 
 @Controller
@@ -40,15 +49,44 @@ public class AdminController {
 	/* 현아 작업공간 */
 	@GetMapping("/manager")
 	public String manager(Model model) {
-		model.addAttribute("mapList", adminService.getAdminList());
+//		model.addAttribute("mapList", adminService.getAdminList());
 		return "admin/manager";
 	}
- 	@GetMapping("/managerList")
+	
+	@PostMapping("/managerPro") // CREATE
  	@ResponseBody
- 	public ResponseEntity<?> managerList(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> mapList = adminService.getAdminList();
- 		System.out.println(mapList);
+ 	public ResponseEntity<?> createManager(@RequestBody String createdRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(createdRows);
+ 		return null;
+ 	}
+	
+ 	@GetMapping("/managerPro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> readManager(@RequestParam Map<String, String> req, HttpSession session){
+ 		req.put("RO_NUM", session.getAttribute("MEM_ID").toString());
+ 		System.out.println("!@#!@# " + req);
+ 		List<Map<String, String>> mapList = adminService.getAdminList(req);
  		return ToastUI.resourceData(req, mapList);
+ 	}
+ 	
+ 	@PutMapping("/managerPro") // UPDATE
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateManager(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+		 result.forEach(row -> {
+			adminService.adminUpdate(row);
+ 	    });
+ 		return ResponseEntity.ok().build();
+ 	}
+ 	
+ 	@DeleteMapping("/managerPro") // DELETE
+ 	@ResponseBody
+ 	public ResponseEntity<?> deleteManager(@RequestParam Map<String, String> deletedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
+ 	    result.forEach(row -> {
+ 	        adminService.adminDelete(row);
+ 	    });
+ 	    return ResponseEntity.ok().build();
  	}
 	
 	@PostMapping("/insertPro")
@@ -62,165 +100,242 @@ public class AdminController {
 		}
 	}
 	
-	@PostMapping("/deletePro")
-	public String deletePro(@RequestParam String AD_NO) {
-		adminService.adminDelete(AD_NO);
-		return "1";
-	}
-	
-	@PostMapping("/updatePro")
-	public void updatePro(@RequestParam Map<String, String> map) {
-		adminService.adminUpdate(map);
-	}
-	
 	@GetMapping("/board")
-	public String board(Model model) {
-		List<Map<String, String>> mapList = adminService.getBoardList();
-		model.addAttribute("mapList", mapList);
+	public String board(@RequestParam Map<String, String> map, Model model, HttpSession session) {
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("form", codeService.selectCodeList(EnumCodeType.입력폼항목, session));
 		return "admin/board";
 	}
 	
- 	@GetMapping("/boardList")
+ 	@GetMapping("/boardPro")
  	@ResponseBody
- 	public ResponseEntity<?> boardList(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> mapList = adminService.getBoardList();
- 		System.out.println(mapList);
- 		return ToastUI.resourceData(req, mapList);
- 	}
-	
-	@PostMapping("/displayUpdate")
-	public void displayUpdate(@RequestParam Map<String, String> map) {
-		adminService.displayUpdate(map);
-	}
-	
-	@GetMapping("/category")
-	public String category(Model model) {
-		List<Map<String, String>> mapList = adminService.getCategoryList();
-		model.addAttribute("mapList", mapList);
-		return "admin/category";
-	}
-	
- 	@GetMapping("/categoryList")
- 	@ResponseBody
- 	public ResponseEntity<?> categoryList(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> mapList = adminService.getCategoryList();
- 		System.out.println(mapList);
+ 	public ResponseEntity<?> readBoard(@RequestParam Map<String, String> req, HttpSession session) {
+ 		List<Map<String, String>> mapList = codeService.selectCodeList(EnumCodeType.메뉴항목, session);
  		return ToastUI.resourceData(req, mapList);
  	}
  	
-	@GetMapping("/inputForm")
-	public String inputForm(Model model) {
-		return "admin/inputForm";
+ 	@PutMapping("/boardPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateBoard(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		System.out.println(result);
+        adminService.displayUpdate(result);
+ 		return null;
+ 	}
+
+	@GetMapping("/category")
+	public String category(Model model, HttpSession session) {
+		Map<String, String> existingData = new HashMap<String, String>();
+		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
+		model.addAllAttributes(existingData);
+		model.addAttribute("keyList", EnumCodeType.전체코드타입.getKeyList());
+		model.addAttribute("valueList", EnumCodeType.전체코드타입.getValueList());
+		
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
+		return "admin/category";
 	}
 	
-	@PostMapping("/inputFormPro")
-	public String inputFormPro(@RequestParam Map<String, String> map) {
-		System.out.println("map : " + map.entrySet());
-		return "admin/inputFormPro";
-	}
+ 	@GetMapping("/categoryPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> readCategory(@RequestParam Map<String, String> param, HttpSession session){
+		List<Map<String, String>> mapList = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+ 		return ToastUI.resourceData(param, mapList);
+ 	}
+ 	
+ 	@PutMapping("/categoryPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateCategory(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		System.out.println(result);
+ 		List<Map<String, String>> newData = new ArrayList<Map<String, String>>();
+ 		result.forEach(t -> {
+			Map<String, String> currentData = new HashMap<String, String>();
+			currentData.put(EnumCodeType.코드번호.getType(), t.get(EnumCodeType.코드번호.getType()));
+			currentData.put(EnumCodeType.코드타입.getType(), t.get(EnumCodeType.코드타입.getType()));
+			newData.add(currentData);
+		});
+		adminService.displayUpdate(result);
+ 		return null;
+ 	}
 	
 	/* 현아 작업공간 */
 	
 	/* 무창 작업공간 */
+	
+//	----- 메세지 페이지 -----
+	
 	@GetMapping("/message_manage")
 	public String message_manage(Model model, HttpSession session) {
-		
-		codeService.selectCodeList(EnumCodeType.메세지, session, true);
-		
-		
-		codeService.selectCodeList(EnumCodeType.메세지, session);
-		
+		model.addAttribute("CODE_TYPE", EnumCodeType.메세지.getType());
 		return "admin/message_manage";
 	}
 	
-	@GetMapping("/category_manage")
-	public String category_manage(Model model, HttpSession session) {
-		model.addAllAttributes(codeService.selectCodeList(EnumCodeType.카테고리항목, session, true));
-		return "admin/category_manage";
+	@GetMapping("/message_managePro")
+	@ResponseBody
+	public ResponseEntity<?> selectMessage(@RequestParam Map<String, String> param, HttpSession session) {
+		return ToastUI.resourceData(param, codeService.selectMessageList(EnumCodeType.메세지, session));
 	}
 	
-	@GetMapping("/category_pro")
-	public void category_pro(HttpServletResponse response) {
-		Object[] arr = {"잘가요"};
+	@PostMapping("/codeInsertPro")
+	@ResponseBody
+	public ResponseEntity<?> codeInsertPro(@RequestParam Map<String, String> param) {
+		System.out.println(param);
+ 		boolean isInsert = adminService.messageInsert(param);
+ 		return ResponseEntity.ok().body(isInsert);
 	}
 	
-	@GetMapping("/trade_manage")
-	public String trade_manage(Model model) {
-		model.addAttribute("code1", codeService.selectCode("DD1"));
-		model.addAttribute("code2", codeService.selectCode("DD2"));
-		return "admin/trade_manage";
+	@PutMapping("/message_managePro")
+	@ResponseBody
+	public ResponseEntity<?> updateMessage(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		adminService.messageUpdate(result);
+ 		return null;
 	}
 	
-	@GetMapping("/declare_manage")
-	public String declare_manage() {
-		return "admin/declare_manage";
+	@DeleteMapping("/message_managePro")
+	@ResponseBody
+	public ResponseEntity<?> deleteMessage(@RequestParam Map<String, String> deletedRows) {
+		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
+ 		boolean a = adminService.messageDelete(result);
+ 		System.out.println(a);
+ 		return null;
 	}
 	
-	@GetMapping("/price_manage")
-	public String price_manage() {
-		return "admin/price_manage";
-	}
+//	----- 공동코드 페이지 -----
 	
 	@GetMapping("/code_manage")
-	public String code_manage(@RequestParam Map<String, String> param, Model model) {
-		String getUrlCode = param.get(EnumCodeType.코드내용.getType());
-		if(getUrlCode == null) {
-			param.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
-		}
-		model.addAllAttributes(param);
-		
+	public String code_manage(Model model) {
+		Map<String, String> existingData = new HashMap<String, String>();
+		existingData.put(EnumCodeType.코드내용.getType(), EnumCodeType.메뉴항목.getType());
+		model.addAllAttributes(existingData);
+		model.addAttribute("keyList", EnumCodeType.전체코드타입.getKeyList());
+		model.addAttribute("valueList", EnumCodeType.전체코드타입.getValueList());
+
 		return "admin/code_manage";
 	}
 	
-	@PostMapping("/codePro")
-	public ResponseEntity<?> codePro(@RequestParam Map<String, String> param, HttpSession session) {
-
-		List<Map<String, String>> data = codeService.selectCodeList(param.get(EnumCodeType.코드내용.getType()), session);
-		return ResponseEntity.ok().body(data);
+	@GetMapping("/codePro")//	get
+ 	@ResponseBody
+ 	public ResponseEntity<?> getCodePro(@RequestParam Map<String, String> param, HttpSession session){
+		List<Map<String, String>> data = codeService.selectCodeList(
+				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
+		
+ 		return ToastUI.resourceData(param, data);
+ 	}
+	
+	@PostMapping("/codePro")//	post
+ 	@ResponseBody
+ 	public ResponseEntity<?> insertCodePro(@RequestBody String insertedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
+ 		System.out.println(result);
+ 		adminService.codeInsert(result);
+ 		return null;
+ 	}
+	
+	@PutMapping("/codePro")	//	put
+ 	@ResponseBody
+ 	public ResponseEntity<?> updateCodePro(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		List<Map<String, String>> newData = new ArrayList<Map<String, String>>();
+ 		
+ 		result.forEach(t -> {
+ 			Map<String, String> currentData = new HashMap<String, String>();
+ 			currentData.put(EnumCodeType.코드번호.getType(), t.get(EnumCodeType.코드번호.getType()));
+ 			currentData.put(EnumCodeType.코드타입.getType(), t.get(EnumCodeType.코드타입.getType()));
+ 			newData.add(currentData);
+ 		});
+ 		
+ 		List<Map<String, String>> datas = adminService.codeSelect(newData);
+ 		for(int i = 0; i < result.size(); i++) {
+ 			result.get(i).put("ACTIVE", datas.get(i).get("ACTIVE"));
+ 		}
+ 		adminService.codeUpdate(result);
+ 		
+ 		return null;
+ 	}
+	
+	@DeleteMapping("/codePro")	//	delete
+ 	@ResponseBody
+ 	public ResponseEntity<?> deleteCodePro(@RequestBody String deletedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
+ 		System.out.println(result);
+		adminService.codeDelete(result);
+ 		return null;
+ 	}
+	
+//	----- 로그아웃 -----
+	
+	@GetMapping("/logout")
+	public void logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		session.invalidate();
+		codeService.submitForAlert(response, "AM3", new Object[]{"로그아웃"}, request.getContextPath());
 	}
+	
+//	----- 테스트 페이지 -----
+	
+	@GetMapping("/drawing")
+	public String drawing() {
+		return "admin/drawing";
+	}
+	
 	/* 무창 작업공간 */
 	
 	/* 성엽 작업공간 */
 	
+	// 차트 이동
 	@GetMapping("/chart")
 	public String chart() {
 		return "admin/chart";
-	}//
+	}
+	
+	@GetMapping("/member_report")
+	public String member_report(Model model) {
+		
+		List<Map<String, String>> reportList = adminService.getReportList();
+		
+		model.addAttribute("reportList", reportList);
+		
+		return "admin/member_report";
+	}
+	
+	@GetMapping("/member_reportPro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> member_reportPro(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> reportList = adminService.getReportList();
+ 		return ToastUI.resourceData(req, reportList);
+ 	}
 	
 	@GetMapping("/member_manage")
-	public String member_manage(Model model) {
-		
-		List<Map<String, String>> memList = adminService.getMemberList();
-		
-		model.addAttribute("memList", memList);
+	public String member_manage() {
 		
 		return "admin/member_manage";
-	}//
+	}
 	
-	@GetMapping("/memberDelete")
-	public String delete(@RequestParam String MEM_NO) {
-		
-		adminService.memberDelete(MEM_NO);
-		
-		return "redirect:/admin/member_manage";
-	}//
+	@GetMapping("/member_managePro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> select_member_managePro(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> mapList = adminService.getMemberList();
+ 		return ToastUI.resourceData(req, mapList);
+ 	}
 	
-	@GetMapping("/contentDelete")
-	public String contentDelete(@RequestParam String PRO_NO) {
-		
-		adminService.contentDelete(PRO_NO);
-		
-		return "redirect:/admin/board_content";
-	}//
+	@PutMapping("/member_managePro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> update_member_managePro(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		adminService.memberStop(result);
+ 		return null;
+	}
 	
-	@GetMapping("/content_Delete")
+	@GetMapping("/cateContentDelete")
 	@ResponseBody
-	public ResponseEntity<?> content_Delete(@RequestParam String PRO_NO) {
+	public ResponseEntity<?> cateContentDelete(@RequestParam String PRO_NO) {
+		
 		Map<String, String> result = new HashMap<String, String>();
-		result.put("result", Integer.toString(adminService.contentDelete(PRO_NO)));
+		result.put("result", Integer.toString(adminService.cateContentDelete(PRO_NO)));
 		
 		return ResponseEntity.ok().body(result);
-	}//
+	}
 	
 	@GetMapping("/board_content")
 	public String board_content(Model model) {
@@ -230,18 +345,42 @@ public class AdminController {
 		model.addAttribute("contentList", contentList);
 		
 		return "admin/board_content";
-	}//
+	}
 	
-	@GetMapping("/board_category")
+	@GetMapping("/board_contentPro") // READ
  	@ResponseBody
- 	public ResponseEntity<?> board_category(@RequestParam Map<String, String> param){
-		System.out.println(param); // {category=2}
- 		List<Map<String, String>> cateList = adminService.getBoardCategoryList(param);
- 		return ResponseEntity.ok().body(cateList);
- 	}//
+ 	public ResponseEntity<?> select_board_contentPro(@RequestParam Map<String, String> req, HttpSession session){
+ 		List<Map<String, String>> contentList = adminService.getContentboardList();
+ 		return ToastUI.resourceData(req, contentList);
+ 	}
+	
+	@PutMapping("/board_contentPro") // READ
+ 	@ResponseBody
+ 	public ResponseEntity<?> delete_board_contentPro(@RequestBody String updatedRows) {
+ 		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
+ 		System.out.println(result);
+ 		adminService.boardUpdate(result);
+ 		return null;
+ 	}
+	
+	// chart
+	@GetMapping("/getChartData")
+ 	@ResponseBody
+ 	public ResponseEntity<?> getChartData(@RequestParam Map<String, String> param){
 		
+		Map<String, List> map = new HashMap<String, List>();
+ 		List<Map<String, String>> memList = adminService.getMemberCntList(param);
+ 		List<Map<String, String>> cateList = adminService.getCategoryCntList(param);
+ 		List<Map<String, String>> tradeList = adminService.getTotalTradeList(param);
+ 		
+ 		map.put("memList", memList);
+ 		map.put("cateList", cateList);
+ 		map.put("tradeList", tradeList);
+ 		
+ 		return ResponseEntity.ok().body(map);
+ 	}
+	
 	/* 성엽 작업공간 */	
-
 
 
 }

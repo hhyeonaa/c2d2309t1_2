@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
 .productInfo{
 	border: none; 
 	width: 100%; 
@@ -650,8 +652,9 @@ svg:not(:root) {
 }
 
 .iwgmOh > div:nth-last-child(1) {
-    padding-top: 20px;
-    border-top: 1px solid rgb(242, 242, 242);
+    /* 24.03.12 수정 */
+    padding-top: 0px; 
+/*     border-top: 1px solid rgb(242, 242, 242); */
 }
 
 .epdsLL {

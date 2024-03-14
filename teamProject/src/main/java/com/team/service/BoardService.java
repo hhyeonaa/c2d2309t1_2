@@ -48,7 +48,7 @@ public class BoardService {
 
 	public Map<String, String> selectBoardDetail(Map<String, String> map) {
 		System.out.println("BoardService selectBoardDetail()");
-		return boardDAO.selectBoardDetail(map);
+		return boardDAO.selectBoardDetail(map); 
 	}// selectBoardDetail();
 	
 	// 성엽 작업 시작 //
@@ -84,6 +84,75 @@ public class BoardService {
 		System.out.println("BoardService deleteBoard()");
 		return boardDAO.deleteBoard(delMap);
 	}// deleteBoard()
+
+	public List<Map<String, String>> selectAddress(String id) {
+		System.out.println("BoardService selectAddress()");
+		return boardDAO.selectAddress(id);
+	}// selectAddress()
+
+	public String getProNo(Map<String, String> getNumMap) {
+		System.out.println("BoardService getProNo()");
+		return boardDAO.getProNo(getNumMap);
+	}// getProNo()
+
+	public void updateBoard(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardService updateBoard()");
+		// 리스트의 크기가 6보다 작은 동안 'empty'를 추가
+//        while (imageFilenames.size() < 6) {
+//            imageFilenames.add("empty");
+//        }
+		boardDAO.updateBoard(parsedMap,imageFilenames);
+	}// updateBoard()
+
+	public List<Map<String, String>> selectAuction(Map<String, String> map) {
+		System.out.println("BoardService selectAuction()");
+		return boardDAO.selectAuction(map);
+	}// selectAuction()
+
+	public void aucHits(Map<String, String> map) {
+		System.out.println("BoardService aucHits()");
+		boardDAO.aucHits(map);
+	}// aucHits()
+
+	public Map<String, String> selectAuctionDetail(Map<String, String> map) {
+		System.out.println("BoardService selectAuctionDetail()");
+		return boardDAO.selectAuctionDetail(map);
+	}// selectAuctionDetail()
+
+	public String getAucNo(Map<String, String> getNumMap) {
+		System.out.println("BoardService getAucNo()");
+		return boardDAO.getAucNo(getNumMap);
+	}// getAucNo()
+
+	public void updateAuction(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardService updateAuction()");
+		boardDAO.updateAuction(parsedMap,imageFilenames);
+	}// updateAuction()
+
+	public List<Map<String, String>> getRelatedCateImg(Map<String, String> map) {
+		System.out.println("BoardService getRelatedCateImg()");
+		return boardDAO.getRelatedCateImg(map);
+	}// getRelatedCateImg()
+
+	public boolean insertDivide(Map<String, String> param) {
+		System.out.println("BoardService insertDivide()");
+		return boardDAO.insertDivide(param);
+	}// insertDivide()
+
+	public List<Map<String, String>> getDivList(Map<String, String> map) {
+		System.out.println("BoardService getDivList()");
+		return boardDAO.getDivList(map);
+	}// getDivList()
+
+	public boolean deleteDivide(Map<String, String> param) {
+		System.out.println("BoardService deleteDivide()");
+		return boardDAO.deleteDivide(param);
+	}// deleteDivide()
+
+	public List<Map<String,String>> selectMyBoard(Map<String, String> param) {
+		System.out.println("BoardService selectMyBoard()");
+		return boardDAO.selectMyBoard(param);
+	}// selectMyBoard()
 
 
 }// BoardService 끝

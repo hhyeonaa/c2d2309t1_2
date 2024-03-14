@@ -13,46 +13,42 @@
 <body class="d-flex flex-column min-vh-100">
 
 <div style="display: flex; justify-content: center; align-items: center;">
-
+<div>
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-<!-- 		<div style="border: 1px solid black; width: 100%; height: 1000px;"> -->
-		<div class="status-check" style="margin-bottom: 20px; text-align: center; width: 100%;">
-            <select>
-            	<option>1</option>
-            	<option>2</option>
-            	<option>3</option>
-            </select>
-            <select>
-            	<option>1</option>
-            	<option>2</option>
-            	<option>3</option>
-            </select>
-            <select>
-            	<option>1</option>
-            	<option>2</option>
-            	<option>3</option>
-            </select>
-        </div>
         <!-- 각 카드를 이 위치에 반복 배치 -->
-        <c:forEach var="buy" items="${buyList}">
-        <div class="col">
-            <div class="card h-100">
-                <img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..." onerror="123">
-                <div class="card-body">
-                    <span class="state1">${buy.PRO_TC}</span>
-                    <span class="state2">${buy.PRO_TSC}</span><br>
-                    <p>${buy.PRO_NAME}</p>
-                    <h5><b>${buy.PRO_PRICE}원</b></h5>
-                </div>
-            </div>
-        </div>
-        </c:forEach>
+		<c:forEach var="map" items="${resultList}">
+	        <div class="col boardlist">
+	            <div class="card h-100">
+	                <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
+	                <div class="card-body">
+	                    <span class="state1">${map.PRO_TC_CODE}</span>
+	                    <span class="state2">${map.PRO_TSC_CODE}</span>
+	                    <span style="float: right; font-size: 23px;">
+					      <a id=likeBtn class="profile_btn">
+			 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon> 
+					      </a>
+	                    </span>
+	                    <br>
+	                    <p>${map.PRO_NAME}</p>
+	                    <h5><b>${map.PRO_PRICE}</b></h5>
+	                </div>
+	            </div>
+	        </div>
+		</c:forEach>
 		  
-<!-- 		</div> -->
-
 	</div>
+		<div class="demo">
+		    <nav class="pagination-outer"  aria-label="Page navigation">
+		        <ul class="pagination" id="pagination"></ul>
+		    </nav>
+		</div>
+	</div>		
 </div>
 </body>
-
+<script type="text/javascript">
+	$(() => {
+		paging("#main .boardlist", 12, 0);
+	})
+</script>
 <jsp:include page="../template/Footer.jsp"/>
 </html>

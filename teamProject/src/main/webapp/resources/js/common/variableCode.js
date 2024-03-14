@@ -31,7 +31,7 @@
 
 
 function paging(pgEvent, pageSize, oneOrZero){
-
+debugger;
 	var totalCount = $(pgEvent).length + oneOrZero;
 	if(totalCount === 0){
 		totalCount++;
@@ -79,13 +79,13 @@ function paging(pgEvent, pageSize, oneOrZero){
  * 로딩창 띄우기
  * 
  */
-$(() => {
-	$(window).ajaxStart(function(){   
-		$("#loading").show();  
-	}).ajaxStop(function(){   
-	  	$("#loading").hide();  
-	});
-})	
+//$(() => {
+//	$(window).ajaxStart(function(){   
+//		$("#loading").show();  
+//	}).ajaxStop(function(){   
+//	  	$("#loading").hide();  
+//	});
+//})	
 	
 
 

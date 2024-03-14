@@ -20,13 +20,13 @@
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="/* border: 1px solid black; */ width: 100%; height: 100%; padding-top: 5%; align-items: center;">
 			<!--  -->
-        	<div class="container rounded-5 shadow" style="height: 700px; width: 700px; padding: 0, 20%, 0, 20%;">
+        	<div class="container rounded-5 shadow" style="height: 650px; width: 700px; padding: 0, 20%, 0, 20%;">
                 <section class="css-1dk9sr2">
                     
                     <div class="css-312egs">
                         
                         <section class="css-2fvz7x">
-                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/member/profile.png"/>
+                            <img alt="유저 프로필" loading="lazy" width="130px" height="130px" decoding="async" data-nimg="1" class="css-pq603g" style="color:transparent;" src="${pageContext.request.contextPath}/resources/img/uploads/${profile.MEM_IMAGE	}"/>
                             
                             <c:if test="${profile.MEM_PW == null || profile.MEM_PW == ''}">
                             	<c:choose>
@@ -54,19 +54,21 @@
                             </c:if>
                             
                             <button type="button" onclick="location.href='memberEdit'">프로필 수정하기</button>
-                            <br><span>내 평점온도</span>
-                            <div class="chart" style="width: 250px;">
+                            <br>
+<!--                             <br><span>내 평점온도</span> -->
+<!--                             <div class="chart" style="width: 250px;"> -->
                             
-	                            <div class="outer_div">
-	                            	<div class="my_gradient_4" style="width: 60%"><p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div>
-	                            </div>
-<!-- 						      <div class="bar" style="width: 40%;">40˚</div> -->
-						    </div>
+<!-- 	                            <div class="outer_div"> -->
+<!-- 	                            	<div class="my_gradient_4" style="width: 60%"> -->
+<!-- 	                            	<p style="font-size: 10px; text-align: right; padding-right: 5%; color: white;">60˚</p></div> -->
+<!-- 	                            </div> -->
+<!-- <!-- 						      <div class="bar" style="width: 40%;">40˚</div> --> 
+<!-- 						    </div> -->
                         </section>
                         
                         <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='myList'">
-                            <span>내 상품 관리</span>
-                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <span id="span01">내 상품 관리</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg01">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </g>
@@ -78,9 +80,9 @@
                             </svg>
                         </a>
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='buyList'">
-                            <span>구매 내역</span>
-                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='tradeList'">
+                            <span id="span01">내 거래 내역</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg01">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </g>
@@ -92,9 +94,9 @@
                             </svg>
                         </a>
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='salesList'">
-                            <span>판매 내역</span>
-                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='trading'">
+                            <span id="span01">진행 중인 거래</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg01">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </g>
@@ -107,8 +109,8 @@
                         </a>
                         
                         <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='likeList'">
-                            <span>찜한 상품</span>
-                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <span id="span04">찜한 상품</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg04">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </g>
@@ -121,9 +123,9 @@
                         </a>
                         <hr style="border-color: white;">
                         
-                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='withdrawal'">
-                            <span>계정삭제</span>
-                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <a rel="noopener noreferrer" class="css-vqah3m" onclick="location.href='memberDelete'">
+                            <span id="span05">회원탈퇴</span>
+                            <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg05">
                                 <g clip-path="url(#ic_arrow_mini_svg__a)">
                                     <path d="M12.866 4.583 7.083 9.908l5.783 5.334" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </g>

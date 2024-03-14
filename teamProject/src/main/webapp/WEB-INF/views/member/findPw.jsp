@@ -33,10 +33,12 @@
 
 	<!--  html 전체 영역을 지정하는 container -->
 	<div id="container" class="container rounded-5 shadow" style="width: 450px; height: 650px;">
+		<input type="hidden" id="checkResult2" value="${checkResult}">
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
 		<!-- 로그인 페이지 타이틀 -->
 		<img src="../resources/img/member/logo.jpg" alt="로고" style="width: 110px; height: 50px;">
+		<hr>
 		<h4>비밀번호 찾기</h4>
 	    <!-- 이하 생략 -->
 		<br>

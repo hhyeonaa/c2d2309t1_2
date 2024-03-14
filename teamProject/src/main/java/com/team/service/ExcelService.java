@@ -15,7 +15,11 @@ public class ExcelService {
 	@Inject
 	private ExcelDAO excelDAO;
 	
-	public List<Map<String, String>> selectData() {
-		return excelDAO.selectData();
+	public int insertData(Map<String, Object> insertData) {
+		return excelDAO.insertData(insertData);
+	}
+
+	public Map<String, String> getfieldName(Map<String, String> param) {
+		return excelDAO.getfieldName(param);
 	}
 }

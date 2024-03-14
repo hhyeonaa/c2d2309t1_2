@@ -1,5 +1,6 @@
 package com.team.controller;
 
+import java.awt.Menu;
 import java.io.File;
 import java.io.IOException;
 import java.lang.System.Logger;
@@ -13,6 +14,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -23,11 +25,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.team.service.AdminService;
 import com.team.service.BoardService;
+import com.team.service.MemberService;
 import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
 
@@ -41,71 +46,156 @@ public class BoardController {
 	BoardService boardService;
 	@Inject
 	private TeamCodeService codeService;
+	@Inject
+	private AdminService adminService;
+	@Inject
+	private MemberService memberService;
 	
 	@GetMapping("/saleBoard")
-	public String saleBoard(Model model) {
+	public String saleBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
 		System.out.println("BoardController saleBoard()");
-		String proTc = "MM1";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
+		
+//		String proTc = "MM1";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
 		/*테스트용 select start*/
 //		Map<String, String> map = new HashMap<String, String>();
 //		map.put("proNo", "PR4");
 //		System.out.println(boardService.select(map));
 		/*테스트용 select end*/
 //		List<Map<String,String>> resultList = boardService.selectSaleBoard();
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
+		
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "1"));
 		logger.info("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
-		logger.info("resultList: "+resultList);
-		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
 		return "board/saleBoard";
 	}// saleBoard()
-	
 	
 	// 성엽 작업 시작 //
 	
 	@GetMapping("/buyBoard")
-	public String buyBoard(Model model) {
-		System.out.println("BoardController buyBoard()");
-		
-		List<Map<String, String>> buyList = boardService.selectBuyBoard();
-		logger.info("buyList: " + buyList);
-		model.addAttribute("buyList", buyList);
-		
+	public String buyBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
+//		String proTc = "MM2";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "2"));
+		logger.info("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
+		System.out.println(param);
 		return "board/buyBoard";
 	}// buyBoard()
+	
+	// 신고하기
+	@PostMapping("/insertBoardReport")
+	@ResponseBody
+	public ResponseEntity<?> insertReport(@RequestParam Map<String, String> map, HttpSession session) {
+		
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
+		map.put("MEM_ID", (String)session.getAttribute("MEM_ID"));
+		System.out.println(map);
+		
+		return ResponseEntity.ok().body(adminService.insertReport(map));
+	}// insertReport()
 	
 	// 성엽 작업 끝 //
 	
 	@GetMapping("/divideBoard")
-	public String divideBoard(Model model) {
+	public String divideBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
 		System.out.println("BoardController divideBoard()");
-		String proTc = "MM3";
-		Map<String, String> map = new HashMap<>();
-		map.put("proTc", proTc);
-		System.out.println("map: " + map);
+//		String proTc = "MM3";
+//		Map<String, String> map = new HashMap<>();
+//		map.put("proTc", proTc);
+//		System.out.println("map: " + map);
 //		List<Map<String,String>> resultList = boardService.selectDivideBoard();
-		List<Map<String,String>> resultList = boardService.selectBoard(map);
-		logger.info("resultList: "+resultList);
+		List<Map<String,String>> resultList = boardService.selectBoard(dataList(param, session, EnumCodeType.메뉴항목.getType() + "3"));
+		System.out.println("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
+		model.addAttribute("selectCode", param);
+		System.out.println(param);
 		return "board/divideBoard";
 	}// divideBoard()
 	
 	@GetMapping("/auctionBoard")
-	public String auctionBoard() {
+	public String auctionBoard(Model model) {
 		System.out.println("BoardController auctionBoard()");
+		String aucTc = "MM4";
+		Map<String, String> map = new HashMap<>();
+		map.put("aucTc", aucTc);
+		System.out.println("map: " + map);
+		List<Map<String,String>> resultList = boardService.selectAuction(map);
+		System.out.println("resultList: "+resultList);
+		model.addAttribute("resultList",resultList);
 		return "board/auctionBoard";
 	}// auctionBoard()
 	
 	@GetMapping("/writeBoard")
-	public String writeBoard(Model model) {
+	public String writeBoard(HttpServletRequest request,Model model,HttpSession session) {
 		System.out.println("BoardController writeBoard()");
-		//codeService.selectCode("MM1");
-
+		String proWr = request.getParameter("proWr");
+		String proDate = request.getParameter("proDate");
 		
-//		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목));
+		// 임시
+		String aucSeller = request.getParameter("aucSeller");
+		String aucDate = request.getParameter("aucDate");
+		// 임시
+		
+		String id = (String)session.getAttribute("MEM_ID");
+		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
+		System.out.println("주소왔니? " + selectAddress);
+		model.addAttribute("selectAddress", selectAddress);
+		if(proWr != null || proDate != null) {
+			Map<String, String> map = new HashMap<>();
+			map.put("proWr", proWr);
+			map.put("proDate", proDate);
+			Map<String,String> resultMap = boardService.selectBoardDetail(map);
+			System.out.println("resultMap: "+ resultMap);
+			String ImgNames = resultMap.get("IMG_NAMES");
+			String[] ImgNameSplit = ImgNames.split("\\|");
+			ArrayList<String> imgList = new ArrayList<>();
+			for (String e : ImgNameSplit) {
+				imgList.add(e);
+			}
+			System.out.println("=====");
+			System.out.println(imgList);
+			model.addAttribute("resultMap", resultMap);
+			model.addAttribute("imgList", imgList);
+		} else if (aucSeller != null || aucDate != null) {
+			Map<String, String> map = new HashMap<>();
+			map.put("aucSeller", aucSeller);
+			map.put("aucDate", aucDate);
+			Map<String,String> resultMap = boardService.selectAuctionDetail(map);
+			System.out.println("resultMap: "+ resultMap);
+			String ImgNames = resultMap.get("IMG_NAMES");
+			String[] ImgNameSplit = ImgNames.split("\\|");
+			ArrayList<String> imgList = new ArrayList<>();
+			for (String e : ImgNameSplit) {
+				imgList.add(e);
+			}
+			System.out.println("=====");
+			System.out.println(imgList);
+			model.addAttribute("resultMap", resultMap);
+			model.addAttribute("imgList", imgList);
+		}
+		
+		//codeService.selectCode("MM1");
+		System.out.println("아이디 확인: " + session.getAttribute("MEM_ID"));
+		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
+		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
+		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
+		List<Map<String, String>> placeHolder =  codeService.selectCodeList(EnumCodeType.상세설명, session);
+		Map<String, String> detailTxt = new HashMap<>();
+		int i = 0;
+		for (Map<String, String> map : placeHolder) {
+			i++;
+		    String value = map.get("CODE"); // 특정 키에 대한 값 조회
+		    detailTxt.put("dTxt"+i, value);
+		}
+		model.addAttribute("detailTxt", detailTxt);
 		return "board/writeBoard";
 	}// writeBoard()
 	
@@ -118,15 +208,15 @@ public class BoardController {
 	    // Gson 인스턴스 생성
 //	    Gson gson = new Gson();
 
+		
 	    // textData를 Map으로 변환
 //	    Type type = new TypeToken<Map<String, Object>>() {}.getType();
 //	    Map<String, Object> textDataMap = gson.fromJson(textData, type);
 
 	    // 텍스트 데이터 처리
-	    logger.info("textData: " + textData);
+	    System.out.println("textData: " + textData);
 	    // 원본 Map의 textData 값 (JSON 문자열)
         String textDataJson = textData.get("textData");
-
         // Gson 인스턴스 생성
         Gson gson = new Gson();
 
@@ -135,7 +225,7 @@ public class BoardController {
         Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
 
         // 파싱된 Map의 내용 출력
-        logger.info("parsedMap: " + parsedMap);
+        System.out.println("parsedMap: " + parsedMap);
 //        for (Map.Entry<String, String> entry : parsedMap.entrySet()) {
 //            System.out.println(entry.getKey() + ": " + entry.getValue());
 //        }
@@ -197,6 +287,152 @@ public class BoardController {
 
 	    return ResponseEntity.ok("Data and files received successfully");
 	}
+	@GetMapping("/selectMyBoard")
+	public ResponseEntity<?> selectMyBoard(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.selectMyBoard(param));
+	}
+	
+	@PostMapping("/updateBoardPro")
+	public ResponseEntity<?> updateBoardPro(
+	        @RequestParam Map<String, String> textData,
+	        @RequestParam("imgs") List<MultipartFile> imgs,
+	        HttpServletRequest request) throws IOException {
+		System.out.println("BoardController updateBoardPro()");
+//		업데이트할 때...
+//		글 번호를 찾아온다.(아이디와 date로)
+//		delete로 그 글번호를 사용하여 이미지테이블에서 이미지 파일 삭제
+//		그리고 구해놓은 글번호를 사용하여 그 글에 접근하여
+//		기존 정보들에 update를 한다...
+	    // 텍스트 데이터 처리
+		System.out.println("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+        // 파싱된 Map의 내용 출력
+        System.out.println("parsedMap: " + parsedMap);
+        // 글번호 구해오기
+        Map<String, String> getNumMap = new HashMap<>();
+        getNumMap.put("proWr", parsedMap.get("proWr"));
+        getNumMap.put("proDate", parsedMap.get("proDate"));
+        String proNo = boardService.getProNo(getNumMap);
+        System.out.println("글번호 확인용: " + proNo);
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(실제 이미지도 삭제)
+        String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("proNo", proNo);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+		System.out.println("oldImgList: " + oldImgList);
+		//int successDelete = boardService.deleteBoard(delMap);
+		//System.out.println("삭제후 숫자: " + successDelete);
+		//if(successDelete == 1) {
+		//	System.out.println("삭제 성공@@@");
+		oldImgList.forEach(t -> {
+			new File(path + "\\" + t).delete();
+			System.out.println(t);
+		});
+		//} else {
+		//	System.out.println("삭제 실패@@@");
+		//}
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(끝부분)
+	    ServletContext context = request.getSession().getServletContext();
+	    String realPath = context.getRealPath("/resources/img/uploads");
+	    System.out.println("realPath: " + realPath);
+	    List<String> imageFilenames = new ArrayList<>();
+	    for (MultipartFile img : imgs) {
+	        String originalFileName = img.getOriginalFilename();
+	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
+	        imageFilenames.add(fileName);
+	        File destFile = new File(realPath + "\\" + fileName);
+	        img.transferTo(destFile); // 파일 저장
+	        System.out.println("Saved file: " + fileName + " to " + realPath);
+	    }
+	    //boardService.insertBoard(parsedMap, imageFilenames);
+	    parsedMap.put("proNo", proNo);
+	    boardService.updateBoard(parsedMap, imageFilenames);
+
+	    return ResponseEntity.ok("Data and files received successfully");
+	}
+	@PostMapping("/updateAuction")
+	public ResponseEntity<?> updateAuction(
+	        @RequestParam Map<String, String> textData,
+	        @RequestParam("imgs") List<MultipartFile> imgs,
+	        HttpServletRequest request) throws IOException {
+		System.out.println("BoardController updateAuction()");
+//		업데이트할 때...
+//		글 번호를 찾아온다.(아이디와 date로)
+//		delete로 그 글번호를 사용하여 이미지테이블에서 이미지 파일 삭제
+//		그리고 구해놓은 글번호를 사용하여 그 글에 접근하여
+//		기존 정보들에 update를 한다...
+	    // 텍스트 데이터 처리
+		System.out.println("textData: " + textData);
+	    // 원본 Map의 textData 값 (JSON 문자열)
+        String textDataJson = textData.get("textData");
+
+        // Gson 인스턴스 생성
+        Gson gson = new Gson();
+
+        // JSON 문자열을 Map<String, String>으로 파싱
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
+        // 파싱된 Map의 내용 출력
+        System.out.println("parsedMap: " + parsedMap);
+        // 글번호 구해오기
+        Map<String, String> getNumMap = new HashMap<>();
+        getNumMap.put("aucSeller", parsedMap.get("aucSeller"));
+        getNumMap.put("aucDate", parsedMap.get("aucDate"));
+        String aucNo = boardService.getAucNo(getNumMap);
+        System.out.println("글번호 확인용: " + aucNo);
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(실제 이미지도 삭제)
+        String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("aucNo", aucNo);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+		System.out.println("oldImgList: " + oldImgList);
+		//int successDelete = boardService.deleteBoard(delMap);
+		//System.out.println("삭제후 숫자: " + successDelete);
+		//if(successDelete == 1) {
+		//	System.out.println("삭제 성공@@@");
+		oldImgList.forEach(t -> {
+			new File(path + "\\" + t).delete();
+			System.out.println(t);
+		});
+		//} else {
+		//	System.out.println("삭제 실패@@@");
+		//}
+        // 글번호 가지고 이미지 테이블에서 이미지 삭제(끝부분)
+	    ServletContext context = request.getSession().getServletContext();
+	    String realPath = context.getRealPath("/resources/img/uploads");
+	    System.out.println("realPath: " + realPath);
+	    List<String> imageFilenames = new ArrayList<>();
+	    for (MultipartFile img : imgs) {
+	        String originalFileName = img.getOriginalFilename();
+	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
+	        imageFilenames.add(fileName);
+	        File destFile = new File(realPath + "\\" + fileName);
+	        img.transferTo(destFile); // 파일 저장
+	        System.out.println("Saved file: " + fileName + " to " + realPath);
+	    }
+	    //boardService.insertBoard(parsedMap, imageFilenames);
+	    parsedMap.put("aucNo", aucNo);
+	    boardService.updateAuction(parsedMap, imageFilenames);
+
+	    return ResponseEntity.ok("Data and files received successfully");
+	}
+	
 	
 //	@PostMapping("/writeBoardPro")
 //	public String writeBoardPro(
@@ -301,18 +537,28 @@ public class BoardController {
 	}// insertPreAuction()	
 	
 	@GetMapping("/boardDetail")
-	public String boardDetail(HttpServletRequest request,Model model) {
+	public String boardDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController boardDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
-		logger.info("proWr: "+proWr);
-		logger.info("proDate: "+proDate);
+		System.out.println("proWr: "+proWr);
+		System.out.println("proDate: "+proDate);
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
+		String proCate = resultMap.get("PRO_CATE");
+		String proNo = resultMap.get("PRO_NO");
+		String proTc = resultMap.get("PRO_TC");
+		map.put("proCate", proCate);
+		map.put("proNo", proNo);
+		map.put("proTc", proTc);
+		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		System.out.println("relatedImg : " + relatedImg);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -323,22 +569,38 @@ public class BoardController {
 		System.out.println(imgList);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
+		
+		// 신고하기
+		model.addAttribute("dcm", codeService.selectCodeList(EnumCodeType.신고항목, session));
+		System.out.println(codeService.selectCodeList(EnumCodeType.신고항목, session));
+		
+		model.addAttribute("relatedImg", relatedImg);
 		return "board/boardDetail";
 	}// boardDetail()
 	
 	@GetMapping("/divideDetail")
-	public String divideDetail(HttpServletRequest request,Model model) {
+	public String divideDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController divideDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
-		logger.info("proWr: "+proWr);
-		logger.info("proDate: "+proDate);
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
+		String proCate = resultMap.get("PRO_CATE");
+		String proNo = resultMap.get("PRO_NO");
+		String proTc = resultMap.get("PRO_TC");
+		map.put("proCate", proCate);
+		map.put("proNo", proNo);
+		map.put("proTc", proTc);
+		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		List<Map<String, String>> selectDivList = boardService.getDivList(map);
+		System.out.println("relatedImg : " + relatedImg);
+		System.out.println("selectDivList : " + selectDivList);
 		String ImgNames = resultMap.get("IMG_NAMES");
 		String[] ImgNameSplit = ImgNames.split("\\|");
 		ArrayList<String> imgList = new ArrayList<>();
@@ -349,15 +611,84 @@ public class BoardController {
 		System.out.println(imgList);
 		model.addAttribute("resultMap", resultMap);
 		model.addAttribute("imgList", imgList);
+		model.addAttribute("relatedImg", relatedImg);
+		model.addAttribute("selectDivList", selectDivList);
 		return "board/divideDetail";
 	}// divideDetail()
+	@PostMapping("/insertDivide")
+	@ResponseBody
+	public ResponseEntity<?> insertDivide(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.insertDivide(param));
+	}
+	@PostMapping("/deleteDivide")
+	@ResponseBody
+	public ResponseEntity<?> deleteDivide(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.deleteDivide(param));
+	}
 	
 	@GetMapping("/auctionDetail")
-	public String auctionDetail() {
+	public String auctionDetail(HttpServletRequest request,Model model) {
 		System.out.println("BoardController auctionDetail()");
+		String aucSeller = request.getParameter("aucSeller");
+		String aucDate = request.getParameter("aucDate");
+		Map<String, String> map = new HashMap<>();
+		map.put("aucSeller", aucSeller);
+		map.put("aucDate", aucDate);
+		boardService.aucHits(map);
+		Map<String,String> resultMap = boardService.selectAuctionDetail(map);
+		System.out.println("resultMap: "+ resultMap);
+		String aucCate = resultMap.get("AUC_CATE");
+		String aucNo = resultMap.get("AUC_NO");
+		String aucTc = resultMap.get("AUC_TC");
+		System.out.println("aucNo@@@@@@@@@ " + aucNo);
+		
+		map.put("aucCate", aucCate);
+		map.put("aucNo", aucNo);
+		map.put("aucTc", aucTc);
+		List<Map<String, String>> relatedImg = boardService.getRelatedCateImg(map);
+		System.out.println("relatedImg : " + relatedImg);
+		String ImgNames = resultMap.get("IMG_NAMES");
+		String[] ImgNameSplit = ImgNames.split("\\|");
+		ArrayList<String> imgList = new ArrayList<>();
+		for (String e : ImgNameSplit) {
+			imgList.add(e);
+		}
+		System.out.println("=====");
+		System.out.println(imgList);
+		model.addAttribute("resultMap", resultMap);
+		model.addAttribute("imgList", imgList);
+		model.addAttribute("relatedImg", relatedImg);
 		return "board/auctionDetail";
 	}// auctionDetail()
 	
+	@GetMapping("/deleteAuction")
+	public String deleteAuction(HttpServletRequest request) {
+		System.out.println("BoardController deleteAuction()");
+		String aucNo = request.getParameter("aucNo");
+		String aucTc = request.getParameter("aucTc");
+		System.out.println("글번호: " + aucNo);
+		String path = request.getRealPath("/resources/img/uploads");
+		System.out.println("경로: " + path);
+		Map<String, String> delMap = new HashMap<>();
+		delMap.put("aucNo", aucNo);
+		delMap.put("aucTc", aucTc);
+		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
+		ArrayList<String> oldImgList = new ArrayList();
+		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
+		System.out.println("oldImgList: " + oldImgList);
+		int successDelete = boardService.deleteBoard(delMap);
+		System.out.println("삭제후 숫자: " + successDelete);
+		if(successDelete == 1) {
+			System.out.println("삭제 성공@@@");
+			oldImgList.forEach(t -> {
+				new File(path + "\\" + t).delete();
+				System.out.println(t);
+			});
+		} else {
+			System.out.println("삭제 실패@@@");
+		}
+		return "redirect:/board/auctionBoard";
+	}// deleteAuction()
 	@GetMapping("/deleteBoard")
 	public String deleteBoard(HttpServletRequest request) {
 		System.out.println("BoardController deleteBoard()");
@@ -416,5 +747,66 @@ public class BoardController {
 		}
 		return goBoard;
 	}// deleteBoard()
+	
+//	----- 검색 bar -----
+	
+	private Map<String, String> money(Map<String, String> param, HttpSession session){
+		
+		Map<String, String> price = codeService.selectCode(param.get("price"), session);
+		String[] priceArr = price.get("CODE").split("이상");
+		price = param;
+		price.put("min", priceArr[0].replaceAll("[^0-9]", "").trim());
+		price.put("max", priceArr[1].replaceAll("[^0-9]", "").trim());
+		
+		System.out.println(price);
+		return price;
+	}
+	
+	private Map<String, String> dataList(Map<String, String> param, HttpSession session, String code){
+		Map<String, String> data = new HashMap<String, String>();
+		if(param.size() == 0) {
+			System.out.println("빈 map 들어왔다");
+			data = codeService.selectCode(code, session);
+			data.put("menu", data.get("CO_TYPE") + data.get("CO_NO"));
+		} else if(param.get("price").equals("all")) {
+			data = param;
+		} else {
+			data = money(param, session);
+		}
+		
+		return data;
+	}
+	
+	@GetMapping("/searchPro")
+	public String searchPro(@RequestParam Map<String, String> param, HttpSession session) {
+
+//		/board/saleBoard판매/board/buyBoard구매/board/divideBoard나눔/board/auctionBoard경매
+		
+		return null;
+	}
+	
+//	----- 검색 bar -----
+	
+	
+	
+	
+	// --- 현아 작업 시작 ---
+	
+	@PostMapping("/deleteLike")
+	@ResponseBody
+	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO) {
+		boolean result = memberService.deleteLike(LIK_NO);
+		return ResponseEntity.ok().body(result);
+	}
+
+	@PostMapping("/insertLike")
+	@ResponseBody
+	public boolean insertLike(@RequestParam Map<String,String> map, HttpSession session) {
+		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
+		boolean result = memberService.insertLike(map);
+		return result;
+	}
+	
+	// --- 현아 작업 끝 ---
 	
 }// 클래스 끝

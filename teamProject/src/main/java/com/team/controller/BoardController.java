@@ -214,7 +214,6 @@ public class BoardController {
 	    System.out.println("textData: " + textData);
 	    // 원본 Map의 textData 값 (JSON 문자열)
         String textDataJson = textData.get("textData");
-
         // Gson 인스턴스 생성
         Gson gson = new Gson();
 

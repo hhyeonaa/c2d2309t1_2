@@ -212,5 +212,4 @@ public class BoardDAO {
 	}// selectMyBoard()
 
 	
-
 }// BoardDAO 끝

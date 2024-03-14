@@ -76,7 +76,7 @@
 		 	<hr><fmt:parseDate var="parsedDate" value="${resultMap.PRO_DATE}" pattern="yyyyMMddHHmmss"/>
 		 		<table class="table"><!--  table-borderless -->
 		 			<tr>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
+			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png">  ${resultMap.LIKES_COUNT}</td>
 			 			<td><i class="bi bi-eye"></i>${resultMap.PRO_HITS}</td>
 			 			<td><i class="bi bi-calendar3"></i><fmt:formatDate var="newFormattedDateString" value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss "/>${newFormattedDateString }</td>
 			 			<!-- 로그인 후 신고하기 버튼 보이기 -->
@@ -122,7 +122,21 @@
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
-		 					<button class="btn btn-danger btn-lg">찜</button>
+		 					<c:if test="${empty sessionScope.MEM_ID }">
+		 						<button class="btn btn-lg border" id="noUserBtn">찜
+		 							<ion-icon name="heart-outline"/>
+	 							</button>
+	 						</c:if>	
+	 						<c:if test="${not empty sessionScope.MEM_ID}">
+			 					<button class="btn btn-lg border" id="likeBtn">찜
+			 						<span id="likNo" style="display: none;">${resultMap.LIK_NO}</span>
+			 						
+									    <ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;" 
+									              ${resultMap.LIK_NO ne '0' ? '' : 'hidden="hidden"'}></ion-icon>
+									    <ion-icon id="noLike" name="heart-outline" 
+									              ${resultMap.LIK_NO eq '0' ? '' : 'hidden="hidden"'}></ion-icon> 
+			 					</button>
+		 					</c:if>
 		 					<button class="btn btn-warning btn-lg">신청자 확인</button>
 		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
 		 					<button class="btn btn-success btn-lg" id="shareApplication">나눔신청</button>
@@ -147,7 +161,7 @@
 		 			<textarea id="appTxt" style="resize: none; " cols="40" rows="3" placeholder="나눔 신청 사유 또는 이유를 적어주세요."></textarea>
 		 		</div>
 		 	</div>
-		 	<div>
+		 	<div class="mt-5">
 		 		<table class="table">
 					<tr><td colspan="7">연관상품</td><tr>
 					<tr>

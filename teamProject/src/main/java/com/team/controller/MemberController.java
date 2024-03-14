@@ -379,6 +379,7 @@ public class MemberController{
 	@PostMapping("/deleteLike")	// ajax
 	@ResponseBody
 	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO) {
+		System.out.println(LIK_NO);
 		boolean result = memberService.deleteLike(LIK_NO);
 		return ResponseEntity.ok().body(result);
 	}// deleteLike()
@@ -387,6 +388,7 @@ public class MemberController{
 	@ResponseBody
 	public boolean insertLike(@RequestParam Map<String,String> map, HttpSession session) {
 		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
+		System.out.println(map);
 		boolean result = memberService.insertLike(map);
 		return result;
 	}// insertLike()	

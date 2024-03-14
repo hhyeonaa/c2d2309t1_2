@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.team.service.AdminService;
 import com.team.service.BoardService;
+import com.team.service.MemberService;
 import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
 
@@ -47,6 +48,8 @@ public class BoardController {
 	private TeamCodeService codeService;
 	@Inject
 	private AdminService adminService;
+	@Inject
+	private MemberService memberService;
 	
 	@GetMapping("/saleBoard")
 	public String saleBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
@@ -543,6 +546,8 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
@@ -574,13 +579,15 @@ public class BoardController {
 	}// boardDetail()
 	
 	@GetMapping("/divideDetail")
-	public String divideDetail(HttpServletRequest request,Model model) {
+	public String divideDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController divideDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
@@ -779,5 +786,27 @@ public class BoardController {
 	}
 	
 //	----- 검색 bar -----
+	
+	
+	
+	
+	// --- 현아 작업 시작 ---
+	
+	@PostMapping("/deleteLike")
+	@ResponseBody
+	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO) {
+		boolean result = memberService.deleteLike(LIK_NO);
+		return ResponseEntity.ok().body(result);
+	}
+
+	@PostMapping("/insertLike")
+	@ResponseBody
+	public boolean insertLike(@RequestParam Map<String,String> map, HttpSession session) {
+		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
+		boolean result = memberService.insertLike(map);
+		return result;
+	}
+	
+	// --- 현아 작업 끝 ---
 	
 }// 클래스 끝

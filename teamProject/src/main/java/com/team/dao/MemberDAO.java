@@ -127,7 +127,6 @@ public class MemberDAO {
 	}// likeList()	
 //	-----------------------------------------------------------------------------
 	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
-		System.out.println("likeListSelect" + sqlSession.selectList(namespace + "likeListSelect", map));
 		return sqlSession.selectList(namespace + "likeListSelect", map);
 	}// likeListSelect()	
 //	-----------------------------------------------------------------------------

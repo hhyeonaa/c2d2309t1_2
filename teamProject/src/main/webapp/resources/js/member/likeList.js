@@ -30,22 +30,23 @@ $(()=>{
 			, url: 'likeListSelect' 
 			, data: { PRO_TC : 'MM' + idx}
 		}).done(function(data) {
-			debugger;
 			
 //			$('#likeMain').load(location.href+' #likeMain');
 
             // Ajax 요청이 성공했을 때 실행되는 부분
-            $('#listDiv').empty(); // 기존의 내용을 지우고
+            $('#listData').empty(); // 기존의 내용을 지우고
             
             if(data == null) {
-				$('#listDiv').append('<div class="row row-cols-1 row-cols-md-1 g-1" id="emptySell">등록된 상품이 없습니다.</div>');
+				debugger;
+				$('#listData').append('<div class="row row-cols-1 row-cols-md-1 g-1" id="emptySell">등록된 상품이 없습니다.</div>');
 				return;	
 			}
             // 받은 데이터를 이용하여 tab_content 안에 새로운 내용 추가
             $.each(data, function(index, item) {
-                $('#listDiv').append('<div class="col">' +
+				debugger;
+                $('#listData').append('<div class="col">' +
 									'<div class="card h-100">' +
-									'<a href="' + '${pageContext.request.contextPath}/board/boardDetail?proWr=' + list.PRO_WR + '&proDate=' + list.PRO_DATE + '">' + '<img src="' + '${pageContext.request.contextPath}/resources/img/uploads/' + list.IMG_NAME + '" class="card-img-top" alt="' + list.IMG_NAME + '" onerror="this.src=\'' + '${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg\'">' + '</a>' +
+									'<a href="' + '${pageContext.request.contextPath}/board/boardDetail?proWr=' + list.PRO_WR + '&proDate=' + item.PRO_DATE + '">' + '<img src="' + '${pageContext.request.contextPath}/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + '${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg\'">' + '</a>' +
 									'<div class="card-body">' +
 									'<span class="state1">' + item.TC_NAME + '</span>' +
 									 '<span class="state2" id="PRO_STATE_' + item.PRO_TSC + '">' + item.TSC_NAME + '</span>' +
@@ -60,6 +61,26 @@ $(()=>{
 									'</div>' +
 									'</div>' +
 									'</div>');
+
+//              $('#listData').append('<div class="col">');
+//              $('#listData').append('<div class="card h-100">');
+//			  $('#listData').append('<a href="' + '${pageContext.request.contextPath}/board/boardDetail?proWr=' + list.PRO_WR + '&proDate=' + item.PRO_DATE + '">' + '<img src="' + '${pageContext.request.contextPath}/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg\'"></a>');
+//			  debugger;
+//			  $('#listData').append('<div class="card-body">' +
+//									'<span class="state1">' + item.TC_NAME + '</span>' +
+//									 '<span class="state2" id="PRO_STATE_' + item.PRO_TSC + '">' + item.TSC_NAME + '</span>' +
+//									'<span style="float: right; font-size: 23px;">' +
+//									'<a id=likeBtn class="profile_btn">' +
+//									'<input type="text" id="LIK_NO" value="' + item.LIK_NO + '" hidden="">' +
+//									 '<ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;"></ion-icon> ' +
+//									'</a>' +
+//									'</span>' +
+//									'<p>' + item.PRO_NAME + '</p>' +
+//									'<h5><b>' + item.PRO_PRICE + '원</b></h5>' +
+//									'</div>' +
+//									'</div>' +
+//									'</div>');
+				debugger;
             });
 
 		});

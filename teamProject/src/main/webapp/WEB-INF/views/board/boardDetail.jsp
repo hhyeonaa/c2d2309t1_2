@@ -137,7 +137,11 @@
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
-		 					<button class="btn btn-danger btn-lg">찜</button>
+		 					<button class="btn btn-lg" id="likeBtn">
+		 						<input type="text" id="LIK_NO" value="${resultMap.LIK_NO}" hidden=""/>
+		 						<ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;"/>
+			 		     		<ion-icon id="noLike" name="heart-outline" hidden=""/> 
+		 					</button>
 		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
 		 					<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
 		 				</td>
@@ -148,7 +152,7 @@
 		 			</tr>	 			
 		 		</table>
 		 	</div>
-		 	<div style="width: 70%; height: auto;">
+		 	<div class="mt-5" style="width: 70%; height: auto;">
 		 		<table class="table">
 					<tr><td colspan="7">연관상품</td><tr><!-- GET_RELATED_PRODUCTS -->
 					<tr>

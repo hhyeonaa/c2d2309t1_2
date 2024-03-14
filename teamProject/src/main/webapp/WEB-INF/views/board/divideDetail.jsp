@@ -135,7 +135,7 @@
 		 			<textarea id="appTxt" style="resize: none; " cols="40" rows="3" placeholder="나눔 신청 사유 또는 이유를 적어주세요."></textarea>
 		 		</div>
 		 	</div>
-		 	<div>
+		 	<div class="mt-5">
 		 		<table class="table">
 					<tr><td colspan="7">연관상품</td><tr>
 					<tr>

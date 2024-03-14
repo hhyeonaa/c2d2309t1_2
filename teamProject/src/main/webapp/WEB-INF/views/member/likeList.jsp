@@ -69,7 +69,9 @@
 			<c:forEach var="list" items="${likeList}"  varStatus="loop">
 			  <div class="col">
 			    <div class="card h-100">
-			      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${list.PRO_WR}&proDate=${list.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${list.IMG_NAME}" class="card-img-top" alt="${list.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
+			      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${list.PRO_WR}&proDate=${list.PRO_DATE}">
+			      	<img src="${pageContext.request.contextPath}/resources/img/uploads/${list.IMG_NAME}" class="card-img-top" alt="${list.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+			      </a>
 			      <div class="card-body">
 				      <span class="state1">${list.TC_NAME}</span>
 				      <span class="state2" id="PRO_STATE_${list.PRO_TSC}">${list.TSC_NAME}</span>

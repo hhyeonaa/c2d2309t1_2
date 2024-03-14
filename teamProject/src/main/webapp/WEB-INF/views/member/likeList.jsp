@@ -77,7 +77,7 @@
 			    </div>
 			  </div>
 			<c:if test="${empty likeList}">
-				<div class="row row-cols-1 row-cols-md-1 g-1" id="emptySell">찜한 상품이 없습니다.</div>
+				<div class="row row-cols-1 row-cols-md-1 g-1" id="empLike">찜한 상품이 없습니다.</div>
 			</c:if>
 			</c:forEach>
 			

@@ -58,7 +58,7 @@ div{margin:0;}
   display:block;
 }
 
-#emptySell, #emptyBuy, #emptyShare, #emptyAuction {
+#emptySell, #emptyBuy, #emptyShare, #emptyAuction, #empLike {
 	padding-top: 120px;
 	padding-left: 42%;
 	height: 300px;

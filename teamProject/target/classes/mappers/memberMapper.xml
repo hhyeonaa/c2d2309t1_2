@@ -51,7 +51,7 @@
 	</insert>
 	
 	<select id="login" resultType="map">
-		select MEM_ID, MEM_PW, MEM_NICK
+		select MEM_ID, MEM_PW, MEM_NICK, MEM_CAT
 		from MEMBERS
 		where MEM_ID = #{MEM_ID}
 		and MEM_PW = #{MEM_PW}

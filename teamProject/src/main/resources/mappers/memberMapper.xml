@@ -425,4 +425,11 @@
 		where PRO_NO = #{PRO_NO}
 	</update>
 	
+	<select id="countList" parameterType="string" resultType="string">
+		select ifnull(cast(count(MEM_ID) AS CHAR), "")
+		  from LIKES
+		 where 1 = 1
+		   and MEM_ID = #{ses}
+	</select>
+	
 </mapper>

@@ -160,6 +160,9 @@ public class MemberDAO {
 		System.out.println(map + "  changeState");
 		sqlSession.update(namespace + "changeState", map);
 	}// changeState()
+	public String countList(String ses) {
+		return sqlSession.selectOne(namespace + "countList", ses);
+	}
 	
 	
 }// MemberDAO 클래스

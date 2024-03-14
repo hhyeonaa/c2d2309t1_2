@@ -36,6 +36,18 @@ public class TeamCodeService implements TeamCodeInterface{
 			Map<String, String> codeSelect = dao.selectMessage(codeTextSeparate(code, null));
 			
 			if(codeSelect == null) {
+				Map<String, String> errorText = new HashMap<String, String>();
+				errorText.put(EnumCodeType.코드내용.getType(), 
+						  " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)　　　둥실\r\n"
+						+ " ╰ ‿ ‿ ╯\r\n"
+						+ "　　　　　　　╭ ⁀ ⁀ ╮\r\n"
+						+ "둥실 　　　　 ( '👅'　　)\r\n"
+						+ "　　　　　　　╰ ‿ ‿ ╯\r\n"
+						+ " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)\r\n"
+						+ " ╰ ‿ ‿ ╯ 　　　");
+				codeSelect = errorText;
 	        	throw new CodeTypeNullException(code);
 	        }
 			if(url == null) {
@@ -77,6 +89,9 @@ public class TeamCodeService implements TeamCodeInterface{
 		Map<String, String> selectCode = dao.selectCode(codeTextSeparate(code, session));
 		try {
 			if(selectCode == null) {
+				Map<String, String> errorText = new HashMap<String, String>();
+				errorText.put(EnumCodeType.코드내용.getType(), "⛔");
+				selectCode = errorText;
 	        	throw new CodeTypeNullException(code);
 	        }
 		} catch (CodeTypeNullException e) {
@@ -122,6 +137,18 @@ public class TeamCodeService implements TeamCodeInterface{
 		Map<String, String> selectCode = dao.selectMessage(codeTextSeparate(code, session));
 		try {
 			if(selectCode == null) {
+				Map<String, String> errorText = new HashMap<String, String>();
+				errorText.put(EnumCodeType.코드내용.getType(), 
+						  " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)　　　둥실\r\n"
+						+ " ╰ ‿ ‿ ╯\r\n"
+						+ "　　　　　　　╭ ⁀ ⁀ ╮\r\n"
+						+ "둥실 　　　　 ( '👅'　　)\r\n"
+						+ "　　　　　　　╰ ‿ ‿ ╯\r\n"
+						+ " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)\r\n"
+						+ " ╰ ‿ ‿ ╯ 　　　");
+				selectCode = errorText;
 	        	throw new CodeTypeNullException(code);
 	        }
 			String message = MessageFormat.format(selectCode.get(EnumCodeType.코드내용.getType()), arr);

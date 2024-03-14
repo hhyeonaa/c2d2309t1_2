@@ -161,5 +161,8 @@ public class MemberService {
 		System.out.println(map + " changeState");
 		memberDAO.changeState(map);
 	}// memberDelete()
+	public String countLike(String ses) {
+		return memberDAO.countList(ses);
+	}
 
 }// MemberService 클래스

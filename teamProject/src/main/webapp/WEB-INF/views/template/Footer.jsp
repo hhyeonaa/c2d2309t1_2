@@ -1,11 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<style>
+#muchangCustomColor {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #f35626;
+  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: hue 10s infinite linear;
+}
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+</style>
 </div>
 <div class="sidebar222 text-center fw-bold  d-flex  flex-column" style="width: 21.8%;">
-  	<div class="border border-dark-subtle  mb-2 p-1">
-  		<div >찜한상품</div>
-  		<div ><a class="text-danger"><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 123</a></div>
+  	<div id="muchangCustomColor" class="border border-dark-subtle mb-2 p-1">
+  		<div id="isNotEmpty">
+	  		<div >찜한상품</div>
+	  		<div ><a id="likeItemsCount" class="text-danger" href="${pageContext.request.contextPath}/member/likeList"><img src="${pageContext.request.contextPath}/resources/img/common/heart.png">&nbsp;</a></div>
+  		</div>
+  		<div id="isEmpty">	
+  			<div><a href="${pageContext.request.contextPath}/member/login">로그인</a></div>
+  		</div>	
   	</div>
   	
   	<div class="border border-dark-subtle mb-2 p-1">
@@ -14,10 +41,10 @@
   		<div><img src="${pageContext.request.contextPath}/resources/img/common/noImage.png"></div>
   		<div style="color: rgb(204, 204, 204);">최근본 상품이<br>없습니다.</div>
   	</div>
-  	
-  	<div class="border border-dark-subtle mb-2">
-  		<button type="button" class="btn btn-light rounded-0 fw-bold" style="width:100%; height:100%;">TOP</button>
-  	</div>
+  		
+	  	<div class="border border-dark-subtle mb-2">
+			<button id="nickNameCheck" type="button" class="btn btn-light rounded-0 fw-bold" style="color:salmon; font-size:12px; width:100%; height:100%;">환영합니다:)</button>
+	  	</div>
   	
   	<div id="chatBtn"  class="mt-auto" style="margin-bottom: 100px;">
   		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;"></a>
@@ -168,5 +195,5 @@
 			</div>
 		</div>
 	</div>
-
+<script src="${pageContext.request.contextPath}/resources/js/common/footerLikeBar.js"></script>
 <!--   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->

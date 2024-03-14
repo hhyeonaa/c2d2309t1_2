@@ -85,35 +85,47 @@ public class AdminDAO {
 	
 	public List<Map<String, String>> getMemberList() {
 		return sqlSession.selectList(namesqace + "getMemberList");
-	}//
+	}
 
 	public List<Map<String, String>> getContentboardList() {
 		return sqlSession.selectList(namesqace + "getContentboardList");
-	}//
+	}
 
 	public boolean memberStop(Map<String, String> dto) {
 		return sqlSession.update(namesqace + "memberStop", dto) == 1 ? true : false;
-	}//
-	
+	}
+
 	public int contentDelete(String PRO_NO) {
 		return sqlSession.delete(namesqace + "contentDelete", PRO_NO);
-	}//
+	}
 	
 	public int cateContentDelete(String PRO_NO) {
 		return sqlSession.delete(namesqace + "cateContentDelete", PRO_NO);
-	}//
+	}
 
 	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
 		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
-	}//
+	}
 
 	public int insertReport(Map<String, String> map) {
 		return sqlSession.insert(namesqace + "insertReport", map);
-	}//
+	}
 	
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
-	}//
+	}
+	
+	public List<Map<String, String>> getMemberCntList() {
+		return sqlSession.selectList(namesqace + "getMemberCntList");
+	}
+	
+	public List<Map<String, String>> getCategoryCntList() {
+		return sqlSession.selectList(namesqace + "getCategoryCntList");
+	}
+	
+	public List<Map<String, String>> getTotalTradeList() {
+		return sqlSession.selectList(namesqace + "getTotalTradeList");
+	}
 
 //	----- 성엽 끝 -----	
 	

@@ -16,13 +16,13 @@
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
 	  <choose>
-	    <when test='ROL_NO == "RO1"'>
+	    <when test='MEM_ID == "RO1"'>
 		   and HIDE in ('0', '1') 					 	
 		</when>
-		<when test='ROL_NO == "RO2"'>
+		<when test='MEM_ID == "RO2"'>
 		   and HIDE = '0' 					 	
 		</when>
-		<when test='ROL_NO == "RO3"'>
+		<when test='MEM_ID == "RO3"'>
 		   and HIDE = '0' 					 	
 		</when>
 		<otherwise>
@@ -39,13 +39,13 @@
 		   and CO_NO = #{CO_NO}
 		   and CO_TYPE = #{CO_TYPE}
 	  <choose>
-	    <when test='ROL_NO == "RO1"'>
+	    <when test='MEM_ID == "RO1"'>
 		   and HIDE in ('0', '1') 					 	
 		</when>
-		<when test='ROL_NO == "RO2"'>
+		<when test='MEM_ID == "RO2"'>
 		   and HIDE = '0' 					 	
 		</when>
-		<when test='ROL_NO == "RO3"'>
+		<when test='MEM_ID == "RO3"'>
 		   and HIDE = '0' 					 	
 		</when>
 		<otherwise>
@@ -60,10 +60,10 @@
 		 where 1 = 1
 		   and CO_NO = #{CO_NO}
 		   and CO_TYPE = #{CO_TYPE}
-		<if test='ROL_NO == "RO1"'>
+		<if test='MEM_ID == "RO1"'>
 		   and HIDE in ('0', '1')
 		</if>
-		<if test='ROL_NO != "RO1"'>
+		<if test='MEM_ID != "RO1"'>
 		   and HIDE = '0'
 		</if>
 	</select>
@@ -76,10 +76,10 @@
 		  from MESSAGE
 		 where 1 = 1  
 		   and CO_TYPE = #{codeType}
-		<if test='ROL_NO == "RO1"'>
+		<if test='MEM_ID == "RO1"'>
 		   and HIDE in ('0', '1')
 		</if>
-		<if test='ROL_NO != "RO1"'>
+		<if test='MEM_ID != "RO1"'>
 		   and HIDE = '0'
 		</if>  
 		 order by cast(CO_NO as signed)

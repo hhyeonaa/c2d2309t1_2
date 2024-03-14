@@ -9,7 +9,9 @@
 			 WHERE PRO_NO = #{proNo}
 		       AND MEM_NO = (SELECT MEM_NO
   							  FROM MEMBERS
- 							 WHERE MEM_ID = #{memId});
+ 							 WHERE MEM_ID = #{memId})
+			   AND (CHAT_CLOSE IS NULL
+				OR CHAT_CLOSE NOT LIKE CONCAT('%', #{memId} ,'%'));
 	</select>
 	
 	<insert id="createRoom" parameterType="map">
@@ -56,7 +58,7 @@
 		    ON C.MEM_NO = M.MEM_NO
 	 	 WHERE C.PRO_NO IN ((SELECT PRO_NO FROM PRODUCT WHERE PRO_WR = #{memId}))
 		  </if>
-		   AND (C.CHAT_CLOSE IS NULcL
+		   AND (C.CHAT_CLOSE IS NULL
 		   OR C.CHAT_CLOSE NOT LIKE CONCAT('%', #{memId} ,'%'));
 	</select>
 	

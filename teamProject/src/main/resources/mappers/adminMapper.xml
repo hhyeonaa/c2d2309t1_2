@@ -5,9 +5,16 @@
 <mapper namespace="com.team.mappers.adminMapper">
 	
 <!-- 	===== 현아 시작 ===== -->
-
+	
+	<select id="idCheck" resultType="String">
+		SELECT
+			AD_ID 
+		FROM ADMIN
+		WHERE AD_ID = #{AD_ID}
+	</select>
+	
 	<insert id="adminInsert">
-		insert into ADMIN
+		INSERT INTO ADMIN
 			(AD_NO
 			, AD_ID 
 			, AD_PW
@@ -15,7 +22,7 @@
 			, AD_DATE
 			, AD_ACTIVE
 			, ROL_NO)
-		values (CONCAT("AD", IFNULL((SELECT MAX(CAST(replace(AD_NO, "AD", "") AS unsigned))+1
+		VALUES (CONCAT("AD", IFNULL((SELECT MAX(CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED)) + 1
 									 FROM ADMIN A), 1))
 			, #{AD_ID}
 			, #{AD_PW}
@@ -26,110 +33,41 @@
 	</insert>
 	
 	<select id="getAdminList" resultType="map">
-		select
-			CAST(REPLACE(a.AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
-			, a.AD_ID
-			, a.ROL_NO
-<!-- 			, r.ROL_NAME   이부분 필요 없어져서 join 안써도 될듯?           -->  
-			, a.AD_ACTIVE
-		from ADMIN a join ROLE r
-		on a.ROL_NO = r.ROL_NO
+		SELECT
+			CAST(REPLACE(AD_NO, "AD", "") AS UNSIGNED) "AD_NO"
+			, AD_ID
+			, ROL_NO
+			, AD_ACTIVE
+		FROM ADMIN
+		WHERE 1=1
+	    <if test='!"RO1".equals(RO_NUM)'>
+	        AND ROL_NO != 'RO1'
+	    </if>
 		ORDER BY AD_NO
 	</select>
 	
-	<select id="idCheck" resultType="String">
-		select
-			AD_ID 
-		from ADMIN
-		where AD_ID = #{AD_ID}
-	</select>
-	
 	<delete id="adminDelete">
-		delete from ADMIN
-		where AD_ID = #{AD_ID}
+		DELETE FROM ADMIN
+		WHERE AD_ID = #{AD_ID}
 	</delete>
 	
 	<update id="adminUpdate">
-		update ADMIN
-		set AD_ACTIVE = #{AD_ACTIVE}
-		where AD_NO = #{AD_NO}
+		UPDATE ADMIN
+		SET AD_ACTIVE = #{AD_ACTIVE}
+			, ROL_NO = #{ROL_NO}
+		WHERE AD_ID = #{AD_ID}
 	</update>
-	
-<!-- 	<select id="getBoardList" resultType="map"> -->
-<!-- 		select CODE -->
-<!-- 				, ACTIVE -->
-<!-- 				, SEQ -->
-<!-- 				, CASE CO_DETAIL WHEN '0' THEN '글' -->
-<!-- 						   WHEN '1' THEN '글+사진' -->
-<!-- 						   WHEN '2' THEN '글+사진+날짜' -->
-<!-- 						   ELSE '없음' -->
-<!-- 			   END AS "CO_DETAIL" -->
-<!-- 		from CODE -->
-<!-- 			where  CO_TYPE = 'MM' -->
-<!-- 		ORDER BY SEQ -->
-<!-- 	</select> -->
 	
 	<update id="displayUpdate">
 		<foreach collection="list" item="code" open="" close="" separator=";">
-		update CODE
-		   set CODE = #{code.CODE}
+		UPDATE CODE
+		   SET CODE = #{code.CODE}
 		   	 , ACTIVE = #{code.ACTIVE}
-		 where 1 = 1
-		   and CO_TYPE = #{code.CO_TYPE}
-		   and CO_NO = #{code.CO_NO} 
+		 WHERE 1 = 1
+		   AND CO_TYPE = #{code.CO_TYPE}
+		   AND CO_NO = #{code.CO_NO} 
 		</foreach>	
 	</update>
-	
-<!-- 	<select id="getCategoryList" resultType="map"> -->
-<!-- 		select SEQ -->
-<!-- 				, CODE -->
-<!-- 				, ACTIVE -->
-<!-- 		from CODE -->
-<!-- 		where CO_TYPE = 'CM' -->
-<!-- 		ORDER BY SEQ -->
-<!-- 	</select>	 -->
-	
-	<insert id="inputForm">
-		insert into PRODUCT
-			(PRO_NO
-			, PRO_WR
-			, PRO_NAME
-			, PRO_PRICE
-			, PRO_CONTENT
-			, PRO_CATE
-			, PRO_STATUS
-			, PRO_TC
-			, PRO_TSC
-			, PRO_DATE
-			)
-		values (CONCAT('PR', IFNULL((SELECT MAX(CAST(replace(PRO_NO, 'PR', '') AS unsigned))+1
-									 FROM PRODUCT A), 1))
-			, #{MEM_ID}
-			, #{PRO_NAME}
-			, #{PRO_PRICE}
-			, #{PRO_CONTENT}
-			, #{PRO_CATE}
-			, #{PRO_STATUS}
-			, #{PRO_TC}
-			, 'TM1'
-			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'))
-	</insert>
-	
-	<select id="getForm" resultType="map">
-			select 
-				CO_TYPE
-				, CO_NO
-				, CODE
-				, CO_DETAIL
-				, SEQ
-				, ACTIVE
-			from CODE
-			where CO_TYPE = 'FO'
-			and CO_NO != '7'
-			ORDER BY SEQ
-	</select>
-	
-	
 	
 <!-- 	===== 현아 끝 ===== -->
 
@@ -147,7 +85,7 @@
 		</foreach>		   
 	</select>
 
-	<insert id="codeInsert" parameterType="java.util.List">
+	<insert id="codeInsert" parameterType="map">
 		insert 
 			into CODE
 				(
@@ -158,18 +96,16 @@
 				, ACTIVE
 				)
 			values
-		<foreach collection="list" item="code" open="" close="" separator=",">
 				(
 				  #{code.CO_TYPE}
-				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
-					 from CODE
+				, (select cast(ifnull(max(cast(CO_NO AS UNSIGNED)), 0) + 1 AS CHAR)
+					 from CODE C
 					where 1 = 1
 					  and CO_TYPE = #{code.CO_TYPE})
     			, #{code.CODE}
     			, '0'
     			, '0'
 				)	
-		</foreach>
 	</insert>
 
 	<update id="codeUpdate" parameterType="java.util.List">
@@ -198,7 +134,7 @@
 		</foreach>
 	</delete>
 	
-	<insert id="messageInsert" parameterType="java.util.List">
+	<insert id="messageInsert" parameterType="map">
 		insert 
 			into MESSAGE
 				(
@@ -208,17 +144,15 @@
 				, HIDE
 				)
 			values
-		<foreach collection="list" item="code" open="" close="" separator=",">
-				(
-				  #{code.CO_TYPE}
-				, (select cast(max(cast(CO_NO as signed)) + 1 as char)
-					 from CODE
+				(	
+				  #{CO_TYPE}
+				, (select cast(ifnull(max(cast(CO_NO AS UNSIGNED)), 0) + 1 AS CHAR)
+					 from MESSAGE M
 					where 1 = 1
-					  and CO_TYPE = #{code.CO_TYPE})
-    			, #{code.CODE}
-    			, '0'
+					  and CO_TYPE = #{CO_TYPE})
+    			, #{CODE}
+    			, #{HIDE}
 				)	
-		</foreach>
 	</insert>
 
 	<update id="messageUpdate" parameterType="java.util.List">
@@ -255,7 +189,7 @@
 			  , MEM_DATE
 			  , (select COUNT(*)
 				  from REPORT
-				 where RPT_USER_NO = MEM_NO) as COUNT
+				 where RPT_USER_NO = MEM_ID) as COUNT
 			  , MEM_CAT
 		  from MEMBERS
 		 ORDER BY MEM_NO;
@@ -342,6 +276,71 @@
 	</insert>
 	<!-- {rptUserIdx=MEM1, rptCode=DCM1, MEM_ID=chat01} -->
 
+	<select id="getMemberCntList" resultType="map">
+		<![CDATA[
+		WITH RECURSIVE TMP 
+		AS ( 
+		    SELECT MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) AS N
+		    UNION ALL
+		    SELECT N + 1 AS NUM 
+		    FROM TMP
+		    WHERE N < (MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) + 4)
+		)
+		SELECT CONCAT(T.MONTH, '월') AS MONTH
+			 , IFNULL(C.CNT, 0) AS CNT
+		  FROM (SELECT CASE WHEN N % 12 = 0 THEN 12
+					        ELSE N % 12 END AS MONTH
+				  FROM TMP) T
+		  LEFT JOIN (SELECT MONTH(MEM_DATE) AS MONTH
+						  , COUNT(*) AS CNT
+					   FROM MEMBERS
+					  GROUP BY MONTH(MEM_DATE))	C
+		    ON T.MONTH = C.MONTH
+	    ]]>
+	</select>
+	
+	<select id="getCategoryCntList" resultType="map">
+		SELECT C.CODE
+		     , IFNULL(P.CNT, 0) AS CNT
+		  FROM (SELECT CONCAT(CO_TYPE, CO_NO) AS PRO_CATE
+					 , CODE
+				  FROM CODE
+				 WHERE CO_TYPE = 'CM'
+		 ) C
+		 LEFT JOIN (SELECT PRO_CATE
+						 , COUNT(*) AS CNT
+					  FROM PRODUCT
+					 WHERE PRO_TSC = 'TM3' 
+					 GROUP BY PRO_CATE) P
+		   ON C.PRO_CATE = P.PRO_CATE     
+		  ORDER BY P.CNT DESC 
+		  LIMIT 5
+	</select>
+	
+	<select id="getTotalTradeList" resultType="map">
+		<![CDATA[
+		WITH RECURSIVE TMP 
+		AS ( 
+		    SELECT MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) AS N
+		    UNION ALL
+		    SELECT N + 1 AS NUM 
+		    FROM TMP
+		    WHERE N < (MONTH(DATE_ADD(NOW(), INTERVAL -4 MONTH)) + 4)
+		)
+	    SELECT CONCAT(T.MONTH, '월') AS MONTH
+			 , IFNULL(P.CNT, 0) AS CNT
+	      FROM (SELECT CASE WHEN N % 12 = 0 THEN 12
+					        ELSE N % 12 END AS MONTH
+				  FROM TMP) T
+	      LEFT JOIN (SELECT MONTH(PRO_DATE) AS MONTH
+						  , COUNT(*) AS CNT
+					   FROM PRODUCT
+					  WHERE PRO_TSC = 'TM3' 
+					  GROUP BY MONTH(PRO_DATE)) P
+	        ON T.MONTH = P.MONTH
+	    ]]>
+	</select>
+	
 <!-- 	===== 성엽 끝 ===== -->
 	
 	

@@ -10,12 +10,11 @@ document.write('<script type="text/javascript"' +
 
 // ajax 호출 및 grid 호출
 $(() => {
-	
+//	columnTitle.번호
 	let columns = [
 		{
 			name: columnTitle.번호,
-			header:"번호",
-//			filter:"number",
+			header:"코드번호",
 		    sortable: true
 		},
 		{
@@ -39,7 +38,7 @@ $(() => {
 	        }
 		},
 		{
-			name:"",
+			name:"DELETE",
 			header:"삭제",
 			renderer: {
 	            type: DeleteButton

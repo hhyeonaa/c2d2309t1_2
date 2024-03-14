@@ -239,7 +239,7 @@ public class MemberController{
 		System.out.println("MemberController adminLoginPro()");
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
-			session.setAttribute("ROL_NO", check.get("ROL_NO"));
+			session.setAttribute("MEM_ID", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		}
 		return "member/msg";
@@ -264,48 +264,6 @@ public class MemberController{
 		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
-//	-----------------------------------------------------------------------------	
-//	@PostMapping("/memberEditPro")
-//	public String memberEditPro(@RequestParam Map<String, String> map, HttpSession session) {
-//		System.out.println("#@%^%#@!^%#^ : " + map);
-//		System.out.println("map.get(\"MEM_IMAGE\") : " + map.get("MEM_IMAGE"));
-//		System.out.println("MemberController memberEditPro()");
-//		String MEM_ID = (String)session.getAttribute("MEM_ID");
-//		Map<String, String> param = memberService.getMember(MEM_ID, map);
-//			memberService.memberEdit(map);
-//			return "redirect:/member/mypage";
-//	}//memberEditPro()
-	
-//	@PostMapping("/memberEditPro")
-//	@ResponseBody
-//	public ResponseEntity<?> memberEditPro(@RequestParam Map<String, String> map, HttpSession session, 
-//										   HttpServletRequest request, @RequestParam MultipartFile image) throws Exception {
-//		System.out.println("MemberController memberEditPro()");
-//		String MEM_ID = (String)session.getAttribute("MEM_ID");
-//		map.put("MEM_ID", MEM_ID);
-//		System.out.println("map : " + map);
-//		String[] mapArr = map.get("map").replace("{", "").replace("}", "").split(",");
-//		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-//		for(String arr : mapArr) {
-//			Map<String, String> dataFormat = new HashMap<String, String>();
-//			dataFormat.put(arr.split(":")[0].trim(),arr.split(":")[1].trim());
-//			list.add(dataFormat);
-//			
-//		}
-//		System.out.println("%%%%%%%%%% : " + list);
-//		int memberEdit = memberService.memberEdit(map);
-//		ServletContext context = request.getSession().getServletContext();
-//	    
-//	 // 첨부파일 업로드 => pom.xml 프로그램 설치
-// 		// servlet-context.xml에 설정
-// 		// 파일이름 중복 방지 => 랜덤문자_파일이름
-// 		UUID uuid = UUID.randomUUID();
-// 		String filename = uuid.toString() + "_" + image.getOriginalFilename();
-//// 		// 원본파일 => 위치/파일이름으로 복사(업로드)
-// 		FileCopyUtils.copy(image.getBytes(), new File(uploadPath, filename));
-//	    
-//		return ResponseEntity.ok().body(memberEdit);
-//	}// memberEditPro()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/memberEditPro")
 	@ResponseBody
@@ -319,7 +277,7 @@ public class MemberController{
 		if(image != null) {
 			ServletContext context = request.getSession().getServletContext();
 			String realPath = context.getRealPath("/resources/img/uploads");
-			
+			System.out.println("realPath : " + realPath);
 			// 첨부파일 업로드 => pom.xml 프로그램 설치
 			// servlet-context.xml에 설정
 			// 파일이름 중복 방지 => 랜덤문자_파일이름
@@ -337,8 +295,6 @@ public class MemberController{
 		return ResponseEntity.ok().body(memberEdit);
 		
 	}// memberEditPro()
-	
-
 //	-----------------------------------------------------------------------------
 	@GetMapping("/myList")
 	public String myList(Model model, HttpSession session) {
@@ -373,21 +329,23 @@ public class MemberController{
 //	-----------------------------------------------------------------------------
 	@GetMapping("/likeList")
 	public String likeList(Model model, HttpSession session) {
-		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("menuList", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
+		model.addAttribute("tscList", codeService.selectCodeList(EnumCodeType.거래상태, session));
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
 		List<Map<String,String>> likeList = memberService.likeList(MEM_ID);
 		model.addAttribute("likeList", likeList);
+		System.out.println("페이지 첫 로드: " + likeList);
 		return "member/likeList";
 	}// likeList()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/likeListSelect")	// ajax
 	@ResponseBody
 	public List<Map<String,String>> likeListSelect(@RequestParam Map<String,String> map, HttpSession session, Model model){
-		System.out.println("컨트롤러 들어옴@");
 		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
-		List<Map<String,String>> likeList = memberService.likeListSelect(map);
-		System.out.println("likeList : " + likeList);
-		return likeList; 
+		System.out.println("map" + map);
+		List<Map<String,String>> likeListSelect = memberService.likeListSelect(map);
+		System.out.println("바뀐 likeList : " + likeListSelect);
+		return likeListSelect; 
 	}//idCheck()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/deleteLike")	// ajax
@@ -450,9 +408,34 @@ public class MemberController{
 		
 	}// memberDelete()
 //	-----------------------------------------------------------------------------
-	
-	
-	
+	@GetMapping("/trading")
+	public String trading(Model model, HttpSession session) {
+		System.out.println("MemberController tradeList()");
+		String MEM_ID = session.getAttribute("MEM_ID").toString();
+		// 진행 중인 거래
+		List<Map<String,String>> trading = memberService.trading(MEM_ID);
+		model.addAttribute("trading", trading);
+		return "member/trading";
+	}// trading() 
+//	-----------------------------------------------------------------------------
+	@PostMapping("/changeState")
+	public String changeState(@RequestParam Map<String, String> map) {
+		System.out.println("changeState map : " + map);
+	    String proNo = map.get("PRO_NO");
+	    System.out.println("changeState proNo : " + proNo);
+	    if (proNo != null) {
+	        try {
+	            memberService.changeState(map);
+	            // 변경 성공 시 로깅
+	            System.out.println("상태 변경이 성공적으로 이루어졌습니다.");
+	        } catch (Exception e) {
+	            e.printStackTrace(); // 에러 로깅
+	            // 변경 실패 시 처리
+	            System.err.println("상태 변경 중 오류가 발생했습니다.");
+	        }
+	    }
+	    return "redirect:/member/trading";
+	}
 	
 //  ===============================================메일 전송 관련===============================================	
 		// 인증메일

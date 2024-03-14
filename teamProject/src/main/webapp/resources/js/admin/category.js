@@ -1,6 +1,9 @@
 document.write('<script type="text/javascript"' + 
 			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/variableCode.js">' +
 			   '</script>');
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+			   '</script>');			   
 			   
 $(() => {
 	targetColor($("#catelist_manage"));
@@ -40,7 +43,7 @@ $(() => {
 		
 //		$('#excel').remove();
 		$('#grid').empty();
-		grid('categoryPro', 0, columns, true, param);
+		fn_grid('categoryPro', 0, columns, true, param);
 //		excel('download');
 	})
 

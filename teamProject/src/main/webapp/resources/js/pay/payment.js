@@ -1,3 +1,6 @@
+document.write('<script type="text/javascript"' + 
+                    'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
+               '</script>'); 
 // 1-1 거래방식 선택 +  배송료 , 최종금액 관련함수
 function selectMethod(){
 	$("input[name='optradio']").change(function () {
@@ -12,6 +15,24 @@ function selectMethod(){
 		$("#allPrice").text(prodprice + deliprice);
 		$('.Deliveryaddress').show();
 		$('.NBdoU').show();
+	})
+}
+// 10 결제완료 후 상품상태 TM1 > TM2 update (확인O)
+function payProUpdate(a){
+	debugger;
+	$.ajax({
+		url : "payProUpdate",
+		type:"post",
+		data:{PRO_NO : a}
+	})//ajax
+	.done(function(data){
+		debugger;
+		if(data == 1){
+			//alert('거래상태 update 성공');			
+		}	
+	})
+	.fail(function(){
+		debugger;
 	})
 }
 
@@ -35,12 +56,18 @@ var requestPay = (pgId) => {
 			 success:function(data){
 				if(data != null){
 				//data값
-					var today = new Date();   
-			        var hours = today.getHours(); // 시
-			        var minutes = today.getMinutes();  // 분
-			        var seconds = today.getSeconds();  // 초
-			        var milliseconds = today.getMilliseconds();
-			        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+					//주문번호 만들기
+					const make_merchant_uid = () => {
+				        const current_time = new Date();
+				        const hour = current_time.getHours().toString();
+				        const minute = current_time.getMinutes().toString();
+				        const second = current_time.getSeconds().toString();
+						const milliseconds = String(current_time.getMilliseconds()).slice(0, 1);
+				        var merchant_uid = "" + hour + minute + second + milliseconds;
+				        merchant_uid = merchant_uid.length != 7 ? merchant_uid.padEnd(7, "L") : merchant_uid;
+				        return merchant_uid;
+				    };
+				    const merchant_uid = make_merchant_uid()
 			        
 					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
 			        var productname = $("#payProName").text().trim();//제품name
@@ -50,7 +77,7 @@ var requestPay = (pgId) => {
 			        debugger;
 			       	IMP.request_pay({
 						pg: pgId, 
-			  			merchant_uid: makeMerchantUid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
+			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
 			  			name: productname, //상품명 // PRO_NAME
 				 		amount: 100, // 결제금액 price //PAID_AMOUNT
 			  			buyer_name: data.BUYNAME, //결제자 이름 
@@ -62,8 +89,12 @@ var requestPay = (pgId) => {
 							debugger;
 							rsp["SELLER_NO"] = data.SELLER;
 							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
+							debugger;
 							rsp["PRO_NO"] = $('#PRO_NO').val();
 							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
+							if($("#selectDel  option").index($("#selectDel  option:selected")) == 6 ){
+								rsp["PAY_MSG"] = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4').val();
+							}
 							//**
 							//var newData = {};
 							//newData.imp_uid = rsp.imp_uid
@@ -74,15 +105,25 @@ var requestPay = (pgId) => {
 								 url: "paySuccess",
 								 data: rsp
 							 })//ajax
-							 
+							 .done(function(data){
+								 if(data){
+									var PRO_NO = $('#PRO_NO').val();
+									var MEM_NO = $('#MEM_NOreal').val();
+									payProUpdate(PRO_NO);
+									var url = 'completepay?PRO_NO=' + PRO_NO + '&MEM_NO=' + MEM_NO 
+									window.location.href = url;
+								 } else{
+									 console.log("paySuccess insert 실패");
+								 } 
+								 
+							 })
 						  	}else{
 								  debugger;
 								  console.log(res);
-							  }
+							 }
 						});
 				//data값
 				}
-				
 			},//success:function(data)
 			fail:function(){
 			}
@@ -215,46 +256,46 @@ selectMethod();
 	    }).open();
 	});
 
-// 2-1 배송지목록 등록 저장
-	$('#payAddbtn').on('click', function(){
-		// 배송지목록 등록 정보 유효성
-		var addnick = $('input[name=ADD_NICK]').val(); 
-		var receiver = $('input[name=ADD_RECEIBER]').val();
-		var phone = $('input[name=ADD_PHONE]').val();
-		var post = $('input[name=ADD_POST]').val();
-		var addname = $('input[name=ADD_NAME]').val();
-		var adddetail = $('input[name=ADD_DETAIL]').val();
-		if(addnick == ''){
-			alert("배송지명을 입력하세요.")
-			addnick.focus();
-			return false;
-		}
-		if(receiver == ''){
-			alert("수령인을 입력하세요.")
-			receiver.focus();
-			return false;
-		}
-		if(phone == ''){
-			alert("연락처을 입력하세요.")
-			phone.focus();
-			return false;
-		}
-		if(post == ''){
-			alert("주소 입력하세요.")
-			post.focus();
-			return false;
-		}
-		if(addname == ''){
-			alert("주소 입력하세요.")
-			addname.focus();
-			return false;
-		}
-		if(adddetail == ''){
-			alert("상세주소를 입력하세요.")
-			adddetail.focus();
-			return false;
-		}
-	})
+//// 2-1 배송지목록 등록 저장
+//	$('#payAddbtn').on('click', function(){
+//		// 배송지목록 등록 정보 유효성
+//		var addnick = $('input[name=ADD_NICK]').val(); 
+//		var receiver = $('input[name=ADD_RECEIBER]').val();
+//		var phone = $('input[name=ADD_PHONE]').val();
+//		var post = $('input[name=ADD_POST]').val();
+//		var addname = $('input[name=ADD_NAME]').val();
+//		var adddetail = $('input[name=ADD_DETAIL]').val();
+//		if(addnick == ''){
+//			alert("배송지명을 입력하세요.")
+//			addnick.focus();
+//			return false;
+//		}
+//		if(receiver == ''){
+//			alert("수령인을 입력하세요.")
+//			receiver.focus();
+//			return false;
+//		}
+//		if(phone == ''){
+//			alert("연락처을 입력하세요.")
+//			phone.focus();
+//			return false;
+//		}
+//		if(post == ''){
+//			alert("주소 입력하세요.")
+//			post.focus();
+//			return false;
+//		}
+//		if(addname == ''){
+//			alert("주소 입력하세요.")
+//			addname.focus();
+//			return false;
+//		}
+//		if(adddetail == ''){
+//			alert("상세주소를 입력하세요.")
+//			adddetail.focus();
+//			return false;
+//		}
+//	})
 	
 	
 // 3. 결제수단 클릭 이벤트(css)
@@ -277,12 +318,14 @@ selectMethod();
 			alert('배송주소를 등록해주세요');
 			return false;
 		}
+		if($("#selectDel  option").index($("#selectDel  option:selected")) == 0){
+			alert('배송요청사항 입력해주세요');
+			return false;
+		}
 		requestPay(pgId);
-		// "/completepay"페이지이동
-		var PRO_NO = $('#PRO_NO').val();
-		var url = '${pageContext.request.contextPath}/board/boardDetail?PRO_NO=' + PRO_NO;
-		window.location.href = url;
 	})
+	
+	
 // 5.배송지리스트 모달관련(삭제, 수정, 선택)
 	$('#staticBackdrop').on('show.bs.modal', function(){
 		$("#payUpdateBtn").attr("id", "payAddbtn");
@@ -325,6 +368,7 @@ selectMethod();
 		$("[class^='deliUpdate']").on('click', function(e){
 			$("#staticBackdrop").modal("hide");
 			debugger;
+			
 			$.ajax({
 				url: "addDeliveryUpdate",
 				data: {ADD_NO : $('#ADD_NO' + $(e.target).attr("class").match(/\d+/)[0]).val()
@@ -381,18 +425,55 @@ selectMethod();
 	//6-2 배송지 수정작업
 	$(document).on('click', '#payUpdateBtn', function(){
 		debugger;
+		var addnick = $('input[name=ADD_NICK]').val(); 
+		var receiver = $('input[name=ADD_RECEIVER]').val();
+		var phone = $('input[name=ADD_PHONE]').val();
+		var post = $('input[name=ADD_POST]').val();
+		var addname = $('input[name=ADD_NAME]').val();
+		var adddetail = $('input[name=ADD_DETAIL]').val();
+		debugger;
+		if(addnick == ''){
+			alert("배송지명을 입력하세요.")
+			addnick.focus();
+			return false;
+		}
+		if(receiver == ''){
+			alert("수령인을 입력하세요.")
+			receiver.focus();
+			return false;
+		}
+		if(phone == ''){
+			alert("연락처를 입력하세요.")
+			phone.focus();
+			return false;
+		}
+		if(post == ''){
+			alert("주소 입력하세요.")
+			post.focus();
+			return false;
+		}
+		if(addname == ''){
+			alert("주소 입력하세요.")
+			addname.focus();
+			return false;
+		}
+		if(adddetail == ''){
+			alert("상세주소를 입력하세요.")
+			adddetail.focus();
+			return false;
+		}
 		$.ajax({
 			url: "addDeliveryUpdate1",
 			type:'post',
 			data:{
 				ADD_NO : $("#address-no").val(),
-				ADD_NICK : $("#address-title").val(),
-				ADD_RECEIVER : $("#address-name").val(),
-				ADD_PHONE : $("#address-tel").val(),
-				ADD_POST : $("#address-zipcode").val(),
-				ADD_NAME : $("#address-front").val(),
-				ADD_DETAIL : $("#address-detail").val(),
-				MEM_NO : $('#MEM_NO').val()
+				MEM_NO : $('#MEM_NO').val(),
+				ADD_NICK : addnick,
+				ADD_RECEIVER : receiver,
+				ADD_PHONE : phone,
+				ADD_POST : post,
+				ADD_NAME : addname,
+				ADD_DETAIL : adddetail
 			},
 			async: false,
 			success:function(result){
@@ -418,19 +499,56 @@ selectMethod();
 	// 새 배송지 추가(입력)저장 
 	$(document).on('click', '#payAddbtn', function(){
 		$("#staticBackdrop").modal("hide");
+		var addnick = $('input[name=ADD_NICK]').val(); 
+		var receiver = $('input[name=ADD_RECEIVER]').val();
+		var phone = $('input[name=ADD_PHONE]').val();
+		var post = $('input[name=ADD_POST]').val();
+		var addname = $('input[name=ADD_NAME]').val();
+		var adddetail = $('input[name=ADD_DETAIL]').val();
+		debugger;
+		if(addnick == ''){
+			alert("배송지명을 입력하세요.")
+			addnick.focus();
+			return false;
+		}
+		if(receiver == ''){
+			alert("수령인을 입력하세요.")
+			receiver.focus();
+			return false;
+		}
+		if(phone == ''){
+			alert("연락처를 입력하세요.")
+			phone.focus();
+			return false;
+		}
+		if(post == ''){
+			alert("주소 입력하세요.")
+			post.focus();
+			return false;
+		}
+		if(addname == ''){
+			alert("주소 입력하세요.")
+			addname.focus();
+			return false;
+		}
+		if(adddetail == ''){
+			alert("상세주소를 입력하세요.")
+			adddetail.focus();
+			return false;
+		}
 		debugger;
 		$.ajax({
 			url:"addDelivery",
 			type:'post',
 			data:{
 				ADD_NO : $("#address-no").val(),
-				ADD_NICK : $("#address-title").val(),
-				ADD_RECEIVER : $("#address-name").val(),
-				ADD_PHONE : $("#address-tel").val(),
-				ADD_POST : $("#address-zipcode").val(),
-				ADD_NAME : $("#address-front").val(),
-				ADD_DETAIL : $("#address-detail").val(),
-				MEM_NO : $('#MEM_NO').val()
+				MEM_NO : $('#MEM_NO').val(),
+				ADD_NICK : addnick,
+				ADD_RECEIVER : receiver,
+				ADD_PHONE : phone,
+				ADD_POST : post,
+				ADD_NAME : addname,
+				ADD_DETAIL : adddetail
 			},
 			async: false,	
 			success:function(result){
@@ -470,20 +588,16 @@ selectMethod();
 
 	//9.배송 요청사항 이벤트
 	$('#selectDel').change(function() {
-        var selectedOptionText = $("#selectDel option:selected").text();
+        //var selectedOptionText = $("#selectDel option:selected").text();
         var textarea = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4');
-        
-        //$("#selectDel  option").index($("#selectDel  option:selected"));
-		//$("#selectDel option:selected").text();
-
-        
-        // 선택된 옵션에 따라 textarea를 활성화 또는 비활성화
-        if (selectedOptionText === '직접 입력') {
-            textarea.prop('disabled', false); // textarea 활성화
-        } else {
-            textarea.prop('disabled', true); // textarea 비활성화
-        }
-    });
+        var selectedOptionIndex =$("#selectDel  option").index($("#selectDel  option:selected"));
+		textarea.prop('disabled', true);
+		textarea.val('');
+		if(selectedOptionIndex == 6 ){
+			textarea.prop('disabled', false); // textarea 활성화
+		}
+		
+	    });
 	
 	
 	

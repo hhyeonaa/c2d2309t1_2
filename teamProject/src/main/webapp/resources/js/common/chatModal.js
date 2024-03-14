@@ -71,7 +71,9 @@ var yourChat = (chat) => {
 					'<div class="chatTime">'+chat.time+'</div>' +
 				'</div>' +
 			'</div>'
-} 
+}
+
+var outToggle = 1;
 // *****************************************
 
 
@@ -108,7 +110,9 @@ function sendMessage(roomNo, nickName, target, sendMsg, time) {
 }
 // 서버로부터 메시지를 받았을 때
 function onMessage(msg) {
-	addMsg(JSON.parse(msg.data));
+	if(outToggle){
+		addMsg(JSON.parse(msg.data));	
+	}
 }
 // 서버와 연결을 끊었을 때
 function onClose(evt) {
@@ -135,13 +139,14 @@ function changeState(state, target, roomNo){ // 상태 값 변경
 	sock.send(JSON.stringify(msg));
 }
 
-function addMsg(msg){ // 원래 채팅 메세지에 방금 받은 메세지 더해서 설정하기
+function addMsg(msg){ // 메세지를 받은 경우
 	if(msg.type == "chat"){
 		var chatBody = $("#chatBody");
 		chatBody.append(yourChat(msg));
 		chatBody.scrollTop(999999);
 	}
 	else if(msg.type == "changeState"){
+		console.log("되나")
 		$("#pro_tsc").val(msg.state);
 		
 		var changedPost = $("#chatHead").find(".chatRoomContents").attr("id");
@@ -245,6 +250,7 @@ var createChat = function(proNo, memId){
 
 // 채팅방 입장
 var enterChat = function(chatData){
+	outToggle = 1;
 	var selectDisabled;
 	var tm1Disabled;
 	if(chatData.post == "yourPost" || chatData.pro_tsc.code == "TM3") selectDisabled = "disabled";
@@ -319,7 +325,7 @@ var enterChat = function(chatData){
 					}
 					
 					// 내 채팅 리스트에도 상태값 변경
-					var changeTarget = $("#chatList").find("#"+proNo+" > .chatRoomContents span");
+					var changeTarget = $("#chatList").find("#"+chatData.proNo+" > .chatRoomContents span");
 					changeTarget.attr("class", changedStateTag.val());
 					changeTarget.text("("+changedStateTag.text()+")");
 					
@@ -368,6 +374,7 @@ var enterChat = function(chatData){
     			$('#exampleModalReport').modal('hide');
     		})
     		.fail(function(){
+				debugger;
     			alert('신고 내용을 선택해주세요.')
     		})
     	});
@@ -392,6 +399,7 @@ var enterChat = function(chatData){
 					$("#chatBody").empty();
 					$("#chatHead").empty();
 					$("#chatBody").append('<span id="chatChoicePlease">채팅을 선택해주세요</span>');
+					outToggle = 0;
 				}
 			})
 		}
@@ -441,9 +449,8 @@ var enterChat = function(chatData){
 	})
 	
 	if(chat_close){
-		chatBody.append(chatData.target + "님이 채팅방을 나가셨습니다.");
+		chatBody.append('<span style="margin-left: 18px; font-size: 17px; font-weight: bold;">'+chatData.target+'님이 채팅방을 나가셨습니다.</span>');
 	}
-	
 	
 	chatBody.after('<div id="chatBar">' +
 								'<input id="sendText" class="form-control" type="text" placeholder="메시지를 입력해주세요." '+text_readOnly+'>' +
@@ -501,7 +508,8 @@ var showChatList = function(chatList, post){
 						code_content:$(this).find(".chatRoomContents > span").text().slice(1,-1),
 					},
 			chat_close: $(this).find(".chat_close").attr("id"),
-			payState: $(this).find(".payState").attr("id")
+			payState: $(this).find(".payState").attr("id"),
+			post: post
 		}
 		
 		enterChat(chatData);

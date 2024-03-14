@@ -45,6 +45,8 @@ public class BoardController {
 	BoardService boardService;
 	@Inject
 	private TeamCodeService codeService;
+	@Inject
+	private AdminService adminService;
 	
 	@GetMapping("/saleBoard")
 	public String saleBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
@@ -203,12 +205,13 @@ public class BoardController {
 	    // Gson 인스턴스 생성
 //	    Gson gson = new Gson();
 
+		
 	    // textData를 Map으로 변환
 //	    Type type = new TypeToken<Map<String, Object>>() {}.getType();
 //	    Map<String, Object> textDataMap = gson.fromJson(textData, type);
 
 	    // 텍스트 데이터 처리
-	    logger.info("textData: " + textData);
+	    System.out.println("textData: " + textData);
 	    // 원본 Map의 textData 값 (JSON 문자열)
         String textDataJson = textData.get("textData");
         // Gson 인스턴스 생성
@@ -219,7 +222,7 @@ public class BoardController {
         Map<String, String> parsedMap = gson.fromJson(textDataJson, type);
 
         // 파싱된 Map의 내용 출력
-        logger.info("parsedMap: " + parsedMap);
+        System.out.println("parsedMap: " + parsedMap);
 //        for (Map.Entry<String, String> entry : parsedMap.entrySet()) {
 //            System.out.println(entry.getKey() + ": " + entry.getValue());
 //        }
@@ -280,6 +283,10 @@ public class BoardController {
 	    boardService.insertBoard(parsedMap, imageFilenames);
 
 	    return ResponseEntity.ok("Data and files received successfully");
+	}
+	@GetMapping("/selectMyBoard")
+	public ResponseEntity<?> selectMyBoard(@RequestParam Map<String, String> param){
+		return ResponseEntity.ok(boardService.selectMyBoard(param));
 	}
 	
 	@PostMapping("/updateBoardPro")
@@ -771,31 +778,5 @@ public class BoardController {
 	}
 	
 //	----- 검색 bar -----
-	
-	@GetMapping("/inputForm")
-	public String inputForm(Model model, HttpSession session) {
-		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
-		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
-		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
-		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
-		return "admin/inputForm";
-	}
-	
-	@Inject
-	AdminService adminService = new AdminService();
-	
-	@GetMapping("/getForm")
-	@ResponseBody
-	public ResponseEntity<?> getForm(@RequestParam Map<String, String> map) {
-		List<Map<String, String>> formList = adminService.getForm(map);
-		
-		for (Map<String, String> code : formList) {
-			String codeValue = code.get("CODE");
-			code.put("formName", codeValue.split("/")[0]);
-			code.put("formID", codeValue.split("/")[1]);
-		}
-		System.out.println("리스트: " + formList.toString());
-		return ResponseEntity.ok().body(formList);
-	}
 	
 }// 클래스 끝

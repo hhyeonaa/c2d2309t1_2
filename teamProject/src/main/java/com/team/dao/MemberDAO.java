@@ -145,7 +145,7 @@ public class MemberDAO {
 	public List<Map<String, String>> otherTrade(String MEM_ID) {
 		System.out.println("MemberDAO otherTrade()");
 		return sqlSession.selectList(namespace + "otherTrade", MEM_ID);
-	}// otherTrade()
+	}// otherTrade() 
 //	-----------------------------------------------------------------------------
 	public List<Map<String, String>> trading(String MEM_ID) {
 		System.out.println("MemberDAO trading()");

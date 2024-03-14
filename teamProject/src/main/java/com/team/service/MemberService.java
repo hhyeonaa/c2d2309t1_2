@@ -140,7 +140,7 @@ public class MemberService {
 	public List<Map<String, String>> myTrade(String MEM_ID) {
 		System.out.println("MemberService myTrade()");
 		return memberDAO.myTrade(MEM_ID); 
-	}// myTrade()
+	}// myTrade() 
 //	-----------------------------------------------------------------------------	
 	public List<Map<String, String>> otherTrade(String MEM_ID) {
 		System.out.println("MemberService otherTrade()");

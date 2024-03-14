@@ -43,7 +43,7 @@
 				                <input type="hidden" name="status" value="completed">
 				                <div class="text-center mb-3">
 				                    <!-- 구매확정 버튼 -->
-				                    <button type="button" id="confirmButton" class="btn btn-outline-success btn-block btn-sm btn-smaller">구매확정</button>
+				                    <button type="button" id="confirmButton" class="btn btn-outline-success btn-block btn-sm btn-smaller">구매확정</button> 
 				                </div>
 				            </form>
                         </div>

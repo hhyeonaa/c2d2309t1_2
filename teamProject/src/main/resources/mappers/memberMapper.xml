@@ -367,7 +367,7 @@
              , DATE_FORMAT(A.PAY_TIME, '%Y.%m.%d %H:%i:%s') as "PAY_TIME"
              , A.PAY_MSG
              , format(A.PAID_AMOUNT, 0) as "PAID_AMOUNT"
-             , A.BUYER_NO
+             , A.BUYER_NO 
              , A.SELLER_NO
 			 , format(P.PRO_PRICE, 0) as "PRO_PRICE"
              , C1.CODE as "TC_NAME"

@@ -414,7 +414,7 @@ public class MemberController{
 		List<Map<String,String>> trading = memberService.trading(MEM_ID);
 		model.addAttribute("trading", trading);
 		return "member/trading";
-	}// trading()
+	}// trading() 
 //	-----------------------------------------------------------------------------
 	@PostMapping("/changeState")
 	public String changeState(@RequestParam Map<String, String> map) {

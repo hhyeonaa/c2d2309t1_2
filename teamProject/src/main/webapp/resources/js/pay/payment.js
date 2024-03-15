@@ -231,16 +231,13 @@ $('#paycoPay').on("click", () => {
 	pgId="payco.PARTNERTEST";
 })	
 
-//9810030929
 $('#phonePay').on("click", () => {
 	pgId="danal";
 })
 $('#samsungPay').on('click', () => {
-//	alert('삼성페이를 준비중입니다.');
 	alertMsg("AM24",["삼성페이"]);
 })
 $('#applePay').on('click', () => {
-//	alert('애플페이를 준비중입니다.');
 	alertMsg("AM24",["애플페이"]);
 })
 	

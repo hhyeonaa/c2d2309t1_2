@@ -135,6 +135,11 @@ public class BoardController {
 	@GetMapping("/writeBoard")
 	public String writeBoard(HttpServletRequest request,Model model,HttpSession session) {
 		System.out.println("BoardController writeBoard()");
+		String memId = (String) session.getAttribute("MEM_ID");
+		if(memId == null) {
+			return "redirect:/member/login";
+		}
+		
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
 		

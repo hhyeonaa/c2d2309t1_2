@@ -468,6 +468,7 @@ public class MemberController{
 	public String changeState(@RequestParam Map<String, String> map) {
 		System.out.println("changeState map : " + map);
 	    String proNo = map.get("PRO_NO");
+	    System.out.println("proNo : " + proNo);
 	    System.out.println("changeState proNo : " + proNo);
 	    if (proNo != null) {
 	        try {

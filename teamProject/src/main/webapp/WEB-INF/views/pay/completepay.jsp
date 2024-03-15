@@ -72,7 +72,7 @@ $(()=>{
 	})
 	$('.goMypage').on('click', function(){
 		debugger;
-		window.location.href='/' + window.location.pathname.split("/")[1] + '/member/tradeList'
+		window.location.href='/' + window.location.pathname.split("/")[1] + '/member/trading'
 	})
 })
 </script>

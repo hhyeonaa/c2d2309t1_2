@@ -396,7 +396,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proCate: $('#category1').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: $('#addNo').val(),
+//		    proAddress: $('#addNo').val(),
+		    proAddress: $('#inputRegion').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),
@@ -623,50 +624,50 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		e.preventDefault();
 		$('#inputRegion').val('전국');
 	})
-$("#searchRegion").on('click', function() {
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	        	console.log(data);
-	            
-	        	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-	            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-	            var fullAddr= '';
-	            var extraAddr='';
-	            
-	            if(data.userSelectoredType === 'R'){
-	            	fullAddr = data.roadAddress;
-	            } else{
-	            	fullAddr = data.jibunAddress;
-	            }
-	            
-	            // extraAddr 
-	            if(data.userSelectedType === 'R'){
-	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                    extraAddr += data.bname;
-	                }
-	            }
-	            // 건물명이 있고, 공동주택일 경우 추가한다.
-	            if(data.buildingName !== '' && data.apartment === 'Y'){
-	                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	            }	                    
-	            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	            if(extraAddr !== ''){
-	                extraAddr = ' (' + extraAddr + ')';
-	            }		            
-	            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-	            if(fullAddr !== ''){
-	                fullAddr += extraAddr;
-	            }                    
-	            
-	            //$("#address-zipcode").val(data.zonecode); 
-	            $("#inputRegion").val(fullAddr);
-	            //$("#address-detail").focus();
-	            
-	        }
-	    }).open();
-	});
+	$("#searchRegion").on('click', function() {
+		    new daum.Postcode({
+		        oncomplete: function(data) {
+		        	console.log(data);
+		            
+		        	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		            var fullAddr= '';
+		            var extraAddr='';
+		            
+		            if(data.userSelectoredType === 'R'){
+		            	fullAddr = data.roadAddress;
+		            } else{
+		            	fullAddr = data.jibunAddress;
+		            }
+		            
+		            // extraAddr 
+		            if(data.userSelectedType === 'R'){
+		                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                    extraAddr += data.bname;
+		                }
+		            }
+		            // 건물명이 있고, 공동주택일 경우 추가한다.
+		            if(data.buildingName !== '' && data.apartment === 'Y'){
+		                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		            }	                    
+		            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		            if(extraAddr !== ''){
+		                extraAddr = ' (' + extraAddr + ')';
+		            }		            
+		            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+		            if(fullAddr !== ''){
+		                fullAddr += extraAddr;
+		            }                    
+		            
+		            //$("#address-zipcode").val(data.zonecode); 
+		            $("#inputRegion").val(fullAddr);
+		            //$("#address-detail").focus();
+		            
+		        }
+		    }).open();
+		});
 	
 	$('#selectAddress').on('change',function(e){
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지
@@ -698,7 +699,8 @@ $("#searchRegion").on('click', function() {
 		    proCate: $('#category1').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: $('#addNo').val(),
+//		    proAddress: $('#addNo').val(),
+		    proAddress: $('#inputRegion').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),

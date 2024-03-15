@@ -204,10 +204,10 @@
 				<div class="col-12 d-flex justify-content-center pt-3">
 				<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 					<input type="hidden" id="addNo" value="">
-					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
-					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
+<!-- 					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임"> -->
+<!-- 					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호"> -->
 					<input class="col-7 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
-					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
+<!-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력"> -->
 				</c:if>
 				<c:if test="${!empty resultMap.PRO_DATE}">
 					<input type="hidden" id="addNo" value="${resultMap.PRO_ADDRESS}">

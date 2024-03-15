@@ -236,12 +236,12 @@ $('#phonePay').on("click", () => {
 	pgId="danal";
 })
 $('#samsungPay').on('click', () => {
-	alert('삼성페이를 준비중입니다.');
-	//alertMsg("AM6",["삼성페이"]);
+//	alert('삼성페이를 준비중입니다.');
+	alertMsg("AM24",["삼성페이"]);
 })
 $('#applePay').on('click', () => {
-	alert('애플페이를 준비중입니다.');
-	//alertMsg("AM6",["애플페이"]);
+//	alert('애플페이를 준비중입니다.');
+	alertMsg("AM24",["애플페이"]);
 })
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	

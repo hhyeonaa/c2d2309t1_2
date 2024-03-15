@@ -41,7 +41,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 
-	<form>
+<!-- 	<form> -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="width: 100%;">
 			<div class="container">
@@ -135,7 +135,7 @@
 		  	<hr>
 		  	<div class="row justify-content-center">
 <!-- 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>거래상태<th></tr></table></div> -->
-<!-- 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;"> -->
+			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
 <!-- 					<select name="proTsc" id="proTsc" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;"> -->
 <%-- 						<c:forEach var="tsc" items="${trade}"> --%>
 <%-- 						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/> --%>
@@ -204,10 +204,10 @@
 				<div class="col-12 d-flex justify-content-center pt-3">
 				<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 					<input type="hidden" id="addNo" value="">
-					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
-					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
+<!-- 					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임"> -->
+<!-- 					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호"> -->
 					<input class="col-7 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
-					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
+<!-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력"> -->
 				</c:if>
 				<c:if test="${!empty resultMap.PRO_DATE}">
 					<input type="hidden" id="addNo" value="${resultMap.PRO_ADDRESS}">
@@ -425,7 +425,8 @@
 			</div>
 		</div> <!-- border안  -->
 	</div>
-	</form>
+<!-- 	</form> -->
+	
 </div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

@@ -562,7 +562,12 @@ $('#applePay').on('click', () => {
 			textarea.prop('disabled', false); // textarea 활성화
 		}
 		
-	    });
+	});
+	
+	//모달2 이벤트
+	$('#staticBackdrop').on('show.bs.modal', function(){
+		
+	})
 	
 	
 	

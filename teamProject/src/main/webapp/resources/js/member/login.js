@@ -215,7 +215,7 @@ $(function(){
 				return;
 			}
 			var MEM_NICK = $('#nickname').val();
-
+			
 			$.ajax({
 				url:'nickCheck',
 				data:{'MEM_NICK':$('#nickname').val()},
@@ -268,7 +268,39 @@ $(function(){
 			});
 		});	
 		
+		// ~~~~~~~~~~~~~~~~~~~전화번호 중복 체크~~~~~~~~~~~~~~~~~~~	
+		$('#phone').blur(function(){
+			debugger;
+			//  전화번호 비어있는 경우 제어
+			if($('#phone').val() == ' ' || $('#phone').val() == ''){
+				$('#phoneCheck').html("전화번호 필수 입력").css('color', 'gray');
+				return;
+			}
+			var phone = document.getElementById('phone').value;
+			var phoneRegex = /^01(0|1|[6-9])[0-9]{3,4}[0-9]{4}$/;
+			$.ajax({
+				url:'phoneCheck',
+				data:{'MEM_TEL':$('#phone').val()},
+				success:function(data){
+					if(data == 0){
+						if (phoneRegex.test(phone)) {
+							$("#phoneCheck").text("사용가능한 전화번호 입니다.").css('color', 'green');
+							return;
+						} else{
+							$("#phoneCheck").text("올바른 전화번호 형식이 아닙니다.").css('color', 'red');
+							return;
+						}
+						
+					}
+					
+					$("#phoneCheck").text("이미 사용중인 전화번호 입니다.").css('color', 'red');
+				}
+			});
+		});	
+		
 		}) // 모달 끝
+	
+	
 	
 	
                 
@@ -319,11 +351,21 @@ $(function(){
 			return false;
 		}
 		
+		var birth = document.getElementById('birth').value;
+		var birthRegex =/^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
+		if (!birthRegex.test(birth)) {
+			alertMsg("AM5", ["생년월일 형식"]);
+			$('#birth').focus();
+			return false;
+		}
+		
+		
 		if($('#email').val() == "" || $('#email').val() == null){
 			alertMsg("AM6", ["이메일"]);
 			$('#email').focus();	
 			return false;
 		}
+		
 		
 		if($('#phone').val() == "" || $('#phone').val() == null){
 			alertMsg("AM6", ["전화번호"]);
@@ -331,7 +373,13 @@ $(function(){
 			return false;
 		}
 		
-		
+		var phone = document.getElementById('phone').value;
+		var phoneRegex = /^01(0|1|[6-9])[0-9]{3,4}[0-9]{4}$/;
+		if (!phoneRegex.test(phone)) {
+			alertMsg("AM5", ["전화번호 형식"]);
+			$('#phone').focus();
+			return false;
+		}
 		
 		var id = document.getElementById('id').value;
 		var idRegex = /^[a-zA-Z0-9]{6,12}$/;
@@ -365,52 +413,88 @@ $(function(){
 	
 		/* 숫자 및 영문, 자음 사용 금지 구문 */
 		for (var i=0; i<$("#username").val().length; i++)  {
-			     var chk = $("#username").val().substring(i,i+1);
-			     if(chk.match(/[0-9]|[a-z]|[A-Z]/)) {
-				     	alertMsg("AM6", ["정확한 이름"]);
-						$('#username').focus();
-						return false;
-				    }
-				    if(chk.match(/([^가-힣\x20])/i)){
-					    	alertMsg("AM6", ["정확한 이름"]);
-							$('#username').focus();
-							return false;
-					    }
-					    if($("#username").val() == " "){
-						    	alertMsg("AM6", ["정확한 이름"]);
-								$('#username').focus();
-								return false;
-						    }} 
+		     var chk = $("#username").val().substring(i,i+1);
+		     if(chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+		     	alertMsg("AM6", ["정확한 이름"]);
+				$('#username').focus();
+				return false;
+		    }
+		    if(chk.match(/([^가-힣\x20])/i)){
+		    	alertMsg("AM6", ["정확한 이름"]);
+				$('#username').focus();
+				return false;
+		    }
+		    if($("#username").val() == " "){
+		    	alertMsg("AM6", ["정확한 이름"]);
+				$('#username').focus();
+				return false;
+		    }} 
+		
 		$.ajax({
-				url:'idCheck',
-				data:{'MEM_ID':$('#id').val()},
-				success:function(result){
-					if(result != 0){
-						alertMsg("AM6", ["중복된 아이디입니다. 다른 아이디"]);
-						$('#id').focus();
-						return false;
-					}
-					
-				}
-			});
-			
+			url:'idCheck',
+			data:{'MEM_ID':$('#id').val()},
+			async : false,
+		})
+		.done(function(data){
+			if(data != 0){
+				alertMsg("AM5", ["중복된 아이디 입니다. 아이디"]);
+				$('#id').focus();
+				return false;
+			}
+		})
+		
 		$.ajax({
-				url:'nickCheck',
-				data:{'MEM_NICK':$('#nickname').val()},
-				success:function(result){
-					if(result == 0){
-						return true;
-					} else {
-						return false;
-					}
-				},
-				error: function(){
-					alertMsg("AM6", ["중복된 닉네임입니다. 다른 닉네임"]);
-						$('#nickname').focus();
-						return false;
-				}
-				
-			});
+			url:'nickCheck',
+			data:{'MEM_ID':$('#nickname').val()},
+			async : false,
+		})
+		.done(function(data){
+			if(data != 0){
+				alertMsg("AM5", ["중복된 닉네임 입니다. 닉네임"]);
+				$('#nickname').focus();
+				return false;
+			}
+		})
+		
+		$.ajax({
+			url:'emailCheck',
+			data:{'MEM_ID':$('#email').val()},
+			async : false,
+		})
+		.done(function(data){
+			if(data != 0){
+				alertMsg("AM5", ["중복된 이메일 입니다. 이메일"]);
+				$('#email').focus();
+				return false;
+			}
+		})
+		
+//		$.ajax({
+//			url:'nickCheck',
+//			data:{'MEM_NICK':$('#nickname').val()},
+//			async : false,
+//			success:function(result){
+//				if(result != 0){
+//					alertMsg("AM5", ["중복된 닉네임 입니다. 닉네임"]);
+//					$('#nickname').focus();
+//					return false;
+//				}
+//			}
+//		});	
+//		
+//		$.ajax({
+//			url:'emailCheck',
+//			data:{'MEM_EMAIL':$('#email').val()},
+//			async : false,
+//			success:function(result){
+//				if(result != 0){
+//					alertMsg("AM5", ["중복된 이메일 입니다. 이메일"]);
+//					$('#email').focus();
+//					return false;
+//				}
+//			}
+//		});	
+		
 		
 		
 		$.ajax({

@@ -11,6 +11,13 @@
 .card img {
     cursor: pointer;
 }
+.nameP {
+	text-align: left;
+	padding-bottom: 2%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
 </style>
 </head>
 <jsp:include page="../template/header.jsp"/>
@@ -47,7 +54,7 @@
 					      </a>
 	                    </span>
 	                    <br>
-	                    <p>${map.PRO_NAME}</p>
+	                    <p class="nameP">${map.PRO_NAME}</p>
 	                    <h5><b>${map.PRO_PRICE}</b></h5>
 	                </div>
 	            </div>

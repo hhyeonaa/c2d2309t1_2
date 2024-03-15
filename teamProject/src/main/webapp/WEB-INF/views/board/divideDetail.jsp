@@ -45,7 +45,7 @@
 			  		</c:if>
 			  	</c:forEach>
 			  </div>
-			  	<div class="modal">
+			  	<div class="imgModal">
 				    <div class="modalBox"></div>
 				</div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -83,12 +83,16 @@
 						<c:choose> 
 						    <c:when test="${empty sessionScope.MEM_ID}">
 						        <!-- 사용자가 로그인하지 않은 경우 -->
+						        <td></td>
 						    </c:when>
 						    <c:when test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
 						        <!-- 사용자가 로그인했지만, 게시물 작성자와 다른 경우 -->
 						        <td><a id="pageReport" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModalReport">
 						            <img src="${pageContext.request.contextPath}/resources/img/board/report.png">신고하기</a></td>
 						    </c:when>
+						    <c:otherwise>
+						    	<td></td>
+						    </c:otherwise>
 						</c:choose>
 		 			</tr>
 		 			<tr>
@@ -117,7 +121,7 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.PRO_ADDRESS}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
@@ -161,7 +165,7 @@
 		 			<textarea id="appTxt" style="resize: none; " cols="40" rows="3" placeholder="나눔 신청 사유 또는 이유를 적어주세요."></textarea>
 		 		</div>
 		 	</div>
-		 	<div class="mt-5">
+		 	<div class="mt-5" style="width: 70%; height: auto;">
 		 		<table class="table">
 					<tr><td colspan="7">연관상품</td><tr>
 					<tr>

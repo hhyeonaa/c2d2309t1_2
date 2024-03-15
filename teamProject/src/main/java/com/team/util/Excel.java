@@ -204,22 +204,32 @@ public class Excel {
 					int cells = row.getPhysicalNumberOfCells();
 					if(i == 1) {
 						for(int j=0; j < cells; j++) {
-							String cellVal = row.getCell(j).toString();
-							colNames.add(cellVal);
+							XSSFCell cellData = row.getCell(j);
+							if(cellData != null) {
+								String cellVal = cellData.toString();
+								if(!cellVal.equals("")) {
+									colNames.add(cellVal);
+								}
+							}
 						}
 					}
 					else if (cells != 0) {
 						Map<String, String> datas = new HashMap<String, String>();
 						String value;
-						for(int j=0; j < cells; j++) {
+						for(int j=0; j < colNames.size(); j++) {
 							cell = row.getCell(j);
 							if(cell == null) continue;
 							else {
 								value = cellReader(cell);
+								if(value == null) {
+									throw new InvalidFormatException(value); 
+								}
 								datas.put(colNames.get(j) ,value);
 							}
 						}
+						System.out.println("datas : " + datas);
 						uploadData.add(datas);
+						
 					}
 				}
 			}

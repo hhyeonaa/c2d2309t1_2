@@ -63,6 +63,16 @@ $(() => {
 		
 		$("#submitBtn").trigger("click");
 	})
+	
+	$("#writeBoardPage").on("click", function(){
+		if($(".id_session").val() === ''){
+			alertMsg();
+			return;	
+		}
+		
+		location.href = "/" + window.location.pathname.split("/")[1] + "/board/writeBoard";
+	})
+	
 })
 
 function header(data, url){

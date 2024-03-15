@@ -6,26 +6,25 @@ var excel = (state, tableName) => {
 	$("#grid").before('<div id="excel"></div>');
 	if(state == 'download' || state == 'updownload'){
 		var excelDownloadTag = '<div class="excelBox">'
-							    	+'<button class="btn btn-success excelDownloadModalBtn btnSize"><img class="excel_icon" src="/myapp/resources/img/excel/download_icon.png"alt="excel_icon">엑셀 다운로드</button>'
-								    +'<div class="excelDownloadModalBox">'
-								    	+'<div class="mb_5px">'
-									    	+'<span class="font_blod_13px">※필터 나중에 생기면 추가</span>'
-								    	+'</div>'
-								    	+'<div class="btnBox">'
-									    	+'<button class="btn btn-primary dLBtn btnSize">다운로드</button>'
-								    	+'</div>'
-								    +'</div>'
-							    +'</div>';
+							 +   	'<button class="btn btn-success excelDownloadModalBtn btnSize"><img class="excel_icon" src="'+'/'+ window.location.pathname.split("/")[1] +'/resources/img/excel/download_icon.png"alt="excel_icon">엑셀 다운로드</button>'
+							 +	    '<div class="excelDownloadModalBox">'
+							 +	    	'<div class="mb_5px">'
+							 +		    	'<span class="font_blod_13px">※현재 보이는 표를 엑셀로 다운로드 합니다.</span>'
+							 +	    	'</div>'
+							 +	    	'<div class="btnBox">'
+							 +		    	'<button class="btn btn-primary dLBtn btnSize">다운로드</button>'
+							 +	    	'</div>'
+							 +	    '</div>'
+							 +   '</div>';
 		$("#excel").append(excelDownloadTag);
 		
 		// 모달 on/off
 		$(".excelDownloadModalBtn").on("click", function(){
 			var display = $(".excelDownloadModalBox").css("display");
-			if(display == 'none')	{
+			if(display == 'none') {
 				$(".excelDownloadModalBox").css("display", "block");
 				$(".excelUploadModalBox").css("display", "none");
-			}
-			else {
+			} else {
 				$(".excelDownloadModalBox").css("display", "none");
 			}
 		})
@@ -34,7 +33,6 @@ var excel = (state, tableName) => {
 			var startNum = 2;
 			var endNum = undefined;
 			
-			 
 			if ($("#grid").find("th").eq(-1).text() == '삭제'){
 				endNum = -1;
 			}
@@ -64,13 +62,11 @@ var excel = (state, tableName) => {
 				for(var j = 0 ; j < cellContent.length ; j++){
 					var cell = cellContent.eq(j);
 					var data;
-					if(cell.find("input").length){
-						data = cell.find("input").val();
-					}
-					else if (cellContent.eq(j).attr("data-column-name") == "DELETE") {
+					if (cellContent.eq(j).attr("data-column-name") == "DELETE") {
 						continue;
-					}
-					else{
+					} else if(cell.find("input").length) { 
+						data = cell.find("input").val();
+					} else{
 						data = cell.children("div").text();
 					}
 					cellDatas.push(data);
@@ -90,11 +86,11 @@ var excel = (state, tableName) => {
 	
 	if(state == 'upload' || state == 'updownload'){
 		var exceluploadTag = '<div class="excelBox">'
-					    	+'<button class="btn btn-primary excelUploadModalBtn btnSize"><img class="excel_icon" src="/myapp/resources/img/excel/upload_icon.png"alt="excel_icon">데이터 업로드</button>'
+					    	+'<button class="btn btn-primary excelUploadModalBtn btnSize"><img class="excel_icon" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/excel/upload_icon.png"alt="excel_icon">데이터 업로드</button>'
 						    +'<div class="excelUploadModalBox">'
 						    	+'<div class="mb_5px">'
 							    	+'<span class="font_blod_13px">※양식을 다운로드 후 양식에 맞춰 올려주세요</span>'
-							    	+'<button class="btn btn-success excelDLBtn btnSize"><img class="excel_icon" src="/myapp/resources/img/excel/file_excel_icon.png"alt="excel_icon">양식 다운로드</button>'
+							    	+'<button class="btn btn-success excelDLBtn btnSize"><img class="excel_icon" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/excel/file_excel_icon.png"alt="excel_icon">양식 다운로드</button>'
 						    	+'</div>'
 						    	+'<form id="uploadForm" method="post" enctype="multipart/form-data" onsubmit="return false">'
 							    	+'<input type="file" id="fileInput" class="form-control" name="fileInput" accept=".xlsx">'
@@ -111,11 +107,10 @@ var excel = (state, tableName) => {
 		// 모달 on/off
 		$(".excelUploadModalBtn").on("click", function(){
 			var display = $(".excelUploadModalBox").css("display");
-			if(display == 'none')	{
+			if(display == 'none') {
 				$(".excelUploadModalBox").css("display", "block");
 				$(".excelDownloadModalBox").css("display", "none");
-			}
-			else {
+			} else {
 				$(".excelUploadModalBox").css("display", "none");
 			} 					
 		})

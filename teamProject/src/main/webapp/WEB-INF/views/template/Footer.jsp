@@ -25,26 +25,26 @@
 </style>
 </div>
 <div class="sidebar222 text-center fw-bold  d-flex  flex-column" style="width: 21.8%;">
-  	<div id="muchangCustomColor" class="border border-dark-subtle mb-2 p-1">
-  		<div id="isNotEmpty">
-	  		<div >찜한상품</div>
-	  		<div ><a id="likeItemsCount" class="text-danger" href="${pageContext.request.contextPath}/member/likeList"><img src="${pageContext.request.contextPath}/resources/img/common/heart.png">&nbsp;</a></div>
-  		</div>
-  		<div id="isEmpty">	
-  			<div><a href="${pageContext.request.contextPath}/member/login">로그인</a></div>
-  		</div>	
-  	</div>
+<!--   	<div id="muchangCustomColor" class="border border-dark-subtle mb-2 p-1"> -->
+<!--   		<div id="isNotEmpty"> -->
+<!-- 	  		<div >찜한상품</div> -->
+<%-- 	  		<div ><a id="likeItemsCount" class="text-danger" href="${pageContext.request.contextPath}/member/likeList"><img src="${pageContext.request.contextPath}/resources/img/common/heart.png">&nbsp;</a></div> --%>
+<!--   		</div> -->
+<!--   		<div id="isEmpty">	 -->
+<%--   			<div><a href="${pageContext.request.contextPath}/member/login">로그인</a></div> --%>
+<!--   		</div>	 -->
+<!--   	</div> -->
   	
-  	<div class="border border-dark-subtle mb-2 p-1">
-  		<div>최근본상품</div>
-  		<div class="text-danger mb-3" style="width:38px; border-bottom: 2px dotted rgb(136, 136, 136); margin: 0 auto;">1</div>
-  		<div><img src="${pageContext.request.contextPath}/resources/img/common/noImage.png"></div>
-  		<div style="color: rgb(204, 204, 204);">최근본 상품이<br>없습니다.</div>
-  	</div>
+<!--   	<div class="border border-dark-subtle mb-2 p-1"> -->
+<!--   		<div>최근본상품</div> -->
+<!--   		<div class="text-danger mb-3" style="width:38px; border-bottom: 2px dotted rgb(136, 136, 136); margin: 0 auto;">1</div> -->
+<%--   		<div><img src="${pageContext.request.contextPath}/resources/img/common/noImage.png"></div> --%>
+<!--   		<div style="color: rgb(204, 204, 204);">최근본 상품이<br>없습니다.</div> -->
+<!--   	</div> -->
   		
-	  	<div class="border border-dark-subtle mb-2">
-			<button id="nickNameCheck" type="button" class="btn btn-light rounded-0 fw-bold" style="color:salmon; font-size:12px; width:100%; height:100%;">환영합니다:)</button>
-	  	</div>
+<!-- 	  	<div class="border border-dark-subtle mb-2"> -->
+<!-- 			<button id="nickNameCheck" type="button" class="btn btn-light rounded-0 fw-bold" style="color:salmon; font-size:12px; width:100%; height:100%;">환영합니다:)</button> -->
+<!-- 	  	</div> -->
   	
   	<div id="chatBtn"  class="mt-auto" style="margin-bottom: 100px;">
   		<img src="${pageContext.request.contextPath}/resources/img/common/chat.png" style="width:100px; height:100px;"></a>

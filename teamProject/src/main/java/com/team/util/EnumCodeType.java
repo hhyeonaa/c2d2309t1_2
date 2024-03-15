@@ -57,30 +57,30 @@ enum EnumTotalCodeList{
 	
 	전체코드타입("CODE_LIST", EnumCodeType.values());
 	
-	private String str_;
-	private EnumCodeType[] arr_;
+	private String _str;
+	private EnumCodeType[] _arr;
 	private EnumTotalCodeList(String str, EnumCodeType[] arr) {
-		this.str_ = str;
-		this.arr_ = arr;
+		this._str = str;
+		this._arr = arr;
 	}
 	
 	protected String getStr_() {
-		return str_;
+		return _str;
 	}
 
 	protected EnumCodeType stringToEnumType(String str) {
-	    return Arrays.stream(arr_)
+	    return Arrays.stream(_arr)
 	    		.filter(f -> f.getType().equals(str))
 	            .findFirst()
 	            .orElse(null);
 	}
 	
 	protected List<Map<String, String>> getKeys() {
-	    return getList(arr_, true);
+	    return getList(_arr, true);
 	}
 	
 	protected List<Map<String, String>> getValues() {
-		return getList(arr_, false);
+		return getList(_arr, false);
 	}
 	
 	private List<Map<String, String>> getList(EnumCodeType[] list, boolean isKeyOrValue){

@@ -27,7 +27,8 @@ $(() => {
 			name: "CODE",
 			header:"신고 종류",
 			filter:"text",
-		    sortable: true
+		    sortable: true,
+			width: "auto"
 		},
 		{
 			name: "RPT_TIME",

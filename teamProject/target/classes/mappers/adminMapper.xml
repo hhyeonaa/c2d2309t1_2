@@ -63,6 +63,7 @@
 		UPDATE CODE
 		   SET CODE = #{code.CODE}
 		   	 , ACTIVE = #{code.ACTIVE}
+		   	 , SEQ = #{code.SEQ}
 		 WHERE 1 = 1
 		   AND CO_TYPE = #{code.CO_TYPE}
 		   AND CO_NO = #{code.CO_NO} 

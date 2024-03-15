@@ -93,7 +93,7 @@ public class MemberController{
 	}// login()
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/loginPro")
-	public String loginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) throws IOException {
+	public String loginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		System.out.println("MemberController loginPro()");
 		Map<String, String> check = memberService.login(map);
 		System.out.println("check : " + check);
@@ -103,19 +103,13 @@ public class MemberController{
 			return "redirect:../";
 		} else {
 			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
-			response.setContentType("text/html; charset=euc-kr");
-			   PrintWriter out = response.getWriter();
-			   out.println("<script>");
-			   out.println("history.back()");
-			   out.println("</script>");
-			   codeService.submitForAlert(response, "AM5", msg);;
-			   out.flush();
+			codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/login");
 			return "";
 		}
 	}// adminLoginPro() 
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/socialLoginPro")
-	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) throws IOException{
+	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException{
 		System.out.println("MemberController socialLoginPro()");
 		Map<String, String> searchId = memberService.socialLogin(map);
 		System.out.println("@@@@@@@@@@@@@@@@@@@" + searchId);
@@ -125,13 +119,13 @@ public class MemberController{
 		} else if (searchId != null && searchId.get("MEM_CAT").equals("2")) {
 			System.err.println("탈퇴 고객");
 			Object[] msg = {"탈퇴한 고객입니다.                                        입력 정보"};
-			response.setContentType("text/html; charset=euc-kr");
-			   PrintWriter out = response.getWriter();
-			   out.println("<script>");
-			   out.println("history.back()");
-			   out.println("</script>");
-			   codeService.submitForAlert(response, "AM5", msg);;
-			   out.flush();
+//			response.setContentType("text/html; charset=utf-8");
+//			   PrintWriter out = response.getWriter();
+//			   out.println("<script>");
+//			   out.println("history.back()");
+//			   out.println("</script>");
+			   codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/login");
+//			   out.flush();
 			return "";
 		} else {
 		System.out.println("이미 가입한 고객");
@@ -255,7 +249,7 @@ public class MemberController{
 	}// adminLogin()
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/adminLoginPro")
-	public String adminLoginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) throws IOException{
+	public String adminLoginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException{
 		System.out.println("MemberController adminLoginPro()");
 		Map<String, String> check = memberService.adminLogin(map);
 		if(check != null) {
@@ -263,13 +257,13 @@ public class MemberController{
 			return "redirect:/admin/member_manage";
 		} else {
 			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
-			response.setContentType("text/html; charset=euc-kr");
-			   PrintWriter out = response.getWriter();
-			   out.println("<script>");
-			   out.println("history.back()");
-			   out.println("</script>");
-			   codeService.submitForAlert(response, "AM5", msg);
-			   out.flush();
+			response.setContentType("text/html; charset=utf-8");
+//			   PrintWriter out = response.getWriter();
+//			   out.println("<script>");
+//			   out.println("history.back()");
+//			   out.println("</script>");
+			   codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/adminLogin");
+//			   out.flush();
 			   return "";
 		}
 		
@@ -280,7 +274,6 @@ public class MemberController{
 		System.out.println("MemberController mypage()");
 		String MEM_ID = session.getAttribute("MEM_ID").toString();
 		Map<String, String> profile = memberService.mypage(MEM_ID);
-		System.out.println("!@#@!# : " + profile);
 		model.addAttribute("profile", profile);
 		return "member/mypage";
 	}// mypage()
@@ -290,7 +283,6 @@ public class MemberController{
 		System.out.println("MemberController memberEdit()");
 		String MEM_ID = (String)session.getAttribute("MEM_ID");
 		Map<String, String> profile = memberService.mypage(MEM_ID);
-		System.out.println("%%%%%%%%%%%%%%%%% : " + profile);
 		model.addAttribute("profile", profile);
 		return "member/memberEdit";
 	}// memberEdit()
@@ -412,7 +404,7 @@ public class MemberController{
 	}// memberDelete()
 //	-----------------------------------------------------------------------------
 	@PostMapping("/memberDeletePro")
-	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) throws IOException {
+	public String memberDeletePro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		System.out.println("MemberController memberDeletePro()");
 		session.setAttribute("MEM_EMAIL", map.get("MEM_EMAIL"));
 		String MEM_EMAIL = (String)session.getAttribute("MEM_EMAIL");
@@ -429,25 +421,25 @@ public class MemberController{
 			} else {
 				System.err.println("이메일 불일치");
 				Object[] msg = {"입력하신 정보"};
-				response.setContentType("text/html; charset=euc-kr");
-				   PrintWriter out = response.getWriter();
-				   out.println("<script>");
-				   out.println("history.back()");
-				   out.println("</script>");
-				   codeService.submitForAlert(response, "AM7", msg);
-				   out.flush();
+				response.setContentType("text/html; charset=utf-8");
+//				   PrintWriter out = response.getWriter();
+//				   out.println("<script>");
+//				   out.println("history.back()");
+//				   out.println("</script>");
+				   codeService.submitForAlert(response, "AM7", msg, request.getContextPath() + "/member/memberDelete");
+//				   out.flush();
 				   return "";
 			}
 		} else {
 			System.err.println("이메일 미입력");
 			Object[] msg = {"이메일"};
-			response.setContentType("text/html; charset=euc-kr");
-			   PrintWriter out = response.getWriter();
-			   out.println("<script>");
-			   out.println("history.back()");
-			   out.println("</script>");
-			   codeService.submitForAlert(response, "AM6", msg);
-			   out.flush();
+//			response.setContentType("text/html; charset=utf-8");
+//			   PrintWriter out = response.getWriter();
+//			   out.println("<script>");
+//			   out.println("history.back()");
+//			   out.println("</script>");
+			   codeService.submitForAlert(response, "AM6", msg, request.getContextPath() + "/member/memberDelete");
+//			   out.flush();
 			   return "";
 		}
 	}// memberDeletePro()

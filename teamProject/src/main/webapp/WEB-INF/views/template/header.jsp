@@ -92,7 +92,7 @@
 					</form>
 				</div>
 				<div class="writeBtnBox" style="width: 100px; display:flex; justify-content: center;">
-					<button style="font-size: 15px;" id="writeBoardPage" class="btn btn-outline-success">상품 등록</button>
+					<button style="font-size: 15px; padding: 0 !important;" id="writeBoardPage" class="btn writeBtn">➡️상품 등록</button>
 				</div>
 				<c:if test="${!empty sessionScope.MEM_ID}">
 					<div class="btn-group">

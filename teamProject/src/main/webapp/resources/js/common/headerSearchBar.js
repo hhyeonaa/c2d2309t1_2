@@ -66,7 +66,7 @@ $(() => {
 	
 	$("#writeBoardPage").on("click", function(){
 		if($(".id_session").val() === ''){
-			alertMsg();
+			alertMsg("AM26", ["로그인"]);
 			return;	
 		}
 		

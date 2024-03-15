@@ -121,12 +121,9 @@
 			 , M.MEM_NICK
 			 , M.MEM_TEL
 			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
-			 , S.SCO_SCORE
 			 , M.MEM_CAT
 			 , M.MEM_REDATE
 		from MEMBERS M
-		left outer join SCORE S
-		on M.MEM_NO = S.MEM_NO
 		where 1 = 1
 		and M.MEM_ID = #{MEM_ID}
 	</select>

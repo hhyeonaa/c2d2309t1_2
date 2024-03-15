@@ -180,7 +180,6 @@ public class AdminController {
 	@PostMapping("/codeInsertPro")
 	@ResponseBody
 	public ResponseEntity<?> codeInsertPro(@RequestParam Map<String, String> param) {
-		System.out.println(param);
  		boolean isInsert = adminService.messageInsert(param);
  		return ResponseEntity.ok().body(isInsert);
 	}
@@ -197,8 +196,7 @@ public class AdminController {
 	@ResponseBody
 	public ResponseEntity<?> deleteMessage(@RequestParam Map<String, String> deletedRows) {
 		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
- 		boolean a = adminService.messageDelete(result);
- 		System.out.println(a);
+ 		adminService.messageDelete(result);
  		return null;
 	}
 	
@@ -228,7 +226,7 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> insertCodePro(@RequestBody String insertedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
+
  		adminService.codeInsert(result);
  		return null;
  	}
@@ -259,8 +257,8 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> deleteCodePro(@RequestParam Map<String, String> deletedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
- 		System.out.println(result);
-		adminService.codeDelete(result);
+
+ 		adminService.codeDelete(result);
  		return null;
  	}
 	

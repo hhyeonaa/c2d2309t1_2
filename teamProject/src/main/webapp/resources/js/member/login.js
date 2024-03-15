@@ -126,7 +126,6 @@ $(function(){
 	
 //	$("#loginBtn").click(function() {
 //        $("#loginForm").submit();
-//        debugger;
 //      alertMsg("AM7", ["아이디, 비밀번호"]);
 //    });
 	

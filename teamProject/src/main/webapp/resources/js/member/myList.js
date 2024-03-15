@@ -9,7 +9,6 @@ $(function(){
 	$('label').click(function(){
 		$('label').removeClass('on');
 		$(this).addClass('on');
-		debugger;
 		var idx=$(this).index()+1;
 	
 		$('.tab_content').css('display','none');

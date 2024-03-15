@@ -112,7 +112,6 @@ public class MemberController{
 	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException{
 		System.out.println("MemberController socialLoginPro()");
 		Map<String, String> searchId = memberService.socialLogin(map);
-		System.out.println("@@@@@@@@@@@@@@@@@@@" + searchId);
 		if(searchId == null || searchId.isEmpty()) {
 			System.out.println("첫 회원가입 고객");
 			memberService.insertMemeber(map);
@@ -469,7 +468,6 @@ public class MemberController{
 		System.out.println("changeState map : " + map);
 	    String proNo = map.get("PRO_NO");
 	    System.out.println("proNo : " + proNo);
-	    System.out.println("changeState proNo : " + proNo);
 	    if (proNo != null) {
 	        try {
 	            memberService.changeState(map);

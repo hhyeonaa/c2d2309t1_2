@@ -14,7 +14,6 @@ $(function(){
 	
 	
 	$('#defaultBtn').on('click', function(){
-		debugger;
 		if(confirm("현재 프로필이미지를 삭제하고 기본으로 변경하시겠습니까?")) document.location = 'resetImage';
 	})
 	
@@ -45,7 +44,6 @@ $(function(){
 		formdata.append("map", JSON.stringify(data));
 		formdata.append("image", $('#image')[0].files[0]);
 		
-		debugger;
 		$.ajax({
 			type: "post"
 			, url: '/' + window.location.pathname.split("/")[1] + "/member/memberEditPro"
@@ -57,7 +55,6 @@ $(function(){
 		.done(function(data){
 			console.log(data);
 //			console.log($('#image').val().split('\\').pop());
-//			debugger;
 			location.href='mypage';
 		})
 	})
@@ -112,7 +109,6 @@ $(function(){
 });	
 //	// 버튼 클릭 시 update
 //	$('#updateBtn').on('click', function(){
-//		debugger;
 //
 //		var data = {  
 //					  MEM_ID: $('#MEM_ID').val()
@@ -127,7 +123,6 @@ $(function(){
 //		formdata.append("map", JSON.stringify(data));
 //		formdata.append("image", $('#image')[0].files[0]);
 //		
-//		debugger;
 //		$.ajax({
 //			type: "post"
 //			, url: "memberEditPro"
@@ -138,7 +133,6 @@ $(function(){
 //		})
 //		.done(function(data){
 ////			console.log($('#image').val().split('\\').pop());
-////			debugger;
 //			location.href='mypage';
 //		})
 //	})

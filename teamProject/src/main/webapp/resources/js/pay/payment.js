@@ -1,8 +1,8 @@
 document.write('<script type="text/javascript"' + 
                     'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
                '</script>'); 
-// 배송지 입력 유효성
-var phoneRegex =/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;        
+// 배송지(연락처) 입력 유효성
+//var phoneRegex =/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;        
 $("#address-tel").on("keyup", function(e){
 	var partton = /[^0-9]/g;
 	if(partton.test($(this).val())){
@@ -10,16 +10,14 @@ $("#address-tel").on("keyup", function(e){
 			$("#address-tel").val(value);
 		}
 }) 
-function checkPhone(TEL) {
-	debugger;
-	var phone = $("#address-tel").val();
-	if(phoneRegex.test(phone)){
-		debugger;
-		return true;
-	}
-	return false;
-	debugger;
-}      
+//function checkPhone(TEL) {
+//	debugger;
+//	var phone = $("#address-tel").val();
+//	if(phoneRegex.test(phone)){
+//		return true;
+//	}
+//	return false;
+//}      
 // 1-1 거래방식 선택 +  배송료 , 최종금액 관련함수
 function selectMethod(){
 	$("input[name='optradio']").change(function () {
@@ -507,7 +505,7 @@ selectMethod();
 			phone.focus();
 			return false;
 		}
-		checkPhone(phone);
+//		checkPhone(phone);
 		if(post == ''){
 			alertMsg("AM6",["주소"]);
 			post.focus();

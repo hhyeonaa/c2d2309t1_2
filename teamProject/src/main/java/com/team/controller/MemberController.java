@@ -154,6 +154,16 @@ public class MemberController{
 		return nickCheck; 
 	}//nickCheck()
 //	-----------------------------------------------------------------------------	
+	@GetMapping("/nameCheck") // ajax
+	@ResponseBody
+	public int nameCheck(@RequestParam("MEM_NAME") String MEM_NAME){
+		System.out.println("MemberController nameCheck()");
+		System.out.println("MEM_NAME : "+MEM_NAME);
+		int nameCheck = memberService.nameCheck(MEM_NAME);
+		System.out.println("nameCheck : "+ nameCheck);
+		return nameCheck; 
+	}//nickCheck()
+//	-----------------------------------------------------------------------------	
 	@GetMapping("/emailCheck") // ajax
 	@ResponseBody
 	public int emailCheck(@RequestParam("MEM_EMAIL") String MEM_EMAIL){

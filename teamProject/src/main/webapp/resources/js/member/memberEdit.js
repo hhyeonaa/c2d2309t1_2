@@ -65,7 +65,7 @@ $(function(){
 	
 	
 	// ~~~~~~~~~~~~~~~~~~~비밀번호 유효성 검사~~~~~~~~~~~~~~~~~~~
-	$('#MEM_PW').blur(function(){
+	$('#MEM_PW').change(function(){
 		// 비밀번호 확인 비어있는 경우 제어
 		if($('#MEM_PW').val() == ' ' || $('#MEM_PW').val() == ''){
 			$('#pwCheck').html("비밀번호 입력 필수").css('color', 'gray');
@@ -83,7 +83,7 @@ $(function(){
 	});
 		
 	// ~~~~~~~~~~~~~~~~~~~닉네임 중복 체크~~~~~~~~~~~~~~~~~~~	
-	$('#MEM_NICK').blur(function(){
+	$('#MEM_NICK').change(function(){
 		//  닉네임 비어있는 경우 제어
 		if($('#MEM_NICK').val() == ' ' || $('#MEM_NICK').val() == ''){
 			$('#nickCheck').html("닉네임 필수 입력").css('color', 'gray');

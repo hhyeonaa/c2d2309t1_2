@@ -96,6 +96,12 @@
 		where MEM_NICK = #{MEM_NICK}
 	</select>
 	
+	<select id="nameCheck" resultType="int">
+		select count(MEM_NAME)
+		from MEMBERS
+		where MEM_NAME = #{MEM_NAME}
+	</select>
+	
 	<select id="emailCheck" resultType="int">
 		select count(MEM_EMAIL)
 		from MEMBERS

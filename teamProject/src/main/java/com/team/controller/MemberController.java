@@ -103,7 +103,7 @@ public class MemberController{
 			return "redirect:../";
 		} else {
 			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
-			response.setContentType("text/html; charset=euc-kr");
+			response.setContentType("text/html; charset=utf-8");
 			   PrintWriter out = response.getWriter();
 			   out.println("<script>");
 			   out.println("history.back()");
@@ -125,7 +125,7 @@ public class MemberController{
 		} else if (searchId != null && searchId.get("MEM_CAT").equals("2")) {
 			System.err.println("탈퇴 고객");
 			Object[] msg = {"탈퇴한 고객입니다.                                        입력 정보"};
-			response.setContentType("text/html; charset=euc-kr");
+			response.setContentType("text/html; charset=utf-8");
 			   PrintWriter out = response.getWriter();
 			   out.println("<script>");
 			   out.println("history.back()");
@@ -263,7 +263,7 @@ public class MemberController{
 			return "redirect:/admin/member_manage";
 		} else {
 			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
-			response.setContentType("text/html; charset=euc-kr");
+			response.setContentType("text/html; charset=utf-8");
 			   PrintWriter out = response.getWriter();
 			   out.println("<script>");
 			   out.println("history.back()");
@@ -429,7 +429,7 @@ public class MemberController{
 			} else {
 				System.err.println("이메일 불일치");
 				Object[] msg = {"입력하신 정보"};
-				response.setContentType("text/html; charset=euc-kr");
+				response.setContentType("text/html; charset=utf-8");
 				   PrintWriter out = response.getWriter();
 				   out.println("<script>");
 				   out.println("history.back()");
@@ -441,7 +441,7 @@ public class MemberController{
 		} else {
 			System.err.println("이메일 미입력");
 			Object[] msg = {"이메일"};
-			response.setContentType("text/html; charset=euc-kr");
+			response.setContentType("text/html; charset=utf-8");
 			   PrintWriter out = response.getWriter();
 			   out.println("<script>");
 			   out.println("history.back()");

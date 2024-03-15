@@ -115,6 +115,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	$('#shareApplication').on('click',function(){
 		var memId = $('#memId').val();
 		if(memId === ''){
+			alertMsg("AM23", ["로그인 후"]);
 			return;
 		}
 		var values = [];

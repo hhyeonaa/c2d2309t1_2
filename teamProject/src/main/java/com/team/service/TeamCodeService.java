@@ -35,24 +35,20 @@ public class TeamCodeService implements TeamCodeInterface{
 			String pageMove = "location.href = '" + url + "';";
 			Map<String, String> codeSelect = dao.selectMessage(codeTextSeparate(code, null));
 			
-			if(codeSelect == null) {
-				Map<String, String> errorText = new HashMap<String, String>();
-				errorText.put(EnumCodeType.코드내용.getType(), 
-						  " ╭ ⁀ ⁀ ╮\r\n"
-						+ "( '👅'　　)　　　둥실\r\n"
-						+ " ╰ ‿ ‿ ╯\r\n"
-						+ "　　　　　　　╭ ⁀ ⁀ ╮\r\n"
-						+ "둥실 　　　　 ( '👅'　　)\r\n"
-						+ "　　　　　　　╰ ‿ ‿ ╯\r\n"
-						+ " ╭ ⁀ ⁀ ╮\r\n"
-						+ "( '👅'　　)\r\n"
-						+ " ╰ ‿ ‿ ╯ 　　　");
-				codeSelect = errorText;
-	        	throw new CodeTypeNullException(code);
-	        }
 			if(url == null) {
 				pageMove = "";
 			}
+			
+			if(codeSelect == null) {
+				Map<String, String> errorText = new HashMap<String, String>();
+				w.write("<script>"
+					  + 	"alert(' ╭ ⁀ ⁀ ╮\\r\\n( \"👅\"　　)　　　둥실\\r\\n╰ ‿ ‿ ╯\\r\\n　　　　　　　╭ ⁀ ⁀ ╮\\r\\n둥실 　　　　 ( \"👅\"　　)\\r\\n　　　　　　　╰ ‿ ‿ ╯\\r\\n ╭ ⁀ ⁀ ╮\\r\\n( \"👅\"　　)\\r\\n ╰ ‿ ‿ ╯ ');"
+					  +		pageMove
+					  + "</script>");
+				w.flush();
+				w.close();
+	        	throw new CodeTypeNullException(code);
+	        }
 			w.write("<script>"
 				  + 	"alert('" + MessageFormat.format(codeSelect.get(EnumCodeType.코드내용.getType()), msg) + "');"
 				  +		pageMove

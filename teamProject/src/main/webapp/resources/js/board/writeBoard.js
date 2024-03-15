@@ -623,7 +623,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		e.preventDefault();
 		$('#inputRegion').val('전국');
 	})
-$("#address_find").on('click', function() {
+$("#searchRegion").on('click', function() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
 	        	console.log(data);
@@ -660,9 +660,9 @@ $("#address_find").on('click', function() {
 	                fullAddr += extraAddr;
 	            }                    
 	            
-	            $("#address-zipcode").val(data.zonecode); 
-	            $("#address-front").val(fullAddr);
-	            $("#address-detail").focus();
+	            //$("#address-zipcode").val(data.zonecode); 
+	            $("#inputRegion").val(fullAddr);
+	            //$("#address-detail").focus();
 	            
 	        }
 	    }).open();

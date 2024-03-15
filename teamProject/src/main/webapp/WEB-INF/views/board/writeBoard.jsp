@@ -197,7 +197,7 @@
 				   	<span>거래지역</span>
 <!-- 				   	<button class="btn btn-outline-secondary">내 위치</button> -->
 <!-- 				   	<button class="btn btn-outline-secondary">최근 지역</button> -->
-				   	<button class="btn btn-outline-secondary" id="searchRegion" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">주소 등록</button>
+				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 등록</button>
 <!-- 				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button> -->
 				   	</div>
 				</div>
@@ -423,89 +423,6 @@
 		  	</div>
 						
 			</div>
-			<!-- modal -->
-				<!-- Modal 배송지 입력 및 수정 모달창-->
-		<div class="modal fade" id="staticBackdrop1"
-			data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered">
-		    <div class="modal-content">
-		      <div class="modal-header" >
-		      <!-- 수정 버튼시 title 배송지 수정 -->
-		        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 추가</h1>
-	<!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="payListXbtn"></button>
-		      </div>
-	<%-- 	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post"> --%>
-		      	<div class="modal-body">
-					<div id="container">
-						<div id="content" class="mypage__wrap mypage__new-address">
-							<section class="section__order-info">
-	<%-- 						<c:if test="${!empty addUpList }"> --%>
-								<input type="hidden" id="address-no" value="${addUpList.ADD_NO}">
-								
-								<div class="new-address new-address__title" id="newaddress">
-									<div class="box__label">
-										<label for="address-title" class="text__label">배송지명</label>
-									</div>
-									<div class="box__input box__text-area" style="display: block;  width: 470px;">
-										<input class="input_txt" name="ADD_NICK" id="address-title" maxlength="10" value="${addUpList.ADD_NICK }">
-									</div>
-								</div>
-								
-								<div class="box__form-control new-address new-address__name" id="newaddress">
-									<div class="box__label">
-										<label for="address-name" class="text__label">받는 분</label>
-									</div>
-									<div class="box__input box__text-area" style="display: block; width: 470px;">
-										<input class="input_txt" name="ADD_RECEIVER" id="address-name" value="${addUpList.ADD_RECEIVER }" maxlength="10" placeholder="수령인 이름을 입력해주세요">
-									</div>
-								</div>
-								
-								<div class="box__form-control new-address new-address__tel" id="newaddress">
-									<div class="box__label">
-										<label for="address-tel" class="text__label">연락처</label>
-									</div>
-									<div class="box__input box__text-area" style="display: block;  width: 470px;">
-										<input class="input_txt"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="11" placeholder="연락가능한 연락처를 입력해주세요">
-									</div>
-								</div>
-	
-								<div class="box__form-control new-address new-address__destination">
-									<div class="box__label">
-										<label for="address-destination" class="sprite__mypage--after text__label text__label-check">주소</label>
-									</div>
-									<div class="box__input" id="box-zipcode" style="width: 390px;">
-										<input type="text" name="ADD_POST" id="address-zipcode"  value="${addUpList.ADD_POST }" class="input_txt" title="우편번호" readonly name="ZipCode">
-									</div>
-										<button type="button" class="button__address-search" id="address_find">주소찾기</button>
-								</div>
-	
-									<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
-										<div></div>
-										<div class="box__input" style="margin-bottom: 20px; width: 470px;">
-											<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly name="FrontAddress" value="${addUpList.ADD_NAME }">
-										</div>
-									</div>
-									<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
-										<div></div>
-										<div class="box__input box__text-area" style="display: block; width: 470px;">
-											<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="${addUpList.ADD_DETAIL }" >
-										</div>
-									</div>
-	<%-- 						</c:if>	 --%>
-							</section>
-						</div>
-		      		</div>
-		 		</div>
-			  	<div id="addaddressbtn" class="modal-footer">
-			    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="payCancelbtn">취소</button>
-			    	<button type="submit" class="btn btn-primary" id="payAddbtn">저장</button>
-			  	</div>
-	<!-- 	      </form> -->
-		    </div>
-		  </div>
-		</div>
-		<!-- Modal -->
 		</div> <!-- border안  -->
 	</div>
 <!-- 	</form> -->

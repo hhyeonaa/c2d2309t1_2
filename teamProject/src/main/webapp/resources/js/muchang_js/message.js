@@ -47,7 +47,7 @@ $(() => {
 		}
 	]
 	
-	$("#grid").empty();
+//	$("#grid").empty();
 	
 	fn_grid("message_managePro", 5, columns, false);
 	excel('updownload', 'MESSAGE'); 
@@ -144,26 +144,3 @@ function insertTag(){
 		   '</div>';
 	
 }
-
-//	for(var i = 0; i < sliceText.length; i++){
-//		for(var j = 0; j < particles.length; j++){
-//			if(particles[j].length === 2 && sliceText[i].slice(-2) === particles[j]){
-//				sliceText[i] = "{" + index + "}" + particles[j];
-//				index++;
-//				continue;				
-//			} 
-//			
-//			if(particles[j].length === 1 && sliceText[i].slice(-1) === particles[j]){
-//				for(var k = 0; k < multiParticles.length; k++){
-//					if(multiParticles[k].includes(particles[j])){
-//						sliceText[i] = "{" + index + "}" + multiParticles[k];
-//						break;
-//					} else {
-//						sliceText[i] = "{" + index + "}" + particles[j];
-//					}
-//				}
-//				index++;
-//				continue;
-//			}
-//		}
-//	}

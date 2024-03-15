@@ -18,7 +18,7 @@
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container" id="adminDiv">
     <div class="row align-items-center">
-        <div><h4 class="card-title"><b>관리자 목록</b></h4></div>
+        <div><h3 class="card-title"><b>관리자 목록</b></h3></div>
     </div>
     
 	<!-- 관리자추가 모달창 -->
@@ -63,9 +63,8 @@
 			<option value="50">50개 씩 보기</option>
 			<option value="100">100개 씩 보기</option>
 		</select>
-		<button id="appendBtn" class="btn btn-outline-danger">추가</button>
-		<button id="resetBtn" class="btn btn-outline-danger">새로고침</button>
-		<button id="ckDeleteBtn" class="btn btn-secondary">선택삭제</button>
+		<button id="appendBtn" class="btn btn-warning">추가</button>
+		<button id="ckDeleteBtn" class="btn btn-danger">선택 삭제</button>
 	</div>
     <div id="grid"></div>
 </div>

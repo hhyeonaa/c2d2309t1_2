@@ -15,7 +15,8 @@ $(() => {
 			name: "PRO_NAME",
 			header:"글제목",
 			filter:"text",
-			sortable: true
+			sortable: true,
+			width: "auto"
 		},
 		{
 			name: "PRO_WR",

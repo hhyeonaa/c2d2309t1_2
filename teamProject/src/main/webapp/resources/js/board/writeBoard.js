@@ -58,9 +58,9 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
     });
 	
 	//<br> => enter
-	var text = $('#itemPay').val();
-	text = text.split('<br>').join("\r\n");
-	$('#itemPay').val(text);
+//	var text = $('#itemPay').val();
+//	text = text.split('<br>').join("\r\n");
+//	$('#itemPay').val(text);
 	
 	var IsOldImgs = $('#oldImgs').val();
 	var arr = [];
@@ -633,6 +633,24 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	        }
 	    }
 	});
+	$('#proContent').keyup(function (e) {
+		let content = $(this).val();
+	    
+	    // 글자수 세기
+	    if (content.length == 0 || content == '') {
+	    	$('.textCount').text('0');
+	    } else {
+	    	$('.textCount').text(content.length);
+	    }
+	    
+	    // 글자수 제한
+	    if (content.length > 2000) {
+	    	// 200자 부터는 타이핑 되지 않도록
+	        $(this).val($(this).val().substring(0, 2000));
+	        // 200자 넘으면 알림창 뜨도록
+	        alert('글자수는 2000자까지 입력 가능합니다.');
+	    };
+	});
 	
 	$('#noRegion').on('click',function(e){
 		e.preventDefault();
@@ -684,15 +702,16 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 	
 	$('#selectAddress').on('change',function(e){
-		e.preventDefault(); // 폼의 기본 제출 동작을 방지
+//		e.preventDefault(); // 폼의 기본 제출 동작을 방지
+		debugger;
 		var fullAdd = $('#selectAddress').val();
 		var addList = fullAdd.split(',');
 		console.log(addList);
 		$('#regionNick').val($('#selectAddress option:checked').text());
-		$('#addNo').val(addList[0]);
-		$('#regionCode').val(addList[1]);
-		$('#inputRegion').val(addList[2]);
-		$('#detailRegion').val(addList[3]);
+		$('#addNo').val(addList[0].trim());
+		$('#regionCode').val(addList[1].trim());
+		$('#inputRegion').val(addList[2].trim());
+		$('#detailRegion').val(addList[3].trim());
 		
 	})
 	

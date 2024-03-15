@@ -18,7 +18,7 @@
 
 <!--??  -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div style="border: 1px solid black; width: 100%; height: auto;">
+		<div style="border: 0px solid black; width: 100%; height: auto;" class="shadow">
 				
     <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0">
         <h1 class="sech1">결제하기</h1>
@@ -26,7 +26,8 @@
             <div class="productInfo">
 <!--                 <div class="productImg" style="flex: 1; border:  1px solid black; height: 100%; display: flex; justify-content: center; align-items: center;"> -->
                 <div class="productImg">
-					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill">
+					<img src="${pageContext.request.contextPath}/resources/img/uploads/${payProList.IMG_NAME}" alt="${payProList.IMG_NAME}" class="flex-fill"
+						 onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
                 </div>
                 <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
@@ -101,7 +102,7 @@
             			</div>
 							<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
 								<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
-								class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ"></textarea>
+								class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" disabled></textarea>
 							</div>
 					</div>		
 	            </div>
@@ -129,8 +130,8 @@
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod naver nonCheck" id="naverPay">
-											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
+										<div class="PaymentGridMethod naver nonCheck" id="paycoPay">
+											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">페이코</span>
 										</div>
 									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">

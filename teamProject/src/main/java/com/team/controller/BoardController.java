@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.team.service.AdminService;
 import com.team.service.BoardService;
+import com.team.service.MemberService;
 import com.team.service.TeamCodeService;
 import com.team.util.EnumCodeType;
 
@@ -45,6 +46,10 @@ public class BoardController {
 	BoardService boardService;
 	@Inject
 	private TeamCodeService codeService;
+	@Inject
+	private AdminService adminService;
+	@Inject
+	private MemberService memberService;
 	
 	@GetMapping("/saleBoard")
 	public String saleBoard(Model model, @RequestParam Map<String, String> param, HttpSession session) {
@@ -212,7 +217,6 @@ public class BoardController {
 	    System.out.println("textData: " + textData);
 	    // 원본 Map의 textData 값 (JSON 문자열)
         String textDataJson = textData.get("textData");
-
         // Gson 인스턴스 생성
         Gson gson = new Gson();
 
@@ -542,6 +546,8 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
@@ -573,13 +579,15 @@ public class BoardController {
 	}// boardDetail()
 	
 	@GetMapping("/divideDetail")
-	public String divideDetail(HttpServletRequest request,Model model) {
+	public String divideDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController divideDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
 		Map<String, String> map = new HashMap<>();
 		map.put("proWr", proWr);
 		map.put("proDate", proDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.upHits(map);
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
 		System.out.println("resultMap: "+ resultMap);
@@ -633,6 +641,7 @@ public class BoardController {
 		String aucNo = resultMap.get("AUC_NO");
 		String aucTc = resultMap.get("AUC_TC");
 		System.out.println("aucNo@@@@@@@@@ " + aucNo);
+		
 		map.put("aucCate", aucCate);
 		map.put("aucNo", aucNo);
 		map.put("aucTc", aucTc);
@@ -778,30 +787,26 @@ public class BoardController {
 	
 //	----- 검색 bar -----
 	
-	@GetMapping("/inputForm")
-	public String inputForm(Model model, HttpSession session) {
-		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
-		model.addAttribute("productStatus",codeService.selectCodeList(EnumCodeType.상품상태, session));
-		model.addAttribute("trade", codeService.selectCodeList(EnumCodeType.거래상태, session));
-		model.addAttribute("category", codeService.selectCodeList(EnumCodeType.카테고리항목, session));
-		return "admin/inputForm";
-	}
 	
-	@Inject
-	AdminService adminService = new AdminService();
 	
-	@GetMapping("/getForm")
+	
+	// --- 현아 작업 시작 ---
+	
+	@PostMapping("/deleteLike")
 	@ResponseBody
-	public ResponseEntity<?> getForm(@RequestParam Map<String, String> map) {
-		List<Map<String, String>> formList = adminService.getForm(map);
-		
-		for (Map<String, String> code : formList) {
-			String codeValue = code.get("CODE");
-			code.put("formName", codeValue.split("/")[0]);
-			code.put("formID", codeValue.split("/")[1]);
-		}
-		System.out.println("리스트: " + formList.toString());
-		return ResponseEntity.ok().body(formList);
+	public ResponseEntity<?> deleteLike(@RequestParam String LIK_NO) {
+		boolean result = memberService.deleteLike(LIK_NO);
+		return ResponseEntity.ok().body(result);
 	}
+
+	@PostMapping("/insertLike")
+	@ResponseBody
+	public boolean insertLike(@RequestParam Map<String,String> map, HttpSession session) {
+		map.put("MEM_ID", session.getAttribute("MEM_ID").toString());
+		boolean result = memberService.insertLike(map);
+		return result;
+	}
+	
+	// --- 현아 작업 끝 ---
 	
 }// 클래스 끝

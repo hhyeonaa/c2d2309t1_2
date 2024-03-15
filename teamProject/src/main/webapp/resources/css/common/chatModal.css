@@ -113,6 +113,7 @@
 .profileImg{
 	width: 35px;
 	height: 35px;
+	border-radius: 50%;
 }
 
 .chatRoomContents{
@@ -132,6 +133,10 @@
 .postTit{
 	font-size: 18px;
 	font-weight: bold;
+	text-overflow: ellipsis;
+    width: 184px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .chatRoomContents > span {
@@ -180,13 +185,26 @@
     margin-right: 5px;
 }
 
-.reportBtn{
+.btnBox{
 	text-align: right;
-	padding: 10px 15px 10px 0;
+	padding: 10px 5px 5px 0;;
 }
 
-.reportIcon{
+#report{
+	margin-right: 15px;
+}
+
+.icons{
 	font-size: 30px !important;
+	cursor: pointer;
+}
+.icons.report{
+	color: #fcc419;
+	font-weight: bolder;
+}
+.icons.out{
+	color: #f03e3e;
+	font-weight: bolder;
 }
 
 #chatBody{

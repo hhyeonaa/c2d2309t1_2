@@ -155,5 +155,4 @@ public class BoardService {
 	}// selectMyBoard()
 
 
-
 }// BoardService 끝

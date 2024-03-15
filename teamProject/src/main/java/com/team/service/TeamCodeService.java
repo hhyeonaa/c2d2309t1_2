@@ -36,6 +36,18 @@ public class TeamCodeService implements TeamCodeInterface{
 			Map<String, String> codeSelect = dao.selectMessage(codeTextSeparate(code, null));
 			
 			if(codeSelect == null) {
+				Map<String, String> errorText = new HashMap<String, String>();
+				errorText.put(EnumCodeType.코드내용.getType(), 
+						  " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)　　　둥실\r\n"
+						+ " ╰ ‿ ‿ ╯\r\n"
+						+ "　　　　　　　╭ ⁀ ⁀ ╮\r\n"
+						+ "둥실 　　　　 ( '👅'　　)\r\n"
+						+ "　　　　　　　╰ ‿ ‿ ╯\r\n"
+						+ " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)\r\n"
+						+ " ╰ ‿ ‿ ╯ 　　　");
+				codeSelect = errorText;
 	        	throw new CodeTypeNullException(code);
 	        }
 			if(url == null) {
@@ -77,6 +89,9 @@ public class TeamCodeService implements TeamCodeInterface{
 		Map<String, String> selectCode = dao.selectCode(codeTextSeparate(code, session));
 		try {
 			if(selectCode == null) {
+				Map<String, String> errorText = new HashMap<String, String>();
+				errorText.put(EnumCodeType.코드내용.getType(), "⛔");
+				selectCode = errorText;
 	        	throw new CodeTypeNullException(code);
 	        }
 		} catch (CodeTypeNullException e) {
@@ -89,7 +104,7 @@ public class TeamCodeService implements TeamCodeInterface{
 	private List<Map<String, String>> selectCodes(EnumCodeType codeType, HttpSession session) {
 		
 		String codeTypeName = codeType.getType().trim();
-		String ses = (String)session.getAttribute("ROL_NO");
+		String ses = (String)session.getAttribute("MEM_ID");
 		Map<String, String> code = new HashMap<String, String>();
 		
 		if (ses instanceof String && !ses.equals("RO1") && !ses.equals("RO2") && !ses.equals("RO3")) {
@@ -101,7 +116,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		}
 		
 		code.put("codeType", codeTypeName);
-		code.put("ROL_NO", ses);
+		code.put("MEM_ID", ses);
 		
 		List<Map<String, String>> selectCodeList = codeTypeName.equals("AM") ? dao.selectMessageList(code) 
 																		 	 : dao.selectCodeList(code);
@@ -122,6 +137,18 @@ public class TeamCodeService implements TeamCodeInterface{
 		Map<String, String> selectCode = dao.selectMessage(codeTextSeparate(code, session));
 		try {
 			if(selectCode == null) {
+				Map<String, String> errorText = new HashMap<String, String>();
+				errorText.put(EnumCodeType.코드내용.getType(), 
+						  " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)　　　둥실\r\n"
+						+ " ╰ ‿ ‿ ╯\r\n"
+						+ "　　　　　　　╭ ⁀ ⁀ ╮\r\n"
+						+ "둥실 　　　　 ( '👅'　　)\r\n"
+						+ "　　　　　　　╰ ‿ ‿ ╯\r\n"
+						+ " ╭ ⁀ ⁀ ╮\r\n"
+						+ "( '👅'　　)\r\n"
+						+ " ╰ ‿ ‿ ╯ 　　　");
+				selectCode = errorText;
 	        	throw new CodeTypeNullException(code);
 	        }
 			String message = MessageFormat.format(selectCode.get(EnumCodeType.코드내용.getType()), arr);
@@ -141,7 +168,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		
     	codes.put(EnumCodeType.코드타입.getType().trim(), codeType);
     	codes.put(EnumCodeType.코드번호.getType().trim(), code.replaceAll("[^0-9]", ""));
-    	codes.put("ROL_NO", session == null ? "" : (String)session.getAttribute("MEM_ID"));
+    	codes.put("MEM_ID", session == null ? "" : (String)session.getAttribute("MEM_ID"));
 
     	return codes;
 	}

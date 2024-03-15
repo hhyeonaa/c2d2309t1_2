@@ -40,21 +40,58 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(@RequestParam Map<String, String> param, Model model, HttpSession session) {
 		System.out.println("!@#!@#!@#!");
-		//1. 카테고리별(판매,구매,나눔,경매) 최신등록글 각 8개 
+		//1. 카테고리별(판매,구매,나눔,경매) 최신등록글 각 8개
+		
+		List<Map<String, String>> menuList = codeService.selectCodeList(EnumCodeType.메뉴항목, session);
+		List<Map<String, String>> urlList = new ArrayList<>();
+		List<String> menues = new ArrayList<>();
+		List productList = new ArrayList();
+		menuList.forEach(t -> {
+			productList.add(homeService.getProductList(t.get("CO_TYPE") + t.get("CO_NO")));
+			
+			Map<String, String> url = new HashMap<>();
+			String code = t.get("CODE");
+			    
+		    switch (code) {
+		        case "판매":
+		            url.put("url", "/board/saleBoard");
+		            break;
+		        case "구매":
+		            url.put("url", "/board/buyBoard");
+		            break;
+		        case "나눔":
+		            url.put("url", "/board/divideBoard");
+		            break;
+		        case "경매":
+		            url.put("url", "/board/auctionBoard");
+		            break;
+		        default:
+		            url.put("url", "기부경로");
+		    }
+            urlList.add(url);
+            menues.add(t.get("CODE"));
+		});
+		
+//		System.out.println(urlList);
+//		System.out.println(menues);
 		//판매
-		List<Map<String, String>> saleList = homeService.getSaleProductList();
+//		List<Map<String, String>> saleList = homeService.getSaleProductList();
 		//구매
-		List<Map<String, String>> buyList = homeService.getBuyProductList();
+//		List<Map<String, String>> buyList = homeService.getBuyProductList();
 		//나눔
-		List<Map<String, String>> divList = homeService.getDivProductList();
+//		List<Map<String, String>> divList = homeService.getDivProductList();
 		//경매
-		List<Map<String, String>> aucList = homeService.getAucProductList();
+//		List<Map<String, String>> aucList = homeService.getAucProductList();
 		
-		model.addAttribute("saleList", saleList);
-		model.addAttribute("buyList", buyList);
-		model.addAttribute("divList", divList);
-		model.addAttribute("aucList", aucList);
-		
+//		model.addAttribute("saleList", saleList);
+//		model.addAttribute("buyList", buyList);
+//		model.addAttribute("divList", divList);
+//		model.addAttribute("aucList", aucList);
+		model.addAttribute("urlList", urlList);
+		model.addAttribute("menues", menues);
+		model.addAttribute("productList", productList);
+//		model.addAttribute("requestDel", codeService.selectCodeList(EnumCodeType.배송안내문구, session));
+//		model.addAttribute("homeC",codeService.selectCodeList(EnumCodeType.거래상태, session));
 		return "home";
 	}
 //	@RequestMapping(value = "/", method = RequestMethod.GET)

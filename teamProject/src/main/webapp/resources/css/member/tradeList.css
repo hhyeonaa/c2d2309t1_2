@@ -58,7 +58,7 @@ div{margin:0;}
   display:block;
 }
 
-#emptySell, #emptyBuy, #emptyShare, #emptyAuction {
+#empOther, #empMy {
 	padding-top: 120px;
 	padding-left: 42%;
 	height: 300px;
@@ -66,3 +66,4 @@ div{margin:0;}
 	font-size: 20px;
 	font-family: sans-serif;
 }
+

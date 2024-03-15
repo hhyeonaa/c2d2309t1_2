@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.javassist.expr.Instanceof;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -61,7 +62,8 @@ public class Excel {
 		}
 	}
 	
-	public XSSFWorkbook createSheet(Map<String, String> COLUMN_NAME) {
+	// 업로드 양식 생성
+	public XSSFWorkbook createFormSheet(Map<String, String> COLUMN_NAME) {
 		System.out.println(COLUMN_NAME);
 		
 		List<String> colNames = Arrays.asList(COLUMN_NAME.get("COLUMN_NAME").split(","));
@@ -116,6 +118,67 @@ public class Excel {
 			}
 			else if(value.contains("ACTIVE") || value.contains("HIDE"))  {
 				cell.setCellValue("ex) 0(No) OR 1(Yes)");
+			}
+		}
+		
+		return wb;
+	}
+	
+	// 엑셀 생성
+	public XSSFWorkbook createDataSheet(Map<String, Object> dlData) {
+		System.out.println(dlData);
+		
+		Map<String, List<String>> header = (Map<String, List<String>>) dlData.get("header");
+		Map<String, List<String>> body = (Map<String, List<String>>) dlData.get("body");
+		
+		List<String> title = header.get("title");
+		List<String> colName = header.get("colName");
+		
+		System.out.println("header : " + header);
+		System.out.println("body : " + body);
+		
+		
+		wb = new XSSFWorkbook();
+		sheet = wb.createSheet();
+		
+		// 스타일 지정
+		CellStyle headStyle = excelHeadStyle(wb);
+		CellStyle fontRed = fontRed(wb);
+		
+		// 시트 크기 조절
+		for(int i=0; i < title.size(); i++) {
+			sheet.setColumnWidth(i, 6000);
+		}
+		
+		rowCount = 0;
+		cellCount = 0;
+		
+		// 헤더 넣기
+		row = sheet.createRow(rowCount);
+		rowCount++;
+		for(int i=0; i < title.size(); i++) {
+			cell = row.createCell(cellCount);
+			cellCount++;
+			
+			// 스타일 적용
+			cell.setCellStyle(headStyle);
+			
+			String tit = title.get(i);
+			String cn = colName.get(i);
+			cell.setCellValue(tit+"["+cn+"]");
+		}
+		
+		for(int i=0; i < body.size(); i++) {
+			row = sheet.createRow(rowCount);
+			rowCount++;
+			
+			List<String> cellDatas = body.get("row"+i);
+			cellCount = 0;
+			for(int j = 0 ; j < cellDatas.size() ; j++) {
+				cell = row.createCell(cellCount);
+				cellCount++;
+				
+				cell.setCellValue(cellDatas.get(j));
 			}
 		}
 		

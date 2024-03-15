@@ -32,10 +32,5 @@ $(() => {
 
 	fn_grid("boardPro", 0, columns, true);
 	excel('download');
-
-	$('#active').on('change', function(){
-		debugger;
-		alert('test');
-	});
 	
 });

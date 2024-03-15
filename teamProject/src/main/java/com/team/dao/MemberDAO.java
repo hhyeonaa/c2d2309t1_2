@@ -127,16 +127,20 @@ public class MemberDAO {
 	}// likeList()	
 //	-----------------------------------------------------------------------------
 	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
-		System.out.println("likeListSelect" + sqlSession.selectList(namespace + "likeListSelect", map));
 		return sqlSession.selectList(namespace + "likeListSelect", map);
 	}// likeListSelect()	
 //	-----------------------------------------------------------------------------
 	public boolean deleteLike(String LIK_NO) {
-		boolean result = sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1 ? true : false;
-		System.out.println("result: " + result);
+		boolean result = (sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1) ? true : false;
+		System.out.println(result);
 		return result;
-	}
+	}// deleteLike()
 //	-----------------------------------------------------------------------------
+	public boolean insertLike(Map<String, String> map) {
+		boolean result = (sqlSession.insert(namespace + "insertLike", map) == 1) ? true : false;
+		return result;
+	}// insertLike()
+	//	-----------------------------------------------------------------------------
 	public List<Map<String, String>> myTrade(String MEM_ID) {
 		System.out.println("MemberDAO myTrade()");
 		return sqlSession.selectList(namespace + "myTrade", MEM_ID);
@@ -145,8 +149,21 @@ public class MemberDAO {
 	public List<Map<String, String>> otherTrade(String MEM_ID) {
 		System.out.println("MemberDAO otherTrade()");
 		return sqlSession.selectList(namespace + "otherTrade", MEM_ID);
-	}// otherTrade()
+	}// otherTrade() 
 //	-----------------------------------------------------------------------------
+	public List<Map<String, String>> trading(String MEM_ID) {
+		System.out.println("MemberDAO trading()");
+		return sqlSession.selectList(namespace + "trading", MEM_ID);
+	}// trading()
+//	-----------------------------------------------------------------------------	
+	public void changeState(Map<String, String> map) {
+		System.out.println("MemberDAO changeState()");
+		System.out.println(map + "  changeState");
+		sqlSession.update(namespace + "changeState", map);
+	}// changeState()
+	public String countList(String ses) {
+		return sqlSession.selectOne(namespace + "countList", ses);
+	}
 	
 	
 }// MemberDAO 클래스

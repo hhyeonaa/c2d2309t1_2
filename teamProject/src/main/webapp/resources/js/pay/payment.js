@@ -395,6 +395,7 @@ $('#applePay').on('click', () => {
 		var post = $('input[name=ADD_POST]').val();
 		var addname = $('input[name=ADD_NAME]').val();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
+		debugger;
 		if(addnick == ''){
 			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
@@ -440,15 +441,18 @@ $('#applePay').on('click', () => {
 			},
 			async: false,
 			success:function(result){
+				debugger;
 				if(result == 1){
 					$("#staticBackdrop1").modal("hide");
 				}			
 			},
 			fail:function(){
+				debugger;
 				//alert("주소수정실패!");
 				$("#staticBackdrop1").modal("hide");
 			}
 		})//ajax
+		debugger;
 		$("#staticBackdrop1").modal("hide");
 		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
@@ -465,6 +469,7 @@ $('#applePay').on('click', () => {
 		var post = $('input[name=ADD_POST]').val();
 		var addname = $('input[name=ADD_NAME]').val();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
+		debugger;
 		if(addnick == ''){
 			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
@@ -496,6 +501,7 @@ $('#applePay').on('click', () => {
 			adddetail.focus();
 			return false;
 		}
+		debugger;
 		$.ajax({
 			url:"addDelivery",
 			type:'post',
@@ -511,12 +517,14 @@ $('#applePay').on('click', () => {
 			},
 			async: false,	
 			success:function(result){
+				debugger;
 				if(result == 1){
 					$("#staticBackdrop1").modal("hide");
 //					$("#staticBackdrop").modal("show");
 				}			
 			},
 			fail:function(){
+				debugger;
 				//alert("주소추가실패!");
 				$("#staticBackdrop1").modal("hide");
 			}	
@@ -527,6 +535,7 @@ $('#applePay').on('click', () => {
 	
 	//  모달 취소 > 배송리스트 모달
 	$("#payCancelbtn").on('click', function(){
+		debugger;
 		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
 	})
@@ -553,7 +562,33 @@ $('#applePay').on('click', () => {
 			textarea.prop('disabled', false); // textarea 활성화
 		}
 		
-	    });
+	});
+	
+	//모달2 이벤트
+	$('#staticBackdrop').on('show.bs.modal', function(){
+		 // 엔터 키를 누르면 다음 입력 필드로 포커스 이동
+    $('.modal-body input').keypress(function(e) {
+        if(e.which == 13) {
+            e.preventDefault();
+            var inputs = $(this).closest('.modal-body').find(':input');
+            var nextInput = inputs.eq(inputs.index(this) + 1);
+            if(nextInput.length === 1) {
+                nextInput.focus();
+            } else {
+                // 마지막 입력 필드일 경우 저장 버튼 클릭
+                $('#payAddbtn').click();
+            }
+        }
+    });
+
+    // 마지막 입력 필드에서 엔터를 누르면 저장 버튼 클릭
+    $('.modal-body input:last').keypress(function(e) {
+        if(e.which == 13) {
+            e.preventDefault();
+            $('#payAddbtn').click();
+        }
+    });
+	})
 	
 	
 	

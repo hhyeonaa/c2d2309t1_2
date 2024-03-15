@@ -48,10 +48,10 @@
 		      </a>	  
 		      <div class="card-body">
 		      	  <span class="state1">${myTrade.TC_NAME}</span>
-				  <span class="state2">${myTrade.TSC_NAME}</span>
+				  <span class="state2" id="state_${myTrade.PRO_TSC}">${myTrade.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
-			      <p>${myTrade.PRO_NAME}</p>
+			      <p class="nameP">${myTrade.PRO_NAME}</p>
 				  <h5><b>${myTrade.PRO_PRICE}원</b></h5>
 		      </div>
 		    </div>

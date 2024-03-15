@@ -44,7 +44,7 @@
 		      <div class="card-body">
 		      	<a href="${pageContext.request.contextPath}/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}">
 			      	<span class="state1" >${myListSell.TC_NAME}</span>
-			      	<span class="state2">${myListSell.TSC_NAME}</span>
+			      	<span class="state2" id="state_${myListSell.PRO_TSC}">${myListSell.TSC_NAME}</span>
 			      	<span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p class="nameP">${myListSell.PRO_NAME}</p>
@@ -77,7 +77,7 @@
 		      </a>
 		      <div class="card-body">
 			      <span class="state1">${myListBuy.TC_NAME}</span>
-			      <span class="state2">${myListBuy.TSC_NAME}</span>
+			      <span class="state2" id="state_${myListBuy.PRO_TSC}">${myListBuy.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p class="nameP">${myListBuy.PRO_NAME}</p>
@@ -108,7 +108,7 @@
 		      </a>
 		      <div class="card-body">
 			      <span class="state1">${myListShare.TC_NAME}</span>
-			      <span class="state2">${myListShare.TSC_NAME}</span>
+			      <span class="state2" id="state_${myListShare.PRO_TSC}">${myListShare.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p class="nameP">${myListShare.PRO_NAME}</p>

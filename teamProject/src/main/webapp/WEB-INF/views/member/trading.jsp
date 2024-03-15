@@ -30,7 +30,7 @@
                                 <!-- card-body 시작 -->
                                 <div class="card-body">
                                     <span class="state1" style="font-size: 14px !important;">결제번호 : <b>${trading.MERCHANT_UID}</b></span>
-                                    <span class="state2" style="float: right;">${trading.TSC_NAME}</span>
+                                    <span class="state2" id="state_${trading.PRO_TSC}" style="float: right;">${trading.TSC_NAME}</span>
                                     <hr>
                                     <p class="nameP"><b>${trading.NAME}</b></p>
                                     <span class="state3">결제금액 : <big>${trading.PAID_AMOUNT}원</big></span> <br>

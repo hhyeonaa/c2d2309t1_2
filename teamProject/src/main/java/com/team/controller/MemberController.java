@@ -425,8 +425,10 @@ public class MemberController{
 			if (MEM_EMAIL.equals(profile.get("MEM_EMAIL"))) {
 				memberService.memberDelete(profile);
 				System.out.println("이메일 일치 삭제 가능");
+				Object[] msg = {"회원"};
+				codeService.submitForAlert(response, "AM18", msg, request.getContextPath());
 				session.invalidate();
-				return "redirect:../";
+				return "";
 			} else {
 				System.err.println("이메일 불일치");
 				Object[] msg = {"입력하신 정보"};

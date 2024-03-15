@@ -67,3 +67,24 @@ div{margin:0;}
 	font-family: sans-serif;
 }
 
+.nameP {
+	text-align: left;
+	padding-bottom: 2%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#state_TM1 {
+	background-color: #0AC304;
+	color: white;
+}
+#state_TM2 {
+	background-color: #EFB100;
+	color: white;
+}
+#state_TM3 {
+	background-color: #E30000;
+	color: white;
+}
+

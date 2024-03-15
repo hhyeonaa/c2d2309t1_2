@@ -14,7 +14,7 @@
 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
 	       AND PRO_TC = #{str}
 	     WHERE 1 = 1 
-	       AND IMG_NO = 1
+	       AND IMG_NO = '1'
 		   AND CODE_TSC.CODE IN ('거래가능','거래중')
 		 ORDER BY PRO_DATE DESC
          LIMIT 8;		

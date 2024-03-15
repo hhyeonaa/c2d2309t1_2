@@ -321,7 +321,7 @@
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input box__text-area" style="display: block; width: 470px;">
-										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="${addUpList.ADD_DETAIL }" >
+										<input class="input_txt" name="ADD_DETAIL" id="address-detail" placeholder="상세주소 입력" maxlength="50" value="${addUpList.ADD_DETAIL }" >
 									</div>
 								</div>
 <%-- 						</c:if>	 --%>

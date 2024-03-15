@@ -128,6 +128,7 @@
 		  </if>
 		</where>
 	</select>
+	
 	<select id="deleteBoard" parameterType="map" statementType="CALLABLE">
 		{CALL PROC_DELETE_BOARD(
 	        #{proNo, mode=IN, jdbcType=VARCHAR},

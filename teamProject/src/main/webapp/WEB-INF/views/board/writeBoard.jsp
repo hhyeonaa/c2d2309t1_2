@@ -41,7 +41,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 
-	<form>
+<!-- 	<form> -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="width: 100%;">
 			<div class="container">
@@ -135,7 +135,7 @@
 		  	<hr>
 		  	<div class="row justify-content-center">
 <!-- 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>거래상태<th></tr></table></div> -->
-<!-- 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;"> -->
+			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
 <!-- 					<select name="proTsc" id="proTsc" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;"> -->
 <%-- 						<c:forEach var="tsc" items="${trade}"> --%>
 <%-- 						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/> --%>
@@ -197,7 +197,7 @@
 				   	<span>거래지역</span>
 <!-- 				   	<button class="btn btn-outline-secondary">내 위치</button> -->
 <!-- 				   	<button class="btn btn-outline-secondary">최근 지역</button> -->
-				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 등록</button>
+				   	<button class="btn btn-outline-secondary" id="searchRegion" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">주소 등록</button>
 <!-- 				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button> -->
 				   	</div>
 				</div>
@@ -475,7 +475,7 @@
 										<label for="address-destination" class="sprite__mypage--after text__label text__label-check">주소</label>
 									</div>
 									<div class="box__input" id="box-zipcode" style="width: 390px;">
-										<input type="text" name="ADD_POST" id="address-zipcode"  value="${addUpList.ADD_POST }" class="input_txt" title="우편번호" readonly="" name="ZipCode">
+										<input type="text" name="ADD_POST" id="address-zipcode"  value="${addUpList.ADD_POST }" class="input_txt" title="우편번호" readonly name="ZipCode">
 									</div>
 										<button type="button" class="button__address-search" id="address_find">주소찾기</button>
 								</div>
@@ -483,7 +483,7 @@
 									<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 										<div></div>
 										<div class="box__input" style="margin-bottom: 20px; width: 470px;">
-											<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly="" name="FrontAddress" value="${addUpList.ADD_NAME }">
+											<input type="text" name="ADD_NAME" id="address-front" class="input_txt" title="주소검색결과" readonly name="FrontAddress" value="${addUpList.ADD_NAME }">
 										</div>
 									</div>
 									<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -508,7 +508,7 @@
 		<!-- Modal -->
 		</div> <!-- border안  -->
 	</div>
-	</form>
+<!-- 	</form> -->
 	
 </div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

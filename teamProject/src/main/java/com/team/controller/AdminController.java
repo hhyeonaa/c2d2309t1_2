@@ -256,7 +256,6 @@ public class AdminController {
  	@ResponseBody
  	public ResponseEntity<?> deleteCodePro(@RequestParam Map<String, String> deletedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
-
  		adminService.codeDelete(result);
  		return null;
  	}
@@ -288,11 +287,8 @@ public class AdminController {
 	
 	@GetMapping("/member_report")
 	public String member_report(Model model) {
-		
 		List<Map<String, String>> reportList = adminService.getReportList();
-		
 		model.addAttribute("reportList", reportList);
-		
 		return "admin/member_report";
 	}
 	
@@ -305,7 +301,6 @@ public class AdminController {
 	
 	@GetMapping("/member_manage")
 	public String member_manage() {
-		
 		return "admin/member_manage";
 	}
 	

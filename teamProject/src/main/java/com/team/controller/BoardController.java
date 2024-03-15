@@ -126,6 +126,7 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("aucTc", aucTc);
 		System.out.println("map: " + map);
+		
 		List<Map<String,String>> resultList = boardService.selectAuction(map);
 		System.out.println("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);

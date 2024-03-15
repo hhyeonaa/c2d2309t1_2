@@ -75,4 +75,5 @@ $(() => {
 	
 	targetColor($("#member_manage"));
 	fn_grid("member_managePro", 5, columns);
+	excel('download', 'MEMBERS');
 })

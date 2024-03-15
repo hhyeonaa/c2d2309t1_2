@@ -9,6 +9,11 @@ $(()=>{
 	var id = $(".id_session").val();
 	
 	$("#chatBtn").on("click", function(){
+		if(id === ''){
+			alertMsg("AM23", ["로그인 후"]);
+			return;
+		}
+		
 		openModal(id);
 	})
 	
@@ -144,8 +149,7 @@ function addMsg(msg){ // 메세지를 받은 경우
 		var chatBody = $("#chatBody");
 		chatBody.append(yourChat(msg));
 		chatBody.scrollTop(999999);
-	}
-	else if(msg.type == "changeState"){
+	} else if(msg.type == "changeState"){
 		$("#pro_tsc").val(msg.state);
 		
 		var changedPost = $("#chatHead").find(".chatRoomContents").attr("id");
@@ -222,8 +226,7 @@ var roomCheck = function(proNo, memId, startType){
 				$("#myPostChat").addClass("on");
 			}
 							
-		}
-		else { // 채팅이 없을 경우
+		} else { // 채팅이 없을 경우
 			if(alertMsg("AM15", ["채팅"], true)){
 				createChat(proNo, memId, startType);
 			}
@@ -253,8 +256,7 @@ var createChat = function(proNo, memId, startType){
 				$("#myPostChat").addClass("on");
 			}
 			// enterChat();				
-		}
-		else { // 생성못 한 경우
+		} else { // 생성못 한 경우
 			console.log("채팅방 생성 실패")
 		}
 	})
@@ -446,14 +448,13 @@ var enterChat = function(chatData){
 			roomNo: chatData.roomNo
 		}
 	})
-	.done(function(chatting){
+	.done(function(chatting) {
 		console.log(chatting);
-		for(chat of chatting){
+		for(chat of chatting) {
 			var chatContent;
-			if(chat.MEM_ID == $(".id_session").val()){
+			if(chat.MEM_ID == $(".id_session").val()) {
 				chatContent = myChat(chat.MSG_CONTENT, chat.MSG_TIME);
-			}
-			else{
+			} else {
 				chatContent = yourChat({
 					nickName: chat.MEM_NICK,
 					message: chat.MSG_CONTENT,

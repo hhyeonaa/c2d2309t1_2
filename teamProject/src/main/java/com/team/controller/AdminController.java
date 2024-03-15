@@ -218,17 +218,16 @@ public class AdminController {
  	public ResponseEntity<?> getCodePro(@RequestParam Map<String, String> param, HttpSession session){
 		List<Map<String, String>> data = codeService.selectCodeList(
 				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
-		
- 		return ToastUI.resourceData(param, data);
+
+		return ToastUI.resourceData(param, data);
  	}
 	
-	@PostMapping("/codePro")//	post
+	@PostMapping("/codeListInsertPro")//	post
  	@ResponseBody
- 	public ResponseEntity<?> insertCodePro(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
-
- 		adminService.codeInsert(result);
- 		return null;
+ 	public ResponseEntity<?> insertCodePro(@RequestParam Map<String, String> param) {
+		System.out.println(param);
+ 		boolean isInsert = adminService.codeInsert(param);
+ 		return ResponseEntity.ok().body(isInsert);
  	}
 	
 	@PutMapping("/codePro")	//	put

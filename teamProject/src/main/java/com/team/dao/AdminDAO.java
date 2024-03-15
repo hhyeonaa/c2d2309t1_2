@@ -49,7 +49,7 @@ public class AdminDAO {
 	
 //	----- 무창 시작 -----
 	
-	public boolean codeInsert(List<Map<String, String>> result) {
+	public boolean codeInsert(Map<String, String> result) {
 		return sqlSession.insert(namesqace + "codeInsert", result) == 1 ? true : false;
 	}
 	

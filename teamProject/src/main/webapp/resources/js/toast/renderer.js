@@ -10,7 +10,7 @@ class DeleteButton {
 			debugger;
 			props.grid.removeRow(props.rowKey);
 			props.grid.request('deleteData');
-			props.grid.reloadData();
+			props.grid.resetData(grid.getData());
 		});
 		
 		this.el = el;

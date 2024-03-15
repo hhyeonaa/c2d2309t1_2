@@ -29,7 +29,7 @@
 		   and ACTIVE = '1'
 		</otherwise>
 	  </choose>  
-		 order by cast(SEQ as signed)	   
+		 order by cast(SEQ as unsigned)	   
 	</select>
 	
 	<select id="selectCode" parameterType="map" resultType="map">
@@ -82,7 +82,7 @@
 		<if test='MEM_ID != "RO1"'>
 		   and HIDE = '0'
 		</if>  
-		 order by cast(CO_NO as signed)
+		 order by cast(CO_NO as unsigned)
 	</select>
 
 </mapper>

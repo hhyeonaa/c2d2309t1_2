@@ -191,7 +191,7 @@ $(function(){
 		// ~~~~~~~~~~~~~~~~~~~비밀번호 일치 확인~~~~~~~~~~~~~~~~~~~
 		$('#confirmPw').blur(function(){
 			// 비밀번호 확인 비어있는 경우 제어
-			if($('#confirmPw').val() == ' ' || $('#F').val() == ''){
+			if($('#confirmPw').val() == ' ' || $('#confirmPw').val() == ''){
 				$('#pwCheck').html("비밀번호 재입력 필수").css('color', 'gray');
 				return;
 			}
@@ -205,6 +205,7 @@ $(function(){
 			$('#pwCheck').html("비밀번호가 일치합니다.").css('color', 'green')
 			
 		});
+		
 		
 		// ~~~~~~~~~~~~~~~~~~~닉네임 중복 체크~~~~~~~~~~~~~~~~~~~	
 		$('#nickname').blur(function(){
@@ -281,11 +282,18 @@ $(function(){
 			return false;
 		}
 		
-		if($('#pw').val() == "" || $('#pw').val() == null || $('#confirmPw').val() == "" || $('#confirmPw').val() == null){
+		if($('#pw').val() == "" || $('#pw').val() == null){
 			alertMsg("AM6", ["비밀번호"]);
 			$('#pw').focus();	
 			return false;
 		}
+		
+		if($('#confirmPw').val() == "" || $('#confirmPw').val() == null){
+			alertMsg("AM6", ["비밀번호 확인"]);
+			$('#confirmPw').focus();	
+			return false;
+		}
+		
 		
 		if($('#gender').val() == "" || $('#gender').val() == null){
 			alertMsg("AM9", ["성별"]);
@@ -322,6 +330,88 @@ $(function(){
 			$('#phone').focus();	
 			return false;
 		}
+		
+		
+		
+		var id = document.getElementById('id').value;
+		var idRegex = /^[a-zA-Z0-9]{6,12}$/;
+		if (!idRegex.test(id)) {
+			alertMsg("AM5", ["아이디 형식"]);
+			$('#id').focus();
+			return false;
+		}
+		
+		if($('#pw').val() != $('#confirmPw').val()){
+		   	alertMsg("AM7", ["비밀번호가"]);
+			$('#pw').focus();	
+			return false;	
+		}
+		
+		var pw = document.getElementById('pw').value;
+		var pwRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,14}$/;
+		if (!pwRegex.test(pw)) {
+			alertMsg("AM5", ["비밀번호 형식"]);
+			$('#pw').focus();
+			return false;
+		}
+		
+		var name = document.getElementById('username').value;
+		var nameRegex = /^[가-힣]{2,15}$/;
+		if (!nameRegex.test(name)) {
+			alertMsg("AM5", ["이름"]);
+			$('#username').focus();
+			return false;
+		}
+	
+		/* 숫자 및 영문, 자음 사용 금지 구문 */
+		for (var i=0; i<$("#username").val().length; i++)  {
+			     var chk = $("#username").val().substring(i,i+1);
+			     if(chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+				     	alertMsg("AM6", ["정확한 이름"]);
+						$('#username').focus();
+						return false;
+				    }
+				    if(chk.match(/([^가-힣\x20])/i)){
+					    	alertMsg("AM6", ["정확한 이름"]);
+							$('#username').focus();
+							return false;
+					    }
+					    if($("#username").val() == " "){
+						    	alertMsg("AM6", ["정확한 이름"]);
+								$('#username').focus();
+								return false;
+						    }} 
+		$.ajax({
+				url:'idCheck',
+				data:{'MEM_ID':$('#id').val()},
+				success:function(result){
+					if(result != 0){
+						alertMsg("AM6", ["중복된 아이디입니다. 다른 아이디"]);
+						$('#id').focus();
+						return false;
+					}
+					
+				}
+			});
+			
+		$.ajax({
+				url:'nickCheck',
+				data:{'MEM_NICK':$('#nickname').val()},
+				success:function(result){
+					if(result == 0){
+						return true;
+					} else {
+						return false;
+					}
+				},
+				error: function(){
+					alertMsg("AM6", ["중복된 닉네임입니다. 다른 닉네임"]);
+						$('#nickname').focus();
+						return false;
+				}
+				
+			});
+		
 		
 		$.ajax({
 			type: "post"

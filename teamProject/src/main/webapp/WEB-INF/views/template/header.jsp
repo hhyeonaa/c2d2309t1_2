@@ -74,7 +74,7 @@
 								<select class="form-select" name="menu" id="menu" style="width: 70px;"></select>
 					        	<select class="form-select" name="category" id="category" style="width: 150px;"></select>
 					        	<select class="form-select" name="trade" id="trade" style="width: 100px;"></select>
-					        	<select class="form-select" name="price" id="price" style="width: 150px;"></select>							
+					        	<select class="form-select" name="price" id="price" style="width: 180px;"></select>							
 							</div>
 				        	<div class="input-group" style="flex-wrap: nowrap;">
 						      	<input

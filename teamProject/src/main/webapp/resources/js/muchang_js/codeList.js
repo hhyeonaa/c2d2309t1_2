@@ -167,7 +167,7 @@ const validCheck = function(selectList){
 	const isHide = $("#activeCheck").prop("checked") ? "1" : "0";
 	const isPM = selectList === "PM";
   	const codeList = isPM
-    	? $("#priceTag input").map((index, input) => `${formatPrice($(input).val())} ${index ? "이하" : "이상 ~ "}`).get().join(' ')
+    	? $("#priceTag input").map((index, input) => `${formatPrice($(input).val())} ${index ? "이하" : "이상 ~ \r\n"}`).get().join(' ')
     	: $("#modal-body textarea").val();
 	
 	data = {

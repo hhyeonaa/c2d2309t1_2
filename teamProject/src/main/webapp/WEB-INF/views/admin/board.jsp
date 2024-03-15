@@ -94,8 +94,6 @@
 			<option value="50">50개 씩 보기</option>
 			<option value="100">100개 씩 보기</option>
 		</select>
-		<button id="saveBtn" class="btn btn-outline-danger">저장</button>
-		<button id="resetBtn" class="btn btn-outline-danger">새로고침</button>
 	</div>
 	
     <div id="excel"></div>	

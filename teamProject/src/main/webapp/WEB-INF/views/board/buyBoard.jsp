@@ -7,6 +7,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
+<style type="text/css">
+.nameP {
+	text-align: left;
+	padding-bottom: 2%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+</style>
 </head>
 <jsp:include page="../template/header.jsp"/>
 	
@@ -29,7 +38,7 @@
 					      </a>
 	                    </span>
 	                    <br>
-	                    <p>${map.PRO_NAME}</p>
+	                    <p class="nameP">${map.PRO_NAME}</p>
 	                    <h5><b>${map.PRO_PRICE}</b></h5>
 	                </div>
 	            </div>

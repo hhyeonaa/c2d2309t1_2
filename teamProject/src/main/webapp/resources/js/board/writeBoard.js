@@ -558,6 +558,9 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    handleTempBoard(e, 'aTempSave');
 	});
 
+	$('#searchRegion').on('click',function(){
+		alert('dd');
+	})
 	
 	//셀렉트 박스 변경 시 화면 살짝 변경
 //	$('#proTc').on('change',function(){
@@ -620,7 +623,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		e.preventDefault();
 		$('#inputRegion').val('전국');
 	})
-	$('#searchRegion').on('click',function(e){
+	$('#searchRegion1').on('click',function(e){
 		e.preventDefault();
 	    new daum.Postcode({
 	        oncomplete: function(data) {

@@ -18,7 +18,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-	<c:if test="${fn:length(productList)} != null">
+<%-- 	<c:if test="${fn:length(productList)} != null"> --%>
 		<c:forEach begin="0" end="${fn:length(productList) - 1}" step="1" var="i">
 			<div style="border: 0px solid black; width: 100%; height: 100%; border-radius: 30px;" class="shadow p-3" >
 					<article>
@@ -48,7 +48,7 @@
 				</article>
 			</div>	
 		</c:forEach>
-	</c:if>			
+<%-- 	</c:if>			 --%>
 	</div>
 </div>
 </body>

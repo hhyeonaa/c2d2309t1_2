@@ -203,7 +203,7 @@
 		 			<tr><td colspan="2">게시자 정보</td></tr>
 		 			<tr>
 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 60px; height: 60px;"></td>
-		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)<br>(<small>신뢰도 9.9</small>)</td>
+		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)</td>
 		 				<input type="hidden" class="memNo" value="${resultMap.PRO_WR}">
 		 			</tr>
 		 			<tr>

@@ -38,17 +38,17 @@
 					<span class="productPrice">${payProList.PRO_PRICE }원</span>
                 </div>
             </div>
-            <hr class="sechr">
-			<div class="d-flex Selecttransaction">
-				<div class="form-check flex-fill">
-				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-				    <label class="form-check-label" for="radio1">택배거래</label>
-				</div>
-				<div class="form-check flex-fill">
-				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-				    <label class="form-check-label" for="radio2">직거래</label>
-				</div>
-			</div>
+<!--             <hr class="sechr"> -->
+<!-- 			<div class="d-flex Selecttransaction"> -->
+<!-- 				<div class="form-check flex-fill"> -->
+<!-- 				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked> -->
+<!-- 				    <label class="form-check-label" for="radio1">택배거래</label> -->
+<!-- 				</div> -->
+<!-- 				<div class="form-check flex-fill"> -->
+<!-- 				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2"> -->
+<!-- 				    <label class="form-check-label" for="radio2">직거래</label> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 	</section>		
             <hr>
     <section class="DefaultPayment__Section-sc-64075s-3 gNplro">        

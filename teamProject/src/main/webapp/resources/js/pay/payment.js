@@ -19,21 +19,24 @@ $("#address-tel").on("keyup", function(e){
 //	return false;
 //}      
 // 1-1 거래방식 선택 +  배송료 , 최종금액 관련함수
-function selectMethod(){
-	$("input[name='optradio']").change(function () {
-	var deliprice = parseInt($('.kzWuNm').text().trim().match(/\d+/)[0]);
-	var prodprice = parseInt($('#prodprice').text().trim().match(/\d+/)[0]);
-		if($("input[name='optradio']:checked").val() == 'option2'){
-			$('.Deliveryaddress').hide();
-			$('.NBdoU').hide();//배송료 +3000
-			$("#allPrice").text(prodprice);
-			return;
-		}
-		$("#allPrice").text(prodprice + deliprice);
-		$('.Deliveryaddress').show();
-		$('.NBdoU').show();
-	})
-}
+//function selectMethod(){
+//	$("input[name='optradio']").change(function () {
+//	//var deliprice = parseInt($('.kzWuNm').text().trim().match(/\d+/)[0]);
+//	//var prodprice = parseInt($('#prodprice').text().trim().match(/\d+/)[0]);
+//	debugger;
+//		if($("input[name='optradio']:checked").val() == 'option2'){
+//			debugger;
+//			$('.Deliveryaddress').hide();
+//			//$('.NBdoU').hide();//배송료 +3000
+//			//$("#allPrice").text(prodprice);
+//			return;
+//		}
+//		//$("#allPrice").text(prodprice + deliprice);
+//		debugger;
+//		$('.Deliveryaddress').show();
+//		//$('.NBdoU').show();
+//	})
+//}
 // 10 결제완료 후 상품상태 TM1 > TM2 update (확인O)
 function payProUpdate(a){
 	debugger;
@@ -232,9 +235,17 @@ $('#paycoPay').on("click", () => {
 $('#phonePay').on("click", () => {
 	pgId="danal";
 })
+$('#samsungPay').on('click', () => {
+	alert('삼성페이를 준비중입니다.');
+	//alertMsg("AM6",["삼성페이"]);
+})
+$('#applePay').on('click', () => {
+	alert('애플페이를 준비중입니다.');
+	//alertMsg("AM6",["애플페이"]);
+})
 	
 // 1. 거래방법 택배거래,직거래 선택 시 배송지입력 노출 및 미노출 	
-selectMethod();
+//selectMethod();
 		
 // 2. 배송지 등록 주소 api(배송지 등록 모달)
 	$("#address_find").on('click', function() {

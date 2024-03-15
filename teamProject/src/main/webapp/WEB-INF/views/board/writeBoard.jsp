@@ -429,7 +429,7 @@
 			data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered">
 		    <div class="modal-content">
-		      <div class="modal-header">
+		      <div class="modal-header" >
 		      <!-- 수정 버튼시 title 배송지 수정 -->
 		        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 추가</h1>
 	<!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->

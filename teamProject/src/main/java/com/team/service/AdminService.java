@@ -48,7 +48,7 @@ public class AdminService {
 	
 //	----- 무창 시작 -----
 	
-	public boolean codeInsert(List<Map<String, String>> result) {
+	public boolean codeInsert(Map<String, String> result) {
 		return adminDAO.codeInsert(result);
 	}
 	

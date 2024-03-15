@@ -566,7 +566,28 @@ $('#applePay').on('click', () => {
 	
 	//모달2 이벤트
 	$('#staticBackdrop').on('show.bs.modal', function(){
-		
+		 // 엔터 키를 누르면 다음 입력 필드로 포커스 이동
+    $('.modal-body input').keypress(function(e) {
+        if(e.which == 13) {
+            e.preventDefault();
+            var inputs = $(this).closest('.modal-body').find(':input');
+            var nextInput = inputs.eq(inputs.index(this) + 1);
+            if(nextInput.length === 1) {
+                nextInput.focus();
+            } else {
+                // 마지막 입력 필드일 경우 저장 버튼 클릭
+                $('#payAddbtn').click();
+            }
+        }
+    });
+
+    // 마지막 입력 필드에서 엔터를 누르면 저장 버튼 클릭
+    $('.modal-body input:last').keypress(function(e) {
+        if(e.which == 13) {
+            e.preventDefault();
+            $('#payAddbtn').click();
+        }
+    });
 	})
 	
 	

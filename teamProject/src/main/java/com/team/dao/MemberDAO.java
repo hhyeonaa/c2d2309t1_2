@@ -45,10 +45,10 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "nickCheck", MEM_NICK);
 	}// nickCheck()
 //	-----------------------------------------------------------------------------		
-	public int nameCheck(String MEM_NAME) {
-		System.out.println("MemberDAO nameCheck()");
-		return sqlSession.selectOne(namespace + "nameCheck", MEM_NAME);
-	}// nameCheck()
+	public int phoneCheck(String MEM_TEL) {
+		System.out.println("MemberDAO phoneCheck()");
+		return sqlSession.selectOne(namespace + "phoneCheck", MEM_TEL);
+	}// phoneCheck()
 //	-----------------------------------------------------------------------------		
 	public int emailCheck(String MEM_EMAIL) {
 		System.out.println("MemberDAO emailCheck()");

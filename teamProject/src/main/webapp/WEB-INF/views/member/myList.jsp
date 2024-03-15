@@ -47,7 +47,7 @@
 			      	<span class="state2">${myListSell.TSC_NAME}</span>
 			      	<span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
-			      <p>${myListSell.PRO_NAME}</p>
+			      <p class="nameP">${myListSell.PRO_NAME}</p>
 				  <h5><b>${myListSell.PRO_PRICE}원</b></h5>
 				</a>
 		      </div>
@@ -80,7 +80,7 @@
 			      <span class="state2">${myListBuy.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
-			      <p>${myListBuy.PRO_NAME}</p>
+			      <p class="nameP">${myListBuy.PRO_NAME}</p>
 				  <h5><b>${myListBuy.PRO_PRICE}원</b></h5>
 		      </div>
 		    </div>
@@ -111,7 +111,7 @@
 			      <span class="state2">${myListShare.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
-			      <p>${myListShare.PRO_NAME}</p>
+			      <p class="nameP">${myListShare.PRO_NAME}</p>
 				  <h5><b>${myListShare.PRO_PRICE}원</b></h5>
 		      </div>
 		    </div>
@@ -137,7 +137,7 @@
 		      <span class="state1">${myListAuction.TC_NAME}</span>
 		      <span class="state2">${myListAuction.TSC_NAME}</span>
 		      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
-		      <p>${myListAuction.AUC_NAME}</p>
+		      <p class="nameP">${myListAuction.AUC_NAME}</p>
 			  <h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">현재가: </small><b>${myListAuction.AUC_BP}원</b></h6>
 			  <h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">즉구가: </small><b>${myListAuction.AUC_INP}원</b></h6>
 			  <span style="font-size: 12px;">입찰자: 10명</span> 

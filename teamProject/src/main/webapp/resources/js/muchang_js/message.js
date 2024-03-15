@@ -75,12 +75,9 @@ $(() => {
 		})	
 		.done(function(data){
 			if(data){
-//				alertMsg("", []);
-				console.log("성공");
-				$("#resetBtn").trigger("click");
-			} else {
-				console.log("실패");
-			}
+				$("#grid").empty();
+				fn_grid("message_managePro", 5, columns, false);
+			} 
 		})	  
 	})
  	

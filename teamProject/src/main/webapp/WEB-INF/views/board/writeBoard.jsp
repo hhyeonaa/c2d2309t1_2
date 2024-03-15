@@ -50,7 +50,7 @@
 <%-- 			    <c:forEach var="oldImgName" items="${imgList}" varStatus="i"> --%>
 <%-- 				    <input type="text" id="oldImg${i.count}" value="${oldImgName}"> --%>
 <%-- 			    </c:forEach> --%>
-				<input type="text" id="oldImgs" name="oldImgs" value="${resultMap.IMG_NAMES}">
+				<input type="hidden" id="oldImgs" name="oldImgs" value="${resultMap.IMG_NAMES}">
 				<select id="proTc" name="proTc" style="width: 100px;">
 				    <c:forEach var="menu" items="${menu}">
 				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
@@ -197,7 +197,7 @@
 				   	<span>거래지역</span>
 <!-- 				   	<button class="btn btn-outline-secondary">내 위치</button> -->
 <!-- 				   	<button class="btn btn-outline-secondary">최근 지역</button> -->
-				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 등록</button>
+				   	<button class="btn btn-outline-secondary" id="searchRegion">거래지역 선택</button>
 <!-- 				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button> -->
 				   	</div>
 				</div>
@@ -239,7 +239,7 @@
 								    <label for="item${i.count}">${ps.CODE}</label>
 								</c:when>
 								<c:otherwise>
-								    <input name="itemStatus" id="item${i.count}" type="radio" value="${ps.CO_TYPE}${ps.CO_NO}">
+								    <input name="itemStatus" id="item${i.count}" type="radio" value="${ps.CO_TYPE}${ps.CO_NO}" checked>
 								    <label for="item${i.count}">${ps.CODE}</label>
 								</c:otherwise>
 							</c:choose>
@@ -257,10 +257,10 @@
 						<div class="input-group" style="width: 90%;" >
 						    <span class="input-group-text" id="basic-addon1">가격</span>
 						    <c:if test="${empty resultMap.PRO_DATE}">
-						    <input type="text" id="proPrice" class="form-control" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
+						    <input type="text" id="proPrice" class="form-control" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 							</c:if>
 							<c:if test="${!empty resultMap.PRO_DATE}">
-							<input type="text" id="proPrice" class="form-control" value="${resultMap.PRO_PRICE}" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
+							<input type="text" id="proPrice" class="form-control" value="${resultMap.PRO_PRICE}" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 							</c:if>
 						</div>
 			    	</div>

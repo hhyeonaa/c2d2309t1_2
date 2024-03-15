@@ -109,14 +109,11 @@ public class Excel {
 			String value = colNames.get(i);
 			if(value.contains("상태") || value.contains("여부")) {
 				cell.setCellValue("ex) 0 = 'NO' / 1 = 'Yes'");
-			}
-			else if(value.contains("_NAME"))  {
+			} else if(value.contains("_NAME")) {
 				cell.setCellValue("ex) 홍길동");
-			}
-			else if(value.contains("_DATE") || value.contains("_TIME") || value.contains("_UPDATE"))  {
+			} else if(value.contains("_DATE") || value.contains("_TIME") || value.contains("_UPDATE")) {
 				cell.setCellValue("ex) 20240311232846 : 년월일시분초");
-			}
-			else if(value.contains("ACTIVE") || value.contains("HIDE"))  {
+			} else if(value.contains("ACTIVE") || value.contains("HIDE")) {
 				cell.setCellValue("ex) 0(No) OR 1(Yes)");
 			}
 		}
@@ -204,22 +201,32 @@ public class Excel {
 					int cells = row.getPhysicalNumberOfCells();
 					if(i == 1) {
 						for(int j=0; j < cells; j++) {
-							String cellVal = row.getCell(j).toString();
-							colNames.add(cellVal);
+							XSSFCell cellData = row.getCell(j);
+							if(cellData != null) {
+								String cellVal = cellData.toString();
+								if(!cellVal.equals("")) {
+									colNames.add(cellVal);
+								}
+							}
 						}
-					}
-					else if (cells != 0) {
+					} else if (cells != 0) {
 						Map<String, String> datas = new HashMap<String, String>();
 						String value;
-						for(int j=0; j < cells; j++) {
+						for(int j=0; j < colNames.size(); j++) {
 							cell = row.getCell(j);
-							if(cell == null) continue;
-							else {
+							if(cell == null) {
+								continue;
+							} else {
 								value = cellReader(cell);
+								if(value == null) {
+									throw new InvalidFormatException(value); 
+								}
 								datas.put(colNames.get(j) ,value);
 							}
 						}
+						System.out.println("datas : " + datas);
 						uploadData.add(datas);
+						
 					}
 				}
 			}

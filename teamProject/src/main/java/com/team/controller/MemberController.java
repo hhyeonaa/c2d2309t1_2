@@ -83,6 +83,7 @@ public class MemberController{
 			System.out.println("기존 고객");
 			return "member/member/login";
 		}
+		
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
@@ -112,7 +113,6 @@ public class MemberController{
 	public String socialLoginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException{
 		System.out.println("MemberController socialLoginPro()");
 		Map<String, String> searchId = memberService.socialLogin(map);
-		System.out.println("@@@@@@@@@@@@@@@@@@@" + searchId);
 		if(searchId == null || searchId.isEmpty()) {
 			System.out.println("첫 회원가입 고객");
 			memberService.insertMemeber(map);
@@ -128,9 +128,9 @@ public class MemberController{
 //			   out.flush();
 			return "";
 		} else {
-		System.out.println("이미 가입한 고객");
-		session.setAttribute("MEM_ID", map.get("MEM_ID"));
-		memberService.socialLogin(map);
+			System.out.println("이미 가입한 고객");
+			session.setAttribute("MEM_ID", map.get("MEM_ID"));
+			memberService.socialLogin(map);
 		}	
 		return "redirect:../";
 	}// socialLoginPro() 
@@ -152,6 +152,16 @@ public class MemberController{
 		int nickCheck = memberService.nickCheck(MEM_NICK);
 		System.out.println("nickCheck : "+ nickCheck);
 		return nickCheck; 
+	}//nickCheck()
+//	-----------------------------------------------------------------------------	
+	@GetMapping("/nameCheck") // ajax
+	@ResponseBody
+	public int nameCheck(@RequestParam("MEM_NAME") String MEM_NAME){
+		System.out.println("MemberController nameCheck()");
+		System.out.println("MEM_NAME : "+MEM_NAME);
+		int nameCheck = memberService.nameCheck(MEM_NAME);
+		System.out.println("nameCheck : "+ nameCheck);
+		return nameCheck; 
 	}//nickCheck()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/emailCheck") // ajax
@@ -262,9 +272,9 @@ public class MemberController{
 //			   out.println("<script>");
 //			   out.println("history.back()");
 //			   out.println("</script>");
-			   codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/adminLogin");
+			codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/adminLogin");
 //			   out.flush();
-			   return "";
+			return "";
 		}
 		
 	}// adminLoginPro() 
@@ -468,7 +478,7 @@ public class MemberController{
 	public String changeState(@RequestParam Map<String, String> map) {
 		System.out.println("changeState map : " + map);
 	    String proNo = map.get("PRO_NO");
-	    System.out.println("changeState proNo : " + proNo);
+	    System.out.println("proNo : " + proNo);
 	    if (proNo != null) {
 	        try {
 	            memberService.changeState(map);

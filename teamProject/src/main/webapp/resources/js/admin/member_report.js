@@ -40,5 +40,6 @@ $(() => {
 
 	targetColor($("#member_report"));
 	fn_grid("member_reportPro", 5, columns);
+	excel('download', 'REPORT');
 	
 })

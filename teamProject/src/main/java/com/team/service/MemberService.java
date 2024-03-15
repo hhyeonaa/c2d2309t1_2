@@ -55,6 +55,11 @@ public class MemberService {
 		return memberDAO.nickCheck(MEM_NICK);
 	}// nickCheck()
 //	-----------------------------------------------------------------------------	
+	public int nameCheck(String MEM_NAME) {
+		System.out.println("MemberService nameCheck()");
+		return memberDAO.nameCheck(MEM_NAME);
+	}// nameCheck()
+//	-----------------------------------------------------------------------------	
 	public int emailCheck(String MEM_EMAIL) {
 		System.out.println("MemberService emailCheck()");
 		return memberDAO.emailCheck(MEM_EMAIL);

@@ -64,7 +64,7 @@ var fn_grid = (url, perPage, columns, draggable, parameter) => {
 	
 	// 수정
 	grid.on("afterChange", (e) => {
-		debugger;
+//		debugger;
 		
 		if(e.changes[0].columnName == "SEQ") return;
 

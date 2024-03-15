@@ -2,7 +2,7 @@ document.write('<script type="text/javascript"' +
                     'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
                '</script>'); 
 // 배송지 입력 유효성
-               
+var phoneRegex =/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;               
 // 1-1 거래방식 선택 +  배송료 , 최종금액 관련함수
 function selectMethod(){
 	$("input[name='optradio']").change(function () {

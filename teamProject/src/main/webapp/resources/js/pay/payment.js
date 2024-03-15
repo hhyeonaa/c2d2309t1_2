@@ -11,7 +11,6 @@ $("#address-tel").on("keyup", function(e){
 		}
 }) 
 //function checkPhone(TEL) {
-//	debugger;
 //	var phone = $("#address-tel").val();
 //	if(phoneRegex.test(phone)){
 //		return true;
@@ -23,36 +22,30 @@ $("#address-tel").on("keyup", function(e){
 //	$("input[name='optradio']").change(function () {
 //	//var deliprice = parseInt($('.kzWuNm').text().trim().match(/\d+/)[0]);
 //	//var prodprice = parseInt($('#prodprice').text().trim().match(/\d+/)[0]);
-//	debugger;
 //		if($("input[name='optradio']:checked").val() == 'option2'){
-//			debugger;
 //			$('.Deliveryaddress').hide();
 //			//$('.NBdoU').hide();//배송료 +3000
 //			//$("#allPrice").text(prodprice);
 //			return;
 //		}
 //		//$("#allPrice").text(prodprice + deliprice);
-//		debugger;
 //		$('.Deliveryaddress').show();
 //		//$('.NBdoU').show();
 //	})
 //}
 // 10 결제완료 후 상품상태 TM1 > TM2 update (확인O)
 function payProUpdate(a){
-	debugger;
 	$.ajax({
 		url : "payProUpdate",
 		type:"post",
 		data:{PRO_NO : a}
 	})//ajax
 	.done(function(data){
-		debugger;
 		if(data == 1){
 			//alert('거래상태 update 성공');			
 		}	
 	})
 	.fail(function(){
-		debugger;
 	})
 }
 
@@ -62,7 +55,6 @@ var requestPay = (pgId) => {
 	IMP.init("imp34662564"); //가맹점 식별코드
 //       
  		//판매자 구매자 정보 가져오기 ajax
- 		debugger;
  		$.ajax({
 			 url:"payInfo",
 			 data:{
@@ -94,7 +86,6 @@ var requestPay = (pgId) => {
 
 			        //var msg = $('#selectDel option:selected').text();
 			        
-			        debugger;
 			       	IMP.request_pay({
 						pg: pgId, 
 			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
@@ -106,10 +97,8 @@ var requestPay = (pgId) => {
 			  			buyer_postcode: $("#addPost").text() // 배송우편번호 //BUYER_POSTCODE
 					}, function (rsp) { // callback 로직
 			  			if(rsp.success){ //결제 성공
-							debugger;
 							rsp["SELLER_NO"] = data.SELLER;
 							rsp["BUYER_NO"] = $('#MEM_NOreal').val();
-							debugger;
 							rsp["PRO_NO"] = $('#PRO_NO').val();
 							//배송요청사항
 							rsp["PAY_MSG"] = $('#selectDel option:selected').text();
@@ -119,7 +108,6 @@ var requestPay = (pgId) => {
 							//**
 							//var newData = {};
 							//newData.imp_uid = rsp.imp_uid
-							debugger;
 							console.log(rsp);
 							 $.ajax({
 								 type: "post",
@@ -139,7 +127,6 @@ var requestPay = (pgId) => {
 								 
 							 })
 						  	}else{
-								  debugger;
 								  console.log(res);
 							 }
 						});
@@ -154,7 +141,6 @@ var requestPay = (pgId) => {
 function addList(result){
 	var i = 0;    
 	for (let item of result) {
-		debugger;
 		$("#divAddress").append('<li class="addressInfo mb-4" id="addListNo' + i + '">'+
 									'<div class="boxdeliveryaddress">'+
 									'<input id="ADD_NO' + i + '" type="hidden" value="'+item.ADD_NO+'" name="ADD_NO" class="addno">' +
@@ -190,18 +176,14 @@ function addList(result){
 
 // 스크립트 시작
 $(()=>{
-	debugger;
 	$.ajax({
 		url: "paymentPro"
 	})
 	.done(function(data){
-		debugger;
 		if(data.length == 0){
-			debugger;
 			$("#hideOrShow").hide();
 			return;
 		}
-		debugger;
 		$("#delUpdateBtn").text("배송지 수정");
 		$("#MEM_NO").val(data[0].MEM_NO);
 		$("#ADD_NO").val(data[0].ADD_NO);
@@ -338,7 +320,6 @@ $('#applePay').on('click', () => {
 		// 6.배송지 삭제
 		$("[class^='deliDelete']").on('click', function(e){
 			$("#staticBackdrop").modal("hide");
-			debugger;
 			$.ajax({
 				url: "addDeliveryDelete",
 				data: {ADD_NO : $('#ADD_NO' + $(e.target).attr("class").match(/\d+/)[0]).val()
@@ -347,11 +328,9 @@ $('#applePay').on('click', () => {
 			})//ajax
 			.done(function(data){
 				if(data == 1){
-					debugger;
 				}
 			})
 			.fail(function(){
-				debugger;
 			})
 		})// 6끝
 		
@@ -359,7 +338,6 @@ $('#applePay').on('click', () => {
 		//7-1 수정버튼 클릭 > ADD_NO값으로 해당 배송지 select >  출 
 		$("[class^='deliUpdate']").on('click', function(e){
 			$("#staticBackdrop").modal("hide");
-			debugger;
 			
 			$.ajax({
 				url: "addDeliveryUpdate",
@@ -378,14 +356,12 @@ $('#applePay').on('click', () => {
 					$("#address-front").val(data.ADD_NAME);
 					$("#address-detail").val(data.ADD_DETAIL);
 					
-					debugger;
 					
 					$("#payAddbtn").attr("id", "payUpdateBtn");
 					$("#payUpdateBtn").text("수정");
 				}
 			})
 			.fail(function(){
-				debugger;
 			})
 			$("#staticBackdrop1").modal("show");
 		}) // 7끝	
@@ -393,11 +369,9 @@ $('#applePay').on('click', () => {
 
 		//선택
 		$(".button__delivery-choice").on("click", function(){
-			debugger;
 			
 			var idNum = $(this).attr("id").replace("choiceBtn", "");
 			var list = $("#addListNo" + idNum);
-			debugger;
 			$("#delUpdateBtn").text("배송지 수정");
 			$("#addReceiver").text(list.find(".addReceiver").text());
 			$("#addPost").text(list.find(".addPost").text());
@@ -405,7 +379,6 @@ $('#applePay').on('click', () => {
 			$("#addDetail").text(list.find(".addDetail").text());
 			$("#addTel").text(list.find(".addTel").text());
 			$("#ADD_NO").val(list.find(".addno").val());
-			debugger;
 			$("#staticBackdrop").modal("hide");
 			$("#hideOrShow").show();
 			
@@ -416,14 +389,12 @@ $('#applePay').on('click', () => {
 	
 	//6-2 배송지 수정작업
 	$(document).on('click', '#payUpdateBtn', function(){
-		debugger;
 		var addnick = $('input[name=ADD_NICK]').val(); 
 		var receiver = $('input[name=ADD_RECEIVER]').val();
 		var phone = $('input[name=ADD_PHONE]').val();
 		var post = $('input[name=ADD_POST]').val();
 		var addname = $('input[name=ADD_NAME]').val();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
-		debugger;
 		if(addnick == ''){
 			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
@@ -469,18 +440,15 @@ $('#applePay').on('click', () => {
 			},
 			async: false,
 			success:function(result){
-				debugger;
 				if(result == 1){
 					$("#staticBackdrop1").modal("hide");
 				}			
 			},
 			fail:function(){
-				debugger;
 				//alert("주소수정실패!");
 				$("#staticBackdrop1").modal("hide");
 			}
 		})//ajax
-		debugger;
 		$("#staticBackdrop1").modal("hide");
 		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
@@ -497,7 +465,6 @@ $('#applePay').on('click', () => {
 		var post = $('input[name=ADD_POST]').val();
 		var addname = $('input[name=ADD_NAME]').val();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
-		debugger;
 		if(addnick == ''){
 			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
@@ -529,7 +496,6 @@ $('#applePay').on('click', () => {
 			adddetail.focus();
 			return false;
 		}
-		debugger;
 		$.ajax({
 			url:"addDelivery",
 			type:'post',
@@ -545,14 +511,12 @@ $('#applePay').on('click', () => {
 			},
 			async: false,	
 			success:function(result){
-				debugger;
 				if(result == 1){
 					$("#staticBackdrop1").modal("hide");
 //					$("#staticBackdrop").modal("show");
 				}			
 			},
 			fail:function(){
-				debugger;
 				//alert("주소추가실패!");
 				$("#staticBackdrop1").modal("hide");
 			}	
@@ -563,7 +527,6 @@ $('#applePay').on('click', () => {
 	
 	//  모달 취소 > 배송리스트 모달
 	$("#payCancelbtn").on('click', function(){
-		debugger;
 		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
 	})

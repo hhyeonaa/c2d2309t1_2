@@ -131,7 +131,7 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.PRO_ADDRESS}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
@@ -226,9 +226,9 @@
 		 					<div class="img-innertext"><span>10000원</span></div>
 		 				</td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
-		 			</tr>
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td> -->
+<!-- 		 			</tr> -->
 <!-- 		 			<tr> -->
 <!-- 		 				<td colspan="2">게시자 후기</td> -->
 <!-- 		 			</tr> -->

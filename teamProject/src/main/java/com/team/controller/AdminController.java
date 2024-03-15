@@ -257,7 +257,7 @@ public class AdminController {
 	
 	@DeleteMapping("/codePro")	//	delete
  	@ResponseBody
- 	public ResponseEntity<?> deleteCodePro(@RequestBody String deletedRows) {
+ 	public ResponseEntity<?> deleteCodePro(@RequestParam Map<String, String> deletedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
  		System.out.println(result);
 		adminService.codeDelete(result);

@@ -16,7 +16,8 @@ $(() => {
 		{
 			name: columnTitle.내용,
 			header:"카테고리명",
-		    sortable: true
+		    sortable: true,
+		    width: "auto"
 		},
 		{
 			name:columnTitle.활성여부_사용자,

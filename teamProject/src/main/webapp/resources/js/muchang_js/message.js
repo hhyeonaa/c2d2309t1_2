@@ -26,7 +26,8 @@ $(() => {
 			header:"코드내용",
 			filter:"text",
 		    sortable: true,
-		    editor: "text"
+		    editor: "text",
+		    width: "auto"
 		},  
 		{
 			name: columnTitle.활성여부_관리자,

@@ -374,7 +374,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기
 	$('#insertBtn').on('click', function(e) { 
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지합니다.
-		debugger;
 		var contextPath = getContextPath();
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		var resultList = []; // 결과를 저장할 배열입니다.
@@ -472,6 +471,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 			console.log('Upload success:', response);
 			/*임시이동*/
 //			location.href = "/myapp/";
+
 			$.ajax({
 				url: 'selectMyBoard', // 서버 엔드포인트 URL
 				type: 'GET',

@@ -537,7 +537,7 @@ public class BoardController {
 	}// insertPreAuction()	
 	
 	@GetMapping("/boardDetail")
-	public String boardDetail(HttpServletRequest request,Model model, HttpSession session) {
+	public String boardDetail(HttpServletRequest request, Model model, HttpSession session) {
 		System.out.println("BoardController boardDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");

@@ -131,7 +131,7 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.PRO_ADDRESS}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
@@ -203,7 +203,7 @@
 		 			<tr><td colspan="2">게시자 정보</td></tr>
 		 			<tr>
 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 60px; height: 60px;"></td>
-		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)<br>(<small>신뢰도 9.9</small>)</td>
+		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)</td>
 		 				<input type="hidden" class="memNo" value="${resultMap.PRO_WR}">
 		 			</tr>
 		 			<tr>
@@ -226,9 +226,9 @@
 		 					<div class="img-innertext"><span>10000원</span></div>
 		 				</td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
-		 			</tr>
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td> -->
+<!-- 		 			</tr> -->
 <!-- 		 			<tr> -->
 <!-- 		 				<td colspan="2">게시자 후기</td> -->
 <!-- 		 			</tr> -->

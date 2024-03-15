@@ -7,7 +7,6 @@ $(() => {
 		url:"mainSideBar"
 	})
 	.done(function(data){
-		debugger;
 		if(data[0].isTrue){
 			$("#isEmpty").show();
 			$("#nickNameCheck").hide();

@@ -298,7 +298,7 @@
 									<label for="address-tel" class="text__label">연락처</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="11" placeholder="연락가능한 연락처를 입력해주세요">
+									<input class="input_txt" onblur="checkPhone()"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="11" placeholder="연락가능한 연락처를 입력해주세요">
 								</div>
 							</div>
 

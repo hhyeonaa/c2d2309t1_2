@@ -396,7 +396,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proCate: $('#category1').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: $('#addNo').val(),
+//		    proAddress: $('#addNo').val(),
+		    proAddress: $('#inputRegion').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),
@@ -558,6 +559,9 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    handleTempBoard(e, 'aTempSave');
 	});
 
+//	$('#searchRegion').on('click',function(){
+//		alert('dd');
+//	})
 	
 	//셀렉트 박스 변경 시 화면 살짝 변경
 //	$('#proTc').on('change',function(){
@@ -620,63 +624,50 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		e.preventDefault();
 		$('#inputRegion').val('전국');
 	})
-	$('#searchRegion').on('click',function(e){
-		e.preventDefault();
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
-
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                //document.getElementById('sample4_postcode').value = data.zonecode;
-                //document.getElementById("sample4_roadAddress").value = roadAddr;
-                //document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                alert(data.zonecode+'-'+roadAddr+'-'+data.jibunAddress);
-                $('#inputRegion').val(roadAddr);
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-//                if(roadAddr !== ''){
-//                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-//                } else {
-//                    document.getElementById("sample4_extraAddress").value = '';
-//                }
-
-//                var guideTextBox = document.getElementById("guide");
-//                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-//                if(data.autoRoadAddress) {
-//                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-//                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-//                    guideTextBox.style.display = 'block';
-//
-//                } else if(data.autoJibunAddress) {
-//                    var expJibunAddr = data.autoJibunAddress;
-//                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-//                    guideTextBox.style.display = 'block';
-//                } else {
-//                    guideTextBox.innerHTML = '';
-//                    guideTextBox.style.display = 'none';
-//                }
-	        }
-	    }).open({
-			autoClose:true
+	$("#searchRegion").on('click', function() {
+		    new daum.Postcode({
+		        oncomplete: function(data) {
+		        	console.log(data);
+		            
+		        	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		            var fullAddr= '';
+		            var extraAddr='';
+		            
+		            if(data.userSelectoredType === 'R'){
+		            	fullAddr = data.roadAddress;
+		            } else{
+		            	fullAddr = data.jibunAddress;
+		            }
+		            
+		            // extraAddr 
+		            if(data.userSelectedType === 'R'){
+		                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                    extraAddr += data.bname;
+		                }
+		            }
+		            // 건물명이 있고, 공동주택일 경우 추가한다.
+		            if(data.buildingName !== '' && data.apartment === 'Y'){
+		                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		            }	                    
+		            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		            if(extraAddr !== ''){
+		                extraAddr = ' (' + extraAddr + ')';
+		            }		            
+		            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+		            if(fullAddr !== ''){
+		                fullAddr += extraAddr;
+		            }                    
+		            
+		            //$("#address-zipcode").val(data.zonecode); 
+		            $("#inputRegion").val(fullAddr);
+		            //$("#address-detail").focus();
+		            
+		        }
+		    }).open();
 		});
-	})
 	
 	$('#selectAddress').on('change',function(e){
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지
@@ -708,7 +699,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proCate: $('#category1').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: $('#addNo').val(),
+//		    proAddress: $('#addNo').val(),
+		    proAddress: $('#inputRegion').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),

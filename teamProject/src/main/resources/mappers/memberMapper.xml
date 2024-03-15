@@ -159,11 +159,7 @@
              , C2.CODE as "TSC_NAME"
              , I.IMG_NAME
 		from MEMBERS M
-		join PRODUCT P
-		on M.MEM_ID = P.PRO_WR
-        join CODE C1
-        on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
-        join CODE C2
+		join PRODUCT P, request.getContextPath() + "/member/memberDelete"
         on P.PRO_TSC = concat(C2.CO_TYPE, C2.CO_NO)
         left outer join IMAGE I
         on P.PRO_NO = I.IMG_PRONO

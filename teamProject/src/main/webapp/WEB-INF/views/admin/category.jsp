@@ -22,10 +22,10 @@
     <div class="row align-items-center mb-4">
         <div><h4 class="card-title"><b>카테고리 목록 리스트</b></h4></div>
     </div>
-	<div style="display: flex; justify-content: flex-start; padding-bottom: 80px;" id="selectCodeBtn">
+	<div style="display: flex; justify-content: flex-start;" id="selectCodeBtn">
 		<c:forEach var="items" items="${keyList}">
 			<c:if test="${items.key != '메뉴항목'}">
-				<button type="button" class="btn btn-outline-primary">${items.key}</button>
+				<button type="button" class="btn btn-outline-primary">${items.key}</button>&nbsp;&nbsp;
 			</c:if>
 		</c:forEach>
 	</div>
@@ -43,10 +43,8 @@
 <!-- 			<option value="50">50개 씩 보기</option> -->
 <!-- 			<option value="100">100개 씩 보기</option> -->
 <!-- 		</select> -->
-		<button id="saveBtn" class="btn btn-outline-danger">저장</button>
-		<button id="resetBtn" class="btn btn-outline-danger">새로고침</button>
 	    <div id="excel"></div>
-    	<div id="grid"></div>
+    	<div id="grid" class="mb-5"></div>
 	</div>
     
 

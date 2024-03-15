@@ -93,7 +93,7 @@ public class MemberController{
 	}// login()
 //	-----------------------------------------------------------------------------	
 	@PostMapping("/loginPro")
-	public String loginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response) throws IOException {
+	public String loginPro(@RequestParam Map<String, String> map, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		System.out.println("MemberController loginPro()");
 		Map<String, String> check = memberService.login(map);
 		System.out.println("check : " + check);
@@ -103,13 +103,13 @@ public class MemberController{
 			return "redirect:../";
 		} else {
 			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
-			response.setContentType("text/html; charset=euc-kr");
-			   PrintWriter out = response.getWriter();
-			   out.println("<script>");
-			   out.println("history.back()");
-			   out.println("</script>");
-			   codeService.submitForAlert(response, "AM5", msg);;
-			   out.flush();
+//			response.setContentType("text/html; charset=euc-kr");
+//			   PrintWriter out = response.getWriter();
+//			   out.println("<script>");
+//			   out.println("history.back()");
+//			   out.println("</script>");
+			   codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"member/login");;
+//			   out.flush();
 			return "";
 		}
 	}// adminLoginPro() 

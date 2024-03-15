@@ -81,8 +81,8 @@ function loginWithKakao() {
 
 // ---------------------------------네이버 로그인---------------------------------
 var naverLogin = new naver.LoginWithNaverId({
-	clientId: "UfjkJoYj4eIJvlgpyxp_"
-	, callbackUrl: "http://localhost:8080/myapp/member/login"
+	clientId: "BPAgVjaOdpfSIk0NTLbZ"
+	, callbackUrl: "http://c2d2309t1.itwillbs.com/Damoim/member/login"
 	, isPopup: false
 	, callbackHandle: true
 });
@@ -126,7 +126,6 @@ $(function(){
 	
 //	$("#loginBtn").click(function() {
 //        $("#loginForm").submit();
-//        debugger;
 //      alertMsg("AM7", ["아이디, 비밀번호"]);
 //    });
 	

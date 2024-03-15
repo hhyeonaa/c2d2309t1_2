@@ -142,6 +142,7 @@ var excel = (state, tableName) => {
 			.done(function(data){
 				if(Boolean(data)){
 					alertMsg("AM14", ["데이터"]);
+					location.reload();
 				}
 			})
 		})

@@ -194,7 +194,7 @@ $(()=>{
 		$("#addDetail").text(data[0].ADD_DETAIL);
 		$("#addTel").text(data[0].ADD_PHONE);
 	})
-	
+	 
 	
 // 결제할(선택된) 페이 css변경(4)
 var payCheck = $('.nonCheck')

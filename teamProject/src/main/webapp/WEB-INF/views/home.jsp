@@ -12,8 +12,8 @@
 <title>여기 다 모여 있다, '다모임'</title>
 </head>
 <jsp:include page="template/header.jsp"/>
-	   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 <body class="d-flex flex-column min-vh-100">
 
 <div style="display: flex; justify-content: center; align-items: center;">
@@ -34,8 +34,8 @@
 								    <img src="${pageContext.request.contextPath}/resources/img/uploads/${prItem.IMG_NAME}" class="card-img-top" alt="${sale.IMG_NAME}" alt="..."
 								    			onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
 								    <div class="card-body">
-								     <span class="state1">${prItem.PRO_TC_CODE}</span>
-								     <span class="state2">${prItem.PRO_TSC_CODE}</span><br>
+								     <span class="state1 ">${prItem.PRO_TC_CODE}</span>
+								     <span class="state2 PRO_STATE_${prItem.PRO_TSC}">${prItem.PRO_TSC_CODE}</span><br>
 								     <p class="titleText">${prItem.PRO_NAME}</p>
 								  <h5><b>${prItem.PRO_PRICE}원</b></h5>
 								    </div>

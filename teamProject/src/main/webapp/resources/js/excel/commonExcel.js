@@ -86,21 +86,21 @@ var excel = (state, tableName) => {
 	
 	if(state == 'upload' || state == 'updownload'){
 		var exceluploadTag = '<div class="excelBox">'
-					    	+'<button class="btn btn-primary excelUploadModalBtn btnSize"><img class="excel_icon" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/excel/upload_icon.png"alt="excel_icon">데이터 업로드</button>'
-						    +'<div class="excelUploadModalBox">'
-						    	+'<div class="mb_5px">'
-							    	+'<span class="font_blod_13px">※양식을 다운로드 후 양식에 맞춰 올려주세요</span>'
-							    	+'<button class="btn btn-success excelDLBtn btnSize"><img class="excel_icon" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/excel/file_excel_icon.png"alt="excel_icon">양식 다운로드</button>'
-						    	+'</div>'
-						    	+'<form id="uploadForm" method="post" enctype="multipart/form-data" onsubmit="return false">'
-							    	+'<input type="file" id="fileInput" class="form-control" name="fileInput" accept=".xlsx">'
-							    	+'<div class="btnBox">'
-								    	+'<button class="btn btn-primary uLBtn btnSize">업로드</button>'
-										+'<input type="reset" class="btn btn-danger btnSize" value="초기화" />'
-							    	+'</div>'
-						    	+'</form>'
-						    +'</div>'
-					    +'</div>';	
+				    	   + 	'<button class="btn btn-primary excelUploadModalBtn btnSize"><img class="excel_icon" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/excel/upload_icon.png"alt="excel_icon">데이터 업로드</button>'
+						   + 	'<div class="excelUploadModalBox">'
+						   + 		'<div class="mb_5px">'
+						   +			'<span class="font_blod_13px">※양식을 다운로드 후 양식에 맞춰 올려주세요</span>'
+						   +			'<button class="btn btn-success excelDLBtn btnSize"><img class="excel_icon" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/excel/file_excel_icon.png"alt="excel_icon">양식 다운로드</button>'
+						   +		'</div>'
+						   +		'<form id="uploadForm" method="post" enctype="multipart/form-data" onsubmit="return false">'
+						   +			'<input type="file" id="fileInput" class="form-control" name="fileInput" accept=".xlsx">'
+						   +			'<div class="btnBox">'
+						   +				'<button class="btn btn-primary uLBtn btnSize">업로드</button>'
+						   +				'<input type="reset" class="btn btn-danger btnSize" value="초기화" />'
+						   +			'</div>'
+						   +		'</form>'
+						   +	'</div>'
+					       +'</div>';	
 		
 		$("#excel").append(exceluploadTag);
 		

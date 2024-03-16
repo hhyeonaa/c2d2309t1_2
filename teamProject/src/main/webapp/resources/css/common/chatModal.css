@@ -167,6 +167,10 @@
 	justify-content: flex-end
 }
 
+#chatHead > .chatRoomContents {
+	cursor: pointer;
+}
+
 #chatHead > .chatRoomContents > .userNick{
 	font-size: 18px;
 	font-weight: bold;
@@ -176,10 +180,16 @@
 	font-size: 30px;
 	font-weight: bold;
 	
+	text-decoration:underline;
+	
 	text-overflow: ellipsis;
     width: 184px;
     overflow: visible;
     white-space: nowrap;
+}
+
+#chatHead > .chatRoomContents > .postTit:hover{
+	color: #868e96;
 }
 
 #systemContainer{

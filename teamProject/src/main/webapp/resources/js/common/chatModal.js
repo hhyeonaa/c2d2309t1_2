@@ -48,6 +48,7 @@ var notMyPostChatRoom = (chatRoom) => {
 					'<input type="hidden" class="target" id='+chatRoom.MEM_ID+'>' +
 					'<input type="hidden" class="payState" id='+chatRoom.PAY_STATE+'>' +
 					'<input type="hidden" class="chat_close" id='+chatRoom.CHAT_CLOSE+'>' +
+					'<input type="hidden" class="proDate" id='+chatRoom.PRO_DATE+'>' +
 					'<div class="profileImgBox" style="font-size: 10px;">' +
 						'<img class="profileImg" alt="프로필 사진" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/uploads/'+chatRoom.MEM_IMAGE+'">'+
 					'</div>' +
@@ -279,6 +280,7 @@ var enterChat = function(chatData){
 	
 	var chatRoomContents = '<div class="chatRoomContents" id='+chatData.proNo+'>'+
 								'<input type="hidden" class="target" id='+chatData.target+'>' +
+								'<input type="hidden" class="proDate" id='+chatData.proDate+'>' +
 								'<div class="userNick">'+chatData.nickName+'</div>'+
 								'<div class="postTit">'+chatData.title+'</div>'+
 							'</div>';
@@ -302,6 +304,21 @@ var enterChat = function(chatData){
 	chatHead.empty();						
 	chatHead.append(chatRoomContents);
 	chatHead.append(systemContainer);
+	
+	// 게시판 상세 들어가기
+	debugger;
+	var detailUrl;
+	if(chatData.post === "yourPost"){
+		detailUrl = '/' + window.location.pathname.split("/")[1] + '/board/boardDetail?proWr='+chatData.target+'&proDate='+chatData.proDate;
+	}
+	
+	if(chatData.post === "myPost"){
+		detailUrl = '/' + window.location.pathname.split("/")[1] + '/board/boardDetail?proWr='+$(".id_session").val()+'&proDate='+chatData.proDate
+	}
+	
+	$("#chatHead > .chatRoomContents").on("click", function(){
+		location.href = detailUrl;
+	})
 	
 	// 상태 값
 	$("#pro_tsc option[value="+chatData.pro_tsc.code+"]").prop("selected", "true");
@@ -336,7 +353,6 @@ var enterChat = function(chatData){
 					if(changedStateTag.val() == "TM3"){
 						$("#pro_tsc").prop("disabled", true);
 						
-						// 상대 평가 버튼 생성
 					}
 					
 					// 내 채팅 리스트에도 상태값 변경
@@ -528,6 +544,7 @@ var showChatList = function(chatList, post){
 					},
 			chat_close: $(this).find(".chat_close").attr("id"),
 			payState: $(this).find(".payState").attr("id"),
+			proDate: $(this).find(".proDate").attr("id"),
 			post: post
 		}
 		

@@ -81,11 +81,8 @@ var requestPay = (pgId) => {
 				    };
 				    const merchant_uid = make_merchant_uid()
 			        
-//					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
-//					var price = parseInt($("#totalprice").text().replace("원","").trim().replace(",", "")); 
 					var priceString = $("#totalprice").text().replace("원", "").replace(/,/g, "").trim(); 
 					var price = parseInt(priceString);
-//					var price = parseInt($("#totalprice").text().replace("원","").replace(/,/g, "").trim());  
 			        var productname = $("#payProName").text().trim();//제품name
 
 			        //var msg = $('#selectDel option:selected').text();
@@ -94,7 +91,7 @@ var requestPay = (pgId) => {
 						pg: pgId, 
 			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
 			  			name: productname, //상품명 // PRO_NAME
-				 		amount: 100, // 결제금액 price //PAID_AMOUNT
+				 		amount: price, // 결제금액 price //PAID_AMOUNT
 			  			buyer_name: data.BUYNAME, //결제자 이름 
 			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
 			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
@@ -562,7 +559,7 @@ $('#applePay').on('click', () => {
 		
 	});
 	
-	//모달2 이벤트
+	//모달2  키 관련 이벤트
 	$('#staticBackdrop').on('show.bs.modal', function(){
 		 // 엔터 키를 누르면 다음 입력 필드로 포커스 이동
 	    $('.modal-body input').keypress(function(e) {

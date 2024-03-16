@@ -91,7 +91,7 @@
 	
 	<select id="selectBoardDetail" parameterType="map" resultType="map">
 		SELECT PRO_NO,PRO_TC,PRO_WR,PRO_DATE,FORMAT(PRO_PRICE,0) as PRO_PRICE,PRO_HITS,PRO_CONTENT,PRO_NAME,PRO_STATUS,PRO_TSC,PRO_CATE,PRO_ADDRESS
-			  ,m.MEM_NO
+			  ,m.MEM_NO,m.MEM_IMAGE
 			  ,IMG_NAMES
 		      ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
 		      ,CODE_CATE.CODE AS PRO_CATE_CODE, CODE_STATUS.CODE AS PRO_STATUS_CODE
@@ -318,6 +318,43 @@
 		)
 		ORDER BY STR_TO_DATE(POSTING_DATE, '%Y%m%d%H%i%s') DESC
 		LIMIT 1		
+	</select>
+	
+	<select id="selectTempBoard" resultType="map">
+		SELECT PRE_MEMID, PRE_BONO, PRE_CATE, PRE_NAME, PRE_PRICE, PRE_CONTENT, PRE_TC
+		      ,CODE_TC.CODE	AS PRE_TC_CODE
+		  FROM PRODUCT_PRE
+		  JOIN CODE AS CODE_TC ON PRE_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
+		 WHERE PRE_MEMID = #{id}
+		 ORDER BY STR_TO_DATE(PRE_DATE, '%Y%m%d%H%i%s') DESC
+	</select>
+	
+	<select id="getAllBoardCount" parameterType="map" resultType="String">
+		SELECT SUM(count) AS total_count
+		  FROM (
+			    SELECT COUNT(*) AS count FROM PRODUCT WHERE PRO_WR = #{proWr}
+			    UNION ALL
+			    SELECT COUNT(*) AS count FROM AUCTION WHERE AUC_SELLER = #{proWr}
+			   ) AS counts
+	</select>
+	<select id="getAllBoard" parameterType="map" resultType="map">
+		(
+		    SELECT 'PRODUCT' AS TABLENAME, PRO_WR AS WRITER, PRO_DATE AS POSTING_DATE, PRO_TC AS TRADE, PRO_NO AS BNO
+		    ,IMG_NAME
+		    FROM PRODUCT JOIN IMAGE
+		    ON PRO_NO = IMG_PRONO
+		    WHERE PRO_WR = #{proWr} and IMG_NO = '1'
+		)
+		UNION ALL
+		(
+		    SELECT 'AUCTION' AS TABLENAME, AUC_SELLER AS WRITER, AUC_DATE AS POSTING_DATE, AUC_TC AS TRADE, AUC_NO AS BNO
+		    ,IMG_NAME
+		    FROM AUCTION JOIN IMAGE
+		    ON AUC_NO = IMG_PRONO
+		    WHERE AUC_SELLER = #{proWr} and IMG_NO = '1'
+		)
+		ORDER BY STR_TO_DATE(POSTING_DATE, '%Y%m%d%H%i%s') DESC
+		LIMIT 4		
 	</select>
 	
 </mapper>

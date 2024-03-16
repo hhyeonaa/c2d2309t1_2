@@ -211,5 +211,20 @@ public class BoardDAO {
 		return sqlSession.selectList(NAMESPACE + ".selectMyBoard", param);
 	}// selectMyBoard()
 
+	public List<Map<String, String>> selectTempBoard(String id) {
+		System.out.println("BoardDAO selectTempBoard()");
+		return sqlSession.selectList(NAMESPACE + ".selectTempBoard", id);
+	}// selectTempBoard()
+
+	public String getAllBoardCount(Map<String, String> map) {
+		System.out.println("BoardDAO getAllBoardCount()");
+		return sqlSession.selectOne(NAMESPACE + ".getAllBoardCount", map);
+	}// getAllBoardCount()
+
+	public List<Map<String, String>> getAllBoard(Map<String, String> map) {
+		System.out.println("BoardDAO getAllBoard()");
+		return sqlSession.selectList(NAMESPACE + ".getAllBoard", map);
+	}// getAllBoard()
+
 	
 }// BoardDAO 끝

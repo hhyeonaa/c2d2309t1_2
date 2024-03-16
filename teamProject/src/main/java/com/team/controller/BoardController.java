@@ -153,6 +153,7 @@ public class BoardController {
 		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
 		System.out.println("주소왔니? " + selectAddress);
 		model.addAttribute("selectAddress", selectAddress);
+		List<Map<String, String>> tempBoard = boardService.selectTempBoard(id);
 		if(proWr != null || proDate != null) {
 			Map<String, String> map = new HashMap<>();
 			map.put("proWr", proWr);
@@ -202,6 +203,7 @@ public class BoardController {
 		    detailTxt.put("dTxt"+i, value);
 		}
 		model.addAttribute("detailTxt", detailTxt);
+		model.addAttribute("tempBoard",tempBoard);
 		return "board/writeBoard";
 	}// writeBoard()
 	
@@ -555,7 +557,14 @@ public class BoardController {
 		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
 		map.put("MEM_ID", userId);
 		boardService.upHits(map);
+		String count = boardService.getAllBoardCount(map);
+		List<Map<String, String>> allBoard = boardService.getAllBoard(map);
+		
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		resultMap.put("count", count);
+		if(allBoard != null) {
+			model.addAttribute("allBoard", allBoard);
+		}
 		System.out.println("resultMap: "+ resultMap);
 		String proCate = resultMap.get("PRO_CATE");
 		String proNo = resultMap.get("PRO_NO");
@@ -595,7 +604,14 @@ public class BoardController {
 		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
 		map.put("MEM_ID", userId);
 		boardService.upHits(map);
+		String count = boardService.getAllBoardCount(map);
+		List<Map<String, String>> allBoard = boardService.getAllBoard(map);
+		
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		resultMap.put("count", count);
+		if(allBoard != null) {
+			model.addAttribute("allBoard", allBoard);
+		}
 		System.out.println("resultMap: "+ resultMap);
 		String proCate = resultMap.get("PRO_CATE");
 		String proNo = resultMap.get("PRO_NO");

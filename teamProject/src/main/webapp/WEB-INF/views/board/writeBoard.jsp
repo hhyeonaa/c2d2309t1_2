@@ -87,15 +87,14 @@
 			      <input type="hidden" id="aucSeller" name="aucSeller" value="${resultMap.AUC_SELLER}">
 			      <input type="hidden" id="aucDate" name="aucDate" value="${resultMap.AUC_DATE}">
 			      <select id="selectPreBoard">
-			      	<option value="" selected>임시저장글</option>
-			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
-			      	<option>[구매] 이거 삼삼삼 24.02.08</option>
-			      	<option>[판매] 이거 팜팜팜 24.02.08</option>
-			      	<option>[판매] 이거 팜팜팜 24.02.08</option>
-			      	<option>[나눔] 이거 눔눔눔 24.02.08</option>
-			      	<option>[나눔] 이거 눔눔눔 24.02.08</option>
-			      	<option>[경매] 이거 경경경 24.02.08</option>
-			      	<option>[경매] 이거 경경경 24.02.08</option>
+			      	<option value="0" selected>임시저장글</option>
+			      	<c:forEach var="tmp" items="${tempBoard}">
+			      		<option value="${tmp.PRE_TC},${tmp.PRE_PRICE},${tmp.PRE_TC_CODE},${tmp.PRE_NAME},${tmp.PRE_CATE},${tmp.PRE_CONTENT}">[${tmp.PRE_TC_CODE}]${tmp.PRE_NAME}</option>
+			      	</c:forEach>
+<!-- 			      	<option>[구매] 이거 삼삼삼 24.02.08</option> -->
+<!-- 			      	<option>[판매] 이거 팜팜팜 24.02.08</option> -->
+<!-- 			      	<option>[나눔] 이거 눔눔눔 24.02.08</option> -->
+<!-- 			      	<option>[경매] 이거 경경경 24.02.08</option> -->
 			      </select>
 			    </div>
 			  </div>
@@ -194,9 +193,9 @@
 				</div>
 			</div>
 			<hr>
-			<div class="row">
-				<div class="d-flex justify-content-center mt-4" style="display: flex;">
-				   	<div>
+			<div class="row" style="display: flex; justify-content: center; width: 75%;">
+<!-- 				<div> -->
+				   	<div class="mt-4" style="display: flex; justify-content: space-evenly">
 				   	<select id="selectAddress">
 				   		<option value="0">주소 선택</option>
 				   		<c:forEach var="add" items="${selectAddress}">
@@ -209,27 +208,27 @@
 				   	<button class="btn btn-outline-secondary" id="searchRegion">거래지역 선택</button>
 <!-- 				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button> -->
 				   	</div>
-				</div>
-				<div class="d-flex justify-content-center pt-3">
+<!-- 				</div> -->
+				<div class="mt-2" style="display: flex; justify-content: center;">
 				<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 					<input type="hidden" id="addNo" value="">
 <!-- 					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임"> -->
 <!-- 					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호"> -->
-					<input class="col-7 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
+					<input class="text-center" style="width:75%;" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
 <!-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력"> -->
 				</c:if>
 				<c:if test="${!empty resultMap.PRO_DATE}">
 					<input type="hidden" id="addNo" value="${resultMap.PRO_ADDRESS}">
 <%-- 					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임"> --%>
 <%-- 					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호"> --%>
-					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
+					<input class="text-center" style="width:75%;" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
 <%-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력"> --%>
 				</c:if>
 				<c:if test="${!empty resultMap.AUC_DATE}">
 					<input type="hidden" id="addNo" value="${resultMap.AUC_ADDRESS}">
 <%-- 					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임"> --%>
 <%-- 					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호"> --%>
-					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
+					<input class="text-center" style="width:75%;" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
 <%-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력"> --%>
 				</c:if>
 				</div>
@@ -358,21 +357,20 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
-				<div class="mb-3">
-					<label for="proContent" class="form-label">상세 설명</label>
-					<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
-					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}"></textarea>
-					</c:if>
-					<c:if test="${!empty resultMap.PRO_DATE}">
-					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}">${resultMap.PRO_CONTENT}</textarea>
-					</c:if>
-					<c:if test="${!empty resultMap.AUC_DATE}">
-					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}">${resultMap.AUC_CONTENT}</textarea>
-					</c:if>					
-				</div>
-				<p class="textCount">0</p>
-				<p class="textTotal">/2000</p>
+				<div class="">
+					<div class="mb-3" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+						<label for="proContent" class="form-label">상세 설명</label>
+						<p class="textCount"><span>0</span>/2000</p>
+						<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
+						<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}"></textarea>
+						</c:if>
+						<c:if test="${!empty resultMap.PRO_DATE}">
+						<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}">${resultMap.PRO_CONTENT}</textarea>
+						</c:if>
+						<c:if test="${!empty resultMap.AUC_DATE}">
+						<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}">${resultMap.AUC_CONTENT}</textarea>
+						</c:if>					
+					</div>
 				</div>
 			</div>
 			<hr>

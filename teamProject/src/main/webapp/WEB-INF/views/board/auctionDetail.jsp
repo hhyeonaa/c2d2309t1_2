@@ -91,12 +91,12 @@ td{
 			  	<c:forEach var="img" items="${imgList}" varStatus="status">
 			  		<c:if test="${status.index eq 0}">
 			  			<div class="carousel-item active">
-					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 					    </div>
 			  		</c:if>
 			  		<c:if test="${status.index ne 0}">
 			  			<div class="carousel-item">
-					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 					    </div>
 			  		</c:if>
 			  	</c:forEach>
@@ -200,7 +200,7 @@ td{
 					<tr><td colspan="7">연관상품</td><tr>
 					<tr>
 						<c:forEach var="img" items="${relatedImg}">
-						<td><a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${img.AUC_SELLER}&aucDate=${img.AUC_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/no-pictures.png'"></a></td>
+						<td><a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${img.AUC_SELLER}&aucDate=${img.AUC_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a></td>
 						</c:forEach>
 <%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
 <%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>

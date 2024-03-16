@@ -4,14 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.mappers.chatMapper">
 	<select id="roomCheck" parameterType="map" resultType="map">
-			SELECT CAST(COUNT(*) AS CHAR) as result
-		      FROM CHAT_ROOM 
-			 WHERE PRO_NO = #{proNo}
-		       AND MEM_NO = (SELECT MEM_NO
-  							  FROM MEMBERS
- 							 WHERE MEM_ID = #{memId})
-			   AND (CHAT_CLOSE IS NULL
-				OR CHAT_CLOSE NOT LIKE CONCAT('%', #{memId} ,'%'));
+		SELECT CAST(COUNT(*) AS CHAR) as result
+	      FROM CHAT_ROOM 
+		 WHERE PRO_NO = #{proNo}
+	       AND MEM_NO = (SELECT MEM_NO
+ 							  FROM MEMBERS
+							 WHERE MEM_ID = #{memId})
+		   AND (CHAT_CLOSE IS NULL
+			OR CHAT_CLOSE NOT LIKE CONCAT('%', #{memId} ,'%'));
 	</select>
 	
 	<insert id="createRoom" parameterType="map">

@@ -3,7 +3,9 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 
 var excel = (state, tableName) => {
+	
 	$("#grid").before('<div id="excel"></div>');
+	
 	if(state == 'download' || state == 'updownload'){
 		var excelDownloadTag = '<div class="excelBox">'
 							 +   	'<button class="btn btn-success excelDownloadModalBtn btnSize"><img class="excel_icon" src="'+'/'+ window.location.pathname.split("/")[1] +'/resources/img/excel/download_icon.png"alt="excel_icon">엑셀 다운로드</button>'

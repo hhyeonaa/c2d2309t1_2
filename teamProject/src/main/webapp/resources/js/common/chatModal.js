@@ -55,7 +55,9 @@ var notMyPostChatRoom = (chatRoom) => {
 					'<div class="chatRoomContents">' +
 						'<div class="userNick">['+chatRoom.MEM_NICK+']</div>' +
 						'<div class="postTit">' + chatRoom.PRO_NAME + '</div>' +
-						'<span class="'+chatRoom.PRO_TSC+'">('+chatRoom.PRO_TSC_CODE+')</span>' + 
+						'<div style="text-align: right;">' +
+							'<span style="margin-right: 10px;" class="state2 PRO_STATE_'+chatRoom.PRO_TSC+'">'+chatRoom.PRO_TSC_CODE+'</span>' +
+						'</div>' + 
 					'</div>' +
 				'</div>'
 }
@@ -89,7 +91,6 @@ var outToggle = 1;
 // ********************************************************************************************************************************************
 // ########### 소켓 함수 #############
 // 소켓 연결
-// console.log(location.origin+"/"+location.pathname.split("/")[1]+"chat");
 // http://localhost:8080/myapp/chat
 let sock = new SockJS(location.origin+"/"+location.pathname.split("/")[1]+"/"+"chat");
 sock.onopen = onOpen;
@@ -154,12 +155,8 @@ function addMsg(msg){ // 메세지를 받은 경우
 		$("#pro_tsc").val(msg.state);
 		
 		var changedPost = $("#chatHead").find(".chatRoomContents").attr("id");
-		$("#chatList").find("#"+changedPost+" > .chatRoomContents > span").text("("+$("#pro_tsc option[value="+msg.state+"]").text()+")");
 		
-		// 거래 완료면 평점 버튼 생성 (후추)
-		if(msg.state == "TM3"){
-			console.log("거래완료")
-		}
+		$("#chatList").find("#"+changedPost+" > .chatRoomContents > span").text("("+$("#pro_tsc option[value="+msg.state+"]").text()+")");
 	}
 	
 	
@@ -167,9 +164,13 @@ function addMsg(msg){ // 메세지를 받은 경우
 // ########### 소켓 함수 끝 ##########
 
 // ########### 모달 함수 #############
+
+
 // 모달 열기
 var modalToggle = 0;
 var openModal = function(id){
+	
+	// 소켓 미 연결시 
 	if(sock == null){
 		alertMsg("AM16", ["연결"]);
 		return;
@@ -191,7 +192,11 @@ var openModal = function(id){
 		
 		// 토글 off
 		modalToggle--;
-	} else {
+	} 
+	
+	
+	
+	else {
 		console.log("막 누르지마라 ㅡㅡ")
 	}
 }
@@ -306,7 +311,6 @@ var enterChat = function(chatData){
 	chatHead.append(systemContainer);
 	
 	// 게시판 상세 들어가기
-	debugger;
 	var detailUrl;
 	if(chatData.post === "yourPost"){
 		detailUrl = '/' + window.location.pathname.split("/")[1] + '/board/boardDetail?proWr='+chatData.target+'&proDate='+chatData.proDate;
@@ -352,13 +356,12 @@ var enterChat = function(chatData){
 				if(Boolean(result)){
 					if(changedStateTag.val() == "TM3"){
 						$("#pro_tsc").prop("disabled", true);
-						
 					}
 					
 					// 내 채팅 리스트에도 상태값 변경
 					var changeTarget = $("#chatList").find("#"+chatData.proNo+" > .chatRoomContents span");
-					changeTarget.attr("class", changedStateTag.val());
-					changeTarget.text("("+changedStateTag.text()+")");
+					changeTarget.attr("class","state2 PRO_STATE_"+changedStateTag.val());
+					changeTarget.text(changedStateTag.text());
 					
 					// 상대방한테도 변경시키기
 					changeState(changedStateTag.val(), chatData.target, chatData.roomNo)
@@ -532,6 +535,7 @@ var showChatList = function(chatList, post){
 	}
 	
 	$(".chatRoom").on("click", function(){
+		debugger;
 		var chatData = {
 			proNo: $(this).attr("id"),
 			target:$(this).find(".target").attr("id"),
@@ -539,8 +543,8 @@ var showChatList = function(chatList, post){
 			title:$(this).find(".postTit").text(),
 			roomNo:$(this).find(".roomNo").attr("id"),
 			pro_tsc:{
-						code:$(this).find(".chatRoomContents > span").attr("class"),
-						code_content:$(this).find(".chatRoomContents > span").text().slice(1,-1),
+						code:$(this).find(".chatRoomContents > div > span").attr("class").split(" ")[1].replace("PRO_STATE_", ""),
+						code_content:$(this).find(".chatRoomContents > div > span").text().slice(1,-1),
 					},
 			chat_close: $(this).find(".chat_close").attr("id"),
 			payState: $(this).find(".payState").attr("id"),

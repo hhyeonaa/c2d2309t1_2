@@ -270,7 +270,6 @@ $(function(){
 		
 		// ~~~~~~~~~~~~~~~~~~~전화번호 중복 체크~~~~~~~~~~~~~~~~~~~	
 		$('#phone').blur(function(){
-			debugger;
 			//  전화번호 비어있는 경우 제어
 			if($('#phone').val() == ' ' || $('#phone').val() == ''){
 				$('#phoneCheck').html("전화번호 필수 입력").css('color', 'gray');

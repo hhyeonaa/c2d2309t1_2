@@ -164,12 +164,9 @@ $(function(){
 // 			if(data[i].CO_DETAIL=='radio'){
 // 				console.log(trade);
 // 				$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' radio-data=' + state + ' />');
-// 				debugger;
 // 			} else if(data[i].CO_DETAIL=='select') {
-// 				debugger;
 // 			} else {
 				$('#formDiv').append('<' + data[i].CO_DETAIL + '-input name=' + data[i].formName + ' id-data=' + data[i].formID + ' />');
-				debugger;
 // 			}
 				
 				

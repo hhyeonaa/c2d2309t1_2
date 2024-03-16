@@ -415,7 +415,7 @@ var enterChat = function(chatData){
 			})
 			.done(function(result){
 				if(Boolean(result)){
-					getChat($(".session_id").val(), $(".on").attr("id").slice(0,-4));
+					getChat($(".id_session").val(), $(".on").attr("id").slice(0,-4));
 					$("#chatBody").empty();
 					$("#chatHead").empty();
 					$("#chatBody").append('<span id="chatChoicePlease">채팅을 선택해주세요</span>');

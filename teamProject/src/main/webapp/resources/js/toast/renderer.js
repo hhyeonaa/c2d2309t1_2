@@ -7,7 +7,6 @@ class DeleteButton {
 		$(el).append('<ion-icon name="remove-circle-outline" style="width:30px; height:30px"></ion-icon>');
 		
 		$(el).on("click", function(){
-			debugger;
 			props.grid.removeRow(props.rowKey);
 			props.grid.request('deleteData');
 			props.grid.resetData(grid.getData());
@@ -36,7 +35,6 @@ class ToggleButton {
 									+ flag + ' value="' + value + '">');
 									
 		$(el).on("change", function(e){
-			debugger;
 			props.grid.setValue(props.rowKey, props.columnInfo.name, e.target.checked ? "1" : "0");
 		});
 		

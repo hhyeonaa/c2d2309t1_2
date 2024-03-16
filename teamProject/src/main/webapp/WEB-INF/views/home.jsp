@@ -32,7 +32,7 @@
 								<div class="col" id="product">
 								  <div class="card h-100" onclick="location.href ='${pageContext.request.contextPath}/board/boardDetail?proWr=${prItem.PRO_WR}&proDate=${prItem.PRO_DATE}'">
 								    <img src="${pageContext.request.contextPath}/resources/img/uploads/${prItem.IMG_NAME}" class="card-img-top" alt="${sale.IMG_NAME}" alt="..."
-								    			onerror="this.src='${pageContext.request.contextPath}//member/noImage.jpg'">
+								    			onerror="this.src='${pageContext.request.contextPath}/member/noImage.jpg'">
 								    <div class="card-body">
 								     <span class="state1 ">${prItem.PRO_TC_CODE}</span>
 								     <span class="state2 PRO_STATE_${prItem.PRO_TSC}">${prItem.PRO_TSC_CODE}</span><br>

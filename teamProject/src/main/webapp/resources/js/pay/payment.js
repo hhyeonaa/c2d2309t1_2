@@ -81,7 +81,11 @@ var requestPay = (pgId) => {
 				    };
 				    const merchant_uid = make_merchant_uid()
 			        
-					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
+//					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
+//					var price = parseInt($("#totalprice").text().replace("원","").trim().replace(",", "")); 
+					var priceString = $("#totalprice").text().replace("원", "").replace(/,/g, "").trim(); 
+					var price = parseInt(priceString);
+//					var price = parseInt($("#totalprice").text().replace("원","").replace(/,/g, "").trim());  
 			        var productname = $("#payProName").text().trim();//제품name
 
 			        //var msg = $('#selectDel option:selected').text();

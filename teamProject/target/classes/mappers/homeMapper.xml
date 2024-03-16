@@ -7,7 +7,7 @@
 <select id="getProductList" resultType="Map">
 	<!-- 판매 최신순 8개 -->  
 		SELECT PRO_WR,PRO_NAME, format(PRO_PRICE,0) as "PRO_PRICE",PRO_DATE,IMG_NAME
-			  ,CODE_TC.CODE AS PRO_TC_CODE
+			  , CODE_TC.CODE AS PRO_TC_CODE
 			  , CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)  AS PRO_TSC
 			  , CODE_TSC.CODE AS PRO_TSC_CODE
 		  FROM PRODUCT

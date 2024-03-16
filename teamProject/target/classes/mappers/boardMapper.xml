@@ -118,6 +118,11 @@
 		   SET PRO_HITS = PRO_HITS + 1
 		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate} 
 	</update>
+	<update id="increaseViewCount" parameterType="map">
+		UPDATE PRODUCT
+		   SET PRO_HITS = PRO_HITS + 1
+		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate} 
+	</update>
 	<select id="getImgMap" resultType="map">
 		SELECT *
 		FROM IMAGE

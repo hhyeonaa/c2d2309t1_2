@@ -556,7 +556,7 @@ public class BoardController {
 		map.put("proDate", proDate);
 		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
 		map.put("MEM_ID", userId);
-		boardService.upHits(map);
+		//boardService.upHits(map);
 		String count = boardService.getAllBoardCount(map);
 		List<Map<String, String>> allBoard = boardService.getAllBoard(map);
 		
@@ -593,6 +593,12 @@ public class BoardController {
 		return "board/boardDetail";
 	}// boardDetail()
 	
+	@PostMapping("/increaseViewCount")
+	@ResponseBody
+	public ResponseEntity<?> increaseViewCount(@RequestParam Map<String, String> param) {
+	    return ResponseEntity.ok(boardService.increaseViewCount(param));
+	}
+	
 	@GetMapping("/divideDetail")
 	public String divideDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController divideDetail()");
@@ -603,7 +609,7 @@ public class BoardController {
 		map.put("proDate", proDate);
 		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
 		map.put("MEM_ID", userId);
-		boardService.upHits(map);
+		//boardService.upHits(map);
 		String count = boardService.getAllBoardCount(map);
 		List<Map<String, String>> allBoard = boardService.getAllBoard(map);
 		

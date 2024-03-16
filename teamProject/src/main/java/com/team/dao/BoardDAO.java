@@ -226,5 +226,10 @@ public class BoardDAO {
 		return sqlSession.selectList(NAMESPACE + ".getAllBoard", map);
 	}// getAllBoard()
 
+	public boolean increaseViewCount(Map<String, String> param) {
+		System.out.println("BoardDAO increaseViewCount()");
+		return sqlSession.update(NAMESPACE + ".increaseViewCount", param) == 1 ? true : false;
+	}// increaseViewCount()
+
 	
 }// BoardDAO 끝

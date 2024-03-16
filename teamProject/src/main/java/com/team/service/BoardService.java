@@ -169,5 +169,10 @@ public class BoardService {
 		return boardDAO.getAllBoard(map);
 	}// getAllBoard()
 
+	public boolean increaseViewCount(Map<String, String> param) {
+		System.out.println("BoardService increaseViewCount()");
+		return boardDAO.increaseViewCount(param);
+	}// increaseViewCount()
+
 
 }// BoardService 끝

@@ -26,7 +26,7 @@
 							</div>
 							<div class="productImg">
 								<img src="${pageContext.request.contextPath}/resources/img/uploads/${completePay.IMG_NAME}" alt="${completePay.IMG_NAME}"
-									 onerror="this.src='${pageContext.request.contextPath}/member/noImage.jpg'">
+									 onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 							</div>
 						</div>
 						

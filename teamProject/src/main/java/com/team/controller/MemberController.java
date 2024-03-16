@@ -353,6 +353,7 @@ public class MemberController{
 		// 내가 등록한
 		List<Map<String,String>> myTrade = memberService.myTrade(MEM_ID);
 		model.addAttribute("myTrade", myTrade);
+		
 		List<Map<String,String>> otherTrade = memberService.otherTrade(MEM_ID);
 		model.addAttribute("otherTrade", otherTrade);
 		return "member/tradeList";
@@ -475,24 +476,25 @@ public class MemberController{
 		return "member/trading";
 	}// trading() 
 //	-----------------------------------------------------------------------------
-	@PostMapping("/changeState")
-	public String changeState(@RequestParam Map<String, String> map) {
-		System.out.println("changeState map : " + map);
-	    String proNo = map.get("PRO_NO");
-	    System.out.println("proNo : " + proNo);
-	    if (proNo != null) {
-	        try {
-	            memberService.changeState(map);
-	            // 변경 성공 시 로깅
-	            System.out.println("상태 변경이 성공적으로 이루어졌습니다.");
-	        } catch (Exception e) {
-	            e.printStackTrace(); // 에러 로깅
-	            // 변경 실패 시 처리
-	            System.err.println("상태 변경 중 오류가 발생했습니다.");
-	        }
-	    }
-	    return "redirect:/member/trading";
-	}
+		@PostMapping("/changeState")
+		public String changeState(@RequestParam Map<String, String> map, HttpSession session) {
+			System.out.println("changeState map : " + map);
+		    String proNo = map.get("PRO_NO");
+		    String MEM_ID = (String)session.getAttribute("MEM_ID");
+		    System.out.println("chacngestate MEM_ID : " + MEM_ID);
+		    if (proNo != null && MEM_ID != null) {
+		        try {
+		            memberService.changeState(map, MEM_ID);
+		            // 변경 성공 시 로깅
+		            System.out.println("상태 변경이 성공적으로 이루어졌습니다.");
+		        } catch (Exception e) {
+		            e.printStackTrace(); // 에러 로깅
+		            // 변경 실패 시 처리
+		            System.err.println("상태 변경 중 오류가 발생했습니다.");
+		        }
+		    }
+		    return "redirect:/member/trading";
+		}
 	
 //  ===============================================메일 전송 관련===============================================	
 		// 인증메일

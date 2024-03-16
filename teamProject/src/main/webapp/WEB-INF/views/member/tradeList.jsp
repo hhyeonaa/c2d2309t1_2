@@ -74,7 +74,6 @@
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
 	  <c:forEach var="otherTrade" items="${otherTrade}">
 		  <div class="col pro2">
-		  
 		  	<input type="hidden" class="proType2" value="${otherTrade.PRO_TC}">
 		    <div class="card h-100">
 		      <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${otherTrade.PRO_WR}&proDate=${otherTrade.PRO_DATE}">
@@ -83,10 +82,10 @@
 		      </a>
 		      <div class="card-body">
 		      	 <span class="state1">${otherTrade.TC_NAME}</span>
-				  <span class="state2">${otherTrade.TSC_NAME}</span>
+				  <span class="state2" id="state_${otherTrade.PRO_TSC}">${otherTrade.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span>
 <!-- <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
-			      <p>${otherTrade.PRO_NAME}</p>
+			      <p class="nameP">${otherTrade.PRO_NAME}</p>
 				  <h5><b>${otherTrade.PRO_PRICE}원</b></h5>
 		      </div>
 		    </div>

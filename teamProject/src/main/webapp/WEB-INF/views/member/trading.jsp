@@ -41,6 +41,7 @@
 				            <form id="transactionForm" action="changeState" method="post">
 				                <input type="hidden" name="PRO_NO" value="${trading.PRO_NO}">
 				                <input type="hidden" name="status" value="completed">
+				                <input type="hidden" name="MEM_ID" value="<%= session.getAttribute("MEM_ID") %>">
 				                <div class="text-center mb-3">
 				                    <!-- 구매확정 버튼 -->
 				                    <button type="button" id="confirmButton" class="btn btn-outline-success btn-block btn-sm btn-smaller">구매확정</button> 

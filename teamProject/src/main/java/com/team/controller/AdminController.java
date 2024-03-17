@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestBody;
-=======
->>>>>>> branch 'ksy' of https://github.com/hhyeonaa/c2d2309t1_2.git
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

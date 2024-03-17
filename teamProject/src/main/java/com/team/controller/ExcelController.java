@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.team.service.ExcelService;
 import com.team.util.Excel;
 import com.team.util.ToastUI;
@@ -31,12 +33,19 @@ public class ExcelController {
 	@Inject
 	private ExcelService excelService;
 	Excel excel = new Excel();
+	Gson gson = new Gson();
 	
 	@GetMapping("formExcelDL")
 	public void formExcelDL (@RequestParam Map<String,String> param, HttpServletResponse response) throws IOException {
-		System.out.println(param);
 		
-		excel.edl(excel.createSheet(param), response);
+		if(param.containsKey("dlData")){
+			excel.edl(excel.createDataSheet(gson.fromJson(param.get("dlData"), new TypeToken<Map<String, Object>>(){}.getType())), response);
+		};
+		
+		if(param.containsKey("tableName")){
+			excel.edl(excel.createFormSheet(excelService.getfieldName(param)), response);
+		};
+		
 	} // formExcelDL
 	
 	@PostMapping("excelUpload")
@@ -44,15 +53,13 @@ public class ExcelController {
 			@RequestParam(value="fileInput") MultipartFile file,
 			@RequestParam(value="tableName") String tableName) {
 		
-		Map<String, Object> uploadData = excel.eul(file);
+		List<Map<String, String>> uploadData = excel.eul(file);
 		
-		uploadData.put("tableName", tableName);
-		System.out.println(uploadData);
-
-		// int result = excelService.insertData(uploadData);
-		// System.out.println(result);
+		Map<String, Object> insertData = new HashMap<String, Object>();
+		insertData.put("tableName", tableName);
+		insertData.put("uploadData", uploadData);
 		
-		return null;
+		return  ResponseEntity.ok().body(excelService.insertData(insertData));
 	}
 	
 	

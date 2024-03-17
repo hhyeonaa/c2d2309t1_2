@@ -18,13 +18,7 @@
 <jsp:include page="../template/store_sidevar_close.jsp"/>
 <div class="container" id="adminDiv">
     <div class="row align-items-center">
-        <div><h4 class="card-title"><b>관리자 목록</b></h4></div>
-        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-			<div>
-			    <a data-mdb-toggle="pill" href="#" role="tab" aria-controls="register" aria-selected="true"
-			       class="btn" id="btnAdd"><i class="bx bx-plus me-1"></i>관리자 추가</a>
-			</div>
-        </div>
+        <div><h3 class="card-title"><b>관리자 목록</b></h3></div>
     </div>
     
 	<!-- 관리자추가 모달창 -->
@@ -51,77 +45,13 @@
 	     </div>
 	     <div class="modal-footer" id="modal-footer">
 	       <button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
-    	   <button type="button" id="insertBtn" class="btn btn-outline-danger">생성</button>
+    	   <button type="button" id="checkBtn" class="btn btn-outline-danger">생성</button>
 	     </div>
 	  </div>
 	</div>
     	
-    <form action="">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="">
-                <div class="table-responsive">
-                    <table id="adminList" class="table project-list-table table-nowrap align-middle table-borderless text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">번호</th>
-                                <th scope="col">ID</th>
-                                <th scope="col">권한</th>
-                                <th scope="col">활성 상태</th>
-                                <th scope="col">삭제</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-                        	<c:forEach var="admin" items="${mapList}">
-	                            <tr>
-	                            	<th>${admin.AD_NO }</th>
-	                                <td>${admin.AD_ID }</td>
-                                	<td>
-                                		<select class="form-select" id="role">
-											<option selected hidden>${admin.ROL_NAME }</option>
-											<option value="0">기본</option>
-											<option value="1">총괄</option>
-											<option value="2">운영</option>
-											<option value="3">사이트</option>
-										</select>
-									</td>
-	                                <td scope="row">
-		                                <div class="form-check form-switch justify-content-center">
-			                                <c:if test="${admin.AD_ACTIVE eq '1'}">
-												<input class="form-check-input" type="checkbox" id="active" checked>
-			                                </c:if>
-		                           	       	<c:if test="${admin.AD_ACTIVE eq '0'}">
-												<input class="form-check-input" type="checkbox" id="active">
-			                                </c:if>
-		                                </div>
-	                                </td>
-                            	    <td scope="row">
-										<button type="button" id="deleteBtn">
-											<ion-icon name="remove-circle-outline"></ion-icon></button>
-	                                </td>
-	                            </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row g-0 pb-4">
-    	<div class="mb-4" align="right">
-			<button type="reset" class="btn btn-secondary" id="resetBtn">취소</button>
-			<button type="button" class="btn btn-outline-danger" id="saveBtn">저장</button>
-		</div>
-		<div class="demo">
-		    <nav class="pagination-outer"  aria-label="Page navigation">
-		        <ul class="pagination" id="pagination"></ul>
-		    </nav>
-		</div> 
-    </div>
-    </form>
-    
 	<div class="btn-wrapper">
-		<select name="perPage" id="setPerpage">
+		<select name="perPage" id="setPerpage" class="plSelect">
 			<option selected disabled hidden>선택</option>
 			<option value="-1">기본값</option>
 			<option value="0">한 페이지에 보기</option>
@@ -133,11 +63,8 @@
 			<option value="50">50개 씩 보기</option>
 			<option value="100">100개 씩 보기</option>
 		</select>
-		<button id="appendBtn">행 추가</button>
-<!-- 		<button id="removeBtn">추가 행 삭제</button> -->
-		<button id="resetBtn">취소</button>
-		<button id="saveBtn">저장</button>
-		<button id="ckDeleteBtn">선택삭제</button>
+		<button id="appendBtn" class="btn btn-warning">추가</button>
+		<button id="ckDeleteBtn" class="btn btn-danger">선택 삭제</button>
 	</div>
     <div id="grid"></div>
 </div>

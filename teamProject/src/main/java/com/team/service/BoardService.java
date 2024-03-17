@@ -104,5 +104,55 @@ public class BoardService {
 		boardDAO.updateBoard(parsedMap,imageFilenames);
 	}// updateBoard()
 
+	public List<Map<String, String>> selectAuction(Map<String, String> map) {
+		System.out.println("BoardService selectAuction()");
+		return boardDAO.selectAuction(map);
+	}// selectAuction()
+
+	public void aucHits(Map<String, String> map) {
+		System.out.println("BoardService aucHits()");
+		boardDAO.aucHits(map);
+	}// aucHits()
+
+	public Map<String, String> selectAuctionDetail(Map<String, String> map) {
+		System.out.println("BoardService selectAuctionDetail()");
+		return boardDAO.selectAuctionDetail(map);
+	}// selectAuctionDetail()
+
+	public String getAucNo(Map<String, String> getNumMap) {
+		System.out.println("BoardService getAucNo()");
+		return boardDAO.getAucNo(getNumMap);
+	}// getAucNo()
+
+	public void updateAuction(Map<String, String> parsedMap, List<String> imageFilenames) {
+		System.out.println("BoardService updateAuction()");
+		boardDAO.updateAuction(parsedMap,imageFilenames);
+	}// updateAuction()
+
+	public List<Map<String, String>> getRelatedCateImg(Map<String, String> map) {
+		System.out.println("BoardService getRelatedCateImg()");
+		return boardDAO.getRelatedCateImg(map);
+	}// getRelatedCateImg()
+
+	public boolean insertDivide(Map<String, String> param) {
+		System.out.println("BoardService insertDivide()");
+		return boardDAO.insertDivide(param);
+	}// insertDivide()
+
+	public List<Map<String, String>> getDivList(Map<String, String> map) {
+		System.out.println("BoardService getDivList()");
+		return boardDAO.getDivList(map);
+	}// getDivList()
+
+	public boolean deleteDivide(Map<String, String> param) {
+		System.out.println("BoardService deleteDivide()");
+		return boardDAO.deleteDivide(param);
+	}// deleteDivide()
+
+	public List<Map<String,String>> selectMyBoard(Map<String, String> param) {
+		System.out.println("BoardService selectMyBoard()");
+		return boardDAO.selectMyBoard(param);
+	}// selectMyBoard()
+
 
 }// BoardService 끝

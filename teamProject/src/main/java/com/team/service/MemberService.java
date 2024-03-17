@@ -55,6 +55,11 @@ public class MemberService {
 		return memberDAO.nickCheck(MEM_NICK);
 	}// nickCheck()
 //	-----------------------------------------------------------------------------	
+	public int phoneCheck(String MEM_TEL) {
+		System.out.println("MemberService phoneCheck()");
+		return memberDAO.phoneCheck(MEM_TEL);
+	}// phoneCheck()
+//	-----------------------------------------------------------------------------	
 	public int emailCheck(String MEM_EMAIL) {
 		System.out.println("MemberService emailCheck()");
 		return memberDAO.emailCheck(MEM_EMAIL);
@@ -80,10 +85,14 @@ public class MemberService {
 		return memberDAO.mypage(MEM_ID); 
 	}// mypage()
 //	-----------------------------------------------------------------------------	
-	public void memberEdit(Map<String, String> map) {
+	public int memberEdit(Map<String, String> map) {
 		System.out.println("MemberService memberEdit()");
-		memberDAO.memberEdit(map);
+		return memberDAO.memberEdit(map);
 	}// insertMemeber()
+	
+	public void updateProfileImagePath(String memberId, String filePath) {
+        // 회원의 프로필 이미지 경로를 업데이트하는 로직
+    }
 //	-----------------------------------------------------------------------------	
 	public List<Map<String, String>> myListSell(String MEM_ID) {
 		System.out.println("MemberService myListSell()");
@@ -116,8 +125,49 @@ public class MemberService {
 		memberDAO.memberDelete(map);
 	}// memberDelete()
 //	-----------------------------------------------------------------------------	
-	public void resetImage(String MEM_NO) {
-		System.out.println("MemberService memberEdit()");
-		memberDAO.resetImage(MEM_NO);
+	public void resetImage(String MEM_ID) {
+		System.out.println("MemberService resetImage()");
+		memberDAO.resetImage(MEM_ID);
 	}// insertMemeber()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> likeList(String MEM_ID) {
+		return memberDAO.likeList(MEM_ID);
+	}// likeList()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
+		return memberDAO.likeListSelect(map);
+	} // likeListSelect()
+//	-----------------------------------------------------------------------------	
+	public boolean deleteLike(String LIK_NO) {
+		return memberDAO.deleteLike(LIK_NO);
+	} // deleteLike()
+//	-----------------------------------------------------------------------------	
+	public boolean insertLike(Map<String, String> map) {
+		return memberDAO.insertLike(map);
+	} // insertLike()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> myTrade(String MEM_ID) {
+		System.out.println("MemberService myTrade()");
+		return memberDAO.myTrade(MEM_ID); 
+	}// myTrade() 
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> otherTrade(String MEM_ID) {
+		System.out.println("MemberService otherTrade()");
+		return memberDAO.otherTrade(MEM_ID); 
+	}// otherTrade()
+//	-----------------------------------------------------------------------------	
+	public List<Map<String, String>> trading(String MEM_ID) {
+		System.out.println("MemberService trading()");
+		return memberDAO.trading(MEM_ID); 
+	}// trading()
+//	-----------------------------------------------------------------------------	
+	public void changeState(Map<String, String> map) {
+		System.out.println("MemberService changeState()");
+		System.out.println(map + " changeState");
+		memberDAO.changeState(map);
+	}// memberDelete()
+	public String countLike(String ses) {
+		return memberDAO.countList(ses);
+	}
+
 }// MemberService 클래스

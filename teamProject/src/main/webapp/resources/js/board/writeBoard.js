@@ -25,10 +25,42 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	customSelect2($("#selectPreBoard"));
 	customSelect2($("#category1"));
 	
+    var proTcValue = $('#proTc').val();
+    
+    if (proTcValue == 'MM4') {
+        $('#noDivide').show();
+        $('#auctionOnly').show();
+        $('#saleBuy').hide();
+        $('#divideOnly').hide();
+        $('#tempSave').attr('id', 'aTempSave');
+    } else if (proTcValue == 'MM1' || proTcValue == 'MM2' || proTcValue == 'MM3') {
+        $('#noDivide').show();
+        $('#saleBuy').show();
+        $('#auctionOnly').hide();
+        $('#divideOnly').hide();
+        $('#aTempSave').attr('id', 'tempSave');
+    }
+    
+    $('#proTc').on('change', function() {
+        $('#noDivide').show();
+        
+        if ($(this).val() == 'MM4') {
+            $('#auctionOnly').show();
+            $('#saleBuy').hide();
+            $('#divideOnly').hide();
+            $('#tempSave').attr('id', 'aTempSave');
+        } else if ($(this).val() == 'MM1' || $(this).val() == 'MM2' || $(this).val() == 'MM3') {
+            $('#saleBuy').show();
+            $('#auctionOnly').hide();
+            $('#divideOnly').hide();
+            $('#aTempSave').attr('id', 'tempSave');
+        }
+    });
+	
 	//<br> => enter
-	var text = $('#itemPay').val();
-	text = text.split('<br>').join("\r\n");
-	$('#itemPay').val(text);
+//	var text = $('#itemPay').val();
+//	text = text.split('<br>').join("\r\n");
+//	$('#itemPay').val(text);
 	
 	var IsOldImgs = $('#oldImgs').val();
 	var arr = [];
@@ -340,8 +372,22 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 // 		$('#att_zone').find($("input[type=hidden]")).remove();
 // 	})
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기
-	$('#submitBtn').on('click', function(e) { 
+	$('#insertBtn').on('click', function(e) { 
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지합니다.
+
+		if($('#proName').val() === ''){
+			alertMsg("AM6",["상품명"]);
+			return;
+		}
+		if($('#inputRegion').val() === ''){
+			alertMsg("AM6",["주소"]);
+			return;
+		}
+		if($('#proPrice').val() === ''){
+			alertMsg("AM6",["가격"]);
+			return;
+		}
+
 		var contextPath = getContextPath();
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		var resultList = []; // 결과를 저장할 배열입니다.
@@ -363,7 +409,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proCate: $('#category1').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: $('#addNo').val(),
+//		    proAddress: $('#addNo').val(),
+		    proAddress: $('#inputRegion').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),
@@ -388,6 +435,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		// 파일 리스트 추가
 		for (var i = 0; i < resultList.length; i++) {
+			debugger;
 			// 각 파일을 'imgs'라는 이름으로 개별적으로 추가합니다.
 			// 서버 측에서는 'imgs'라는 이름으로 파일 리스트를 받을 수 있습니다.
 			formData.append('imgs', resultList[i]);
@@ -422,6 +470,10 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 			  console.log('Upload error:', textStatus, errorThrown);
 			}
 		}); */
+		var writer = '';
+		var date = '';
+		var tableName = '';
+		var trade = '';
 		$.ajax({
 			url: contextPath+'/board/writeBoardPro', // 서버 엔드포인트 URL
 			type: 'POST',
@@ -431,9 +483,39 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}).done(function(response) {
 			// 파일 업로드 성공 시 처리
 			console.log('Upload success:', response);
-		}).fail(function(jqXHR, textStatus, errorThrown) {
-			// 파일 업로드 실패 시 처리
-			console.log('Upload error:', textStatus, errorThrown);
+			/*임시이동*/
+//			location.href = "/myapp/";
+
+			$.ajax({
+				url: 'selectMyBoard', // 서버 엔드포인트 URL
+				type: 'GET',
+				data: {
+					writer : $('#proWr').val()
+				},
+			}).done(function(response) {
+//				location.href = "/myapp/";
+				// 배열을 순회하면서 각 객체의 값에 접근
+				response.forEach(function(item) {
+				writer = item.WRITER;
+				date = item.POSTING_DATE;
+				tableName = item.TABLENAME;
+				trade = item.TRADE;
+
+				console.log("writer: " + writer + ", date: " + date + ", tablename: " + tableName + ", trade: " + trade);
+				//writer: jaewon, date: 20240313130011, tablename: PRODUCT, trade: MM3
+				
+				});
+				if(tableName === 'AUCTION'){
+					location.href = "auctionDetail?aucSeller=" + writer + "&aucDate=" + date;
+					return;
+				}
+				if(trade === 'MM3') {
+					location.href = "divideDetail?proWr=" + writer + "&proDate=" + date;
+					return;
+				}
+				location.href = "boardDetail?proWr=" + writer + "&proDate=" + date;
+			/*임시이동*/
+			})
 		});
 	});
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기 끝
@@ -491,6 +573,9 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    handleTempBoard(e, 'aTempSave');
 	});
 
+//	$('#searchRegion').on('click',function(){
+//		alert('dd');
+//	})
 	
 	//셀렉트 박스 변경 시 화면 살짝 변경
 //	$('#proTc').on('change',function(){
@@ -510,92 +595,125 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 //			$('#noDivide').hide();
 //		} 
 //	});
-	$('#proTc').on('change',function(){
-		$('#noDivide').show();
-		if($(this).val() == 'MM4'){
-			$('#auctionOnly').show();
-			$('#saleBuy').hide();
-			$('#divideOnly').hide();
-			$('#tempSave').attr('id','aTempSave');
-		} else if($(this).val() == 'MM1' || $(this).val() == 'MM2' || $(this).val() == 'MM3') {
-			$('#saleBuy').show();
-			$('#auctionOnly').hide();
-			$('#divideOnly').hide();
-			$('#aTempSave').attr('id','tempSave');
-		} 
+//	$('#proTc').on('change',function(){
+//		$('#noDivide').show();
+//		if($(this).val() == 'MM4'){
+//			$('#auctionOnly').show();
+//			$('#saleBuy').hide();
+//			$('#divideOnly').hide();
+//			$('#tempSave').attr('id','aTempSave');
+//		} else if($(this).val() == 'MM1' || $(this).val() == 'MM2' || $(this).val() == 'MM3') {
+//			$('#saleBuy').show();
+//			$('#auctionOnly').hide();
+//			$('#divideOnly').hide();
+//			$('#aTempSave').attr('id','tempSave');
+//		} 
+//	});
+
+	$('input[name="deliveryCharge"]').on('change', function(e) {
+	    e.preventDefault(); // 폼의 기본 제출 동작을 방지
+	
+	    var checkedRadioId = $('input[name="deliveryCharge"]:checked').attr('id');
+	    var aucSpValue = parseInt($('#aucSp').val()); // 현재 값을 정수로 변환하여 가져옴
+	    var proPriceValue = parseInt($('#proPrice').val());
+	
+	    if ($('#proTc').val() === 'MM4') {
+	        if (aucSpValue) { // aucSp 값이 존재하는 경우에만 실행
+	            if (checkedRadioId === 'includeDeliCharge') {
+	                $('#aucSp').val(aucSpValue + 3000); // 현재 값에 3000을 더함
+	            } else {
+	                $('#aucSp').val(aucSpValue - 3000); // 현재 값에서 3000을 뺌
+	            }
+	        }
+	    } else {
+	        if (proPriceValue) { // proPrice 값이 존재하는 경우에만 실행
+	            if (checkedRadioId === 'includeDeliCharge') {
+	                $('#proPrice').val(proPriceValue + 3000); // 현재 값에 3000을 더함
+	            } else {
+	                $('#proPrice').val(proPriceValue - 3000); // 현재 값에서 3000을 뺌
+	            }
+	        }
+	    }
+	});
+	$('#proContent').keyup(function (e) {
+		let content = $(this).val();
+	    
+	    // 글자수 세기
+	    if (content.length == 0 || content == '') {
+	    	$('.textCount').text('0');
+	    } else {
+	    	$('.textCount').text(content.length);
+	    }
+	    
+	    // 글자수 제한
+	    if (content.length > 2000) {
+	    	// 200자 부터는 타이핑 되지 않도록
+	        $(this).val($(this).val().substring(0, 2000));
+	        // 200자 넘으면 알림창 뜨도록
+	        alert('글자수는 2000자까지 입력 가능합니다.');
+	    };
 	});
 	
 	$('#noRegion').on('click',function(e){
 		e.preventDefault();
 		$('#inputRegion').val('전국');
 	})
-	$('#searchRegion').on('click',function(e){
-		e.preventDefault();
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
-
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                //document.getElementById('sample4_postcode').value = data.zonecode;
-                //document.getElementById("sample4_roadAddress").value = roadAddr;
-                //document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                alert(data.zonecode+'-'+roadAddr+'-'+data.jibunAddress);
-                $('#inputRegion').val(roadAddr);
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-//                if(roadAddr !== ''){
-//                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-//                } else {
-//                    document.getElementById("sample4_extraAddress").value = '';
-//                }
-
-//                var guideTextBox = document.getElementById("guide");
-//                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-//                if(data.autoRoadAddress) {
-//                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-//                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-//                    guideTextBox.style.display = 'block';
-//
-//                } else if(data.autoJibunAddress) {
-//                    var expJibunAddr = data.autoJibunAddress;
-//                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-//                    guideTextBox.style.display = 'block';
-//                } else {
-//                    guideTextBox.innerHTML = '';
-//                    guideTextBox.style.display = 'none';
-//                }
-	        }
-	    }).open({
-			autoClose:true
+	$("#searchRegion").on('click', function() {
+		    new daum.Postcode({
+		        oncomplete: function(data) {
+		        	console.log(data);
+		            
+		        	// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		            var fullAddr= '';
+		            var extraAddr='';
+		            
+		            if(data.userSelectoredType === 'R'){
+		            	fullAddr = data.roadAddress;
+		            } else{
+		            	fullAddr = data.jibunAddress;
+		            }
+		            
+		            // extraAddr 
+		            if(data.userSelectedType === 'R'){
+		                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                    extraAddr += data.bname;
+		                }
+		            }
+		            // 건물명이 있고, 공동주택일 경우 추가한다.
+		            if(data.buildingName !== '' && data.apartment === 'Y'){
+		                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		            }	                    
+		            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		            if(extraAddr !== ''){
+		                extraAddr = ' (' + extraAddr + ')';
+		            }		            
+		            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+		            if(fullAddr !== ''){
+		                fullAddr += extraAddr;
+		            }                    
+		            
+		            //$("#address-zipcode").val(data.zonecode); 
+		            $("#inputRegion").val(fullAddr);
+		            //$("#address-detail").focus();
+		            
+		        }
+		    }).open();
 		});
-	})
 	
-	$('#selectAddress').on('change',function(){
+	$('#selectAddress').on('change',function(e){
+//		e.preventDefault(); // 폼의 기본 제출 동작을 방지
+		debugger;
 		var fullAdd = $('#selectAddress').val();
 		var addList = fullAdd.split(',');
 		console.log(addList);
 		$('#regionNick').val($('#selectAddress option:checked').text());
-		$('#addNo').val(addList[0]);
-		$('#regionCode').val(addList[1]);
-		$('#inputRegion').val(addList[2]);
-		$('#detailRegion').val(addList[3]);
+		$('#addNo').val(addList[0].trim());
+		$('#regionCode').val(addList[1].trim());
+		$('#inputRegion').val(addList[2].trim());
+		$('#detailRegion').val(addList[3].trim());
 		
 	})
 	
@@ -616,7 +734,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proCate: $('#category1').val(),
 		    proStatus: $('input[name="itemStatus"]:checked').val(),
 		    proContent: $('#proContent').val(),
-		    proAddress: $('#addNo').val(),
+//		    proAddress: $('#addNo').val(),
+		    proAddress: $('#inputRegion').val(),
 		    /* 경매일 때 추가로 들어가는 부분 */
 		    aucSp: $('#aucSp').val(),
 		    aucInp: $('#aucInp').val(),
@@ -668,8 +787,76 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 	})
 	
+	$('#updateAuction').on('click',function(e){
+		e.preventDefault();
+		var contextPath = getContextPath();
+		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
+		var resultList = []; // 결과를 저장할 배열입니다.
+		var aucTsc = $('#proTsc').val();
+		// 텍스트 데이터를 JSON 객체로 준비
+		var textData = {
+		    aucName: $('#proName').val(),
+		    aucSeller: $('#aucSeller').val(),
+		    aucDate: $('#aucDate').val(),
+		    //proPrice: $('#proPrice').val(),
+		    aucTc: $('#proTc').val(),
+			aucTsc: aucTsc,
+		    aucCate: $('#category1').val(),
+		    aucStatus: $('input[name="itemStatus"]:checked').val(),
+		    aucContent: $('#proContent').val(),
+		    aucAddress: $('#addNo').val(),
+		    /* 경매일 때 추가로 들어가는 부분 */
+		    aucSp: $('#aucSp').val(),
+		    aucInp: $('#aucInp').val(),
+		    aucMinp: $('#aucBp').val()
+		};
+		
+		// JSON 객체를 문자열로 변환하여 formData에 추가
+		formData.append('textData', JSON.stringify(textData));
+		console.log('txtData: ' + textData);
+		/*이미지 없으면 막기*/
+		if(checkFileList[0] == undefined){
+			alertMsg("AM6", ["이미지"]);
+			return;
+		}
+		/*파일담기*/
+		for (i = 0; i < checkFileList.length; i++) {
+		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
+		        for (j = 0; j < checkFileList[i].length; j++) {
+		        	resultList.push(checkFileList[i][j]); // 'result' 배열에 요소를 추가합니다.
+		        }
+		    }
+		}
+		// 파일 리스트 추가
+		for (var i = 0; i < resultList.length; i++) {
+			// 각 파일을 'imgs'라는 이름으로 개별적으로 추가합니다.
+			// 서버 측에서는 'imgs'라는 이름으로 파일 리스트를 받을 수 있습니다.
+			formData.append('imgs', resultList[i]);
+		}
+		
+		for (let key of formData.keys()) {
+			console.log(key);
+		}
+		//debugger;
+		for (let value of formData.values()) {
+			console.log(value);
+		}
+		$.ajax({
+			url: contextPath+'/board/updateAuction', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: formData,
+			processData: false, // jQuery가 데이터를 처리하지 않도록 설정
+			contentType: false // jQuery가 contentType을 설정하지 않도록 설정
+		}).done(function(response) {
+			// 파일 업로드 성공 시 처리
+			console.log('Upload success:', response);
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			// 파일 업로드 실패 시 처리
+			console.log('Upload error:', textStatus, errorThrown);
+		});
+	})
+	
 });//document ready 끝
-
 
 
 function getContextPath() {

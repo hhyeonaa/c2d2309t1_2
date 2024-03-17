@@ -18,9 +18,10 @@
 
 var appendRows = [];
 var defaultPerPage;
-
-var grid = (url, perPage, columns, draggable, parameter) => {
+var variablePerPage;
+var fn_grid = (url, perPage, columns, draggable, parameter) => {
 	defaultPerPage = perPage;
+	variablePerPage = perPage;
 	var pageOptions = {
 		useClient: true,
 		perPage: perPage
@@ -32,133 +33,68 @@ var grid = (url, perPage, columns, draggable, parameter) => {
 	
 	const dataSource = {
 		api: {
-			createData: { url: url, method: 'POST',   initParams: { param: parameter }},
-			readData:   { url: url, method: 'GET',    initParams: { param: parameter }},
-			updateData: { url: url, method: 'PUT',    initParams: { param: parameter }},
-		    deleteData: { url: url, method: 'DELETE', initParams: { param: parameter }}
+			createData: { url: url, method: "POST",   initParams: { param: parameter }},
+			readData:   { url: url, method: "GET",    initParams: { param: parameter }},
+			updateData: { url: url, method: "PUT",    initParams: { param: parameter }},
+		    deleteData: { url: url, method: "DELETE", initParams: { param: parameter }}
 		},
-  		contentType: 'application/json'
+  		contentType: "application/json"
 	};
-	const Grid = tui.Grid;
-	const grid = new Grid({
+	const grid = new tui.Grid({
 		rowHeight: 60,
 		draggable: draggable,
-		el: document.getElementById('grid'),
+		el: document.getElementById("grid"),
 		columns: columns,
 		data: dataSource,
-		rowHeaders: ['rowNum', 'checkbox'],
-		pageOptions: pageOptions
+		rowHeaders: ["rowNum", "checkbox"],
+		pageOptions: pageOptions,
+		rowHeight: "auto",
+		minRowHeight: 60
 	});
-	
-	grid.on('afterChange', ev => {
-		debugger;
-		grid.request('updateData');
-	})
-	
-//	const appendBtn = document.getElementById('appendBtn');
-//	const appendedData = {};
-//    columns.forEach(item => appendedData[item.name] = '')
-//	appendBtn.addEventListener('click', () => {
-//		var rowCount = grid.getRowCount();
-//		appendRows.push(rowCount);
-//		if($("#setPerpage").val() == '0') grid.setPerPage(rowCount + 1, dataSource);
-//		grid.appendRow(appendedData);
-//    });
-//    
-//    const removeBtn = document.getElementById('removeBtn');
-//	removeBtn.addEventListener('click', () => {
-//		debugger;
-//		grid.removeRows(appendRows);
-//		appendRows = [];
-//    });
+//	grid.hideColumn("SEQ");
 
-// 누가 한거지?
-//	$(document).on("click", "#insertBtn", function () {
-//		debugger;
-//		$.ajax({
-//			type: "post"
-//			, url: "insertPro"
-//			, data: {AD_ID: $('#AD_ID').val(),
-//					 AD_PW: $('#AD_PW').val(),
-//					 AD_NAME: $('#AD_NAME').val() }
-//		})
-//		.done(function(data) {
-//			debugger;
-//			if(data == "") {
-//				return false;
-//			}
-//			debugger;
-//			debugger;
-//			modal.css('display', 'none');
-//			$('#adminDiv').load(location.href+' #adminDiv');
-////			location.reload();
-//		 })
-//	});
-    
-    const resetBtn = document.getElementById('resetBtn');
-    resetBtn.addEventListener('click', () =>{
-		debugger;
-		grid.reloadData();
-		debugger;	
+	// 순서 변경
+	grid.on("drop", () => {
+		for(var i = 0; i < grid.getRowCount(); i++)
+			grid.setValue(grid.getRowAt(i).rowKey, "SEQ", i+1);
+		
+		grid.request("updateData");
+		grid.resetData(grid.getData());
 	});
 	
+	// 수정
+	grid.on("afterChange", (e) => {
+//		debugger;
+		
+		if(e.changes[0].columnName == "SEQ") return;
+
+		grid.request("updateData");
+		grid.resetData(grid.getData(), {
+			pageState: {
+				page: parseInt(e.changes[0].rowKey / variablePerPage + 1),
+				totalCount: grid.getPaginationTotalCount(),
+				perPage: variablePerPage
+			}
+		});
+	});
 	
-	$("#ckDeleteBtn").on("click", function(){
+	// 삭제
+	$(document).on("click", "#ckDeleteBtn", function(e){
 		grid.removeCheckedRows(true);
 		grid.request("deleteData");
-		grid.reloadData();
-	})
-	
-	$(document).on("click", "#insertBtn", function () {
-		debugger;
-		if($('#AD_ID').val() == ""){
-			alertMsg("AM6", ["아이디"]);
-			$('#AD_ID').focus();
-			return;
-		}
-		if($('#AD_PW').val() == ""){
-			alertMsg("AM6", ["비밀번호"]);
-			$('#AD_PW').focus();
-			return;
-		}
-		if($('#AD_NAME').val() == ""){
-			alertMsg("AM6", ["이름"]);
-			$('#AD_NAME').focus();
-			return;
-		}
-		
-		var row = {
-			AD_ID: $('#AD_ID').val(),
-			AD_PW: $('#AD_PW').val(),
-			AD_NAME: $('#AD_NAME').val(),
-			AD_ACTIVE: "0",
-			AD_NO: grid.getRowCount() + 1,
-			AD_ROLE: "RO1" 
-		};
-		grid.appendRow(row);
-		grid.request("createData");
-		$("#addModal").modal("hide");
-		
+		grid.resetData(grid.getData());
 	});
 	
-	
-//	const updateBtn = document.getElementById('updateBtn');
-//	debugger;
-//	updateBtn.addEventListener('click', function(){
-//		debugger;
-//		grid.request('updateData');
-//	});
-	
-	
-	const setPerpage = document.getElementById('setPerpage');
-	setPerpage.addEventListener('change', function(e){
+	// 새로고침 $(document)
+    $(document).on("click", "#resetBtn", function(){ grid.reloadData(); });
+
+	// 페이징 selectbox	
+	$(document).on("change", "#setPerpage", function(e){
 		var _perPage = Number(e.target.value);
 		if(_perPage === 0) _perPage = grid.getRowCount();
-		if(e.target.value === "-1") {
-			debugger;
+		if(e.target.value === "-1")
 			_perPage = defaultPerPage;
-		}
+		variablePerPage = _perPage;
 		grid.setPerPage(_perPage, dataSource);
 	});
-	
 }

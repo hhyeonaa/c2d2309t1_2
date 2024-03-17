@@ -10,19 +10,26 @@ document.write('<script type="text/javascript"' +
 
 // ajax 호출 및 grid 호출
 $(() => {
-	
+//	columnTitle.번호
 	let columns = [
 		{
 			name: columnTitle.번호,
-			header:"번호",
-//			filter:"number",
+			header:"코드번호",
 		    sortable: true
+		},
+		{
+			name: columnTitle.타입,
+			header:"코드타입"
 		},
 		{
 			name: columnTitle.내용,
 			header:"코드내용",
 			filter:"text",
-		    sortable: true
+		    sortable: true,
+		    editor: "text",
+		    width: "auto",
+		    minWidth: 200,
+		    rowHeight: "auto"
 		},  
 		{
 			name: columnTitle.활성여부_관리자,
@@ -34,21 +41,30 @@ $(() => {
 	        }
 		},
 		{
-			name:"",
+			name:"DELETE",
 			header:"삭제",
 			renderer: {
 	            type: DeleteButton
 	        }
 		}
 	]
-
+	
 	targetColor($("#code_manage"));
 	customSelect2($("#selectCodeList"));
 
-	$(document).on("click", "#insertBtn", function(){
-		validCheck($("#selectCodeList").val());
+	$(document).on("click", "#beforeInsertBtn", function(){
+		let isInValid = validCheck($("#selectCodeList").val())[0];
+		let dataList = validCheck($("#selectCodeList").val())[1];
+		
+		isInValid ? ajaxCode(dataList) 
+				  : alertMsg("AM5", ["내용 및 금액란"]);
+		
+		if(isInValid){
+			$("#grid").empty();
+			fn_grid("codePro", 5, columns, false, $("#selectCodeList").val());
+		}		  
 	})
-
+	
 	$(document).on("click", "#selectCodeBtn button", function(){
 		$("#selectCodeBtn button").attr("class", "btn btn-outline-primary");
 		$(this).attr("class", "btn btn-primary");
@@ -56,15 +72,14 @@ $(() => {
 		let keys = Object.keys(codeName);
 		var str = $(this).text();
 		let param = keys.includes(str) ? codeName[str] : alertMsg("AM12", ["해당 항목", "현재 사용"]);
-		
+
 		$("#excel").remove();
 		$("#grid").empty();
-		grid("codePro", 5, columns, false, param);
+		fn_grid("codePro", 5, columns, false, param);
 		excel('updownload', 'CODE'); 
 	})
 
 	$("#selectCodeBtn :first").trigger("click");
-	 
 	 
 })
 
@@ -123,7 +138,7 @@ function changeModalBody(isTypePM){
 				'<div class="input-group mb-3">' +
 					'<span class="input-group-text" id="min">최소금액</span>' +
 					'<input type="text" class="form-control" placeholder="기본값 0원" aria-label="min" aria-describedby="min"' +
-					'oninput="this.value = this.value.replace(/[^0-9.]/g, \'\')">' +
+					'oninput="this.value = this.value.replace(/[^0-9.]/g, \'\')" value="0">' +
 				'</div>' +
 				'<div class="input-group mb-3">' +
 					'<span class="input-group-text" id="max">최대금액</span>' +
@@ -148,30 +163,43 @@ function changeModalBody(isTypePM){
 }
 
 const validCheck = function(selectList){
-	
 	let data = {};
-    const isPM = selectList === "PM";
-    
-    const isHide = $("#activeCheck").prop("checked") ? "1" : "0";
-    
-    const codeList = isPM
-        ? $("#priceTag input")
-            .map((index, input) => `${formatPrice($(input).val())} ${index === 0 ? "이상 ~ " : "이하"}`)
-            .get()
-            .join(' ')
-        : $("#modal-body textarea").val();
+	const isHide = $("#activeCheck").prop("checked") ? "1" : "0";
+	const isPM = selectList === "PM";
+  	const codeList = isPM
+    	? $("#priceTag input").map((index, input) => `${formatPrice($(input).val())} ${index ? "이하" : "이상 ~ \r\n"}`).get().join(' ')
+    	: $("#modal-body textarea").val();
 	
-	if(codeList === '' || codeList === undefined || codeList === null){
-		alertMsg("AM5", ["내용 또는 금액란 "]);
-		return;
+	data = {
+		CO_TYPE: selectList,
+		HIDE: isHide,
+		CODE: codeList
 	}
 	
-	data.HIDE = isHide;
-	data.CODE = codeList;
-	data.CO_TYPE = selectList;
-	
-	return data;
+  	return [typeof codeList === 'string' && codeList.trim() !== '', data];
 }		
+
+function ajaxCode (dataList){
+	let isPass = false;
+	
+	$.ajax({
+		type: "post",
+		url: "codeListInsertPro",
+		data: dataList,
+		async: false
+	})
+	.done(function(data){
+		if(data){
+			alertMsg("AM0", ["성공"]);
+			isPass = data;
+		} else {
+			alertMsg("AM0", ["실패"]);
+			isPass = data;
+		}
+	})
+	
+	return isPass;
+}
 
 function formatPrice(price) {
     // 숫자에 1000원 단위로 쉼표 추가

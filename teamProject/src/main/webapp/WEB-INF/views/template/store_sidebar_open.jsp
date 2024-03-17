@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,19 +178,42 @@ a {
 ul{
 	text-align: center;
 }
+
+.plSelect{
+    width: 200px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.plSelect:focus{
+    border: 1px solid #9B51E0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: 3px solid #F8E4FF;
+    border-radius: 10px;
+}
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100" style="padding: 0 0 0 240px; background:#f0f0f3;">
+	<c:set var="adminSession" value="${sessionScope.MEM_ID}"/>
     <div class="l-navbar expander" id="navbar">
         <nav class="nav">
             <div>
                 <div class="nav__brand">
                 	<div class="p-3" style="display:flex; flex-direction: row; align-items: center; ">
-                		<img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;">
+                		<a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath}/resources/img/member/logo.jpg" alt="로고" style="width: 150px; height: 70px;"></a>
 <!-- 						<span class="material-symbols-outlined" style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6;">lunch_dining</span> -->
 <!-- 						<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.3px #FFF2A6; font-size: 30px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span> -->
 					</div>
                 </div>
+                <c:if test="${adminSession eq 'RO1' || adminSession eq 'RO2' || adminSession eq 'RO3'}">
                 <div class="nav__list">
 					<ul>
 						<li> 
@@ -198,21 +222,22 @@ ul{
 		                        <span class="nav_name">운영 관리</span>
 		                    </a>       
                     	</li>
-						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_manage" style="width: 155px;">
+						<li><a class="nav__link" id="member_manage" href="${pageContext.request.contextPath}/admin/member_manage" style="width: 155px;">
 			            	<small>● 회원 관리</small></a>
 			            </li>
-						<li><a class="nav__link" href="${pageContext.request.contextPath}/admin/member_report" style="width: 155px;">
+						<li><a class="nav__link" id="member_report" href="${pageContext.request.contextPath}/admin/member_report" style="width: 155px;">
 			            	<small>● 신고 관리</small></a>
 			            </li>
-			            <li><a class="nav__link" href="${pageContext.request.contextPath}/admin/chart" style="width: 155px;">
+			            <li><a class="nav__link" id="chart" href="${pageContext.request.contextPath}/admin/chart" style="width: 155px;">
 			            	<small>● 통계</small></a>
 			            </li>
-			            <li><a class="nav__link mb-5" href="${pageContext.request.contextPath}/admin/board_content" style="width: 155px;">
+			            <li><a class="nav__link mb-5" id="board_content" href="${pageContext.request.contextPath}/admin/board_content" style="width: 155px;">
 			            	<small>● 게시판 글 관리</small></a>
 			            </li>
 					</ul>                
                 </div>
-                
+                </c:if>
+                <c:if test="${adminSession eq 'RO1' || adminSession eq 'RO2'}">
                 <div class="nav__list">
                     <ul>
                     	<li> 
@@ -232,6 +257,8 @@ ul{
 	                    </li>
                     </ul>
                  </div>
+                 </c:if>
+                 <c:if test="${adminSession eq 'RO1'}">
                  <div class="nav__list">  
                     <ul>
                     	<li> 
@@ -246,22 +273,11 @@ ul{
 	                    <li><a class="nav__link" id="code_manage" href="${pageContext.request.contextPath}/admin/code_manage" style="width: 155px;">
 	                    	<small>● 코드 관리</small></a>
 	                    </li>
-<%-- 	                    <li><a class="nav__link" id="trade_manage" href="${pageContext.request.contextPath}/admin/trade_manage" style="width: 155px;"> --%>
-<!-- 	                    	<small>● 거래상태 관리</small></a> -->
-<!-- 	                    </li> -->
-<%-- 	                    <li><a class="nav__link" id="declare_manage" href="${pageContext.request.contextPath}/admin/declare_manage" style="width: 155px;"> --%>
-<!-- 	                    	<small>● 신고 항목 관리</small></a> -->
-<!-- 	                    </li> -->
-<%-- 	                    <li><a class="nav__link" id="price_manage" href="${pageContext.request.contextPath}/admin/price_manage" style="width: 155px;"> --%>
-<!-- 	                    	<small>● 검색 가격 관리</small></a> -->
-<!-- 	                    </li> -->
-	                    <li><a class="nav__link mb-5" id="data_upload" href="${pageContext.request.contextPath}/eul" style="width: 155px;">
-	                    	<small>● 데이터 업로드</small></a>
-	                    </li>
                     </ul>
 				</div>
+				</c:if>
                 <ul>
-                   	<li>
+                   	<li class="mt-5">
 		                <a href="#;" class="nav__link">
 		                    <ion-icon name="person-outline"></ion-icon>
 		                    <span class="nav_name">계정</span>

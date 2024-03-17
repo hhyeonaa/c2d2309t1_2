@@ -1,24 +1,38 @@
-document.write('<script type="text/javascript"' + 
-			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
-			   '</script>'); 
-
+var proNo = $("#proNo").val();
+var iDsession = $(".id_session").val()
+var memId;
 $(()=>{
 	$(".startChatBtn").on("click", function(){
-		//if(alertMsg("AM1", ["채팅을 시작하시겠습니까?"], true)){
-			$("#chatModal").css("display", "block");
-			
-			
-			var chatRoom = '<div class="chatRoom notMyPost" id="'+$("#proNo")+'">'+
-								'<div>이미지</div>'+
-								'<div class="chatRoomContents">'+
-									'<div class="userNick">[닉네임]</div>'+
-									'<div class="postTit">다른 게시물 제목</div>'+
-									'<div class="lastChat">마지막 채팅 내용</div>'+
-								'</div>'
-							'</div>'
-			
-			$("#chatList").append(chatRoom);	
-		//}
+		memId = iDsession;	
+		
+		
+		//로그인 여부
+		if( iDsession == null || iDsession == undefined || iDsession == "" ){
+			alertMsg("AM23", ["로그인 후"])
+			return;
+		}
+		
+		// 본인 글인지 확인 (후추)
+		if($("#proWr").val() == iDsession){
+			alertMsg("AM12", ["본인 게시물", "채팅"])
+			return;
+		}
+		// 룸 확인하기
+		roomCheck(proNo, memId, "nomal")
+		
+	})
+	
+	$(".divideChatStartBtn").on("click", function(){
+		memId = $(".divApp").eq($(this).index()).val(); 
+		
+		//로그인 여부
+		if( iDsession == null || iDsession == undefined || iDsession == "" ){
+			alert("로그인 하셈") // (후추)
+			return;
+		}
+		
+		// 룸 확인하기
+		roomCheck(proNo, memId, "divide")
 		
 	})
 })

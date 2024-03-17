@@ -3,6 +3,10 @@ document.write('<script type="text/javascript"' +
                '</script>');
 
 $(function(){
+	if($("#checkResult").val() == "N"){
+		alertMsg("AM7", ["입력한 정보"]);
+	}
+	
 	// -----------------아이디 찾기 결과 모달------------------
 	var authModal = document.getElementById("authModal");
 	

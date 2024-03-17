@@ -18,7 +18,7 @@
 
 <!--??  -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
-		<div style="border: 1px solid black; width: 100%; height: auto;">
+		<div style="border: 0px solid black; width: 100%; height: auto;" class="shadow">
 				
     <section class="DefaultPayment__Section-sc-64075s-3 eCEzHK pb-0">
         <h1 class="sech1">결제하기</h1>
@@ -26,25 +26,29 @@
             <div class="productInfo">
 <!--                 <div class="productImg" style="flex: 1; border:  1px solid black; height: 100%; display: flex; justify-content: center; align-items: center;"> -->
                 <div class="productImg">
-					<img src="../resources/img/common/따봉도치.jpg" alt="따봉도치 이미지" class="flex-fill">
+					<img src="${pageContext.request.contextPath}/resources/img/uploads/${payProList.IMG_NAME}" alt="${payProList.IMG_NAME}" class="flex-fill"
+						 onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
                 </div>
                 <div class="productPost">
                     <h4 class="sc-gFqAkR icVCJU">주문상품 정보</h4>
+                    <input type="hidden" name="PRO_NO" id="PRO_NO" value="${payProList.PRO_NO }">
+                    <input type="hidden" name="PRO_WR" id="PRO_WR" value="${payProList.PRO_WR }">
+                    <input type="hidden" name="PRO_DATE" id="PRO_DATE" value="${payProList.PRO_DATE }">
 					<span class="productPostTitle" id="payProName">${payProList.PRO_NAME}</span><br>
 					<span class="productPrice">${payProList.PRO_PRICE }원</span>
                 </div>
             </div>
-            <hr class="sechr">
-			<div class="d-flex Selecttransaction">
-				<div class="form-check flex-fill">
-				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-				    <label class="form-check-label" for="radio1">택배거래</label>
-				</div>
-				<div class="form-check flex-fill">
-				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-				    <label class="form-check-label" for="radio2">직거래</label>
-				</div>
-			</div>
+<!--             <hr class="sechr"> -->
+<!-- 			<div class="d-flex Selecttransaction"> -->
+<!-- 				<div class="form-check flex-fill"> -->
+<!-- 				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked> -->
+<!-- 				    <label class="form-check-label" for="radio1">택배거래</label> -->
+<!-- 				</div> -->
+<!-- 				<div class="form-check flex-fill"> -->
+<!-- 				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2"> -->
+<!-- 				    <label class="form-check-label" for="radio2">직거래</label> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 	</section>		
             <hr>
     <section class="DefaultPayment__Section-sc-64075s-3 gNplro">        
@@ -56,49 +60,50 @@
 	            	<div class="DeliveryInfo">
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
-            				<c:if test="${!empty memAddBasic }">
-            				<c:forEach var="memAddBasic" items="${memAddBasic}">
-            				<input id="MEM_NO" type="hidden" value="${memAddBasic.MEM_NO}" name="MEM_NO">
+<%--             				<c:if test="${!empty memAddBasic }"> --%>
+<%--             				<c:forEach var="memAddBasic" items="${memAddBasic}"> --%>
+							<div id="hideOrShow">
+								<input id="MEM_NOreal" type="hidden" value="${buyerInfo.MEM_NO}">
+            					<input id="MEM_NO" type="hidden" value="" name="MEM_NO">
+            					<input id="ADD_NO" type="hidden" value="" name="ADD_NO">
             					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver">${memAddBasic.ADD_RECEIVER}</p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn">배송지 수정</span>
+            						<p class="DeliveryCard_Name jnXOPH kGbUWb" id="addReceiver"></p>
+            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delUpdateBtn"></span>
             					</div>
-            					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg"> 
-            						(<span id="addPost">${memAddBasic.ADD_POST}</span>)
-            						<span id="addName">${memAddBasic.ADD_NAME}</span>
-            						<span id="addDetail">${memAddBasic.ADD_DETAIL}</span>
+            					<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg" id="addSpan"> 
+            						<span id="addName"></span>
+            						<span id="addDetail"></span>
             					</p>	
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
-									<span id="addTel">${memAddBasic.ADD_PHONE}</span>            						
+									<span id="addTel"></span>            						
             					</p>
-            				</c:forEach>	
-            				</c:if>	
+<%--             				</c:forEach>	 --%>
+<%--             				</c:if>	 --%>
+							</div>
             				<c:if test="${empty memAddBasic }">
-            					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
-            						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
-            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delInsertBtn">배송지 등록</span>
-            						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
-            							등록된 배송정보가 없습니다 
-            						</p>
+            					<div id="sOrH">
+	            					<div class="DeliveryCard__Row-sc-1nchvc3-4 hVnXEo">
+	            						<p class="DeliveryCard_Name jnXOPH kGbUWb"></p>
+	            						<span class="DeliveryCard_UpdateAddress gibuM gAweBe1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="delInsertBtn">배송지 등록</span>
+	            						<p class="sc-gFqAkR DeliveryCard__ReceiptAddress-sc-1nchvc3-1 hiEUHX hVvWHg">
+	            							등록된 배송정보가 없습니다 
+	            						</p>
+	            					</div>
             					</div>
             				</c:if>
             				</section>
             			</div>
             			<div class="Delivery Request mt-3">
-            			<select class="form-select form-select-lg mb-3" aria-label="Large select example">
-							<option value="0" selected>배송시 요청사항을 선택해 주세요.</option>
-							<option value="1">직접 수령하겠습니다.</option>
-							<option value="2">배송 전 연락바랍니다.</option>
-							<option value="3">부재 시 경비실에 맡겨주세요.</option>
-							<option value="4">부재 시 문 앞에 놓아주세요.</option>
-							<option value="5">부재 시 택배함에 넣어주세요.</option>
-							<option value="6">직접 입력</option>
-						</select>
+	            			<select class="form-select form-select-lg mb-3" aria-label="Large select example" id="selectDel">
+								<c:forEach var="requestDel" items="${requestDel}">
+									<option id="${requestDel.CO_TYPE}" value="${requestDel.CO_TYPE}">${requestDel.CODE}</option>
+								</c:forEach>
+							</select>
             			</div>
-						<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
-							<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
-							class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ"></textarea>
-						</div>
+							<div class="DeliveryPanel__FormGroup-sc-10nnk4w-3 hnnRxs mt-3">
+								<textarea maxlength="50" placeholder="배송 요청사항을 입력해주세요" 
+								class="DeliveryPanel__ShippingRequest-sc-10nnk4w-4 dRGkpJ" disabled></textarea>
+							</div>
 					</div>		
 	            </div>
 			</div>
@@ -125,8 +130,8 @@
 										</div>
 									</div>
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
-										<div class="PaymentGridMethod naver nonCheck" id="naverPay">
-											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">네이버페이</span>
+										<div class="PaymentGridMethod naver nonCheck" id="paycoPay">
+											<span class="sc-gFqAkR PaymentGrid__Payment-sc-96u70s-4 gAweBe dkqnYh">페이코</span>
 										</div>
 									</div>	
 									<div class="PaymentGrid__Column-sc-96u70s-2 bwWbat">
@@ -159,26 +164,26 @@
             		<div>
             			<div class="Table-sc-178gola-2 PricingTablePanel__Table-sc-1e9itak-4 hKJwfL iwgmOh">
             			
-								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL">
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
-									상품금액
-									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice">
-									<!--PRO_PRICE  -->
-										${payProList.PRO_PRICE }원
-									</div>
-								</div>
+<!-- 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL"> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
+<!-- 									상품금액 -->
+<!-- 									</div> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice"> -->
+<!-- 									PRO_PRICE  -->
+<%-- 										${payProList.PRO_PRICE }원 --%>
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
-								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn NBdoU">
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
-										배송비
-									</div>
-									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
-										<span class="PricingTablePanel__Fee-sc-1e9itak-3 kzWuNm">
-											+3000원
-										</span>
-									</div>
-								</div>
+<!-- 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn NBdoU"> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
+<!-- 										배송비 -->
+<!-- 									</div> -->
+<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
+<!-- 										<span class="PricingTablePanel__Fee-sc-1e9itak-3 kzWuNm"> -->
+<!-- 											+3000원 -->
+<!-- 										</span> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 
 <!-- 								<div class="Table__Row-sc-178gola-1 FeeRows__Row-sc-zf2uot-4 kxBvfn UYDMx"> -->
 <!-- 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu"> -->
@@ -195,7 +200,7 @@
 									총 결제금액
 									</div>
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="totalprice">
-									<span id="allPrice">${payProList.PRO_PRICE + 3000}</span><div> 원</div>
+									<span id="allPrice">${payProList.PRO_PRICE}</span><div> 원</div>
 									</div>
 								</div>
 							</div>	            			
@@ -268,6 +273,8 @@
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
 <%-- 						<c:if test="${!empty addUpList }"> --%>
+							<input type="hidden" id="address-no" value="${addUpList.ADD_NO}">
+							
 							<div class="new-address new-address__title" id="newaddress">
 								<div class="box__label">
 									<label for="address-title" class="text__label">배송지명</label>
@@ -291,7 +298,7 @@
 									<label for="address-tel" class="text__label">연락처</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="10" placeholder="연락가능한 연락처를 입력해주세요">
+									<input class="input_txt" onblur="checkPhone()"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="11" placeholder="연락가능한 연락처를 입력해주세요">
 								</div>
 							</div>
 
@@ -314,7 +321,7 @@
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input box__text-area" style="display: block; width: 470px;">
-										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="${addUpList.ADD_DETAIL }" >
+										<input class="input_txt" name="ADD_DETAIL" id="address-detail" placeholder="상세주소 입력" maxlength="50" value="${addUpList.ADD_DETAIL }" >
 									</div>
 								</div>
 <%-- 						</c:if>	 --%>

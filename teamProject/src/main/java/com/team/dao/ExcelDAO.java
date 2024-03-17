@@ -1,11 +1,9 @@
 package com.team.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +15,18 @@ public class ExcelDAO {
 	
 	private static final String NAMESPACE = "com.team.mappers.excel";
 	
-	public int insertData(Map<String, Object> uploadData) {
-		return session.insert(NAMESPACE+".insertData", uploadData);
+//	public int insertData(Map<String, Object> insertData) {
+//		System.out.println(session.selectList(NAMESPACE+".insertData", insertData));
+//		return 1;
+//	}
+	
+	public int insertData(Map<String, Object> insertData) {
+		System.out.println(insertData);
+		return session.insert(NAMESPACE+".insertData", insertData);
+	}
+
+	public Map<String, String> getfieldName(Map<String, String> param) {
+		return session.selectOne(NAMESPACE+".getfieldName", param);
+		
 	}
 }

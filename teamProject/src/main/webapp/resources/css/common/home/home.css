@@ -15,16 +15,15 @@
     padding: 8px 0px;
 }
 .css-1afg07s {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, auto));
-    grid-template-rows: repeat(2, 1fr);
+	display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(240px, auto)) !important;
+    grid-template-rows: repeat(1, 1fr) !important;
     overflow-x: unset;
     overflow-y: hidden;
     padding: 0px;
-}
-.css-1afg07s {
+	
     position: relative;
-/*     display: flex; */
+/*     display: flex !important; */
     -webkit-box-align: center;
     align-items: center;
     column-gap: 12px;

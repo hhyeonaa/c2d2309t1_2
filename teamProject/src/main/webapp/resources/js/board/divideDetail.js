@@ -45,7 +45,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
                             </div>`;
         // 모달 내용 업데이트 및 표시
         $('.modalBox').html(modalContent);
-        $(".modal").show();
+        $(".imgModal").show();
 		$('#selectImg').attr('src', clickedImgSrc);
 		// 모달 컨텐츠 추가 후 이벤트 핸들러 재설정
 		$('#modalCarousel .carousel-control-prev').off('click').on('click', function(event) {
@@ -71,11 +71,11 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
     });
 
 	// 모달 클릭할때 이미지 닫음
-	$(".modal").click(function (e) {
+	$(".imgModal").click(function (e) {
 		e.preventDefault();
     	$('.modalBox').html('');
     	additionalImages = [];
-		$(".modal").toggle();
+		$(".imgModal").toggle();
 	});
 	
 	// 나눔 신청자에게 채팅하기
@@ -111,4 +111,162 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		location.href="/" + window.location.pathname.split("/")[1] +"/board/writeBoard?proWr="+proWr+"&proDate="+proDate;
 		return;
 	})
+	
+	$('#shareApplication').on('click',function(){
+		var memId = $('#memId').val();
+		if(memId === ''){
+			alertMsg("AM23", ["로그인 후"]);
+			return;
+		}
+		var values = [];
+		$(".divApp").each(function() {
+			values.push($(this).val());
+		});
+		// 이 배열과 내 세션값의 아이디와 비교하여 막기...
+		if (values.includes(memId)) {
+			alertMsg("AM3", ["이미"]);
+			return;
+		}
+		
+		$('#shareList').css('display', 'block');
+	})
+	$('#apply').on('click', function(e){
+		const divApplicant = $('#divApplicant').val();
+		const divPostNo = $('#proNo').val();
+		const divReason = $('#appTxt').val();
+		alert('divApplicant: ' + divApplicant + 'divPostNo: ' + divPostNo + 'divReason: ' + divReason);
+		$.ajax({
+			url: 'insertDivide', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: {
+				divApplicant : divApplicant,
+				divPostNo	: divPostNo,
+				divReason	: divReason
+			},
+		}).done(function(response) {
+			response ? alertMsg("AM3",["신청"]) : alertMsg("AM16",["신청"]);
+			// 파일 업로드 성공 시 처리
+			console.log('Upload success:', response);
+		});
+	})
+	$('.delBtn').on('click',function(){
+		const divPostNo = $('#proNo').val();
+		// 클릭된 버튼이 속한 행(<tr>) 찾기
+        var row = $(this).closest('tr');
+        
+        // 행에서 값 가져오기
+        var divApplicant = row.find('td:eq(0)').text(); // 신청자 정보
+        var divReason = row.find('td:eq(1)').text(); // 신청 이유
+        alert("divApplicant : " + divApplicant + " divReason : " + divReason)
+        if(alertMsg("AM4",["신청글"],true)){
+			$.ajax({
+			url: 'deleteDivide', // 서버 엔드포인트 URL
+			type: 'POST',
+			data: {
+				divApplicant : divApplicant,
+				divPostNo	: divPostNo,
+				divReason	: divReason
+			},
+			}).done(function(response) {
+				response ? alertMsg("AM3",["삭제"]) : alertMsg("AM16",["삭제"]);
+				// 파일 업로드 성공 시 처리
+				console.log('Upload success:', response);
+			});
+		} else {
+			alertMsg("AM2",["삭제"]);
+			return;
+		};
+	});
+	
+	
+	
+	// 찜 관련 클릭
+	$(document).on('click', '#likeBtn', function () {
+		// 찜 삭제 기능
+		if ($('#noLike').is(':hidden')) {
+			if(alertMsg('AM4', ["찜"], true)) {
+				$.ajax({
+					type: 'post'
+					, url: 'deleteLike'
+					, data: {LIK_NO: $('#likNo').text()}
+				})
+				.done(function(data){
+					if(data == '1'){
+						$('#noLike').removeAttr('hidden');
+						$('#yesLike').attr('hidden', 'hidden');
+					}
+				});
+			};
+			
+		// 찜 추가 기능
+		} else {
+			if(alertMsg('AM8', ["찜"], true)) {
+				$.ajax({
+					type: 'post'
+					, url: 'insertLike'
+					, data: {PRO_NO: $('#proNo').val()}
+				})
+				.done(function(data){
+					if(data == '1'){
+//						$('#yesLike').removeAttr('hidden');
+//						$('#noLike').attr('hidden', 'hidden');
+						location.reload();
+					}
+				});
+			};
+		};	
+	});
+	
+	$('#noUserBtn').on('click', function() {
+		alertMsg('AM23', ["로그인 후"]); 
+	});
+	
+	// 신고 내용 모달 불러오기
+	$("#pageReport").on("click", function(){
+		$(".radioBox").empty();
+		$("#reportBtn").remove();
+		$.ajax({
+		  type: "get",
+		  url: '/' + window.location.pathname.split("/")[1] + "/chat/selectRepert",
+		  async: false
+		})
+		.done(function(datas){
+			var radio = (CO_NO, CODE, CO_TYPE) =>{
+				return '<input type="radio" class="reportRadio" name="rd" id="'+CO_TYPE+CO_NO
+						+ '" value="'+CO_TYPE+CO_NO+'"><label for="'+CO_TYPE+CO_NO+'">'
+						+ CODE+'</label> <br>'
+			}
+			for(data of datas){
+				$(".radioBox").append(radio(data.CO_NO, data.CODE, data.CO_TYPE));
+			}
+			$(".modal-body").after('<button type="button" class="btn btn-primary" id="reportBtn">신고하기</button>')
+		})
+		;
+	})
+	
+	// 신고하기 버튼 클릭 시
+	$(document).on("click", "#reportBtn", function(){
+		let isCheck = $('input[name="rd"]:checked').val();
+		let reportTarget = $("#proWr").val();
+		
+		if(isCheck === undefined){
+			alertMsg('AM9', ["신고 내용"]);
+			return;
+		}
+		$.ajax({
+			url: '/' + window.location.pathname.split("/")[1] + "/chat/insertReport",
+			type: "POST",
+			data: {
+				reportTarget: reportTarget,
+				rptCode: isCheck
+			}
+		})
+		.done(function(data){
+			if(Boolean(data)){
+				alertMsg('AM3', ["신고"]);
+				$('#exampleModalReport').modal('hide');
+			}
+		})
+	});
+	
 })

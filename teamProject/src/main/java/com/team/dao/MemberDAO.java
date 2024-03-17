@@ -45,6 +45,11 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "nickCheck", MEM_NICK);
 	}// nickCheck()
 //	-----------------------------------------------------------------------------		
+	public int phoneCheck(String MEM_TEL) {
+		System.out.println("MemberDAO phoneCheck()");
+		return sqlSession.selectOne(namespace + "phoneCheck", MEM_TEL);
+	}// phoneCheck()
+//	-----------------------------------------------------------------------------		
 	public int emailCheck(String MEM_EMAIL) {
 		System.out.println("MemberDAO emailCheck()");
 		return sqlSession.selectOne(namespace + "emailCheck", MEM_EMAIL);
@@ -67,6 +72,7 @@ public class MemberDAO {
 //	-----------------------------------------------------------------------------	
 	public Map<String, String> socialLogin(Map<String, String> map) {
 		System.out.println("MemberDAO socialLogin()");
+		System.out.println("MemberDAO socialLogin()" + map);
 		return sqlSession.selectOne(namespace + "socialLogin", map);
 	}// socialLogin()
 //	-----------------------------------------------------------------------------	
@@ -80,9 +86,9 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "mypage", MEM_ID);
 	}// mypage()
 //	-----------------------------------------------------------------------------
-	public void memberEdit(Map<String, String> map) {
+	public int memberEdit(Map<String, String> map) {
 		System.out.println("MemberDAO memberEdit()");
-		sqlSession.update(namespace + "memberEdit", map);
+		return sqlSession.update(namespace + "memberEdit", map);
 	}// memberEdit()
 //	-----------------------------------------------------------------------------
 	public List<Map<String, String>> myListSell(String MEM_ID) {
@@ -116,9 +122,53 @@ public class MemberDAO {
 		sqlSession.update(namespace + "memberDelete", map);
 	}// memberDelete()
 //	-----------------------------------------------------------------------------
-	public void resetImage(String MEM_NO) {
+	public void resetImage(String MEM_ID) {
 		System.out.println("MemberDAO resetImage()");
-		sqlSession.update(namespace + "resetImage", MEM_NO);
+		sqlSession.update(namespace + "resetImage", MEM_ID);
 	}// resetImage()	
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> likeList(String MEM_ID) {
+		return sqlSession.selectList(namespace + "likeList", MEM_ID);
+	}// likeList()	
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> likeListSelect(Map<String, String> map) {
+		return sqlSession.selectList(namespace + "likeListSelect", map);
+	}// likeListSelect()	
+//	-----------------------------------------------------------------------------
+	public boolean deleteLike(String LIK_NO) {
+		boolean result = (sqlSession.delete(namespace + "deleteLike", LIK_NO) == 1) ? true : false;
+		System.out.println(result);
+		return result;
+	}// deleteLike()
+//	-----------------------------------------------------------------------------
+	public boolean insertLike(Map<String, String> map) {
+		boolean result = (sqlSession.insert(namespace + "insertLike", map) == 1) ? true : false;
+		return result;
+	}// insertLike()
+	//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> myTrade(String MEM_ID) {
+		System.out.println("MemberDAO myTrade()");
+		return sqlSession.selectList(namespace + "myTrade", MEM_ID);
+	}// myTrade()
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> otherTrade(String MEM_ID) {
+		System.out.println("MemberDAO otherTrade()");
+		return sqlSession.selectList(namespace + "otherTrade", MEM_ID);
+	}// otherTrade() 
+//	-----------------------------------------------------------------------------
+	public List<Map<String, String>> trading(String MEM_ID) {
+		System.out.println("MemberDAO trading()");
+		return sqlSession.selectList(namespace + "trading", MEM_ID);
+	}// trading()
+//	-----------------------------------------------------------------------------	
+	public void changeState(Map<String, String> map) {
+		System.out.println("MemberDAO changeState()");
+		System.out.println(map + "  changeState");
+		sqlSession.update(namespace + "changeState", map);
+	}// changeState()
+	public String countList(String ses) {
+		return sqlSession.selectOne(namespace + "countList", ses);
+	}
+	
 	
 }// MemberDAO 클래스

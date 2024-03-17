@@ -6,24 +6,18 @@ class DeleteButton {
 		el.style = 'padding: 0; background-color:transparent; padding-top:5px';
 		$(el).append('<ion-icon name="remove-circle-outline" style="width:30px; height:30px"></ion-icon>');
 		
-		// 버튼 클릭 이벤트 처리
-		var colName = props.columnInfo.header;
-		el.addEventListener('click', (e) => {
-		    if(confirm(colName + ' 하시겠습니까?')){
-				props.grid.removeRow(props.rowKey);
-				props.grid.request('deleteData');
-				props.grid.reloadData();
-			}
-			
-			this.render(props);
+		$(el).on("click", function(){
+			debugger;
+			props.grid.removeRow(props.rowKey);
+			props.grid.request('deleteData');
+			props.grid.resetData(grid.getData());
 		});
 		
 		this.el = el;
-		this.render(props);
+//		this.render(props);
 	}
     getElement() { return this.el; }
-    render(props) {
-	}
+    render(props) {}
 }
 
 class ToggleButton {
@@ -37,36 +31,18 @@ class ToggleButton {
 			flag = 'checked';
 			value = '1';
 		}
-		
 		$(el).append('<input class="form-check-input mvca" type="checkbox" id="active" ' 
 									+ 'style="width:35px; height:20px"' 
 									+ flag + ' value="' + value + '">');
 									
-		// 버튼 클릭 이벤트 처리
-		el.addEventListener('change', (e) => {
-//			if (typeof props.columnInfo.renderer.onchange === 'function') {
-//			    props.columnInfo.renderer.onchange(e.target.checked ? "1" : "0");
-//			} else {
-//			    console.error('props.onChange is not a function');
-//			}
-			
-			
-			props.value = e.target.checked ? "1" : "0";
-			this.render(props, 1);
+		$(el).on("change", function(e){
+			debugger;
+			props.grid.setValue(props.rowKey, props.columnInfo.name, e.target.checked ? "1" : "0");
 		});
 		
 		this.el = el;
-		this.render(props);
+//		this.render(props);
 	}
 	getElement() { return this.el; }
-	render(props, flag) {
-		this.el.value = props.value;
-		if(flag == 1)
-			props.grid.setValue(props.rowKey, props.columnInfo.name, props.value == "1" ? "1" : "0");
-//		if (props.value === '1') {
-//			this.el.querySelector('.form-check-input').checked = true;
-//		} else {
-//			this.el.querySelector('.form-check-input').checked = false;
-//		}
-	}
+	render(props) {}
 }

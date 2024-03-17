@@ -1,5 +1,5 @@
 // ---------------------------------카카오 로그인---------------------------------
-Kakao.init('d494fc385e77a1fec1a8a162bd120af8'); // 사용하려는 앱의 JavaScript 키 입력
+Kakao.init('e44dce7d469ddd0572f9316a1a71d609'); // 사용하려는 앱의 JavaScript 키 입력
 Kakao.isInitialized();
 function loginWithKakao() {
     Kakao.Auth.login({
@@ -81,8 +81,8 @@ function loginWithKakao() {
 
 // ---------------------------------네이버 로그인---------------------------------
 var naverLogin = new naver.LoginWithNaverId({
-	clientId: "UfjkJoYj4eIJvlgpyxp_"
-	, callbackUrl: "http://localhost:8080/myapp/member/login"
+	clientId: "BPAgVjaOdpfSIk0NTLbZ"
+	, callbackUrl: "http://c2d2309t1.itwillbs.com/Damoim/member/login"
 	, isPopup: false
 	, callbackHandle: true
 });
@@ -124,7 +124,10 @@ $(function(){
 	var pwModal = document.getElementById("pwModal");
 	var pwResultModal = document.getElementById("pwResultModal");
 	
-	
+//	$("#loginBtn").click(function() {
+//        $("#loginForm").submit();
+//      alertMsg("AM7", ["아이디, 비밀번호"]);
+//    });
 	
 	// ------------------이메일로 가입하기------------------
 	// 이메일로 가입하기 버튼 클릭 시 모달 열기
@@ -188,7 +191,7 @@ $(function(){
 		// ~~~~~~~~~~~~~~~~~~~비밀번호 일치 확인~~~~~~~~~~~~~~~~~~~
 		$('#confirmPw').blur(function(){
 			// 비밀번호 확인 비어있는 경우 제어
-			if($('#confirmPw').val() == ' ' || $('#F').val() == ''){
+			if($('#confirmPw').val() == ' ' || $('#confirmPw').val() == ''){
 				$('#pwCheck').html("비밀번호 재입력 필수").css('color', 'gray');
 				return;
 			}
@@ -203,6 +206,7 @@ $(function(){
 			
 		});
 		
+		
 		// ~~~~~~~~~~~~~~~~~~~닉네임 중복 체크~~~~~~~~~~~~~~~~~~~	
 		$('#nickname').blur(function(){
 			//  닉네임 비어있는 경우 제어
@@ -211,7 +215,7 @@ $(function(){
 				return;
 			}
 			var MEM_NICK = $('#nickname').val();
-
+			
 			$.ajax({
 				url:'nickCheck',
 				data:{'MEM_NICK':$('#nickname').val()},
@@ -264,7 +268,39 @@ $(function(){
 			});
 		});	
 		
+		// ~~~~~~~~~~~~~~~~~~~전화번호 중복 체크~~~~~~~~~~~~~~~~~~~	
+		$('#phone').blur(function(){
+			debugger;
+			//  전화번호 비어있는 경우 제어
+			if($('#phone').val() == ' ' || $('#phone').val() == ''){
+				$('#phoneCheck').html("전화번호 필수 입력").css('color', 'gray');
+				return;
+			}
+			var phone = document.getElementById('phone').value;
+			var phoneRegex = /^01(0|1|[6-9])[0-9]{3,4}[0-9]{4}$/;
+			$.ajax({
+				url:'phoneCheck',
+				data:{'MEM_TEL':$('#phone').val()},
+				success:function(data){
+					if(data == 0){
+						if (phoneRegex.test(phone)) {
+							$("#phoneCheck").text("사용가능한 전화번호 입니다.").css('color', 'green');
+							return;
+						} else{
+							$("#phoneCheck").text("올바른 전화번호 형식이 아닙니다.").css('color', 'red');
+							return;
+						}
+						
+					}
+					
+					$("#phoneCheck").text("이미 사용중인 전화번호 입니다.").css('color', 'red');
+				}
+			});
+		});	
+		
 		}) // 모달 끝
+	
+	
 	
 	
                 
@@ -278,11 +314,18 @@ $(function(){
 			return false;
 		}
 		
-		if($('#pw').val() == "" || $('#pw').val() == null || $('#confirmPw').val() == "" || $('#confirmPw').val() == null){
+		if($('#pw').val() == "" || $('#pw').val() == null){
 			alertMsg("AM6", ["비밀번호"]);
 			$('#pw').focus();	
 			return false;
 		}
+		
+		if($('#confirmPw').val() == "" || $('#confirmPw').val() == null){
+			alertMsg("AM6", ["비밀번호 확인"]);
+			$('#confirmPw').focus();	
+			return false;
+		}
+		
 		
 		if($('#gender').val() == "" || $('#gender').val() == null){
 			alertMsg("AM9", ["성별"]);
@@ -308,17 +351,151 @@ $(function(){
 			return false;
 		}
 		
+		var birth = document.getElementById('birth').value;
+		var birthRegex =/^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/;
+		if (!birthRegex.test(birth)) {
+			alertMsg("AM5", ["생년월일 형식"]);
+			$('#birth').focus();
+			return false;
+		}
+		
+		
 		if($('#email').val() == "" || $('#email').val() == null){
 			alertMsg("AM6", ["이메일"]);
 			$('#email').focus();	
 			return false;
 		}
 		
+		
 		if($('#phone').val() == "" || $('#phone').val() == null){
 			alertMsg("AM6", ["전화번호"]);
 			$('#phone').focus();	
 			return false;
 		}
+		
+		var phone = document.getElementById('phone').value;
+		var phoneRegex = /^01(0|1|[6-9])[0-9]{3,4}[0-9]{4}$/;
+		if (!phoneRegex.test(phone)) {
+			alertMsg("AM5", ["전화번호 형식"]);
+			$('#phone').focus();
+			return false;
+		}
+		
+		var id = document.getElementById('id').value;
+		var idRegex = /^[a-zA-Z0-9]{6,12}$/;
+		if (!idRegex.test(id)) {
+			alertMsg("AM5", ["아이디 형식"]);
+			$('#id').focus();
+			return false;
+		}
+		
+		if($('#pw').val() != $('#confirmPw').val()){
+		   	alertMsg("AM7", ["비밀번호가"]);
+			$('#pw').focus();	
+			return false;	
+		}
+		
+		var pw = document.getElementById('pw').value;
+		var pwRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,14}$/;
+		if (!pwRegex.test(pw)) {
+			alertMsg("AM5", ["비밀번호 형식"]);
+			$('#pw').focus();
+			return false;
+		}
+		
+		var name = document.getElementById('username').value;
+		var nameRegex = /^[가-힣]{2,15}$/;
+		if (!nameRegex.test(name)) {
+			alertMsg("AM5", ["이름"]);
+			$('#username').focus();
+			return false;
+		}
+	
+		/* 숫자 및 영문, 자음 사용 금지 구문 */
+		for (var i=0; i<$("#username").val().length; i++)  {
+		     var chk = $("#username").val().substring(i,i+1);
+		     if(chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+		     	alertMsg("AM6", ["정확한 이름"]);
+				$('#username').focus();
+				return false;
+		    }
+		    if(chk.match(/([^가-힣\x20])/i)){
+		    	alertMsg("AM6", ["정확한 이름"]);
+				$('#username').focus();
+				return false;
+		    }
+		    if($("#username").val() == " "){
+		    	alertMsg("AM6", ["정확한 이름"]);
+				$('#username').focus();
+				return false;
+		    }} 
+		
+		$.ajax({
+			url:'idCheck',
+			data:{'MEM_ID':$('#id').val()},
+			async : false,
+		})
+		.done(function(data){
+			if(data != 0){
+				alertMsg("AM5", ["중복된 아이디 입니다. 아이디"]);
+				$('#id').focus();
+				return false;
+			}
+		})
+		
+		$.ajax({
+			url:'nickCheck',
+			data:{'MEM_ID':$('#nickname').val()},
+			async : false,
+		})
+		.done(function(data){
+			if(data != 0){
+				alertMsg("AM5", ["중복된 닉네임 입니다. 닉네임"]);
+				$('#nickname').focus();
+				return false;
+			}
+		})
+		
+		$.ajax({
+			url:'emailCheck',
+			data:{'MEM_ID':$('#email').val()},
+			async : false,
+		})
+		.done(function(data){
+			if(data != 0){
+				alertMsg("AM5", ["중복된 이메일 입니다. 이메일"]);
+				$('#email').focus();
+				return false;
+			}
+		})
+		
+//		$.ajax({
+//			url:'nickCheck',
+//			data:{'MEM_NICK':$('#nickname').val()},
+//			async : false,
+//			success:function(result){
+//				if(result != 0){
+//					alertMsg("AM5", ["중복된 닉네임 입니다. 닉네임"]);
+//					$('#nickname').focus();
+//					return false;
+//				}
+//			}
+//		});	
+//		
+//		$.ajax({
+//			url:'emailCheck',
+//			data:{'MEM_EMAIL':$('#email').val()},
+//			async : false,
+//			success:function(result){
+//				if(result != 0){
+//					alertMsg("AM5", ["중복된 이메일 입니다. 이메일"]);
+//					$('#email').focus();
+//					return false;
+//				}
+//			}
+//		});	
+		
+		
 		
 		$.ajax({
 			type: "post"
@@ -332,9 +509,12 @@ $(function(){
 					 ,MEM_TEL: $('#phone').val()
 					 ,MEM_EMAIL: $('#email').val() }
 		})
+		.done(function(data){
+			alertMsg("AM3", ["회원가입"]);
+			signupModal.style.display = "none";
+			location.replace('login');
+		})
 		
-		signupModal.style.display = "none";
-		location.replace('login');
 	})
 	// x버튼 클릭 시 모달 종료
 	$('.close').on('click', function(){

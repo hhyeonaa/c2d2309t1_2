@@ -29,4 +29,8 @@ public class HomeDAO {
 	public List<Map<String, String>> getAucProductList() {
 		return sqlSession.selectList(namespace+".getAucProductList");
 	}
+
+	public List<Map<String, String>> getProductList(String str) {
+		return sqlSession.selectList(namespace+".getProductList", str);
+	}
 }

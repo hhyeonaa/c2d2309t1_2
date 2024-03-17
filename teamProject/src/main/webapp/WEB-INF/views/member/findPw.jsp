@@ -33,6 +33,7 @@
 
 	<!--  html 전체 영역을 지정하는 container -->
 	<div id="container" class="container rounded-5 shadow" style="width: 450px; height: 650px;">
+		<input type="hidden" id="checkResult2" value="${checkResult}">
 		<!--  login 폼 영역을 : loginBox -->
 		<div id="loginBox">
 		<!-- 로그인 페이지 타이틀 -->

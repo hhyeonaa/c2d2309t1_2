@@ -29,6 +29,15 @@
 		<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 	
+	<!-- 파일 업로드 객체 생성, 업로드 파일 크기 지정 10M -->
+<!-- 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+<!-- 		<beans:property name="maxUploadSize" value="10485760"></beans:property> -->
+<!-- 	</beans:bean> -->
+	
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="D:\workspace_sts4\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\teamProject\resources\img\uploads"></beans:constructor-arg>
+	</beans:bean>
+	
 	<!-- websocket -->
 	<beans:bean id="WebSocketHandler" class="com.team.chat.WebSocketHandler" />        
 	<websocket:handlers>

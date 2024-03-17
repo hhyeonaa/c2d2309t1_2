@@ -43,20 +43,35 @@
 	</insert>
 	
 	<select id="selectBoard" resultType="map" parameterType="map">
-		SELECT PRO_WR,PRO_NAME,PRO_PRICE,PRO_DATE,IMG_NAME
-			  ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
+		SELECT PRO_WR,PRO_NAME,FORMAT(PRO_PRICE,0) AS PRO_PRICE,PRO_DATE,IMG_NAME
+			  , CODE_TC.CODE AS PRO_TC_CODE
+			  , CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO) AS PRO_TSC
+			  , CODE_TSC.CODE AS PRO_TSC_CODE
 		  FROM PRODUCT
 		  JOIN IMAGE ON PRO_NO = IMG_PRONO
 		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
-	    <if test="proTc != null">
-	       AND PRO_TC = #{proTc}
-	    </if>
-	     WHERE IMG_NO = 1
+	     WHERE 1 = 1
+	    <if test="menu != null">
+	       AND PRO_TC = #{menu}
+	    </if> 
+		<if test='category != null and category != "all"'>
+			and PRO_CATE = #{category}
+		</if>
+		<if test='trade != null and trade != "all"'>
+			and PRO_TSC = #{trade}
+		</if>
+		<if test='price != null and price != "all"'>
+			and cast(PRO_PRICE as signed) between cast(#{min} as signed) and cast(#{max} as signed) 
+		</if>
+		<if test='title != null and title != "all"'>
+			and PRO_NAME like CONCAT('%', #{title}, '%')
+		</if>	    
+	       and IMG_NO = 1
 		 ORDER BY PRO_DATE DESC
 	</select>
 	
-	
+<!-- 	menu=MM1, category=all, trade=all, price=all, title= -->
 	<!-- 성엽 작업 시작 -->
 	
 	<select id="selectBuyBoard" resultType="map">
@@ -75,20 +90,28 @@
 	
 	
 	<select id="selectBoardDetail" parameterType="map" resultType="map">
-		SELECT PRO_NO,PRO_TC,PRO_WR,PRO_DATE,PRO_PRICE,PRO_HITS,PRO_CONTENT,PRO_NAME,PRO_STATUS,PRO_TSC,PRO_CATE,PRO_ADDRESS
-			  ,ADD_NAME,ADD_NO,ADD_POST,ADD_DETAIL,ADD_NICK
+		SELECT PRO_NO,PRO_TC,PRO_WR,PRO_DATE,FORMAT(PRO_PRICE,0) as PRO_PRICE,PRO_HITS,PRO_CONTENT,PRO_NAME,PRO_STATUS,PRO_TSC,PRO_CATE,PRO_ADDRESS
+			  ,m.MEM_NO
 			  ,IMG_NAMES
 		      ,CODE_TC.CODE AS PRO_TC_CODE, CODE_TSC.CODE AS PRO_TSC_CODE
 		      ,CODE_CATE.CODE AS PRO_CATE_CODE, CODE_STATUS.CODE AS PRO_STATUS_CODE
-		  FROM PRODUCT p
+		      ,IF(L.LIK_NO IS NULL, '0', L.LIK_NO) AS LIK_NO
+		      ,IF(LC.LIKES_COUNT IS NULL, '0', LC.LIKES_COUNT) AS LIKES_COUNT
+		FROM PRODUCT p
+		  JOIN MEMBERS m ON p.PRO_WR = m.MEM_ID
 		  JOIN (select IMG_PRONO, group_concat(IMG_NAME order by IMG_NO separator '|') IMG_NAMES from IMAGE group by IMG_PRONO) i
 		    ON p.PRO_NO = i.IMG_PRONO
-		  JOIN ADDRESS a ON p.PRO_ADDRESS = a.ADD_NO
 		  JOIN CODE AS CODE_TC ON PRO_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
 		  JOIN CODE AS CODE_TSC ON PRO_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
 		  JOIN CODE AS CODE_CATE ON PRO_CATE = CONCAT(CODE_CATE.CO_TYPE, CODE_CATE.CO_NO)
 		  JOIN CODE AS CODE_STATUS ON PRO_STATUS = CONCAT(CODE_STATUS.CO_TYPE, CODE_STATUS.CO_NO)	
-		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
+          LEFT JOIN (SELECT LIK_NO, LIK_PRONO, MEM_ID
+					 FROM LIKES 
+					 WHERE MEM_ID = #{MEM_ID}) L ON p.PRO_NO = L.LIK_PRONO
+		  LEFT JOIN (SELECT LIK_PRONO, COUNT(*) AS LIKES_COUNT 
+					 FROM LIKES 
+					 GROUP BY LIK_PRONO) AS LC ON p.PRO_NO = LC.LIK_PRONO
+		WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
 	</select>
 	<update id="upHits" parameterType="map">
 		UPDATE PRODUCT
@@ -97,15 +120,25 @@
 	</update>
 	<select id="getImgMap" resultType="map">
 		SELECT *
-		  FROM IMAGE
-		 WHERE IMG_PRONO = #{proNo};
+		FROM IMAGE
+		<where>
+		  <if test="proNo != null">
+		    IMG_PRONO = #{proNo}
+		  </if>
+		  <if test="aucNo != null">
+		    IMG_PRONO = #{aucNo}
+		  </if>
+		</where>
 	</select>
+	
 	<select id="deleteBoard" parameterType="map" statementType="CALLABLE">
 		{CALL PROC_DELETE_BOARD(
 	        #{proNo, mode=IN, jdbcType=VARCHAR},
+	        #{aucNo, mode=IN, jdbcType=VARCHAR},
 	        #{success, mode=OUT, jdbcType=VARCHAR}
 		)}		
 	</select>
+
 	<select id="selectAddress" resultType="map">
 		SELECT A.ADD_NO,A.ADD_POST,A.ADD_NAME,A.ADD_DETAIL,A.ADD_NICK,M.MEM_ID
 		  FROM ADDRESS A
@@ -118,16 +151,40 @@
 		  FROM PRODUCT
 		 WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
 	</select>
+	<select id="getAucNo" parameterType="map" resultType="String">
+		SELECT AUC_NO
+		  FROM AUCTION
+		 WHERE AUC_SELLER = #{aucSeller} AND AUC_DATE = #{aucDate}
+	</select>
 	<delete id="deleteImgs" parameterType="map">
-		DELETE FROM IMAGE
-		WHERE IMG_PRONO = #{proNo}
+	    <choose>
+	        <when test="aucNo != null">
+	            DELETE FROM IMAGE
+	            WHERE IMG_PRONO = #{aucNo}
+	        </when>
+	        <otherwise>
+	            DELETE FROM IMAGE
+	            WHERE IMG_PRONO = #{proNo}
+	        </otherwise>
+	    </choose>
 	</delete>
 	<insert id="insertImgs" parameterType="map">
-	    INSERT INTO IMAGE (IMG_CATE, IMG_PRONO, IMG_NO, IMG_NAME)
-	    VALUES
-	    <foreach collection="imagesWithNumbers" item="image" separator=",">
-	        (#{proCate}, #{proNo}, #{image.imgNo}, #{image.filename})
-	    </foreach>
+	    <choose>
+	        <when test="aucNo != null">
+	            INSERT INTO IMAGE (IMG_CATE, IMG_PRONO, IMG_NO, IMG_NAME)
+	            VALUES
+	            <foreach collection="imagesWithNumbers" item="image" separator=",">
+	                (#{aucCate}, #{aucNo}, #{image.imgNo}, #{image.filename})
+	            </foreach>
+	        </when>
+	        <otherwise>
+	            INSERT INTO IMAGE (IMG_CATE, IMG_PRONO, IMG_NO, IMG_NAME)
+	            VALUES
+	            <foreach collection="imagesWithNumbers" item="image" separator=",">
+	                (#{proCate}, #{proNo}, #{image.imgNo}, #{image.filename})
+	            </foreach>
+	        </otherwise>
+	    </choose>
 	</insert>
 	<update id="updateBoard" parameterType="map">
 		UPDATE PRODUCT
@@ -142,5 +199,125 @@
 			  ,PRO_ADDRESS = #{proAddress}
 		WHERE PRO_NO = #{proNo}	
 	</update>
-
+	<select id="selectAuction" parameterType="map" resultType="map">
+		SELECT AUC_NO, AUC_SELLER, AUC_NAME, AUC_BP, AUC_DATE, IMG_NAME, AUC_ETIME,
+		       CODE_TC.CODE AS AUC_TC_CODE, CODE_TSC.CODE AS AUC_TSC_CODE
+		  FROM AUCTION
+		  JOIN IMAGE ON AUC_NO = IMG_PRONO
+		  JOIN CODE AS CODE_TC ON AUC_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
+		  JOIN CODE AS CODE_TSC ON AUC_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
+		  WHERE AUC_TC = #{aucTc}
+			AND IMG_NO = '1'
+			AND STR_TO_DATE(AUC_ETIME, '%Y%m%d%H%i%s') >= now()
+		  ORDER BY AUC_DATE DESC				
+	</select>
+	<update id="aucHits" parameterType="map">
+		UPDATE AUCTION
+		   SET AUC_HITS = AUC_HITS + 1
+		 WHERE AUC_SELLER = #{aucSeller} AND AUC_DATE = #{aucDate} 
+	</update>
+	<select id="selectAuctionDetail" parameterType="map" resultType="map">
+		SELECT AUC_NO,AUC_TC,AUC_SELLER,AUC_DATE,AUC_BP,AUC_HITS,AUC_CONTENT,AUC_NAME,AUC_STATUS,AUC_TSC,AUC_CATE,AUC_ADDRESS,AUC_MINP,AUC_SP,AUC_ETIME,AUC_INP
+			  ,m.MEM_NO
+			  
+			  ,IMG_NAMES
+		      ,CODE_TC.CODE AS AUC_TC_CODE, CODE_TSC.CODE AS AUC_TSC_CODE
+		      ,CODE_CATE.CODE AS AUC_CATE_CODE, CODE_STATUS.CODE AS AUC_STATUS_CODE
+		  FROM AUCTION auc
+		  JOIN MEMBERS m ON m.MEM_ID = auc.AUC_SELLER
+		  JOIN (select IMG_PRONO, group_concat(IMG_NAME order by IMG_NO separator '|') IMG_NAMES from IMAGE group by IMG_PRONO) i
+		    ON auc.AUC_NO = i.IMG_PRONO
+		  
+		  JOIN CODE AS CODE_TC ON AUC_TC = CONCAT(CODE_TC.CO_TYPE, CODE_TC.CO_NO)
+		  JOIN CODE AS CODE_TSC ON AUC_TSC = CONCAT(CODE_TSC.CO_TYPE, CODE_TSC.CO_NO)
+		  JOIN CODE AS CODE_CATE ON AUC_CATE = CONCAT(CODE_CATE.CO_TYPE, CODE_CATE.CO_NO)
+		  JOIN CODE AS CODE_STATUS ON AUC_STATUS = CONCAT(CODE_STATUS.CO_TYPE, CODE_STATUS.CO_NO)	
+		 WHERE AUC_SELLER = #{aucSeller} AND AUC_DATE = #{aucDate}
+	</select>
+	<update id="updateAuction" parameterType="map">
+		UPDATE AUCTION
+		   SET AUC_CATE = #{aucCate}
+		      ,AUC_NAME = #{aucName}
+		      ,AUC_CONTENT = #{aucContent}
+			  ,AUC_SP = #{aucSp}
+			  ,AUC_INP = #{aucInp}
+			  ,AUC_TC = #{aucTc}
+			  ,AUC_CDATE = date_format(NOW(),'%Y%m%d%H%i%s')
+			  ,AUC_MINP = #{aucMinp}
+			  ,AUC_TSC = #{aucTsc}
+			  ,AUC_STATUS = #{aucStatus}
+		 WHERE AUC_NO = #{aucNo}
+	</update>
+	
+	<select id="getRelatedCateImg" parameterType="map" resultType="map">
+		<choose>
+			<when test="aucNo!=null">
+			SELECT IMG_CATE, AUC_NO, IMG_NAME, AUC_TC, AUC_SELLER, AUC_DATE
+			  FROM IMAGE JOIN AUCTION
+			    ON IMG_PRONO = AUC_NO
+			 WHERE IMG_CATE = #{aucCate} 
+			   AND IMG_NO = '1' 
+			   AND AUC_TC = #{aucTc} 
+			   AND AUC_NO != #{aucNo}
+			   AND STR_TO_DATE(LEFT(AUC_ETIME, 8), '%Y%m%d') >= now()
+			 ORDER BY AUCTION.AUC_DATE DESC
+			 LIMIT 0, 7
+			</when>
+			<otherwise>
+			SELECT IMG_CATE, PRO_NO, IMG_NAME, PRO_TC, PRO_WR, PRO_DATE
+			  FROM IMAGE JOIN PRODUCT
+				ON IMG_PRONO = PRO_NO
+			 WHERE IMG_CATE = #{proCate} AND IMG_NO = '1' AND PRO_TC = #{proTc} AND PRO_NO != #{proNo}
+			 ORDER BY PRODUCT.PRO_DATE DESC
+			 LIMIT 0, 7
+			</otherwise>
+		</choose>
+		
+	</select>
+	<insert id="insertDivide" parameterType="map">
+		insert 
+		  into DIVIDE
+		(
+          DIV_NO
+		, DIV_POSTNO
+        , DIV_APPLICANT
+		, DIV_REASON
+        )
+	values
+		(
+          CAST((SELECT IFNULL(MAX(CAST(DIV_NO as unsigned)), 0) + 1
+						   FROM DIVIDE R) AS CHAR)
+		, #{divPostNo}
+        , #{divApplicant}
+        , #{divReason}
+		)
+	</insert>
+	<select id="getDivList" parameterType="map" resultType="map">
+		SELECT DIV_POSTNO,DIV_APPLICANT,DIV_REASON,MEM_NICK
+		  FROM DIVIDE JOIN MEMBERS
+		    ON DIV_APPLICANT = MEM_ID
+		 WHERE DIV_POSTNO = #{proNo}
+	</select>
+	<delete id="deleteDivide" parameterType="map">
+		DELETE FROM DIVIDE
+		 WHERE DIV_POSTNO = #{divPostNo}
+		   AND DIV_APPLICANT = (SELECT MEM_ID FROM MEMBERS WHERE MEM_NICK = #{divApplicant})
+	</delete>
+	
+	<select id="selectMyBoard" parameterType="map" resultType="map">
+		(
+		    SELECT 'PRODUCT' AS TABLENAME, PRO_WR AS WRITER, PRO_DATE AS POSTING_DATE, PRO_TC AS TRADE
+		    FROM PRODUCT
+		    WHERE PRO_WR = #{writer}
+		)
+		UNION ALL
+		(
+		    SELECT 'AUCTION' AS TABLENAME, AUC_SELLER AS WRITER, AUC_DATE AS POSTING_DATE, AUC_TC AS TRADE
+		    FROM AUCTION
+		    WHERE AUC_SELLER = #{writer}
+		)
+		ORDER BY STR_TO_DATE(POSTING_DATE, '%Y%m%d%H%i%s') DESC
+		LIMIT 1		
+	</select>
+	
 </mapper>

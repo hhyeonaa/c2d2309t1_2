@@ -9,15 +9,26 @@
 		INSERT INTO ${tableName} 
 		<foreach collection="data" item="value" index="key" open="(" close=")" separator=",">
 			${key}
-		</foreach>
 		VALUES
-		<foreach collection="data" item="value" index="key" open="(" close=")" separator=",">
 			#{value}
 		</foreach>
 		;
 		</foreach>
 	</insert>
 	
+<!-- 	<insert id="insertData" parameterType="map"> -->
+<!-- 		<foreach item="data" collection="uploadData"> -->
+<!-- 		INSERT INTO ${tableName}  -->
+<!-- 		<foreach collection="data" item="value" index="key" open="(" close=")" separator=","> -->
+<!-- 			${key} -->
+<!-- 		</foreach> -->
+<!-- 		VALUES -->
+<!-- 		<foreach collection="data" item="value" index="key" open="(" close=")" separator=","> -->
+<!-- 			#{value} -->
+<!-- 		</foreach> -->
+<!-- 		; -->
+<!-- 		</foreach> -->
+<!-- 	</insert> -->
 	
 	<select id="getfieldName" parameterType="map" resultType="map">
 		SELECT group_concat(COLUMN_NAME) COLUMN_NAME
@@ -25,5 +36,4 @@
 		 WHERE TABLE_SCHEMA = 'c2d2309t1_2' 
 		   AND TABLE_NAME = #{tableName};
 	</select>
-	
 </mapper>

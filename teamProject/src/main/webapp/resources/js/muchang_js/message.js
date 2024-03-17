@@ -50,7 +50,7 @@ $(() => {
 //	$("#grid").empty();
 	
 	fn_grid("message_managePro", 5, columns, false);
-	excel('updownload', 'MESSAGE'); 
+	excel('both', 'MESSAGE'); 
  	
  	$(document).on("click", "#beforeInsertBtn", function(){
 

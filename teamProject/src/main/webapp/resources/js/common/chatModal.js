@@ -155,9 +155,12 @@ function addMsg(msg){ // 메세지를 받은 경우
 		$("#pro_tsc").val(msg.state);
 		
 		var changedPost = $("#chatHead").find(".chatRoomContents").attr("id");
+		var changedSpan = $("#chatList").find("#"+changedPost+" > .chatRoomContents > div > span");
 		
-		$("#chatList").find("#"+changedPost+" > .chatRoomContents > span").text("("+$("#pro_tsc option[value="+msg.state+"]").text()+")");
+		changedSpan.attr("class","state2 PRO_STATE_"+msg.state);
+		changedSpan.text($("#pro_tsc option[value="+msg.state+"]").text());
 	}
+	
 	
 	
 }
@@ -434,6 +437,8 @@ var enterChat = function(chatData){
 			})
 			.done(function(result){
 				if(Boolean(result)){
+					
+					
 					getChat($(".id_session").val(), $(".on").attr("id").slice(0,-4));
 					$("#chatBody").empty();
 					$("#chatHead").empty();

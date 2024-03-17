@@ -43,8 +43,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 메세지 수신 후 실행 메서드
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println();
-		System.out.println("TextWebSocketHandler : 메시지 수신");
-		// System.out.println("메시지 : " + message.getPayload());
+		// System.out.println("TextWebSocketHandler : 메시지 수신");
+		System.out.println("메시지 : " + message.getPayload());
 		
 		JSONObject object = new JSONObject(message.getPayload());
 		String type = object.getString("type");

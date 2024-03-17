@@ -231,14 +231,14 @@
 			     <div style="width: 50%; padding: 5px; box-sizing: border-box;">
 			     	<c:if test="${board.TABLENAME eq 'PRODUCT'}">
 			     		<c:if test="${board.TRADE eq 'MM3'}">
-				      	 <a href="${pageContext.request.contextPath}/board/divideDetail?proWr=${board.WRITER}&proDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: auto;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
+				      	 <a href="${pageContext.request.contextPath}/board/divideDetail?proWr=${board.WRITER}&proDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: 100%;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
 			     		</c:if>
 			     		<c:if test="${board.TRADE ne 'MM3'}">
-				      	 <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${board.WRITER}&proDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: auto;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
+				      	 <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${board.WRITER}&proDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: 100%;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
 			     		</c:if>
 			     	</c:if>
 			     	<c:if test="${board.TABLENAME eq 'AUCTION'}">
-			      	 <a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${board.WRITER}&aucDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: auto;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
+			      	 <a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${board.WRITER}&aucDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: 100%;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
 			     	</c:if>
 			     </div>
 			   </c:forEach>

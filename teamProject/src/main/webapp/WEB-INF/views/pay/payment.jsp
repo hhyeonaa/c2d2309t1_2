@@ -38,30 +38,15 @@
 					<span class="productPrice">${payProList.PRO_PRICE }원</span>
                 </div>
             </div>
-<!--             <hr class="sechr"> -->
-<!-- 			<div class="d-flex Selecttransaction"> -->
-<!-- 				<div class="form-check flex-fill"> -->
-<!-- 				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked> -->
-<!-- 				    <label class="form-check-label" for="radio1">택배거래</label> -->
-<!-- 				</div> -->
-<!-- 				<div class="form-check flex-fill"> -->
-<!-- 				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2"> -->
-<!-- 				    <label class="form-check-label" for="radio2">직거래</label> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
 	</section>		
             <hr>
     <section class="DefaultPayment__Section-sc-64075s-3 gNplro">        
-<!--             <div class="Delivery address" style="border: 1px solid black; width: 100%; height: 500px;"> -->
             <div class="Deliveryaddress">
 				<div class="PanelLayout__Layout-sc-7wp27q-0 evSWSY DeliveryPanel__DefaultPanel-sc-10nnk4w-1 kowRcQ">            
 	            	<h4 class="sc-gFqAkR icVCJU">배송지</h4>
-<!-- 	            	<div class="DeliveryInfo" style="border:1px outset gray;"> -->
 	            	<div class="DeliveryInfo">
             			<div class="DeliberyPanel hnnRxs">
             				<section class="DeliveryCard fEYMnp">
-<%--             				<c:if test="${!empty memAddBasic }"> --%>
-<%--             				<c:forEach var="memAddBasic" items="${memAddBasic}"> --%>
 							<div id="hideOrShow">
 								<input id="MEM_NOreal" type="hidden" value="${buyerInfo.MEM_NO}">
             					<input id="MEM_NO" type="hidden" value="" name="MEM_NO">
@@ -77,8 +62,6 @@
             					<p class="sc-gFqAkR DeliveryCard__RecipientPhone-sc-1nchvc3-2 hiEUHX hzdZRi">
 									<span id="addTel"></span>            						
             					</p>
-<%--             				</c:forEach>	 --%>
-<%--             				</c:if>	 --%>
 							</div>
             				<c:if test="${empty memAddBasic }">
             					<div id="sOrH">
@@ -107,8 +90,6 @@
 					</div>		
 	            </div>
 			</div>
-<!-- 			<hr> -->
-<!--             <div class="Payment method and total amount" style="border: 1px solid black; width: 100%; height: 500px;"> -->
             <div class="Payment method and total amount">
             	<div class="PaymentMethodPanel__PaymentMethod-sc-egufas-0 hglvUW">
             		<hr>
@@ -163,38 +144,6 @@
             		<h4 class="sc-gFqAkR icVCJU">결제금액</h4>
             		<div>
             			<div class="Table-sc-178gola-2 PricingTablePanel__Table-sc-1e9itak-4 hKJwfL iwgmOh">
-            			
-<!-- 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL"> -->
-<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
-<!-- 									상품금액 -->
-<!-- 									</div> -->
-<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA" id="prodprice"> -->
-<!-- 									PRO_PRICE  -->
-<%-- 										${payProList.PRO_PRICE }원 --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-								
-<!-- 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn NBdoU"> -->
-<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
-<!-- 										배송비 -->
-<!-- 									</div> -->
-<!-- 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA"> -->
-<!-- 										<span class="PricingTablePanel__Fee-sc-1e9itak-3 kzWuNm"> -->
-<!-- 											+3000원 -->
-<!-- 										</span> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-
-<!-- 								<div class="Table__Row-sc-178gola-1 FeeRows__Row-sc-zf2uot-4 kxBvfn UYDMx"> -->
-<!-- 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu"> -->
-<!-- 										안전결제 수수료 -->
-<!-- 									</div> -->
-<!-- 									<div class="Table__Column-sc-178gola-0 FeeRows__Column-sc-zf2uot-6 jRdbRj eqhFxu direction-column"> -->
-<!-- 										<span class="FeeRows__Fee-sc-zf2uot-2 gzaALl"> -->
-<!-- 										&nbsp;+4,830원 -->
-<!-- 										</span> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
 								<div class="Table__Row-sc-178gola-1 PricingTablePanel__Row-sc-1e9itak-6 kxBvfn epdsLL">
 									<div class="Table__Column-sc-178gola-0 PricingTablePanel__Column-sc-1e9itak-5 jRdbRj IRKRA">
 									총 결제금액
@@ -217,8 +166,6 @@
         </div>
     </form>
 </div>
-<!-- 	</div> -->
-<!-- </div> -->
 
 	<!-- Modal 배송지 목록 모달창-->
 	<div class="modal fade" id="staticBackdrop"
@@ -262,17 +209,13 @@
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	      <!-- 수정 버튼시 title 배송지 수정 -->
 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 추가</h1>
-<!-- 	        <h1 class="modal-title fs-5" id="staticBackdropLabel">배송지 수정</h1> -->
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="payListXbtn"></button>
 	      </div>
-<%-- 	      <form action="${pageContext.request.contextPath }/pay/payAddress" method="post"> --%>
 	      	<div class="modal-body">
 				<div id="container">
 					<div id="content" class="mypage__wrap mypage__new-address">
 						<section class="section__order-info">
-<%-- 						<c:if test="${!empty addUpList }"> --%>
 							<input type="hidden" id="address-no" value="${addUpList.ADD_NO}">
 							
 							<div class="new-address new-address__title" id="newaddress">
@@ -324,7 +267,6 @@
 										<input class="input_txt" name="ADD_DETAIL" id="address-detail" placeholder="상세주소 입력" maxlength="50" value="${addUpList.ADD_DETAIL }" >
 									</div>
 								</div>
-<%-- 						</c:if>	 --%>
 						</section>
 					</div>
 	      		</div>
@@ -333,7 +275,6 @@
 		    	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="payCancelbtn">취소</button>
 		    	<button type="submit" class="btn btn-primary" id="payAddbtn">저장</button>
 		  	</div>
-<!-- 	      </form> -->
 	    </div>
 	  </div>
 	</div>

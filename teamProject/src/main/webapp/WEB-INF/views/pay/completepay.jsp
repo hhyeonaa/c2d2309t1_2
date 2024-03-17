@@ -43,10 +43,6 @@
 								<span class="infoTit">결제 날짜</span>
 								<span class="infocnt">${completePay.PAY_TIME}</span>
 							</div>
-<!-- 							<div class="infoBoxStyle1"> -->
-<!-- 								<span class="infoTit">결제 내용</span> -->
-<!-- 								<span class="infocnt">택배거래 ???페이</span> -->
-<!-- 							</div> -->
 							<div class="infoBoxStyle1">
 								<span class="infoTit">결제 금액</span>
 								<span class="infocnt">${completePay.PAID_AMOUNT}원</span>

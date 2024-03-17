@@ -78,6 +78,7 @@
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
 		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
 		 	<input type="hidden" id="proDate" value="${resultMap.PRO_DATE}">
+		 	<input type="hidden" id="memId" value="${sessionScope.MEM_ID}">
 		 		<table>
 		 			<tr><th>${resultMap.PRO_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
@@ -152,8 +153,12 @@
 			 					</button>
 		 					</c:if>
 		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
-		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
-		 						<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
+		 					<c:if test="${sessionScope.MEM_ID ne null}">
+		 					<c:if test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
+			 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
+			 						<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
+			 					</c:if>
+		 					</c:if>
 		 					</c:if>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->

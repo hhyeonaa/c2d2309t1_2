@@ -126,6 +126,7 @@ public class BoardController {
 		Map<String, String> map = new HashMap<>();
 		map.put("aucTc", aucTc);
 		System.out.println("map: " + map);
+		
 		List<Map<String,String>> resultList = boardService.selectAuction(map);
 		System.out.println("resultList: "+resultList);
 		model.addAttribute("resultList",resultList);
@@ -135,6 +136,11 @@ public class BoardController {
 	@GetMapping("/writeBoard")
 	public String writeBoard(HttpServletRequest request,Model model,HttpSession session) {
 		System.out.println("BoardController writeBoard()");
+		String memId = (String) session.getAttribute("MEM_ID");
+		if(memId == null) {
+			return "redirect:/member/login";
+		}
+		
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");
 		
@@ -537,7 +543,7 @@ public class BoardController {
 	}// insertPreAuction()	
 	
 	@GetMapping("/boardDetail")
-	public String boardDetail(HttpServletRequest request,Model model, HttpSession session) {
+	public String boardDetail(HttpServletRequest request, Model model, HttpSession session) {
 		System.out.println("BoardController boardDetail()");
 		String proWr = request.getParameter("proWr");
 		String proDate = request.getParameter("proDate");

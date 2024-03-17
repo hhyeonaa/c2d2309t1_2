@@ -58,9 +58,9 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
     });
 	
 	//<br> => enter
-	var text = $('#itemPay').val();
-	text = text.split('<br>').join("\r\n");
-	$('#itemPay').val(text);
+//	var text = $('#itemPay').val();
+//	text = text.split('<br>').join("\r\n");
+//	$('#itemPay').val(text);
 	
 	var IsOldImgs = $('#oldImgs').val();
 	var arr = [];
@@ -374,7 +374,20 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	//임시 제출 버튼 만들었을 때 제출을 할 경우 내가 미리보기에서 삭제한 파일들은 업로드 되지 않도록 하기
 	$('#insertBtn').on('click', function(e) { 
 		e.preventDefault(); // 폼의 기본 제출 동작을 방지합니다.
-		debugger;
+
+		if($('#proName').val() === ''){
+			alertMsg("AM6",["상품명"]);
+			return;
+		}
+		if($('#inputRegion').val() === ''){
+			alertMsg("AM6",["주소"]);
+			return;
+		}
+		if($('#proPrice').val() === ''){
+			alertMsg("AM6",["가격"]);
+			return;
+		}
+
 		var contextPath = getContextPath();
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		var resultList = []; // 결과를 저장할 배열입니다.
@@ -472,6 +485,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 			console.log('Upload success:', response);
 			/*임시이동*/
 //			location.href = "/myapp/";
+
 			$.ajax({
 				url: 'selectMyBoard', // 서버 엔드포인트 URL
 				type: 'GET',
@@ -595,29 +609,49 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 //			$('#aTempSave').attr('id','tempSave');
 //		} 
 //	});
+
 	$('input[name="deliveryCharge"]').on('change', function(e) {
-		e.preventDefault(); // 폼의 기본 제출 동작을 방지
-	    var checkedRadioId = $('input[name="deliveryCharge"]:checked').attr('id');
-//	    alert(checkedRadioId);
+	    e.preventDefault(); // 폼의 기본 제출 동작을 방지
 	
+	    var checkedRadioId = $('input[name="deliveryCharge"]:checked').attr('id');
 	    var aucSpValue = parseInt($('#aucSp').val()); // 현재 값을 정수로 변환하여 가져옴
-		var proPriceValue = parseInt($('#proPrice').val());
-		
-		if($('#proTc').val() === 'MM4'){
-			if (checkedRadioId === 'includeDeliCharge') {
-		        $('#aucSp').val(aucSpValue + 3000); // 현재 값에 3000을 더함
-		    } else {
-		        $('#aucSp').val(aucSpValue - 3000); // 현재 값에서 3000을 뺌
-		    }	
-		} else {
-			if (checkedRadioId === 'includeDeliCharge') {
-		        $('#proPrice').val(proPriceValue + 3000); // 현재 값에 3000을 더함
-		    } else {
-		        $('#proPrice').val(proPriceValue - 3000); // 현재 값에서 3000을 뺌
-		    }
-		}
-		
+	    var proPriceValue = parseInt($('#proPrice').val());
+	
+	    if ($('#proTc').val() === 'MM4') {
+	        if (aucSpValue) { // aucSp 값이 존재하는 경우에만 실행
+	            if (checkedRadioId === 'includeDeliCharge') {
+	                $('#aucSp').val(aucSpValue + 3000); // 현재 값에 3000을 더함
+	            } else {
+	                $('#aucSp').val(aucSpValue - 3000); // 현재 값에서 3000을 뺌
+	            }
+	        }
+	    } else {
+	        if (proPriceValue) { // proPrice 값이 존재하는 경우에만 실행
+	            if (checkedRadioId === 'includeDeliCharge') {
+	                $('#proPrice').val(proPriceValue + 3000); // 현재 값에 3000을 더함
+	            } else {
+	                $('#proPrice').val(proPriceValue - 3000); // 현재 값에서 3000을 뺌
+	            }
+	        }
+	    }
+	});
+	$('#proContent').keyup(function (e) {
+		let content = $(this).val();
 	    
+	    // 글자수 세기
+	    if (content.length == 0 || content == '') {
+	    	$('.textCount').text('0');
+	    } else {
+	    	$('.textCount').text(content.length);
+	    }
+	    
+	    // 글자수 제한
+	    if (content.length > 2000) {
+	    	// 200자 부터는 타이핑 되지 않도록
+	        $(this).val($(this).val().substring(0, 2000));
+	        // 200자 넘으면 알림창 뜨도록
+	        alert('글자수는 2000자까지 입력 가능합니다.');
+	    };
 	});
 	
 	$('#noRegion').on('click',function(e){
@@ -670,15 +704,16 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 	
 	$('#selectAddress').on('change',function(e){
-		e.preventDefault(); // 폼의 기본 제출 동작을 방지
+//		e.preventDefault(); // 폼의 기본 제출 동작을 방지
+		debugger;
 		var fullAdd = $('#selectAddress').val();
 		var addList = fullAdd.split(',');
 		console.log(addList);
 		$('#regionNick').val($('#selectAddress option:checked').text());
-		$('#addNo').val(addList[0]);
-		$('#regionCode').val(addList[1]);
-		$('#inputRegion').val(addList[2]);
-		$('#detailRegion').val(addList[3]);
+		$('#addNo').val(addList[0].trim());
+		$('#regionCode').val(addList[1].trim());
+		$('#inputRegion').val(addList[2].trim());
+		$('#detailRegion').val(addList[3].trim());
 		
 	})
 	
@@ -822,7 +857,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	})
 	
 });//document ready 끝
-
 
 
 function getContextPath() {

@@ -83,6 +83,7 @@ public class MemberController{
 			System.out.println("기존 고객");
 			return "member/member/login";
 		}
+		
 	}//insertPro()
 //	-----------------------------------------------------------------------------	
 	@GetMapping("/login")
@@ -127,9 +128,9 @@ public class MemberController{
 //			   out.flush();
 			return "";
 		} else {
-		System.out.println("이미 가입한 고객");
-		session.setAttribute("MEM_ID", map.get("MEM_ID"));
-		memberService.socialLogin(map);
+			System.out.println("이미 가입한 고객");
+			session.setAttribute("MEM_ID", map.get("MEM_ID"));
+			memberService.socialLogin(map);
 		}	
 		return "redirect:../";
 	}// socialLoginPro() 
@@ -271,9 +272,9 @@ public class MemberController{
 //			   out.println("<script>");
 //			   out.println("history.back()");
 //			   out.println("</script>");
-			   codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/adminLogin");
+			codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/adminLogin");
 //			   out.flush();
-			   return "";
+			return "";
 		}
 		
 	}// adminLoginPro() 

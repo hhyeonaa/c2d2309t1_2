@@ -92,10 +92,8 @@
 					</form>
 				</div>
 				<div class="writeBtnBox" style="width: 100px; display:flex; justify-content: center;">
-					<span class="material-symbols-outlined addIcon">add_circle</span>
-					<a class="nav-link writeBtn" href="${pageContext.request.contextPath}/board/writeBoard">상품 등록</a>
+					<button style="font-size: 15px; padding: 0 !important;" id="writeBoardPage" class="btn writeBtn">➡️상품 등록</button>
 				</div>
-				
 				<c:if test="${!empty sessionScope.MEM_ID}">
 					<div class="btn-group">
 				  	<button class="btn borderNone" type="button" data-bs-toggle="dropdown" id="button" >

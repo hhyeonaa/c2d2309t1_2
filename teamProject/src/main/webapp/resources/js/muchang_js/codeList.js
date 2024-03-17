@@ -72,7 +72,7 @@ $(() => {
 		let keys = Object.keys(codeName);
 		var str = $(this).text();
 		let param = keys.includes(str) ? codeName[str] : alertMsg("AM12", ["해당 항목", "현재 사용"]);
-		debugger;
+
 		$("#excel").remove();
 		$("#grid").empty();
 		fn_grid("codePro", 5, columns, false, param);

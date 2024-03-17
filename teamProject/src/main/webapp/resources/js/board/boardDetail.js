@@ -6,6 +6,8 @@
                '</script>');
 let additionalImages = [];
 $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
+	
+
 //	$(".carousel-item img").click(function(){
 //	    let img = new Image();
 //	    img.src = $(this).attr("src")

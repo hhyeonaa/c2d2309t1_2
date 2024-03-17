@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,13 +41,13 @@ public class TeamCodeService implements TeamCodeInterface{
 			}
 			
 			if(codeSelect == null) {
-				Map<String, String> errorText = new HashMap<String, String>();
 				w.write("<script>"
-					  + 	"alert(' ╭ ⁀ ⁀ ╮\\r\\n( \"👅\"　　)　　　둥실\\r\\n╰ ‿ ‿ ╯\\r\\n　　　　　　　╭ ⁀ ⁀ ╮\\r\\n둥실 　　　　 ( \"👅\"　　)\\r\\n　　　　　　　╰ ‿ ‿ ╯\\r\\n ╭ ⁀ ⁀ ╮\\r\\n( \"👅\"　　)\\r\\n ╰ ‿ ‿ ╯ ');"
+					  + 	"alert('⛔');"
 					  +		pageMove
 					  + "</script>");
 				w.flush();
 				w.close();
+				
 	        	throw new CodeTypeNullException(code);
 	        }
 			w.write("<script>"
@@ -88,6 +89,7 @@ public class TeamCodeService implements TeamCodeInterface{
 				Map<String, String> errorText = new HashMap<String, String>();
 				errorText.put(EnumCodeType.코드내용.getType(), "⛔");
 				selectCode = errorText;
+				
 	        	throw new CodeTypeNullException(code);
 	        }
 		} catch (CodeTypeNullException e) {
@@ -134,23 +136,15 @@ public class TeamCodeService implements TeamCodeInterface{
 		try {
 			if(selectCode == null) {
 				Map<String, String> errorText = new HashMap<String, String>();
-				errorText.put(EnumCodeType.코드내용.getType(), 
-						  " ╭ ⁀ ⁀ ╮\r\n"
-						+ "( '👅'　　)　　　둥실\r\n"
-						+ " ╰ ‿ ‿ ╯\r\n"
-						+ "　　　　　　　╭ ⁀ ⁀ ╮\r\n"
-						+ "둥실 　　　　 ( '👅'　　)\r\n"
-						+ "　　　　　　　╰ ‿ ‿ ╯\r\n"
-						+ " ╭ ⁀ ⁀ ╮\r\n"
-						+ "( '👅'　　)\r\n"
-						+ " ╰ ‿ ‿ ╯ 　　　");
+				errorText.put(EnumCodeType.코드내용.getType(), "⛔");
 				selectCode = errorText;
+				
 	        	throw new CodeTypeNullException(code);
 	        }
 			String message = MessageFormat.format(selectCode.get(EnumCodeType.코드내용.getType()), arr);
-			
 			selectCode.clear();
 			selectCode.put(EnumCodeType.코드내용.getType(), message);
+			
 		} catch (CodeTypeNullException e) {
 			e.printStackTrace();
 		}

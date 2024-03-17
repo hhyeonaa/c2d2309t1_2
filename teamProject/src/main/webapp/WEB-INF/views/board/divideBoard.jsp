@@ -7,6 +7,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
+<style type="text/css">
+.nameP {
+	text-align: left;
+	padding-bottom: 2%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+</style>
 </head>
 <jsp:include page="../template/header.jsp"/>
 	
@@ -16,23 +25,23 @@
 <div>
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
         <!-- 각 카드를 이 위치에 반복 배치 -->
-        <div class="col boardlist">
-            <div class="card h-100">
-                <a href="${pageContext.request.contextPath}/board/divideDetail"><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."></a>
-                <div class="card-body">
-                    <span class="state1">나눔</span>
-                    <span class="state2">나눔중</span>
-                    <span style="float: right; font-size: 23px;">
-				      <a id=likeBtn class="profile_btn">
-		 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon> 
-				      </a>
-                    </span>
-                    <br>
-                    <p>제목명</p>
-                    <h5><b>10,000원</b></h5>
-                </div>
-            </div>
-        </div>
+<!--         <div class="col boardlist"> -->
+<!--             <div class="card h-100"> -->
+<%--                 <a href="${pageContext.request.contextPath}/board/divideDetail"><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" class="card-img-top" alt="..."></a> --%>
+<!--                 <div class="card-body"> -->
+<!--                     <span class="state1">나눔</span> -->
+<!--                     <span class="state2">나눔중</span> -->
+<!--                     <span style="float: right; font-size: 23px;"> -->
+<!-- 				      <a id=likeBtn class="profile_btn"> -->
+<!-- 		 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon>  -->
+<!-- 				      </a> -->
+<!--                     </span> -->
+<!--                     <br> -->
+<!--                     <p>제목명</p> -->
+<!--                     <h5><b>10,000원</b></h5> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
         <!-- 여기까지 반복 -->
 		<c:forEach var="map" items="${resultList}">
 	        <div class="col boardlist">
@@ -40,8 +49,8 @@
 	                <a href="${pageContext.request.contextPath}/board/divideDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
 	                <div class="card-body">
 	                    <span class="state1">${map.PRO_TC_CODE}</span>
-	                    <span class="state2">${map.PRO_TSC_CODE}</span><br>
-	                    <p>${map.PRO_NAME}</p>
+	                    <span class="state2 PRO_STATE_${map.PRO_TSC}">${map.PRO_TSC_CODE}</span><br>
+	                    <p class="nameP">${map.PRO_NAME}</p>
 	                    <h5><b>${map.PRO_PRICE}</b></h5>
 	                </div>
 	            </div>

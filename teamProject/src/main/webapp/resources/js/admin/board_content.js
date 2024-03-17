@@ -49,5 +49,6 @@ $(() => {
 	
 	targetColor($("#board_content"));
 	fn_grid("board_contentPro", 5, columns);
+	excel('download', 'PRODUCT');
 	
 })

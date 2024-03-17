@@ -37,7 +37,7 @@
 			</c:forEach>
 		</div>
 		<div class="btn-wrapper">
-			<select name="perPage" id="setPerpage">
+			<select name="perPage" id="setPerpage" class="plSelect">
 				<option selected disabled hidden>선택</option>
 				<option value="-1">기본값</option>
 				<option value="0">한 페이지에 보기</option>

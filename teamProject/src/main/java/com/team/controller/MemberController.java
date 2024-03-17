@@ -102,7 +102,7 @@ public class MemberController{
 			session.setAttribute("MEM_NICK", check.get("MEM_NICK"));
 			return "redirect:../";
 		} else {
-			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
+			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호"};
 			codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/login");
 			return "";
 		}
@@ -265,7 +265,7 @@ public class MemberController{
 			session.setAttribute("MEM_ID", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		} else {
-			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
+			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호"};
 			response.setContentType("text/html; charset=utf-8");
 //			   PrintWriter out = response.getWriter();
 //			   out.println("<script>");

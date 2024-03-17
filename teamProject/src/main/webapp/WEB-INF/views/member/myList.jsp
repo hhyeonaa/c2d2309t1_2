@@ -58,11 +58,11 @@
 		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptySell">등록된 상품이 없습니다.</div>
 		 </c:if>
 		</div>
-		<div class="demo">
-	    <nav class="pagination-outer"  aria-label="Page navigation">
-	        <ul class="pagination" id="pagination"></ul>
-	    </nav>
-		</div> 
+<!-- 		<div class="demo"> -->
+<!-- 	    <nav class="pagination-outer"  aria-label="Page navigation"> -->
+<!-- 	        <ul class="pagination" id="pagination"></ul> -->
+<!-- 	    </nav> -->
+<!-- 		</div>  -->
 	</div><!--tab_content1-->
 	
 	<!-- -----------------------------------구매 목록----------------------------------- -->
@@ -90,11 +90,11 @@
 		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyBuy">등록된 상품이 없습니다.</div>
 		 </c:if>
 		</div>
-		<div class="demo">
-	    <nav class="pagination-outer"  aria-label="Page navigation">
-	        <ul class="pagination" id="pagination"></ul>
-	    </nav>
-		</div> 
+<!-- 		<div class="demo"> -->
+<!-- 	    <nav class="pagination-outer"  aria-label="Page navigation"> -->
+<!-- 	        <ul class="pagination" id="pagination"></ul> -->
+<!-- 	    </nav> -->
+<!-- 		</div>  -->
 	</div><!--tab_content2-->
 	<!-- -----------------------------------나눔 목록----------------------------------- -->
 	<div class="tab_content tab_content3">

@@ -18,6 +18,7 @@
 	     WHERE 1 = 1 
 	       AND IMG_NO = '1'
 		   AND CODE_TSC.CODE IN ('거래가능','거래중')
+		   AND PRO_STATE = '0'
 		 ORDER BY PRO_DATE DESC
          LIMIT 8;		
 </select>

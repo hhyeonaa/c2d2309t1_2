@@ -82,7 +82,7 @@ function loginWithKakao() {
 // ---------------------------------네이버 로그인---------------------------------
 var naverLogin = new naver.LoginWithNaverId({
 	clientId: "BPAgVjaOdpfSIk0NTLbZ"
-	, callbackUrl: "http://c2d2309t1.itwillbs.com/Damoim/member/login"
+	, callbackUrl: "http://c2d2309t1.itwillbs.com/damoim/member/login"
 	, isPopup: false
 	, callbackHandle: true
 });

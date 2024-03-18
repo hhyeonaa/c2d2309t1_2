@@ -503,7 +503,6 @@ public class MemberController{
 			Random random = new Random();
 			int randomNum = random.nextInt(1000000);
 			String AuthNumber = String.format("%06d", randomNum);
-			
 			// 인증번호 메일 발송
 			String sender = "ljw9863@naver.com";
 			String receiver = MEM_EMAIL;

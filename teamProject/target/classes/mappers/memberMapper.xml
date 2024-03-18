@@ -68,6 +68,7 @@
 		from ADMIN
 		where AD_ID = #{AD_ID} 
 		and AD_PW = #{AD_PW}
+		and AD_ACTIVE = '1';
 	</select>	
 	
 	<select id ="getMember" resultType="map">

@@ -63,7 +63,7 @@ const columnTitle = {
 	내용 : "CODE",
 	순서 : "SEQ",
 	속성 : "CO_DETAIL",
-	권한 : "AD_ROLE",
+	권한 : "ROLE_NO",
 	활성여부_관리자 : "HIDE",
 	활성여부_사용자 : "ACTIVE",
 }

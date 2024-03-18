@@ -398,6 +398,7 @@
 			 , P.PRO_NO
 		     , format(P.PRO_PRICE, 0) as "PRO_PRICE"
 			 , M.MEM_NO
+			 , M.MEM_ID
 		     , A.NAME
 		 	 , A.MERCHANT_UID
 		 	 , DATE_FORMAT(A.PAY_TIME, '%Y.%m.%d %H:%i:%s') as "PAY_TIME"
@@ -427,7 +428,8 @@
 	
 	<update id="changeState" parameterType="map">
 		update PRODUCT
-		set PRO_TSC = 'TM3'
+		set PRO_OT = #{MEM_ID}
+		  , PRO_TSC = 'TM3'
 		where PRO_NO = #{PRO_NO}
 	</update>
 	

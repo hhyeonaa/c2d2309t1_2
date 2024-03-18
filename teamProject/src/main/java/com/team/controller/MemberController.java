@@ -103,7 +103,7 @@ public class MemberController{
 			session.setAttribute("MEM_NICK", check.get("MEM_NICK"));
 			return "redirect:../";
 		} else {
-			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
+			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호"};
 			codeService.submitForAlert(response, "AM5", msg, request.getContextPath()+"/member/login");
 			return "";
 		}
@@ -266,7 +266,7 @@ public class MemberController{
 			session.setAttribute("MEM_ID", check.get("ROL_NO"));
 			return "redirect:/admin/member_manage";
 		} else {
-			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호를"};
+			Object[] msg = {"입력하신 정보가 일치하지 않습니다.                                         아이디, 비밀번호"};
 			response.setContentType("text/html; charset=utf-8");
 //			   PrintWriter out = response.getWriter();
 //			   out.println("<script>");
@@ -354,6 +354,7 @@ public class MemberController{
 		// 내가 등록한
 		List<Map<String,String>> myTrade = memberService.myTrade(MEM_ID);
 		model.addAttribute("myTrade", myTrade);
+		
 		List<Map<String,String>> otherTrade = memberService.otherTrade(MEM_ID);
 		model.addAttribute("otherTrade", otherTrade);
 		return "member/tradeList";
@@ -426,8 +427,10 @@ public class MemberController{
 			if (MEM_EMAIL.equals(profile.get("MEM_EMAIL"))) {
 				memberService.memberDelete(profile);
 				System.out.println("이메일 일치 삭제 가능");
+				Object[] msg = {"회원"};
+				codeService.submitForAlert(response, "AM18", msg, request.getContextPath());
 				session.invalidate();
-				return "redirect:../";
+				return "";
 			} else {
 				System.err.println("이메일 불일치");
 				Object[] msg = {"입력하신 정보"};
@@ -474,24 +477,25 @@ public class MemberController{
 		return "member/trading";
 	}// trading() 
 //	-----------------------------------------------------------------------------
-	@PostMapping("/changeState")
-	public String changeState(@RequestParam Map<String, String> map) {
-		System.out.println("changeState map : " + map);
-	    String proNo = map.get("PRO_NO");
-	    System.out.println("proNo : " + proNo);
-	    if (proNo != null) {
-	        try {
-	            memberService.changeState(map);
-	            // 변경 성공 시 로깅
-	            System.out.println("상태 변경이 성공적으로 이루어졌습니다.");
-	        } catch (Exception e) {
-	            e.printStackTrace(); // 에러 로깅
-	            // 변경 실패 시 처리
-	            System.err.println("상태 변경 중 오류가 발생했습니다.");
-	        }
-	    }
-	    return "redirect:/member/trading";
-	}
+		@PostMapping("/changeState")
+		public String changeState(@RequestParam Map<String, String> map, HttpSession session) {
+			System.out.println("changeState map : " + map);
+		    String proNo = map.get("PRO_NO");
+		    String MEM_ID = (String)session.getAttribute("MEM_ID");
+		    System.out.println("chacngestate MEM_ID : " + MEM_ID);
+		    if (proNo != null && MEM_ID != null) {
+		        try {
+		            memberService.changeState(map, MEM_ID);
+		            // 변경 성공 시 로깅
+		            System.out.println("상태 변경이 성공적으로 이루어졌습니다.");
+		        } catch (Exception e) {
+		            e.printStackTrace(); // 에러 로깅
+		            // 변경 실패 시 처리
+		            System.err.println("상태 변경 중 오류가 발생했습니다.");
+		        }
+		    }
+		    return "redirect:/member/trading";
+		}
 	
 //  ===============================================메일 전송 관련===============================================	
 		// 인증메일

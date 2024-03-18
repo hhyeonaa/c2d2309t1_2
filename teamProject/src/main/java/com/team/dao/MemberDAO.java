@@ -161,7 +161,7 @@ public class MemberDAO {
 		return sqlSession.selectList(namespace + "trading", MEM_ID);
 	}// trading()
 //	-----------------------------------------------------------------------------	
-	public void changeState(Map<String, String> map) {
+	public void changeState(Map<String, String> map, String MEM_ID) {
 		System.out.println("MemberDAO changeState()");
 		System.out.println(map + "  changeState");
 		sqlSession.update(namespace + "changeState", map);

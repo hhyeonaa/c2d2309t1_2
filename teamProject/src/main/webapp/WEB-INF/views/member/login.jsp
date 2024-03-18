@@ -115,7 +115,6 @@
 			      <option value="" selected disabled style="font-size: 14px;">성별 선택</option>
 			      <option value="M">남성</option>
 			      <option value="F">여성</option>
-			      <option value="O">기타</option>
 			    </select>
 			  </div>
 			</div>

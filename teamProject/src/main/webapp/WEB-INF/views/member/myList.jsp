@@ -23,12 +23,12 @@
 		<label for="tab1" class="on">판매목록</label>
 		<label for="tab2">구매목록</label>
 		<label for="tab3">나눔목록</label>
-		<label for="tab4">경매목록</label>
+<!-- 		<label for="tab4">경매목록</label> -->
 	  
 	  	<input type="radio" name="tab" id="tab1">
 		<input type="radio" name="tab" id="tab2">
 		<input type="radio" name="tab" id="tab3">  
-		<input type="radio" name="tab" id="tab4">  
+<!-- 		<input type="radio" name="tab" id="tab4">   -->
 	</div><!--tab_wrap-->
 	
 	<!-- -----------------------------------판매 목록----------------------------------- -->
@@ -44,7 +44,7 @@
 		      <div class="card-body">
 		      	<a href="${pageContext.request.contextPath}/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}">
 			      	<span class="state1" >${myListSell.TC_NAME}</span>
-			      	<span class="state2">${myListSell.TSC_NAME}</span>
+			      	<span class="state2" id="state_${myListSell.PRO_TSC}">${myListSell.TSC_NAME}</span>
 			      	<span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p class="nameP">${myListSell.PRO_NAME}</p>
@@ -58,11 +58,11 @@
 		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptySell">등록된 상품이 없습니다.</div>
 		 </c:if>
 		</div>
-		<div class="demo">
-	    <nav class="pagination-outer"  aria-label="Page navigation">
-	        <ul class="pagination" id="pagination"></ul>
-	    </nav>
-		</div> 
+<!-- 		<div class="demo"> -->
+<!-- 	    <nav class="pagination-outer"  aria-label="Page navigation"> -->
+<!-- 	        <ul class="pagination" id="pagination"></ul> -->
+<!-- 	    </nav> -->
+<!-- 		</div>  -->
 	</div><!--tab_content1-->
 	
 	<!-- -----------------------------------구매 목록----------------------------------- -->
@@ -77,7 +77,7 @@
 		      </a>
 		      <div class="card-body">
 			      <span class="state1">${myListBuy.TC_NAME}</span>
-			      <span class="state2">${myListBuy.TSC_NAME}</span>
+			      <span class="state2" id="state_${myListBuy.PRO_TSC}">${myListBuy.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p class="nameP">${myListBuy.PRO_NAME}</p>
@@ -90,11 +90,11 @@
 		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyBuy">등록된 상품이 없습니다.</div>
 		 </c:if>
 		</div>
-		<div class="demo">
-	    <nav class="pagination-outer"  aria-label="Page navigation">
-	        <ul class="pagination" id="pagination"></ul>
-	    </nav>
-		</div> 
+<!-- 		<div class="demo"> -->
+<!-- 	    <nav class="pagination-outer"  aria-label="Page navigation"> -->
+<!-- 	        <ul class="pagination" id="pagination"></ul> -->
+<!-- 	    </nav> -->
+<!-- 		</div>  -->
 	</div><!--tab_content2-->
 	<!-- -----------------------------------나눔 목록----------------------------------- -->
 	<div class="tab_content tab_content3">
@@ -108,7 +108,7 @@
 		      </a>
 		      <div class="card-body">
 			      <span class="state1">${myListShare.TC_NAME}</span>
-			      <span class="state2">${myListShare.TSC_NAME}</span>
+			      <span class="state2" id="state_${myListShare.PRO_TSC}">${myListShare.TSC_NAME}</span>
 			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
 <!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
 			      <p class="nameP">${myListShare.PRO_NAME}</p>
@@ -124,33 +124,33 @@
 	</div><!--tab_content3-->
 	
 	<!-- -----------------------------------경매 목록----------------------------------- -->
-	<div class="tab_content tab_content4">
-	  <div class="row row-cols-1 row-cols-md-4 g-4" id="auctionMain" style="padding-top: 2%; height: 100%;">
-	  <c:forEach var="myListAuction" items="${myListAuction}">
-		  <div class="col">
-		   <div class="card h-100">
-		     <a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${myListAuction.AUC_SELLER}&aucDate=${myListAuction.AUC_DATE}">
-		     	<img src="${pageContext.request.contextPath}/resources/img/uploads/${myListAuction.IMG_NAME}" class="card-img-top" 
-		      	   alt="${myListAuction.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'" style="width: 250px; height: 250px;">
-		     </a>
-		     <div class="card-body" style="padding-top: 10px; height: 130px;" >
-		      <span class="state1">${myListAuction.TC_NAME}</span>
-		      <span class="state2">${myListAuction.TSC_NAME}</span>
-		      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
-		      <p class="nameP">${myListAuction.AUC_NAME}</p>
-			  <h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">현재가: </small><b>${myListAuction.AUC_BP}원</b></h6>
-			  <h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">즉구가: </small><b>${myListAuction.AUC_INP}원</b></h6>
-			  <span style="font-size: 12px;">입찰자: 10명</span> 
-			  <span style="font-size: 12px;"><img src="https://pics.auction.co.kr/listing/used/2014/txt2_watch.gif" style="height: 13px;width: 13px;padding-bottom: 3px;"> ${myListAuction.AUC_ETIME}</span><br>
-		     </div>
-		   </div>
-		 </div>
-		</c:forEach>
-		<c:if test="${empty myListAuction}">
-		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyAuction">등록된 상품이 없습니다.</div>
-		 </c:if>
-		</div>
-	</div><!--tab_content4-->
+<!-- 	<div class="tab_content tab_content4"> -->
+<!-- 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="auctionMain" style="padding-top: 2%; height: 100%;"> -->
+<%-- 	  <c:forEach var="myListAuction" items="${myListAuction}"> --%>
+<!-- 		  <div class="col"> -->
+<!-- 		   <div class="card h-100"> -->
+<%-- 		     <a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${myListAuction.AUC_SELLER}&aucDate=${myListAuction.AUC_DATE}"> --%>
+<%-- 		     	<img src="${pageContext.request.contextPath}/resources/img/uploads/${myListAuction.IMG_NAME}" class="card-img-top"  --%>
+<%-- 		      	   alt="${myListAuction.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'" style="width: 250px; height: 250px;"> --%>
+<!-- 		     </a> -->
+<!-- 		     <div class="card-body" style="padding-top: 10px; height: 130px;" > -->
+<%-- 		      <span class="state1">${myListAuction.TC_NAME}</span> --%>
+<%-- 		      <span class="state2">${myListAuction.TSC_NAME}</span> --%>
+<!-- 		      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> 빈 하트 -->
+<%-- 		      <p class="nameP">${myListAuction.AUC_NAME}</p> --%>
+<%-- 			  <h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">현재가: </small><b>${myListAuction.AUC_BP}원</b></h6> --%>
+<%-- 			  <h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">즉구가: </small><b>${myListAuction.AUC_INP}원</b></h6> --%>
+<!-- 			  <span style="font-size: 12px;">입찰자: 10명</span>  -->
+<%-- 			  <span style="font-size: 12px;"><img src="https://pics.auction.co.kr/listing/used/2014/txt2_watch.gif" style="height: 13px;width: 13px;padding-bottom: 3px;"> ${myListAuction.AUC_ETIME}</span><br> --%>
+<!-- 		     </div> -->
+<!-- 		   </div> -->
+<!-- 		 </div> -->
+<%-- 		</c:forEach> --%>
+<%-- 		<c:if test="${empty myListAuction}"> --%>
+<!-- 		 	<div class="row row-cols-1 row-cols-md-1 g-1" id="emptyAuction">등록된 상품이 없습니다.</div> -->
+<%-- 		 </c:if> --%>
+<!-- 		</div> -->
+<!-- 	</div>tab_content4 -->
 	
 	</div>
 </div>

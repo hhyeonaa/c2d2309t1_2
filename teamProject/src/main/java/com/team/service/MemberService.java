@@ -161,10 +161,10 @@ public class MemberService {
 		return memberDAO.trading(MEM_ID); 
 	}// trading()
 //	-----------------------------------------------------------------------------	
-	public void changeState(Map<String, String> map) {
+	public void changeState(Map<String, String> map, String MEM_ID) {
 		System.out.println("MemberService changeState()");
 		System.out.println(map + " changeState");
-		memberDAO.changeState(map);
+		memberDAO.changeState(map, MEM_ID);
 	}// memberDelete()
 	public String countLike(String ses) {
 		return memberDAO.countList(ses);

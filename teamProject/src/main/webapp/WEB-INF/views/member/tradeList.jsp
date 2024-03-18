@@ -17,7 +17,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center; padding-top: 5%;">
 	<div class="rounded-5 shadow">
-	<h3 class="title">내 거래 내역</h3>
+	<h3 class="title">거래 완료 목록</h3>
 	<hr>
 	<div class="tab_wrap" style="padding-top: 1%;">
 		<label for="tab1" class="on">내가 등록한</label>
@@ -34,7 +34,7 @@
 	  	 <option value="MM1">판매</option>
 	  	 <option value="MM2">구매</option>
 	  	 <option value="MM3">나눔</option>
-	  	 <option value="MM4">경매</option>
+<!-- 	  	 <option value="MM4">경매</option> -->
 	  </select>
 	  <div class="row row-cols-1 row-cols-md-4 g-4" id="likeMain" style="padding-top: 2%;">
 	  <c:forEach var="myTrade" items="${myTrade}">

@@ -76,7 +76,7 @@ $(() => {
 		$("#excel").remove();
 		$("#grid").empty();
 		fn_grid("codePro", 5, columns, false, param);
-		excel('updownload', 'CODE'); 
+		excel('both', 'CODE'); 
 	})
 
 	$("#selectCodeBtn :first").trigger("click");

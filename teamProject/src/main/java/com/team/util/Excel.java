@@ -35,18 +35,6 @@ public class Excel {
 	
 	CellStyle cellStyle;
 	
-	
-	// 03.05 추가해야할 사항
-	//	[엑셀 업로드]
-	//	- 양식 다운로드는 db에서 (pk 제외)
-	//	- pk코드 테이블 따로 빼기
-	//	- 유효성 검사는 x
-	
-	//	[엑셀 다운로드]
-	// 	- 엑셀 다운로드 구현
-	//	- 필터는 추후 고민
-	
-	
 	// 다운로드 (Excel DownLoad)
 	public void edl(XSSFWorkbook wb, HttpServletResponse response){
 		// 컨텐츠 타입과 파일명 지정
@@ -107,14 +95,12 @@ public class Excel {
 			cell = row.createCell(i);
 
 			String value = colNames.get(i);
-			if(value.contains("상태") || value.contains("여부")) {
-				cell.setCellValue("ex) 0 = 'NO' / 1 = 'Yes'");
-			} else if(value.contains("_NAME")) {
+			if(value.contains("_NAME")) {
 				cell.setCellValue("ex) 홍길동");
 			} else if(value.contains("_DATE") || value.contains("_TIME") || value.contains("_UPDATE")) {
 				cell.setCellValue("ex) 20240311232846 : 년월일시분초");
 			} else if(value.contains("ACTIVE") || value.contains("HIDE")) {
-				cell.setCellValue("ex) 0(No) OR 1(Yes)");
+				cell.setCellValue("ex) 0 = 'NO' / 1 = 'Yes'");
 			}
 		}
 		
@@ -130,10 +116,6 @@ public class Excel {
 		
 		List<String> title = header.get("title");
 		List<String> colName = header.get("colName");
-		
-		System.out.println("header : " + header);
-		System.out.println("body : " + body);
-		
 		
 		wb = new XSSFWorkbook();
 		sheet = wb.createSheet();
@@ -224,9 +206,7 @@ public class Excel {
 								datas.put(colNames.get(j) ,value);
 							}
 						}
-						System.out.println("datas : " + datas);
 						uploadData.add(datas);
-						
 					}
 				}
 			}

@@ -264,6 +264,7 @@ $(function(){
 		});
 		
 		// ~~~~~~~~~~~~~~~~~~~전화번호 중복 체크~~~~~~~~~~~~~~~~~~~	
+
 		$('#phone').change(function() {
 		    var phone = $('#phone').val().trim();
 		    
@@ -272,6 +273,29 @@ $(function(){
 		        $('#phoneCheck').html("전화번호를 입력해주세요.").css('color', 'gray');
 		        return;
 		    }
+		    
+			var phone = document.getElementById('phone').value;
+			var phoneRegex = /^01(0|1|[6-9])[0-9]{3,4}[0-9]{4}$/;
+			
+			$.ajax({
+				url:'phoneCheck',
+				data:{'MEM_TEL':$('#phone').val()},
+				success:function(data){
+					if(data == 0){
+						if (phoneRegex.test(phone)) {
+							$("#phoneCheck").text("사용가능한 전화번호 입니다.").css('color', 'green');
+							return;
+						} else{
+							$("#phoneCheck").text("올바른 전화번호 형식이 아닙니다.").css('color', 'red');
+							return;
+						}
+						
+					}
+					
+					$("#phoneCheck").text("이미 사용중인 전화번호 입니다.").css('color', 'red');
+				}
+			});
+		});	
 		
 		    // 전화번호 유효성 검사
 		    var phoneRegex = /^01(0|1|[6-9])[0-9]{3,4}[0-9]{4}$/;

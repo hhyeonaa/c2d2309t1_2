@@ -92,24 +92,24 @@
 				<span id="myPostChat">내 게시물 채팅</span>
 			</div>
 			<div id="chatList">
-				<div class="chatRoom myPost" id="PR23">
-					<div>
-						<img alt="프로필 사진" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg">
-					</div>
-					<div class="chatRoomContents">
-						<div class="userNick">[닉네임]</div>
-						<div class="postTit">내 게시물 제목</div>
-						<div class="lastChat">마지막 채팅 내용</div>
-					</div>
-				</div>
-				<div class="chatRoom notMyPost" id="PR25">
-					<div>이미지</div>
-					<div class="chatRoomContents">
-						<div class="userNick">[jaewon]</div>
-						<div class="postTit">노트북</div>
+<!-- 				<div class="chatRoom myPost" id="PR23"> -->
+<!-- 					<div> -->
+<%-- 						<img alt="프로필 사진" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg"> --%>
+<!-- 					</div> -->
+<!-- 					<div class="chatRoomContents"> -->
+<!-- 						<div class="userNick">[닉네임]</div> -->
+<!-- 						<div class="postTit">내 게시물 제목</div> -->
 <!-- 						<div class="lastChat">마지막 채팅 내용</div> -->
-					</div>
-				</div>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="chatRoom notMyPost" id="PR25"> -->
+<!-- 					<div>이미지</div> -->
+<!-- 					<div class="chatRoomContents"> -->
+<!-- 						<div class="userNick">[jaewon]</div> -->
+<!-- 						<div class="postTit">노트북</div> -->
+<!-- <!-- 						<div class="lastChat">마지막 채팅 내용</div> --> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 			</div>
 		</div>
 		

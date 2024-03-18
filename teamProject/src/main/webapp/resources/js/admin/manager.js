@@ -60,7 +60,7 @@ $(() => {
 	]
 	
 	fn_grid("managerPro", 5, columns, false);
-	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
+	excel('both', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 
 	// 모달창 관련	
@@ -125,7 +125,7 @@ $(() => {
 			$('#grid').empty();
 			grid("managerPro", 10, columns, false);
 			$('#excel').remove();
-			excel('updownload', 'ADMIN');
+			excel('both', 'ADMIN');
 		 })
 	});
 	

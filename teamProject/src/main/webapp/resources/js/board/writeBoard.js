@@ -132,7 +132,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    }).click(function() {
 	        $(this).parent().remove();
 		    $('#att_zone').find($("input[type=hidden]")).remove();
-		    debugger;
 		    for(var i = 0; i < checkFileList.length; i++){
 		    	if(checkFileList[i] === undefined || checkFileList[i].length === 0) continue;
 		    	for(var j = 0; j < checkFileList[i].length; j++){
@@ -148,7 +147,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    $('#att_zone').append(div);
 	    $('#att_zone').append('<input type="hidden" value="' + fileName + '"/>');
 
-//	    debugger;
 //	    $('#att_zone input[type="hidden"]')
 //	    .each(function() {
 //			var value = $(this).val();
@@ -196,7 +194,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    
 // 		    sel_files = sel_files.filter(function() { // 선택된 파일 목록에서 현재 파일을 제거합니다.
 // 		    	this;
-// 		    	debugger;
 // 		      return f.name !== file.name;
 // 		    });
 		    $("#btnAtt").val("");// 임시추가?
@@ -255,7 +252,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	// 이미지 이름 중복 체크
 //  	function checkDuplicateName(fileName){
-// 		debugger;
 // 		for (i = 0; i < checkFileList.length; i++) {
 // 		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
 // 		        for (j = 0; j < checkFileList[i].length; j++) {
@@ -269,7 +265,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 // 	} 
  	function checkDuplicateName(fileName) {
  	    const isDuplicate = checkFileList.some(fileGroup => {
- 	    	debugger;
  	        return fileGroup && fileGroup.some(file => file.name === fileName);
  	    });
 
@@ -345,7 +340,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 		//임시 실험 시작
 		for(i = 0; i < checkFileList.length; i++){
-			debugger;
 			if(checkFileList[i] === undefined || checkFileList[i].length === 0){
 				checkFileList[i] = sel_files; 
 				break;	
@@ -435,7 +429,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		// 파일 리스트 추가
 		for (var i = 0; i < resultList.length; i++) {
-			debugger;
 			// 각 파일을 'imgs'라는 이름으로 개별적으로 추가합니다.
 			// 서버 측에서는 'imgs'라는 이름으로 파일 리스트를 받을 수 있습니다.
 			formData.append('imgs', resultList[i]);
@@ -444,7 +437,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		for (let key of formData.keys()) {
 			console.log(key);
 		}
-		//debugger;
 		for (let value of formData.values()) {
 			console.log(value);
 		}
@@ -706,7 +698,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	$('#selectAddress').on('change',function(e){
 //		e.preventDefault(); // 폼의 기본 제출 동작을 방지
-		debugger;
 		var fullAdd = $('#selectAddress').val();
 		var addList = fullAdd.split(',');
 		console.log(addList);
@@ -769,7 +760,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		for (let key of formData.keys()) {
 			console.log(key);
 		}
-		//debugger;
 		for (let value of formData.values()) {
 			console.log(value);
 		}
@@ -852,7 +842,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		for (let key of formData.keys()) {
 			console.log(key);
 		}
-		//debugger;
 		for (let value of formData.values()) {
 			console.log(value);
 		}

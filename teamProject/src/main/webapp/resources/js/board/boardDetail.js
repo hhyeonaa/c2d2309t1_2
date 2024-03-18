@@ -34,7 +34,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
         // 현재 페이지의 모든 캐러셀 이미지의 src 속성 값 수집
         
         $('.carousel-item img').each(function(a, b, c) {
-        	//debugger;
             var imgSrc = $(this).attr('src');
             // 클릭한 이미지는 제외하고 배열에 추가
             if (imgSrc !== clickedImgSrc) {

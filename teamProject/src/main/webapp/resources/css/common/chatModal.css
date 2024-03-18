@@ -22,6 +22,8 @@
 }
 
 #exit{
+	color: white;
+	
     position: absolute;
     bottom: 100%;
     left: 98%;
@@ -30,6 +32,10 @@
     font-weight: bold;
     
     cursor: pointer;
+}
+
+#exit:hover{
+	color: #ced4da;
 }
 
 #chatContainer{
@@ -167,6 +173,10 @@
 	justify-content: flex-end
 }
 
+#chatHead > .chatRoomContents {
+	cursor: pointer;
+}
+
 #chatHead > .chatRoomContents > .userNick{
 	font-size: 18px;
 	font-weight: bold;
@@ -175,6 +185,17 @@
 #chatHead > .chatRoomContents > .postTit{
 	font-size: 30px;
 	font-weight: bold;
+	
+	text-decoration:underline;
+	
+	text-overflow: ellipsis;
+    width: 184px;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+#chatHead > .chatRoomContents > .postTit:hover{
+	color: #868e96;
 }
 
 #systemContainer{

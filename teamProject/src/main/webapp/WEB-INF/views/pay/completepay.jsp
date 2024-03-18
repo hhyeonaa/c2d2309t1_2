@@ -67,7 +67,6 @@ $(()=>{
 		window.location.href='/' + window.location.pathname.split("/")[1];
 	})
 	$('.goMypage').on('click', function(){
-		debugger;
 		window.location.href='/' + window.location.pathname.split("/")[1] + '/member/trading'
 	})
 })

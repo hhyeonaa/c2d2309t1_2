@@ -42,7 +42,7 @@
 					<a href="#" style="font-size: 12px;">${map.AUC_SELLER}</a>
                     <span style="float: right; font-size: 23px;">
 				      <a id=likeBtn class="profile_btn">
-		 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon> 
+<!-- 		 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon>  -->
 				      </a>
                     </span>
 					<br>

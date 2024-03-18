@@ -49,17 +49,17 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    <div class="carousel-item active">
 		      <div style="position: relative; width: 800px; height: 800px; margin: 0 auto;">
 		        <img id="selectImg" src="" class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Slide 1">
-		        <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
-		          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		          <span class="visually-hidden">Previous</span>
-		        </button>
-		        <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%);">
-		          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		          <span class="visually-hidden">Next</span>
-		        </button>
 		      </div>
 		    </div>
 		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%);">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
 		</div>`;
         // 모달 내용 업데이트 및 표시
         $('.modalBox').html(modalContent);
@@ -229,7 +229,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	          console.error('조회수 증가 요청 실패');
 	        }
 	      },
-	      error: function() {
+	      error: function() { 
 	        console.error('조회수 증가 요청 실패');
 	      }
 	    });

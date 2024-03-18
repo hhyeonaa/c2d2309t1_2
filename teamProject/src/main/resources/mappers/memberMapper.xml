@@ -17,8 +17,6 @@
 	  , MEM_DATE
 	  , MEM_REDATE
 	  , MEM_IMAGE
-	  , MEM_RENEW
-	  , MEM_ACC
 	  , MEM_CAT
 	</sql>
 

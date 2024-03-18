@@ -15,13 +15,15 @@ $(() => {
 			name: "MEM_ID",
 			header:"아이디",
 			filter:"text",
-			sortable: true
+			sortable: true,
+			width: "auto"
 		},
 		{
 			name: "MEM_NICK",
 			header:"닉네임",
 			filter:"text",
-		    sortable: true
+		    sortable: true,
+			width: "auto"
 		},  
 		{
 			name: "MEM_NAME",
@@ -33,7 +35,8 @@ $(() => {
 			name: "MEM_EMAIL",
 			header:"이메일",
 			filter:"text",
-		    sortable: true
+		    sortable: true,
+			width: "auto"
 		},
 		{
 			name: "MEM_DATE",
@@ -72,4 +75,5 @@ $(() => {
 	
 	targetColor($("#member_manage"));
 	fn_grid("member_managePro", 5, columns);
+	excel('download', 'MEMBERS');
 })

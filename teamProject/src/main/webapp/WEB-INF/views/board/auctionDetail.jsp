@@ -229,7 +229,7 @@ td{
 		 	<div style="width: 70%; height: auto;">
 		 		<table class="table">
 		 			<tr><td colspan="6">상품 상세 정보</td><tr>
-		 			<tr><td colspan="6"><textarea rows="5" cols="100" readonly>${resultMap.AUC_CONTENT}</textarea></td></tr>
+		 			<tr><td colspan="6"><textarea rows="10" cols="90" readonly>${resultMap.AUC_CONTENT}</textarea></td></tr>
 		 			<tr style="text-align: center;">
 <!-- 		 				<td colspan="3">거래지역: 전국</td> -->
 <!-- 		 				<td colspan="3">카테고리: <a href="#">자켓/점퍼</a></td> -->

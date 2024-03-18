@@ -21,6 +21,7 @@ public class ExcelDAO {
 //	}
 	
 	public int insertData(Map<String, Object> insertData) {
+		System.out.println(insertData);
 		return session.insert(NAMESPACE+".insertData", insertData);
 	}
 

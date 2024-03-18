@@ -8,6 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/member/logo.jpg">
 <style>
+#container .row{
+	width: 700px !important;
+	border-top: 1px solid black;
+}
 .input-file-button, #att_zone {
 /*     display: inline-block; */
 }
@@ -41,16 +45,16 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
 
-	<form>
+<!-- 	<form> -->
 	<div class="row row-cols-1 row-cols-md-4 g-4 mt-12" style="display: flex;" id="main">
 		<div style="width: 100%;">
-			<div class="container">
+			<div class="container" id="container" style="display: flex; flex-direction: column; align-items: center;">
 			  <div class="row">
 			    <div class="col-12 d-flex justify-content-between mt-4">
 <%-- 			    <c:forEach var="oldImgName" items="${imgList}" varStatus="i"> --%>
 <%-- 				    <input type="text" id="oldImg${i.count}" value="${oldImgName}"> --%>
 <%-- 			    </c:forEach> --%>
-				<input type="text" id="oldImgs" name="oldImgs" value="${resultMap.IMG_NAMES}">
+				<input type="hidden" id="oldImgs" name="oldImgs" value="${resultMap.IMG_NAMES}">
 				<select id="proTc" name="proTc" style="width: 100px;">
 				    <c:forEach var="menu" items="${menu}">
 				    <c:set var="menuCode" value="${menu.CO_TYPE}${menu.CO_NO}" />
@@ -96,27 +100,27 @@
 			    </div>
 			  </div>
 			  <hr>
-			  <div class="row">
+			  <div class="row" style="border-style: none !important;">
 			    <div class="col-12 d-flex justify-content-center">
 			      <label class="btn btn-warning input-file-button" for="btnAtt" id="input-file-button"><img src="${pageContext.request.contextPath}/resources/img/board/addPhoto.png"></label>
 			      <input type='file' id='btnAtt' multiple style="display: none;"/>
-			      <button id="resetImg"><i class="bi bi-trash"></i></button>
+<!-- 			      <button id="resetImg"><i class="bi bi-trash"></i></button> -->
 			    </div>
 			  </div>
-			  <div class="row">
+			  <div class="row" style="border-style: none !important;">
 			    <div class="col-12 d-flex justify-content-center">
 			      <div id='att_zone' class="mt-3" data-placeholder="파일을 첨부 하려면 이미지등록 버튼을 클릭하거나 드래그앤드롭 하세요 이미지 총 6장까지 하나당 5mb까지"></div>
 			    </div>
 			  </div>
-			  <div class="row">
+			  <div class="row" style="border-style: none !important;">
 			    <div class="col-12 d-flex justify-content-center pt-3">
 			      <p></p>
 			    </div>
 			  </div>
 			  <hr>
 			<div class="row">
-			    <div>
-					<div class="input-group" style="width: 90%;">
+			    <div class="mt-4" style="display: flex; justify-content: center;">
+					<div class="input-group" style="width: 75%;">
 					    <span class="input-group-text" id="basic-addon1">상품명</span>
 					    <c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 					    <input type="text" class="form-control" id="proName" name="proName" placeholder="상품명 입력" aria-label="ItemName" aria-describedby="basic-addon1">
@@ -136,6 +140,7 @@
 		  	<div class="row justify-content-center">
 <!-- 			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>거래상태<th></tr></table></div> -->
 <!-- 			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;"> -->
+			  	<div>
 <!-- 					<select name="proTsc" id="proTsc" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;"> -->
 <%-- 						<c:forEach var="tsc" items="${trade}"> --%>
 <%-- 						<c:set var="tradeCode" value="${tsc.CO_TYPE}${tsc.CO_NO}"/> --%>
@@ -167,26 +172,30 @@
 						<input type="hidden" id="proTsc" value="${resultMap.AUC_TSC}">
 					</c:if>
 				</div>
-			  	<div class="col-1 flex-fill text-center" style="border: 1px solid black; height: 50px;"><table><tr><th>카테고리<br>선택<th></tr></table></div>
-			  	<div class="col-3 flex-fill" style="border: 1px solid black; height: 50px; overflow: auto;">
-					<select name="category1" id="category1" style="width: 100%; height: 100%; border: none; padding: 0; margin: 0;">
-						<c:forEach var="cate" items="${category}">
-							<c:set var="cateCode" value="${cate.CO_TYPE}${cate.CO_NO}"/>
-							<c:choose>
-								<c:when test="${cateCode eq resultMap.PRO_CATE || cateCode eq resultMap.AUC_CATE}">
-									<option value="${cate.CO_TYPE}${cate.CO_NO}" selected>${cate.CODE}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${cate.CO_TYPE}${cate.CO_NO}">${cate.CODE}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select>
+				<div class="mt-4" style="display:flex; height: 50px; justify-content: center;">
+				  <div style="display: flex; align-items: center; justify-content: flex-start; width: 20%; ">
+				  	  <span style="text-align: left;">카테고리</span>
+				  </div>
+				  <div style="display: flex; align-items: center; justify-content: center; width: 55%">
+					  <select name="category1" id="category1" class="form-control h-100">
+					    <c:forEach var="cate" items="${category}">
+					      <c:set var="cateCode" value="${cate.CO_TYPE}${cate.CO_NO}"/>
+					      <c:choose>
+					        <c:when test="${cateCode eq resultMap.PRO_CATE || cateCode eq resultMap.AUC_CATE}">
+					          <option value="${cate.CO_TYPE}${cate.CO_NO}" selected>${cate.CODE}</option>
+					        </c:when>
+					        <c:otherwise>
+					          <option value="${cate.CO_TYPE}${cate.CO_NO}">${cate.CODE}</option>
+					        </c:otherwise>
+					      </c:choose>
+					    </c:forEach>
+					  </select>
+				  </div>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
+				<div class="d-flex justify-content-center mt-4" style="display: flex;">
 				   	<div>
 				   	<select id="selectAddress">
 				   		<option value="0">주소 선택</option>
@@ -197,37 +206,37 @@
 				   	<span>거래지역</span>
 <!-- 				   	<button class="btn btn-outline-secondary">내 위치</button> -->
 <!-- 				   	<button class="btn btn-outline-secondary">최근 지역</button> -->
-				   	<button class="btn btn-outline-secondary" id="searchRegion">주소 등록</button>
+				   	<button class="btn btn-outline-secondary" id="searchRegion">거래지역 선택</button>
 <!-- 				   	<button class="btn btn-outline-secondary" id="noRegion">지역설정안함</button> -->
 				   	</div>
 				</div>
-				<div class="col-12 d-flex justify-content-center pt-3">
+				<div class="d-flex justify-content-center pt-3">
 				<c:if test="${empty resultMap.PRO_DATE && empty resultMap.AUC_DATE}">
 					<input type="hidden" id="addNo" value="">
-					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임">
-					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호">
+<!-- 					<input class="col-2 text-center" type="text" id="regionNick" value="" placeholder="주소닉네임"> -->
+<!-- 					<input class="col-1 text-center" type="text" id="regionCode" value="" placeholder="우편번호"> -->
 					<input class="col-7 text-center" type="text" id="inputRegion" value="" placeholder="거래지역 선택" readonly>
-					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력">
+<!-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="" placeholder="상세주소 입력"> -->
 				</c:if>
 				<c:if test="${!empty resultMap.PRO_DATE}">
 					<input type="hidden" id="addNo" value="${resultMap.PRO_ADDRESS}">
-					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임">
-					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호">
+<%-- 					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임"> --%>
+<%-- 					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호"> --%>
 					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
-					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력">
+<%-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력"> --%>
 				</c:if>
 				<c:if test="${!empty resultMap.AUC_DATE}">
 					<input type="hidden" id="addNo" value="${resultMap.AUC_ADDRESS}">
-					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임">
-					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호">
+<%-- 					<input class="col-2 text-center" type="text" id="regionNick" value="${resultMap.ADD_NICK}" placeholder="주소닉네임"> --%>
+<%-- 					<input class="col-1 text-center" type="text" id="regionCode" value="${resultMap.ADD_POST}" placeholder="우편번호"> --%>
 					<input class="col-7 text-center" type="text" id="inputRegion" value="${resultMap.ADD_NAME}" placeholder="거래지역 선택" readonly>
-					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력">
+<%-- 					<input class="col-2 text-center" type="text" id="detailRegion" value="${resultMap.ADD_DETAIL}" placeholder="상세주소 입력"> --%>
 				</c:if>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
+				<div class="col-12 d-flex justify-content-center mt-4">
 				   	<div>
 				   	<span>상품 상태</span>
 				   	<c:forEach var="ps" items="${productStatus}" varStatus="i">
@@ -239,7 +248,7 @@
 								    <label for="item${i.count}">${ps.CODE}</label>
 								</c:when>
 								<c:otherwise>
-								    <input name="itemStatus" id="item${i.count}" type="radio" value="${ps.CO_TYPE}${ps.CO_NO}">
+								    <input name="itemStatus" id="item${i.count}" type="radio" value="${ps.CO_TYPE}${ps.CO_NO}" checked>
 								    <label for="item${i.count}">${ps.CODE}</label>
 								</c:otherwise>
 							</c:choose>
@@ -253,24 +262,24 @@
 				<!-- 판매 구매일 때만 보일 것들 시작 -->
 				<div id="saleBuy">
 				<div class="row">
-				    <div>
-						<div class="input-group" style="width: 90%;" >
+				    <div class="mt-4" style="display: flex; justify-content: center;">
+						<div class="input-group" style="width: 75%;">
 						    <span class="input-group-text" id="basic-addon1">가격</span>
 						    <c:if test="${empty resultMap.PRO_DATE}">
-						    <input type="text" id="proPrice" class="form-control" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
+						    <input type="text" id="proPrice" class="form-control" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 							</c:if>
 							<c:if test="${!empty resultMap.PRO_DATE}">
-							<input type="text" id="proPrice" class="form-control" value="${resultMap.PRO_PRICE}" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1">
+							<input type="text" id="proPrice" class="form-control" value="${resultMap.PRO_PRICE}" placeholder="가격 입력" aria-label="ItemCost" aria-describedby="basic-addon1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');">
 							</c:if>
 						</div>
 			    	</div>
 		    	</div>
-		    	<div class="row">
+<!-- 		    	<div class="row"> -->
 <!-- 					<div class="mt-3"> -->
 <!-- 						<input name="offeredPrice" id="offeredPrice" type="checkbox" value="제안받기" checked> -->
 <!-- 					   	<label for="offeredPrice">가격 제안받기</label> -->
 <!-- 					</div> -->
-		    	</div>
+<!-- 		    	</div> -->
 		    	</div>
 		    	<!-- 판매 구매일 때만 보일 것들 끝 -->
 		    	<!-- 경매일 때만 보일 것들 시작 -->
@@ -332,8 +341,8 @@
 		    	<!-- 나눔일 때만 보일 것들 끝 -->
 		  	</div>
 		  	<hr>
-			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
+			<div class="row" style="display: flex; justify-content: center;">
+				<div class="mt-4" style="display: flex; flex-direction: column; width: 75%">
 				   	<div>
 					   	<span>배송비</span>
 					   	<div>
@@ -362,7 +371,8 @@
 					<textarea class="form-control" id="proContent" name="proContent" rows="5" cols="200" placeholder="${detailTxt.dTxt2}">${resultMap.AUC_CONTENT}</textarea>
 					</c:if>					
 				</div>
-				<span>0/2000</span>
+				<p class="textCount">0</p>
+				<p class="textTotal">/2000</p>
 				</div>
 			</div>
 			<hr>
@@ -395,15 +405,15 @@
 <!-- 		  	</div> -->
 <!-- 		  	<hr> -->
 		  	<div id="noDivide">
-			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
-					<div class="mb-3">
-						<input type="checkbox" id="payOk" value="payOk">
-						<label for="payOk">안전결제 환영</label>
-						<textarea class="form-control" id="itemPay" rows="5" cols="100" readonly>${detailTxt.dTxt1}</textarea>
-					</div>
-				</div>
-			</div>
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-12 d-flex justify-content-center"> -->
+<!-- 					<div class="mb-3"> -->
+<!-- 						<input type="checkbox" id="payOk" value="payOk"> -->
+<!-- 						<label for="payOk">안전결제 환영</label> -->
+<%-- 						<textarea class="form-control" id="itemPay" rows="5" cols="100" readonly>${detailTxt.dTxt1}</textarea> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 			</div>
 			<div class="row p-3" style="position: sticky; bottom: 0; z-index: 99999; background-color: black;">
 			    <div class="d-flex justify-content-evenly">
@@ -425,7 +435,8 @@
 			</div>
 		</div> <!-- border안  -->
 	</div>
-	</form>
+<!-- 	</form> -->
+	
 </div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

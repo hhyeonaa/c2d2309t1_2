@@ -129,15 +129,15 @@
       	  </div>
 	      <div class="form-group">
 	        <label for="birth">생년월일</label>
-	        <input type="text" id="birth" name="birth" placeholder="생년월일 8자리" required>
+	        <input type="text" id="birth" name="birth" placeholder="생년월일 숫자 8자리" required>
 	      </div>
 	       <div class="form-group">
 	        <label for="email">이메일</label><small id="emailCheck" style="text-align: right; float: right;"></small>
 	        <input type="email" id="email" name="email" placeholder="이메일 주소 (비밀번호 찾기 등 본인 확인용)">
 	      </div>
 	      <div class="form-group">
-	        <label for="phone">전화번호</label>
-	        <input type="text" id="phone" name="phone" placeholder="(하이픈(-) 제외 입력)">
+	        <label for="phone">전화번호</label><small id="phoneCheck" style="text-align: right; float: right;"></small>
+	        <input type="text" id="phone" name="phone" placeholder="(하이픈(-) 제외 10~11자리 입력)">
 	      </div>
 	     
 <!-- 		 <div class="form-group"> -->

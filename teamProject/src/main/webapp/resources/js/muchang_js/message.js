@@ -26,7 +26,8 @@ $(() => {
 			header:"코드내용",
 			filter:"text",
 		    sortable: true,
-		    editor: "text"
+		    editor: "text",
+		    width: "auto"
 		},  
 		{
 			name: columnTitle.활성여부_관리자,
@@ -46,7 +47,7 @@ $(() => {
 		}
 	]
 	
-	$("#grid").empty();
+//	$("#grid").empty();
 	
 	fn_grid("message_managePro", 5, columns, false);
 	excel('updownload', 'MESSAGE'); 
@@ -74,12 +75,9 @@ $(() => {
 		})	
 		.done(function(data){
 			if(data){
-//				alertMsg("", []);
-				console.log("성공");
-				$("#resetBtn").trigger("click");
-			} else {
-				console.log("실패");
-			}
+				$("#grid").empty();
+				fn_grid("message_managePro", 5, columns, false);
+			} 
 		})	  
 	})
  	
@@ -143,26 +141,3 @@ function insertTag(){
 		   '</div>';
 	
 }
-
-//	for(var i = 0; i < sliceText.length; i++){
-//		for(var j = 0; j < particles.length; j++){
-//			if(particles[j].length === 2 && sliceText[i].slice(-2) === particles[j]){
-//				sliceText[i] = "{" + index + "}" + particles[j];
-//				index++;
-//				continue;				
-//			} 
-//			
-//			if(particles[j].length === 1 && sliceText[i].slice(-1) === particles[j]){
-//				for(var k = 0; k < multiParticles.length; k++){
-//					if(multiParticles[k].includes(particles[j])){
-//						sliceText[i] = "{" + index + "}" + multiParticles[k];
-//						break;
-//					} else {
-//						sliceText[i] = "{" + index + "}" + particles[j];
-//					}
-//				}
-//				index++;
-//				continue;
-//			}
-//		}
-//	}

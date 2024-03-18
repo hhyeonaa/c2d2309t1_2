@@ -48,7 +48,7 @@ public class AdminService {
 	
 //	----- 무창 시작 -----
 	
-	public boolean codeInsert(List<Map<String, String>> result) {
+	public boolean codeInsert(Map<String, String> result) {
 		return adminDAO.codeInsert(result);
 	}
 	
@@ -86,29 +86,20 @@ public class AdminService {
 		return adminDAO.getMemberList();
 	}
 
-	public List<Map<String, String>> getContentboardList() {
-		return adminDAO.getContentboardList();
-	}
-
 	public boolean memberStop(List<Map<String, String>> dto) {
 		return adminDAO.memberStop(dto);
 	}
 	
-	public int cateContentDelete(String PRO_NO) {
-		return adminDAO.cateContentDelete(PRO_NO);
-	}
-
-	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
-		return adminDAO.getBoardCategoryList(param);
-	}
-
-	// 채팅 신고하기
-	public int insertReport(Map<String, String> map) {
-		return adminDAO.insertReport(map);
-	}
-	
 	public List<Map<String, String>> getReportList() {
 		return adminDAO.getReportList();
+	}
+	
+	public List<Map<String, String>> getContentboardList() {
+		return adminDAO.getContentboardList();
+	}
+	
+	public void boardUpdate(List<Map<String, String>> result) {
+		adminDAO.boardUpdate(result);
 	}
 
 	// ---- chart 시작 -----
@@ -124,12 +115,6 @@ public class AdminService {
 		return adminDAO.getTotalTradeList();
 	}
 
-	//---- chart 끝 -----
-	
-	public void boardUpdate(List<Map<String, String>> result) {
-		adminDAO.boardUpdate(result);
-	}
-	
 //	----- 성엽 끝 -----
 
 }

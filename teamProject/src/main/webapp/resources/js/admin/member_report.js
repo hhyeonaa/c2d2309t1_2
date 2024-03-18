@@ -27,7 +27,8 @@ $(() => {
 			name: "CODE",
 			header:"신고 종류",
 			filter:"text",
-		    sortable: true
+		    sortable: true,
+			width: "auto"
 		},
 		{
 			name: "RPT_TIME",
@@ -39,5 +40,6 @@ $(() => {
 
 	targetColor($("#member_report"));
 	fn_grid("member_reportPro", 5, columns);
+	excel('download', 'REPORT');
 	
 })

@@ -180,7 +180,6 @@ public class AdminController {
 	@PostMapping("/codeInsertPro")
 	@ResponseBody
 	public ResponseEntity<?> codeInsertPro(@RequestParam Map<String, String> param) {
-		System.out.println(param);
  		boolean isInsert = adminService.messageInsert(param);
  		return ResponseEntity.ok().body(isInsert);
 	}
@@ -197,8 +196,7 @@ public class AdminController {
 	@ResponseBody
 	public ResponseEntity<?> deleteMessage(@RequestParam Map<String, String> deletedRows) {
 		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
- 		boolean a = adminService.messageDelete(result);
- 		System.out.println(a);
+ 		adminService.messageDelete(result);
  		return null;
 	}
 	
@@ -220,17 +218,16 @@ public class AdminController {
  	public ResponseEntity<?> getCodePro(@RequestParam Map<String, String> param, HttpSession session){
 		List<Map<String, String>> data = codeService.selectCodeList(
 				EnumCodeType.코드내용.stringToEnumType(param.get("param")), session);
-		
- 		return ToastUI.resourceData(param, data);
+
+		return ToastUI.resourceData(param, data);
  	}
 	
-	@PostMapping("/codePro")//	post
+	@PostMapping("/codeListInsertPro")//	post
  	@ResponseBody
- 	public ResponseEntity<?> insertCodePro(@RequestBody String insertedRows) {
- 		List<Map<String, String>> result = ToastUI.getRealData(insertedRows);
- 		System.out.println(result);
- 		adminService.codeInsert(result);
- 		return null;
+ 	public ResponseEntity<?> insertCodePro(@RequestParam Map<String, String> param) {
+		System.out.println(param);
+ 		boolean isInsert = adminService.codeInsert(param);
+ 		return ResponseEntity.ok().body(isInsert);
  	}
 	
 	@PutMapping("/codePro")	//	put
@@ -257,10 +254,9 @@ public class AdminController {
 	
 	@DeleteMapping("/codePro")	//	delete
  	@ResponseBody
- 	public ResponseEntity<?> deleteCodePro(@RequestBody String deletedRows) {
+ 	public ResponseEntity<?> deleteCodePro(@RequestParam Map<String, String> deletedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(deletedRows);
- 		System.out.println(result);
-		adminService.codeDelete(result);
+ 		adminService.codeDelete(result);
  		return null;
  	}
 	
@@ -283,43 +279,20 @@ public class AdminController {
 	
 	/* 성엽 작업공간 */
 	
-	// 차트 이동
-	@GetMapping("/chart")
-	public String chart() {
-		return "admin/chart";
-	}
-	
-	@GetMapping("/member_report")
-	public String member_report(Model model) {
-		
-		List<Map<String, String>> reportList = adminService.getReportList();
-		
-		model.addAttribute("reportList", reportList);
-		
-		return "admin/member_report";
-	}
-	
-	@GetMapping("/member_reportPro") // READ
- 	@ResponseBody
- 	public ResponseEntity<?> member_reportPro(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> reportList = adminService.getReportList();
- 		return ToastUI.resourceData(req, reportList);
- 	}
-	
+	// 회원관리
 	@GetMapping("/member_manage")
 	public String member_manage() {
-		
 		return "admin/member_manage";
 	}
 	
-	@GetMapping("/member_managePro") // READ
+	@GetMapping("/member_managePro") // 불러오기
  	@ResponseBody
  	public ResponseEntity<?> select_member_managePro(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getMemberList();
  		return ToastUI.resourceData(req, mapList);
  	}
 	
-	@PutMapping("/member_managePro") // READ
+	@PutMapping("/member_managePro") // 업데이트
  	@ResponseBody
  	public ResponseEntity<?> update_member_managePro(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
@@ -327,43 +300,47 @@ public class AdminController {
  		return null;
 	}
 	
-	@GetMapping("/cateContentDelete")
-	@ResponseBody
-	public ResponseEntity<?> cateContentDelete(@RequestParam String PRO_NO) {
-		
-		Map<String, String> result = new HashMap<String, String>();
-		result.put("result", Integer.toString(adminService.cateContentDelete(PRO_NO)));
-		
-		return ResponseEntity.ok().body(result);
+	// 신고관리
+	@GetMapping("/member_report")
+	public String member_report() {
+		return "admin/member_report";
 	}
 	
+	@GetMapping("/member_reportPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> member_reportPro(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> reportList = adminService.getReportList();
+ 		return ToastUI.resourceData(req, reportList);
+ 	}
+	
+	// 글관리
 	@GetMapping("/board_content")
-	public String board_content(Model model) {
-		
-		List<Map<String, String>> contentList = adminService.getContentboardList();
-		
-		model.addAttribute("contentList", contentList);
-		
+	public String board_content() {
 		return "admin/board_content";
 	}
 	
-	@GetMapping("/board_contentPro") // READ
+	@GetMapping("/board_contentPro") // 불러오기
  	@ResponseBody
  	public ResponseEntity<?> select_board_contentPro(@RequestParam Map<String, String> req, HttpSession session){
  		List<Map<String, String>> contentList = adminService.getContentboardList();
  		return ToastUI.resourceData(req, contentList);
  	}
 	
-	@PutMapping("/board_contentPro") // READ
+	@PutMapping("/board_contentPro") // 업데이트
  	@ResponseBody
- 	public ResponseEntity<?> delete_board_contentPro(@RequestBody String updatedRows) {
+ 	public ResponseEntity<?> update_board_contentPro(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
  		System.out.println(result);
  		adminService.boardUpdate(result);
  		return null;
  	}
 	
-	// chart
+	// 통계
+	@GetMapping("/chart")
+	public String chart() {
+		return "admin/chart";
+	}
+	
 	@GetMapping("/getChartData")
  	@ResponseBody
  	public ResponseEntity<?> getChartData(@RequestParam Map<String, String> param){

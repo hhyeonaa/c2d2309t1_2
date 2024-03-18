@@ -63,6 +63,16 @@ $(() => {
 		
 		$("#submitBtn").trigger("click");
 	})
+	
+	$("#writeBoardPage").on("click", function(){
+		if($(".id_session").val() === ''){
+			alertMsg("AM26", ["로그인"]);
+			return;	
+		}
+		
+		location.href = "/" + window.location.pathname.split("/")[1] + "/board/writeBoard";
+	})
+	
 })
 
 function header(data, url){
@@ -87,7 +97,10 @@ var headerSelect2 = function(tag){
     		"noResults": function (params) {
       			return "<b style='color:rgb(220, 20, 60, 0.5);'>찾을 수 없어요 :(</b>";
     		}
-  		}
+  		},
+  		escapeMarkup: function (markup) {
+        	return markup;
+    	}
 	})	
 }
 

@@ -38,17 +38,17 @@
 					<span class="productPrice">${payProList.PRO_PRICE }원</span>
                 </div>
             </div>
-            <hr class="sechr">
-			<div class="d-flex Selecttransaction">
-				<div class="form-check flex-fill">
-				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-				    <label class="form-check-label" for="radio1">택배거래</label>
-				</div>
-				<div class="form-check flex-fill">
-				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-				    <label class="form-check-label" for="radio2">직거래</label>
-				</div>
-			</div>
+<!--             <hr class="sechr"> -->
+<!-- 			<div class="d-flex Selecttransaction"> -->
+<!-- 				<div class="form-check flex-fill"> -->
+<!-- 				    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked> -->
+<!-- 				    <label class="form-check-label" for="radio1">택배거래</label> -->
+<!-- 				</div> -->
+<!-- 				<div class="form-check flex-fill"> -->
+<!-- 				    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2"> -->
+<!-- 				    <label class="form-check-label" for="radio2">직거래</label> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 	</section>		
             <hr>
     <section class="DefaultPayment__Section-sc-64075s-3 gNplro">        
@@ -298,7 +298,7 @@
 									<label for="address-tel" class="text__label">연락처</label>
 								</div>
 								<div class="box__input box__text-area" style="display: block;  width: 470px;">
-									<input class="input_txt"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="11" placeholder="연락가능한 연락처를 입력해주세요">
+									<input class="input_txt" onblur="checkPhone()"  name="ADD_PHONE" id="address-tel" value="${addUpList.ADD_PHONE }"  maxlength="11" placeholder="연락가능한 연락처를 입력해주세요">
 								</div>
 							</div>
 
@@ -321,7 +321,7 @@
 								<div class="box__form-control new-address__detail" id="newaddress" style="display: flex; flex-direction: row; justify-content: space-between;">
 									<div></div>
 									<div class="box__input box__text-area" style="display: block; width: 470px;">
-										<input class="input_txt" name="ADD_DETAIL" id="address-detail" maxlength="50" value="${addUpList.ADD_DETAIL }" >
+										<input class="input_txt" name="ADD_DETAIL" id="address-detail" placeholder="상세주소 입력" maxlength="50" value="${addUpList.ADD_DETAIL }" >
 									</div>
 								</div>
 <%-- 						</c:if>	 --%>

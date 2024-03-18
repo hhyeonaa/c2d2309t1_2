@@ -78,6 +78,7 @@
 		 	<input type="hidden" id="proTc" value="${resultMap.PRO_TC}">
 		 	<input type="hidden" id="proWr" value="${resultMap.PRO_WR}">
 		 	<input type="hidden" id="proDate" value="${resultMap.PRO_DATE}">
+		 	<input type="hidden" id="memId" value="${sessionScope.MEM_ID}">
 		 		<table>
 		 			<tr><th>${resultMap.PRO_NAME}</th>
 		 				<c:if test="${sessionScope.MEM_ID eq resultMap.PRO_WR}">
@@ -131,7 +132,7 @@
 		 			</tr>
 		 			<tr>
 		 				<td>거래지역:</td>
-		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.ADD_NAME}</td>
+		 				<td colspan="2"><i class="bi bi-building-check"></i>${resultMap.PRO_ADDRESS}</td>
 		 				<td></td>
 		 			</tr>	
 		 			<tr>
@@ -152,8 +153,12 @@
 			 					</button>
 		 					</c:if>
 		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
-		 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
-		 						<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
+		 					<c:if test="${sessionScope.MEM_ID ne null}">
+		 					<c:if test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
+			 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
+			 						<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
+			 					</c:if>
+		 					</c:if>
 		 					</c:if>
 		 				</td>
 <!-- 			 			<td><button class="btn btn-danger btn-lg">찜</button></td> -->
@@ -183,7 +188,7 @@
 		 	<div style="width: 70%; height: auto;">
 		 		<table class="table">
 		 			<tr><td colspan="6">상품 상세 정보</td><tr>
-		 			<tr><td colspan="6"><textarea rows="5" cols="100" readonly>${resultMap.PRO_CONTENT}</textarea></td></tr>
+		 			<tr><td colspan="6"><textarea rows="10" cols="90" readonly>${resultMap.PRO_CONTENT}</textarea></td></tr>
 		 			<tr style="text-align: center;">
 		 				<td colspan="3"></td>
 		 				<td colspan="3"></td>
@@ -203,7 +208,7 @@
 		 			<tr><td colspan="2">게시자 정보</td></tr>
 		 			<tr>
 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 60px; height: 60px;"></td>
-		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)<br>(<small>신뢰도 9.9</small>)</td>
+		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)</td>
 		 				<input type="hidden" class="memNo" value="${resultMap.PRO_WR}">
 		 			</tr>
 		 			<tr>
@@ -226,9 +231,9 @@
 		 					<div class="img-innertext"><span>10000원</span></div>
 		 				</td>
 		 			</tr>
-		 			<tr>
-		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td>
-		 			</tr>
+<!-- 		 			<tr> -->
+<!-- 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td> -->
+<!-- 		 			</tr> -->
 <!-- 		 			<tr> -->
 <!-- 		 				<td colspan="2">게시자 후기</td> -->
 <!-- 		 			</tr> -->

@@ -75,7 +75,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		e.preventDefault();
     	$('.modalBox').html('');
     	additionalImages = [];
-		$(".modal").toggle();
+		$(".imgModal").toggle();
 	});
 	
 	// 나눔 신청자에게 채팅하기
@@ -115,6 +115,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	$('#shareApplication').on('click',function(){
 		var memId = $('#memId').val();
 		if(memId === ''){
+			alertMsg("AM23", ["로그인 후"]);
 			return;
 		}
 		var values = [];

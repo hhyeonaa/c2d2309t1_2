@@ -12,6 +12,25 @@ header {
 
 }
 
+.PRO_STATE_TM1 {
+	background-color: #0AC304 !important;
+	color: white;
+}
+
+.PRO_STATE_TM2 {
+	background-color: #EFB100 !important;
+	color: white;
+}
+
+.PRO_STATE_TM3 {
+	background-color: #E30000 !important;
+	color: white;
+}
+
+#writeBoardPage:active{
+	border: 0 !important;
+}
+
 .row {
 	width: 1080px;
 }
@@ -104,7 +123,7 @@ p {
 .card img {
 	border: 1px; 
 	height: 250px; 
-	width: 250px;
+	width: 248px;
 }
 
 .card-body {

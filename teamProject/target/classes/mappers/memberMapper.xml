@@ -96,6 +96,12 @@
 		where MEM_NICK = #{MEM_NICK}
 	</select>
 	
+	<select id="phoneCheck" resultType="int">
+		select count(MEM_TEL)
+		from MEMBERS
+		where MEM_TEL = #{MEM_TEL}
+	</select>
+	
 	<select id="emailCheck" resultType="int">
 		select count(MEM_EMAIL)
 		from MEMBERS
@@ -121,12 +127,9 @@
 			 , M.MEM_NICK
 			 , M.MEM_TEL
 			 , CAST(MEM_BIRTH AS date) MEM_BIRTH
-			 , S.SCO_SCORE
 			 , M.MEM_CAT
 			 , M.MEM_REDATE
 		from MEMBERS M
-		left outer join SCORE S
-		on M.MEM_NO = S.MEM_NO
 		where 1 = 1
 		and M.MEM_ID = #{MEM_ID}
 	</select>
@@ -163,7 +166,7 @@
              , I.IMG_NAME
 		from MEMBERS M
 		join PRODUCT P
-		on M.MEM_ID = P.PRO_WR
+        on M.MEM_ID = P.PRO_WR
         join CODE C1
         on P.PRO_TC = concat(C1.CO_TYPE, C1.CO_NO)
         join CODE C2
@@ -173,7 +176,7 @@
         where concat(C1.CO_TYPE, C1.CO_NO) = 'MM1'
         and M.MEM_ID = #{MEM_ID}
         and I.IMG_NO = '1'
-        order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+        order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc; 
 	</select>
 	
 	<select id="myListBuy" parameterType="map" resultType="map">
@@ -223,7 +226,7 @@
         where concat(C1.CO_TYPE, C1.CO_NO) = 'MM3'
         and M.MEM_ID = #{MEM_ID}
         and I.IMG_NO = '1'
-        order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc;
+        order by P.PRO_TSC, cast(trim(leading 'PR' from PRO_NO) as unsigned) desc
 	</select>
 	
 	<select id="myListAuction" parameterType="map" resultType="map">

@@ -229,7 +229,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	          console.error('조회수 증가 요청 실패');
 	        }
 	      },
-	      error: function() {
+	      error: function() { 
 	        console.error('조회수 증가 요청 실패');
 	      }
 	    });

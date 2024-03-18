@@ -287,7 +287,7 @@ public class BoardController {
 	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
 	        imageFilenames.add(fileName);
-	        File destFile = new File(realPath + "\\" + fileName);
+	        File destFile = new File(realPath, fileName);
 	        img.transferTo(destFile); // 파일 저장
 	        System.out.println("Saved file: " + fileName + " to " + realPath);
 	    }
@@ -360,7 +360,7 @@ public class BoardController {
 	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
 	        imageFilenames.add(fileName);
-	        File destFile = new File(realPath + "\\" + fileName);
+	        File destFile = new File(realPath, fileName);
 	        img.transferTo(destFile); // 파일 저장
 	        System.out.println("Saved file: " + fileName + " to " + realPath);
 	    }
@@ -403,8 +403,10 @@ public class BoardController {
         // 글번호 가지고 이미지 테이블에서 이미지 삭제(실제 이미지도 삭제)
         String path = request.getRealPath("/resources/img/uploads");
 		System.out.println("경로: " + path);
+		
 		Map<String, String> delMap = new HashMap<>();
 		delMap.put("aucNo", aucNo);
+		
 		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
 		ArrayList<String> oldImgList = new ArrayList();
 		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));

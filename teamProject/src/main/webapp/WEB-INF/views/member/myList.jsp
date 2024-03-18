@@ -42,14 +42,10 @@
 		      	   alt="${myListSell.IMG_NAME}" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'" style="width: 250px; height: 250px;">
 		      </a>
 		      <div class="card-body">
-		      	<a href="${pageContext.request.contextPath}/boardDetail?proWr=${map['PRO_WR']}&proDate=${map['PRO_DATE']}">
 			      	<span class="state1" >${myListSell.TC_NAME}</span>
-			      	<span class="state2" id="state_${myListSell.PRO_TSC}">${myListSell.TSC_NAME}</span>
-			      	<span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
-<!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
+			      	<span class="state2" id="PRO_STATE_${myListSell.PRO_TSC}">${myListSell.TSC_NAME}</span>
 			      <p class="nameP">${myListSell.PRO_NAME}</p>
 				  <h5><b>${myListSell.PRO_PRICE}원</b></h5>
-				</a>
 		      </div>
 		    </div>
 		  </div>
@@ -77,9 +73,8 @@
 		      </a>
 		      <div class="card-body">
 			      <span class="state1">${myListBuy.TC_NAME}</span>
-			      <span class="state2" id="state_${myListBuy.PRO_TSC}">${myListBuy.TSC_NAME}</span>
-			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
-<!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
+			      <span class="state2" id="PRO_STATE_${myListBuy.PRO_TSC}">${myListBuy.TSC_NAME}</span>
+			      <span style="float: right; font-size: 23px;"></span> 
 			      <p class="nameP">${myListBuy.PRO_NAME}</p>
 				  <h5><b>${myListBuy.PRO_PRICE}원</b></h5>
 		      </div>
@@ -108,9 +103,7 @@
 		      </a>
 		      <div class="card-body">
 			      <span class="state1">${myListShare.TC_NAME}</span>
-			      <span class="state2" id="state_${myListShare.PRO_TSC}">${myListShare.TSC_NAME}</span>
-			      <span style="float: right; font-size: 23px;"><ion-icon name="heart-outline"></ion-icon></span> <!-- 빈 하트 -->
-<!-- 	 		      <ion-icon name="heart-sharp"></ion-icon>  -->
+			      <span class="state2" id="PRO_STATE_${myListShare.PRO_TSC}">${myListShare.TSC_NAME}</span>
 			      <p class="nameP">${myListShare.PRO_NAME}</p>
 				  <h5><b>${myListShare.PRO_PRICE}원</b></h5>
 		      </div>

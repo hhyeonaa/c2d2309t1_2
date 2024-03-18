@@ -90,6 +90,10 @@ public class AdminService {
 		return adminDAO.memberStop(dto);
 	}
 	
+	public List<Map<String, String>> insertReport(Map<String, String> map) {
+		return adminDAO.insertReport(map);
+	}
+	
 	public List<Map<String, String>> getReportList() {
 		return adminDAO.getReportList();
 	}

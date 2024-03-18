@@ -90,6 +90,10 @@ public class AdminDAO {
 	public boolean memberStop(List<Map<String, String>> dto) {
 		return sqlSession.update(namesqace + "memberStop", dto) == 1 ? true : false;
 	}
+	
+	public List<Map<String, String>> insertReport(Map<String, String> map) {
+		return sqlSession.selectList(namesqace + "insertReport", map);
+	}
 
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");

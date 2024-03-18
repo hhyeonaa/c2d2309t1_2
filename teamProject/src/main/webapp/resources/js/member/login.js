@@ -66,7 +66,7 @@ function loginWithKakao() {
                         alert(JSON.stringify(error))
                     },
                 })
-            },
+            }, 
             fail: function (error) {
                 alert(JSON.stringify(error))
             },

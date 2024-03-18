@@ -279,39 +279,20 @@ public class AdminController {
 	
 	/* 성엽 작업공간 */
 	
-	// 차트 이동
-	@GetMapping("/chart")
-	public String chart() {
-		return "admin/chart";
-	}
-	
-	@GetMapping("/member_report")
-	public String member_report(Model model) {
-		List<Map<String, String>> reportList = adminService.getReportList();
-		model.addAttribute("reportList", reportList);
-		return "admin/member_report";
-	}
-	
-	@GetMapping("/member_reportPro") // READ
- 	@ResponseBody
- 	public ResponseEntity<?> member_reportPro(@RequestParam Map<String, String> req){
- 		List<Map<String, String>> reportList = adminService.getReportList();
- 		return ToastUI.resourceData(req, reportList);
- 	}
-	
+	// 회원관리
 	@GetMapping("/member_manage")
 	public String member_manage() {
 		return "admin/member_manage";
 	}
 	
-	@GetMapping("/member_managePro") // READ
+	@GetMapping("/member_managePro") // 불러오기
  	@ResponseBody
  	public ResponseEntity<?> select_member_managePro(@RequestParam Map<String, String> req){
  		List<Map<String, String>> mapList = adminService.getMemberList();
  		return ToastUI.resourceData(req, mapList);
  	}
 	
-	@PutMapping("/member_managePro") // READ
+	@PutMapping("/member_managePro") // 업데이트
  	@ResponseBody
  	public ResponseEntity<?> update_member_managePro(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
@@ -319,43 +300,47 @@ public class AdminController {
  		return null;
 	}
 	
-	@GetMapping("/cateContentDelete")
-	@ResponseBody
-	public ResponseEntity<?> cateContentDelete(@RequestParam String PRO_NO) {
-		
-		Map<String, String> result = new HashMap<String, String>();
-		result.put("result", Integer.toString(adminService.cateContentDelete(PRO_NO)));
-		
-		return ResponseEntity.ok().body(result);
+	// 신고관리
+	@GetMapping("/member_report")
+	public String member_report() {
+		return "admin/member_report";
 	}
 	
+	@GetMapping("/member_reportPro")
+ 	@ResponseBody
+ 	public ResponseEntity<?> member_reportPro(@RequestParam Map<String, String> req){
+ 		List<Map<String, String>> reportList = adminService.getReportList();
+ 		return ToastUI.resourceData(req, reportList);
+ 	}
+	
+	// 글관리
 	@GetMapping("/board_content")
-	public String board_content(Model model) {
-		
-		List<Map<String, String>> contentList = adminService.getContentboardList();
-		
-		model.addAttribute("contentList", contentList);
-		
+	public String board_content() {
 		return "admin/board_content";
 	}
 	
-	@GetMapping("/board_contentPro") // READ
+	@GetMapping("/board_contentPro") // 불러오기
  	@ResponseBody
  	public ResponseEntity<?> select_board_contentPro(@RequestParam Map<String, String> req, HttpSession session){
  		List<Map<String, String>> contentList = adminService.getContentboardList();
  		return ToastUI.resourceData(req, contentList);
  	}
 	
-	@PutMapping("/board_contentPro") // READ
+	@PutMapping("/board_contentPro") // 업데이트
  	@ResponseBody
- 	public ResponseEntity<?> delete_board_contentPro(@RequestBody String updatedRows) {
+ 	public ResponseEntity<?> update_board_contentPro(@RequestBody String updatedRows) {
  		List<Map<String, String>> result = ToastUI.getRealData(updatedRows);
  		System.out.println(result);
  		adminService.boardUpdate(result);
  		return null;
  	}
 	
-	// chart
+	// 통계
+	@GetMapping("/chart")
+	public String chart() {
+		return "admin/chart";
+	}
+	
 	@GetMapping("/getChartData")
  	@ResponseBody
  	public ResponseEntity<?> getChartData(@RequestParam Map<String, String> param){

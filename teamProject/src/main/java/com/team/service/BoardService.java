@@ -154,5 +154,25 @@ public class BoardService {
 		return boardDAO.selectMyBoard(param);
 	}// selectMyBoard()
 
+	public List<Map<String, String>> selectTempBoard(String id) {
+		System.out.println("BoardService selectTempBoard()");
+		return boardDAO.selectTempBoard(id);
+	}// selectTempBoard()
+
+	public String getAllBoardCount(Map<String, String> map) {
+		System.out.println("BoardService getAllBoardCount()");
+		return boardDAO.getAllBoardCount(map);
+	}// getAllBoardCount()
+
+	public List<Map<String, String>> getAllBoard(Map<String, String> map) {
+		System.out.println("BoardService getAllBoard()");
+		return boardDAO.getAllBoard(map);
+	}// getAllBoard()
+
+	public boolean increaseViewCount(Map<String, String> param) {
+		System.out.println("BoardService increaseViewCount()");
+		return boardDAO.increaseViewCount(param);
+	}// increaseViewCount()
+
 
 }// BoardService 끝

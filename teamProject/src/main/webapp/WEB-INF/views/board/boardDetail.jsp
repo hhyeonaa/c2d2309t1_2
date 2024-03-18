@@ -38,12 +38,12 @@
 			  	<c:forEach var="img" items="${imgList}" varStatus="status">
 			  		<c:if test="${status.index eq 0}">
 			  			<div class="carousel-item active">
-					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 					    </div>
 			  		</c:if>
 			  		<c:if test="${status.index ne 0}">
 			  			<div class="carousel-item">
-					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 					    </div>
 			  		</c:if>
 <!-- 			  		<div class="carousel-item"> -->
@@ -173,7 +173,7 @@
 					<tr><td colspan="7">연관상품</td><tr><!-- GET_RELATED_PRODUCTS -->
 					<tr>
 						<c:forEach var="img" items="${relatedImg}">
-							<td><a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${img.PRO_WR}&proDate=${img.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/no-pictures.png'"></a></td>
+							<td><a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${img.PRO_WR}&proDate=${img.PRO_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a></td>
 						</c:forEach>
 <%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
 <%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
@@ -207,46 +207,28 @@
 		 		<table class="table" style="text-align: center;">
 		 			<tr><td colspan="2">게시자 정보</td></tr>
 		 			<tr>
-		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 60px; height: 60px;"></td>
-		 				<td>${resultMap.PRO_WR}<br>(<small>상품 133</small>)</td>
+		 				<td><img src="${pageContext.request.contextPath}/resources/img/uploads/${resultMap.MEM_IMAGE}" style="width: 60px; height: 60px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></td>
+			     		<td>${resultMap.PRO_WR}<br>(<small>상품 ${resultMap.count}</small>)</td>
 		 				<input type="hidden" class="memNo" value="${resultMap.PRO_WR}">
 		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>
-		 			<tr>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 				<td class="center-align">
-		 					<img alt="" src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 150px; height: 150px;">
-		 					<div class="img-innertext"><span>10000원</span></div>
-		 				</td>
-		 			</tr>
-<!-- 		 			<tr> -->
-<!-- 		 				<td colspan="2"><button class="btn btn-outline-secondary" style="width: 40%;">상품 더보기</button></td> -->
-<!-- 		 			</tr> -->
-<!-- 		 			<tr> -->
-<!-- 		 				<td colspan="2">게시자 후기</td> -->
-<!-- 		 			</tr> -->
-<!-- 		 			<tr> -->
-<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
-<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
-<!-- 		 			</tr> -->
-<!-- 		 			<tr> -->
-<%-- 		 				<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 50px; height: 50px;"><br>홍길동</td> --%>
-<!-- 		 				<td>포장이 깔끔해요.상품 설명과 실제 상품이 동일해요.배송이 빨라요.<br>2023.12.26</td> -->
-<!-- 		 			</tr> -->
-<!-- 		 			<tr><td colspan="2"><button class="btn btn-outline-secondary">후기 더보기</button></td></tr> -->
 		 		</table>
+				 <div style="display: flex; flex-wrap: wrap;">
+				   <c:forEach var="board" items="${allBoard}">
+				     <div style="width: 50%; padding: 5px; box-sizing: border-box;">
+				     	<c:if test="${board.TABLENAME eq 'PRODUCT'}">
+				     		<c:if test="${board.TRADE eq 'MM3'}">
+					      	 <a href="${pageContext.request.contextPath}/board/divideDetail?proWr=${board.WRITER}&proDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: 100%;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
+				     		</c:if>
+				     		<c:if test="${board.TRADE ne 'MM3'}">
+					      	 <a href="${pageContext.request.contextPath}/board/boardDetail?proWr=${board.WRITER}&proDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: 100%;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
+				     		</c:if>
+				     	</c:if>
+				     	<c:if test="${board.TABLENAME eq 'AUCTION'}">
+				      	 <a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${board.WRITER}&aucDate=${board.POSTING_DATE}"><img alt="" src="${pageContext.request.contextPath}/resources/img/uploads/${board.IMG_NAME}" style="width: 100%; height: 100%;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
+				     	</c:if>
+				     </div>
+				   </c:forEach>
+				 </div>
 		 	</div>
 		</div>
 		

@@ -2,7 +2,6 @@ document.write('<script type="text/javascript"' +
                     'src="/' + window.location.pathname.split("/")[1] + '/resources/js/common/alertMessage.js">' +
                '</script>'); 
 // 배송지(연락처) 입력 유효성
-//var phoneRegex =/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;        
 $("#address-tel").on("keyup", function(e){
 	var partton = /[^0-9]/g;
 	if(partton.test($(this).val())){
@@ -10,29 +9,7 @@ $("#address-tel").on("keyup", function(e){
 			$("#address-tel").val(value);
 		}
 }) 
-//function checkPhone(TEL) {
-//	var phone = $("#address-tel").val();
-//	if(phoneRegex.test(phone)){
-//		return true;
-//	}
-//	return false;
-//}      
-// 1-1 거래방식 선택 +  배송료 , 최종금액 관련함수
-//function selectMethod(){
-//	$("input[name='optradio']").change(function () {
-//	//var deliprice = parseInt($('.kzWuNm').text().trim().match(/\d+/)[0]);
-//	//var prodprice = parseInt($('#prodprice').text().trim().match(/\d+/)[0]);
-//		if($("input[name='optradio']:checked").val() == 'option2'){
-//			$('.Deliveryaddress').hide();
-//			//$('.NBdoU').hide();//배송료 +3000
-//			//$("#allPrice").text(prodprice);
-//			return;
-//		}
-//		//$("#allPrice").text(prodprice + deliprice);
-//		$('.Deliveryaddress').show();
-//		//$('.NBdoU').show();
-//	})
-//}
+
 // 10 결제완료 후 상품상태 TM1 > TM2 update (확인O)
 function payProUpdate(a){
 	$.ajax({
@@ -81,7 +58,8 @@ var requestPay = (pgId) => {
 				    };
 				    const merchant_uid = make_merchant_uid()
 			        
-					var price = parseInt($("#totalprice").text().replace("원","").trim());//결제금액   
+					var priceString = $("#totalprice").text().replace("원", "").replace(/,/g, "").trim(); 
+					var price = parseInt(priceString);
 			        var productname = $("#payProName").text().trim();//제품name
 
 			        //var msg = $('#selectDel option:selected').text();
@@ -90,7 +68,7 @@ var requestPay = (pgId) => {
 						pg: pgId, 
 			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
 			  			name: productname, //상품명 // PRO_NAME
-				 		amount: 100, // 결제금액 price //PAID_AMOUNT
+				 		amount: price, // 결제금액 price //PAID_AMOUNT
 			  			buyer_name: data.BUYNAME, //결제자 이름 
 			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
 			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
@@ -395,7 +373,6 @@ $('#applePay').on('click', () => {
 		var post = $('input[name=ADD_POST]').val();
 		var addname = $('input[name=ADD_NAME]').val();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
-		debugger;
 		if(addnick == ''){
 			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
@@ -441,18 +418,15 @@ $('#applePay').on('click', () => {
 			},
 			async: false,
 			success:function(result){
-				debugger;
 				if(result == 1){
 					$("#staticBackdrop1").modal("hide");
 				}			
 			},
 			fail:function(){
-				debugger;
 				//alert("주소수정실패!");
 				$("#staticBackdrop1").modal("hide");
 			}
 		})//ajax
-		debugger;
 		$("#staticBackdrop1").modal("hide");
 		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
@@ -517,14 +491,12 @@ $('#applePay').on('click', () => {
 			},
 			async: false,	
 			success:function(result){
-				debugger;
 				if(result == 1){
 					$("#staticBackdrop1").modal("hide");
 //					$("#staticBackdrop").modal("show");
 				}			
 			},
 			fail:function(){
-				debugger;
 				//alert("주소추가실패!");
 				$("#staticBackdrop1").modal("hide");
 			}	
@@ -564,7 +536,7 @@ $('#applePay').on('click', () => {
 		
 	});
 	
-	//모달2 이벤트
+	//모달2  키 관련 이벤트
 	$('#staticBackdrop').on('show.bs.modal', function(){
 		 // 엔터 키를 누르면 다음 입력 필드로 포커스 이동
 	    $('.modal-body input').keypress(function(e) {

@@ -68,8 +68,8 @@ public class PayController {
 		//상품정보
 		Map<String, String> payProList = payService.getPayProList(map);
 		System.out.println("payProList" + payProList);
-		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
-		model.addAttribute("payPrice",payPrice);
+//		int payPrice = Integer.parseInt(payProList.get("PRO_PRICE"));
+//		model.addAttribute("payPrice",payPrice);
 		model.addAttribute("payProList",payProList);
 		
 		//배송요청사항 SELECT (공통코드)

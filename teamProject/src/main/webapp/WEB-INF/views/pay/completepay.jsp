@@ -26,7 +26,7 @@
 							</div>
 							<div class="productImg">
 								<img src="${pageContext.request.contextPath}/resources/img/uploads/${completePay.IMG_NAME}" alt="${completePay.IMG_NAME}"
-									 onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+									 onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 							</div>
 						</div>
 						
@@ -43,10 +43,6 @@
 								<span class="infoTit">결제 날짜</span>
 								<span class="infocnt">${completePay.PAY_TIME}</span>
 							</div>
-<!-- 							<div class="infoBoxStyle1"> -->
-<!-- 								<span class="infoTit">결제 내용</span> -->
-<!-- 								<span class="infocnt">택배거래 ???페이</span> -->
-<!-- 							</div> -->
 							<div class="infoBoxStyle1">
 								<span class="infoTit">결제 금액</span>
 								<span class="infocnt">${completePay.PAID_AMOUNT}원</span>

@@ -44,21 +44,23 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
         console.log('이미지 배열: ' + additionalImages);
 
         // 캐러셀 구조 및 컨트롤러 추가
-        let modalContent = `<div id="modalCarousel" class="carousel slide" >
-                                <div class="carousel-inner">
-                                	<div class="carousel-item active">
-		                                <img id="selectImg" src="" class="d-block w-100" alt="Slide 1">
-		                            </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>`;
+		let modalContent = `<div id="modalCarousel" class="carousel slide">
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <div style="position: relative; width: 800px; height: 800px; margin: 0 auto;">
+		        <img id="selectImg" src="" class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Slide 1">
+		        <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
+		          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		          <span class="visually-hidden">Previous</span>
+		        </button>
+		        <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%);">
+		          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		          <span class="visually-hidden">Next</span>
+		        </button>
+		      </div>
+		    </div>
+		  </div>
+		</div>`;
         // 모달 내용 업데이트 및 표시
         $('.modalBox').html(modalContent);
         $(".imgModal").show();

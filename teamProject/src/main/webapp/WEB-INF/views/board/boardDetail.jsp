@@ -154,7 +154,7 @@
 		 					<button class="btn btn-warning btn-lg startChatBtn">채팅</button>
 		 					<c:if test="${sessionScope.MEM_ID ne null}">
 		 					<c:if test="${sessionScope.MEM_ID ne resultMap.PRO_WR}">
-			 					<c:if test="${resultMap.PRO_TSC eq 'TM1'}">
+			 					<c:if test="${resultMap.PRO_TSC eq 'TM1' && resultMap.PRO_TC ne 'MM2'}">
 			 						<button class="btn btn-success btn-lg" onclick="location.href ='${pageContext.request.contextPath}/pay/payment?buyer=${sessionScope.MEM_ID}&proWr=${resultMap.PRO_WR}&proDate=${resultMap.PRO_DATE}'">바로구매</button>
 			 					</c:if>
 		 					</c:if>

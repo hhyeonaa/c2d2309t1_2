@@ -50,7 +50,7 @@
 	                    <span class="state2 PRO_STATE_${map.PRO_TSC}">${map.PRO_TSC_CODE}</span>
 	                    <span style="float: right; font-size: 23px;">
 					      <a id=likeBtn class="profile_btn">
-			 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon> 
+<!-- 			 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon>  -->
 					      </a>
 	                    </span>
 	                    <br>

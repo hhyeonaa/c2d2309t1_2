@@ -711,6 +711,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	$('#updateBtn').on('click',function(e){
 		e.preventDefault();
+		var proPrice = $('#proPrice').val();
+		var fmPrice = proPrice.replace(/,/g, '');
 		var contextPath = getContextPath();
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		var resultList = []; // 결과를 저장할 배열입니다.
@@ -720,7 +722,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proName: $('#proName').val(),
 		    proWr: $('#proWr').val(),
 		    proDate: $('#proDate').val(),
-		    proPrice: $('#proPrice').val(),
+		    proPrice: fmPrice,
 		    proTc: $('#proTc').val(),
 			proTsc: proTsc,
 		    proCate: $('#category1').val(),

@@ -9,7 +9,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	var proWr = $('#proWr').val();
 	var proDate = $('#proDate').val();
-	increaseViewCount(proWr,proDate);
+	var proNo = $('#proNo').val();
+	increaseViewCount(proWr,proDate,proNo);
 	
 
 //	$(".carousel-item img").click(function(){
@@ -206,8 +207,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		alertMsg('AM23', ["로그인 후"]); 
 	});
 	
-	function increaseViewCount(proWr,proDate) {
-	  var viewedCookie = getCookie('viewed_' + proWr);
+	function increaseViewCount(proWr,proDate,proNo) {
+	  var viewedCookie = getCookie('viewed_' + proNo);
 	
 	  if (viewedCookie === '') {
 	    // 쿠키가 없으면 조회수 증가 요청을 서버로 전송
@@ -221,7 +222,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	      success: function(response) {
 	        if (response) {
 	          // 조회수 증가 요청이 성공했을 때 쿠키 설정
-	          setCookie('viewed_' + proWr, 'true', 1);
+	          setCookie('viewed_' + proNo, 'true', 1);
 	        } else {
 	          console.error('조회수 증가 요청 실패');
 	        }

@@ -66,14 +66,14 @@ var requestPay = (pgId) => {
 			        
 			       	IMP.request_pay({
 						pg: pgId, 
-			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호 //MERCHANT_UID
-			  			name: productname, //상품명 // PRO_NAME
-				 		amount: price, // 결제금액 price //PAID_AMOUNT
+			  			merchant_uid: "PAY"+merchant_uid, // 상점에서 생성한 고유 주문번호
+			  			name: productname, //상품명
+				 		amount: price, // 결제금액 price
 			  			buyer_name: data.BUYNAME, //결제자 이름 
-			  			buyer_tel: data.BUYTEL, //결제자 연락처 //BUYER_TEL
-			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 //BUYER_ADDR
-			  			buyer_postcode: $("#addPost").text() // 배송우편번호 //BUYER_POSTCODE
-					}, function (rsp) { // callback 로직
+			  			buyer_tel: data.BUYTEL, //결제자 연락처 
+			  			buyer_addr: $("#addName").text() + $("#addDetail").text(), // 배송주소 
+			  			buyer_postcode: $("#addPost").text() // 배송우편번호
+					}, function (rsp) { // callback
 			  			if(rsp.success){ //결제 성공
 							rsp["SELLER_NO"] = data.SELLER;
 							rsp["BUYER_NO"] = $('#MEM_NOreal').val();

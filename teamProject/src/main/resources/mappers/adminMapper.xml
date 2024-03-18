@@ -29,7 +29,7 @@
 			, #{AD_NAME}
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 			, '1'
-			, 'RO3')
+			, 'RO2')
 	</insert>
 	
 	<select id="getAdminList" resultType="map">

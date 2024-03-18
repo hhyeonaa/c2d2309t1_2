@@ -657,13 +657,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/auctionDetail")
-	public String auctionDetail(HttpServletRequest request,Model model) {
+	public String auctionDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController auctionDetail()");
 		String aucSeller = request.getParameter("aucSeller");
 		String aucDate = request.getParameter("aucDate");
 		Map<String, String> map = new HashMap<>();
 		map.put("aucSeller", aucSeller);
 		map.put("aucDate", aucDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.aucHits(map);
 		Map<String,String> resultMap = boardService.selectAuctionDetail(map);
 		System.out.println("resultMap: "+ resultMap);

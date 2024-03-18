@@ -123,7 +123,7 @@ $(() => {
 			alertMsg('AM3', ["새로운 관리자 계정 생성"]);
 			modal.css('display', 'none');
 			$('#grid').empty();
-			grid("managerPro", 10, columns, false);
+			fn_grid("managerPro", 10, columns, false);
 			$('#excel').remove();
 			excel('both', 'ADMIN');
 		 })

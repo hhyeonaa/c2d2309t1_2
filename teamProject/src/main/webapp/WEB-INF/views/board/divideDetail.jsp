@@ -185,7 +185,7 @@
 		 	<div style="width: 70%; height: auto;">
 		 		<table class="table">
 		 			<tr><td colspan="6">상품 상세 정보</td><tr>
-		 			<tr><td colspan="6"><textarea rows="5" cols="100" readonly>${resultMap.PRO_CONTENT}</textarea></td></tr>
+		 			<tr><td colspan="6"><textarea rows="10" cols="90" readonly>${resultMap.PRO_CONTENT}</textarea></td></tr>
 <!-- 		 			<tr style="text-align: center;"> -->
 <!-- 		 				<td colspan="3"></td> -->
 <!-- 		 				<td colspan="3"></td> -->

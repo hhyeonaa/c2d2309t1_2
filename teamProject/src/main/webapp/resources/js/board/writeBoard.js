@@ -874,7 +874,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 //		MM1,2000,판매,생각중,CM5,이 글은 임시로 저장된 글입니다.
 		preArr = preboardValue.split(',');
-		alert(preArr)
+//		alert(preArr)
 		$('#proTc').val(preArr[0]);
 		$('#proPrice').val(preArr[1]);
 		$('#proName').val(preArr[3]); 

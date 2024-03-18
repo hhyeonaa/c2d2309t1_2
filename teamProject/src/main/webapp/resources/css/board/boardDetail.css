@@ -53,3 +53,7 @@ td{
     background-color : rgb(0,0,0,0.5);
     width: 150px;
 }
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+	filter: invert(80%);
+}

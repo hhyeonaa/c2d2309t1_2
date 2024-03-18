@@ -190,10 +190,8 @@ function ajaxCode (dataList){
 	})
 	.done(function(data){
 		if(data){
-			alertMsg("AM0", ["성공"]);
 			isPass = data;
 		} else {
-			alertMsg("AM0", ["실패"]);
 			isPass = data;
 		}
 	})

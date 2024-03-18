@@ -103,7 +103,7 @@ public class AdminController {
 	@GetMapping("/board")
 	public String board(@RequestParam Map<String, String> map, Model model, HttpSession session) {
 		model.addAttribute("menu", codeService.selectCodeList(EnumCodeType.메뉴항목, session));
-		model.addAttribute("form", codeService.selectCodeList(EnumCodeType.입력폼항목, session));
+//		model.addAttribute("form", codeService.selectCodeList(EnumCodeType.입력폼항목, session));
 		return "admin/board";
 	}
 	

@@ -42,7 +42,7 @@ public class TeamCodeService implements TeamCodeInterface{
 			
 			if(codeSelect == null) {
 				w.write("<script>"
-					  + 	"alert('⛔');"
+					  + 	"alert('준비 중입니다...');"
 					  +		pageMove
 					  + "</script>");
 				w.flush();
@@ -87,7 +87,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		try {
 			if(selectCode == null) {
 				Map<String, String> errorText = new HashMap<String, String>();
-				errorText.put(EnumCodeType.코드내용.getType(), "⛔");
+				errorText.put(EnumCodeType.코드내용.getType(), "준비 중입니다...");
 				selectCode = errorText;
 				
 	        	throw new CodeTypeNullException(code);
@@ -136,7 +136,7 @@ public class TeamCodeService implements TeamCodeInterface{
 		try {
 			if(selectCode == null) {
 				Map<String, String> errorText = new HashMap<String, String>();
-				errorText.put(EnumCodeType.코드내용.getType(), "⛔");
+				errorText.put(EnumCodeType.코드내용.getType(), "준비 중입니다...");
 				selectCode = errorText;
 				
 	        	throw new CodeTypeNullException(code);

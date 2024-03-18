@@ -68,6 +68,7 @@
 			and PRO_NAME like CONCAT('%', #{title}, '%')
 		</if>	    
 	       and IMG_NO = 1
+	       and PRO_STATE = '0'
 		 ORDER BY PRO_DATE DESC
 	</select>
 	
@@ -113,6 +114,7 @@
 					 GROUP BY LIK_PRONO) AS LC ON P.PRO_NO = LC.LIK_PRONO
 		WHERE PRO_WR = #{proWr} AND PRO_DATE = #{proDate}
 	</select>
+	
 	<update id="upHits" parameterType="map">
 		UPDATE PRODUCT
 		   SET PRO_HITS = PRO_HITS + 1

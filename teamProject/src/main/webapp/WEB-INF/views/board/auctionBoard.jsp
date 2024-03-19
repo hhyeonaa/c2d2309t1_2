@@ -14,6 +14,13 @@
     display: flex;
     flex-direction: column;
 }*/
+.nameP {
+	text-align: left;
+	padding-bottom: 2%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
 </style>
 </head>
 <jsp:include page="../template/header.jsp"/>
@@ -27,7 +34,7 @@
         <c:forEach var="map" items="${resultList}">
 	   <div class="col boardlist">
 			<div class="card h-100">
-			  <a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${map.AUC_SELLER}&aucDate=${map.AUC_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'"></a>
+			  <a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${map.AUC_SELLER}&aucDate=${map.AUC_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${map['IMG_NAME']}" class="card-img-top" alt="${map['IMG_NAME'] }" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a>
 				<div class="card-body" style="padding-top: 10px;">
 					<span class="state1">${map.AUC_TC_CODE}</span>
 					<span class="state2">${map.AUC_TSC_CODE}</span>
@@ -35,11 +42,11 @@
 					<a href="#" style="font-size: 12px;">${map.AUC_SELLER}</a>
                     <span style="float: right; font-size: 23px;">
 				      <a id=likeBtn class="profile_btn">
-		 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon> 
+<!-- 		 		     	<ion-icon id="noLike" name="heart-outline"></ion-icon>  -->
 				      </a>
                     </span>
 					<br>
-					   <p>${map.AUC_NAME}</p>
+					   <p class="nameP">${map.AUC_NAME}</p>
 					<h6 style="margin-bottom: 0px;"><small style="font-size: 10px;">현재가</small><b>${map.AUC_BP}원</b></h6>
 					<span style="font-size: 12px;">입찰자: 10</span> 
 					<fmt:parseDate value="${map.AUC_DATE}" pattern="yyyyMMddHHmmss" var="parsedDate" />

@@ -35,7 +35,7 @@ $(()=>{
 				    $('#listData').append('<div class="col">'
 				        + '<div class="card h-100">'
 				        + '<a href="' + item.PATH + '/board/divideDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
+				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
 				        + '</a>'
 				        + '<div class="card-body">'
 				        + '<span class="state1">' + item.TC_NAME + '</span>'
@@ -43,7 +43,9 @@ $(()=>{
 				        + '<span style="float: right; font-size: 23px;">'
 				        + '<a id="likeBtn_' + likeNum + '" class="profile_btn">'
 				        + '<input type="text" id="LIK_NO_' + likeNum + '" value="' + item.LIK_NO + '" hidden="">'
-				        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon> '
+				        + '<input type="text" id="PRO_NO_' + likeNum + '" value="' + item.LIK_PRONO + '" hidden="">'
+				        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon>'
+				        + '<ion-icon id="noLike_' + likeNum + '" name="heart-outline" hidden="hidden"></ion-icon>' 
 				        + '</a>'
 				        + '</span>'
 				        + '<p class="subject">' + item.PRO_NAME + '</p>'
@@ -53,25 +55,27 @@ $(()=>{
 				        + '</div>');
 				        return;
 				}
-			    $('#listData').append('<div class="col">'
-			        + '<div class="card h-100">'
-			        + '<a href="' + item.PATH + '/board/boardDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-			        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
-			        + '</a>'
-			        + '<div class="card-body">'
-			        + '<span class="state1">' + item.TC_NAME + '</span>'
-			        + '<span class="state2" id="PRO_STATE_' + item.PRO_TSC + '">' + item.TSC_NAME + '</span>'
-			        + '<span style="float: right; font-size: 23px;">'
-			        + '<a id="likeBtn_' + likeNum + '" class="profile_btn">'
-			        + '<input type="text" id="LIK_NO_' + likeNum + '" value="' + item.LIK_NO + '" hidden="">'
-			        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon> '
-			        + '</a>'
-			        + '</span>'
-			        + '<p class="subject">' + item.PRO_NAME + '</p>'
-			        + '<h5><b>' + item.PRO_PRICE + '원</b></h5>'
-			        + '</div>'
-			        + '</div>'
-			        + '</div>');
+				    $('#listData').append('<div class="col">'
+				        + '<div class="card h-100">'
+				        + '<a href="' + item.PATH + '/board/divideDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
+				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
+				        + '</a>'
+				        + '<div class="card-body">'
+				        + '<span class="state1">' + item.TC_NAME + '</span>'
+				        + '<span class="state2" id="PRO_STATE_' + item.PRO_TSC + '">' + item.TSC_NAME + '</span>'
+				        + '<span style="float: right; font-size: 23px;">'
+				        + '<a id="likeBtn_' + likeNum + '" class="profile_btn">'
+				        + '<input type="text" id="LIK_NO_' + likeNum + '" value="' + item.LIK_NO + '" hidden="">'
+				        + '<input type="text" id="PRO_NO_' + likeNum + '" value="' + item.LIK_PRONO + '" hidden="">'
+				        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon>'
+				        + '<ion-icon id="noLike_' + likeNum + '" name="heart-outline" hidden="hidden"></ion-icon>' 
+				        + '</a>'
+				        + '</span>'
+				        + '<p class="subject">' + item.PRO_NAME + '</p>'
+				        + '<h5><b>' + item.PRO_PRICE + '원</b></h5>'
+				        + '</div>'
+				        + '</div>'
+				        + '</div>');
 			});
 		});
 	});
@@ -99,7 +103,7 @@ $(()=>{
 				    $('#listData').append('<div class="col">'
 				        + '<div class="card h-100">'
 				        + '<a href="' + item.PATH + '/board/divideDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
+				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
 				        + '</a>'
 				        + '<div class="card-body">'
 				        + '<span class="state1">' + item.TC_NAME + '</span>'
@@ -107,7 +111,9 @@ $(()=>{
 				        + '<span style="float: right; font-size: 23px;">'
 				        + '<a id="likeBtn_' + likeNum + '" class="profile_btn">'
 				        + '<input type="text" id="LIK_NO_' + likeNum + '" value="' + item.LIK_NO + '" hidden="">'
-				        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon> '
+				        + '<input type="text" id="PRO_NO_' + likeNum + '" value="' + item.LIK_PRONO + '" hidden="">'
+				        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon>'
+				        + '<ion-icon id="noLike_' + likeNum + '" name="heart-outline" hidden="hidden"></ion-icon>' 
 				        + '</a>'
 				        + '</span>'
 				        + '<p class="subject">' + item.PRO_NAME + '</p>'
@@ -117,25 +123,27 @@ $(()=>{
 				        + '</div>');
 				        return;
 				}
-			    $('#listData').append('<div class="col">'
-			        + '<div class="card h-100">'
-			        + '<a href="' + item.PATH + '/board/boardDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
-			        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/common/따봉도치.jpg\'">'
-			        + '</a>'
-			        + '<div class="card-body">'
-			        + '<span class="state1">' + item.TC_NAME + '</span>'
-			        + '<span class="state2" id="PRO_STATE_' + item.PRO_TSC + '">' + item.TSC_NAME + '</span>'
-			        + '<span style="float: right; font-size: 23px;">'
-			        + '<a id="likeBtn_' + likeNum + '" class="profile_btn">'
-			        + '<input type="text" id="LIK_NO_' + likeNum + '" value="' + item.LIK_NO + '" hidden="">'
-			        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon> '
-			        + '</a>'
-			        + '</span>'
-			        + '<p class="subject">' + item.PRO_NAME + '</p>'
-			        + '<h5><b>' + item.PRO_PRICE + '원</b></h5>'
-			        + '</div>'
-			        + '</div>'
-			        + '</div>');
+				    $('#listData').append('<div class="col">'
+				        + '<div class="card h-100">'
+				        + '<a href="' + item.PATH + '/board/divideDetail?proWr=' + item.PRO_WR + '&proDate=' + item.PRO_DATE + '">'
+				        + '<img src="' + item.PATH + '/resources/img/uploads/' + item.IMG_NAME + '" class="card-img-top" alt="' + item.IMG_NAME + '" onerror="this.src=\'' + item.PATH + '/resources/img/member/noImage.jpg\'">'
+				        + '</a>'
+				        + '<div class="card-body">'
+				        + '<span class="state1">' + item.TC_NAME + '</span>'
+				        + '<span class="state2" id="PRO_STATE_' + item.PRO_TSC + '">' + item.TSC_NAME + '</span>'
+				        + '<span style="float: right; font-size: 23px;">'
+				        + '<a id="likeBtn_' + likeNum + '" class="profile_btn">'
+				        + '<input type="text" id="LIK_NO_' + likeNum + '" value="' + item.LIK_NO + '" hidden="">'
+				        + '<input type="text" id="PRO_NO_' + likeNum + '" value="' + item.LIK_PRONO + '" hidden="">'
+				        + '<ion-icon id="yesLike_' + likeNum + '" name="heart-sharp" style="color:#E21818;"></ion-icon>'
+				        + '<ion-icon id="noLike_' + likeNum + '" name="heart-outline" hidden="hidden"></ion-icon>' 
+				        + '</a>'
+				        + '</span>'
+				        + '<p class="subject">' + item.PRO_NAME + '</p>'
+				        + '<h5><b>' + item.PRO_PRICE + '원</b></h5>'
+				        + '</div>'
+				        + '</div>'
+				        + '</div>');
 			});
 		});
 	});
@@ -145,9 +153,11 @@ $(()=>{
 	
 	$(document).on('click', '.profile_btn', function () {
 		var LIK_NUM = parseInt(this.id.split('_')[1]);
+		debugger;
 		// 찜 삭제 기능
 		if ($('#noLike_' + LIK_NUM).is(':hidden')) {
-			if(alertMsg('AM0', ["찜"], true)) {
+			debugger;
+			if(alertMsg('AM4', ["찜"], true)) {
 				$.ajax({
 					type: 'post'
 					, url: 'deleteLike'
@@ -163,7 +173,7 @@ $(()=>{
 			
 		// 찜 추가 기능
 		} else {
-			if(alertMsg('AM0', ["찜"], true)) {
+			if(alertMsg('AM8', ["찜"], true)) {
 				$.ajax({
 					type: 'post'
 					, url: 'insertLike'

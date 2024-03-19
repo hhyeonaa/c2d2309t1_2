@@ -132,7 +132,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    }).click(function() {
 	        $(this).parent().remove();
 		    $('#att_zone').find($("input[type=hidden]")).remove();
-		    debugger;
 		    for(var i = 0; i < checkFileList.length; i++){
 		    	if(checkFileList[i] === undefined || checkFileList[i].length === 0) continue;
 		    	for(var j = 0; j < checkFileList[i].length; j++){
@@ -148,7 +147,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    $('#att_zone').append(div);
 	    $('#att_zone').append('<input type="hidden" value="' + fileName + '"/>');
 
-//	    debugger;
 //	    $('#att_zone input[type="hidden"]')
 //	    .each(function() {
 //			var value = $(this).val();
@@ -196,7 +194,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    
 // 		    sel_files = sel_files.filter(function() { // 선택된 파일 목록에서 현재 파일을 제거합니다.
 // 		    	this;
-// 		    	debugger;
 // 		      return f.name !== file.name;
 // 		    });
 		    $("#btnAtt").val("");// 임시추가?
@@ -255,7 +252,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	// 이미지 이름 중복 체크
 //  	function checkDuplicateName(fileName){
-// 		debugger;
 // 		for (i = 0; i < checkFileList.length; i++) {
 // 		    if (checkFileList[i] !== undefined) { // 'undefined'가 아닌 요소만 확인합니다.
 // 		        for (j = 0; j < checkFileList[i].length; j++) {
@@ -269,7 +265,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 // 	} 
  	function checkDuplicateName(fileName) {
  	    const isDuplicate = checkFileList.some(fileGroup => {
- 	    	debugger;
  	        return fileGroup && fileGroup.some(file => file.name === fileName);
  	    });
 
@@ -345,7 +340,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		});
 		//임시 실험 시작
 		for(i = 0; i < checkFileList.length; i++){
-			debugger;
 			if(checkFileList[i] === undefined || checkFileList[i].length === 0){
 				checkFileList[i] = sel_files; 
 				break;	
@@ -435,7 +429,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}
 		// 파일 리스트 추가
 		for (var i = 0; i < resultList.length; i++) {
-			debugger;
 			// 각 파일을 'imgs'라는 이름으로 개별적으로 추가합니다.
 			// 서버 측에서는 'imgs'라는 이름으로 파일 리스트를 받을 수 있습니다.
 			formData.append('imgs', resultList[i]);
@@ -444,7 +437,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		for (let key of formData.keys()) {
 			console.log(key);
 		}
-		//debugger;
 		for (let value of formData.values()) {
 			console.log(value);
 		}
@@ -559,6 +551,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    contentType: false // jQuery가 contentType을 설정하지 않도록 설정
 		}).done(function(response) {
 		    console.log('Upload success:', response);
+		    alertMsg("AM14",["글"]);
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 		    console.log('Upload error:', textStatus, errorThrown);
 		});
@@ -640,9 +633,9 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	    
 	    // 글자수 세기
 	    if (content.length == 0 || content == '') {
-	    	$('.textCount').text('0');
+	    	$('.textCount span').text('0');
 	    } else {
-	    	$('.textCount').text(content.length);
+	    	$('.textCount span').text(content.length);
 	    }
 	    
 	    // 글자수 제한
@@ -705,7 +698,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	$('#selectAddress').on('change',function(e){
 //		e.preventDefault(); // 폼의 기본 제출 동작을 방지
-		debugger;
 		var fullAdd = $('#selectAddress').val();
 		var addList = fullAdd.split(',');
 		console.log(addList);
@@ -719,6 +711,8 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
 	$('#updateBtn').on('click',function(e){
 		e.preventDefault();
+		var proPrice = $('#proPrice').val();
+		var fmPrice = proPrice.replace(/,/g, '');
 		var contextPath = getContextPath();
 		var formData = new FormData(); // 새로운 FormData 객체를 생성합니다.
 		var resultList = []; // 결과를 저장할 배열입니다.
@@ -728,7 +722,7 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		    proName: $('#proName').val(),
 		    proWr: $('#proWr').val(),
 		    proDate: $('#proDate').val(),
-		    proPrice: $('#proPrice').val(),
+		    proPrice: fmPrice,
 		    proTc: $('#proTc').val(),
 			proTsc: proTsc,
 		    proCate: $('#category1').val(),
@@ -768,7 +762,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		for (let key of formData.keys()) {
 			console.log(key);
 		}
-		//debugger;
 		for (let value of formData.values()) {
 			console.log(value);
 		}
@@ -779,8 +772,22 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 			processData: false, // jQuery가 데이터를 처리하지 않도록 설정
 			contentType: false // jQuery가 contentType을 설정하지 않도록 설정
 		}).done(function(response) {
+			var proTc = textData.proTc;
+			var proWr = textData.proWr;
+			var proDate = textData.proDate;
 			// 파일 업로드 성공 시 처리
 			console.log('Upload success:', response);
+			// location.href = "/myapp/";
+			// 배열을 순회하면서 각 객체의 값에 접근
+			if(proTc === 'MM4'){
+				location.href = "auctionDetail?aucSeller=" + proWr + "&aucDate=" + proDate;
+				return;
+			}
+			if(proTc === 'MM3') {
+				location.href = "divideDetail?proWr=" + proWr + "&proDate=" + proDate;
+				return;
+			}
+			location.href = "boardDetail?proWr=" + proWr + "&proDate=" + proDate;
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 			// 파일 업로드 실패 시 처리
 			console.log('Upload error:', textStatus, errorThrown);
@@ -837,7 +844,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		for (let key of formData.keys()) {
 			console.log(key);
 		}
-		//debugger;
 		for (let value of formData.values()) {
 			console.log(value);
 		}
@@ -850,10 +856,36 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		}).done(function(response) {
 			// 파일 업로드 성공 시 처리
 			console.log('Upload success:', response);
+			var aucTc = textData.aucTc;
+			var aucSeller = textData.aucSeller;
+			var aucDate = textData.aucDate;
+			location.href = "auctionDetail?aucSeller=" + aucSeller + "&aucDate=" + aucDate;
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 			// 파일 업로드 실패 시 처리
 			console.log('Upload error:', textStatus, errorThrown);
 		});
+	})
+	
+	$('#selectPreBoard').on('change',function(){
+		let preboardValue = $('#selectPreBoard').val();
+		var preArr = [];
+		if(preboardValue === '0'){
+			location.reload();
+		}
+//		MM1,2000,판매,생각중,CM5,이 글은 임시로 저장된 글입니다.
+		preArr = preboardValue.split(',');
+//		alert(preArr)
+		$('#proTc').val(preArr[0]);
+		$('#proPrice').val(preArr[1]);
+		$('#proName').val(preArr[3]); 
+		//$('#category1').val(preArr[4]);
+		$('#category1').val(preArr[4]).trigger('change');
+		$('#proContent').val(preArr[5]);
+
+	})
+	
+	$('#cancelBtn').on('click',function(){
+		history.back();
 	})
 	
 });//document ready 끝

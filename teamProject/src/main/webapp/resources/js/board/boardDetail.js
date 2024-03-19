@@ -7,6 +7,11 @@
 let additionalImages = [];
 $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	
+	var proWr = $('#proWr').val();
+	var proDate = $('#proDate').val();
+	var proNo = $('#proNo').val();
+	increaseViewCount(proWr,proDate,proNo);
+	
 
 //	$(".carousel-item img").click(function(){
 //	    let img = new Image();
@@ -30,7 +35,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
         // 현재 페이지의 모든 캐러셀 이미지의 src 속성 값 수집
         
         $('.carousel-item img').each(function(a, b, c) {
-        	//debugger;
             var imgSrc = $(this).attr('src');
             // 클릭한 이미지는 제외하고 배열에 추가
             if (imgSrc !== clickedImgSrc) {
@@ -40,21 +44,23 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
         console.log('이미지 배열: ' + additionalImages);
 
         // 캐러셀 구조 및 컨트롤러 추가
-        let modalContent = `<div id="modalCarousel" class="carousel slide" >
-                                <div class="carousel-inner">
-                                	<div class="carousel-item active">
-		                                <img id="selectImg" src="" class="d-block w-100" alt="Slide 1">
-		                            </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>`;
+		let modalContent = `<div id="modalCarousel" class="carousel slide">
+		  <div class="carousel-inner">
+		    <div class="carousel-item active">
+		      <div style="position: relative; width: 800px; height: 800px; margin: 0 auto;">
+		        <img id="selectImg" src="" class="d-block" style="width: 100%; height: 100%; object-fit: cover;" alt="Slide 1">
+		      </div>
+		    </div>
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next" style="position: absolute; top: 50%; right: 0; transform: translateY(-50%);">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>`;
         // 모달 내용 업데이트 및 표시
         $('.modalBox').html(modalContent);
         $(".imgModal").show();
@@ -107,7 +113,6 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 		// 데이터를 다 들고 가야 하니까
 		const proWr = $('#proWr').val();
 		const proDate = $('#proDate').val();
-		alert(proWr + ' ' + proDate);
 		location.href="/" + window.location.pathname.split("/")[1] +"/board/writeBoard?proWr="+proWr+"&proDate="+proDate;
 		return;
 	})
@@ -203,5 +208,62 @@ $(() => { // 문서가 완전히 로드되면 함수를 실행합니다.
 	$('#noUserBtn').on('click', function() {
 		alertMsg('AM23', ["로그인 후"]); 
 	});
+	
+	function increaseViewCount(proWr,proDate,proNo) {
+	  var viewedCookie = getCookie('viewed_' + proNo);
+	
+	  if (viewedCookie === '') {
+	    // 쿠키가 없으면 조회수 증가 요청을 서버로 전송
+	    $.ajax({
+	      url: 'increaseViewCount',
+	      type: 'POST',
+	      data: { proWr: proWr, 
+	      		  proDate: proDate
+	      },
+	      dataType: 'json',
+	      success: function(response) {
+	        if (response) {
+	          // 조회수 증가 요청이 성공했을 때 쿠키 설정
+	          setCookie('viewed_' + proNo, 'true', 1);
+	        } else {
+	          console.error('조회수 증가 요청 실패');
+	        }
+	      },
+	      error: function() { 
+	        console.error('조회수 증가 요청 실패');
+	      }
+	    });
+	  }
+	}
+	
+	// 쿠키 가져오기 함수
+	function getCookie(name) {
+	  var cookie = document.cookie;
+	  var startIndex = cookie.indexOf(name + '=');
+	
+	  if (startIndex !== -1) {
+	    startIndex += name.length + 1;
+	    var endIndex = cookie.indexOf(';', startIndex);
+	    if (endIndex === -1) {
+	      endIndex = cookie.length;
+	    }
+	    return decodeURIComponent(cookie.substring(startIndex, endIndex));
+	  }
+	
+	  return '';
+	}
+	
+	// 쿠키 설정 함수
+	function setCookie(name, value, hours) {
+	  var expires = '';
+	
+	  if (hours) {
+	    var date = new Date();
+	    date.setTime(date.getTime() + (hours * 60 * 60 * 1000));
+	    expires = '; expires=' + date.toUTCString();
+	  }
+	
+	  document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+	}
 	
 })

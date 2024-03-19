@@ -87,28 +87,24 @@ public class AdminDAO {
 		return sqlSession.selectList(namesqace + "getMemberList");
 	}
 
-	public List<Map<String, String>> getContentboardList() {
-		return sqlSession.selectList(namesqace + "getContentboardList");
-	}
-
 	public boolean memberStop(List<Map<String, String>> dto) {
 		return sqlSession.update(namesqace + "memberStop", dto) == 1 ? true : false;
 	}
-
-	public int cateContentDelete(String PRO_NO) {
-		return sqlSession.delete(namesqace + "cateContentDelete", PRO_NO);
-	}
-
-	public List<Map<String, String>> getBoardCategoryList(Map<String, String> param) {
-		return sqlSession.selectList(namesqace + "getBoardCategoryList", param);
-	}
-
-	public int insertReport(Map<String, String> map) {
-		return sqlSession.insert(namesqace + "insertReport", map);
-	}
 	
+	public List<Map<String, String>> insertReport(Map<String, String> map) {
+		return sqlSession.selectList(namesqace + "insertReport", map);
+	}
+
 	public List<Map<String, String>> getReportList() {
 		return sqlSession.selectList(namesqace + "getReportList");
+	}
+	
+	public List<Map<String, String>> getContentboardList() {
+		return sqlSession.selectList(namesqace + "getContentboardList");
+	}
+	
+	public void boardUpdate(List<Map<String, String>> result) {
+		sqlSession.update(namesqace + "boardUpdate", result);
 	}
 	
 	public List<Map<String, String>> getMemberCntList() {
@@ -121,10 +117,6 @@ public class AdminDAO {
 	
 	public List<Map<String, String>> getTotalTradeList() {
 		return sqlSession.selectList(namesqace + "getTotalTradeList");
-	}
-
-	public void boardUpdate(List<Map<String, String>> result) {
-		sqlSession.update(namesqace + "boardUpdate", result);
 	}
 
 //	----- 성엽 끝 -----	

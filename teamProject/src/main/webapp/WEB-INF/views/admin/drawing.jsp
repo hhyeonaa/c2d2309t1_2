@@ -72,7 +72,6 @@
 
             // ´©Àû È½¼ö¿¡ µû¶ó º¸»ó È¹µæ ¿©ºÎ È®ÀÎ
             checkReward(plus);
-			debugger;
             // ¾÷µ¥ÀÌÆ® »Ì±â È½¼ö
             updateDrawCount(minus, plus);
         } else {
@@ -82,7 +81,6 @@
 
     function updateDrawCount(remainingDraws, cumulativeDraws) {
         const drawCountElement = document.getElementById("draw-count");
-//         debugger;
         drawCountElement.innerText = "³²Àº »Ì±â È½¼ö: " + remainingDraws + " / " + "´©Àû È½¼ö: " + cumulativeDraws;
     }
 

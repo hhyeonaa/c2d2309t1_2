@@ -76,7 +76,7 @@ $(() => {
 		$("#excel").remove();
 		$("#grid").empty();
 		fn_grid("codePro", 5, columns, false, param);
-		excel('updownload', 'CODE'); 
+		excel('both', 'CODE'); 
 	})
 
 	$("#selectCodeBtn :first").trigger("click");
@@ -190,10 +190,8 @@ function ajaxCode (dataList){
 	})
 	.done(function(data){
 		if(data){
-			alertMsg("AM0", ["성공"]);
 			isPass = data;
 		} else {
-			alertMsg("AM0", ["실패"]);
 			isPass = data;
 		}
 	})

@@ -443,7 +443,6 @@ $('#applePay').on('click', () => {
 		var post = $('input[name=ADD_POST]').val();
 		var addname = $('input[name=ADD_NAME]').val();
 		var adddetail = $('input[name=ADD_DETAIL]').val();
-		debugger;
 		if(addnick == ''){
 			alertMsg("AM6",["배송지명"]);
 			addnick.focus();
@@ -475,7 +474,6 @@ $('#applePay').on('click', () => {
 			adddetail.focus();
 			return false;
 		}
-		debugger;
 		$.ajax({
 			url:"addDelivery",
 			type:'post',
@@ -507,7 +505,6 @@ $('#applePay').on('click', () => {
 	
 	//  모달 취소 > 배송리스트 모달
 	$("#payCancelbtn").on('click', function(){
-		debugger;
 		$("#staticBackdrop1").find("input").val("");
 		$("#staticBackdrop").modal("show");
 	})

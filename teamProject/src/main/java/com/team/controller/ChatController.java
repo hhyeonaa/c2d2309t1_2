@@ -89,7 +89,6 @@ public class ChatController {
 	
 	@PostMapping("/outChat")
 	public ResponseEntity<?> outChat(@RequestParam Map<String, String> param) {
-		System.out.println("enter : outChat");
 		return ResponseEntity.ok().body(chatService.outChat(param));
 	} 
 	

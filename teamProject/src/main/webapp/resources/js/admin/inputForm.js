@@ -78,7 +78,6 @@ class RadioInput extends HTMLElement {
 
         stateData.forEach(data => {
 			console.log(data);
-			debugger;
             let radioDiv = document.createElement('div');
             let radioInput = document.createElement('input');
             radioInput.type = 'radio';
@@ -92,7 +91,6 @@ class RadioInput extends HTMLElement {
             radioDiv.append(radioInput, radioLabel);
             textDiv.appendChild(radioDiv);
         });
-		debugger;
         textDiv.prepend(span);
         row.appendChild(textDiv);
         this.prepend(row, hr);

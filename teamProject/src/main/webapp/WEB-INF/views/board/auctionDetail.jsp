@@ -91,12 +91,12 @@ td{
 			  	<c:forEach var="img" items="${imgList}" varStatus="status">
 			  		<c:if test="${status.index eq 0}">
 			  			<div class="carousel-item active">
-					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 					    </div>
 			  		</c:if>
 			  		<c:if test="${status.index ne 0}">
 			  			<div class="carousel-item">
-					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg'">
+					      <img src="${pageContext.request.contextPath}/resources/img/uploads/${img}" class="d-block" style="width: 414px;height: 385px;" alt="..." onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'">
 					    </div>
 			  		</c:if>
 			  	</c:forEach>
@@ -133,7 +133,7 @@ td{
 		 	<hr>
 		 		<table class="table"><!--  table-borderless -->
 		 			<tr>
-			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> 3</td>
+			 			<td><img src="${pageContext.request.contextPath}/resources/img/common/heart.png"> ${resultMap.LIKES_COUNT}</td>
 			 			<td><i class="bi bi-eye"></i>${resultMap.AUC_HITS}</td>
 			 			<fmt:parseDate var="parsedDate" value="${resultMap.AUC_DATE}" pattern="yyyyMMddHHmmss"/>
 			 			<fmt:parseDate var="parsedDate2" value="${resultMap.AUC_ETIME}" pattern="yyyyMMddHHmmss"/>
@@ -174,7 +174,21 @@ td{
 		 			</tr>	
 		 			<tr>
 		 				<td colspan="4">
-		 					<button class="btn btn-danger btn-lg">찜</button>
+		 					<c:if test="${empty sessionScope.MEM_ID }">
+		 						<button class="btn btn-lg border" id="noUserBtn">찜
+		 							<ion-icon name="heart-outline"/>
+	 							</button>
+	 						</c:if>	
+	 						<c:if test="${not empty sessionScope.MEM_ID}">
+			 					<button class="btn btn-lg border" id="likeBtn">찜
+			 						<span id="likNo" style="display: none;">${resultMap.LIK_NO}</span>
+			 						
+									    <ion-icon id="yesLike" name="heart-sharp" style="color:#E21818;" 
+									              ${resultMap.LIK_NO ne '0' ? '' : 'hidden="hidden"'}></ion-icon>
+									    <ion-icon id="noLike" name="heart-outline" 
+									              ${resultMap.LIK_NO eq '0' ? '' : 'hidden="hidden"'}></ion-icon> 
+			 					</button>
+		 					</c:if>
 		 					<button class="btn btn-warning btn-lg">경매기록</button>
 		 					<c:if test="${resultMap.AUC_TSC eq 'TM1'}">
 		 					<button class="btn btn-success btn-lg">입찰하기</button>
@@ -200,7 +214,7 @@ td{
 					<tr><td colspan="7">연관상품</td><tr>
 					<tr>
 						<c:forEach var="img" items="${relatedImg}">
-						<td><a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${img.AUC_SELLER}&aucDate=${img.AUC_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/common/no-pictures.png'"></a></td>
+						<td><a href="${pageContext.request.contextPath}/board/auctionDetail?aucSeller=${img.AUC_SELLER}&aucDate=${img.AUC_DATE}"><img src="${pageContext.request.contextPath}/resources/img/uploads/${img.IMG_NAME}" style="width: 134px; height: 134px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/member/noImage.jpg'"></a></td>
 						</c:forEach>
 <%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
 <%-- 						<td><img src="${pageContext.request.contextPath}/resources/img/common/따봉도치.jpg" style="width: 134px; height: 134px;"></td> --%>
@@ -215,7 +229,7 @@ td{
 		 	<div style="width: 70%; height: auto;">
 		 		<table class="table">
 		 			<tr><td colspan="6">상품 상세 정보</td><tr>
-		 			<tr><td colspan="6"><textarea rows="5" cols="100" readonly>${resultMap.AUC_CONTENT}</textarea></td></tr>
+		 			<tr><td colspan="6"><textarea rows="10" cols="90" readonly>${resultMap.AUC_CONTENT}</textarea></td></tr>
 		 			<tr style="text-align: center;">
 <!-- 		 				<td colspan="3">거래지역: 전국</td> -->
 <!-- 		 				<td colspan="3">카테고리: <a href="#">자켓/점퍼</a></td> -->

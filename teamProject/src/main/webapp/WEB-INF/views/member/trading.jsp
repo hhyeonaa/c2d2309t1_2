@@ -30,7 +30,7 @@
                                 <!-- card-body 시작 -->
                                 <div class="card-body">
                                     <span class="state1" style="font-size: 14px !important;">결제번호 : <b>${trading.MERCHANT_UID}</b></span>
-                                    <span class="state2" style="float: right;">${trading.TSC_NAME}</span>
+                                    <span class="state2" id="state_${trading.PRO_TSC}" style="float: right;">${trading.TSC_NAME}</span>
                                     <hr>
                                     <p class="nameP"><b>${trading.NAME}</b></p>
                                     <span class="state3">결제금액 : <big>${trading.PAID_AMOUNT}원</big></span> <br>
@@ -41,6 +41,7 @@
 				            <form id="transactionForm" action="changeState" method="post">
 				                <input type="hidden" name="PRO_NO" value="${trading.PRO_NO}">
 				                <input type="hidden" name="status" value="completed">
+				                <input type="hidden" name="MEM_ID" value="<%= session.getAttribute("MEM_ID") %>">
 				                <div class="text-center mb-3">
 				                    <!-- 구매확정 버튼 -->
 				                    <button type="button" id="confirmButton" class="btn btn-outline-success btn-block btn-sm btn-smaller">구매확정</button> 

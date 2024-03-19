@@ -60,7 +60,7 @@ $(() => {
 	]
 	
 	fn_grid("managerPro", 5, columns, false);
-	excel('updownload', 'ADMIN'); // 업다운 선택, 테이블 이름 
+	excel('both', 'ADMIN'); // 업다운 선택, 테이블 이름 
 	
 
 	// 모달창 관련	
@@ -123,9 +123,9 @@ $(() => {
 			alertMsg('AM3', ["새로운 관리자 계정 생성"]);
 			modal.css('display', 'none');
 			$('#grid').empty();
-			grid("managerPro", 10, columns, false);
+			fn_grid("managerPro", 10, columns, false);
 			$('#excel').remove();
-			excel('updownload', 'ADMIN');
+			excel('both', 'ADMIN');
 		 })
 	});
 	

@@ -12,12 +12,12 @@ $(() => {
 			filter:"text",
 		    sortable: true
 		}, 
-		{
-			name:"CO_DETAIL",
-			header:"게시판 유형",
-			filter:"text",
-		    sortable: true
-		}, 
+//		{
+//			name:"CO_DETAIL",
+//			header:"게시판 유형",
+//			filter:"text",
+//		    sortable: true
+//		}, 
 		{
 			name:"ACTIVE",
 			header:"사용 여부",

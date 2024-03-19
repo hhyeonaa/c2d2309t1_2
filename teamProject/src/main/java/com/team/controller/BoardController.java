@@ -153,6 +153,7 @@ public class BoardController {
 		List<Map<String, String>> selectAddress = boardService.selectAddress(id);
 		System.out.println("주소왔니? " + selectAddress);
 		model.addAttribute("selectAddress", selectAddress);
+		List<Map<String, String>> tempBoard = boardService.selectTempBoard(id);
 		if(proWr != null || proDate != null) {
 			Map<String, String> map = new HashMap<>();
 			map.put("proWr", proWr);
@@ -202,6 +203,7 @@ public class BoardController {
 		    detailTxt.put("dTxt"+i, value);
 		}
 		model.addAttribute("detailTxt", detailTxt);
+		model.addAttribute("tempBoard",tempBoard);
 		return "board/writeBoard";
 	}// writeBoard()
 	
@@ -285,7 +287,7 @@ public class BoardController {
 	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
 	        imageFilenames.add(fileName);
-	        File destFile = new File(realPath + "\\" + fileName);
+	        File destFile = new File(realPath, fileName);
 	        img.transferTo(destFile); // 파일 저장
 	        System.out.println("Saved file: " + fileName + " to " + realPath);
 	    }
@@ -358,7 +360,7 @@ public class BoardController {
 	        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 	        String fileName = UUID.randomUUID().toString() + fileExtension; // UUID를 파일 이름으로 사용
 	        imageFilenames.add(fileName);
-	        File destFile = new File(realPath + "\\" + fileName);
+	        File destFile = new File(realPath, fileName);
 	        img.transferTo(destFile); // 파일 저장
 	        System.out.println("Saved file: " + fileName + " to " + realPath);
 	    }
@@ -401,8 +403,10 @@ public class BoardController {
         // 글번호 가지고 이미지 테이블에서 이미지 삭제(실제 이미지도 삭제)
         String path = request.getRealPath("/resources/img/uploads");
 		System.out.println("경로: " + path);
+		
 		Map<String, String> delMap = new HashMap<>();
 		delMap.put("aucNo", aucNo);
+		
 		List<Map<String, String>> oldImgMap = boardService.getImgMap(delMap);
 		ArrayList<String> oldImgList = new ArrayList();
 		oldImgMap.forEach(t -> oldImgList.add(t.get("IMG_NAME")));
@@ -554,8 +558,15 @@ public class BoardController {
 		map.put("proDate", proDate);
 		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
 		map.put("MEM_ID", userId);
-		boardService.upHits(map);
+		//boardService.upHits(map);
+		String count = boardService.getAllBoardCount(map);
+		List<Map<String, String>> allBoard = boardService.getAllBoard(map);
+		
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		resultMap.put("count", count);
+		if(allBoard != null) {
+			model.addAttribute("allBoard", allBoard);
+		}
 		System.out.println("resultMap: "+ resultMap);
 		String proCate = resultMap.get("PRO_CATE");
 		String proNo = resultMap.get("PRO_NO");
@@ -584,6 +595,12 @@ public class BoardController {
 		return "board/boardDetail";
 	}// boardDetail()
 	
+	@PostMapping("/increaseViewCount")
+	@ResponseBody
+	public ResponseEntity<?> increaseViewCount(@RequestParam Map<String, String> param) {
+	    return ResponseEntity.ok(boardService.increaseViewCount(param));
+	}
+	
 	@GetMapping("/divideDetail")
 	public String divideDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController divideDetail()");
@@ -594,8 +611,15 @@ public class BoardController {
 		map.put("proDate", proDate);
 		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
 		map.put("MEM_ID", userId);
-		boardService.upHits(map);
+		//boardService.upHits(map);
+		String count = boardService.getAllBoardCount(map);
+		List<Map<String, String>> allBoard = boardService.getAllBoard(map);
+		
 		Map<String,String> resultMap = boardService.selectBoardDetail(map);
+		resultMap.put("count", count);
+		if(allBoard != null) {
+			model.addAttribute("allBoard", allBoard);
+		}
 		System.out.println("resultMap: "+ resultMap);
 		String proCate = resultMap.get("PRO_CATE");
 		String proNo = resultMap.get("PRO_NO");
@@ -633,13 +657,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/auctionDetail")
-	public String auctionDetail(HttpServletRequest request,Model model) {
+	public String auctionDetail(HttpServletRequest request,Model model, HttpSession session) {
 		System.out.println("BoardController auctionDetail()");
 		String aucSeller = request.getParameter("aucSeller");
 		String aucDate = request.getParameter("aucDate");
 		Map<String, String> map = new HashMap<>();
 		map.put("aucSeller", aucSeller);
 		map.put("aucDate", aucDate);
+		String userId = (session.getAttribute("MEM_ID") == null) ? "0" : session.getAttribute("MEM_ID").toString();
+		map.put("MEM_ID", userId);
 		boardService.aucHits(map);
 		Map<String,String> resultMap = boardService.selectAuctionDetail(map);
 		System.out.println("resultMap: "+ resultMap);

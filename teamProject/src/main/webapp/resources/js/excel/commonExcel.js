@@ -3,8 +3,10 @@ document.write('<script type="text/javascript"' +
 			   '</script>');
 
 var excel = (state, tableName) => {
+	
 	$("#grid").before('<div id="excel"></div>');
-	if(state == 'download' || state == 'updownload'){
+	
+	if(state == 'download' || state == 'both'){
 		var excelDownloadTag = '<div class="excelBox">'
 							 +   	'<button class="btn btn-success excelDownloadModalBtn btnSize"><img class="excel_icon" src="'+'/'+ window.location.pathname.split("/")[1] +'/resources/img/excel/download_icon.png"alt="excel_icon">엑셀 다운로드</button>'
 							 +	    '<div class="excelDownloadModalBox">'
@@ -62,7 +64,7 @@ var excel = (state, tableName) => {
 				for(var j = 0 ; j < cellContent.length ; j++){
 					var cell = cellContent.eq(j);
 					var data;
-					if (cellContent.eq(j).attr("data-column-name") == "DELETE") {
+					if (cell.attr("data-column-name") == "DELETE") {
 						continue;
 					} else if(cell.find("input").length) { 
 						data = cell.find("input").val();
@@ -84,7 +86,7 @@ var excel = (state, tableName) => {
 		})							    
 	}
 	
-	if(state == 'upload' || state == 'updownload'){
+	if(state == 'upload' || state == 'both'){
 		var exceluploadTag = '<div class="excelBox">'
 				    	   + 	'<button class="btn btn-primary excelUploadModalBtn btnSize"><img class="excel_icon" src="'+'/' + window.location.pathname.split("/")[1] +'/resources/img/excel/upload_icon.png"alt="excel_icon">데이터 업로드</button>'
 						   + 	'<div class="excelUploadModalBox">'

@@ -525,7 +525,6 @@ $('#applePay').on('click', () => {
 
 	//9.배송 요청사항 이벤트
 	$('#selectDel').change(function() {
-        //var selectedOptionText = $("#selectDel option:selected").text();
         var textarea = $('.DeliveryPanel__ShippingRequest-sc-10nnk4w-4');
         var selectedOptionIndex =$("#selectDel  option").index($("#selectDel  option:selected"));
 		textarea.prop('disabled', true);

@@ -1,5 +1,5 @@
 <h2>사용 가이드</h2>
-<div style="border: 1px solid salmon">
+<div style="border: 1px solid salmon; padding: 5px;">
   <p>관리자 로그인 Url : http://c2d2309t1.itwillbs.com/damoim/member/adminLogin </p>
   <p>관리자 계정</p>
   <p>id : test1</p>
